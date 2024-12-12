@@ -1838,7 +1838,7 @@ class AzureFileVolumeSourceArgs:
 if not MYPY:
     class CSIPersistentVolumeSourcePatchArgsDict(TypedDict):
         """
-        Represents storage that is managed by an external CSI volume driver (Beta feature)
+        Represents storage that is managed by an external CSI volume driver
         """
         controller_expand_secret_ref: NotRequired[pulumi.Input['SecretReferencePatchArgsDict']]
         """
@@ -1897,7 +1897,7 @@ class CSIPersistentVolumeSourcePatchArgs:
                  volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  volume_handle: Optional[pulumi.Input[str]] = None):
         """
-        Represents storage that is managed by an external CSI volume driver (Beta feature)
+        Represents storage that is managed by an external CSI volume driver
         :param pulumi.Input['SecretReferencePatchArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input['SecretReferencePatchArgs'] controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
@@ -2054,7 +2054,7 @@ class CSIPersistentVolumeSourcePatchArgs:
 if not MYPY:
     class CSIPersistentVolumeSourceArgsDict(TypedDict):
         """
-        Represents storage that is managed by an external CSI volume driver (Beta feature)
+        Represents storage that is managed by an external CSI volume driver
         """
         driver: pulumi.Input[str]
         """
@@ -2113,7 +2113,7 @@ class CSIPersistentVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[bool]] = None,
                  volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
-        Represents storage that is managed by an external CSI volume driver (Beta feature)
+        Represents storage that is managed by an external CSI volume driver
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
         :param pulumi.Input[str] volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
         :param pulumi.Input['SecretReferenceArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -11691,6 +11691,9 @@ class GCEPersistentDiskVolumeSourceArgs:
 
 if not MYPY:
     class GRPCActionPatchArgsDict(TypedDict):
+        """
+        GRPCAction specifies an action involving a GRPC service.
+        """
         port: NotRequired[pulumi.Input[int]]
         """
         Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -11710,6 +11713,7 @@ class GRPCActionPatchArgs:
                  port: Optional[pulumi.Input[int]] = None,
                  service: Optional[pulumi.Input[str]] = None):
         """
+        GRPCAction specifies an action involving a GRPC service.
         :param pulumi.Input[int] port: Port number of the gRPC service. Number must be in the range 1 to 65535.
         :param pulumi.Input[str] service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
@@ -11749,6 +11753,9 @@ class GRPCActionPatchArgs:
 
 if not MYPY:
     class GRPCActionArgsDict(TypedDict):
+        """
+        GRPCAction specifies an action involving a GRPC service.
+        """
         port: pulumi.Input[int]
         """
         Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -11768,6 +11775,7 @@ class GRPCActionArgs:
                  port: pulumi.Input[int],
                  service: Optional[pulumi.Input[str]] = None):
         """
+        GRPCAction specifies an action involving a GRPC service.
         :param pulumi.Input[int] port: Port number of the gRPC service. Number must be in the range 1 to 65535.
         :param pulumi.Input[str] service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
@@ -14108,19 +14116,19 @@ if not MYPY:
         """
         exec_: NotRequired[pulumi.Input['ExecActionPatchArgsDict']]
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         http_get: NotRequired[pulumi.Input['HTTPGetActionPatchArgsDict']]
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         sleep: NotRequired[pulumi.Input['SleepActionPatchArgsDict']]
         """
-        Sleep represents the duration that the container should sleep before being terminated.
+        Sleep represents a duration that the container should sleep.
         """
         tcp_socket: NotRequired[pulumi.Input['TCPSocketActionPatchArgsDict']]
         """
-        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
 elif False:
     LifecycleHandlerPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -14134,10 +14142,10 @@ class LifecycleHandlerPatchArgs:
                  tcp_socket: Optional[pulumi.Input['TCPSocketActionPatchArgs']] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
-        :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies the action to take.
-        :param pulumi.Input['HTTPGetActionPatchArgs'] http_get: HTTPGet specifies the http request to perform.
-        :param pulumi.Input['SleepActionPatchArgs'] sleep: Sleep represents the duration that the container should sleep before being terminated.
-        :param pulumi.Input['TCPSocketActionPatchArgs'] tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies a command to execute in the container.
+        :param pulumi.Input['HTTPGetActionPatchArgs'] http_get: HTTPGet specifies an HTTP GET request to perform.
+        :param pulumi.Input['SleepActionPatchArgs'] sleep: Sleep represents a duration that the container should sleep.
+        :param pulumi.Input['TCPSocketActionPatchArgs'] tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
@@ -14152,7 +14160,7 @@ class LifecycleHandlerPatchArgs:
     @pulumi.getter(name="exec")
     def exec_(self) -> Optional[pulumi.Input['ExecActionPatchArgs']]:
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         return pulumi.get(self, "exec_")
 
@@ -14164,7 +14172,7 @@ class LifecycleHandlerPatchArgs:
     @pulumi.getter(name="httpGet")
     def http_get(self) -> Optional[pulumi.Input['HTTPGetActionPatchArgs']]:
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         return pulumi.get(self, "http_get")
 
@@ -14176,7 +14184,7 @@ class LifecycleHandlerPatchArgs:
     @pulumi.getter
     def sleep(self) -> Optional[pulumi.Input['SleepActionPatchArgs']]:
         """
-        Sleep represents the duration that the container should sleep before being terminated.
+        Sleep represents a duration that the container should sleep.
         """
         return pulumi.get(self, "sleep")
 
@@ -14188,7 +14196,7 @@ class LifecycleHandlerPatchArgs:
     @pulumi.getter(name="tcpSocket")
     def tcp_socket(self) -> Optional[pulumi.Input['TCPSocketActionPatchArgs']]:
         """
-        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
         return pulumi.get(self, "tcp_socket")
 
@@ -14204,19 +14212,19 @@ if not MYPY:
         """
         exec_: NotRequired[pulumi.Input['ExecActionArgsDict']]
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         http_get: NotRequired[pulumi.Input['HTTPGetActionArgsDict']]
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         sleep: NotRequired[pulumi.Input['SleepActionArgsDict']]
         """
-        Sleep represents the duration that the container should sleep before being terminated.
+        Sleep represents a duration that the container should sleep.
         """
         tcp_socket: NotRequired[pulumi.Input['TCPSocketActionArgsDict']]
         """
-        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
 elif False:
     LifecycleHandlerArgsDict: TypeAlias = Mapping[str, Any]
@@ -14230,10 +14238,10 @@ class LifecycleHandlerArgs:
                  tcp_socket: Optional[pulumi.Input['TCPSocketActionArgs']] = None):
         """
         LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
-        :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies the action to take.
-        :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies the http request to perform.
-        :param pulumi.Input['SleepActionArgs'] sleep: Sleep represents the duration that the container should sleep before being terminated.
-        :param pulumi.Input['TCPSocketActionArgs'] tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies a command to execute in the container.
+        :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies an HTTP GET request to perform.
+        :param pulumi.Input['SleepActionArgs'] sleep: Sleep represents a duration that the container should sleep.
+        :param pulumi.Input['TCPSocketActionArgs'] tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
@@ -14248,7 +14256,7 @@ class LifecycleHandlerArgs:
     @pulumi.getter(name="exec")
     def exec_(self) -> Optional[pulumi.Input['ExecActionArgs']]:
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         return pulumi.get(self, "exec_")
 
@@ -14260,7 +14268,7 @@ class LifecycleHandlerArgs:
     @pulumi.getter(name="httpGet")
     def http_get(self) -> Optional[pulumi.Input['HTTPGetActionArgs']]:
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         return pulumi.get(self, "http_get")
 
@@ -14272,7 +14280,7 @@ class LifecycleHandlerArgs:
     @pulumi.getter
     def sleep(self) -> Optional[pulumi.Input['SleepActionArgs']]:
         """
-        Sleep represents the duration that the container should sleep before being terminated.
+        Sleep represents a duration that the container should sleep.
         """
         return pulumi.get(self, "sleep")
 
@@ -14284,7 +14292,7 @@ class LifecycleHandlerArgs:
     @pulumi.getter(name="tcpSocket")
     def tcp_socket(self) -> Optional[pulumi.Input['TCPSocketActionArgs']]:
         """
-        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         """
         return pulumi.get(self, "tcp_socket")
 
@@ -15124,7 +15132,7 @@ class LocalObjectReferenceArgs:
 if not MYPY:
     class LocalVolumeSourcePatchArgsDict(TypedDict):
         """
-        Local represents directly-attached storage with node affinity (Beta feature)
+        Local represents directly-attached storage with node affinity
         """
         fs_type: NotRequired[pulumi.Input[str]]
         """
@@ -15143,7 +15151,7 @@ class LocalVolumeSourcePatchArgs:
                  fs_type: Optional[pulumi.Input[str]] = None,
                  path: Optional[pulumi.Input[str]] = None):
         """
-        Local represents directly-attached storage with node affinity (Beta feature)
+        Local represents directly-attached storage with node affinity
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         :param pulumi.Input[str] path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         """
@@ -15180,7 +15188,7 @@ class LocalVolumeSourcePatchArgs:
 if not MYPY:
     class LocalVolumeSourceArgsDict(TypedDict):
         """
-        Local represents directly-attached storage with node affinity (Beta feature)
+        Local represents directly-attached storage with node affinity
         """
         path: pulumi.Input[str]
         """
@@ -15199,7 +15207,7 @@ class LocalVolumeSourceArgs:
                  path: pulumi.Input[str],
                  fs_type: Optional[pulumi.Input[str]] = None):
         """
-        Local represents directly-attached storage with node affinity (Beta feature)
+        Local represents directly-attached storage with node affinity
         :param pulumi.Input[str] path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         :param pulumi.Input[str] fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         """
@@ -15561,8 +15569,17 @@ if not MYPY:
         Type of namespace controller condition.
         """
         last_transition_time: NotRequired[pulumi.Input[str]]
+        """
+        Last time the condition transitioned from one status to another.
+        """
         message: NotRequired[pulumi.Input[str]]
+        """
+        Human-readable message indicating details about last transition.
+        """
         reason: NotRequired[pulumi.Input[str]]
+        """
+        Unique, one-word, CamelCase reason for the condition's last transition.
+        """
 elif False:
     NamespaceConditionArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -15578,6 +15595,9 @@ class NamespaceConditionArgs:
         NamespaceCondition contains details about state of namespace.
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of namespace controller condition.
+        :param pulumi.Input[str] last_transition_time: Last time the condition transitioned from one status to another.
+        :param pulumi.Input[str] message: Human-readable message indicating details about last transition.
+        :param pulumi.Input[str] reason: Unique, one-word, CamelCase reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "type", type)
@@ -15615,6 +15635,9 @@ class NamespaceConditionArgs:
     @property
     @pulumi.getter(name="lastTransitionTime")
     def last_transition_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        Last time the condition transitioned from one status to another.
+        """
         return pulumi.get(self, "last_transition_time")
 
     @last_transition_time.setter
@@ -15624,6 +15647,9 @@ class NamespaceConditionArgs:
     @property
     @pulumi.getter
     def message(self) -> Optional[pulumi.Input[str]]:
+        """
+        Human-readable message indicating details about last transition.
+        """
         return pulumi.get(self, "message")
 
     @message.setter
@@ -15633,6 +15659,9 @@ class NamespaceConditionArgs:
     @property
     @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
+        """
+        Unique, one-word, CamelCase reason for the condition's last transition.
+        """
         return pulumi.get(self, "reason")
 
     @reason.setter
@@ -17188,7 +17217,7 @@ if not MYPY:
         """
         addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeAddressArgsDict']]]]
         """
-        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         """
         allocatable: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -17200,7 +17229,7 @@ if not MYPY:
         """
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeConditionArgsDict']]]]
         """
-        Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+        Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
         """
         config: NotRequired[pulumi.Input['NodeConfigStatusArgsDict']]
         """
@@ -17220,7 +17249,7 @@ if not MYPY:
         """
         node_info: NotRequired[pulumi.Input['NodeSystemInfoArgsDict']]
         """
-        Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+        Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
         """
         phase: NotRequired[pulumi.Input[str]]
         """
@@ -17259,15 +17288,15 @@ class NodeStatusArgs:
                  volumes_in_use: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NodeStatus is information about the current status of a node.
-        :param pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+        :param pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
-        :param pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+        :param pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
         :param pulumi.Input['NodeConfigStatusArgs'] config: Status of the config assigned to the node via the dynamic Kubelet config feature.
         :param pulumi.Input['NodeDaemonEndpointsArgs'] daemon_endpoints: Endpoints of daemons running on the Node.
         :param pulumi.Input['NodeFeaturesArgs'] features: Features describes the set of features implemented by the CRI implementation.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerImageArgs']]] images: List of container images on this node
-        :param pulumi.Input['NodeSystemInfoArgs'] node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+        :param pulumi.Input['NodeSystemInfoArgs'] node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
         :param pulumi.Input[str] phase: NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
         :param pulumi.Input[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]] runtime_handlers: The available runtime handlers.
         :param pulumi.Input[Sequence[pulumi.Input['AttachedVolumeArgs']]] volumes_attached: List of volumes that are attached to the node.
@@ -17304,7 +17333,7 @@ class NodeStatusArgs:
     @pulumi.getter
     def addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]]]:
         """
-        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         """
         return pulumi.get(self, "addresses")
 
@@ -17340,7 +17369,7 @@ class NodeStatusArgs:
     @pulumi.getter
     def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]]]:
         """
-        Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+        Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
         """
         return pulumi.get(self, "conditions")
 
@@ -17400,7 +17429,7 @@ class NodeStatusArgs:
     @pulumi.getter(name="nodeInfo")
     def node_info(self) -> Optional[pulumi.Input['NodeSystemInfoArgs']]:
         """
-        Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+        Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
         """
         return pulumi.get(self, "node_info")
 
@@ -18224,7 +18253,13 @@ if not MYPY:
         reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
         """
         status: NotRequired[pulumi.Input[str]]
+        """
+        Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        """
         type: NotRequired[pulumi.Input[str]]
+        """
+        Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+        """
 elif False:
     PersistentVolumeClaimConditionPatchArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -18243,6 +18278,8 @@ class PersistentVolumeClaimConditionPatchArgs:
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
         :param pulumi.Input[str] reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
+        :param pulumi.Input[str] status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        :param pulumi.Input[str] type: Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
         """
         if last_probe_time is not None:
             pulumi.set(__self__, "last_probe_time", last_probe_time)
@@ -18308,6 +18345,9 @@ class PersistentVolumeClaimConditionPatchArgs:
     @property
     @pulumi.getter
     def status(self) -> Optional[pulumi.Input[str]]:
+        """
+        Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        """
         return pulumi.get(self, "status")
 
     @status.setter
@@ -18317,6 +18357,9 @@ class PersistentVolumeClaimConditionPatchArgs:
     @property
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+        """
         return pulumi.get(self, "type")
 
     @type.setter
@@ -18330,7 +18373,13 @@ if not MYPY:
         PersistentVolumeClaimCondition contains details about state of pvc
         """
         status: pulumi.Input[str]
+        """
+        Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        """
         type: pulumi.Input[str]
+        """
+        Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+        """
         last_probe_time: NotRequired[pulumi.Input[str]]
         """
         lastProbeTime is the time we probed the condition.
@@ -18361,6 +18410,8 @@ class PersistentVolumeClaimConditionArgs:
                  reason: Optional[pulumi.Input[str]] = None):
         """
         PersistentVolumeClaimCondition contains details about state of pvc
+        :param pulumi.Input[str] status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        :param pulumi.Input[str] type: Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
         :param pulumi.Input[str] last_probe_time: lastProbeTime is the time we probed the condition.
         :param pulumi.Input[str] last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param pulumi.Input[str] message: message is the human-readable message indicating details about last transition.
@@ -18380,6 +18431,9 @@ class PersistentVolumeClaimConditionArgs:
     @property
     @pulumi.getter
     def status(self) -> pulumi.Input[str]:
+        """
+        Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+        """
         return pulumi.get(self, "status")
 
     @status.setter
@@ -18389,6 +18443,9 @@ class PersistentVolumeClaimConditionArgs:
     @property
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
+        """
+        Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+        """
         return pulumi.get(self, "type")
 
     @type.setter
@@ -19969,15 +20026,15 @@ if not MYPY:
         """
         aws_elastic_block_store: NotRequired[pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgsDict']]
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         azure_disk: NotRequired[pulumi.Input['AzureDiskVolumeSourcePatchArgsDict']]
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         azure_file: NotRequired[pulumi.Input['AzureFilePersistentVolumeSourcePatchArgsDict']]
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -19985,11 +20042,11 @@ if not MYPY:
         """
         cephfs: NotRequired[pulumi.Input['CephFSPersistentVolumeSourcePatchArgsDict']]
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         cinder: NotRequired[pulumi.Input['CinderPersistentVolumeSourcePatchArgsDict']]
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         claim_ref: NotRequired[pulumi.Input['ObjectReferencePatchArgsDict']]
         """
@@ -19997,7 +20054,7 @@ if not MYPY:
         """
         csi: NotRequired[pulumi.Input['CSIPersistentVolumeSourcePatchArgsDict']]
         """
-        csi represents storage that is handled by an external CSI driver (Beta feature).
+        csi represents storage that is handled by an external CSI driver.
         """
         fc: NotRequired[pulumi.Input['FCVolumeSourcePatchArgsDict']]
         """
@@ -20005,19 +20062,19 @@ if not MYPY:
         """
         flex_volume: NotRequired[pulumi.Input['FlexPersistentVolumeSourcePatchArgsDict']]
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         flocker: NotRequired[pulumi.Input['FlockerVolumeSourcePatchArgsDict']]
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         gce_persistent_disk: NotRequired[pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgsDict']]
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         glusterfs: NotRequired[pulumi.Input['GlusterfsPersistentVolumeSourcePatchArgsDict']]
         """
-        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         host_path: NotRequired[pulumi.Input['HostPathVolumeSourcePatchArgsDict']]
         """
@@ -20049,23 +20106,23 @@ if not MYPY:
         """
         photon_persistent_disk: NotRequired[pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgsDict']]
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourcePatchArgsDict']]
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourcePatchArgsDict']]
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         rbd: NotRequired[pulumi.Input['RBDPersistentVolumeSourcePatchArgsDict']]
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         scale_io: NotRequired[pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgsDict']]
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         storage_class_name: NotRequired[pulumi.Input[str]]
         """
@@ -20073,7 +20130,7 @@ if not MYPY:
         """
         storageos: NotRequired[pulumi.Input['StorageOSPersistentVolumeSourcePatchArgsDict']]
         """
-        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         volume_attributes_class_name: NotRequired[pulumi.Input[str]]
         """
@@ -20085,7 +20142,7 @@ if not MYPY:
         """
         vsphere_volume: NotRequired[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgsDict']]
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
 elif False:
     PersistentVolumeSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -20127,19 +20184,19 @@ class PersistentVolumeSpecPatchArgs:
         """
         PersistentVolumeSpec is the specification of a persistent volume.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
-        :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param pulumi.Input['AzureFilePersistentVolumeSourcePatchArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
+        :param pulumi.Input['AzureFilePersistentVolumeSourcePatchArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-        :param pulumi.Input['CephFSPersistentVolumeSourcePatchArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param pulumi.Input['CinderPersistentVolumeSourcePatchArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param pulumi.Input['CephFSPersistentVolumeSourcePatchArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
+        :param pulumi.Input['CinderPersistentVolumeSourcePatchArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['ObjectReferencePatchArgs'] claim_ref: claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
-        :param pulumi.Input['CSIPersistentVolumeSourcePatchArgs'] csi: csi represents storage that is handled by an external CSI driver (Beta feature).
+        :param pulumi.Input['CSIPersistentVolumeSourcePatchArgs'] csi: csi represents storage that is handled by an external CSI driver.
         :param pulumi.Input['FCVolumeSourcePatchArgs'] fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param pulumi.Input['FlexPersistentVolumeSourcePatchArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param pulumi.Input['FlockerVolumeSourcePatchArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
-        :param pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param pulumi.Input['GlusterfsPersistentVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['FlexPersistentVolumeSourcePatchArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
+        :param pulumi.Input['FlockerVolumeSourcePatchArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
+        :param pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param pulumi.Input['GlusterfsPersistentVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         :param pulumi.Input['HostPathVolumeSourcePatchArgs'] host_path: hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ISCSIPersistentVolumeSourcePatchArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
         :param pulumi.Input['LocalVolumeSourcePatchArgs'] local: local represents directly-attached storage with node affinity
@@ -20147,16 +20204,16 @@ class PersistentVolumeSpecPatchArgs:
         :param pulumi.Input['NFSVolumeSourcePatchArgs'] nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['VolumeNodeAffinityPatchArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
         :param pulumi.Input[str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-        :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
-        :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param pulumi.Input['RBDPersistentVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
+        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
+        :param pulumi.Input['RBDPersistentVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input[str] storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
-        :param pulumi.Input['StorageOSPersistentVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param pulumi.Input['StorageOSPersistentVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         :param pulumi.Input[str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
         :param pulumi.Input[str] volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
-        :param pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         if access_modes is not None:
             pulumi.set(__self__, "access_modes", access_modes)
@@ -20237,7 +20294,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional[pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs']]:
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -20249,7 +20306,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional[pulumi.Input['AzureDiskVolumeSourcePatchArgs']]:
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -20261,7 +20318,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional[pulumi.Input['AzureFilePersistentVolumeSourcePatchArgs']]:
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_file")
 
@@ -20285,7 +20342,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def cephfs(self) -> Optional[pulumi.Input['CephFSPersistentVolumeSourcePatchArgs']]:
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         return pulumi.get(self, "cephfs")
 
@@ -20297,7 +20354,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def cinder(self) -> Optional[pulumi.Input['CinderPersistentVolumeSourcePatchArgs']]:
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -20321,7 +20378,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def csi(self) -> Optional[pulumi.Input['CSIPersistentVolumeSourcePatchArgs']]:
         """
-        csi represents storage that is handled by an external CSI driver (Beta feature).
+        csi represents storage that is handled by an external CSI driver.
         """
         return pulumi.get(self, "csi")
 
@@ -20345,7 +20402,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional[pulumi.Input['FlexPersistentVolumeSourcePatchArgs']]:
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -20357,7 +20414,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def flocker(self) -> Optional[pulumi.Input['FlockerVolumeSourcePatchArgs']]:
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         return pulumi.get(self, "flocker")
 
@@ -20369,7 +20426,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional[pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs']]:
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -20381,7 +20438,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsPersistentVolumeSourcePatchArgs']]:
         """
-        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -20477,7 +20534,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional[pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs']]:
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -20489,7 +20546,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourcePatchArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -20501,7 +20558,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def quobyte(self) -> Optional[pulumi.Input['QuobyteVolumeSourcePatchArgs']]:
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         return pulumi.get(self, "quobyte")
 
@@ -20513,7 +20570,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDPersistentVolumeSourcePatchArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -20525,7 +20582,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional[pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgs']]:
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         return pulumi.get(self, "scale_io")
 
@@ -20549,7 +20606,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter
     def storageos(self) -> Optional[pulumi.Input['StorageOSPersistentVolumeSourcePatchArgs']]:
         """
-        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         return pulumi.get(self, "storageos")
 
@@ -20585,7 +20642,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']]:
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         return pulumi.get(self, "vsphere_volume")
 
@@ -20605,15 +20662,15 @@ if not MYPY:
         """
         aws_elastic_block_store: NotRequired[pulumi.Input['AWSElasticBlockStoreVolumeSourceArgsDict']]
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         azure_disk: NotRequired[pulumi.Input['AzureDiskVolumeSourceArgsDict']]
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         azure_file: NotRequired[pulumi.Input['AzureFilePersistentVolumeSourceArgsDict']]
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[str]]]]
         """
@@ -20621,11 +20678,11 @@ if not MYPY:
         """
         cephfs: NotRequired[pulumi.Input['CephFSPersistentVolumeSourceArgsDict']]
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         cinder: NotRequired[pulumi.Input['CinderPersistentVolumeSourceArgsDict']]
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         claim_ref: NotRequired[pulumi.Input['ObjectReferenceArgsDict']]
         """
@@ -20633,7 +20690,7 @@ if not MYPY:
         """
         csi: NotRequired[pulumi.Input['CSIPersistentVolumeSourceArgsDict']]
         """
-        csi represents storage that is handled by an external CSI driver (Beta feature).
+        csi represents storage that is handled by an external CSI driver.
         """
         fc: NotRequired[pulumi.Input['FCVolumeSourceArgsDict']]
         """
@@ -20641,19 +20698,19 @@ if not MYPY:
         """
         flex_volume: NotRequired[pulumi.Input['FlexPersistentVolumeSourceArgsDict']]
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         flocker: NotRequired[pulumi.Input['FlockerVolumeSourceArgsDict']]
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         gce_persistent_disk: NotRequired[pulumi.Input['GCEPersistentDiskVolumeSourceArgsDict']]
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         glusterfs: NotRequired[pulumi.Input['GlusterfsPersistentVolumeSourceArgsDict']]
         """
-        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         host_path: NotRequired[pulumi.Input['HostPathVolumeSourceArgsDict']]
         """
@@ -20685,23 +20742,23 @@ if not MYPY:
         """
         photon_persistent_disk: NotRequired[pulumi.Input['PhotonPersistentDiskVolumeSourceArgsDict']]
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourceArgsDict']]
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourceArgsDict']]
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         rbd: NotRequired[pulumi.Input['RBDPersistentVolumeSourceArgsDict']]
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         scale_io: NotRequired[pulumi.Input['ScaleIOPersistentVolumeSourceArgsDict']]
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         storage_class_name: NotRequired[pulumi.Input[str]]
         """
@@ -20709,7 +20766,7 @@ if not MYPY:
         """
         storageos: NotRequired[pulumi.Input['StorageOSPersistentVolumeSourceArgsDict']]
         """
-        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         volume_attributes_class_name: NotRequired[pulumi.Input[str]]
         """
@@ -20721,7 +20778,7 @@ if not MYPY:
         """
         vsphere_volume: NotRequired[pulumi.Input['VsphereVirtualDiskVolumeSourceArgsDict']]
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
 elif False:
     PersistentVolumeSpecArgsDict: TypeAlias = Mapping[str, Any]
@@ -20763,19 +20820,19 @@ class PersistentVolumeSpecArgs:
         """
         PersistentVolumeSpec is the specification of a persistent volume.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
-        :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param pulumi.Input['AzureFilePersistentVolumeSourceArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
+        :param pulumi.Input['AzureFilePersistentVolumeSourceArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-        :param pulumi.Input['CephFSPersistentVolumeSourceArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param pulumi.Input['CinderPersistentVolumeSourceArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param pulumi.Input['CephFSPersistentVolumeSourceArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
+        :param pulumi.Input['CinderPersistentVolumeSourceArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['ObjectReferenceArgs'] claim_ref: claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
-        :param pulumi.Input['CSIPersistentVolumeSourceArgs'] csi: csi represents storage that is handled by an external CSI driver (Beta feature).
+        :param pulumi.Input['CSIPersistentVolumeSourceArgs'] csi: csi represents storage that is handled by an external CSI driver.
         :param pulumi.Input['FCVolumeSourceArgs'] fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param pulumi.Input['FlexPersistentVolumeSourceArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param pulumi.Input['FlockerVolumeSourceArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
-        :param pulumi.Input['GCEPersistentDiskVolumeSourceArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param pulumi.Input['GlusterfsPersistentVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['FlexPersistentVolumeSourceArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
+        :param pulumi.Input['FlockerVolumeSourceArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
+        :param pulumi.Input['GCEPersistentDiskVolumeSourceArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param pulumi.Input['GlusterfsPersistentVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         :param pulumi.Input['HostPathVolumeSourceArgs'] host_path: hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ISCSIPersistentVolumeSourceArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
         :param pulumi.Input['LocalVolumeSourceArgs'] local: local represents directly-attached storage with node affinity
@@ -20783,16 +20840,16 @@ class PersistentVolumeSpecArgs:
         :param pulumi.Input['NFSVolumeSourceArgs'] nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['VolumeNodeAffinityArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
         :param pulumi.Input[str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-        :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
-        :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param pulumi.Input['RBDPersistentVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param pulumi.Input['ScaleIOPersistentVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
+        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
+        :param pulumi.Input['RBDPersistentVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['ScaleIOPersistentVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input[str] storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
-        :param pulumi.Input['StorageOSPersistentVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param pulumi.Input['StorageOSPersistentVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         :param pulumi.Input[str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
         :param pulumi.Input[str] volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
-        :param pulumi.Input['VsphereVirtualDiskVolumeSourceArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param pulumi.Input['VsphereVirtualDiskVolumeSourceArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         if access_modes is not None:
             pulumi.set(__self__, "access_modes", access_modes)
@@ -20873,7 +20930,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional[pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs']]:
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -20885,7 +20942,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional[pulumi.Input['AzureDiskVolumeSourceArgs']]:
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -20897,7 +20954,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional[pulumi.Input['AzureFilePersistentVolumeSourceArgs']]:
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_file")
 
@@ -20921,7 +20978,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def cephfs(self) -> Optional[pulumi.Input['CephFSPersistentVolumeSourceArgs']]:
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         return pulumi.get(self, "cephfs")
 
@@ -20933,7 +20990,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def cinder(self) -> Optional[pulumi.Input['CinderPersistentVolumeSourceArgs']]:
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -20957,7 +21014,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def csi(self) -> Optional[pulumi.Input['CSIPersistentVolumeSourceArgs']]:
         """
-        csi represents storage that is handled by an external CSI driver (Beta feature).
+        csi represents storage that is handled by an external CSI driver.
         """
         return pulumi.get(self, "csi")
 
@@ -20981,7 +21038,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional[pulumi.Input['FlexPersistentVolumeSourceArgs']]:
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -20993,7 +21050,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def flocker(self) -> Optional[pulumi.Input['FlockerVolumeSourceArgs']]:
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         return pulumi.get(self, "flocker")
 
@@ -21005,7 +21062,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional[pulumi.Input['GCEPersistentDiskVolumeSourceArgs']]:
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -21017,7 +21074,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsPersistentVolumeSourceArgs']]:
         """
-        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -21113,7 +21170,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional[pulumi.Input['PhotonPersistentDiskVolumeSourceArgs']]:
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -21125,7 +21182,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourceArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -21137,7 +21194,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def quobyte(self) -> Optional[pulumi.Input['QuobyteVolumeSourceArgs']]:
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         return pulumi.get(self, "quobyte")
 
@@ -21149,7 +21206,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDPersistentVolumeSourceArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -21161,7 +21218,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional[pulumi.Input['ScaleIOPersistentVolumeSourceArgs']]:
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         return pulumi.get(self, "scale_io")
 
@@ -21185,7 +21242,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter
     def storageos(self) -> Optional[pulumi.Input['StorageOSPersistentVolumeSourceArgs']]:
         """
-        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         return pulumi.get(self, "storageos")
 
@@ -21221,7 +21278,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']]:
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         return pulumi.get(self, "vsphere_volume")
 
@@ -22189,9 +22246,12 @@ if not MYPY:
         """
         name: NotRequired[pulumi.Input[str]]
         """
-        Required.
+        Name is this DNS resolver option's name. Required.
         """
         value: NotRequired[pulumi.Input[str]]
+        """
+        Value is this DNS resolver option's value.
+        """
 elif False:
     PodDNSConfigOptionPatchArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -22202,7 +22262,8 @@ class PodDNSConfigOptionPatchArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
-        :param pulumi.Input[str] name: Required.
+        :param pulumi.Input[str] name: Name is this DNS resolver option's name. Required.
+        :param pulumi.Input[str] value: Value is this DNS resolver option's value.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -22213,7 +22274,7 @@ class PodDNSConfigOptionPatchArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Required.
+        Name is this DNS resolver option's name. Required.
         """
         return pulumi.get(self, "name")
 
@@ -22224,6 +22285,9 @@ class PodDNSConfigOptionPatchArgs:
     @property
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[str]]:
+        """
+        Value is this DNS resolver option's value.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -22238,9 +22302,12 @@ if not MYPY:
         """
         name: NotRequired[pulumi.Input[str]]
         """
-        Required.
+        Name is this DNS resolver option's name. Required.
         """
         value: NotRequired[pulumi.Input[str]]
+        """
+        Value is this DNS resolver option's value.
+        """
 elif False:
     PodDNSConfigOptionArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -22251,7 +22318,8 @@ class PodDNSConfigOptionArgs:
                  value: Optional[pulumi.Input[str]] = None):
         """
         PodDNSConfigOption defines DNS resolver options of a pod.
-        :param pulumi.Input[str] name: Required.
+        :param pulumi.Input[str] name: Name is this DNS resolver option's name. Required.
+        :param pulumi.Input[str] value: Value is this DNS resolver option's value.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -22262,7 +22330,7 @@ class PodDNSConfigOptionArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Required.
+        Name is this DNS resolver option's name. Required.
         """
         return pulumi.get(self, "name")
 
@@ -22273,6 +22341,9 @@ class PodDNSConfigOptionArgs:
     @property
     @pulumi.getter
     def value(self) -> Optional[pulumi.Input[str]]:
+        """
+        Value is this DNS resolver option's value.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -23015,6 +23086,20 @@ if not MYPY:
         """
         The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         """
+        se_linux_change_policy: NotRequired[pulumi.Input[str]]
+        """
+        seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+
+        "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+
+        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+
+        This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+
+        All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+        """
         se_linux_options: NotRequired[pulumi.Input['SELinuxOptionsPatchArgsDict']]
         """
         The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
@@ -23051,6 +23136,7 @@ class PodSecurityContextPatchArgs:
                  run_as_group: Optional[pulumi.Input[int]] = None,
                  run_as_non_root: Optional[pulumi.Input[bool]] = None,
                  run_as_user: Optional[pulumi.Input[int]] = None,
+                 se_linux_change_policy: Optional[pulumi.Input[str]] = None,
                  se_linux_options: Optional[pulumi.Input['SELinuxOptionsPatchArgs']] = None,
                  seccomp_profile: Optional[pulumi.Input['SeccompProfilePatchArgs']] = None,
                  supplemental_groups: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -23069,6 +23155,17 @@ class PodSecurityContextPatchArgs:
         :param pulumi.Input[int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input[int] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input[str] se_linux_change_policy: seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+               
+               "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+               
+               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+               
+               If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+               
+               This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+               
+               All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['SELinuxOptionsPatchArgs'] se_linux_options: The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['SeccompProfilePatchArgs'] seccomp_profile: The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] supplemental_groups: A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
@@ -23088,6 +23185,8 @@ class PodSecurityContextPatchArgs:
             pulumi.set(__self__, "run_as_non_root", run_as_non_root)
         if run_as_user is not None:
             pulumi.set(__self__, "run_as_user", run_as_user)
+        if se_linux_change_policy is not None:
+            pulumi.set(__self__, "se_linux_change_policy", se_linux_change_policy)
         if se_linux_options is not None:
             pulumi.set(__self__, "se_linux_options", se_linux_options)
         if seccomp_profile is not None:
@@ -23176,6 +23275,28 @@ class PodSecurityContextPatchArgs:
     @run_as_user.setter
     def run_as_user(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_user", value)
+
+    @property
+    @pulumi.getter(name="seLinuxChangePolicy")
+    def se_linux_change_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+
+        "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+
+        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+
+        This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+
+        All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "se_linux_change_policy")
+
+    @se_linux_change_policy.setter
+    def se_linux_change_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "se_linux_change_policy", value)
 
     @property
     @pulumi.getter(name="seLinuxOptions")
@@ -23283,6 +23404,20 @@ if not MYPY:
         """
         The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         """
+        se_linux_change_policy: NotRequired[pulumi.Input[str]]
+        """
+        seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+
+        "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+
+        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+
+        This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+
+        All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+        """
         se_linux_options: NotRequired[pulumi.Input['SELinuxOptionsArgsDict']]
         """
         The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
@@ -23319,6 +23454,7 @@ class PodSecurityContextArgs:
                  run_as_group: Optional[pulumi.Input[int]] = None,
                  run_as_non_root: Optional[pulumi.Input[bool]] = None,
                  run_as_user: Optional[pulumi.Input[int]] = None,
+                 se_linux_change_policy: Optional[pulumi.Input[str]] = None,
                  se_linux_options: Optional[pulumi.Input['SELinuxOptionsArgs']] = None,
                  seccomp_profile: Optional[pulumi.Input['SeccompProfileArgs']] = None,
                  supplemental_groups: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -23337,6 +23473,17 @@ class PodSecurityContextArgs:
         :param pulumi.Input[int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         :param pulumi.Input[int] run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input[str] se_linux_change_policy: seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+               
+               "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+               
+               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+               
+               If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+               
+               This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+               
+               All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['SELinuxOptionsArgs'] se_linux_options: The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['SeccompProfileArgs'] seccomp_profile: The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] supplemental_groups: A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
@@ -23356,6 +23503,8 @@ class PodSecurityContextArgs:
             pulumi.set(__self__, "run_as_non_root", run_as_non_root)
         if run_as_user is not None:
             pulumi.set(__self__, "run_as_user", run_as_user)
+        if se_linux_change_policy is not None:
+            pulumi.set(__self__, "se_linux_change_policy", se_linux_change_policy)
         if se_linux_options is not None:
             pulumi.set(__self__, "se_linux_options", se_linux_options)
         if seccomp_profile is not None:
@@ -23444,6 +23593,28 @@ class PodSecurityContextArgs:
     @run_as_user.setter
     def run_as_user(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "run_as_user", value)
+
+    @property
+    @pulumi.getter(name="seLinuxChangePolicy")
+    def se_linux_change_policy(self) -> Optional[pulumi.Input[str]]:
+        """
+        seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+
+        "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+
+        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+
+        This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+
+        All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "se_linux_change_policy")
+
+    @se_linux_change_policy.setter
+    def se_linux_change_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "se_linux_change_policy", value)
 
     @property
     @pulumi.getter(name="seLinuxOptions")
@@ -23631,6 +23802,14 @@ if not MYPY:
 
         This field is immutable.
         """
+        resources: NotRequired[pulumi.Input['ResourceRequirementsPatchArgsDict']]
+        """
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+
+        This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+
+        This is an alpha field and requires enabling the PodLevelResources feature gate.
+        """
         restart_policy: NotRequired[pulumi.Input[str]]
         """
         Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
@@ -23663,7 +23842,7 @@ if not MYPY:
         """
         set_hostname_as_fqdn: NotRequired[pulumi.Input[bool]]
         """
-        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         """
         share_process_namespace: NotRequired[pulumi.Input[bool]]
         """
@@ -23720,6 +23899,7 @@ class PodSpecPatchArgs:
                  priority_class_name: Optional[pulumi.Input[str]] = None,
                  readiness_gates: Optional[pulumi.Input[Sequence[pulumi.Input['PodReadinessGatePatchArgs']]]] = None,
                  resource_claims: Optional[pulumi.Input[Sequence[pulumi.Input['PodResourceClaimPatchArgs']]]] = None,
+                 resources: Optional[pulumi.Input['ResourceRequirementsPatchArgs']] = None,
                  restart_policy: Optional[pulumi.Input[str]] = None,
                  runtime_class_name: Optional[pulumi.Input[str]] = None,
                  scheduler_name: Optional[pulumi.Input[str]] = None,
@@ -23769,6 +23949,11 @@ class PodSpecPatchArgs:
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
                This field is immutable.
+        :param pulumi.Input['ResourceRequirementsPatchArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+               
+               This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+               
+               This is an alpha field and requires enabling the PodLevelResources feature gate.
         :param pulumi.Input[str] restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         :param pulumi.Input[str] runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         :param pulumi.Input[str] scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
@@ -23778,7 +23963,7 @@ class PodSpecPatchArgs:
         :param pulumi.Input['PodSecurityContextPatchArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
-        :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         :param pulumi.Input[bool] share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
         :param pulumi.Input[str] subdomain: If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
         :param pulumi.Input[int] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
@@ -23836,6 +24021,8 @@ class PodSpecPatchArgs:
             pulumi.set(__self__, "readiness_gates", readiness_gates)
         if resource_claims is not None:
             pulumi.set(__self__, "resource_claims", resource_claims)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
         if runtime_class_name is not None:
@@ -24174,6 +24361,22 @@ class PodSpecPatchArgs:
         pulumi.set(self, "resource_claims", value)
 
     @property
+    @pulumi.getter
+    def resources(self) -> Optional[pulumi.Input['ResourceRequirementsPatchArgs']]:
+        """
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+
+        This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+
+        This is an alpha field and requires enabling the PodLevelResources feature gate.
+        """
+        return pulumi.get(self, "resources")
+
+    @resources.setter
+    def resources(self, value: Optional[pulumi.Input['ResourceRequirementsPatchArgs']]):
+        pulumi.set(self, "resources", value)
+
+    @property
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[str]]:
         """
@@ -24263,7 +24466,7 @@ class PodSpecPatchArgs:
     @pulumi.getter(name="setHostnameAsFQDN")
     def set_hostname_as_fqdn(self) -> Optional[pulumi.Input[bool]]:
         """
-        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         """
         return pulumi.get(self, "set_hostname_as_fqdn")
 
@@ -24457,6 +24660,14 @@ if not MYPY:
 
         This field is immutable.
         """
+        resources: NotRequired[pulumi.Input['ResourceRequirementsArgsDict']]
+        """
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+
+        This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+
+        This is an alpha field and requires enabling the PodLevelResources feature gate.
+        """
         restart_policy: NotRequired[pulumi.Input[str]]
         """
         Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
@@ -24489,7 +24700,7 @@ if not MYPY:
         """
         set_hostname_as_fqdn: NotRequired[pulumi.Input[bool]]
         """
-        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         """
         share_process_namespace: NotRequired[pulumi.Input[bool]]
         """
@@ -24546,6 +24757,7 @@ class PodSpecArgs:
                  priority_class_name: Optional[pulumi.Input[str]] = None,
                  readiness_gates: Optional[pulumi.Input[Sequence[pulumi.Input['PodReadinessGateArgs']]]] = None,
                  resource_claims: Optional[pulumi.Input[Sequence[pulumi.Input['PodResourceClaimArgs']]]] = None,
+                 resources: Optional[pulumi.Input['ResourceRequirementsArgs']] = None,
                  restart_policy: Optional[pulumi.Input[str]] = None,
                  runtime_class_name: Optional[pulumi.Input[str]] = None,
                  scheduler_name: Optional[pulumi.Input[str]] = None,
@@ -24595,6 +24807,11 @@ class PodSpecArgs:
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
                This field is immutable.
+        :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+               
+               This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+               
+               This is an alpha field and requires enabling the PodLevelResources feature gate.
         :param pulumi.Input[str] restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         :param pulumi.Input[str] runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         :param pulumi.Input[str] scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
@@ -24604,7 +24821,7 @@ class PodSpecArgs:
         :param pulumi.Input['PodSecurityContextArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param pulumi.Input[str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
-        :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        :param pulumi.Input[bool] set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         :param pulumi.Input[bool] share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
         :param pulumi.Input[str] subdomain: If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
         :param pulumi.Input[int] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
@@ -24661,6 +24878,8 @@ class PodSpecArgs:
             pulumi.set(__self__, "readiness_gates", readiness_gates)
         if resource_claims is not None:
             pulumi.set(__self__, "resource_claims", resource_claims)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
         if runtime_class_name is not None:
@@ -24999,6 +25218,22 @@ class PodSpecArgs:
         pulumi.set(self, "resource_claims", value)
 
     @property
+    @pulumi.getter
+    def resources(self) -> Optional[pulumi.Input['ResourceRequirementsArgs']]:
+        """
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+
+        This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+
+        This is an alpha field and requires enabling the PodLevelResources feature gate.
+        """
+        return pulumi.get(self, "resources")
+
+    @resources.setter
+    def resources(self, value: Optional[pulumi.Input['ResourceRequirementsArgs']]):
+        pulumi.set(self, "resources", value)
+
+    @property
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[str]]:
         """
@@ -25088,7 +25323,7 @@ class PodSpecArgs:
     @pulumi.getter(name="setHostnameAsFQDN")
     def set_hostname_as_fqdn(self) -> Optional[pulumi.Input[bool]]:
         """
-        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
         """
         return pulumi.get(self, "set_hostname_as_fqdn")
 
@@ -25180,11 +25415,11 @@ if not MYPY:
         """
         container_statuses: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]
         """
-        The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         """
         ephemeral_container_statuses: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]
         """
-        Status for any ephemeral containers that have run in this pod.
+        Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         """
         host_ip: NotRequired[pulumi.Input[str]]
         """
@@ -25196,7 +25431,7 @@ if not MYPY:
         """
         init_container_statuses: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]
         """
-        The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         """
         message: NotRequired[pulumi.Input[str]]
         """
@@ -25267,11 +25502,11 @@ class PodStatusArgs:
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
         :param pulumi.Input[Sequence[pulumi.Input['PodConditionArgs']]] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
-        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] container_statuses: Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] ephemeral_container_statuses: Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param pulumi.Input[str] host_ip: hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         :param pulumi.Input[Sequence[pulumi.Input['HostIPArgs']]] host_ips: hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
-        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] init_container_statuses: The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] init_container_statuses: Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         :param pulumi.Input[str] message: A human readable message indicating details about why the pod is in this condition.
         :param pulumi.Input[str] nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
         :param pulumi.Input[str] phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -25336,7 +25571,7 @@ class PodStatusArgs:
     @pulumi.getter(name="containerStatuses")
     def container_statuses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]]:
         """
-        The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         """
         return pulumi.get(self, "container_statuses")
 
@@ -25348,7 +25583,7 @@ class PodStatusArgs:
     @pulumi.getter(name="ephemeralContainerStatuses")
     def ephemeral_container_statuses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]]:
         """
-        Status for any ephemeral containers that have run in this pod.
+        Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         """
         return pulumi.get(self, "ephemeral_container_statuses")
 
@@ -25384,7 +25619,7 @@ class PodStatusArgs:
     @pulumi.getter(name="initContainerStatuses")
     def init_container_statuses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]]:
         """
-        The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         """
         return pulumi.get(self, "init_container_statuses")
 
@@ -25873,6 +26108,9 @@ class PodArgs:
 
 if not MYPY:
     class PortStatusArgsDict(TypedDict):
+        """
+        PortStatus represents the error condition of a service port
+        """
         port: pulumi.Input[int]
         """
         Port is the port number of the service port of which status is recorded here
@@ -25898,6 +26136,7 @@ class PortStatusArgs:
                  protocol: pulumi.Input[str],
                  error: Optional[pulumi.Input[str]] = None):
         """
+        PortStatus represents the error condition of a service port
         :param pulumi.Input[int] port: Port is the port number of the service port of which status is recorded here
         :param pulumi.Input[str] protocol: Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
         :param pulumi.Input[str] error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
@@ -26218,7 +26457,7 @@ if not MYPY:
         """
         exec_: NotRequired[pulumi.Input['ExecActionPatchArgsDict']]
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         failure_threshold: NotRequired[pulumi.Input[int]]
         """
@@ -26226,11 +26465,11 @@ if not MYPY:
         """
         grpc: NotRequired[pulumi.Input['GRPCActionPatchArgsDict']]
         """
-        GRPC specifies an action involving a GRPC port.
+        GRPC specifies a GRPC HealthCheckRequest.
         """
         http_get: NotRequired[pulumi.Input['HTTPGetActionPatchArgsDict']]
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         initial_delay_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -26246,7 +26485,7 @@ if not MYPY:
         """
         tcp_socket: NotRequired[pulumi.Input['TCPSocketActionPatchArgsDict']]
         """
-        TCPSocket specifies an action involving a TCP port.
+        TCPSocket specifies a connection to a TCP port.
         """
         termination_grace_period_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -26274,14 +26513,14 @@ class ProbePatchArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
-        :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies the action to take.
+        :param pulumi.Input['ExecActionPatchArgs'] exec_: Exec specifies a command to execute in the container.
         :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param pulumi.Input['GRPCActionPatchArgs'] grpc: GRPC specifies an action involving a GRPC port.
-        :param pulumi.Input['HTTPGetActionPatchArgs'] http_get: HTTPGet specifies the http request to perform.
+        :param pulumi.Input['GRPCActionPatchArgs'] grpc: GRPC specifies a GRPC HealthCheckRequest.
+        :param pulumi.Input['HTTPGetActionPatchArgs'] http_get: HTTPGet specifies an HTTP GET request to perform.
         :param pulumi.Input[int] initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[int] period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
         :param pulumi.Input[int] success_threshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
-        :param pulumi.Input['TCPSocketActionPatchArgs'] tcp_socket: TCPSocket specifies an action involving a TCP port.
+        :param pulumi.Input['TCPSocketActionPatchArgs'] tcp_socket: TCPSocket specifies a connection to a TCP port.
         :param pulumi.Input[int] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
         :param pulumi.Input[int] timeout_seconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
@@ -26310,7 +26549,7 @@ class ProbePatchArgs:
     @pulumi.getter(name="exec")
     def exec_(self) -> Optional[pulumi.Input['ExecActionPatchArgs']]:
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         return pulumi.get(self, "exec_")
 
@@ -26334,7 +26573,7 @@ class ProbePatchArgs:
     @pulumi.getter
     def grpc(self) -> Optional[pulumi.Input['GRPCActionPatchArgs']]:
         """
-        GRPC specifies an action involving a GRPC port.
+        GRPC specifies a GRPC HealthCheckRequest.
         """
         return pulumi.get(self, "grpc")
 
@@ -26346,7 +26585,7 @@ class ProbePatchArgs:
     @pulumi.getter(name="httpGet")
     def http_get(self) -> Optional[pulumi.Input['HTTPGetActionPatchArgs']]:
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         return pulumi.get(self, "http_get")
 
@@ -26394,7 +26633,7 @@ class ProbePatchArgs:
     @pulumi.getter(name="tcpSocket")
     def tcp_socket(self) -> Optional[pulumi.Input['TCPSocketActionPatchArgs']]:
         """
-        TCPSocket specifies an action involving a TCP port.
+        TCPSocket specifies a connection to a TCP port.
         """
         return pulumi.get(self, "tcp_socket")
 
@@ -26434,7 +26673,7 @@ if not MYPY:
         """
         exec_: NotRequired[pulumi.Input['ExecActionArgsDict']]
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         failure_threshold: NotRequired[pulumi.Input[int]]
         """
@@ -26442,11 +26681,11 @@ if not MYPY:
         """
         grpc: NotRequired[pulumi.Input['GRPCActionArgsDict']]
         """
-        GRPC specifies an action involving a GRPC port.
+        GRPC specifies a GRPC HealthCheckRequest.
         """
         http_get: NotRequired[pulumi.Input['HTTPGetActionArgsDict']]
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         initial_delay_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -26462,7 +26701,7 @@ if not MYPY:
         """
         tcp_socket: NotRequired[pulumi.Input['TCPSocketActionArgsDict']]
         """
-        TCPSocket specifies an action involving a TCP port.
+        TCPSocket specifies a connection to a TCP port.
         """
         termination_grace_period_seconds: NotRequired[pulumi.Input[int]]
         """
@@ -26490,14 +26729,14 @@ class ProbeArgs:
                  timeout_seconds: Optional[pulumi.Input[int]] = None):
         """
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
-        :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies the action to take.
+        :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies a command to execute in the container.
         :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param pulumi.Input['GRPCActionArgs'] grpc: GRPC specifies an action involving a GRPC port.
-        :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies the http request to perform.
+        :param pulumi.Input['GRPCActionArgs'] grpc: GRPC specifies a GRPC HealthCheckRequest.
+        :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies an HTTP GET request to perform.
         :param pulumi.Input[int] initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[int] period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
         :param pulumi.Input[int] success_threshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
-        :param pulumi.Input['TCPSocketActionArgs'] tcp_socket: TCPSocket specifies an action involving a TCP port.
+        :param pulumi.Input['TCPSocketActionArgs'] tcp_socket: TCPSocket specifies a connection to a TCP port.
         :param pulumi.Input[int] termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
         :param pulumi.Input[int] timeout_seconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
@@ -26526,7 +26765,7 @@ class ProbeArgs:
     @pulumi.getter(name="exec")
     def exec_(self) -> Optional[pulumi.Input['ExecActionArgs']]:
         """
-        Exec specifies the action to take.
+        Exec specifies a command to execute in the container.
         """
         return pulumi.get(self, "exec_")
 
@@ -26550,7 +26789,7 @@ class ProbeArgs:
     @pulumi.getter
     def grpc(self) -> Optional[pulumi.Input['GRPCActionArgs']]:
         """
-        GRPC specifies an action involving a GRPC port.
+        GRPC specifies a GRPC HealthCheckRequest.
         """
         return pulumi.get(self, "grpc")
 
@@ -26562,7 +26801,7 @@ class ProbeArgs:
     @pulumi.getter(name="httpGet")
     def http_get(self) -> Optional[pulumi.Input['HTTPGetActionArgs']]:
         """
-        HTTPGet specifies the http request to perform.
+        HTTPGet specifies an HTTP GET request to perform.
         """
         return pulumi.get(self, "http_get")
 
@@ -26610,7 +26849,7 @@ class ProbeArgs:
     @pulumi.getter(name="tcpSocket")
     def tcp_socket(self) -> Optional[pulumi.Input['TCPSocketActionArgs']]:
         """
-        TCPSocket specifies an action involving a TCP port.
+        TCPSocket specifies a connection to a TCP port.
         """
         return pulumi.get(self, "tcp_socket")
 
@@ -28546,7 +28785,7 @@ class ResourceFieldSelectorArgs:
 if not MYPY:
     class ResourceHealthArgsDict(TypedDict):
         """
-        ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+        ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
         """
         resource_id: pulumi.Input[str]
         """
@@ -28573,7 +28812,7 @@ class ResourceHealthArgs:
                  resource_id: pulumi.Input[str],
                  health: Optional[pulumi.Input[str]] = None):
         """
-        ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+        ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
         :param pulumi.Input[str] resource_id: ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
         :param pulumi.Input[str] health: Health of the resource. can be one of:
                 - Healthy: operates as normal
@@ -29124,13 +29363,16 @@ class ResourceRequirementsArgs:
 
 if not MYPY:
     class ResourceStatusArgsDict(TypedDict):
+        """
+        ResourceStatus represents the status of a single resource allocated to a Pod.
+        """
         name: pulumi.Input[str]
         """
-        Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         """
         resources: NotRequired[pulumi.Input[Sequence[pulumi.Input['ResourceHealthArgsDict']]]]
         """
-        List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+        List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         """
 elif False:
     ResourceStatusArgsDict: TypeAlias = Mapping[str, Any]
@@ -29141,8 +29383,9 @@ class ResourceStatusArgs:
                  name: pulumi.Input[str],
                  resources: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceHealthArgs']]]] = None):
         """
-        :param pulumi.Input[str] name: Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
-        :param pulumi.Input[Sequence[pulumi.Input['ResourceHealthArgs']]] resources: List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+        ResourceStatus represents the status of a single resource allocated to a Pod.
+        :param pulumi.Input[str] name: Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        :param pulumi.Input[Sequence[pulumi.Input['ResourceHealthArgs']]] resources: List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         """
         pulumi.set(__self__, "name", name)
         if resources is not None:
@@ -29152,7 +29395,7 @@ class ResourceStatusArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[str]:
         """
-        Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         """
         return pulumi.get(self, "name")
 
@@ -29164,7 +29407,7 @@ class ResourceStatusArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ResourceHealthArgs']]]]:
         """
-        List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+        List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         """
         return pulumi.get(self, "resources")
 
@@ -32177,7 +32420,7 @@ if not MYPY:
         """
         secrets: NotRequired[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgsDict']]]]
         """
-        Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+        Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
 elif False:
     ServiceAccountArgsDict: TypeAlias = Mapping[str, Any]
@@ -32198,7 +32441,7 @@ class ServiceAccountArgs:
         :param pulumi.Input[Sequence[pulumi.Input['LocalObjectReferenceArgs']]] image_pull_secrets: ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]] secrets: Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+        :param pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]] secrets: Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
@@ -32277,7 +32520,7 @@ class ServiceAccountArgs:
     @pulumi.getter
     def secrets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]]:
         """
-        Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+        Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
         return pulumi.get(self, "secrets")
 
@@ -32702,7 +32945,7 @@ if not MYPY:
         """
         traffic_distribution: NotRequired[pulumi.Input[str]]
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         """
         type: NotRequired[pulumi.Input[Union[str, 'ServiceSpecType']]]
         """
@@ -32762,7 +33005,7 @@ class ServiceSpecPatchArgs:
         :param pulumi.Input[str] session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input['SessionAffinityConfigPatchArgs'] session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
-        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         :param pulumi.Input[Union[str, 'ServiceSpecType']] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -33058,7 +33301,7 @@ class ServiceSpecPatchArgs:
     @pulumi.getter(name="trafficDistribution")
     def traffic_distribution(self) -> Optional[pulumi.Input[str]]:
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         """
         return pulumi.get(self, "traffic_distribution")
 
@@ -33170,7 +33413,7 @@ if not MYPY:
         """
         traffic_distribution: NotRequired[pulumi.Input[str]]
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         """
         type: NotRequired[pulumi.Input[Union[str, 'ServiceSpecType']]]
         """
@@ -33230,7 +33473,7 @@ class ServiceSpecArgs:
         :param pulumi.Input[str] session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param pulumi.Input['SessionAffinityConfigArgs'] session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
-        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        :param pulumi.Input[str] traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         :param pulumi.Input[Union[str, 'ServiceSpecType']] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -33526,7 +33769,7 @@ class ServiceSpecArgs:
     @pulumi.getter(name="trafficDistribution")
     def traffic_distribution(self) -> Optional[pulumi.Input[str]]:
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
         """
         return pulumi.get(self, "traffic_distribution")
 
@@ -35752,6 +35995,9 @@ class TypedLocalObjectReferenceArgs:
 
 if not MYPY:
     class TypedObjectReferencePatchArgsDict(TypedDict):
+        """
+        TypedObjectReference contains enough information to let you locate the typed referenced object
+        """
         api_group: NotRequired[pulumi.Input[str]]
         """
         APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -35779,6 +36025,7 @@ class TypedObjectReferencePatchArgs:
                  name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None):
         """
+        TypedObjectReference contains enough information to let you locate the typed referenced object
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
@@ -35844,6 +36091,9 @@ class TypedObjectReferencePatchArgs:
 
 if not MYPY:
     class TypedObjectReferenceArgsDict(TypedDict):
+        """
+        TypedObjectReference contains enough information to let you locate the typed referenced object
+        """
         kind: pulumi.Input[str]
         """
         Kind is the type of resource being referenced
@@ -35871,6 +36121,7 @@ class TypedObjectReferenceArgs:
                  api_group: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None):
         """
+        TypedObjectReference contains enough information to let you locate the typed referenced object
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[str] name: Name is the name of resource being referenced
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -36573,23 +36824,23 @@ if not MYPY:
         """
         aws_elastic_block_store: NotRequired[pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgsDict']]
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         azure_disk: NotRequired[pulumi.Input['AzureDiskVolumeSourcePatchArgsDict']]
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         azure_file: NotRequired[pulumi.Input['AzureFileVolumeSourcePatchArgsDict']]
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         cephfs: NotRequired[pulumi.Input['CephFSVolumeSourcePatchArgsDict']]
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         cinder: NotRequired[pulumi.Input['CinderVolumeSourcePatchArgsDict']]
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         config_map: NotRequired[pulumi.Input['ConfigMapVolumeSourcePatchArgsDict']]
         """
@@ -36597,7 +36848,7 @@ if not MYPY:
         """
         csi: NotRequired[pulumi.Input['CSIVolumeSourcePatchArgsDict']]
         """
-        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         """
         downward_api: NotRequired[pulumi.Input['DownwardAPIVolumeSourcePatchArgsDict']]
         """
@@ -36630,23 +36881,23 @@ if not MYPY:
         """
         flex_volume: NotRequired[pulumi.Input['FlexVolumeSourcePatchArgsDict']]
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         flocker: NotRequired[pulumi.Input['FlockerVolumeSourcePatchArgsDict']]
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         gce_persistent_disk: NotRequired[pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgsDict']]
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         git_repo: NotRequired[pulumi.Input['GitRepoVolumeSourcePatchArgsDict']]
         """
-        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         """
         glusterfs: NotRequired[pulumi.Input['GlusterfsVolumeSourcePatchArgsDict']]
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         host_path: NotRequired[pulumi.Input['HostPathVolumeSourcePatchArgsDict']]
         """
@@ -36678,11 +36929,11 @@ if not MYPY:
         """
         photon_persistent_disk: NotRequired[pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgsDict']]
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourcePatchArgsDict']]
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         projected: NotRequired[pulumi.Input['ProjectedVolumeSourcePatchArgsDict']]
         """
@@ -36690,15 +36941,15 @@ if not MYPY:
         """
         quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourcePatchArgsDict']]
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         rbd: NotRequired[pulumi.Input['RBDVolumeSourcePatchArgsDict']]
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         scale_io: NotRequired[pulumi.Input['ScaleIOVolumeSourcePatchArgsDict']]
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         secret: NotRequired[pulumi.Input['SecretVolumeSourcePatchArgsDict']]
         """
@@ -36706,11 +36957,11 @@ if not MYPY:
         """
         storageos: NotRequired[pulumi.Input['StorageOSVolumeSourcePatchArgsDict']]
         """
-        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
         """
         vsphere_volume: NotRequired[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgsDict']]
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
 elif False:
     VolumePatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -36751,13 +37002,13 @@ class VolumePatchArgs:
                  vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']] = None):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
-        :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param pulumi.Input['AzureFileVolumeSourcePatchArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param pulumi.Input['CephFSVolumeSourcePatchArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param pulumi.Input['CinderVolumeSourcePatchArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param pulumi.Input['AzureDiskVolumeSourcePatchArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
+        :param pulumi.Input['AzureFileVolumeSourcePatchArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
+        :param pulumi.Input['CephFSVolumeSourcePatchArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
+        :param pulumi.Input['CinderVolumeSourcePatchArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['ConfigMapVolumeSourcePatchArgs'] config_map: configMap represents a configMap that should populate this volume
-        :param pulumi.Input['CSIVolumeSourcePatchArgs'] csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        :param pulumi.Input['CSIVolumeSourcePatchArgs'] csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         :param pulumi.Input['DownwardAPIVolumeSourcePatchArgs'] downward_api: downwardAPI represents downward API about the pod that should populate this volume
         :param pulumi.Input['EmptyDirVolumeSourcePatchArgs'] empty_dir: emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         :param pulumi.Input['EphemeralVolumeSourcePatchArgs'] ephemeral: ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
@@ -36775,11 +37026,11 @@ class VolumePatchArgs:
                
                A pod can use both types of ephemeral volumes and persistent volumes at the same time.
         :param pulumi.Input['FCVolumeSourcePatchArgs'] fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param pulumi.Input['FlexVolumeSourcePatchArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param pulumi.Input['FlockerVolumeSourcePatchArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-        :param pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param pulumi.Input['GitRepoVolumeSourcePatchArgs'] git_repo: gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param pulumi.Input['GlusterfsVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['FlexVolumeSourcePatchArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
+        :param pulumi.Input['FlockerVolumeSourcePatchArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
+        :param pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param pulumi.Input['GitRepoVolumeSourcePatchArgs'] git_repo: gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        :param pulumi.Input['GlusterfsVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         :param pulumi.Input['HostPathVolumeSourcePatchArgs'] host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ImageVolumeSourcePatchArgs'] image: image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
                
@@ -36790,15 +37041,15 @@ class VolumePatchArgs:
         :param pulumi.Input[str] name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input['NFSVolumeSourcePatchArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourcePatchArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
+        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         :param pulumi.Input['ProjectedVolumeSourcePatchArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
-        :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param pulumi.Input['RBDVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param pulumi.Input['ScaleIOVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
+        :param pulumi.Input['RBDVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['ScaleIOVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input['SecretVolumeSourcePatchArgs'] secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-        :param pulumi.Input['StorageOSVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-        :param pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param pulumi.Input['StorageOSVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
+        :param pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         if aws_elastic_block_store is not None:
             pulumi.set(__self__, "aws_elastic_block_store", aws_elastic_block_store)
@@ -36867,7 +37118,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional[pulumi.Input['AWSElasticBlockStoreVolumeSourcePatchArgs']]:
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -36879,7 +37130,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional[pulumi.Input['AzureDiskVolumeSourcePatchArgs']]:
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -36891,7 +37142,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional[pulumi.Input['AzureFileVolumeSourcePatchArgs']]:
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_file")
 
@@ -36903,7 +37154,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def cephfs(self) -> Optional[pulumi.Input['CephFSVolumeSourcePatchArgs']]:
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         return pulumi.get(self, "cephfs")
 
@@ -36915,7 +37166,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def cinder(self) -> Optional[pulumi.Input['CinderVolumeSourcePatchArgs']]:
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -36939,7 +37190,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def csi(self) -> Optional[pulumi.Input['CSIVolumeSourcePatchArgs']]:
         """
-        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         """
         return pulumi.get(self, "csi")
 
@@ -37012,7 +37263,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional[pulumi.Input['FlexVolumeSourcePatchArgs']]:
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -37024,7 +37275,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def flocker(self) -> Optional[pulumi.Input['FlockerVolumeSourcePatchArgs']]:
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         return pulumi.get(self, "flocker")
 
@@ -37036,7 +37287,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional[pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs']]:
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -37048,7 +37299,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="gitRepo")
     def git_repo(self) -> Optional[pulumi.Input['GitRepoVolumeSourcePatchArgs']]:
         """
-        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         """
         return pulumi.get(self, "git_repo")
 
@@ -37060,7 +37311,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsVolumeSourcePatchArgs']]:
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -37148,7 +37399,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional[pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs']]:
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -37160,7 +37411,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourcePatchArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -37184,7 +37435,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def quobyte(self) -> Optional[pulumi.Input['QuobyteVolumeSourcePatchArgs']]:
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         return pulumi.get(self, "quobyte")
 
@@ -37196,7 +37447,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDVolumeSourcePatchArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -37208,7 +37459,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional[pulumi.Input['ScaleIOVolumeSourcePatchArgs']]:
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         return pulumi.get(self, "scale_io")
 
@@ -37232,7 +37483,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def storageos(self) -> Optional[pulumi.Input['StorageOSVolumeSourcePatchArgs']]:
         """
-        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
         """
         return pulumi.get(self, "storageos")
 
@@ -37244,7 +37495,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']]:
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         return pulumi.get(self, "vsphere_volume")
 
@@ -37644,23 +37895,23 @@ if not MYPY:
         """
         aws_elastic_block_store: NotRequired[pulumi.Input['AWSElasticBlockStoreVolumeSourceArgsDict']]
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         azure_disk: NotRequired[pulumi.Input['AzureDiskVolumeSourceArgsDict']]
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         azure_file: NotRequired[pulumi.Input['AzureFileVolumeSourceArgsDict']]
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         cephfs: NotRequired[pulumi.Input['CephFSVolumeSourceArgsDict']]
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         cinder: NotRequired[pulumi.Input['CinderVolumeSourceArgsDict']]
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         config_map: NotRequired[pulumi.Input['ConfigMapVolumeSourceArgsDict']]
         """
@@ -37668,7 +37919,7 @@ if not MYPY:
         """
         csi: NotRequired[pulumi.Input['CSIVolumeSourceArgsDict']]
         """
-        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         """
         downward_api: NotRequired[pulumi.Input['DownwardAPIVolumeSourceArgsDict']]
         """
@@ -37701,23 +37952,23 @@ if not MYPY:
         """
         flex_volume: NotRequired[pulumi.Input['FlexVolumeSourceArgsDict']]
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         flocker: NotRequired[pulumi.Input['FlockerVolumeSourceArgsDict']]
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         gce_persistent_disk: NotRequired[pulumi.Input['GCEPersistentDiskVolumeSourceArgsDict']]
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         git_repo: NotRequired[pulumi.Input['GitRepoVolumeSourceArgsDict']]
         """
-        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         """
         glusterfs: NotRequired[pulumi.Input['GlusterfsVolumeSourceArgsDict']]
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         host_path: NotRequired[pulumi.Input['HostPathVolumeSourceArgsDict']]
         """
@@ -37745,11 +37996,11 @@ if not MYPY:
         """
         photon_persistent_disk: NotRequired[pulumi.Input['PhotonPersistentDiskVolumeSourceArgsDict']]
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourceArgsDict']]
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         projected: NotRequired[pulumi.Input['ProjectedVolumeSourceArgsDict']]
         """
@@ -37757,15 +38008,15 @@ if not MYPY:
         """
         quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourceArgsDict']]
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         rbd: NotRequired[pulumi.Input['RBDVolumeSourceArgsDict']]
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         scale_io: NotRequired[pulumi.Input['ScaleIOVolumeSourceArgsDict']]
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         secret: NotRequired[pulumi.Input['SecretVolumeSourceArgsDict']]
         """
@@ -37773,11 +38024,11 @@ if not MYPY:
         """
         storageos: NotRequired[pulumi.Input['StorageOSVolumeSourceArgsDict']]
         """
-        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
         """
         vsphere_volume: NotRequired[pulumi.Input['VsphereVirtualDiskVolumeSourceArgsDict']]
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
 elif False:
     VolumeArgsDict: TypeAlias = Mapping[str, Any]
@@ -37819,13 +38070,13 @@ class VolumeArgs:
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
         :param pulumi.Input[str] name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param pulumi.Input['AzureFileVolumeSourceArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param pulumi.Input['CephFSVolumeSourceArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param pulumi.Input['CinderVolumeSourceArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs'] aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param pulumi.Input['AzureDiskVolumeSourceArgs'] azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
+        :param pulumi.Input['AzureFileVolumeSourceArgs'] azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
+        :param pulumi.Input['CephFSVolumeSourceArgs'] cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
+        :param pulumi.Input['CinderVolumeSourceArgs'] cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         :param pulumi.Input['ConfigMapVolumeSourceArgs'] config_map: configMap represents a configMap that should populate this volume
-        :param pulumi.Input['CSIVolumeSourceArgs'] csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        :param pulumi.Input['CSIVolumeSourceArgs'] csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         :param pulumi.Input['DownwardAPIVolumeSourceArgs'] downward_api: downwardAPI represents downward API about the pod that should populate this volume
         :param pulumi.Input['EmptyDirVolumeSourceArgs'] empty_dir: emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         :param pulumi.Input['EphemeralVolumeSourceArgs'] ephemeral: ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
@@ -37843,11 +38094,11 @@ class VolumeArgs:
                
                A pod can use both types of ephemeral volumes and persistent volumes at the same time.
         :param pulumi.Input['FCVolumeSourceArgs'] fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param pulumi.Input['FlexVolumeSourceArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param pulumi.Input['FlockerVolumeSourceArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-        :param pulumi.Input['GCEPersistentDiskVolumeSourceArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param pulumi.Input['GitRepoVolumeSourceArgs'] git_repo: gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param pulumi.Input['GlusterfsVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['FlexVolumeSourceArgs'] flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
+        :param pulumi.Input['FlockerVolumeSourceArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
+        :param pulumi.Input['GCEPersistentDiskVolumeSourceArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param pulumi.Input['GitRepoVolumeSourceArgs'] git_repo: gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        :param pulumi.Input['GlusterfsVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         :param pulumi.Input['HostPathVolumeSourceArgs'] host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ImageVolumeSourceArgs'] image: image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
                
@@ -37857,15 +38108,15 @@ class VolumeArgs:
         :param pulumi.Input['ISCSIVolumeSourceArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
         :param pulumi.Input['NFSVolumeSourceArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourceArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
+        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         :param pulumi.Input['ProjectedVolumeSourceArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
-        :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param pulumi.Input['RBDVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param pulumi.Input['ScaleIOVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
+        :param pulumi.Input['RBDVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['ScaleIOVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input['SecretVolumeSourceArgs'] secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-        :param pulumi.Input['StorageOSVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-        :param pulumi.Input['VsphereVirtualDiskVolumeSourceArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param pulumi.Input['StorageOSVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
+        :param pulumi.Input['VsphereVirtualDiskVolumeSourceArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         pulumi.set(__self__, "name", name)
         if aws_elastic_block_store is not None:
@@ -37945,7 +38196,7 @@ class VolumeArgs:
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional[pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs']]:
         """
-        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -37957,7 +38208,7 @@ class VolumeArgs:
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional[pulumi.Input['AzureDiskVolumeSourceArgs']]:
         """
-        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -37969,7 +38220,7 @@ class VolumeArgs:
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional[pulumi.Input['AzureFileVolumeSourceArgs']]:
         """
-        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
         """
         return pulumi.get(self, "azure_file")
 
@@ -37981,7 +38232,7 @@ class VolumeArgs:
     @pulumi.getter
     def cephfs(self) -> Optional[pulumi.Input['CephFSVolumeSourceArgs']]:
         """
-        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
         """
         return pulumi.get(self, "cephfs")
 
@@ -37993,7 +38244,7 @@ class VolumeArgs:
     @pulumi.getter
     def cinder(self) -> Optional[pulumi.Input['CinderVolumeSourceArgs']]:
         """
-        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -38017,7 +38268,7 @@ class VolumeArgs:
     @pulumi.getter
     def csi(self) -> Optional[pulumi.Input['CSIVolumeSourceArgs']]:
         """
-        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
         """
         return pulumi.get(self, "csi")
 
@@ -38090,7 +38341,7 @@ class VolumeArgs:
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional[pulumi.Input['FlexVolumeSourceArgs']]:
         """
-        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -38102,7 +38353,7 @@ class VolumeArgs:
     @pulumi.getter
     def flocker(self) -> Optional[pulumi.Input['FlockerVolumeSourceArgs']]:
         """
-        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         """
         return pulumi.get(self, "flocker")
 
@@ -38114,7 +38365,7 @@ class VolumeArgs:
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional[pulumi.Input['GCEPersistentDiskVolumeSourceArgs']]:
         """
-        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -38126,7 +38377,7 @@ class VolumeArgs:
     @pulumi.getter(name="gitRepo")
     def git_repo(self) -> Optional[pulumi.Input['GitRepoVolumeSourceArgs']]:
         """
-        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         """
         return pulumi.get(self, "git_repo")
 
@@ -38138,7 +38389,7 @@ class VolumeArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsVolumeSourceArgs']]:
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -38214,7 +38465,7 @@ class VolumeArgs:
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional[pulumi.Input['PhotonPersistentDiskVolumeSourceArgs']]:
         """
-        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -38226,7 +38477,7 @@ class VolumeArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourceArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -38250,7 +38501,7 @@ class VolumeArgs:
     @pulumi.getter
     def quobyte(self) -> Optional[pulumi.Input['QuobyteVolumeSourceArgs']]:
         """
-        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         """
         return pulumi.get(self, "quobyte")
 
@@ -38262,7 +38513,7 @@ class VolumeArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDVolumeSourceArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -38274,7 +38525,7 @@ class VolumeArgs:
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional[pulumi.Input['ScaleIOVolumeSourceArgs']]:
         """
-        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         """
         return pulumi.get(self, "scale_io")
 
@@ -38298,7 +38549,7 @@ class VolumeArgs:
     @pulumi.getter
     def storageos(self) -> Optional[pulumi.Input['StorageOSVolumeSourceArgs']]:
         """
-        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
         """
         return pulumi.get(self, "storageos")
 
@@ -38310,7 +38561,7 @@ class VolumeArgs:
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']]:
         """
-        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
         return pulumi.get(self, "vsphere_volume")
 

@@ -17,6 +17,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
     public sealed class DeviceRequestAllocationResult
     {
         /// <summary>
+        /// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+        /// 
+        /// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        /// </summary>
+        public readonly bool AdminAccess;
+        /// <summary>
         /// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         /// </summary>
         public readonly string Device;
@@ -39,6 +45,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
         [OutputConstructor]
         private DeviceRequestAllocationResult(
+            bool adminAccess,
+
             string device,
 
             string driver,
@@ -47,6 +55,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
             string request)
         {
+            AdminAccess = adminAccess;
             Device = device;
             Driver = driver;
             Pool = pool;

@@ -159,7 +159,7 @@ class ResourceClaimTemplate(pulumi.CustomResource):
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ResourceClaimTemplate, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate',

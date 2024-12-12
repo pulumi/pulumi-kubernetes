@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class LifecycleHandler
     {
         /// <summary>
-        /// Exec specifies the action to take.
+        /// Exec specifies a command to execute in the container.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ExecAction Exec;
         /// <summary>
-        /// HTTPGet specifies the http request to perform.
+        /// HTTPGet specifies an HTTP GET request to perform.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.HTTPGetAction HttpGet;
         /// <summary>
-        /// Sleep represents the duration that the container should sleep before being terminated.
+        /// Sleep represents a duration that the container should sleep.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SleepAction Sleep;
         /// <summary>
-        /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TCPSocketAction TcpSocket;
 

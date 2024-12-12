@@ -19,6 +19,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
     {
         /// <summary>
         /// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+        /// 
+        /// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         /// </summary>
         [Input("adminAccess")]
         public Input<bool>? AdminAccess { get; set; }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.AllocatedDeviceStatusArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.AllocationResultArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.ResourceClaimConsumerReferenceArgs;
 import java.lang.Boolean;
@@ -61,6 +62,21 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    @Import(name="devices")
+    private @Nullable Output<List<AllocatedDeviceStatusArgs>> devices;
+
+    /**
+     * @return Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    public Optional<Output<List<AllocatedDeviceStatusArgs>>> devices() {
+        return Optional.ofNullable(this.devices);
+    }
+
+    /**
      * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
      * 
      * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -92,6 +108,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
     private ResourceClaimStatusArgs(ResourceClaimStatusArgs $) {
         this.allocation = $.allocation;
         this.deallocationRequested = $.deallocationRequested;
+        this.devices = $.devices;
         this.reservedFor = $.reservedFor;
     }
 
@@ -161,6 +178,37 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          */
         public Builder deallocationRequested(Boolean deallocationRequested) {
             return deallocationRequested(Output.of(deallocationRequested));
+        }
+
+        /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(@Nullable Output<List<AllocatedDeviceStatusArgs>> devices) {
+            $.devices = devices;
+            return this;
+        }
+
+        /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(List<AllocatedDeviceStatusArgs> devices) {
+            return devices(Output.of(devices));
+        }
+
+        /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(AllocatedDeviceStatusArgs... devices) {
+            return devices(List.of(devices));
         }
 
         /**

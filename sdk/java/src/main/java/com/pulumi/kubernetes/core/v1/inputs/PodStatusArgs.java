@@ -41,14 +41,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     @Import(name="containerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> containerStatuses;
 
     /**
-     * @return The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> containerStatuses() {
@@ -56,14 +56,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status for any ephemeral containers that have run in this pod.
+     * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     @Import(name="ephemeralContainerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> ephemeralContainerStatuses;
 
     /**
-     * @return Status for any ephemeral containers that have run in this pod.
+     * @return Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> ephemeralContainerStatuses() {
@@ -101,14 +101,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     @Import(name="initContainerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> initContainerStatuses;
 
     /**
-     * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> initContainerStatuses() {
@@ -344,7 +344,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -355,7 +355,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -365,7 +365,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -375,7 +375,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -386,7 +386,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -396,7 +396,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -458,7 +458,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 
@@ -469,7 +469,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 
@@ -479,7 +479,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 

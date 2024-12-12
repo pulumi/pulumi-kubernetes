@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class Probe
     {
         /// <summary>
-        /// Exec specifies the action to take.
+        /// Exec specifies a command to execute in the container.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ExecAction Exec;
         /// <summary>
@@ -25,11 +25,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int FailureThreshold;
         /// <summary>
-        /// GRPC specifies an action involving a GRPC port.
+        /// GRPC specifies a GRPC HealthCheckRequest.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction Grpc;
         /// <summary>
-        /// HTTPGet specifies the http request to perform.
+        /// HTTPGet specifies an HTTP GET request to perform.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.HTTPGetAction HttpGet;
         /// <summary>
@@ -45,7 +45,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int SuccessThreshold;
         /// <summary>
-        /// TCPSocket specifies an action involving a TCP port.
+        /// TCPSocket specifies a connection to a TCP port.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TCPSocketAction TcpSocket;
         /// <summary>

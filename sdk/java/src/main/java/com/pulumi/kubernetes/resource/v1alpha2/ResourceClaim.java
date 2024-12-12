@@ -142,7 +142,8 @@ public class ResourceClaim extends com.pulumi.resources.CustomResource {
             .version(Utilities.getVersion())
             .aliases(List.of(
                 Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha1:ResourceClaim").build()),
-                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceClaim").build())
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceClaim").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceClaim").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

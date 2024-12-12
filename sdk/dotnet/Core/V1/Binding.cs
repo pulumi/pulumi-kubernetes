@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Core.V1
 {
     /// <summary>
-    /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+    /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Binding")]
     public partial class Binding : KubernetesResource

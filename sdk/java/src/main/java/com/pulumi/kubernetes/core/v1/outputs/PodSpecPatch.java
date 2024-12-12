@@ -15,6 +15,7 @@ import com.pulumi.kubernetes.core.v1.outputs.PodReadinessGatePatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodSchedulingGatePatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodSecurityContextPatch;
+import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TolerationPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraintPatch;
 import com.pulumi.kubernetes.core.v1.outputs.VolumePatch;
@@ -163,6 +164,15 @@ public final class PodSpecPatch {
      */
     private @Nullable List<PodResourceClaimPatch> resourceClaims;
     /**
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * 
+     * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+     * 
+     * This is an alpha field and requires enabling the PodLevelResources feature gate.
+     * 
+     */
+    private @Nullable ResourceRequirementsPatch resources;
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -200,7 +210,7 @@ public final class PodSpecPatch {
      */
     private @Nullable String serviceAccountName;
     /**
-     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
      * 
      */
     private @Nullable Boolean setHostnameAsFQDN;
@@ -420,6 +430,17 @@ public final class PodSpecPatch {
         return this.resourceClaims == null ? List.of() : this.resourceClaims;
     }
     /**
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * 
+     * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+     * 
+     * This is an alpha field and requires enabling the PodLevelResources feature gate.
+     * 
+     */
+    public Optional<ResourceRequirementsPatch> resources() {
+        return Optional.ofNullable(this.resources);
+    }
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -471,7 +492,7 @@ public final class PodSpecPatch {
         return Optional.ofNullable(this.serviceAccountName);
     }
     /**
-     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
      * 
      */
     public Optional<Boolean> setHostnameAsFQDN() {
@@ -554,6 +575,7 @@ public final class PodSpecPatch {
         private @Nullable String priorityClassName;
         private @Nullable List<PodReadinessGatePatch> readinessGates;
         private @Nullable List<PodResourceClaimPatch> resourceClaims;
+        private @Nullable ResourceRequirementsPatch resources;
         private @Nullable String restartPolicy;
         private @Nullable String runtimeClassName;
         private @Nullable String schedulerName;
@@ -596,6 +618,7 @@ public final class PodSpecPatch {
     	      this.priorityClassName = defaults.priorityClassName;
     	      this.readinessGates = defaults.readinessGates;
     	      this.resourceClaims = defaults.resourceClaims;
+    	      this.resources = defaults.resources;
     	      this.restartPolicy = defaults.restartPolicy;
     	      this.runtimeClassName = defaults.runtimeClassName;
     	      this.schedulerName = defaults.schedulerName;
@@ -784,6 +807,12 @@ public final class PodSpecPatch {
             return resourceClaims(List.of(resourceClaims));
         }
         @CustomType.Setter
+        public Builder resources(@Nullable ResourceRequirementsPatch resources) {
+
+            this.resources = resources;
+            return this;
+        }
+        @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
 
             this.restartPolicy = restartPolicy;
@@ -906,6 +935,7 @@ public final class PodSpecPatch {
             _resultValue.priorityClassName = priorityClassName;
             _resultValue.readinessGates = readinessGates;
             _resultValue.resourceClaims = resourceClaims;
+            _resultValue.resources = resources;
             _resultValue.restartPolicy = restartPolicy;
             _resultValue.runtimeClassName = runtimeClassName;
             _resultValue.schedulerName = schedulerName;

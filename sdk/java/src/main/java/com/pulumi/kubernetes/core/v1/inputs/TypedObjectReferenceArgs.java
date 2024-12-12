@@ -12,6 +12,10 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
+/**
+ * TypedObjectReference contains enough information to let you locate the typed referenced object
+ * 
+ */
 public final class TypedObjectReferenceArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final TypedObjectReferenceArgs Empty = new TypedObjectReferenceArgs();

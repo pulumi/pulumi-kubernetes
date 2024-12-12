@@ -14,19 +14,23 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
+/**
+ * ResourceStatus represents the status of a single resource allocated to a Pod.
+ * 
+ */
 public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ResourceStatusArgs Empty = new ResourceStatusArgs();
 
     /**
-     * Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+     * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+     * @return Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     public Output<String> name() {
@@ -34,14 +38,14 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+     * List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
      * 
      */
     @Import(name="resources")
     private @Nullable Output<List<ResourceHealthArgs>> resources;
 
     /**
-     * @return List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+     * @return List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
      * 
      */
     public Optional<Output<List<ResourceHealthArgs>>> resources() {
@@ -74,7 +78,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param name Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
          * 
          * @return builder
          * 
@@ -85,7 +89,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param name Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
          * 
          * @return builder
          * 
@@ -95,7 +99,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resources List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+         * @param resources List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
          * 
          * @return builder
          * 
@@ -106,7 +110,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resources List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+         * @param resources List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
          * 
          * @return builder
          * 
@@ -116,7 +120,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resources List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+         * @param resources List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
          * 
          * @return builder
          * 

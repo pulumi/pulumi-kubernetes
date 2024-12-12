@@ -18,6 +18,8 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
+    'AllocatedDeviceStatus',
+    'AllocatedDeviceStatusPatch',
     'AllocationResult',
     'AllocationResultPatch',
     'BasicDevice',
@@ -48,6 +50,8 @@ __all__ = [
     'DeviceRequestPatch',
     'DeviceSelector',
     'DeviceSelectorPatch',
+    'NetworkDeviceData',
+    'NetworkDeviceDataPatch',
     'OpaqueDeviceConfiguration',
     'OpaqueDeviceConfigurationPatch',
     'PodSchedulingContext',
@@ -69,9 +73,231 @@ __all__ = [
     'ResourceClaimTemplateSpecPatch',
     'ResourcePool',
     'ResourcePoolPatch',
+    'ResourceSlice',
     'ResourceSliceSpec',
     'ResourceSliceSpecPatch',
 ]
+
+@pulumi.output_type
+class AllocatedDeviceStatus(dict):
+    """
+    AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "networkData":
+            suggest = "network_data"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AllocatedDeviceStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AllocatedDeviceStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AllocatedDeviceStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 device: str,
+                 driver: str,
+                 pool: str,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+                 data: Optional[Any] = None,
+                 network_data: Optional['outputs.NetworkDeviceData'] = None):
+        """
+        AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+        :param str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+        :param str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+               
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        :param str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+               
+               Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+        :param Any data: Data contains arbitrary driver-specific data.
+               
+               The length of the raw data must be smaller or equal to 10 Ki.
+        :param 'NetworkDeviceDataArgs' network_data: NetworkData contains network-related information specific to the device.
+        """
+        pulumi.set(__self__, "device", device)
+        pulumi.set(__self__, "driver", driver)
+        pulumi.set(__self__, "pool", pool)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if network_data is not None:
+            pulumi.set(__self__, "network_data", network_data)
+
+    @property
+    @pulumi.getter
+    def device(self) -> str:
+        """
+        Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+        """
+        return pulumi.get(self, "device")
+
+    @property
+    @pulumi.getter
+    def driver(self) -> str:
+        """
+        Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter
+    def pool(self) -> str:
+        """
+        This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+
+        Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+        """
+        return pulumi.get(self, "pool")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[Any]:
+        """
+        Data contains arbitrary driver-specific data.
+
+        The length of the raw data must be smaller or equal to 10 Ki.
+        """
+        return pulumi.get(self, "data")
+
+    @property
+    @pulumi.getter(name="networkData")
+    def network_data(self) -> Optional['outputs.NetworkDeviceData']:
+        """
+        NetworkData contains network-related information specific to the device.
+        """
+        return pulumi.get(self, "network_data")
+
+
+@pulumi.output_type
+class AllocatedDeviceStatusPatch(dict):
+    """
+    AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "networkData":
+            suggest = "network_data"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AllocatedDeviceStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AllocatedDeviceStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AllocatedDeviceStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 data: Optional[Any] = None,
+                 device: Optional[str] = None,
+                 driver: Optional[str] = None,
+                 network_data: Optional['outputs.NetworkDeviceDataPatch'] = None,
+                 pool: Optional[str] = None):
+        """
+        AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+        :param Any data: Data contains arbitrary driver-specific data.
+               
+               The length of the raw data must be smaller or equal to 10 Ki.
+        :param str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+        :param str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+               
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        :param 'NetworkDeviceDataPatchArgs' network_data: NetworkData contains network-related information specific to the device.
+        :param str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+               
+               Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if device is not None:
+            pulumi.set(__self__, "device", device)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if network_data is not None:
+            pulumi.set(__self__, "network_data", network_data)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[Any]:
+        """
+        Data contains arbitrary driver-specific data.
+
+        The length of the raw data must be smaller or equal to 10 Ki.
+        """
+        return pulumi.get(self, "data")
+
+    @property
+    @pulumi.getter
+    def device(self) -> Optional[str]:
+        """
+        Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+        """
+        return pulumi.get(self, "device")
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[str]:
+        """
+        Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter(name="networkData")
+    def network_data(self) -> Optional['outputs.NetworkDeviceDataPatch']:
+        """
+        NetworkData contains network-related information specific to the device.
+        """
+        return pulumi.get(self, "network_data")
+
+    @property
+    @pulumi.getter
+    def pool(self) -> Optional[str]:
+        """
+        This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+
+        Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+        """
+        return pulumi.get(self, "pool")
+
 
 @pulumi.output_type
 class AllocationResult(dict):
@@ -339,6 +565,8 @@ class CELDeviceSelector(dict):
                For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
                
                    cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+               
+               The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         pulumi.set(__self__, "expression", expression)
 
@@ -373,6 +601,8 @@ class CELDeviceSelector(dict):
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
             cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+
+        The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         return pulumi.get(self, "expression")
 
@@ -413,6 +643,8 @@ class CELDeviceSelectorPatch(dict):
                For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
                
                    cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+               
+               The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         if expression is not None:
             pulumi.set(__self__, "expression", expression)
@@ -448,6 +680,8 @@ class CELDeviceSelectorPatch(dict):
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
             cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+
+        The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         return pulumi.get(self, "expression")
 
@@ -1368,6 +1602,8 @@ class DeviceRequest(dict):
                
                Must be a DNS label.
         :param bool admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+               
+               This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
@@ -1422,6 +1658,8 @@ class DeviceRequest(dict):
     def admin_access(self) -> Optional[bool]:
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
         return pulumi.get(self, "admin_access")
 
@@ -1467,11 +1705,29 @@ class DeviceRequestAllocationResult(dict):
     """
     DeviceRequestAllocationResult contains the allocation result for one request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "adminAccess":
+            suggest = "admin_access"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResult. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceRequestAllocationResult.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceRequestAllocationResult.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  device: str,
                  driver: str,
                  pool: str,
-                 request: str):
+                 request: str,
+                 admin_access: Optional[bool] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
         :param str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
@@ -1482,11 +1738,16 @@ class DeviceRequestAllocationResult(dict):
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         :param str request: Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        :param bool admin_access: AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+               
+               This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
         pulumi.set(__self__, "device", device)
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "pool", pool)
         pulumi.set(__self__, "request", request)
+        if admin_access is not None:
+            pulumi.set(__self__, "admin_access", admin_access)
 
     @property
     @pulumi.getter
@@ -1524,19 +1785,50 @@ class DeviceRequestAllocationResult(dict):
         """
         return pulumi.get(self, "request")
 
+    @property
+    @pulumi.getter(name="adminAccess")
+    def admin_access(self) -> Optional[bool]:
+        """
+        AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        """
+        return pulumi.get(self, "admin_access")
+
 
 @pulumi.output_type
 class DeviceRequestAllocationResultPatch(dict):
     """
     DeviceRequestAllocationResult contains the allocation result for one request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "adminAccess":
+            suggest = "admin_access"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResultPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceRequestAllocationResultPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceRequestAllocationResultPatch.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
+                 admin_access: Optional[bool] = None,
                  device: Optional[str] = None,
                  driver: Optional[str] = None,
                  pool: Optional[str] = None,
                  request: Optional[str] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
+        :param bool admin_access: AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+               
+               This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
@@ -1546,6 +1838,8 @@ class DeviceRequestAllocationResultPatch(dict):
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         :param str request: Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
         """
+        if admin_access is not None:
+            pulumi.set(__self__, "admin_access", admin_access)
         if device is not None:
             pulumi.set(__self__, "device", device)
         if driver is not None:
@@ -1554,6 +1848,16 @@ class DeviceRequestAllocationResultPatch(dict):
             pulumi.set(__self__, "pool", pool)
         if request is not None:
             pulumi.set(__self__, "request", request)
+
+    @property
+    @pulumi.getter(name="adminAccess")
+    def admin_access(self) -> Optional[bool]:
+        """
+        AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        """
+        return pulumi.get(self, "admin_access")
 
     @property
     @pulumi.getter
@@ -1632,6 +1936,8 @@ class DeviceRequestPatch(dict):
 
         A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
         :param bool admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+               
+               This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
@@ -1674,6 +1980,8 @@ class DeviceRequestPatch(dict):
     def admin_access(self) -> Optional[bool]:
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+        This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
         return pulumi.get(self, "admin_access")
 
@@ -1783,6 +2091,154 @@ class DeviceSelectorPatch(dict):
 
 
 @pulumi.output_type
+class NetworkDeviceData(dict):
+    """
+    NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "hardwareAddress":
+            suggest = "hardware_address"
+        elif key == "interfaceName":
+            suggest = "interface_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkDeviceData. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkDeviceData.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkDeviceData.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hardware_address: Optional[str] = None,
+                 interface_name: Optional[str] = None,
+                 ips: Optional[Sequence[str]] = None):
+        """
+        NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+        :param str hardware_address: HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+               
+               Must not be longer than 128 characters.
+        :param str interface_name: InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+               
+               Must not be longer than 256 characters.
+        :param Sequence[str] ips: IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+        """
+        if hardware_address is not None:
+            pulumi.set(__self__, "hardware_address", hardware_address)
+        if interface_name is not None:
+            pulumi.set(__self__, "interface_name", interface_name)
+        if ips is not None:
+            pulumi.set(__self__, "ips", ips)
+
+    @property
+    @pulumi.getter(name="hardwareAddress")
+    def hardware_address(self) -> Optional[str]:
+        """
+        HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+
+        Must not be longer than 128 characters.
+        """
+        return pulumi.get(self, "hardware_address")
+
+    @property
+    @pulumi.getter(name="interfaceName")
+    def interface_name(self) -> Optional[str]:
+        """
+        InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+
+        Must not be longer than 256 characters.
+        """
+        return pulumi.get(self, "interface_name")
+
+    @property
+    @pulumi.getter
+    def ips(self) -> Optional[Sequence[str]]:
+        """
+        IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+        """
+        return pulumi.get(self, "ips")
+
+
+@pulumi.output_type
+class NetworkDeviceDataPatch(dict):
+    """
+    NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "hardwareAddress":
+            suggest = "hardware_address"
+        elif key == "interfaceName":
+            suggest = "interface_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkDeviceDataPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkDeviceDataPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkDeviceDataPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hardware_address: Optional[str] = None,
+                 interface_name: Optional[str] = None,
+                 ips: Optional[Sequence[str]] = None):
+        """
+        NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+        :param str hardware_address: HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+               
+               Must not be longer than 128 characters.
+        :param str interface_name: InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+               
+               Must not be longer than 256 characters.
+        :param Sequence[str] ips: IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+        """
+        if hardware_address is not None:
+            pulumi.set(__self__, "hardware_address", hardware_address)
+        if interface_name is not None:
+            pulumi.set(__self__, "interface_name", interface_name)
+        if ips is not None:
+            pulumi.set(__self__, "ips", ips)
+
+    @property
+    @pulumi.getter(name="hardwareAddress")
+    def hardware_address(self) -> Optional[str]:
+        """
+        HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+
+        Must not be longer than 128 characters.
+        """
+        return pulumi.get(self, "hardware_address")
+
+    @property
+    @pulumi.getter(name="interfaceName")
+    def interface_name(self) -> Optional[str]:
+        """
+        InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+
+        Must not be longer than 256 characters.
+        """
+        return pulumi.get(self, "interface_name")
+
+    @property
+    @pulumi.getter
+    def ips(self) -> Optional[Sequence[str]]:
+        """
+        IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+        """
+        return pulumi.get(self, "ips")
+
+
+@pulumi.output_type
 class OpaqueDeviceConfiguration(dict):
     """
     OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
@@ -1798,6 +2254,8 @@ class OpaqueDeviceConfiguration(dict):
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
         :param Any parameters: Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+               
+               The length of the raw data must be smaller or equal to 10 Ki.
         """
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "parameters", parameters)
@@ -1819,6 +2277,8 @@ class OpaqueDeviceConfiguration(dict):
     def parameters(self) -> Any:
         """
         Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+
+        The length of the raw data must be smaller or equal to 10 Ki.
         """
         return pulumi.get(self, "parameters")
 
@@ -1839,6 +2299,8 @@ class OpaqueDeviceConfigurationPatch(dict):
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
         :param Any parameters: Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+               
+               The length of the raw data must be smaller or equal to 10 Ki.
         """
         if driver is not None:
             pulumi.set(__self__, "driver", driver)
@@ -1862,6 +2324,8 @@ class OpaqueDeviceConfigurationPatch(dict):
     def parameters(self) -> Optional[Any]:
         """
         Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+
+        The length of the raw data must be smaller or equal to 10 Ki.
         """
         return pulumi.get(self, "parameters")
 
@@ -2617,6 +3081,7 @@ class ResourceClaimStatus(dict):
     def __init__(__self__, *,
                  allocation: Optional['outputs.AllocationResult'] = None,
                  deallocation_requested: Optional[bool] = None,
+                 devices: Optional[Sequence['outputs.AllocatedDeviceStatus']] = None,
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReference']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
@@ -2626,6 +3091,7 @@ class ResourceClaimStatus(dict):
                This is only used if the claim needs to be deallocated by a DRA driver. That driver then must deallocate this claim and reset the field together with clearing the Allocation field.
                
                This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
+        :param Sequence['AllocatedDeviceStatusArgs'] devices: Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
         :param Sequence['ResourceClaimConsumerReferenceArgs'] reserved_for: ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
                
                In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -2638,6 +3104,8 @@ class ResourceClaimStatus(dict):
             pulumi.set(__self__, "allocation", allocation)
         if deallocation_requested is not None:
             pulumi.set(__self__, "deallocation_requested", deallocation_requested)
+        if devices is not None:
+            pulumi.set(__self__, "devices", devices)
         if reserved_for is not None:
             pulumi.set(__self__, "reserved_for", reserved_for)
 
@@ -2660,6 +3128,14 @@ class ResourceClaimStatus(dict):
         This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
         """
         return pulumi.get(self, "deallocation_requested")
+
+    @property
+    @pulumi.getter
+    def devices(self) -> Optional[Sequence['outputs.AllocatedDeviceStatus']]:
+        """
+        Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+        """
+        return pulumi.get(self, "devices")
 
     @property
     @pulumi.getter(name="reservedFor")
@@ -2703,6 +3179,7 @@ class ResourceClaimStatusPatch(dict):
     def __init__(__self__, *,
                  allocation: Optional['outputs.AllocationResultPatch'] = None,
                  deallocation_requested: Optional[bool] = None,
+                 devices: Optional[Sequence['outputs.AllocatedDeviceStatusPatch']] = None,
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReferencePatch']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
@@ -2712,6 +3189,7 @@ class ResourceClaimStatusPatch(dict):
                This is only used if the claim needs to be deallocated by a DRA driver. That driver then must deallocate this claim and reset the field together with clearing the Allocation field.
                
                This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
+        :param Sequence['AllocatedDeviceStatusPatchArgs'] devices: Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
         :param Sequence['ResourceClaimConsumerReferencePatchArgs'] reserved_for: ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
                
                In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -2724,6 +3202,8 @@ class ResourceClaimStatusPatch(dict):
             pulumi.set(__self__, "allocation", allocation)
         if deallocation_requested is not None:
             pulumi.set(__self__, "deallocation_requested", deallocation_requested)
+        if devices is not None:
+            pulumi.set(__self__, "devices", devices)
         if reserved_for is not None:
             pulumi.set(__self__, "reserved_for", reserved_for)
 
@@ -2746,6 +3226,14 @@ class ResourceClaimStatusPatch(dict):
         This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
         """
         return pulumi.get(self, "deallocation_requested")
+
+    @property
+    @pulumi.getter
+    def devices(self) -> Optional[Sequence['outputs.AllocatedDeviceStatusPatch']]:
+        """
+        Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+        """
+        return pulumi.get(self, "devices")
 
     @property
     @pulumi.getter(name="reservedFor")
@@ -2856,7 +3344,7 @@ class ResourceClaimTemplateSpec(dict):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
         :param 'ResourceClaimSpecArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-        :param '_meta.v1.ObjectMetaArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        :param '_meta.v1.ObjectMetaArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         """
         pulumi.set(__self__, "spec", spec)
         if metadata is not None:
@@ -2874,7 +3362,7 @@ class ResourceClaimTemplateSpec(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         """
         return pulumi.get(self, "metadata")
 
@@ -2889,7 +3377,7 @@ class ResourceClaimTemplateSpecPatch(dict):
                  spec: Optional['outputs.ResourceClaimSpecPatch'] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
-        :param '_meta.v1.ObjectMetaPatchArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        :param '_meta.v1.ObjectMetaPatchArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         :param 'ResourceClaimSpecPatchArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         """
         if metadata is not None:
@@ -2901,7 +3389,7 @@ class ResourceClaimTemplateSpecPatch(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMetaPatch']:
         """
-        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         """
         return pulumi.get(self, "metadata")
 
@@ -3061,6 +3549,105 @@ class ResourcePoolPatch(dict):
         Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
         """
         return pulumi.get(self, "resource_slice_count")
+
+
+@pulumi.output_type
+class ResourceSlice(dict):
+    """
+    ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
+
+    At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
+
+    Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
+
+    When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
+
+    For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
+
+    This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceSlice. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceSlice.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceSlice.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 spec: 'outputs.ResourceSliceSpec',
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
+        """
+        ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
+
+        At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
+
+        Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
+
+        When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
+
+        For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
+
+        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+        :param 'ResourceSliceSpecArgs' spec: Contains the information published by the driver.
+               
+               Changing the spec automatically increments the metadata.generation number.
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha3')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceSlice')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> 'outputs.ResourceSliceSpec':
+        """
+        Contains the information published by the driver.
+
+        Changing the spec automatically increments the metadata.generation number.
+        """
+        return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
 
 
 @pulumi.output_type

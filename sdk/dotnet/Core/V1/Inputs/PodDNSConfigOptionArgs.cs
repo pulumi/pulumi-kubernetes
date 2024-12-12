@@ -16,11 +16,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PodDNSConfigOptionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Required.
+        /// Name is this DNS resolver option's name. Required.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Value is this DNS resolver option's value.
+        /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 

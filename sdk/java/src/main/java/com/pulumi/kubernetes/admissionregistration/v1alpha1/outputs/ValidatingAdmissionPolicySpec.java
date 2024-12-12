@@ -25,15 +25,7 @@ public final class ValidatingAdmissionPolicySpec {
      */
     private @Nullable List<AuditAnnotation> auditAnnotations;
     /**
-     * @return failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-     * 
-     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-     * 
-     * failurePolicy does not define how validations that evaluate to false are handled.
-     * 
-     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-     * 
-     * Allowed values are Ignore or Fail. Defaults to Fail.
+     * @return FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     private @Nullable String failurePolicy;
@@ -62,7 +54,7 @@ public final class ValidatingAdmissionPolicySpec {
      */
     private @Nullable ParamKind paramKind;
     /**
-     * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+     * @return Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
      * 
      */
     private List<Validation> validations;
@@ -83,15 +75,7 @@ public final class ValidatingAdmissionPolicySpec {
         return this.auditAnnotations == null ? List.of() : this.auditAnnotations;
     }
     /**
-     * @return failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-     * 
-     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-     * 
-     * failurePolicy does not define how validations that evaluate to false are handled.
-     * 
-     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-     * 
-     * Allowed values are Ignore or Fail. Defaults to Fail.
+     * @return FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     public Optional<String> failurePolicy() {
@@ -128,7 +112,7 @@ public final class ValidatingAdmissionPolicySpec {
         return Optional.ofNullable(this.paramKind);
     }
     /**
-     * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+     * @return Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
      * 
      */
     public List<Validation> validations() {

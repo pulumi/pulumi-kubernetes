@@ -15,6 +15,332 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatus struct {
+	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	Conditions []metav1.Condition `pulumi:"conditions"`
+	// Data contains arbitrary driver-specific data.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
+	Data interface{} `pulumi:"data"`
+	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+	Device string `pulumi:"device"`
+	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+	//
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	Driver string `pulumi:"driver"`
+	// NetworkData contains network-related information specific to the device.
+	NetworkData *NetworkDeviceData `pulumi:"networkData"`
+	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+	//
+	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+	Pool string `pulumi:"pool"`
+}
+
+// AllocatedDeviceStatusInput is an input type that accepts AllocatedDeviceStatusArgs and AllocatedDeviceStatusOutput values.
+// You can construct a concrete instance of `AllocatedDeviceStatusInput` via:
+//
+//	AllocatedDeviceStatusArgs{...}
+type AllocatedDeviceStatusInput interface {
+	pulumi.Input
+
+	ToAllocatedDeviceStatusOutput() AllocatedDeviceStatusOutput
+	ToAllocatedDeviceStatusOutputWithContext(context.Context) AllocatedDeviceStatusOutput
+}
+
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatusArgs struct {
+	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+	// Data contains arbitrary driver-specific data.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
+	Data pulumi.Input `pulumi:"data"`
+	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+	Device pulumi.StringInput `pulumi:"device"`
+	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+	//
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	Driver pulumi.StringInput `pulumi:"driver"`
+	// NetworkData contains network-related information specific to the device.
+	NetworkData NetworkDeviceDataPtrInput `pulumi:"networkData"`
+	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+	//
+	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+	Pool pulumi.StringInput `pulumi:"pool"`
+}
+
+func (AllocatedDeviceStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllocatedDeviceStatus)(nil)).Elem()
+}
+
+func (i AllocatedDeviceStatusArgs) ToAllocatedDeviceStatusOutput() AllocatedDeviceStatusOutput {
+	return i.ToAllocatedDeviceStatusOutputWithContext(context.Background())
+}
+
+func (i AllocatedDeviceStatusArgs) ToAllocatedDeviceStatusOutputWithContext(ctx context.Context) AllocatedDeviceStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllocatedDeviceStatusOutput)
+}
+
+// AllocatedDeviceStatusArrayInput is an input type that accepts AllocatedDeviceStatusArray and AllocatedDeviceStatusArrayOutput values.
+// You can construct a concrete instance of `AllocatedDeviceStatusArrayInput` via:
+//
+//	AllocatedDeviceStatusArray{ AllocatedDeviceStatusArgs{...} }
+type AllocatedDeviceStatusArrayInput interface {
+	pulumi.Input
+
+	ToAllocatedDeviceStatusArrayOutput() AllocatedDeviceStatusArrayOutput
+	ToAllocatedDeviceStatusArrayOutputWithContext(context.Context) AllocatedDeviceStatusArrayOutput
+}
+
+type AllocatedDeviceStatusArray []AllocatedDeviceStatusInput
+
+func (AllocatedDeviceStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AllocatedDeviceStatus)(nil)).Elem()
+}
+
+func (i AllocatedDeviceStatusArray) ToAllocatedDeviceStatusArrayOutput() AllocatedDeviceStatusArrayOutput {
+	return i.ToAllocatedDeviceStatusArrayOutputWithContext(context.Background())
+}
+
+func (i AllocatedDeviceStatusArray) ToAllocatedDeviceStatusArrayOutputWithContext(ctx context.Context) AllocatedDeviceStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllocatedDeviceStatusArrayOutput)
+}
+
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatusOutput struct{ *pulumi.OutputState }
+
+func (AllocatedDeviceStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllocatedDeviceStatus)(nil)).Elem()
+}
+
+func (o AllocatedDeviceStatusOutput) ToAllocatedDeviceStatusOutput() AllocatedDeviceStatusOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusOutput) ToAllocatedDeviceStatusOutputWithContext(ctx context.Context) AllocatedDeviceStatusOutput {
+	return o
+}
+
+// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+func (o AllocatedDeviceStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+// Data contains arbitrary driver-specific data.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
+func (o AllocatedDeviceStatusOutput) Data() pulumi.AnyOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) interface{} { return v.Data }).(pulumi.AnyOutput)
+}
+
+// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+func (o AllocatedDeviceStatusOutput) Device() pulumi.StringOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) string { return v.Device }).(pulumi.StringOutput)
+}
+
+// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+//
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+func (o AllocatedDeviceStatusOutput) Driver() pulumi.StringOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) string { return v.Driver }).(pulumi.StringOutput)
+}
+
+// NetworkData contains network-related information specific to the device.
+func (o AllocatedDeviceStatusOutput) NetworkData() NetworkDeviceDataPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) *NetworkDeviceData { return v.NetworkData }).(NetworkDeviceDataPtrOutput)
+}
+
+// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+//
+// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+func (o AllocatedDeviceStatusOutput) Pool() pulumi.StringOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) string { return v.Pool }).(pulumi.StringOutput)
+}
+
+type AllocatedDeviceStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (AllocatedDeviceStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AllocatedDeviceStatus)(nil)).Elem()
+}
+
+func (o AllocatedDeviceStatusArrayOutput) ToAllocatedDeviceStatusArrayOutput() AllocatedDeviceStatusArrayOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusArrayOutput) ToAllocatedDeviceStatusArrayOutputWithContext(ctx context.Context) AllocatedDeviceStatusArrayOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusArrayOutput) Index(i pulumi.IntInput) AllocatedDeviceStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AllocatedDeviceStatus {
+		return vs[0].([]AllocatedDeviceStatus)[vs[1].(int)]
+	}).(AllocatedDeviceStatusOutput)
+}
+
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatusPatch struct {
+	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+	// Data contains arbitrary driver-specific data.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
+	Data interface{} `pulumi:"data"`
+	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+	Device *string `pulumi:"device"`
+	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+	//
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	Driver *string `pulumi:"driver"`
+	// NetworkData contains network-related information specific to the device.
+	NetworkData *NetworkDeviceDataPatch `pulumi:"networkData"`
+	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+	//
+	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+	Pool *string `pulumi:"pool"`
+}
+
+// AllocatedDeviceStatusPatchInput is an input type that accepts AllocatedDeviceStatusPatchArgs and AllocatedDeviceStatusPatchOutput values.
+// You can construct a concrete instance of `AllocatedDeviceStatusPatchInput` via:
+//
+//	AllocatedDeviceStatusPatchArgs{...}
+type AllocatedDeviceStatusPatchInput interface {
+	pulumi.Input
+
+	ToAllocatedDeviceStatusPatchOutput() AllocatedDeviceStatusPatchOutput
+	ToAllocatedDeviceStatusPatchOutputWithContext(context.Context) AllocatedDeviceStatusPatchOutput
+}
+
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatusPatchArgs struct {
+	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+	// Data contains arbitrary driver-specific data.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
+	Data pulumi.Input `pulumi:"data"`
+	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+	Device pulumi.StringPtrInput `pulumi:"device"`
+	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+	//
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// NetworkData contains network-related information specific to the device.
+	NetworkData NetworkDeviceDataPatchPtrInput `pulumi:"networkData"`
+	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+	//
+	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+	Pool pulumi.StringPtrInput `pulumi:"pool"`
+}
+
+func (AllocatedDeviceStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllocatedDeviceStatusPatch)(nil)).Elem()
+}
+
+func (i AllocatedDeviceStatusPatchArgs) ToAllocatedDeviceStatusPatchOutput() AllocatedDeviceStatusPatchOutput {
+	return i.ToAllocatedDeviceStatusPatchOutputWithContext(context.Background())
+}
+
+func (i AllocatedDeviceStatusPatchArgs) ToAllocatedDeviceStatusPatchOutputWithContext(ctx context.Context) AllocatedDeviceStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllocatedDeviceStatusPatchOutput)
+}
+
+// AllocatedDeviceStatusPatchArrayInput is an input type that accepts AllocatedDeviceStatusPatchArray and AllocatedDeviceStatusPatchArrayOutput values.
+// You can construct a concrete instance of `AllocatedDeviceStatusPatchArrayInput` via:
+//
+//	AllocatedDeviceStatusPatchArray{ AllocatedDeviceStatusPatchArgs{...} }
+type AllocatedDeviceStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToAllocatedDeviceStatusPatchArrayOutput() AllocatedDeviceStatusPatchArrayOutput
+	ToAllocatedDeviceStatusPatchArrayOutputWithContext(context.Context) AllocatedDeviceStatusPatchArrayOutput
+}
+
+type AllocatedDeviceStatusPatchArray []AllocatedDeviceStatusPatchInput
+
+func (AllocatedDeviceStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AllocatedDeviceStatusPatch)(nil)).Elem()
+}
+
+func (i AllocatedDeviceStatusPatchArray) ToAllocatedDeviceStatusPatchArrayOutput() AllocatedDeviceStatusPatchArrayOutput {
+	return i.ToAllocatedDeviceStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i AllocatedDeviceStatusPatchArray) ToAllocatedDeviceStatusPatchArrayOutputWithContext(ctx context.Context) AllocatedDeviceStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllocatedDeviceStatusPatchArrayOutput)
+}
+
+// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+type AllocatedDeviceStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (AllocatedDeviceStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllocatedDeviceStatusPatch)(nil)).Elem()
+}
+
+func (o AllocatedDeviceStatusPatchOutput) ToAllocatedDeviceStatusPatchOutput() AllocatedDeviceStatusPatchOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusPatchOutput) ToAllocatedDeviceStatusPatchOutputWithContext(ctx context.Context) AllocatedDeviceStatusPatchOutput {
+	return o
+}
+
+// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+func (o AllocatedDeviceStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+// Data contains arbitrary driver-specific data.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
+func (o AllocatedDeviceStatusPatchOutput) Data() pulumi.AnyOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) interface{} { return v.Data }).(pulumi.AnyOutput)
+}
+
+// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+func (o AllocatedDeviceStatusPatchOutput) Device() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.Device }).(pulumi.StringPtrOutput)
+}
+
+// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+//
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+func (o AllocatedDeviceStatusPatchOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// NetworkData contains network-related information specific to the device.
+func (o AllocatedDeviceStatusPatchOutput) NetworkData() NetworkDeviceDataPatchPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *NetworkDeviceDataPatch { return v.NetworkData }).(NetworkDeviceDataPatchPtrOutput)
+}
+
+// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+//
+// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+func (o AllocatedDeviceStatusPatchOutput) Pool() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.Pool }).(pulumi.StringPtrOutput)
+}
+
+type AllocatedDeviceStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (AllocatedDeviceStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AllocatedDeviceStatusPatch)(nil)).Elem()
+}
+
+func (o AllocatedDeviceStatusPatchArrayOutput) ToAllocatedDeviceStatusPatchArrayOutput() AllocatedDeviceStatusPatchArrayOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusPatchArrayOutput) ToAllocatedDeviceStatusPatchArrayOutputWithContext(ctx context.Context) AllocatedDeviceStatusPatchArrayOutput {
+	return o
+}
+
+func (o AllocatedDeviceStatusPatchArrayOutput) Index(i pulumi.IntInput) AllocatedDeviceStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AllocatedDeviceStatusPatch {
+		return vs[0].([]AllocatedDeviceStatusPatch)[vs[1].(int)]
+	}).(AllocatedDeviceStatusPatchOutput)
+}
+
 // AllocationResult contains attributes of an allocated resource.
 type AllocationResult struct {
 	// Controller is the name of the DRA driver which handled the allocation. That driver is also responsible for deallocating the claim. It is empty when the claim can be deallocated without involving a driver.
@@ -782,6 +1108,8 @@ type CELDeviceSelector struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression string `pulumi:"expression"`
 }
 
@@ -825,6 +1153,8 @@ type CELDeviceSelectorArgs struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression pulumi.StringInput `pulumi:"expression"`
 }
 
@@ -933,6 +1263,8 @@ func (o CELDeviceSelectorOutput) ToCELDeviceSelectorPtrOutputWithContext(ctx con
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorOutput) Expression() pulumi.StringOutput {
 	return o.ApplyT(func(v CELDeviceSelector) string { return v.Expression }).(pulumi.StringOutput)
 }
@@ -988,6 +1320,8 @@ func (o CELDeviceSelectorPtrOutput) Elem() CELDeviceSelectorOutput {
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPtrOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CELDeviceSelector) *string {
 		if v == nil {
@@ -1026,6 +1360,8 @@ type CELDeviceSelectorPatch struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression *string `pulumi:"expression"`
 }
 
@@ -1069,6 +1405,8 @@ type CELDeviceSelectorPatchArgs struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
 }
 
@@ -1177,6 +1515,8 @@ func (o CELDeviceSelectorPatchOutput) ToCELDeviceSelectorPatchPtrOutputWithConte
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPatchOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CELDeviceSelectorPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
 }
@@ -1232,6 +1572,8 @@ func (o CELDeviceSelectorPatchPtrOutput) Elem() CELDeviceSelectorPatchOutput {
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPatchPtrOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CELDeviceSelectorPatch) *string {
 		if v == nil {
@@ -3879,6 +4221,8 @@ func (o DevicePatchArrayOutput) Index(i pulumi.IntInput) DevicePatchOutput {
 // A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequest struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
 	// AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 	//
@@ -3926,6 +4270,8 @@ type DeviceRequestInput interface {
 // A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestArgs struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 	//
@@ -4012,6 +4358,8 @@ func (o DeviceRequestOutput) ToDeviceRequestOutputWithContext(ctx context.Contex
 }
 
 // AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+//
+// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 func (o DeviceRequestOutput) AdminAccess() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceRequest) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
 }
@@ -4081,6 +4429,10 @@ func (o DeviceRequestArrayOutput) Index(i pulumi.IntInput) DeviceRequestOutput {
 
 // DeviceRequestAllocationResult contains the allocation result for one request.
 type DeviceRequestAllocationResult struct {
+	// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+	AdminAccess *bool `pulumi:"adminAccess"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
@@ -4108,6 +4460,10 @@ type DeviceRequestAllocationResultInput interface {
 
 // DeviceRequestAllocationResult contains the allocation result for one request.
 type DeviceRequestAllocationResultArgs struct {
+	// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device pulumi.StringInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
@@ -4174,6 +4530,13 @@ func (o DeviceRequestAllocationResultOutput) ToDeviceRequestAllocationResultOutp
 	return o
 }
 
+// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+//
+// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+func (o DeviceRequestAllocationResultOutput) AdminAccess() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
+}
+
 // Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 func (o DeviceRequestAllocationResultOutput) Device() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Device }).(pulumi.StringOutput)
@@ -4220,6 +4583,10 @@ func (o DeviceRequestAllocationResultArrayOutput) Index(i pulumi.IntInput) Devic
 
 // DeviceRequestAllocationResult contains the allocation result for one request.
 type DeviceRequestAllocationResultPatch struct {
+	// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+	AdminAccess *bool `pulumi:"adminAccess"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device *string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
@@ -4247,6 +4614,10 @@ type DeviceRequestAllocationResultPatchInput interface {
 
 // DeviceRequestAllocationResult contains the allocation result for one request.
 type DeviceRequestAllocationResultPatchArgs struct {
+	// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device pulumi.StringPtrInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
@@ -4313,6 +4684,13 @@ func (o DeviceRequestAllocationResultPatchOutput) ToDeviceRequestAllocationResul
 	return o
 }
 
+// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+//
+// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+func (o DeviceRequestAllocationResultPatchOutput) AdminAccess() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
+}
+
 // Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 func (o DeviceRequestAllocationResultPatchOutput) Device() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Device }).(pulumi.StringPtrOutput)
@@ -4362,6 +4740,8 @@ func (o DeviceRequestAllocationResultPatchArrayOutput) Index(i pulumi.IntInput) 
 // A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestPatch struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
 	// AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 	//
@@ -4409,6 +4789,8 @@ type DeviceRequestPatchInput interface {
 // A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestPatchArgs struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 	//
@@ -4495,6 +4877,8 @@ func (o DeviceRequestPatchOutput) ToDeviceRequestPatchOutputWithContext(ctx cont
 }
 
 // AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+//
+// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 func (o DeviceRequestPatchOutput) AdminAccess() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
 }
@@ -4762,6 +5146,394 @@ func (o DeviceSelectorPatchArrayOutput) Index(i pulumi.IntInput) DeviceSelectorP
 	}).(DeviceSelectorPatchOutput)
 }
 
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceData struct {
+	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+	//
+	// Must not be longer than 128 characters.
+	HardwareAddress *string `pulumi:"hardwareAddress"`
+	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+	//
+	// Must not be longer than 256 characters.
+	InterfaceName *string `pulumi:"interfaceName"`
+	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	Ips []string `pulumi:"ips"`
+}
+
+// NetworkDeviceDataInput is an input type that accepts NetworkDeviceDataArgs and NetworkDeviceDataOutput values.
+// You can construct a concrete instance of `NetworkDeviceDataInput` via:
+//
+//	NetworkDeviceDataArgs{...}
+type NetworkDeviceDataInput interface {
+	pulumi.Input
+
+	ToNetworkDeviceDataOutput() NetworkDeviceDataOutput
+	ToNetworkDeviceDataOutputWithContext(context.Context) NetworkDeviceDataOutput
+}
+
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceDataArgs struct {
+	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+	//
+	// Must not be longer than 128 characters.
+	HardwareAddress pulumi.StringPtrInput `pulumi:"hardwareAddress"`
+	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+	//
+	// Must not be longer than 256 characters.
+	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
+	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	Ips pulumi.StringArrayInput `pulumi:"ips"`
+}
+
+func (NetworkDeviceDataArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkDeviceData)(nil)).Elem()
+}
+
+func (i NetworkDeviceDataArgs) ToNetworkDeviceDataOutput() NetworkDeviceDataOutput {
+	return i.ToNetworkDeviceDataOutputWithContext(context.Background())
+}
+
+func (i NetworkDeviceDataArgs) ToNetworkDeviceDataOutputWithContext(ctx context.Context) NetworkDeviceDataOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataOutput)
+}
+
+func (i NetworkDeviceDataArgs) ToNetworkDeviceDataPtrOutput() NetworkDeviceDataPtrOutput {
+	return i.ToNetworkDeviceDataPtrOutputWithContext(context.Background())
+}
+
+func (i NetworkDeviceDataArgs) ToNetworkDeviceDataPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataOutput).ToNetworkDeviceDataPtrOutputWithContext(ctx)
+}
+
+// NetworkDeviceDataPtrInput is an input type that accepts NetworkDeviceDataArgs, NetworkDeviceDataPtr and NetworkDeviceDataPtrOutput values.
+// You can construct a concrete instance of `NetworkDeviceDataPtrInput` via:
+//
+//	        NetworkDeviceDataArgs{...}
+//
+//	or:
+//
+//	        nil
+type NetworkDeviceDataPtrInput interface {
+	pulumi.Input
+
+	ToNetworkDeviceDataPtrOutput() NetworkDeviceDataPtrOutput
+	ToNetworkDeviceDataPtrOutputWithContext(context.Context) NetworkDeviceDataPtrOutput
+}
+
+type networkDeviceDataPtrType NetworkDeviceDataArgs
+
+func NetworkDeviceDataPtr(v *NetworkDeviceDataArgs) NetworkDeviceDataPtrInput {
+	return (*networkDeviceDataPtrType)(v)
+}
+
+func (*networkDeviceDataPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkDeviceData)(nil)).Elem()
+}
+
+func (i *networkDeviceDataPtrType) ToNetworkDeviceDataPtrOutput() NetworkDeviceDataPtrOutput {
+	return i.ToNetworkDeviceDataPtrOutputWithContext(context.Background())
+}
+
+func (i *networkDeviceDataPtrType) ToNetworkDeviceDataPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataPtrOutput)
+}
+
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceDataOutput struct{ *pulumi.OutputState }
+
+func (NetworkDeviceDataOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkDeviceData)(nil)).Elem()
+}
+
+func (o NetworkDeviceDataOutput) ToNetworkDeviceDataOutput() NetworkDeviceDataOutput {
+	return o
+}
+
+func (o NetworkDeviceDataOutput) ToNetworkDeviceDataOutputWithContext(ctx context.Context) NetworkDeviceDataOutput {
+	return o
+}
+
+func (o NetworkDeviceDataOutput) ToNetworkDeviceDataPtrOutput() NetworkDeviceDataPtrOutput {
+	return o.ToNetworkDeviceDataPtrOutputWithContext(context.Background())
+}
+
+func (o NetworkDeviceDataOutput) ToNetworkDeviceDataPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkDeviceData) *NetworkDeviceData {
+		return &v
+	}).(NetworkDeviceDataPtrOutput)
+}
+
+// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+//
+// Must not be longer than 128 characters.
+func (o NetworkDeviceDataOutput) HardwareAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkDeviceData) *string { return v.HardwareAddress }).(pulumi.StringPtrOutput)
+}
+
+// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+//
+// Must not be longer than 256 characters.
+func (o NetworkDeviceDataOutput) InterfaceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkDeviceData) *string { return v.InterfaceName }).(pulumi.StringPtrOutput)
+}
+
+// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+func (o NetworkDeviceDataOutput) Ips() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NetworkDeviceData) []string { return v.Ips }).(pulumi.StringArrayOutput)
+}
+
+type NetworkDeviceDataPtrOutput struct{ *pulumi.OutputState }
+
+func (NetworkDeviceDataPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkDeviceData)(nil)).Elem()
+}
+
+func (o NetworkDeviceDataPtrOutput) ToNetworkDeviceDataPtrOutput() NetworkDeviceDataPtrOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPtrOutput) ToNetworkDeviceDataPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPtrOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPtrOutput) Elem() NetworkDeviceDataOutput {
+	return o.ApplyT(func(v *NetworkDeviceData) NetworkDeviceData {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkDeviceData
+		return ret
+	}).(NetworkDeviceDataOutput)
+}
+
+// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+//
+// Must not be longer than 128 characters.
+func (o NetworkDeviceDataPtrOutput) HardwareAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkDeviceData) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HardwareAddress
+	}).(pulumi.StringPtrOutput)
+}
+
+// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+//
+// Must not be longer than 256 characters.
+func (o NetworkDeviceDataPtrOutput) InterfaceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkDeviceData) *string {
+		if v == nil {
+			return nil
+		}
+		return v.InterfaceName
+	}).(pulumi.StringPtrOutput)
+}
+
+// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+func (o NetworkDeviceDataPtrOutput) Ips() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NetworkDeviceData) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Ips
+	}).(pulumi.StringArrayOutput)
+}
+
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceDataPatch struct {
+	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+	//
+	// Must not be longer than 128 characters.
+	HardwareAddress *string `pulumi:"hardwareAddress"`
+	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+	//
+	// Must not be longer than 256 characters.
+	InterfaceName *string `pulumi:"interfaceName"`
+	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	Ips []string `pulumi:"ips"`
+}
+
+// NetworkDeviceDataPatchInput is an input type that accepts NetworkDeviceDataPatchArgs and NetworkDeviceDataPatchOutput values.
+// You can construct a concrete instance of `NetworkDeviceDataPatchInput` via:
+//
+//	NetworkDeviceDataPatchArgs{...}
+type NetworkDeviceDataPatchInput interface {
+	pulumi.Input
+
+	ToNetworkDeviceDataPatchOutput() NetworkDeviceDataPatchOutput
+	ToNetworkDeviceDataPatchOutputWithContext(context.Context) NetworkDeviceDataPatchOutput
+}
+
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceDataPatchArgs struct {
+	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+	//
+	// Must not be longer than 128 characters.
+	HardwareAddress pulumi.StringPtrInput `pulumi:"hardwareAddress"`
+	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+	//
+	// Must not be longer than 256 characters.
+	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
+	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	Ips pulumi.StringArrayInput `pulumi:"ips"`
+}
+
+func (NetworkDeviceDataPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkDeviceDataPatch)(nil)).Elem()
+}
+
+func (i NetworkDeviceDataPatchArgs) ToNetworkDeviceDataPatchOutput() NetworkDeviceDataPatchOutput {
+	return i.ToNetworkDeviceDataPatchOutputWithContext(context.Background())
+}
+
+func (i NetworkDeviceDataPatchArgs) ToNetworkDeviceDataPatchOutputWithContext(ctx context.Context) NetworkDeviceDataPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataPatchOutput)
+}
+
+func (i NetworkDeviceDataPatchArgs) ToNetworkDeviceDataPatchPtrOutput() NetworkDeviceDataPatchPtrOutput {
+	return i.ToNetworkDeviceDataPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NetworkDeviceDataPatchArgs) ToNetworkDeviceDataPatchPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataPatchOutput).ToNetworkDeviceDataPatchPtrOutputWithContext(ctx)
+}
+
+// NetworkDeviceDataPatchPtrInput is an input type that accepts NetworkDeviceDataPatchArgs, NetworkDeviceDataPatchPtr and NetworkDeviceDataPatchPtrOutput values.
+// You can construct a concrete instance of `NetworkDeviceDataPatchPtrInput` via:
+//
+//	        NetworkDeviceDataPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NetworkDeviceDataPatchPtrInput interface {
+	pulumi.Input
+
+	ToNetworkDeviceDataPatchPtrOutput() NetworkDeviceDataPatchPtrOutput
+	ToNetworkDeviceDataPatchPtrOutputWithContext(context.Context) NetworkDeviceDataPatchPtrOutput
+}
+
+type networkDeviceDataPatchPtrType NetworkDeviceDataPatchArgs
+
+func NetworkDeviceDataPatchPtr(v *NetworkDeviceDataPatchArgs) NetworkDeviceDataPatchPtrInput {
+	return (*networkDeviceDataPatchPtrType)(v)
+}
+
+func (*networkDeviceDataPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkDeviceDataPatch)(nil)).Elem()
+}
+
+func (i *networkDeviceDataPatchPtrType) ToNetworkDeviceDataPatchPtrOutput() NetworkDeviceDataPatchPtrOutput {
+	return i.ToNetworkDeviceDataPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *networkDeviceDataPatchPtrType) ToNetworkDeviceDataPatchPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkDeviceDataPatchPtrOutput)
+}
+
+// NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+type NetworkDeviceDataPatchOutput struct{ *pulumi.OutputState }
+
+func (NetworkDeviceDataPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkDeviceDataPatch)(nil)).Elem()
+}
+
+func (o NetworkDeviceDataPatchOutput) ToNetworkDeviceDataPatchOutput() NetworkDeviceDataPatchOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPatchOutput) ToNetworkDeviceDataPatchOutputWithContext(ctx context.Context) NetworkDeviceDataPatchOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPatchOutput) ToNetworkDeviceDataPatchPtrOutput() NetworkDeviceDataPatchPtrOutput {
+	return o.ToNetworkDeviceDataPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NetworkDeviceDataPatchOutput) ToNetworkDeviceDataPatchPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkDeviceDataPatch) *NetworkDeviceDataPatch {
+		return &v
+	}).(NetworkDeviceDataPatchPtrOutput)
+}
+
+// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+//
+// Must not be longer than 128 characters.
+func (o NetworkDeviceDataPatchOutput) HardwareAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkDeviceDataPatch) *string { return v.HardwareAddress }).(pulumi.StringPtrOutput)
+}
+
+// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+//
+// Must not be longer than 256 characters.
+func (o NetworkDeviceDataPatchOutput) InterfaceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NetworkDeviceDataPatch) *string { return v.InterfaceName }).(pulumi.StringPtrOutput)
+}
+
+// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+func (o NetworkDeviceDataPatchOutput) Ips() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NetworkDeviceDataPatch) []string { return v.Ips }).(pulumi.StringArrayOutput)
+}
+
+type NetworkDeviceDataPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NetworkDeviceDataPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkDeviceDataPatch)(nil)).Elem()
+}
+
+func (o NetworkDeviceDataPatchPtrOutput) ToNetworkDeviceDataPatchPtrOutput() NetworkDeviceDataPatchPtrOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPatchPtrOutput) ToNetworkDeviceDataPatchPtrOutputWithContext(ctx context.Context) NetworkDeviceDataPatchPtrOutput {
+	return o
+}
+
+func (o NetworkDeviceDataPatchPtrOutput) Elem() NetworkDeviceDataPatchOutput {
+	return o.ApplyT(func(v *NetworkDeviceDataPatch) NetworkDeviceDataPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkDeviceDataPatch
+		return ret
+	}).(NetworkDeviceDataPatchOutput)
+}
+
+// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+//
+// Must not be longer than 128 characters.
+func (o NetworkDeviceDataPatchPtrOutput) HardwareAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkDeviceDataPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HardwareAddress
+	}).(pulumi.StringPtrOutput)
+}
+
+// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+//
+// Must not be longer than 256 characters.
+func (o NetworkDeviceDataPatchPtrOutput) InterfaceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkDeviceDataPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.InterfaceName
+	}).(pulumi.StringPtrOutput)
+}
+
+// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+func (o NetworkDeviceDataPatchPtrOutput) Ips() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NetworkDeviceDataPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Ips
+	}).(pulumi.StringArrayOutput)
+}
+
 // OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
 type OpaqueDeviceConfiguration struct {
 	// Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
@@ -4771,6 +5543,8 @@ type OpaqueDeviceConfiguration struct {
 	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
 	Driver string `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
 	Parameters interface{} `pulumi:"parameters"`
 }
 
@@ -4794,6 +5568,8 @@ type OpaqueDeviceConfigurationArgs struct {
 	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
 	Parameters pulumi.Input `pulumi:"parameters"`
 }
 
@@ -4885,6 +5661,8 @@ func (o OpaqueDeviceConfigurationOutput) Driver() pulumi.StringOutput {
 }
 
 // Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
 func (o OpaqueDeviceConfigurationOutput) Parameters() pulumi.AnyOutput {
 	return o.ApplyT(func(v OpaqueDeviceConfiguration) interface{} { return v.Parameters }).(pulumi.AnyOutput)
 }
@@ -4928,6 +5706,8 @@ func (o OpaqueDeviceConfigurationPtrOutput) Driver() pulumi.StringPtrOutput {
 }
 
 // Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
 func (o OpaqueDeviceConfigurationPtrOutput) Parameters() pulumi.AnyOutput {
 	return o.ApplyT(func(v *OpaqueDeviceConfiguration) interface{} {
 		if v == nil {
@@ -4946,6 +5726,8 @@ type OpaqueDeviceConfigurationPatch struct {
 	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
 	Driver *string `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
 	Parameters interface{} `pulumi:"parameters"`
 }
 
@@ -4969,6 +5751,8 @@ type OpaqueDeviceConfigurationPatchArgs struct {
 	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+	//
+	// The length of the raw data must be smaller or equal to 10 Ki.
 	Parameters pulumi.Input `pulumi:"parameters"`
 }
 
@@ -5060,6 +5844,8 @@ func (o OpaqueDeviceConfigurationPatchOutput) Driver() pulumi.StringPtrOutput {
 }
 
 // Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
 func (o OpaqueDeviceConfigurationPatchOutput) Parameters() pulumi.AnyOutput {
 	return o.ApplyT(func(v OpaqueDeviceConfigurationPatch) interface{} { return v.Parameters }).(pulumi.AnyOutput)
 }
@@ -5103,6 +5889,8 @@ func (o OpaqueDeviceConfigurationPatchPtrOutput) Driver() pulumi.StringPtrOutput
 }
 
 // Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+//
+// The length of the raw data must be smaller or equal to 10 Ki.
 func (o OpaqueDeviceConfigurationPatchPtrOutput) Parameters() pulumi.AnyOutput {
 	return o.ApplyT(func(v *OpaqueDeviceConfigurationPatch) interface{} {
 		if v == nil {
@@ -7016,6 +7804,8 @@ type ResourceClaimStatus struct {
 	//
 	// This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
 	DeallocationRequested *bool `pulumi:"deallocationRequested"`
+	// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+	Devices []AllocatedDeviceStatus `pulumi:"devices"`
 	// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 	//
 	// In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7047,6 +7837,8 @@ type ResourceClaimStatusArgs struct {
 	//
 	// This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
 	DeallocationRequested pulumi.BoolPtrInput `pulumi:"deallocationRequested"`
+	// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+	Devices AllocatedDeviceStatusArrayInput `pulumi:"devices"`
 	// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 	//
 	// In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7149,6 +7941,11 @@ func (o ResourceClaimStatusOutput) DeallocationRequested() pulumi.BoolPtrOutput 
 	return o.ApplyT(func(v ResourceClaimStatus) *bool { return v.DeallocationRequested }).(pulumi.BoolPtrOutput)
 }
 
+// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+func (o ResourceClaimStatusOutput) Devices() AllocatedDeviceStatusArrayOutput {
+	return o.ApplyT(func(v ResourceClaimStatus) []AllocatedDeviceStatus { return v.Devices }).(AllocatedDeviceStatusArrayOutput)
+}
+
 // ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 //
 // In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7208,6 +8005,16 @@ func (o ResourceClaimStatusPtrOutput) DeallocationRequested() pulumi.BoolPtrOutp
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+func (o ResourceClaimStatusPtrOutput) Devices() AllocatedDeviceStatusArrayOutput {
+	return o.ApplyT(func(v *ResourceClaimStatus) []AllocatedDeviceStatus {
+		if v == nil {
+			return nil
+		}
+		return v.Devices
+	}).(AllocatedDeviceStatusArrayOutput)
+}
+
 // ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 //
 // In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7234,6 +8041,8 @@ type ResourceClaimStatusPatch struct {
 	//
 	// This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
 	DeallocationRequested *bool `pulumi:"deallocationRequested"`
+	// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+	Devices []AllocatedDeviceStatusPatch `pulumi:"devices"`
 	// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 	//
 	// In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7265,6 +8074,8 @@ type ResourceClaimStatusPatchArgs struct {
 	//
 	// This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
 	DeallocationRequested pulumi.BoolPtrInput `pulumi:"deallocationRequested"`
+	// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+	Devices AllocatedDeviceStatusPatchArrayInput `pulumi:"devices"`
 	// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 	//
 	// In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7367,6 +8178,11 @@ func (o ResourceClaimStatusPatchOutput) DeallocationRequested() pulumi.BoolPtrOu
 	return o.ApplyT(func(v ResourceClaimStatusPatch) *bool { return v.DeallocationRequested }).(pulumi.BoolPtrOutput)
 }
 
+// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+func (o ResourceClaimStatusPatchOutput) Devices() AllocatedDeviceStatusPatchArrayOutput {
+	return o.ApplyT(func(v ResourceClaimStatusPatch) []AllocatedDeviceStatusPatch { return v.Devices }).(AllocatedDeviceStatusPatchArrayOutput)
+}
+
 // ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 //
 // In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -7424,6 +8240,16 @@ func (o ResourceClaimStatusPatchPtrOutput) DeallocationRequested() pulumi.BoolPt
 		}
 		return v.DeallocationRequested
 	}).(pulumi.BoolPtrOutput)
+}
+
+// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+func (o ResourceClaimStatusPatchPtrOutput) Devices() AllocatedDeviceStatusPatchArrayOutput {
+	return o.ApplyT(func(v *ResourceClaimStatusPatch) []AllocatedDeviceStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Devices
+	}).(AllocatedDeviceStatusPatchArrayOutput)
 }
 
 // ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
@@ -7759,7 +8585,7 @@ func (o ResourceClaimTemplatePatchTypeOutput) Spec() ResourceClaimTemplateSpecPa
 
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpec struct {
-	// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 	Spec ResourceClaimSpec `pulumi:"spec"`
@@ -7778,7 +8604,7 @@ type ResourceClaimTemplateSpecInput interface {
 
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpecArgs struct {
-	// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 	Spec ResourceClaimSpecInput `pulumi:"spec"`
@@ -7811,7 +8637,7 @@ func (o ResourceClaimTemplateSpecOutput) ToResourceClaimTemplateSpecOutputWithCo
 	return o
 }
 
-// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 func (o ResourceClaimTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ResourceClaimTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -7823,7 +8649,7 @@ func (o ResourceClaimTemplateSpecOutput) Spec() ResourceClaimSpecOutput {
 
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpecPatch struct {
-	// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 	Spec *ResourceClaimSpecPatch `pulumi:"spec"`
@@ -7842,7 +8668,7 @@ type ResourceClaimTemplateSpecPatchInput interface {
 
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpecPatchArgs struct {
-	// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+	// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 	Spec ResourceClaimSpecPatchPtrInput `pulumi:"spec"`
@@ -7926,7 +8752,7 @@ func (o ResourceClaimTemplateSpecPatchOutput) ToResourceClaimTemplateSpecPatchPt
 	}).(ResourceClaimTemplateSpecPatchPtrOutput)
 }
 
-// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 func (o ResourceClaimTemplateSpecPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ResourceClaimTemplateSpecPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -7960,7 +8786,7 @@ func (o ResourceClaimTemplateSpecPatchPtrOutput) Elem() ResourceClaimTemplateSpe
 	}).(ResourceClaimTemplateSpecPatchOutput)
 }
 
-// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 func (o ResourceClaimTemplateSpecPatchPtrOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *ResourceClaimTemplateSpecPatch) *metav1.ObjectMetaPatch {
 		if v == nil {
@@ -8437,7 +9263,7 @@ func (o ResourceSliceTypeArrayOutput) Index(i pulumi.IntInput) ResourceSliceType
 }
 
 // ResourceSliceList is a collection of ResourceSlices.
-type ResourceSliceList struct {
+type ResourceSliceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Items is the list of resource ResourceSlices.
@@ -8446,21 +9272,23 @@ type ResourceSliceList struct {
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata
 	ListMeta *metav1.ListMeta `pulumi:"listMeta"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// ResourceSliceListInput is an input type that accepts ResourceSliceListArgs and ResourceSliceListOutput values.
-// You can construct a concrete instance of `ResourceSliceListInput` via:
+// ResourceSliceListTypeInput is an input type that accepts ResourceSliceListTypeArgs and ResourceSliceListTypeOutput values.
+// You can construct a concrete instance of `ResourceSliceListTypeInput` via:
 //
-//	ResourceSliceListArgs{...}
-type ResourceSliceListInput interface {
+//	ResourceSliceListTypeArgs{...}
+type ResourceSliceListTypeInput interface {
 	pulumi.Input
 
-	ToResourceSliceListOutput() ResourceSliceListOutput
-	ToResourceSliceListOutputWithContext(context.Context) ResourceSliceListOutput
+	ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput
+	ToResourceSliceListTypeOutputWithContext(context.Context) ResourceSliceListTypeOutput
 }
 
 // ResourceSliceList is a collection of ResourceSlices.
-type ResourceSliceListArgs struct {
+type ResourceSliceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Items is the list of resource ResourceSlices.
@@ -8469,53 +9297,60 @@ type ResourceSliceListArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard list metadata
 	ListMeta metav1.ListMetaPtrInput `pulumi:"listMeta"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
-func (ResourceSliceListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ResourceSliceList)(nil)).Elem()
+func (ResourceSliceListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceListType)(nil)).Elem()
 }
 
-func (i ResourceSliceListArgs) ToResourceSliceListOutput() ResourceSliceListOutput {
-	return i.ToResourceSliceListOutputWithContext(context.Background())
+func (i ResourceSliceListTypeArgs) ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput {
+	return i.ToResourceSliceListTypeOutputWithContext(context.Background())
 }
 
-func (i ResourceSliceListArgs) ToResourceSliceListOutputWithContext(ctx context.Context) ResourceSliceListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ResourceSliceListOutput)
+func (i ResourceSliceListTypeArgs) ToResourceSliceListTypeOutputWithContext(ctx context.Context) ResourceSliceListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourceSliceListTypeOutput)
 }
 
 // ResourceSliceList is a collection of ResourceSlices.
-type ResourceSliceListOutput struct{ *pulumi.OutputState }
+type ResourceSliceListTypeOutput struct{ *pulumi.OutputState }
 
-func (ResourceSliceListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ResourceSliceList)(nil)).Elem()
+func (ResourceSliceListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourceSliceListType)(nil)).Elem()
 }
 
-func (o ResourceSliceListOutput) ToResourceSliceListOutput() ResourceSliceListOutput {
+func (o ResourceSliceListTypeOutput) ToResourceSliceListTypeOutput() ResourceSliceListTypeOutput {
 	return o
 }
 
-func (o ResourceSliceListOutput) ToResourceSliceListOutputWithContext(ctx context.Context) ResourceSliceListOutput {
+func (o ResourceSliceListTypeOutput) ToResourceSliceListTypeOutputWithContext(ctx context.Context) ResourceSliceListTypeOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ResourceSliceListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceSliceList) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ResourceSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Items is the list of resource ResourceSlices.
-func (o ResourceSliceListOutput) Items() ResourceSliceTypeArrayOutput {
-	return o.ApplyT(func(v ResourceSliceList) []ResourceSliceType { return v.Items }).(ResourceSliceTypeArrayOutput)
+func (o ResourceSliceListTypeOutput) Items() ResourceSliceTypeArrayOutput {
+	return o.ApplyT(func(v ResourceSliceListType) []ResourceSliceType { return v.Items }).(ResourceSliceTypeArrayOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceSliceListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ResourceSliceList) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ResourceSliceListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
 // Standard list metadata
-func (o ResourceSliceListOutput) ListMeta() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ResourceSliceList) *metav1.ListMeta { return v.ListMeta }).(metav1.ListMetaPtrOutput)
+func (o ResourceSliceListTypeOutput) ListMeta() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *metav1.ListMeta { return v.ListMeta }).(metav1.ListMetaPtrOutput)
+}
+
+// Standard list metadata
+func (o ResourceSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourceSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
@@ -9070,6 +9905,10 @@ func (o ResourceSliceSpecPatchPtrOutput) Pool() ResourcePoolPatchPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AllocatedDeviceStatusInput)(nil)).Elem(), AllocatedDeviceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllocatedDeviceStatusArrayInput)(nil)).Elem(), AllocatedDeviceStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllocatedDeviceStatusPatchInput)(nil)).Elem(), AllocatedDeviceStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllocatedDeviceStatusPatchArrayInput)(nil)).Elem(), AllocatedDeviceStatusPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultInput)(nil)).Elem(), AllocationResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPtrInput)(nil)).Elem(), AllocationResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPatchInput)(nil)).Elem(), AllocationResultPatchArgs{})
@@ -9132,6 +9971,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorArrayInput)(nil)).Elem(), DeviceSelectorArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorPatchInput)(nil)).Elem(), DeviceSelectorPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorPatchArrayInput)(nil)).Elem(), DeviceSelectorPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataInput)(nil)).Elem(), NetworkDeviceDataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPtrInput)(nil)).Elem(), NetworkDeviceDataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchPtrInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPtrInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPatchInput)(nil)).Elem(), OpaqueDeviceConfigurationPatchArgs{})
@@ -9178,11 +10021,15 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolPatchPtrInput)(nil)).Elem(), ResourcePoolPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeInput)(nil)).Elem(), ResourceSliceTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeArrayInput)(nil)).Elem(), ResourceSliceTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceListInput)(nil)).Elem(), ResourceSliceListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceListTypeInput)(nil)).Elem(), ResourceSliceListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSlicePatchTypeInput)(nil)).Elem(), ResourceSlicePatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecInput)(nil)).Elem(), ResourceSliceSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecPatchInput)(nil)).Elem(), ResourceSliceSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecPatchPtrInput)(nil)).Elem(), ResourceSliceSpecPatchArgs{})
+	pulumi.RegisterOutputType(AllocatedDeviceStatusOutput{})
+	pulumi.RegisterOutputType(AllocatedDeviceStatusArrayOutput{})
+	pulumi.RegisterOutputType(AllocatedDeviceStatusPatchOutput{})
+	pulumi.RegisterOutputType(AllocatedDeviceStatusPatchArrayOutput{})
 	pulumi.RegisterOutputType(AllocationResultOutput{})
 	pulumi.RegisterOutputType(AllocationResultPtrOutput{})
 	pulumi.RegisterOutputType(AllocationResultPatchOutput{})
@@ -9245,6 +10092,10 @@ func init() {
 	pulumi.RegisterOutputType(DeviceSelectorArrayOutput{})
 	pulumi.RegisterOutputType(DeviceSelectorPatchOutput{})
 	pulumi.RegisterOutputType(DeviceSelectorPatchArrayOutput{})
+	pulumi.RegisterOutputType(NetworkDeviceDataOutput{})
+	pulumi.RegisterOutputType(NetworkDeviceDataPtrOutput{})
+	pulumi.RegisterOutputType(NetworkDeviceDataPatchOutput{})
+	pulumi.RegisterOutputType(NetworkDeviceDataPatchPtrOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPatchOutput{})
@@ -9291,7 +10142,7 @@ func init() {
 	pulumi.RegisterOutputType(ResourcePoolPatchPtrOutput{})
 	pulumi.RegisterOutputType(ResourceSliceTypeOutput{})
 	pulumi.RegisterOutputType(ResourceSliceTypeArrayOutput{})
-	pulumi.RegisterOutputType(ResourceSliceListOutput{})
+	pulumi.RegisterOutputType(ResourceSliceListTypeOutput{})
 	pulumi.RegisterOutputType(ResourceSlicePatchTypeOutput{})
 	pulumi.RegisterOutputType(ResourceSliceSpecOutput{})
 	pulumi.RegisterOutputType(ResourceSliceSpecPatchOutput{})

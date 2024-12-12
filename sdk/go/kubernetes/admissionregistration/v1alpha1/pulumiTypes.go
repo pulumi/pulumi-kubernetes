@@ -14,6 +14,502 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfiguration struct {
+	// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+	//
+	// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+	//
+	//     Object{
+	//       spec: Object.spec{
+	//         serviceAccountName: "example"
+	//       }
+	//     }
+	//
+	// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+	//
+	// CEL expressions have access to the object types needed to create apply configurations:
+	//
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression *string `pulumi:"expression"`
+}
+
+// ApplyConfigurationInput is an input type that accepts ApplyConfigurationArgs and ApplyConfigurationOutput values.
+// You can construct a concrete instance of `ApplyConfigurationInput` via:
+//
+//	ApplyConfigurationArgs{...}
+type ApplyConfigurationInput interface {
+	pulumi.Input
+
+	ToApplyConfigurationOutput() ApplyConfigurationOutput
+	ToApplyConfigurationOutputWithContext(context.Context) ApplyConfigurationOutput
+}
+
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfigurationArgs struct {
+	// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+	//
+	// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+	//
+	//     Object{
+	//       spec: Object.spec{
+	//         serviceAccountName: "example"
+	//       }
+	//     }
+	//
+	// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+	//
+	// CEL expressions have access to the object types needed to create apply configurations:
+	//
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+}
+
+func (ApplyConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ApplyConfiguration)(nil)).Elem()
+}
+
+func (i ApplyConfigurationArgs) ToApplyConfigurationOutput() ApplyConfigurationOutput {
+	return i.ToApplyConfigurationOutputWithContext(context.Background())
+}
+
+func (i ApplyConfigurationArgs) ToApplyConfigurationOutputWithContext(ctx context.Context) ApplyConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationOutput)
+}
+
+func (i ApplyConfigurationArgs) ToApplyConfigurationPtrOutput() ApplyConfigurationPtrOutput {
+	return i.ToApplyConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i ApplyConfigurationArgs) ToApplyConfigurationPtrOutputWithContext(ctx context.Context) ApplyConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationOutput).ToApplyConfigurationPtrOutputWithContext(ctx)
+}
+
+// ApplyConfigurationPtrInput is an input type that accepts ApplyConfigurationArgs, ApplyConfigurationPtr and ApplyConfigurationPtrOutput values.
+// You can construct a concrete instance of `ApplyConfigurationPtrInput` via:
+//
+//	        ApplyConfigurationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ApplyConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToApplyConfigurationPtrOutput() ApplyConfigurationPtrOutput
+	ToApplyConfigurationPtrOutputWithContext(context.Context) ApplyConfigurationPtrOutput
+}
+
+type applyConfigurationPtrType ApplyConfigurationArgs
+
+func ApplyConfigurationPtr(v *ApplyConfigurationArgs) ApplyConfigurationPtrInput {
+	return (*applyConfigurationPtrType)(v)
+}
+
+func (*applyConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ApplyConfiguration)(nil)).Elem()
+}
+
+func (i *applyConfigurationPtrType) ToApplyConfigurationPtrOutput() ApplyConfigurationPtrOutput {
+	return i.ToApplyConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *applyConfigurationPtrType) ToApplyConfigurationPtrOutputWithContext(ctx context.Context) ApplyConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationPtrOutput)
+}
+
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfigurationOutput struct{ *pulumi.OutputState }
+
+func (ApplyConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ApplyConfiguration)(nil)).Elem()
+}
+
+func (o ApplyConfigurationOutput) ToApplyConfigurationOutput() ApplyConfigurationOutput {
+	return o
+}
+
+func (o ApplyConfigurationOutput) ToApplyConfigurationOutputWithContext(ctx context.Context) ApplyConfigurationOutput {
+	return o
+}
+
+func (o ApplyConfigurationOutput) ToApplyConfigurationPtrOutput() ApplyConfigurationPtrOutput {
+	return o.ToApplyConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o ApplyConfigurationOutput) ToApplyConfigurationPtrOutputWithContext(ctx context.Context) ApplyConfigurationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ApplyConfiguration) *ApplyConfiguration {
+		return &v
+	}).(ApplyConfigurationPtrOutput)
+}
+
+// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+//
+// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+//
+//	Object{
+//	  spec: Object.spec{
+//	    serviceAccountName: "example"
+//	  }
+//	}
+//
+// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+//
+// CEL expressions have access to the object types needed to create apply configurations:
+//
+// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o ApplyConfigurationOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ApplyConfiguration) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+type ApplyConfigurationPtrOutput struct{ *pulumi.OutputState }
+
+func (ApplyConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ApplyConfiguration)(nil)).Elem()
+}
+
+func (o ApplyConfigurationPtrOutput) ToApplyConfigurationPtrOutput() ApplyConfigurationPtrOutput {
+	return o
+}
+
+func (o ApplyConfigurationPtrOutput) ToApplyConfigurationPtrOutputWithContext(ctx context.Context) ApplyConfigurationPtrOutput {
+	return o
+}
+
+func (o ApplyConfigurationPtrOutput) Elem() ApplyConfigurationOutput {
+	return o.ApplyT(func(v *ApplyConfiguration) ApplyConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret ApplyConfiguration
+		return ret
+	}).(ApplyConfigurationOutput)
+}
+
+// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+//
+// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+//
+//	Object{
+//	  spec: Object.spec{
+//	    serviceAccountName: "example"
+//	  }
+//	}
+//
+// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+//
+// CEL expressions have access to the object types needed to create apply configurations:
+//
+// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o ApplyConfigurationPtrOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ApplyConfiguration) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Expression
+	}).(pulumi.StringPtrOutput)
+}
+
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfigurationPatch struct {
+	// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+	//
+	// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+	//
+	//     Object{
+	//       spec: Object.spec{
+	//         serviceAccountName: "example"
+	//       }
+	//     }
+	//
+	// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+	//
+	// CEL expressions have access to the object types needed to create apply configurations:
+	//
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression *string `pulumi:"expression"`
+}
+
+// ApplyConfigurationPatchInput is an input type that accepts ApplyConfigurationPatchArgs and ApplyConfigurationPatchOutput values.
+// You can construct a concrete instance of `ApplyConfigurationPatchInput` via:
+//
+//	ApplyConfigurationPatchArgs{...}
+type ApplyConfigurationPatchInput interface {
+	pulumi.Input
+
+	ToApplyConfigurationPatchOutput() ApplyConfigurationPatchOutput
+	ToApplyConfigurationPatchOutputWithContext(context.Context) ApplyConfigurationPatchOutput
+}
+
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfigurationPatchArgs struct {
+	// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+	//
+	// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+	//
+	//     Object{
+	//       spec: Object.spec{
+	//         serviceAccountName: "example"
+	//       }
+	//     }
+	//
+	// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+	//
+	// CEL expressions have access to the object types needed to create apply configurations:
+	//
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+}
+
+func (ApplyConfigurationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ApplyConfigurationPatch)(nil)).Elem()
+}
+
+func (i ApplyConfigurationPatchArgs) ToApplyConfigurationPatchOutput() ApplyConfigurationPatchOutput {
+	return i.ToApplyConfigurationPatchOutputWithContext(context.Background())
+}
+
+func (i ApplyConfigurationPatchArgs) ToApplyConfigurationPatchOutputWithContext(ctx context.Context) ApplyConfigurationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationPatchOutput)
+}
+
+func (i ApplyConfigurationPatchArgs) ToApplyConfigurationPatchPtrOutput() ApplyConfigurationPatchPtrOutput {
+	return i.ToApplyConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ApplyConfigurationPatchArgs) ToApplyConfigurationPatchPtrOutputWithContext(ctx context.Context) ApplyConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationPatchOutput).ToApplyConfigurationPatchPtrOutputWithContext(ctx)
+}
+
+// ApplyConfigurationPatchPtrInput is an input type that accepts ApplyConfigurationPatchArgs, ApplyConfigurationPatchPtr and ApplyConfigurationPatchPtrOutput values.
+// You can construct a concrete instance of `ApplyConfigurationPatchPtrInput` via:
+//
+//	        ApplyConfigurationPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ApplyConfigurationPatchPtrInput interface {
+	pulumi.Input
+
+	ToApplyConfigurationPatchPtrOutput() ApplyConfigurationPatchPtrOutput
+	ToApplyConfigurationPatchPtrOutputWithContext(context.Context) ApplyConfigurationPatchPtrOutput
+}
+
+type applyConfigurationPatchPtrType ApplyConfigurationPatchArgs
+
+func ApplyConfigurationPatchPtr(v *ApplyConfigurationPatchArgs) ApplyConfigurationPatchPtrInput {
+	return (*applyConfigurationPatchPtrType)(v)
+}
+
+func (*applyConfigurationPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ApplyConfigurationPatch)(nil)).Elem()
+}
+
+func (i *applyConfigurationPatchPtrType) ToApplyConfigurationPatchPtrOutput() ApplyConfigurationPatchPtrOutput {
+	return i.ToApplyConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *applyConfigurationPatchPtrType) ToApplyConfigurationPatchPtrOutputWithContext(ctx context.Context) ApplyConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ApplyConfigurationPatchPtrOutput)
+}
+
+// ApplyConfiguration defines the desired configuration values of an object.
+type ApplyConfigurationPatchOutput struct{ *pulumi.OutputState }
+
+func (ApplyConfigurationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ApplyConfigurationPatch)(nil)).Elem()
+}
+
+func (o ApplyConfigurationPatchOutput) ToApplyConfigurationPatchOutput() ApplyConfigurationPatchOutput {
+	return o
+}
+
+func (o ApplyConfigurationPatchOutput) ToApplyConfigurationPatchOutputWithContext(ctx context.Context) ApplyConfigurationPatchOutput {
+	return o
+}
+
+func (o ApplyConfigurationPatchOutput) ToApplyConfigurationPatchPtrOutput() ApplyConfigurationPatchPtrOutput {
+	return o.ToApplyConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ApplyConfigurationPatchOutput) ToApplyConfigurationPatchPtrOutputWithContext(ctx context.Context) ApplyConfigurationPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ApplyConfigurationPatch) *ApplyConfigurationPatch {
+		return &v
+	}).(ApplyConfigurationPatchPtrOutput)
+}
+
+// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+//
+// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+//
+//	Object{
+//	  spec: Object.spec{
+//	    serviceAccountName: "example"
+//	  }
+//	}
+//
+// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+//
+// CEL expressions have access to the object types needed to create apply configurations:
+//
+// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o ApplyConfigurationPatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ApplyConfigurationPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+type ApplyConfigurationPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ApplyConfigurationPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ApplyConfigurationPatch)(nil)).Elem()
+}
+
+func (o ApplyConfigurationPatchPtrOutput) ToApplyConfigurationPatchPtrOutput() ApplyConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o ApplyConfigurationPatchPtrOutput) ToApplyConfigurationPatchPtrOutputWithContext(ctx context.Context) ApplyConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o ApplyConfigurationPatchPtrOutput) Elem() ApplyConfigurationPatchOutput {
+	return o.ApplyT(func(v *ApplyConfigurationPatch) ApplyConfigurationPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ApplyConfigurationPatch
+		return ret
+	}).(ApplyConfigurationPatchOutput)
+}
+
+// expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+//
+// Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+//
+//	Object{
+//	  spec: Object.spec{
+//	    serviceAccountName: "example"
+//	  }
+//	}
+//
+// Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+//
+// CEL expressions have access to the object types needed to create apply configurations:
+//
+// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o ApplyConfigurationPatchPtrOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ApplyConfigurationPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Expression
+	}).(pulumi.StringPtrOutput)
+}
+
 // AuditAnnotation describes how to produce an audit annotation for an API request.
 type AuditAnnotation struct {
 	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
@@ -508,6 +1004,710 @@ func (o ExpressionWarningPatchArrayOutput) Index(i pulumi.IntInput) ExpressionWa
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ExpressionWarningPatch {
 		return vs[0].([]ExpressionWarningPatch)[vs[1].(int)]
 	}).(ExpressionWarningPatchOutput)
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatch struct {
+	// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+	//
+	// expression must return an array of JSONPatch values.
+	//
+	// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+	//
+	//       [
+	//         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+	//         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+	//       ]
+	//
+	// To define an object for the patch value, use Object types. For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/spec/selector",
+	//           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+	//         }
+	//       ]
+	//
+	// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+	//           value: "test"
+	//         },
+	//       ]
+	//
+	// CEL expressions have access to the types needed to create JSON patches and objects:
+	//
+	// - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+	//   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+	//   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+	//   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+	//   function may be used to escape path keys containing '/' and '~'.
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+	//
+	// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression *string `pulumi:"expression"`
+}
+
+// JSONPatchInput is an input type that accepts JSONPatchArgs and JSONPatchOutput values.
+// You can construct a concrete instance of `JSONPatchInput` via:
+//
+//	JSONPatchArgs{...}
+type JSONPatchInput interface {
+	pulumi.Input
+
+	ToJSONPatchOutput() JSONPatchOutput
+	ToJSONPatchOutputWithContext(context.Context) JSONPatchOutput
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatchArgs struct {
+	// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+	//
+	// expression must return an array of JSONPatch values.
+	//
+	// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+	//
+	//       [
+	//         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+	//         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+	//       ]
+	//
+	// To define an object for the patch value, use Object types. For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/spec/selector",
+	//           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+	//         }
+	//       ]
+	//
+	// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+	//           value: "test"
+	//         },
+	//       ]
+	//
+	// CEL expressions have access to the types needed to create JSON patches and objects:
+	//
+	// - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+	//   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+	//   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+	//   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+	//   function may be used to escape path keys containing '/' and '~'.
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+	//
+	// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+}
+
+func (JSONPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatch)(nil)).Elem()
+}
+
+func (i JSONPatchArgs) ToJSONPatchOutput() JSONPatchOutput {
+	return i.ToJSONPatchOutputWithContext(context.Background())
+}
+
+func (i JSONPatchArgs) ToJSONPatchOutputWithContext(ctx context.Context) JSONPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchOutput)
+}
+
+func (i JSONPatchArgs) ToJSONPatchPtrOutput() JSONPatchPtrOutput {
+	return i.ToJSONPatchPtrOutputWithContext(context.Background())
+}
+
+func (i JSONPatchArgs) ToJSONPatchPtrOutputWithContext(ctx context.Context) JSONPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchOutput).ToJSONPatchPtrOutputWithContext(ctx)
+}
+
+// JSONPatchPtrInput is an input type that accepts JSONPatchArgs, JSONPatchPtr and JSONPatchPtrOutput values.
+// You can construct a concrete instance of `JSONPatchPtrInput` via:
+//
+//	        JSONPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type JSONPatchPtrInput interface {
+	pulumi.Input
+
+	ToJSONPatchPtrOutput() JSONPatchPtrOutput
+	ToJSONPatchPtrOutputWithContext(context.Context) JSONPatchPtrOutput
+}
+
+type jsonpatchPtrType JSONPatchArgs
+
+func JSONPatchPtr(v *JSONPatchArgs) JSONPatchPtrInput {
+	return (*jsonpatchPtrType)(v)
+}
+
+func (*jsonpatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**JSONPatch)(nil)).Elem()
+}
+
+func (i *jsonpatchPtrType) ToJSONPatchPtrOutput() JSONPatchPtrOutput {
+	return i.ToJSONPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *jsonpatchPtrType) ToJSONPatchPtrOutputWithContext(ctx context.Context) JSONPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchPtrOutput)
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatch)(nil)).Elem()
+}
+
+func (o JSONPatchOutput) ToJSONPatchOutput() JSONPatchOutput {
+	return o
+}
+
+func (o JSONPatchOutput) ToJSONPatchOutputWithContext(ctx context.Context) JSONPatchOutput {
+	return o
+}
+
+func (o JSONPatchOutput) ToJSONPatchPtrOutput() JSONPatchPtrOutput {
+	return o.ToJSONPatchPtrOutputWithContext(context.Background())
+}
+
+func (o JSONPatchOutput) ToJSONPatchPtrOutputWithContext(ctx context.Context) JSONPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONPatch) *JSONPatch {
+		return &v
+	}).(JSONPatchPtrOutput)
+}
+
+// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+//
+// expression must return an array of JSONPatch values.
+//
+// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+//
+//	[
+//	  JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+//	  JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+//	]
+//
+// To define an object for the patch value, use Object types. For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/spec/selector",
+//	    value: Object.spec.selector{matchLabels: {"environment": "test"}}
+//	  }
+//	]
+//
+// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+//	    value: "test"
+//	  },
+//	]
+//
+// CEL expressions have access to the types needed to create JSON patches and objects:
+//
+//   - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+//     See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+//     integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+//     [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+//     function may be used to escape path keys containing '/' and '~'.
+//   - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+//
+// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o JSONPatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JSONPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+type JSONPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (JSONPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**JSONPatch)(nil)).Elem()
+}
+
+func (o JSONPatchPtrOutput) ToJSONPatchPtrOutput() JSONPatchPtrOutput {
+	return o
+}
+
+func (o JSONPatchPtrOutput) ToJSONPatchPtrOutputWithContext(ctx context.Context) JSONPatchPtrOutput {
+	return o
+}
+
+func (o JSONPatchPtrOutput) Elem() JSONPatchOutput {
+	return o.ApplyT(func(v *JSONPatch) JSONPatch {
+		if v != nil {
+			return *v
+		}
+		var ret JSONPatch
+		return ret
+	}).(JSONPatchOutput)
+}
+
+// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+//
+// expression must return an array of JSONPatch values.
+//
+// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+//
+//	[
+//	  JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+//	  JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+//	]
+//
+// To define an object for the patch value, use Object types. For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/spec/selector",
+//	    value: Object.spec.selector{matchLabels: {"environment": "test"}}
+//	  }
+//	]
+//
+// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+//	    value: "test"
+//	  },
+//	]
+//
+// CEL expressions have access to the types needed to create JSON patches and objects:
+//
+//   - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+//     See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+//     integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+//     [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+//     function may be used to escape path keys containing '/' and '~'.
+//   - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+//
+// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o JSONPatchPtrOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *JSONPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Expression
+	}).(pulumi.StringPtrOutput)
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatchPatch struct {
+	// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+	//
+	// expression must return an array of JSONPatch values.
+	//
+	// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+	//
+	//       [
+	//         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+	//         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+	//       ]
+	//
+	// To define an object for the patch value, use Object types. For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/spec/selector",
+	//           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+	//         }
+	//       ]
+	//
+	// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+	//           value: "test"
+	//         },
+	//       ]
+	//
+	// CEL expressions have access to the types needed to create JSON patches and objects:
+	//
+	// - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+	//   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+	//   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+	//   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+	//   function may be used to escape path keys containing '/' and '~'.
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+	//
+	// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression *string `pulumi:"expression"`
+}
+
+// JSONPatchPatchInput is an input type that accepts JSONPatchPatchArgs and JSONPatchPatchOutput values.
+// You can construct a concrete instance of `JSONPatchPatchInput` via:
+//
+//	JSONPatchPatchArgs{...}
+type JSONPatchPatchInput interface {
+	pulumi.Input
+
+	ToJSONPatchPatchOutput() JSONPatchPatchOutput
+	ToJSONPatchPatchOutputWithContext(context.Context) JSONPatchPatchOutput
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatchPatchArgs struct {
+	// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+	//
+	// expression must return an array of JSONPatch values.
+	//
+	// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+	//
+	//       [
+	//         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+	//         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+	//       ]
+	//
+	// To define an object for the patch value, use Object types. For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/spec/selector",
+	//           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+	//         }
+	//       ]
+	//
+	// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+	//
+	//       [
+	//         JSONPatch{
+	//           op: "add",
+	//           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+	//           value: "test"
+	//         },
+	//       ]
+	//
+	// CEL expressions have access to the types needed to create JSON patches and objects:
+	//
+	// - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+	//   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+	//   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+	//   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+	//   function may be used to escape path keys containing '/' and '~'.
+	// - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+	//
+	// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+	//
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	//
+	// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+	//
+	// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+}
+
+func (JSONPatchPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatchPatch)(nil)).Elem()
+}
+
+func (i JSONPatchPatchArgs) ToJSONPatchPatchOutput() JSONPatchPatchOutput {
+	return i.ToJSONPatchPatchOutputWithContext(context.Background())
+}
+
+func (i JSONPatchPatchArgs) ToJSONPatchPatchOutputWithContext(ctx context.Context) JSONPatchPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchPatchOutput)
+}
+
+func (i JSONPatchPatchArgs) ToJSONPatchPatchPtrOutput() JSONPatchPatchPtrOutput {
+	return i.ToJSONPatchPatchPtrOutputWithContext(context.Background())
+}
+
+func (i JSONPatchPatchArgs) ToJSONPatchPatchPtrOutputWithContext(ctx context.Context) JSONPatchPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchPatchOutput).ToJSONPatchPatchPtrOutputWithContext(ctx)
+}
+
+// JSONPatchPatchPtrInput is an input type that accepts JSONPatchPatchArgs, JSONPatchPatchPtr and JSONPatchPatchPtrOutput values.
+// You can construct a concrete instance of `JSONPatchPatchPtrInput` via:
+//
+//	        JSONPatchPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type JSONPatchPatchPtrInput interface {
+	pulumi.Input
+
+	ToJSONPatchPatchPtrOutput() JSONPatchPatchPtrOutput
+	ToJSONPatchPatchPtrOutputWithContext(context.Context) JSONPatchPatchPtrOutput
+}
+
+type jsonpatchPatchPtrType JSONPatchPatchArgs
+
+func JSONPatchPatchPtr(v *JSONPatchPatchArgs) JSONPatchPatchPtrInput {
+	return (*jsonpatchPatchPtrType)(v)
+}
+
+func (*jsonpatchPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**JSONPatchPatch)(nil)).Elem()
+}
+
+func (i *jsonpatchPatchPtrType) ToJSONPatchPatchPtrOutput() JSONPatchPatchPtrOutput {
+	return i.ToJSONPatchPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *jsonpatchPatchPtrType) ToJSONPatchPatchPtrOutputWithContext(ctx context.Context) JSONPatchPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchPatchPtrOutput)
+}
+
+// JSONPatch defines a JSON Patch.
+type JSONPatchPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONPatchPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatchPatch)(nil)).Elem()
+}
+
+func (o JSONPatchPatchOutput) ToJSONPatchPatchOutput() JSONPatchPatchOutput {
+	return o
+}
+
+func (o JSONPatchPatchOutput) ToJSONPatchPatchOutputWithContext(ctx context.Context) JSONPatchPatchOutput {
+	return o
+}
+
+func (o JSONPatchPatchOutput) ToJSONPatchPatchPtrOutput() JSONPatchPatchPtrOutput {
+	return o.ToJSONPatchPatchPtrOutputWithContext(context.Background())
+}
+
+func (o JSONPatchPatchOutput) ToJSONPatchPatchPtrOutputWithContext(ctx context.Context) JSONPatchPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONPatchPatch) *JSONPatchPatch {
+		return &v
+	}).(JSONPatchPatchPtrOutput)
+}
+
+// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+//
+// expression must return an array of JSONPatch values.
+//
+// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+//
+//	[
+//	  JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+//	  JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+//	]
+//
+// To define an object for the patch value, use Object types. For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/spec/selector",
+//	    value: Object.spec.selector{matchLabels: {"environment": "test"}}
+//	  }
+//	]
+//
+// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+//	    value: "test"
+//	  },
+//	]
+//
+// CEL expressions have access to the types needed to create JSON patches and objects:
+//
+//   - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+//     See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+//     integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+//     [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+//     function may be used to escape path keys containing '/' and '~'.
+//   - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+//
+// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o JSONPatchPatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v JSONPatchPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+type JSONPatchPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (JSONPatchPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**JSONPatchPatch)(nil)).Elem()
+}
+
+func (o JSONPatchPatchPtrOutput) ToJSONPatchPatchPtrOutput() JSONPatchPatchPtrOutput {
+	return o
+}
+
+func (o JSONPatchPatchPtrOutput) ToJSONPatchPatchPtrOutputWithContext(ctx context.Context) JSONPatchPatchPtrOutput {
+	return o
+}
+
+func (o JSONPatchPatchPtrOutput) Elem() JSONPatchPatchOutput {
+	return o.ApplyT(func(v *JSONPatchPatch) JSONPatchPatch {
+		if v != nil {
+			return *v
+		}
+		var ret JSONPatchPatch
+		return ret
+	}).(JSONPatchPatchOutput)
+}
+
+// expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+//
+// expression must return an array of JSONPatch values.
+//
+// For example, this CEL expression returns a JSON patch to conditionally modify a value:
+//
+//	[
+//	  JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+//	  JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+//	]
+//
+// To define an object for the patch value, use Object types. For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/spec/selector",
+//	    value: Object.spec.selector{matchLabels: {"environment": "test"}}
+//	  }
+//	]
+//
+// To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+//
+//	[
+//	  JSONPatch{
+//	    op: "add",
+//	    path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+//	    value: "test"
+//	  },
+//	]
+//
+// CEL expressions have access to the types needed to create JSON patches and objects:
+//
+//   - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+//     See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+//     integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+//     [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+//     function may be used to escape path keys containing '/' and '~'.
+//   - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+//
+// CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+//
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
+//
+// CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+//
+// - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+func (o JSONPatchPatchPtrOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *JSONPatchPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Expression
+	}).(pulumi.StringPtrOutput)
 }
 
 type MatchCondition struct {
@@ -1508,6 +2708,1882 @@ func (o MatchResourcesPatchPtrOutput) ResourceRules() NamedRuleWithOperationsPat
 		}
 		return v.ResourceRules
 	}).(NamedRuleWithOperationsPatchArrayOutput)
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	Spec *MutatingAdmissionPolicySpec `pulumi:"spec"`
+}
+
+// MutatingAdmissionPolicyTypeInput is an input type that accepts MutatingAdmissionPolicyTypeArgs and MutatingAdmissionPolicyTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyTypeInput` via:
+//
+//	MutatingAdmissionPolicyTypeArgs{...}
+type MutatingAdmissionPolicyTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyTypeOutput() MutatingAdmissionPolicyTypeOutput
+	ToMutatingAdmissionPolicyTypeOutputWithContext(context.Context) MutatingAdmissionPolicyTypeOutput
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	Spec MutatingAdmissionPolicySpecPtrInput `pulumi:"spec"`
+}
+
+func (MutatingAdmissionPolicyTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyTypeArgs) ToMutatingAdmissionPolicyTypeOutput() MutatingAdmissionPolicyTypeOutput {
+	return i.ToMutatingAdmissionPolicyTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyTypeArgs) ToMutatingAdmissionPolicyTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyTypeOutput)
+}
+
+// MutatingAdmissionPolicyTypeArrayInput is an input type that accepts MutatingAdmissionPolicyTypeArray and MutatingAdmissionPolicyTypeArrayOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyTypeArrayInput` via:
+//
+//	MutatingAdmissionPolicyTypeArray{ MutatingAdmissionPolicyTypeArgs{...} }
+type MutatingAdmissionPolicyTypeArrayInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyTypeArrayOutput() MutatingAdmissionPolicyTypeArrayOutput
+	ToMutatingAdmissionPolicyTypeArrayOutputWithContext(context.Context) MutatingAdmissionPolicyTypeArrayOutput
+}
+
+type MutatingAdmissionPolicyTypeArray []MutatingAdmissionPolicyTypeInput
+
+func (MutatingAdmissionPolicyTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingAdmissionPolicyType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyTypeArray) ToMutatingAdmissionPolicyTypeArrayOutput() MutatingAdmissionPolicyTypeArrayOutput {
+	return i.ToMutatingAdmissionPolicyTypeArrayOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyTypeArray) ToMutatingAdmissionPolicyTypeArrayOutputWithContext(ctx context.Context) MutatingAdmissionPolicyTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyTypeArrayOutput)
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyTypeOutput) ToMutatingAdmissionPolicyTypeOutput() MutatingAdmissionPolicyTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyTypeOutput) ToMutatingAdmissionPolicyTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o MutatingAdmissionPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the MutatingAdmissionPolicy.
+func (o MutatingAdmissionPolicyTypeOutput) Spec() MutatingAdmissionPolicySpecPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyType) *MutatingAdmissionPolicySpec { return v.Spec }).(MutatingAdmissionPolicySpecPtrOutput)
+}
+
+type MutatingAdmissionPolicyTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingAdmissionPolicyType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyTypeArrayOutput) ToMutatingAdmissionPolicyTypeArrayOutput() MutatingAdmissionPolicyTypeArrayOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyTypeArrayOutput) ToMutatingAdmissionPolicyTypeArrayOutputWithContext(ctx context.Context) MutatingAdmissionPolicyTypeArrayOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyTypeArrayOutput) Index(i pulumi.IntInput) MutatingAdmissionPolicyTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingAdmissionPolicyType {
+		return vs[0].([]MutatingAdmissionPolicyType)[vs[1].(int)]
+	}).(MutatingAdmissionPolicyTypeOutput)
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	Spec *MutatingAdmissionPolicyBindingSpec `pulumi:"spec"`
+}
+
+// MutatingAdmissionPolicyBindingTypeInput is an input type that accepts MutatingAdmissionPolicyBindingTypeArgs and MutatingAdmissionPolicyBindingTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingTypeInput` via:
+//
+//	MutatingAdmissionPolicyBindingTypeArgs{...}
+type MutatingAdmissionPolicyBindingTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingTypeOutput() MutatingAdmissionPolicyBindingTypeOutput
+	ToMutatingAdmissionPolicyBindingTypeOutputWithContext(context.Context) MutatingAdmissionPolicyBindingTypeOutput
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	Spec MutatingAdmissionPolicyBindingSpecPtrInput `pulumi:"spec"`
+}
+
+func (MutatingAdmissionPolicyBindingTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingTypeArgs) ToMutatingAdmissionPolicyBindingTypeOutput() MutatingAdmissionPolicyBindingTypeOutput {
+	return i.ToMutatingAdmissionPolicyBindingTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingTypeArgs) ToMutatingAdmissionPolicyBindingTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingTypeOutput)
+}
+
+// MutatingAdmissionPolicyBindingTypeArrayInput is an input type that accepts MutatingAdmissionPolicyBindingTypeArray and MutatingAdmissionPolicyBindingTypeArrayOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingTypeArrayInput` via:
+//
+//	MutatingAdmissionPolicyBindingTypeArray{ MutatingAdmissionPolicyBindingTypeArgs{...} }
+type MutatingAdmissionPolicyBindingTypeArrayInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingTypeArrayOutput() MutatingAdmissionPolicyBindingTypeArrayOutput
+	ToMutatingAdmissionPolicyBindingTypeArrayOutputWithContext(context.Context) MutatingAdmissionPolicyBindingTypeArrayOutput
+}
+
+type MutatingAdmissionPolicyBindingTypeArray []MutatingAdmissionPolicyBindingTypeInput
+
+func (MutatingAdmissionPolicyBindingTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingAdmissionPolicyBindingType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingTypeArray) ToMutatingAdmissionPolicyBindingTypeArrayOutput() MutatingAdmissionPolicyBindingTypeArrayOutput {
+	return i.ToMutatingAdmissionPolicyBindingTypeArrayOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingTypeArray) ToMutatingAdmissionPolicyBindingTypeArrayOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingTypeArrayOutput)
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingTypeOutput) ToMutatingAdmissionPolicyBindingTypeOutput() MutatingAdmissionPolicyBindingTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingTypeOutput) ToMutatingAdmissionPolicyBindingTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyBindingTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyBindingTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o MutatingAdmissionPolicyBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+func (o MutatingAdmissionPolicyBindingTypeOutput) Spec() MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *MutatingAdmissionPolicyBindingSpec { return v.Spec }).(MutatingAdmissionPolicyBindingSpecPtrOutput)
+}
+
+type MutatingAdmissionPolicyBindingTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutatingAdmissionPolicyBindingType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingTypeArrayOutput) ToMutatingAdmissionPolicyBindingTypeArrayOutput() MutatingAdmissionPolicyBindingTypeArrayOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingTypeArrayOutput) ToMutatingAdmissionPolicyBindingTypeArrayOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingTypeArrayOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingTypeArrayOutput) Index(i pulumi.IntInput) MutatingAdmissionPolicyBindingTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingAdmissionPolicyBindingType {
+		return vs[0].([]MutatingAdmissionPolicyBindingType)[vs[1].(int)]
+	}).(MutatingAdmissionPolicyBindingTypeOutput)
+}
+
+// MutatingAdmissionPolicyBindingList is a list of MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of PolicyBinding.
+	Items []MutatingAdmissionPolicyBindingType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// MutatingAdmissionPolicyBindingListTypeInput is an input type that accepts MutatingAdmissionPolicyBindingListTypeArgs and MutatingAdmissionPolicyBindingListTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingListTypeInput` via:
+//
+//	MutatingAdmissionPolicyBindingListTypeArgs{...}
+type MutatingAdmissionPolicyBindingListTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingListTypeOutput() MutatingAdmissionPolicyBindingListTypeOutput
+	ToMutatingAdmissionPolicyBindingListTypeOutputWithContext(context.Context) MutatingAdmissionPolicyBindingListTypeOutput
+}
+
+// MutatingAdmissionPolicyBindingList is a list of MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of PolicyBinding.
+	Items MutatingAdmissionPolicyBindingTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (MutatingAdmissionPolicyBindingListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingListType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingListTypeArgs) ToMutatingAdmissionPolicyBindingListTypeOutput() MutatingAdmissionPolicyBindingListTypeOutput {
+	return i.ToMutatingAdmissionPolicyBindingListTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingListTypeArgs) ToMutatingAdmissionPolicyBindingListTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingListTypeOutput)
+}
+
+// MutatingAdmissionPolicyBindingList is a list of MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingListTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingListType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingListTypeOutput) ToMutatingAdmissionPolicyBindingListTypeOutput() MutatingAdmissionPolicyBindingListTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingListTypeOutput) ToMutatingAdmissionPolicyBindingListTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyBindingListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of PolicyBinding.
+func (o MutatingAdmissionPolicyBindingListTypeOutput) Items() MutatingAdmissionPolicyBindingTypeArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) []MutatingAdmissionPolicyBindingType { return v.Items }).(MutatingAdmissionPolicyBindingTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyBindingListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyBindingListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	Spec *MutatingAdmissionPolicyBindingSpecPatch `pulumi:"spec"`
+}
+
+// MutatingAdmissionPolicyBindingPatchTypeInput is an input type that accepts MutatingAdmissionPolicyBindingPatchTypeArgs and MutatingAdmissionPolicyBindingPatchTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingPatchTypeInput` via:
+//
+//	MutatingAdmissionPolicyBindingPatchTypeArgs{...}
+type MutatingAdmissionPolicyBindingPatchTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingPatchTypeOutput() MutatingAdmissionPolicyBindingPatchTypeOutput
+	ToMutatingAdmissionPolicyBindingPatchTypeOutputWithContext(context.Context) MutatingAdmissionPolicyBindingPatchTypeOutput
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	Spec MutatingAdmissionPolicyBindingSpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (MutatingAdmissionPolicyBindingPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingPatchType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingPatchTypeArgs) ToMutatingAdmissionPolicyBindingPatchTypeOutput() MutatingAdmissionPolicyBindingPatchTypeOutput {
+	return i.ToMutatingAdmissionPolicyBindingPatchTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingPatchTypeArgs) ToMutatingAdmissionPolicyBindingPatchTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingPatchTypeOutput)
+}
+
+// MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+//
+// Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+type MutatingAdmissionPolicyBindingPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingPatchType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) ToMutatingAdmissionPolicyBindingPatchTypeOutput() MutatingAdmissionPolicyBindingPatchTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) ToMutatingAdmissionPolicyBindingPatchTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Spec() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *MutatingAdmissionPolicyBindingSpecPatch {
+		return v.Spec
+	}).(MutatingAdmissionPolicyBindingSpecPatchPtrOutput)
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpec struct {
+	// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+	MatchResources *MatchResources `pulumi:"matchResources"`
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	ParamRef *ParamRef `pulumi:"paramRef"`
+	// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+	PolicyName *string `pulumi:"policyName"`
+}
+
+// MutatingAdmissionPolicyBindingSpecInput is an input type that accepts MutatingAdmissionPolicyBindingSpecArgs and MutatingAdmissionPolicyBindingSpecOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingSpecInput` via:
+//
+//	MutatingAdmissionPolicyBindingSpecArgs{...}
+type MutatingAdmissionPolicyBindingSpecInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingSpecOutput() MutatingAdmissionPolicyBindingSpecOutput
+	ToMutatingAdmissionPolicyBindingSpecOutputWithContext(context.Context) MutatingAdmissionPolicyBindingSpecOutput
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpecArgs struct {
+	// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+	MatchResources MatchResourcesPtrInput `pulumi:"matchResources"`
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	ParamRef ParamRefPtrInput `pulumi:"paramRef"`
+	// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
+}
+
+func (MutatingAdmissionPolicyBindingSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingSpec)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingSpecArgs) ToMutatingAdmissionPolicyBindingSpecOutput() MutatingAdmissionPolicyBindingSpecOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingSpecArgs) ToMutatingAdmissionPolicyBindingSpecOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecOutput)
+}
+
+func (i MutatingAdmissionPolicyBindingSpecArgs) ToMutatingAdmissionPolicyBindingSpecPtrOutput() MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingSpecArgs) ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecOutput).ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx)
+}
+
+// MutatingAdmissionPolicyBindingSpecPtrInput is an input type that accepts MutatingAdmissionPolicyBindingSpecArgs, MutatingAdmissionPolicyBindingSpecPtr and MutatingAdmissionPolicyBindingSpecPtrOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingSpecPtrInput` via:
+//
+//	        MutatingAdmissionPolicyBindingSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type MutatingAdmissionPolicyBindingSpecPtrInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingSpecPtrOutput() MutatingAdmissionPolicyBindingSpecPtrOutput
+	ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(context.Context) MutatingAdmissionPolicyBindingSpecPtrOutput
+}
+
+type mutatingAdmissionPolicyBindingSpecPtrType MutatingAdmissionPolicyBindingSpecArgs
+
+func MutatingAdmissionPolicyBindingSpecPtr(v *MutatingAdmissionPolicyBindingSpecArgs) MutatingAdmissionPolicyBindingSpecPtrInput {
+	return (*mutatingAdmissionPolicyBindingSpecPtrType)(v)
+}
+
+func (*mutatingAdmissionPolicyBindingSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicyBindingSpec)(nil)).Elem()
+}
+
+func (i *mutatingAdmissionPolicyBindingSpecPtrType) ToMutatingAdmissionPolicyBindingSpecPtrOutput() MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *mutatingAdmissionPolicyBindingSpecPtrType) ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecPtrOutput)
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpecOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingSpec)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingSpecOutput) ToMutatingAdmissionPolicyBindingSpecOutput() MutatingAdmissionPolicyBindingSpecOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecOutput) ToMutatingAdmissionPolicyBindingSpecOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecOutput) ToMutatingAdmissionPolicyBindingSpecPtrOutput() MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return o.ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(context.Background())
+}
+
+func (o MutatingAdmissionPolicyBindingSpecOutput) ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingAdmissionPolicyBindingSpec) *MutatingAdmissionPolicyBindingSpec {
+		return &v
+	}).(MutatingAdmissionPolicyBindingSpecPtrOutput)
+}
+
+// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+func (o MutatingAdmissionPolicyBindingSpecOutput) MatchResources() MatchResourcesPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpec) *MatchResources { return v.MatchResources }).(MatchResourcesPtrOutput)
+}
+
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+func (o MutatingAdmissionPolicyBindingSpecOutput) ParamRef() ParamRefPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpec) *ParamRef { return v.ParamRef }).(ParamRefPtrOutput)
+}
+
+// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+func (o MutatingAdmissionPolicyBindingSpecOutput) PolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpec) *string { return v.PolicyName }).(pulumi.StringPtrOutput)
+}
+
+type MutatingAdmissionPolicyBindingSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicyBindingSpec)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) ToMutatingAdmissionPolicyBindingSpecPtrOutput() MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) ToMutatingAdmissionPolicyBindingSpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) Elem() MutatingAdmissionPolicyBindingSpecOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpec) MutatingAdmissionPolicyBindingSpec {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingAdmissionPolicyBindingSpec
+		return ret
+	}).(MutatingAdmissionPolicyBindingSpecOutput)
+}
+
+// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) MatchResources() MatchResourcesPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpec) *MatchResources {
+		if v == nil {
+			return nil
+		}
+		return v.MatchResources
+	}).(MatchResourcesPtrOutput)
+}
+
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) ParamRef() ParamRefPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpec) *ParamRef {
+		if v == nil {
+			return nil
+		}
+		return v.ParamRef
+	}).(ParamRefPtrOutput)
+}
+
+// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+func (o MutatingAdmissionPolicyBindingSpecPtrOutput) PolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PolicyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpecPatch struct {
+	// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+	MatchResources *MatchResourcesPatch `pulumi:"matchResources"`
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	ParamRef *ParamRefPatch `pulumi:"paramRef"`
+	// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+	PolicyName *string `pulumi:"policyName"`
+}
+
+// MutatingAdmissionPolicyBindingSpecPatchInput is an input type that accepts MutatingAdmissionPolicyBindingSpecPatchArgs and MutatingAdmissionPolicyBindingSpecPatchOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingSpecPatchInput` via:
+//
+//	MutatingAdmissionPolicyBindingSpecPatchArgs{...}
+type MutatingAdmissionPolicyBindingSpecPatchInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingSpecPatchOutput() MutatingAdmissionPolicyBindingSpecPatchOutput
+	ToMutatingAdmissionPolicyBindingSpecPatchOutputWithContext(context.Context) MutatingAdmissionPolicyBindingSpecPatchOutput
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpecPatchArgs struct {
+	// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+	MatchResources MatchResourcesPatchPtrInput `pulumi:"matchResources"`
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	ParamRef ParamRefPatchPtrInput `pulumi:"paramRef"`
+	// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
+}
+
+func (MutatingAdmissionPolicyBindingSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecPatch)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyBindingSpecPatchArgs) ToMutatingAdmissionPolicyBindingSpecPatchOutput() MutatingAdmissionPolicyBindingSpecPatchOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecPatchOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingSpecPatchArgs) ToMutatingAdmissionPolicyBindingSpecPatchOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecPatchOutput)
+}
+
+func (i MutatingAdmissionPolicyBindingSpecPatchArgs) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutput() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyBindingSpecPatchArgs) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecPatchOutput).ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx)
+}
+
+// MutatingAdmissionPolicyBindingSpecPatchPtrInput is an input type that accepts MutatingAdmissionPolicyBindingSpecPatchArgs, MutatingAdmissionPolicyBindingSpecPatchPtr and MutatingAdmissionPolicyBindingSpecPatchPtrOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyBindingSpecPatchPtrInput` via:
+//
+//	        MutatingAdmissionPolicyBindingSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type MutatingAdmissionPolicyBindingSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyBindingSpecPatchPtrOutput() MutatingAdmissionPolicyBindingSpecPatchPtrOutput
+	ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(context.Context) MutatingAdmissionPolicyBindingSpecPatchPtrOutput
+}
+
+type mutatingAdmissionPolicyBindingSpecPatchPtrType MutatingAdmissionPolicyBindingSpecPatchArgs
+
+func MutatingAdmissionPolicyBindingSpecPatchPtr(v *MutatingAdmissionPolicyBindingSpecPatchArgs) MutatingAdmissionPolicyBindingSpecPatchPtrInput {
+	return (*mutatingAdmissionPolicyBindingSpecPatchPtrType)(v)
+}
+
+func (*mutatingAdmissionPolicyBindingSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicyBindingSpecPatch)(nil)).Elem()
+}
+
+func (i *mutatingAdmissionPolicyBindingSpecPatchPtrType) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutput() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return i.ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *mutatingAdmissionPolicyBindingSpecPatchPtrType) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyBindingSpecPatchPtrOutput)
+}
+
+// MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+type MutatingAdmissionPolicyBindingSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecPatch)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) ToMutatingAdmissionPolicyBindingSpecPatchOutput() MutatingAdmissionPolicyBindingSpecPatchOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) ToMutatingAdmissionPolicyBindingSpecPatchOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutput() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return o.ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingAdmissionPolicyBindingSpecPatch) *MutatingAdmissionPolicyBindingSpecPatch {
+		return &v
+	}).(MutatingAdmissionPolicyBindingSpecPatchPtrOutput)
+}
+
+// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) MatchResources() MatchResourcesPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpecPatch) *MatchResourcesPatch { return v.MatchResources }).(MatchResourcesPatchPtrOutput)
+}
+
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) ParamRef() ParamRefPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch { return v.ParamRef }).(ParamRefPatchPtrOutput)
+}
+
+// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+func (o MutatingAdmissionPolicyBindingSpecPatchOutput) PolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyBindingSpecPatch) *string { return v.PolicyName }).(pulumi.StringPtrOutput)
+}
+
+type MutatingAdmissionPolicyBindingSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyBindingSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicyBindingSpecPatch)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutput() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) ToMutatingAdmissionPolicyBindingSpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) Elem() MutatingAdmissionPolicyBindingSpecPatchOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpecPatch) MutatingAdmissionPolicyBindingSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingAdmissionPolicyBindingSpecPatch
+		return ret
+	}).(MutatingAdmissionPolicyBindingSpecPatchOutput)
+}
+
+// matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) MatchResources() MatchResourcesPatchPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpecPatch) *MatchResourcesPatch {
+		if v == nil {
+			return nil
+		}
+		return v.MatchResources
+	}).(MatchResourcesPatchPtrOutput)
+}
+
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) ParamRef() ParamRefPatchPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ParamRef
+	}).(ParamRefPatchPtrOutput)
+}
+
+// policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+func (o MutatingAdmissionPolicyBindingSpecPatchPtrOutput) PolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PolicyName
+	}).(pulumi.StringPtrOutput)
+}
+
+// MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
+type MutatingAdmissionPolicyListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// List of ValidatingAdmissionPolicy.
+	Items []MutatingAdmissionPolicyType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// MutatingAdmissionPolicyListTypeInput is an input type that accepts MutatingAdmissionPolicyListTypeArgs and MutatingAdmissionPolicyListTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyListTypeInput` via:
+//
+//	MutatingAdmissionPolicyListTypeArgs{...}
+type MutatingAdmissionPolicyListTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyListTypeOutput() MutatingAdmissionPolicyListTypeOutput
+	ToMutatingAdmissionPolicyListTypeOutputWithContext(context.Context) MutatingAdmissionPolicyListTypeOutput
+}
+
+// MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
+type MutatingAdmissionPolicyListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// List of ValidatingAdmissionPolicy.
+	Items MutatingAdmissionPolicyTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (MutatingAdmissionPolicyListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyListType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyListTypeArgs) ToMutatingAdmissionPolicyListTypeOutput() MutatingAdmissionPolicyListTypeOutput {
+	return i.ToMutatingAdmissionPolicyListTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyListTypeArgs) ToMutatingAdmissionPolicyListTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyListTypeOutput)
+}
+
+// MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
+type MutatingAdmissionPolicyListTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyListType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyListTypeOutput) ToMutatingAdmissionPolicyListTypeOutput() MutatingAdmissionPolicyListTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyListTypeOutput) ToMutatingAdmissionPolicyListTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of ValidatingAdmissionPolicy.
+func (o MutatingAdmissionPolicyListTypeOutput) Items() MutatingAdmissionPolicyTypeArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyListType) []MutatingAdmissionPolicyType { return v.Items }).(MutatingAdmissionPolicyTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	Spec *MutatingAdmissionPolicySpecPatch `pulumi:"spec"`
+}
+
+// MutatingAdmissionPolicyPatchTypeInput is an input type that accepts MutatingAdmissionPolicyPatchTypeArgs and MutatingAdmissionPolicyPatchTypeOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicyPatchTypeInput` via:
+//
+//	MutatingAdmissionPolicyPatchTypeArgs{...}
+type MutatingAdmissionPolicyPatchTypeInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicyPatchTypeOutput() MutatingAdmissionPolicyPatchTypeOutput
+	ToMutatingAdmissionPolicyPatchTypeOutputWithContext(context.Context) MutatingAdmissionPolicyPatchTypeOutput
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	Spec MutatingAdmissionPolicySpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (MutatingAdmissionPolicyPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyPatchType)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicyPatchTypeArgs) ToMutatingAdmissionPolicyPatchTypeOutput() MutatingAdmissionPolicyPatchTypeOutput {
+	return i.ToMutatingAdmissionPolicyPatchTypeOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicyPatchTypeArgs) ToMutatingAdmissionPolicyPatchTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicyPatchTypeOutput)
+}
+
+// MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+type MutatingAdmissionPolicyPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicyPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicyPatchType)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicyPatchTypeOutput) ToMutatingAdmissionPolicyPatchTypeOutput() MutatingAdmissionPolicyPatchTypeOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicyPatchTypeOutput) ToMutatingAdmissionPolicyPatchTypeOutputWithContext(ctx context.Context) MutatingAdmissionPolicyPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o MutatingAdmissionPolicyPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o MutatingAdmissionPolicyPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+func (o MutatingAdmissionPolicyPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Specification of the desired behavior of the MutatingAdmissionPolicy.
+func (o MutatingAdmissionPolicyPatchTypeOutput) Spec() MutatingAdmissionPolicySpecPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *MutatingAdmissionPolicySpecPatch { return v.Spec }).(MutatingAdmissionPolicySpecPatchPtrOutput)
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpec struct {
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
+	FailurePolicy *string `pulumi:"failurePolicy"`
+	// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions []MatchCondition `pulumi:"matchConditions"`
+	// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+	MatchConstraints *MatchResources `pulumi:"matchConstraints"`
+	// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+	Mutations []Mutation `pulumi:"mutations"`
+	// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+	ParamKind *ParamKind `pulumi:"paramKind"`
+	// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+	//
+	// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+	//
+	// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+	ReinvocationPolicy *string `pulumi:"reinvocationPolicy"`
+	// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+	Variables []Variable `pulumi:"variables"`
+}
+
+// MutatingAdmissionPolicySpecInput is an input type that accepts MutatingAdmissionPolicySpecArgs and MutatingAdmissionPolicySpecOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicySpecInput` via:
+//
+//	MutatingAdmissionPolicySpecArgs{...}
+type MutatingAdmissionPolicySpecInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicySpecOutput() MutatingAdmissionPolicySpecOutput
+	ToMutatingAdmissionPolicySpecOutputWithContext(context.Context) MutatingAdmissionPolicySpecOutput
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpecArgs struct {
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
+	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
+	// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+	MatchConstraints MatchResourcesPtrInput `pulumi:"matchConstraints"`
+	// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+	Mutations MutationArrayInput `pulumi:"mutations"`
+	// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+	ParamKind ParamKindPtrInput `pulumi:"paramKind"`
+	// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+	//
+	// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+	//
+	// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+	ReinvocationPolicy pulumi.StringPtrInput `pulumi:"reinvocationPolicy"`
+	// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+	Variables VariableArrayInput `pulumi:"variables"`
+}
+
+func (MutatingAdmissionPolicySpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicySpec)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicySpecArgs) ToMutatingAdmissionPolicySpecOutput() MutatingAdmissionPolicySpecOutput {
+	return i.ToMutatingAdmissionPolicySpecOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicySpecArgs) ToMutatingAdmissionPolicySpecOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecOutput)
+}
+
+func (i MutatingAdmissionPolicySpecArgs) ToMutatingAdmissionPolicySpecPtrOutput() MutatingAdmissionPolicySpecPtrOutput {
+	return i.ToMutatingAdmissionPolicySpecPtrOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicySpecArgs) ToMutatingAdmissionPolicySpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecOutput).ToMutatingAdmissionPolicySpecPtrOutputWithContext(ctx)
+}
+
+// MutatingAdmissionPolicySpecPtrInput is an input type that accepts MutatingAdmissionPolicySpecArgs, MutatingAdmissionPolicySpecPtr and MutatingAdmissionPolicySpecPtrOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicySpecPtrInput` via:
+//
+//	        MutatingAdmissionPolicySpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type MutatingAdmissionPolicySpecPtrInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicySpecPtrOutput() MutatingAdmissionPolicySpecPtrOutput
+	ToMutatingAdmissionPolicySpecPtrOutputWithContext(context.Context) MutatingAdmissionPolicySpecPtrOutput
+}
+
+type mutatingAdmissionPolicySpecPtrType MutatingAdmissionPolicySpecArgs
+
+func MutatingAdmissionPolicySpecPtr(v *MutatingAdmissionPolicySpecArgs) MutatingAdmissionPolicySpecPtrInput {
+	return (*mutatingAdmissionPolicySpecPtrType)(v)
+}
+
+func (*mutatingAdmissionPolicySpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicySpec)(nil)).Elem()
+}
+
+func (i *mutatingAdmissionPolicySpecPtrType) ToMutatingAdmissionPolicySpecPtrOutput() MutatingAdmissionPolicySpecPtrOutput {
+	return i.ToMutatingAdmissionPolicySpecPtrOutputWithContext(context.Background())
+}
+
+func (i *mutatingAdmissionPolicySpecPtrType) ToMutatingAdmissionPolicySpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecPtrOutput)
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpecOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicySpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicySpec)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicySpecOutput) ToMutatingAdmissionPolicySpecOutput() MutatingAdmissionPolicySpecOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecOutput) ToMutatingAdmissionPolicySpecOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecOutput) ToMutatingAdmissionPolicySpecPtrOutput() MutatingAdmissionPolicySpecPtrOutput {
+	return o.ToMutatingAdmissionPolicySpecPtrOutputWithContext(context.Background())
+}
+
+func (o MutatingAdmissionPolicySpecOutput) ToMutatingAdmissionPolicySpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingAdmissionPolicySpec) *MutatingAdmissionPolicySpec {
+		return &v
+	}).(MutatingAdmissionPolicySpecPtrOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
+func (o MutatingAdmissionPolicySpecOutput) FailurePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o MutatingAdmissionPolicySpecOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
+}
+
+// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+func (o MutatingAdmissionPolicySpecOutput) MatchConstraints() MatchResourcesPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) *MatchResources { return v.MatchConstraints }).(MatchResourcesPtrOutput)
+}
+
+// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+func (o MutatingAdmissionPolicySpecOutput) Mutations() MutationArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) []Mutation { return v.Mutations }).(MutationArrayOutput)
+}
+
+// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+func (o MutatingAdmissionPolicySpecOutput) ParamKind() ParamKindPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) *ParamKind { return v.ParamKind }).(ParamKindPtrOutput)
+}
+
+// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+//
+// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+//
+// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+func (o MutatingAdmissionPolicySpecOutput) ReinvocationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) *string { return v.ReinvocationPolicy }).(pulumi.StringPtrOutput)
+}
+
+// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+func (o MutatingAdmissionPolicySpecOutput) Variables() VariableArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpec) []Variable { return v.Variables }).(VariableArrayOutput)
+}
+
+type MutatingAdmissionPolicySpecPtrOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicySpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicySpec)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicySpecPtrOutput) ToMutatingAdmissionPolicySpecPtrOutput() MutatingAdmissionPolicySpecPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPtrOutput) ToMutatingAdmissionPolicySpecPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPtrOutput) Elem() MutatingAdmissionPolicySpecOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) MutatingAdmissionPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingAdmissionPolicySpec
+		return ret
+	}).(MutatingAdmissionPolicySpecOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
+func (o MutatingAdmissionPolicySpecPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FailurePolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o MutatingAdmissionPolicySpecPtrOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) []MatchCondition {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConditions
+	}).(MatchConditionArrayOutput)
+}
+
+// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+func (o MutatingAdmissionPolicySpecPtrOutput) MatchConstraints() MatchResourcesPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) *MatchResources {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConstraints
+	}).(MatchResourcesPtrOutput)
+}
+
+// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+func (o MutatingAdmissionPolicySpecPtrOutput) Mutations() MutationArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) []Mutation {
+		if v == nil {
+			return nil
+		}
+		return v.Mutations
+	}).(MutationArrayOutput)
+}
+
+// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+func (o MutatingAdmissionPolicySpecPtrOutput) ParamKind() ParamKindPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) *ParamKind {
+		if v == nil {
+			return nil
+		}
+		return v.ParamKind
+	}).(ParamKindPtrOutput)
+}
+
+// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+//
+// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+//
+// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+func (o MutatingAdmissionPolicySpecPtrOutput) ReinvocationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ReinvocationPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+func (o MutatingAdmissionPolicySpecPtrOutput) Variables() VariableArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpec) []Variable {
+		if v == nil {
+			return nil
+		}
+		return v.Variables
+	}).(VariableArrayOutput)
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpecPatch struct {
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
+	FailurePolicy *string `pulumi:"failurePolicy"`
+	// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
+	// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+	MatchConstraints *MatchResourcesPatch `pulumi:"matchConstraints"`
+	// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+	Mutations []MutationPatch `pulumi:"mutations"`
+	// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+	ParamKind *ParamKindPatch `pulumi:"paramKind"`
+	// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+	//
+	// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+	//
+	// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+	ReinvocationPolicy *string `pulumi:"reinvocationPolicy"`
+	// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+	Variables []VariablePatch `pulumi:"variables"`
+}
+
+// MutatingAdmissionPolicySpecPatchInput is an input type that accepts MutatingAdmissionPolicySpecPatchArgs and MutatingAdmissionPolicySpecPatchOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicySpecPatchInput` via:
+//
+//	MutatingAdmissionPolicySpecPatchArgs{...}
+type MutatingAdmissionPolicySpecPatchInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicySpecPatchOutput() MutatingAdmissionPolicySpecPatchOutput
+	ToMutatingAdmissionPolicySpecPatchOutputWithContext(context.Context) MutatingAdmissionPolicySpecPatchOutput
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpecPatchArgs struct {
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
+	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
+	// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+	MatchConstraints MatchResourcesPatchPtrInput `pulumi:"matchConstraints"`
+	// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+	Mutations MutationPatchArrayInput `pulumi:"mutations"`
+	// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+	ParamKind ParamKindPatchPtrInput `pulumi:"paramKind"`
+	// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+	//
+	// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+	//
+	// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+	ReinvocationPolicy pulumi.StringPtrInput `pulumi:"reinvocationPolicy"`
+	// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+	Variables VariablePatchArrayInput `pulumi:"variables"`
+}
+
+func (MutatingAdmissionPolicySpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicySpecPatch)(nil)).Elem()
+}
+
+func (i MutatingAdmissionPolicySpecPatchArgs) ToMutatingAdmissionPolicySpecPatchOutput() MutatingAdmissionPolicySpecPatchOutput {
+	return i.ToMutatingAdmissionPolicySpecPatchOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicySpecPatchArgs) ToMutatingAdmissionPolicySpecPatchOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecPatchOutput)
+}
+
+func (i MutatingAdmissionPolicySpecPatchArgs) ToMutatingAdmissionPolicySpecPatchPtrOutput() MutatingAdmissionPolicySpecPatchPtrOutput {
+	return i.ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i MutatingAdmissionPolicySpecPatchArgs) ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecPatchOutput).ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx)
+}
+
+// MutatingAdmissionPolicySpecPatchPtrInput is an input type that accepts MutatingAdmissionPolicySpecPatchArgs, MutatingAdmissionPolicySpecPatchPtr and MutatingAdmissionPolicySpecPatchPtrOutput values.
+// You can construct a concrete instance of `MutatingAdmissionPolicySpecPatchPtrInput` via:
+//
+//	        MutatingAdmissionPolicySpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type MutatingAdmissionPolicySpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToMutatingAdmissionPolicySpecPatchPtrOutput() MutatingAdmissionPolicySpecPatchPtrOutput
+	ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(context.Context) MutatingAdmissionPolicySpecPatchPtrOutput
+}
+
+type mutatingAdmissionPolicySpecPatchPtrType MutatingAdmissionPolicySpecPatchArgs
+
+func MutatingAdmissionPolicySpecPatchPtr(v *MutatingAdmissionPolicySpecPatchArgs) MutatingAdmissionPolicySpecPatchPtrInput {
+	return (*mutatingAdmissionPolicySpecPatchPtrType)(v)
+}
+
+func (*mutatingAdmissionPolicySpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicySpecPatch)(nil)).Elem()
+}
+
+func (i *mutatingAdmissionPolicySpecPatchPtrType) ToMutatingAdmissionPolicySpecPatchPtrOutput() MutatingAdmissionPolicySpecPatchPtrOutput {
+	return i.ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *mutatingAdmissionPolicySpecPatchPtrType) ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutatingAdmissionPolicySpecPatchPtrOutput)
+}
+
+// MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+type MutatingAdmissionPolicySpecPatchOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicySpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutatingAdmissionPolicySpecPatch)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicySpecPatchOutput) ToMutatingAdmissionPolicySpecPatchOutput() MutatingAdmissionPolicySpecPatchOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPatchOutput) ToMutatingAdmissionPolicySpecPatchOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPatchOutput) ToMutatingAdmissionPolicySpecPatchPtrOutput() MutatingAdmissionPolicySpecPatchPtrOutput {
+	return o.ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o MutatingAdmissionPolicySpecPatchOutput) ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingAdmissionPolicySpecPatch) *MutatingAdmissionPolicySpecPatch {
+		return &v
+	}).(MutatingAdmissionPolicySpecPatchPtrOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
+func (o MutatingAdmissionPolicySpecPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o MutatingAdmissionPolicySpecPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
+}
+
+// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+func (o MutatingAdmissionPolicySpecPatchOutput) MatchConstraints() MatchResourcesPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) *MatchResourcesPatch { return v.MatchConstraints }).(MatchResourcesPatchPtrOutput)
+}
+
+// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+func (o MutatingAdmissionPolicySpecPatchOutput) Mutations() MutationPatchArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) []MutationPatch { return v.Mutations }).(MutationPatchArrayOutput)
+}
+
+// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+func (o MutatingAdmissionPolicySpecPatchOutput) ParamKind() ParamKindPatchPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) *ParamKindPatch { return v.ParamKind }).(ParamKindPatchPtrOutput)
+}
+
+// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+//
+// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+//
+// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+func (o MutatingAdmissionPolicySpecPatchOutput) ReinvocationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) *string { return v.ReinvocationPolicy }).(pulumi.StringPtrOutput)
+}
+
+// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+func (o MutatingAdmissionPolicySpecPatchOutput) Variables() VariablePatchArrayOutput {
+	return o.ApplyT(func(v MutatingAdmissionPolicySpecPatch) []VariablePatch { return v.Variables }).(VariablePatchArrayOutput)
+}
+
+type MutatingAdmissionPolicySpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (MutatingAdmissionPolicySpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MutatingAdmissionPolicySpecPatch)(nil)).Elem()
+}
+
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) ToMutatingAdmissionPolicySpecPatchPtrOutput() MutatingAdmissionPolicySpecPatchPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) ToMutatingAdmissionPolicySpecPatchPtrOutputWithContext(ctx context.Context) MutatingAdmissionPolicySpecPatchPtrOutput {
+	return o
+}
+
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) Elem() MutatingAdmissionPolicySpecPatchOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) MutatingAdmissionPolicySpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingAdmissionPolicySpecPatch
+		return ret
+	}).(MutatingAdmissionPolicySpecPatchOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FailurePolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+// matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) []MatchConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConditions
+	}).(MatchConditionPatchArrayOutput)
+}
+
+// matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) MatchConstraints() MatchResourcesPatchPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) *MatchResourcesPatch {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConstraints
+	}).(MatchResourcesPatchPtrOutput)
+}
+
+// mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) Mutations() MutationPatchArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) []MutationPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Mutations
+	}).(MutationPatchArrayOutput)
+}
+
+// paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) ParamKind() ParamKindPatchPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) *ParamKindPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ParamKind
+	}).(ParamKindPatchPtrOutput)
+}
+
+// reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+//
+// Never: These mutations will not be called more than once per binding in a single admission evaluation.
+//
+// IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) ReinvocationPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ReinvocationPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+// variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+func (o MutatingAdmissionPolicySpecPatchPtrOutput) Variables() VariablePatchArrayOutput {
+	return o.ApplyT(func(v *MutatingAdmissionPolicySpecPatch) []VariablePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Variables
+	}).(VariablePatchArrayOutput)
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type Mutation struct {
+	// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+	ApplyConfiguration *ApplyConfiguration `pulumi:"applyConfiguration"`
+	// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+	JsonPatch *JSONPatch `pulumi:"jsonPatch"`
+	// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+	PatchType string `pulumi:"patchType"`
+}
+
+// MutationInput is an input type that accepts MutationArgs and MutationOutput values.
+// You can construct a concrete instance of `MutationInput` via:
+//
+//	MutationArgs{...}
+type MutationInput interface {
+	pulumi.Input
+
+	ToMutationOutput() MutationOutput
+	ToMutationOutputWithContext(context.Context) MutationOutput
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type MutationArgs struct {
+	// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+	ApplyConfiguration ApplyConfigurationPtrInput `pulumi:"applyConfiguration"`
+	// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+	JsonPatch JSONPatchPtrInput `pulumi:"jsonPatch"`
+	// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+	PatchType pulumi.StringInput `pulumi:"patchType"`
+}
+
+func (MutationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Mutation)(nil)).Elem()
+}
+
+func (i MutationArgs) ToMutationOutput() MutationOutput {
+	return i.ToMutationOutputWithContext(context.Background())
+}
+
+func (i MutationArgs) ToMutationOutputWithContext(ctx context.Context) MutationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutationOutput)
+}
+
+// MutationArrayInput is an input type that accepts MutationArray and MutationArrayOutput values.
+// You can construct a concrete instance of `MutationArrayInput` via:
+//
+//	MutationArray{ MutationArgs{...} }
+type MutationArrayInput interface {
+	pulumi.Input
+
+	ToMutationArrayOutput() MutationArrayOutput
+	ToMutationArrayOutputWithContext(context.Context) MutationArrayOutput
+}
+
+type MutationArray []MutationInput
+
+func (MutationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Mutation)(nil)).Elem()
+}
+
+func (i MutationArray) ToMutationArrayOutput() MutationArrayOutput {
+	return i.ToMutationArrayOutputWithContext(context.Background())
+}
+
+func (i MutationArray) ToMutationArrayOutputWithContext(ctx context.Context) MutationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutationArrayOutput)
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type MutationOutput struct{ *pulumi.OutputState }
+
+func (MutationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Mutation)(nil)).Elem()
+}
+
+func (o MutationOutput) ToMutationOutput() MutationOutput {
+	return o
+}
+
+func (o MutationOutput) ToMutationOutputWithContext(ctx context.Context) MutationOutput {
+	return o
+}
+
+// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+func (o MutationOutput) ApplyConfiguration() ApplyConfigurationPtrOutput {
+	return o.ApplyT(func(v Mutation) *ApplyConfiguration { return v.ApplyConfiguration }).(ApplyConfigurationPtrOutput)
+}
+
+// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+func (o MutationOutput) JsonPatch() JSONPatchPtrOutput {
+	return o.ApplyT(func(v Mutation) *JSONPatch { return v.JsonPatch }).(JSONPatchPtrOutput)
+}
+
+// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+func (o MutationOutput) PatchType() pulumi.StringOutput {
+	return o.ApplyT(func(v Mutation) string { return v.PatchType }).(pulumi.StringOutput)
+}
+
+type MutationArrayOutput struct{ *pulumi.OutputState }
+
+func (MutationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Mutation)(nil)).Elem()
+}
+
+func (o MutationArrayOutput) ToMutationArrayOutput() MutationArrayOutput {
+	return o
+}
+
+func (o MutationArrayOutput) ToMutationArrayOutputWithContext(ctx context.Context) MutationArrayOutput {
+	return o
+}
+
+func (o MutationArrayOutput) Index(i pulumi.IntInput) MutationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Mutation {
+		return vs[0].([]Mutation)[vs[1].(int)]
+	}).(MutationOutput)
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type MutationPatch struct {
+	// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+	ApplyConfiguration *ApplyConfigurationPatch `pulumi:"applyConfiguration"`
+	// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+	JsonPatch *JSONPatchPatch `pulumi:"jsonPatch"`
+	// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+	PatchType *string `pulumi:"patchType"`
+}
+
+// MutationPatchInput is an input type that accepts MutationPatchArgs and MutationPatchOutput values.
+// You can construct a concrete instance of `MutationPatchInput` via:
+//
+//	MutationPatchArgs{...}
+type MutationPatchInput interface {
+	pulumi.Input
+
+	ToMutationPatchOutput() MutationPatchOutput
+	ToMutationPatchOutputWithContext(context.Context) MutationPatchOutput
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type MutationPatchArgs struct {
+	// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+	ApplyConfiguration ApplyConfigurationPatchPtrInput `pulumi:"applyConfiguration"`
+	// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+	JsonPatch JSONPatchPatchPtrInput `pulumi:"jsonPatch"`
+	// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+	PatchType pulumi.StringPtrInput `pulumi:"patchType"`
+}
+
+func (MutationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutationPatch)(nil)).Elem()
+}
+
+func (i MutationPatchArgs) ToMutationPatchOutput() MutationPatchOutput {
+	return i.ToMutationPatchOutputWithContext(context.Background())
+}
+
+func (i MutationPatchArgs) ToMutationPatchOutputWithContext(ctx context.Context) MutationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutationPatchOutput)
+}
+
+// MutationPatchArrayInput is an input type that accepts MutationPatchArray and MutationPatchArrayOutput values.
+// You can construct a concrete instance of `MutationPatchArrayInput` via:
+//
+//	MutationPatchArray{ MutationPatchArgs{...} }
+type MutationPatchArrayInput interface {
+	pulumi.Input
+
+	ToMutationPatchArrayOutput() MutationPatchArrayOutput
+	ToMutationPatchArrayOutputWithContext(context.Context) MutationPatchArrayOutput
+}
+
+type MutationPatchArray []MutationPatchInput
+
+func (MutationPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutationPatch)(nil)).Elem()
+}
+
+func (i MutationPatchArray) ToMutationPatchArrayOutput() MutationPatchArrayOutput {
+	return i.ToMutationPatchArrayOutputWithContext(context.Background())
+}
+
+func (i MutationPatchArray) ToMutationPatchArrayOutputWithContext(ctx context.Context) MutationPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MutationPatchArrayOutput)
+}
+
+// Mutation specifies the CEL expression which is used to apply the Mutation.
+type MutationPatchOutput struct{ *pulumi.OutputState }
+
+func (MutationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MutationPatch)(nil)).Elem()
+}
+
+func (o MutationPatchOutput) ToMutationPatchOutput() MutationPatchOutput {
+	return o
+}
+
+func (o MutationPatchOutput) ToMutationPatchOutputWithContext(ctx context.Context) MutationPatchOutput {
+	return o
+}
+
+// applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+func (o MutationPatchOutput) ApplyConfiguration() ApplyConfigurationPatchPtrOutput {
+	return o.ApplyT(func(v MutationPatch) *ApplyConfigurationPatch { return v.ApplyConfiguration }).(ApplyConfigurationPatchPtrOutput)
+}
+
+// jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+func (o MutationPatchOutput) JsonPatch() JSONPatchPatchPtrOutput {
+	return o.ApplyT(func(v MutationPatch) *JSONPatchPatch { return v.JsonPatch }).(JSONPatchPatchPtrOutput)
+}
+
+// patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+func (o MutationPatchOutput) PatchType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MutationPatch) *string { return v.PatchType }).(pulumi.StringPtrOutput)
+}
+
+type MutationPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (MutationPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MutationPatch)(nil)).Elem()
+}
+
+func (o MutationPatchArrayOutput) ToMutationPatchArrayOutput() MutationPatchArrayOutput {
+	return o
+}
+
+func (o MutationPatchArrayOutput) ToMutationPatchArrayOutputWithContext(ctx context.Context) MutationPatchArrayOutput {
+	return o
+}
+
+func (o MutationPatchArrayOutput) Index(i pulumi.IntInput) MutationPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutationPatch {
+		return vs[0].([]MutationPatch)[vs[1].(int)]
+	}).(MutationPatchOutput)
 }
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
@@ -3077,10 +6153,6 @@ func (o ValidatingAdmissionPolicyTypeArrayOutput) Index(i pulumi.IntInput) Valid
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3104,10 +6176,6 @@ type ValidatingAdmissionPolicyBindingTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3157,10 +6225,6 @@ func (i ValidatingAdmissionPolicyBindingTypeArray) ToValidatingAdmissionPolicyBi
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingTypeOutput) ElementType() reflect.Type {
@@ -3300,10 +6364,6 @@ func (o ValidatingAdmissionPolicyBindingListTypeOutput) Metadata() metav1.ListMe
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3327,10 +6387,6 @@ type ValidatingAdmissionPolicyBindingPatchTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3355,10 +6411,6 @@ func (i ValidatingAdmissionPolicyBindingPatchTypeArgs) ToValidatingAdmissionPoli
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
-//
-// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
-//
-// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingPatchTypeOutput) ElementType() reflect.Type {
@@ -3399,7 +6451,7 @@ func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) Spec() ValidatingAdmiss
 type ValidatingAdmissionPolicyBindingSpec struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResources `pulumi:"matchResources"`
-	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 	ParamRef *ParamRef `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
@@ -3440,7 +6492,7 @@ type ValidatingAdmissionPolicyBindingSpecInput interface {
 type ValidatingAdmissionPolicyBindingSpecArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPtrInput `pulumi:"matchResources"`
-	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 	ParamRef ParamRefPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
@@ -3549,7 +6601,7 @@ func (o ValidatingAdmissionPolicyBindingSpecOutput) MatchResources() MatchResour
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) *MatchResources { return v.MatchResources }).(MatchResourcesPtrOutput)
 }
 
-// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 func (o ValidatingAdmissionPolicyBindingSpecOutput) ParamRef() ParamRefPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) *ParamRef { return v.ParamRef }).(ParamRefPtrOutput)
 }
@@ -3616,7 +6668,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) MatchResources() MatchRes
 	}).(MatchResourcesPtrOutput)
 }
 
-// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ParamRef() ParamRefPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpec) *ParamRef {
 		if v == nil {
@@ -3668,7 +6720,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ValidationActions() pulum
 type ValidatingAdmissionPolicyBindingSpecPatch struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResourcesPatch `pulumi:"matchResources"`
-	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 	ParamRef *ParamRefPatch `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
@@ -3709,7 +6761,7 @@ type ValidatingAdmissionPolicyBindingSpecPatchInput interface {
 type ValidatingAdmissionPolicyBindingSpecPatchArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPatchPtrInput `pulumi:"matchResources"`
-	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 	ParamRef ParamRefPatchPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
@@ -3818,7 +6870,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) MatchResources() MatchR
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) *MatchResourcesPatch { return v.MatchResources }).(MatchResourcesPatchPtrOutput)
 }
 
-// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) ParamRef() ParamRefPatchPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch { return v.ParamRef }).(ParamRefPatchPtrOutput)
 }
@@ -3885,7 +6937,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) MatchResources() Mat
 	}).(MatchResourcesPatchPtrOutput)
 }
 
-// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
 func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ParamRef() ParamRefPatchPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch {
 		if v == nil {
@@ -4110,15 +7162,7 @@ func (o ValidatingAdmissionPolicyPatchTypeOutput) Status() ValidatingAdmissionPo
 type ValidatingAdmissionPolicySpec struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations []AuditAnnotation `pulumi:"auditAnnotations"`
-	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-	//
-	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-	//
-	// failurePolicy does not define how validations that evaluate to false are handled.
-	//
-	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-	//
-	// Allowed values are Ignore or Fail. Defaults to Fail.
+	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
 	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 	//
@@ -4135,7 +7179,7 @@ type ValidatingAdmissionPolicySpec struct {
 	MatchConstraints *MatchResources `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind *ParamKind `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 	Validations []Validation `pulumi:"validations"`
 	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 	//
@@ -4158,15 +7202,7 @@ type ValidatingAdmissionPolicySpecInput interface {
 type ValidatingAdmissionPolicySpecArgs struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations AuditAnnotationArrayInput `pulumi:"auditAnnotations"`
-	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-	//
-	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-	//
-	// failurePolicy does not define how validations that evaluate to false are handled.
-	//
-	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-	//
-	// Allowed values are Ignore or Fail. Defaults to Fail.
+	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
 	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 	//
@@ -4183,7 +7219,7 @@ type ValidatingAdmissionPolicySpecArgs struct {
 	MatchConstraints MatchResourcesPtrInput `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind ParamKindPtrInput `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 	Validations ValidationArrayInput `pulumi:"validations"`
 	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 	//
@@ -4274,15 +7310,7 @@ func (o ValidatingAdmissionPolicySpecOutput) AuditAnnotations() AuditAnnotationA
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []AuditAnnotation { return v.AuditAnnotations }).(AuditAnnotationArrayOutput)
 }
 
-// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-//
-// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-//
-// failurePolicy does not define how validations that evaluate to false are handled.
-//
-// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-//
-// Allowed values are Ignore or Fail. Defaults to Fail.
+// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
 }
@@ -4311,7 +7339,7 @@ func (o ValidatingAdmissionPolicySpecOutput) ParamKind() ParamKindPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) *ParamKind { return v.ParamKind }).(ParamKindPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 func (o ValidatingAdmissionPolicySpecOutput) Validations() ValidationArrayOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []Validation { return v.Validations }).(ValidationArrayOutput)
 }
@@ -4357,15 +7385,7 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) AuditAnnotations() AuditAnnotati
 	}).(AuditAnnotationArrayOutput)
 }
 
-// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-//
-// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-//
-// failurePolicy does not define how validations that evaluate to false are handled.
-//
-// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-//
-// Allowed values are Ignore or Fail. Defaults to Fail.
+// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) *string {
 		if v == nil {
@@ -4414,7 +7434,7 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) ParamKind() ParamKindPtrOutput {
 	}).(ParamKindPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 func (o ValidatingAdmissionPolicySpecPtrOutput) Validations() ValidationArrayOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) []Validation {
 		if v == nil {
@@ -4440,15 +7460,7 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) Variables() VariableArrayOutput 
 type ValidatingAdmissionPolicySpecPatch struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations []AuditAnnotationPatch `pulumi:"auditAnnotations"`
-	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-	//
-	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-	//
-	// failurePolicy does not define how validations that evaluate to false are handled.
-	//
-	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-	//
-	// Allowed values are Ignore or Fail. Defaults to Fail.
+	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
 	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 	//
@@ -4465,7 +7477,7 @@ type ValidatingAdmissionPolicySpecPatch struct {
 	MatchConstraints *MatchResourcesPatch `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind *ParamKindPatch `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 	Validations []ValidationPatch `pulumi:"validations"`
 	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 	//
@@ -4488,15 +7500,7 @@ type ValidatingAdmissionPolicySpecPatchInput interface {
 type ValidatingAdmissionPolicySpecPatchArgs struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 	AuditAnnotations AuditAnnotationPatchArrayInput `pulumi:"auditAnnotations"`
-	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-	//
-	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-	//
-	// failurePolicy does not define how validations that evaluate to false are handled.
-	//
-	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-	//
-	// Allowed values are Ignore or Fail. Defaults to Fail.
+	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
 	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 	//
@@ -4513,7 +7517,7 @@ type ValidatingAdmissionPolicySpecPatchArgs struct {
 	MatchConstraints MatchResourcesPatchPtrInput `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind ParamKindPatchPtrInput `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 	Validations ValidationPatchArrayInput `pulumi:"validations"`
 	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 	//
@@ -4604,15 +7608,7 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) AuditAnnotations() AuditAnnota
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []AuditAnnotationPatch { return v.AuditAnnotations }).(AuditAnnotationPatchArrayOutput)
 }
 
-// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-//
-// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-//
-// failurePolicy does not define how validations that evaluate to false are handled.
-//
-// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-//
-// Allowed values are Ignore or Fail. Defaults to Fail.
+// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
 }
@@ -4641,7 +7637,7 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) ParamKind() ParamKindPatchPtrO
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) *ParamKindPatch { return v.ParamKind }).(ParamKindPatchPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 func (o ValidatingAdmissionPolicySpecPatchOutput) Validations() ValidationPatchArrayOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []ValidationPatch { return v.Validations }).(ValidationPatchArrayOutput)
 }
@@ -4687,15 +7683,7 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) AuditAnnotations() AuditAnn
 	}).(AuditAnnotationPatchArrayOutput)
 }
 
-// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-//
-// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-//
-// failurePolicy does not define how validations that evaluate to false are handled.
-//
-// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-//
-// Allowed values are Ignore or Fail. Defaults to Fail.
+// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) *string {
 		if v == nil {
@@ -4744,7 +7732,7 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) ParamKind() ParamKindPatchP
 	}).(ParamKindPatchPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Validations() ValidationPatchArrayOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) []ValidationPatch {
 		if v == nil {
@@ -5124,14 +8112,9 @@ func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) TypeChecking() TypeChecki
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type Validation struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-	//   request resource.
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -5172,14 +8155,9 @@ type ValidationInput interface {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-	//   request resource.
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -5259,14 +8237,9 @@ func (o ValidationOutput) ToValidationOutputWithContext(ctx context.Context) Val
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 //
-//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
-//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-//     request resource.
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 //
 // The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 //
@@ -5328,14 +8301,9 @@ func (o ValidationArrayOutput) Index(i pulumi.IntInput) ValidationOutput {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationPatch struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-	//   request resource.
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -5376,14 +8344,9 @@ type ValidationPatchInput interface {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationPatchArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
-	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-	//   request resource.
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -5463,14 +8426,9 @@ func (o ValidationPatchOutput) ToValidationPatchOutputWithContext(ctx context.Co
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 //
-//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
-//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
-//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
-//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
-//     request resource.
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
 //
 // The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 //
@@ -5749,6 +8707,10 @@ func (o VariablePatchArrayOutput) Index(i pulumi.IntInput) VariablePatchOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ApplyConfigurationInput)(nil)).Elem(), ApplyConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ApplyConfigurationPtrInput)(nil)).Elem(), ApplyConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ApplyConfigurationPatchInput)(nil)).Elem(), ApplyConfigurationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ApplyConfigurationPatchPtrInput)(nil)).Elem(), ApplyConfigurationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationInput)(nil)).Elem(), AuditAnnotationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationArrayInput)(nil)).Elem(), AuditAnnotationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationPatchInput)(nil)).Elem(), AuditAnnotationPatchArgs{})
@@ -5757,6 +8719,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningArrayInput)(nil)).Elem(), ExpressionWarningArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningPatchInput)(nil)).Elem(), ExpressionWarningPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningPatchArrayInput)(nil)).Elem(), ExpressionWarningPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONPatchInput)(nil)).Elem(), JSONPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONPatchPtrInput)(nil)).Elem(), JSONPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONPatchPatchInput)(nil)).Elem(), JSONPatchPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONPatchPatchPtrInput)(nil)).Elem(), JSONPatchPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionInput)(nil)).Elem(), MatchConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionArrayInput)(nil)).Elem(), MatchConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionPatchInput)(nil)).Elem(), MatchConditionPatchArgs{})
@@ -5765,6 +8731,26 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesPtrInput)(nil)).Elem(), MatchResourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesPatchInput)(nil)).Elem(), MatchResourcesPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesPatchPtrInput)(nil)).Elem(), MatchResourcesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyTypeInput)(nil)).Elem(), MutatingAdmissionPolicyTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyTypeArrayInput)(nil)).Elem(), MutatingAdmissionPolicyTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingTypeInput)(nil)).Elem(), MutatingAdmissionPolicyBindingTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingTypeArrayInput)(nil)).Elem(), MutatingAdmissionPolicyBindingTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingListTypeInput)(nil)).Elem(), MutatingAdmissionPolicyBindingListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingPatchTypeInput)(nil)).Elem(), MutatingAdmissionPolicyBindingPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecInput)(nil)).Elem(), MutatingAdmissionPolicyBindingSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecPtrInput)(nil)).Elem(), MutatingAdmissionPolicyBindingSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecPatchInput)(nil)).Elem(), MutatingAdmissionPolicyBindingSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyBindingSpecPatchPtrInput)(nil)).Elem(), MutatingAdmissionPolicyBindingSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyListTypeInput)(nil)).Elem(), MutatingAdmissionPolicyListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicyPatchTypeInput)(nil)).Elem(), MutatingAdmissionPolicyPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicySpecInput)(nil)).Elem(), MutatingAdmissionPolicySpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicySpecPtrInput)(nil)).Elem(), MutatingAdmissionPolicySpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicySpecPatchInput)(nil)).Elem(), MutatingAdmissionPolicySpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingAdmissionPolicySpecPatchPtrInput)(nil)).Elem(), MutatingAdmissionPolicySpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutationInput)(nil)).Elem(), MutationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutationArrayInput)(nil)).Elem(), MutationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutationPatchInput)(nil)).Elem(), MutationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutationPatchArrayInput)(nil)).Elem(), MutationPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NamedRuleWithOperationsInput)(nil)).Elem(), NamedRuleWithOperationsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NamedRuleWithOperationsArrayInput)(nil)).Elem(), NamedRuleWithOperationsArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NamedRuleWithOperationsPatchInput)(nil)).Elem(), NamedRuleWithOperationsPatchArgs{})
@@ -5809,6 +8795,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VariableArrayInput)(nil)).Elem(), VariableArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VariablePatchInput)(nil)).Elem(), VariablePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VariablePatchArrayInput)(nil)).Elem(), VariablePatchArray{})
+	pulumi.RegisterOutputType(ApplyConfigurationOutput{})
+	pulumi.RegisterOutputType(ApplyConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(ApplyConfigurationPatchOutput{})
+	pulumi.RegisterOutputType(ApplyConfigurationPatchPtrOutput{})
 	pulumi.RegisterOutputType(AuditAnnotationOutput{})
 	pulumi.RegisterOutputType(AuditAnnotationArrayOutput{})
 	pulumi.RegisterOutputType(AuditAnnotationPatchOutput{})
@@ -5817,6 +8807,10 @@ func init() {
 	pulumi.RegisterOutputType(ExpressionWarningArrayOutput{})
 	pulumi.RegisterOutputType(ExpressionWarningPatchOutput{})
 	pulumi.RegisterOutputType(ExpressionWarningPatchArrayOutput{})
+	pulumi.RegisterOutputType(JSONPatchOutput{})
+	pulumi.RegisterOutputType(JSONPatchPtrOutput{})
+	pulumi.RegisterOutputType(JSONPatchPatchOutput{})
+	pulumi.RegisterOutputType(JSONPatchPatchPtrOutput{})
 	pulumi.RegisterOutputType(MatchConditionOutput{})
 	pulumi.RegisterOutputType(MatchConditionArrayOutput{})
 	pulumi.RegisterOutputType(MatchConditionPatchOutput{})
@@ -5825,6 +8819,26 @@ func init() {
 	pulumi.RegisterOutputType(MatchResourcesPtrOutput{})
 	pulumi.RegisterOutputType(MatchResourcesPatchOutput{})
 	pulumi.RegisterOutputType(MatchResourcesPatchPtrOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyTypeArrayOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingTypeArrayOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingListTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingPatchTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingSpecOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingSpecPtrOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingSpecPatchOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyBindingSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyListTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicyPatchTypeOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicySpecOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicySpecPtrOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicySpecPatchOutput{})
+	pulumi.RegisterOutputType(MutatingAdmissionPolicySpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(MutationOutput{})
+	pulumi.RegisterOutputType(MutationArrayOutput{})
+	pulumi.RegisterOutputType(MutationPatchOutput{})
+	pulumi.RegisterOutputType(MutationPatchArrayOutput{})
 	pulumi.RegisterOutputType(NamedRuleWithOperationsOutput{})
 	pulumi.RegisterOutputType(NamedRuleWithOperationsArrayOutput{})
 	pulumi.RegisterOutputType(NamedRuleWithOperationsPatchOutput{})

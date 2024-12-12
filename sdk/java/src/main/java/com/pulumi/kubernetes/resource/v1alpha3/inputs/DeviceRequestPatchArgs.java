@@ -28,12 +28,16 @@ public final class DeviceRequestPatchArgs extends com.pulumi.resources.ResourceA
     /**
      * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
      * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
      */
     @Import(name="adminAccess")
     private @Nullable Output<Boolean> adminAccess;
 
     /**
      * @return AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     public Optional<Output<Boolean>> adminAccess() {
@@ -183,6 +187,8 @@ public final class DeviceRequestPatchArgs extends com.pulumi.resources.ResourceA
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
          * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
          * @return builder
          * 
          */
@@ -193,6 +199,8 @@ public final class DeviceRequestPatchArgs extends com.pulumi.resources.ResourceA
 
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
          * 
          * @return builder
          * 

@@ -5,11 +5,21 @@ package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class DeviceRequestAllocationResult {
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    private @Nullable Boolean adminAccess;
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
@@ -36,6 +46,15 @@ public final class DeviceRequestAllocationResult {
     private String request;
 
     private DeviceRequestAllocationResult() {}
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    public Optional<Boolean> adminAccess() {
+        return Optional.ofNullable(this.adminAccess);
+    }
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
@@ -78,6 +97,7 @@ public final class DeviceRequestAllocationResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable Boolean adminAccess;
         private String device;
         private String driver;
         private String pool;
@@ -85,12 +105,19 @@ public final class DeviceRequestAllocationResult {
         public Builder() {}
         public Builder(DeviceRequestAllocationResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.adminAccess = defaults.adminAccess;
     	      this.device = defaults.device;
     	      this.driver = defaults.driver;
     	      this.pool = defaults.pool;
     	      this.request = defaults.request;
         }
 
+        @CustomType.Setter
+        public Builder adminAccess(@Nullable Boolean adminAccess) {
+
+            this.adminAccess = adminAccess;
+            return this;
+        }
         @CustomType.Setter
         public Builder device(String device) {
             if (device == null) {
@@ -125,6 +152,7 @@ public final class DeviceRequestAllocationResult {
         }
         public DeviceRequestAllocationResult build() {
             final var _resultValue = new DeviceRequestAllocationResult();
+            _resultValue.adminAccess = adminAccess;
             _resultValue.device = device;
             _resultValue.driver = driver;
             _resultValue.pool = pool;

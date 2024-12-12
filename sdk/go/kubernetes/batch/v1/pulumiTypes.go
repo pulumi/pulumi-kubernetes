@@ -1981,7 +1981,7 @@ type JobSpec struct {
 	Completions *int `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
@@ -2043,7 +2043,7 @@ type JobSpecArgs struct {
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
@@ -2185,7 +2185,7 @@ func (o JobSpecOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.ManagedBy }).(pulumi.StringPtrOutput)
 }
@@ -2330,7 +2330,7 @@ func (o JobSpecPtrOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPtrOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *string {
 		if v == nil {
@@ -2468,7 +2468,7 @@ type JobSpecPatch struct {
 	Completions *int `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
@@ -2530,7 +2530,7 @@ type JobSpecPatchArgs struct {
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
@@ -2672,7 +2672,7 @@ func (o JobSpecPatchOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPatchOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *string { return v.ManagedBy }).(pulumi.StringPtrOutput)
 }
@@ -2817,7 +2817,7 @@ func (o JobSpecPatchPtrOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPatchPtrOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *string {
 		if v == nil {

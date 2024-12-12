@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.ResourceMetricStatusArgs>? Resource { get; set; }
 
         /// <summary>
-        /// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        /// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

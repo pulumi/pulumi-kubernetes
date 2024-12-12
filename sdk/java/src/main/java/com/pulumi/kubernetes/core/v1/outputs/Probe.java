@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class Probe {
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     private @Nullable ExecAction exec;
@@ -26,12 +26,12 @@ public final class Probe {
      */
     private @Nullable Integer failureThreshold;
     /**
-     * @return GRPC specifies an action involving a GRPC port.
+     * @return GRPC specifies a GRPC HealthCheckRequest.
      * 
      */
     private @Nullable GRPCAction grpc;
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     private @Nullable HTTPGetAction httpGet;
@@ -51,7 +51,7 @@ public final class Probe {
      */
     private @Nullable Integer successThreshold;
     /**
-     * @return TCPSocket specifies an action involving a TCP port.
+     * @return TCPSocket specifies a connection to a TCP port.
      * 
      */
     private @Nullable TCPSocketAction tcpSocket;
@@ -68,7 +68,7 @@ public final class Probe {
 
     private Probe() {}
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     public Optional<ExecAction> exec() {
@@ -82,14 +82,14 @@ public final class Probe {
         return Optional.ofNullable(this.failureThreshold);
     }
     /**
-     * @return GRPC specifies an action involving a GRPC port.
+     * @return GRPC specifies a GRPC HealthCheckRequest.
      * 
      */
     public Optional<GRPCAction> grpc() {
         return Optional.ofNullable(this.grpc);
     }
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     public Optional<HTTPGetAction> httpGet() {
@@ -117,7 +117,7 @@ public final class Probe {
         return Optional.ofNullable(this.successThreshold);
     }
     /**
-     * @return TCPSocket specifies an action involving a TCP port.
+     * @return TCPSocket specifies a connection to a TCP port.
      * 
      */
     public Optional<TCPSocketAction> tcpSocket() {

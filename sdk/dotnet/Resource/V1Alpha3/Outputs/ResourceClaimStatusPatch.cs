@@ -29,6 +29,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// </summary>
         public readonly bool DeallocationRequested;
         /// <summary>
+        /// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.AllocatedDeviceStatusPatch> Devices;
+        /// <summary>
         /// ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
         /// 
         /// In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
@@ -45,10 +49,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
             bool deallocationRequested,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.AllocatedDeviceStatusPatch> devices,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.ResourceClaimConsumerReferencePatch> reservedFor)
         {
             Allocation = allocation;
             DeallocationRequested = deallocationRequested;
+            Devices = devices;
             ReservedFor = reservedFor;
         }
     }

@@ -23,14 +23,14 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     public static final LifecycleHandlerPatchArgs Empty = new LifecycleHandlerPatchArgs();
 
     /**
-     * Exec specifies the action to take.
+     * Exec specifies a command to execute in the container.
      * 
      */
     @Import(name="exec")
     private @Nullable Output<ExecActionPatchArgs> exec;
 
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     public Optional<Output<ExecActionPatchArgs>> exec() {
@@ -38,14 +38,14 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * HTTPGet specifies the http request to perform.
+     * HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     @Import(name="httpGet")
     private @Nullable Output<HTTPGetActionPatchArgs> httpGet;
 
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     public Optional<Output<HTTPGetActionPatchArgs>> httpGet() {
@@ -53,14 +53,14 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * Sleep represents the duration that the container should sleep before being terminated.
+     * Sleep represents a duration that the container should sleep.
      * 
      */
     @Import(name="sleep")
     private @Nullable Output<SleepActionPatchArgs> sleep;
 
     /**
-     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * @return Sleep represents a duration that the container should sleep.
      * 
      */
     public Optional<Output<SleepActionPatchArgs>> sleep() {
@@ -68,14 +68,14 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+     * Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
      * 
      */
     @Import(name="tcpSocket")
     private @Nullable Output<TCPSocketActionPatchArgs> tcpSocket;
 
     /**
-     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
      * 
      */
     public Optional<Output<TCPSocketActionPatchArgs>> tcpSocket() {
@@ -110,7 +110,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param exec Exec specifies the action to take.
+         * @param exec Exec specifies a command to execute in the container.
          * 
          * @return builder
          * 
@@ -121,7 +121,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param exec Exec specifies the action to take.
+         * @param exec Exec specifies a command to execute in the container.
          * 
          * @return builder
          * 
@@ -131,7 +131,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param httpGet HTTPGet specifies the http request to perform.
+         * @param httpGet HTTPGet specifies an HTTP GET request to perform.
          * 
          * @return builder
          * 
@@ -142,7 +142,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param httpGet HTTPGet specifies the http request to perform.
+         * @param httpGet HTTPGet specifies an HTTP GET request to perform.
          * 
          * @return builder
          * 
@@ -152,7 +152,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param sleep Sleep represents the duration that the container should sleep before being terminated.
+         * @param sleep Sleep represents a duration that the container should sleep.
          * 
          * @return builder
          * 
@@ -163,7 +163,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param sleep Sleep represents the duration that the container should sleep before being terminated.
+         * @param sleep Sleep represents a duration that the container should sleep.
          * 
          * @return builder
          * 
@@ -173,7 +173,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param tcpSocket Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+         * @param tcpSocket Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class LifecycleHandlerPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param tcpSocket Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+         * @param tcpSocket Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
          * 
          * @return builder
          * 

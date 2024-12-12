@@ -20,23 +20,31 @@ public final class PodDNSConfigOptionPatchArgs extends com.pulumi.resources.Reso
     public static final PodDNSConfigOptionPatchArgs Empty = new PodDNSConfigOptionPatchArgs();
 
     /**
-     * Required.
+     * Name is this DNS resolver option&#39;s name. Required.
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Required.
+     * @return Name is this DNS resolver option&#39;s name. Required.
      * 
      */
     public Optional<Output<String>> name() {
         return Optional.ofNullable(this.name);
     }
 
+    /**
+     * Value is this DNS resolver option&#39;s value.
+     * 
+     */
     @Import(name="value")
     private @Nullable Output<String> value;
 
+    /**
+     * @return Value is this DNS resolver option&#39;s value.
+     * 
+     */
     public Optional<Output<String>> value() {
         return Optional.ofNullable(this.value);
     }
@@ -67,7 +75,7 @@ public final class PodDNSConfigOptionPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param name Required.
+         * @param name Name is this DNS resolver option&#39;s name. Required.
          * 
          * @return builder
          * 
@@ -78,7 +86,7 @@ public final class PodDNSConfigOptionPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param name Required.
+         * @param name Name is this DNS resolver option&#39;s name. Required.
          * 
          * @return builder
          * 
@@ -87,11 +95,23 @@ public final class PodDNSConfigOptionPatchArgs extends com.pulumi.resources.Reso
             return name(Output.of(name));
         }
 
+        /**
+         * @param value Value is this DNS resolver option&#39;s value.
+         * 
+         * @return builder
+         * 
+         */
         public Builder value(@Nullable Output<String> value) {
             $.value = value;
             return this;
         }
 
+        /**
+         * @param value Value is this DNS resolver option&#39;s value.
+         * 
+         * @return builder
+         * 
+         */
         public Builder value(String value) {
             return value(Output.of(value));
         }

@@ -8140,7 +8140,7 @@ type StatefulSetSpec struct {
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
 	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
 	Ordinals *StatefulSetOrdinals `pulumi:"ordinals"`
-	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicy `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
@@ -8177,7 +8177,7 @@ type StatefulSetSpecArgs struct {
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
 	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
 	Ordinals StatefulSetOrdinalsPtrInput `pulumi:"ordinals"`
-	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
@@ -8285,7 +8285,7 @@ func (o StatefulSetSpecOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetOrdinals { return v.Ordinals }).(StatefulSetOrdinalsPtrOutput)
 }
 
-// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 func (o StatefulSetSpecOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetPersistentVolumeClaimRetentionPolicy {
 		return v.PersistentVolumeClaimRetentionPolicy
@@ -8376,7 +8376,7 @@ func (o StatefulSetSpecPtrOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
 	}).(StatefulSetOrdinalsPtrOutput)
 }
 
-// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 func (o StatefulSetSpecPtrOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *StatefulSetPersistentVolumeClaimRetentionPolicy {
 		if v == nil {
@@ -8472,7 +8472,7 @@ type StatefulSetSpecPatch struct {
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
 	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
 	Ordinals *StatefulSetOrdinalsPatch `pulumi:"ordinals"`
-	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicyPatch `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
@@ -8509,7 +8509,7 @@ type StatefulSetSpecPatchArgs struct {
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
 	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
 	Ordinals StatefulSetOrdinalsPatchPtrInput `pulumi:"ordinals"`
-	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
@@ -8617,7 +8617,7 @@ func (o StatefulSetSpecPatchOutput) Ordinals() StatefulSetOrdinalsPatchPtrOutput
 	return o.ApplyT(func(v StatefulSetSpecPatch) *StatefulSetOrdinalsPatch { return v.Ordinals }).(StatefulSetOrdinalsPatchPtrOutput)
 }
 
-// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 func (o StatefulSetSpecPatchOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *StatefulSetPersistentVolumeClaimRetentionPolicyPatch {
 		return v.PersistentVolumeClaimRetentionPolicy
@@ -8708,7 +8708,7 @@ func (o StatefulSetSpecPatchPtrOutput) Ordinals() StatefulSetOrdinalsPatchPtrOut
 	}).(StatefulSetOrdinalsPatchPtrOutput)
 }
 
-// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
 func (o StatefulSetSpecPatchPtrOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpecPatch) *StatefulSetPersistentVolumeClaimRetentionPolicyPatch {
 		if v == nil {

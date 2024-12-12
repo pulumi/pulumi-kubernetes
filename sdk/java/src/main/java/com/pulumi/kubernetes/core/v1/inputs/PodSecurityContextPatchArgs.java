@@ -126,6 +126,41 @@ public final class PodSecurityContextPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
+     * seLinuxChangePolicy defines how the container&#39;s SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are &#34;MountOption&#34; and &#34;Recursive&#34;.
+     * 
+     * &#34;Recursive&#34; means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+     * 
+     * &#34;MountOption&#34; mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. &#34;MountOption&#34; value is allowed only when SELinuxMount feature gate is enabled.
+     * 
+     * If not specified and SELinuxMount feature gate is enabled, &#34;MountOption&#34; is used. If not specified and SELinuxMount feature gate is disabled, &#34;MountOption&#34; is used for ReadWriteOncePod volumes and &#34;Recursive&#34; for all other volumes.
+     * 
+     * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+     * 
+     * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    @Import(name="seLinuxChangePolicy")
+    private @Nullable Output<String> seLinuxChangePolicy;
+
+    /**
+     * @return seLinuxChangePolicy defines how the container&#39;s SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are &#34;MountOption&#34; and &#34;Recursive&#34;.
+     * 
+     * &#34;Recursive&#34; means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+     * 
+     * &#34;MountOption&#34; mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. &#34;MountOption&#34; value is allowed only when SELinuxMount feature gate is enabled.
+     * 
+     * If not specified and SELinuxMount feature gate is enabled, &#34;MountOption&#34; is used. If not specified and SELinuxMount feature gate is disabled, &#34;MountOption&#34; is used for ReadWriteOncePod volumes and &#34;Recursive&#34; for all other volumes.
+     * 
+     * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+     * 
+     * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+     * 
+     */
+    public Optional<Output<String>> seLinuxChangePolicy() {
+        return Optional.ofNullable(this.seLinuxChangePolicy);
+    }
+
+    /**
      * The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
      * 
      */
@@ -224,6 +259,7 @@ public final class PodSecurityContextPatchArgs extends com.pulumi.resources.Reso
         this.runAsGroup = $.runAsGroup;
         this.runAsNonRoot = $.runAsNonRoot;
         this.runAsUser = $.runAsUser;
+        this.seLinuxChangePolicy = $.seLinuxChangePolicy;
         this.seLinuxOptions = $.seLinuxOptions;
         this.seccompProfile = $.seccompProfile;
         this.supplementalGroups = $.supplementalGroups;
@@ -382,6 +418,47 @@ public final class PodSecurityContextPatchArgs extends com.pulumi.resources.Reso
          */
         public Builder runAsUser(Integer runAsUser) {
             return runAsUser(Output.of(runAsUser));
+        }
+
+        /**
+         * @param seLinuxChangePolicy seLinuxChangePolicy defines how the container&#39;s SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are &#34;MountOption&#34; and &#34;Recursive&#34;.
+         * 
+         * &#34;Recursive&#34; means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+         * 
+         * &#34;MountOption&#34; mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. &#34;MountOption&#34; value is allowed only when SELinuxMount feature gate is enabled.
+         * 
+         * If not specified and SELinuxMount feature gate is enabled, &#34;MountOption&#34; is used. If not specified and SELinuxMount feature gate is disabled, &#34;MountOption&#34; is used for ReadWriteOncePod volumes and &#34;Recursive&#34; for all other volumes.
+         * 
+         * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+         * 
+         * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder seLinuxChangePolicy(@Nullable Output<String> seLinuxChangePolicy) {
+            $.seLinuxChangePolicy = seLinuxChangePolicy;
+            return this;
+        }
+
+        /**
+         * @param seLinuxChangePolicy seLinuxChangePolicy defines how the container&#39;s SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are &#34;MountOption&#34; and &#34;Recursive&#34;.
+         * 
+         * &#34;Recursive&#34; means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+         * 
+         * &#34;MountOption&#34; mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. &#34;MountOption&#34; value is allowed only when SELinuxMount feature gate is enabled.
+         * 
+         * If not specified and SELinuxMount feature gate is enabled, &#34;MountOption&#34; is used. If not specified and SELinuxMount feature gate is disabled, &#34;MountOption&#34; is used for ReadWriteOncePod volumes and &#34;Recursive&#34; for all other volumes.
+         * 
+         * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+         * 
+         * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder seLinuxChangePolicy(String seLinuxChangePolicy) {
+            return seLinuxChangePolicy(Output.of(seLinuxChangePolicy));
         }
 
         /**

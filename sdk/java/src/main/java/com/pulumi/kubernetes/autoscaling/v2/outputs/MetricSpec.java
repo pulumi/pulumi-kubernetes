@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class MetricSpec {
     /**
-     * @return containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+     * @return containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.
      * 
      */
     private @Nullable ContainerResourceMetricSource containerResource;
@@ -43,14 +43,14 @@ public final class MetricSpec {
      */
     private @Nullable ResourceMetricSource resource;
     /**
-     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     private String type;
 
     private MetricSpec() {}
     /**
-     * @return containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+     * @return containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &#34;pods&#34; source.
      * 
      */
     public Optional<ContainerResourceMetricSource> containerResource() {
@@ -85,7 +85,7 @@ public final class MetricSpec {
         return Optional.ofNullable(this.resource);
     }
     /**
-     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     public String type() {

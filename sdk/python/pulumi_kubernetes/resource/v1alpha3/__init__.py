@@ -18,6 +18,7 @@ from .ResourceClaimTemplate import *
 from .ResourceClaimTemplateList import *
 from .ResourceClaimTemplatePatch import *
 from .ResourceSlice import *
+from .ResourceSliceList import *
 from .ResourceSlicePatch import *
 from ._inputs import *
 from . import outputs

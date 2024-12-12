@@ -108,7 +108,7 @@ class BindingPatch(pulumi.CustomResource):
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-        Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+        Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -130,7 +130,7 @@ class BindingPatch(pulumi.CustomResource):
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-        Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+        Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 
         :param str resource_name: The name of the resource.
         :param BindingPatchArgs args: The arguments to use to populate this resource's properties.

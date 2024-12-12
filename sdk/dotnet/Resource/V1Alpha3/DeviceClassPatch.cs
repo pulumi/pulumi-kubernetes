@@ -86,6 +86,10 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha3
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta1:DeviceClassPatch" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

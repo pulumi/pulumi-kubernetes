@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.MatchResourcesArgs>? MatchResources { get; set; }
 
         /// <summary>
-        /// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+        /// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         /// </summary>
         [Input("paramRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.ParamRefArgs>? ParamRef { get; set; }

@@ -13,8 +13,11 @@ if typing.TYPE_CHECKING:
     v1alpha2 = __v1alpha2
     import pulumi_kubernetes.resource.v1alpha3 as __v1alpha3
     v1alpha3 = __v1alpha3
+    import pulumi_kubernetes.resource.v1beta1 as __v1beta1
+    v1beta1 = __v1beta1
 else:
     v1alpha1 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha1')
     v1alpha2 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha2')
     v1alpha3 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha3')
+    v1beta1 = _utilities.lazy_import('pulumi_kubernetes.resource.v1beta1')
 
