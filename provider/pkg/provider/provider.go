@@ -903,8 +903,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	return &pulumirpc.ConfigureResponse{
-		AcceptSecrets:   true,
-		SupportsPreview: true,
+		AcceptSecrets:                   true,
+		SupportsPreview:                 true,
+		SupportsAutonamingConfiguration: true,
 	}, nil
 }
 
@@ -1458,7 +1459,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
+		metadata.AssignNameIfAutonamable(req.RandomSeed, req.Autonaming, newInputs, news, urn)
 
 		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. Do not set this label for SSA
 		// resources since the fieldManagers field contains granular information about the managers.
