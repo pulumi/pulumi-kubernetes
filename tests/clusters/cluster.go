@@ -41,9 +41,8 @@ func normalizeName(name string) string {
 
 // randString returns a random string of length 6.
 func randString() string {
-	c := 10
-	b := make([]byte, c)
-	rand.Read(b)
+	buf := make([]byte, 10)
+	_, _ = rand.Read(buf)
 	length := 6
-	return strings.ToLower(base32.StdEncoding.EncodeToString(b)[:length])
+	return strings.ToLower(base32.StdEncoding.EncodeToString(buf)[:length])
 }
