@@ -53,7 +53,7 @@ jobs:
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -126,7 +126,7 @@ jobs:
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@015f24e6818733317a2da2edd6290ab26238649a # v5.0.7
+      uses: codecov/codecov-action@7f8b4b4bde536c465e797be725718b88c5d95e0e # v5.1.1
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -160,7 +160,7 @@ jobs:
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -261,7 +261,7 @@ jobs:
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -400,7 +400,7 @@ jobs:
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -466,7 +466,7 @@ jobs:
         repository: pulumi/scripts
     - run: echo "ci-scripts" >> .git/info/exclude
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -543,7 +543,7 @@ jobs:
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+      uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a # v5.2.0
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
@@ -628,123 +628,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     name: dispatch_docs_build
-  build-test-cluster:
-    runs-on: ubuntu-latest
-    name: build-test-cluster
-    outputs:
-      stack-name: ${{ steps.stackname.outputs.stack-name }}
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-        lfs: true
-    - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
-      with:
-        go-version: ${{ env.GOVERSION }}
-        cache-dependency-path: "**/*.sum"
-    - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
-      with:
-        pulumi-version-file: .pulumi.version
-    - name: Setup Node
-      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
-      with:
-        node-version: ${{ env.NODEVERSION }}
-        registry-url: https://registry.npmjs.org
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
-      with:
-        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
-          }}/locations/global/workloadIdentityPools/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
-    - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@6189d56e4096ee891640bb02ac264be376592d6a # v2.1.2
-      with:
-        install_components: gke-gcloud-auth-plugin
-    - name: Install Kubectl
-      run: >
-        curl -LO
-        https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
-
-        chmod +x ./kubectl
-
-        sudo mv kubectl /usr/local/bin
-    - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
-    - name: Set stack name in output
-      id: stackname
-      run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
-        github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
-    - name: Create test infrastructure
-      run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
-    - name: Upload Kubernetes Artifacts
-      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
-      with:
-        name: config
-        path: ~/.kube/config
-  destroy-test-cluster:
-    runs-on: ubuntu-latest
-    name: teardown-test-cluster
-    needs:
-    - build-test-cluster
-    - test
-    if: ${{ always() }} && github.event.pull_request.head.repo.full_name ==
-      github.repository
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      with:
-        lfs: true
-    - name: Install Go
-      uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
-      with:
-        go-version: ${{ env.GOVERSION }}
-        cache-dependency-path: "**/*.sum"
-    - name: Install Pulumi CLI
-      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
-      with:
-        pulumi-version-file: .pulumi.version
-    - name: Setup Node
-      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
-      with:
-        node-version: ${{ env.NODEVERSION }}
-        registry-url: https://registry.npmjs.org
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
-      with:
-        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
-          }}/locations/global/workloadIdentityPools/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
-          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
-    - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@6189d56e4096ee891640bb02ac264be376592d6a # v2.1.2
-      with:
-        install_components: gke-gcloud-auth-plugin
-    - name: Install Kubectl
-      run: >
-        curl -LO
-        https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
-
-        chmod +x ./kubectl
-
-        sudo mv kubectl /usr/local/bin
-    - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
-    - name: Destroy test infra
-      run: ./scripts/ci-cluster-destroy.sh ${{
-        needs.build-test-cluster.outputs.stack-name }}
-    - uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
-      with:
-        name: config
