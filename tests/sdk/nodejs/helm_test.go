@@ -24,7 +24,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
