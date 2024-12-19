@@ -22,7 +22,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.2.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.19.0
-	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20241219025154-c17b3653a081
+	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20241219211733-02c6a402cfc4
 	github.com/pulumi/pulumi/pkg/v3 v3.143.0
 	github.com/pulumi/pulumi/sdk/v3 v3.143.0
 	github.com/stretchr/testify v1.10.0
