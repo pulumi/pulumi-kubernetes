@@ -11,7 +11,6 @@ type Cluster interface {
 	Name() string
 	Connect() error
 	Delete() error
-	KubeconfigPath() string
 }
 
 // normalizeName returns a normalized name for the cluster that adheres

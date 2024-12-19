@@ -1,42 +1,35 @@
 package clusters
 
 import (
-	"fmt"
 	"log"
-	"os"
-	"path/filepath"
 	"time"
 
 	"sigs.k8s.io/kind/pkg/cluster"
 )
 
-// KindVersion is a specific Kind version associated with a Kubernetes minor version.
-type KindVersion string
+// kindVersion is a specific Kind version associated with a Kubernetes minor version.
+type kindVersion string
 
 const (
 	// Kind versions and their associated image tags.
-	Kind1_29 KindVersion = "kindest/node:v1.29.2"
-	Kind1_28 KindVersion = "kindest/node:v1.28.7"
-	Kind1_27 KindVersion = "kindest/node:v1.27.11"
+	_kind1_32 kindVersion = "kindest/node:v1.32.0"
+	_kind1_31 kindVersion = "kindest/node:v1.31.4"
+	_kind1_30 kindVersion = "kindest/node:v1.30.8"
+	_kind1_29 kindVersion = "kindest/node:v1.29.2"
+	_kind1_28 kindVersion = "kindest/node:v1.28.7"
+	_kind1_27 kindVersion = "kindest/node:v1.27.11"
 
-	KubeconfigFilename = "KUBECONFIG"
-
-	// maxCreateTries is the maximum number of times to try to create a Kind cluster.
-	maxCreateTries = 5
+	// _maxCreateTries is the maximum number of times to try to create a Kind cluster.
+	_maxCreateTries = 5
 )
 
 type KindCluster struct {
-	name           string
-	kubeconfigPath string
-	teardownFn     func() error
+	name       string
+	teardownFn func() error
 }
 
 func (c KindCluster) Name() string {
 	return c.name
-}
-
-func (c KindCluster) KubeconfigPath() string {
-	return c.kubeconfigPath
 }
 
 func (c KindCluster) Connect() error {
@@ -49,60 +42,41 @@ func (c KindCluster) Delete() error {
 
 // newKindCluster creates a new Kind cluster for use in testing with the specified name. The version
 // parameter is variadic and defaults to the latest version of Kind if not provided.
-func NewKindCluster(name string, version ...KindVersion) (Cluster, error) {
-	v := Kind1_29
+func NewKindCluster(name string, version ...kindVersion) (Cluster, error) {
+	v := _kind1_32
 	if len(version) > 0 {
 		v = version[0]
 	}
-
-	// Create a new tmpdir to store the kubeconfig.
-	log.Printf("Creating new Kind cluster with image %q", v)
-	tmpDir, err := os.MkdirTemp("", "pulumi-test-kind")
-	if err != nil {
-		return nil, err
-	}
-
-	KubeconfigPath := filepath.Join(tmpDir, KubeconfigFilename)
 
 	p := cluster.NewProvider()
 
 	name = normalizeName(name + "-" + randString())
 	log.Printf("Creating Kind cluster %q", name)
-	teardownFn, err := createKindCluster(p, name, tmpDir, KubeconfigPath, v)
+	teardownFn, err := createKindCluster(p, name, v)
 	if err != nil {
 		return nil, err
 	}
 
-	return &KindCluster{name: name, kubeconfigPath: KubeconfigPath, teardownFn: teardownFn}, nil
+	return &KindCluster{name: name, teardownFn: teardownFn}, nil
 
 }
 
 // createKindCluster attempts to create a KinD cluster with retry.
-func createKindCluster(p *cluster.Provider, name, tmpDir, kcfgPath string, version KindVersion) (func() error, error) {
+func createKindCluster(p *cluster.Provider, name string, version kindVersion) (func() error, error) {
 	var err error
-	for i := 0; i < maxCreateTries; i++ {
+	for i := 0; i < _maxCreateTries; i++ {
 		log.Printf("Creating Kind cluster, attempt: %d", i+1)
 		err = p.Create(name,
-			cluster.CreateWithKubeconfigPath(kcfgPath),
 			cluster.CreateWithNodeImage(string(version)),
 			cluster.CreateWithWaitForReady(20*time.Second),
 		)
 		if err == nil {
 			return func() error {
-				if err := deleteKindCluster(p, name, kcfgPath); err != nil {
-					return fmt.Errorf("unable to delete Kind cluster %q: %v", name, err)
-				}
-
-				return os.RemoveAll(tmpDir)
+				return p.Delete(name, "")
 			}, nil
 		}
 	}
 
 	// We failed to create the cluster maxCreateTries times, so return failure error.
 	return nil, err
-}
-
-// deleteKindCluster deletes a specified kind cluster.
-func deleteKindCluster(p *cluster.Provider, name, kcfgPath string) error {
-	return p.Delete(name, kcfgPath)
 }
