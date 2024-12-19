@@ -895,7 +895,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           BeFalse(),
+						"Protect":           BeTrue(),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -917,7 +917,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           BeFalse(),
+						"Protect":           BeTrue(),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -986,7 +986,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           BeFalse(),
+						"Protect":           BeTrue(),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -1072,7 +1072,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           BeFalse(),
+						"Protect":           BeTrue(),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -1158,7 +1158,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":           BeFalse(),
+						"Protect":           BeTrue(),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
