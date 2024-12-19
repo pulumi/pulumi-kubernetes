@@ -14,7 +14,7 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^3.136.0",
+        "@pulumi/pulumi": "^3.142.0",
         "glob": "^10.3.10",
         "shell-quote": "^1.6.1"
     },
