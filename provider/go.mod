@@ -4,10 +4,7 @@ go 1.23.0
 
 toolchain go1.23.3
 
-replace (
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
-	github.com/pulumi/pulumi-kubernetes/tests/v4 => ../tests
-)
+replace github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
 
 require (
 	github.com/evanphx/json-patch v5.7.0+incompatible
@@ -22,7 +19,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.2.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.19.0
-	github.com/pulumi/pulumi-kubernetes/tests/v4 v4.0.0-20241219025154-c17b3653a081
 	github.com/pulumi/pulumi/pkg/v3 v3.143.0
 	github.com/pulumi/pulumi/sdk/v3 v3.143.0
 	github.com/stretchr/testify v1.10.0
@@ -101,6 +97,7 @@ require (
 	github.com/exponent-io/jsonpath v0.0.0-20210407135951-1de76d718b3f // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
+	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
@@ -217,6 +214,7 @@ require (
 	github.com/zclconf/go-cty v1.13.2 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.17 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.17 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.57.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.57.0 // indirect
 	go.opentelemetry.io/otel v1.32.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.32.0 // indirect

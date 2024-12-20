@@ -28,9 +28,9 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
 	. "github.com/onsi/gomega/gstruct"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
@@ -970,9 +970,9 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(
-							Alias("chart-options-old"), 
-							Alias("chart-options-chart-options-aliased"), 
+						"Aliases": ConsistOf(
+							Alias("chart-options-old"),
+							Alias("chart-options-chart-options-aliased"),
 							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
 						"Protect":           BeTrue(),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
