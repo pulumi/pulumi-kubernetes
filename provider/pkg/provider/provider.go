@@ -1459,7 +1459,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(req.RandomSeed, req.Autonaming, newInputs, news, urn)
+		err = metadata.AssignNameIfAutonamable(req.RandomSeed, req.Autonaming, newInputs, news, urn)
+		if err != nil {
+			return nil, err
+		}
 
 		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. Do not set this label for SSA
 		// resources since the fieldManagers field contains granular information about the managers.

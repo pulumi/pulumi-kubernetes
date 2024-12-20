@@ -1,6 +1,8 @@
 ## Unreleased
 
-- Respect autonaming configuration specified by the engine.
+### Added
+
+- Added support for autonaming configuration specified by the engine.
   (https://github.com/pulumi/pulumi-kubernetes/issues/3363)
 
 ## 4.19.0 (December 11, 2024)
