@@ -420,10 +420,13 @@ jobs:
         state: success
         description: Sentinel checks passed
         sha: ${{ github.event.pull_request.head.sha || github.sha }}
+    permissions:
+      statuses: write
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     needs:
     - test
+    - prerequisites
     - lint
   lint:
     runs-on: ubuntu-latest
