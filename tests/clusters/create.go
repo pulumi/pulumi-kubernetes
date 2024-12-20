@@ -1,8 +1,6 @@
 package clusters
 
 import (
-	"errors"
-	"log"
 	"os"
 	"sync"
 
@@ -11,8 +9,8 @@ import (
 )
 
 const (
-	KindClusterStr = "kind"
-	GKECluster     = "gke"
+	_kindClusterStr = "kind"
+	_gkeCluster     = "gke"
 )
 
 // Ensure that a cluster is available for testing.
@@ -35,15 +33,24 @@ var Ensure = sync.OnceValues(func() (func(), error) {
 	}
 
 	abs, _ := homedir.Expand(kubeconfig)
-	if cfg, err := clientcmd.LoadFromFile(abs); err == nil && len(cfg.Clusters) > 0 {
-		log.Printf("Using %q for the test cluster", kubeconfig)
-		return nil, nil
-	}
+	cfg, err := clientcmd.LoadFromFile(abs)
 
-	if os.Getenv("GITHUB_EVENT_NAME") == "push" {
-		return nil, errors.New("GKE not implemented yet")
-	}
+	// TODO: Temporarily forcing GKE for testing.
+	cluster, err := NewGKECluster("pulumi-kubernetes", *cfg)
+	return func() { _ = cluster.Delete() }, err
 
-	_, err := NewKindCluster("pulumi-kubernetes")
-	return nil, err
+	/*
+		if err == nil && len(cfg.Clusters) > 0 {
+			log.Printf("Using %q for the test cluster", kubeconfig)
+			return nil, nil
+		}
+
+		if os.Getenv("GITHUB_EVENT_NAME") == "push" {
+			cluster, err := NewGKECluster("pulumi-kubernetes", *cfg)
+			return func() { _ = cluster.Delete() }, err
+		}
+
+		_, err = NewKindCluster("pulumi-kubernetes")
+		return nil, err
+	*/
 })

@@ -9,7 +9,6 @@ import (
 // Cluster is an interface to interact with a Kubernetes cluster in a test.
 type Cluster interface {
 	Name() string
-	Connect() error
 	Delete() error
 }
 

@@ -1,3 +1,0 @@
-name: k8s-test-cluster
-description: GKE cluster for pulumi-kubernetes testing
-runtime: nodejs

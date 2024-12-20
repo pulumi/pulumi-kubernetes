@@ -32,10 +32,6 @@ func (c KindCluster) Name() string {
 	return c.name
 }
 
-func (c KindCluster) Connect() error {
-	return nil
-}
-
 func (c KindCluster) Delete() error {
 	return c.teardownFn()
 }
@@ -58,7 +54,6 @@ func NewKindCluster(name string, version ...kindVersion) (Cluster, error) {
 	}
 
 	return &KindCluster{name: name, teardownFn: teardownFn}, nil
-
 }
 
 // createKindCluster attempts to create a KinD cluster with retry.
