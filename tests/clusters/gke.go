@@ -154,22 +154,13 @@ func NewGKECluster(namePrefix string, kubeconfig api.Config) (Cluster, error) {
 		return nil, fmt.Errorf("getting token for kubeconfig: %w", err)
 	}
 
-	if kubeconfig.Clusters == nil {
-		kubeconfig.Clusters = map[string]*api.Cluster{}
-	}
 	kubeconfig.Clusters[clusterName] = &api.Cluster{
 		Server:                   fmt.Sprintf("https://%s", cluster.Endpoint),
 		CertificateAuthorityData: []byte(cluster.MasterAuth.ClusterCaCertificate),
 	}
-	if kubeconfig.Contexts == nil {
-		kubeconfig.Contexts = map[string]*api.Context{}
-	}
 	kubeconfig.Contexts[clusterName] = &api.Context{
 		Cluster:  clusterName,
 		AuthInfo: clusterName,
-	}
-	if kubeconfig.AuthInfos == nil {
-		kubeconfig.AuthInfos = map[string]*api.AuthInfo{}
 	}
 	kubeconfig.AuthInfos[clusterName] = &api.AuthInfo{
 		Token: token.AccessToken, // Probably won't work...
