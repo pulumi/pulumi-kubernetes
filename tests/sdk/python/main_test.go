@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2024, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,9 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import * as gke from "./gke";
+package python
 
-// Create Kubernetes clusters.
-const gkeCluster = new gke.GkeCluster("ci-cluster");
-export const k8sProvider = gkeCluster.provider;
-export const kubeconfig = gkeCluster.kubeconfig;
+import (
+	"log"
+	"os"
+	"testing"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/clusters"
+)
+
+func TestMain(m *testing.M) {
+	teardown, err := clusters.Ensure()
+	if err != nil {
+		log.Fatal("ensuring cluster: " + err.Error())
+	}
+
+	code := m.Run()
+
+	if teardown != nil {
+		teardown()
+	}
+
+	os.Exit(code)
+}
