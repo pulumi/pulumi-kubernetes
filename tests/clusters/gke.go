@@ -58,10 +58,7 @@ func NewGKECluster(namePrefix string, kubeconfig api.Config) (Cluster, error) {
 
 	// Default to local credentials.
 	auth, err := google.DefaultTokenSource(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("getting default token source: %w", err)
-	}
-	if os.Getenv("ACTIONS_ID_TOKEN_REQUEST_TOKEN") != "" {
+	if err != nil && os.Getenv("ACTIONS_ID_TOKEN_REQUEST_TOKEN") != "" {
 		// If we're running as a GitHub action, grab an ID token so we can use
 		// that as our token source.
 		token, err := githubactions.GetIDToken(ctx, audience)
