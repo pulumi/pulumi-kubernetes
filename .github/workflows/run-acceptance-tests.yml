@@ -127,6 +127,7 @@ jobs:
         number: ${{ github.event.issue.number }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check worktree clean
+      id: worktreeClean
       uses: pulumi/git-status-check-action@54000b91124a8dd9fd6a872cb41f5dd246a46e7c # v1.1.1
       with:
         allowed-changes: |-
@@ -234,6 +235,7 @@ jobs:
     - name: Generate SDK
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
+      id: worktreeClean
       uses: pulumi/git-status-check-action@54000b91124a8dd9fd6a872cb41f5dd246a46e7c # v1.1.1
       with:
         allowed-changes: |-
@@ -242,6 +244,44 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+    - name: Commit ${{ matrix.language }} SDK changes for Renovate
+      if: failure() && steps.worktreeClean.outcome == 'failure' &&
+        contains(github.actor, 'renovate')
+      shell: bash
+      run: >
+        git config --global user.email "bot@pulumi.com"
+
+        git config --global user.name "pulumi-bot"
+
+        # Stash local changes and check out the PR's branch directly.
+
+        git stash
+
+        git fetch
+
+        git checkout "origin/$HEAD_REF"
+
+
+        # Apply and add our changes, but don't commit any files we expect to
+
+        # always change due to versioning.
+
+        git stash pop
+
+        git add sdk
+
+        git reset     sdk/python/*/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json     sdk/python/pyproject.toml
+
+        git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
+
+
+        # Push with pulumi-bot credentials to trigger a re-run of the
+
+        # workflow. https://github.com/orgs/community/discussions/25702
+
+        git push https://pulumi-bot:${{ secrets.PULUMI_BOT_TOKEN }}@github.com/${{ github.repository }}     "HEAD:$HEAD_REF"
+      env:
+        HEAD_REF: ${{ github.head_ref }}
     - run: git status --porcelain
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
