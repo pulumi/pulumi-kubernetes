@@ -31,16 +31,16 @@ func TestJavaCanCreateCRD(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/crd-java/step1")
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
+	test.Preview(t)
+	test.Up(t)
 
 	// Step 2 adds a pulumi CRD get operation and ensures we can read its URN properly.
-	test.UpdateSource("testdata/crd-java/step2")
-	test.Preview()
-	test.Up()
-	up := test.Up(optup.ExpectNoChanges())
+	test.UpdateSource(t, "testdata/crd-java/step2")
+	test.Preview(t)
+	test.Up(t)
+	up := test.Up(t, optup.ExpectNoChanges())
 
 	urn, ok := up.Outputs["urn"]
 	require.True(t, ok)
@@ -53,10 +53,10 @@ func TestJavaCanCreateCRD(t *testing.T) {
 	assert.Contains(t, string(output), `"x-kubernetes-preserve-unknown-fields": true`)
 
 	// Step 3 removes the `x-kubernetes-preserve-unknown-fields` field and ensures that the CRD is updated.
-	test.UpdateSource("testdata/crd-java/step3")
-	test.Preview()
-	test.Up()
-	up = test.Up(optup.ExpectNoChanges())
+	test.UpdateSource(t, "testdata/crd-java/step3")
+	test.Preview(t)
+	test.Up(t)
+	up = test.Up(t, optup.ExpectNoChanges())
 
 	// Verify with kubectl that the CRD no longer has `x-kubernetes-*` fields set.
 	output, err = tests.Kubectl("get crd javacrds.example.com -o json")

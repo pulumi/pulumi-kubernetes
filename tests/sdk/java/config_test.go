@@ -14,19 +14,19 @@ func TestClusterIdentifier(t *testing.T) {
 	ctx := context.Background()
 	test := pulumitest.NewPulumiTest(t, "config/cluster-identifier")
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	test.Up()
+	test.Up(t)
 
-	test.UpdateSource("config/cluster-identifier/step2")
+	test.UpdateSource(t, "config/cluster-identifier/step2")
 	up, err := test.CurrentStack().Up(ctx)
 
 	require.NoError(t, err)
 	assert.Contains(t, up.StdOut, "updated")
 	assert.NotContains(t, up.StdOut, "replaced")
 
-	test.UpdateSource("config/cluster-identifier/step3")
+	test.UpdateSource(t, "config/cluster-identifier/step3")
 	up, err = test.CurrentStack().Up(ctx)
 
 	require.NoError(t, err)

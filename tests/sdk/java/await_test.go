@@ -58,23 +58,23 @@ func TestAwaitDaemonSet(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
 	// Create a new DS that takes a few seconds to become ready.
-	up := test.Up()
+	up := test.Up(t)
 	t.Log(up.Summary.Message)
 	assertReady(t, up.Outputs)
 
-	test.Refresh() // Exercise read-await logic.
+	test.Refresh(t) // Exercise read-await logic.
 
 	// Update the DS to use a different but valid image tag.
-	test.UpdateSource("testdata/await/daemonset/step2")
-	up = test.Up()
+	test.UpdateSource(t, "testdata/await/daemonset/step2")
+	up = test.Up(t)
 	assertReady(t, up.Outputs)
 
 	// Update the DS to use an invalid image tag. It should never become ready.
-	test.UpdateSource("testdata/await/daemonset/step3")
+	test.UpdateSource(t, "testdata/await/daemonset/step3")
 	_, err := test.CurrentStack().Up(context.Background())
 	assert.ErrorContains(t, err, `the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or become live: timed out waiting for the condition`)
 }
@@ -87,16 +87,16 @@ func TestAwaitPVC(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
 	// WaitUntilFirstConsumer PVC should still be Pending.
-	up := test.Up()
+	up := test.Up(t)
 	assert.Equal(t, "Pending", up.Outputs["status"].Value)
 
 	// Adding a Deployment to consume the PVC should succeed.
-	test.UpdateSource("testdata/await/pvc/step2")
-	up = test.Up()
+	test.UpdateSource(t, "testdata/await/pvc/step2")
+	up = test.Up(t)
 }
 
 func TestAwaitService(t *testing.T) {
@@ -107,19 +107,19 @@ func TestAwaitService(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	up := test.Up()
+	up := test.Up(t)
 	assert.Equal(t, float64(1), up.Outputs["replicas"].Value.(float64))
 	assert.Nil(t, up.Outputs["selector"].Value)
-	test.Refresh()
+	test.Refresh(t)
 
-	test.UpdateSource("testdata/await/service/step2")
-	up = test.Up()
+	test.UpdateSource(t, "testdata/await/service/step2")
+	up = test.Up(t)
 	assert.Equal(t, float64(0), up.Outputs["replicas"].Value.(float64))
 	assert.Equal(t, up.Outputs["selector"], up.Outputs["label"])
-	test.Refresh()
+	test.Refresh(t)
 }
 
 func TestAwaitServiceAccount(t *testing.T) {
@@ -130,13 +130,13 @@ func TestAwaitServiceAccount(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	test.Up()
-	test.UpdateSource("testdata/await/service-account/step2")
-	test.Up()
-	test.Refresh()
+	test.Up(t)
+	test.UpdateSource(t, "testdata/await/service-account/step2")
+	test.Up(t)
+	test.Refresh(t)
 }
 
 func TestAwaitSkip(t *testing.T) {
@@ -147,27 +147,27 @@ func TestAwaitSkip(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
 	start := time.Now()
-	_ = test.Up(optup.ProgressStreams(os.Stdout))
+	_ = test.Up(t, optup.ProgressStreams(os.Stdout))
 	took := time.Since(start)
 	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow startup")
 
 	start = time.Now()
-	_ = test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+	_ = test.Refresh(t, optrefresh.ProgressStreams(os.Stdout))
 	took = time.Since(start)
 	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow read")
 
-	test.UpdateSource("testdata/await/skipawait/step2")
+	test.UpdateSource(t, "testdata/await/skipawait/step2")
 	start = time.Now()
-	_ = test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+	_ = test.Refresh(t, optrefresh.ProgressStreams(os.Stdout))
 	took = time.Since(start)
 	assert.Less(t, took, 2*time.Minute, "didn't skip pod's slow update")
 
 	start = time.Now()
-	_ = test.Destroy(optdestroy.ProgressStreams(os.Stdout))
+	_ = test.Destroy(t, optdestroy.ProgressStreams(os.Stdout))
 	took = time.Since(start)
 	assert.Less(t, took, 2*time.Minute, "didn't skip config map's stuck delete")
 }
