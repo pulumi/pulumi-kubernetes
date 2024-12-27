@@ -16,11 +16,11 @@ func TestConfigMapAndSecretImmutability(t *testing.T) {
 		opttest.SkipInstall(),
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
 	// Create the secrets/configmaps.
-	up := test.Up()
+	up := test.Up(t)
 
 	// We will detect update/replacement behavior by observing effects on our
 	// downstream dependencies.
@@ -32,8 +32,8 @@ func TestConfigMapAndSecretImmutability(t *testing.T) {
 	mutableConfigmap := up.Outputs["mutableConfigmap"].Value.(string)
 
 	// Update the data of all our secrets and configmaps.
-	test.UpdateSource("testdata/immutability/step2")
-	up = test.Up()
+	test.UpdateSource(t, "testdata/immutability/step2")
+	up = test.Up(t)
 
 	// Only the mutable configmap and secret should have been updated -- so no
 	// impact on those two downstreams.
@@ -53,8 +53,8 @@ func TestConfigMapAndSecretImmutability(t *testing.T) {
 
 	// The final step only touches annotations. All resources should have been
 	// updated.
-	test.UpdateSource("testdata/immutability/step3")
-	up = test.Up()
+	test.UpdateSource(t, "testdata/immutability/step3")
+	up = test.Up(t)
 	assert.Equal(t, secret, up.Outputs["secret"].Value.(string))
 	assert.Equal(t, configmap, up.Outputs["configmap"].Value.(string))
 	assert.Equal(t, autonamedSecret, up.Outputs["autonamedSecret"].Value.(string))

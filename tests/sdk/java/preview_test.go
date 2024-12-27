@@ -14,14 +14,14 @@ func TestPreviewReplacements(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/preview-replacements", opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
+	test.Preview(t)
+	test.Up(t)
 
 	// Preview should not fail when there is a replacement due to immutable fields.
-	test.UpdateSource("testdata/preview-replacements", "step2")
-	test.Preview()
+	test.UpdateSource(t, "testdata/preview-replacements", "step2")
+	test.Preview(t)
 }
 
 // TestCRDPreviews ensures that CRDs are correctly previewed, and are not created or updated on the cluster.
@@ -36,20 +36,20 @@ func TestCRDPreviews(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, testFolder, opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Up()
+	test.Up(t)
 
 	// 2. Preview should not actually update the CRD resource. Step 2 adds a new field ("testNewField") to the CRD.
-	test.UpdateSource(testFolder, "step2")
-	test.Preview()
+	test.UpdateSource(t, testFolder, "step2")
+	test.Preview(t)
 
 	out, err := tests.Kubectl("get", "crd", crdName, "-o", "yaml")
 	require.NoError(t, err, "unable to get CRD with kubectl")
 	require.NotContains(t, string(out), "testNewField", "expected CRD to not have new field added in preview")
 
 	// 3. Update should actually update the CRD resource.
-	test.Up()
+	test.Up(t)
 	out, err = tests.Kubectl("get", "crd", crdName, "-o", "yaml")
 	require.NoError(t, err, "unable to get CRD with kubectl")
 	require.Contains(t, string(out), "testNewField", "expected CRD to have new field added in update operation")

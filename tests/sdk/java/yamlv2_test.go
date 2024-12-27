@@ -18,10 +18,10 @@ func TestYamlV2(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/yamlv2", opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
+	test.Preview(t)
+	test.Up(t)
 }
 
 // TestJobUnreachable ensures that a panic does not occur when diffing Job resources against an unreachable API server.
@@ -30,9 +30,9 @@ func TestJobUnreachable(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/job-unreachable", opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
+	test.Preview(t)
 
 	// Create the job, but expect it to fail as the job is meant to fail.
 	_, err := test.CurrentStack().Up(test.Context())
@@ -40,6 +40,6 @@ func TestJobUnreachable(t *testing.T) {
 
 	// Re-run the Pulumi program with a malformed kubeconfig to simulate an unreachable API server.
 	// This should not panic annd preview should succeed.
-	test.UpdateSource("testdata/job-unreachable/step2")
-	test.Preview()
+	test.UpdateSource(t, "testdata/job-unreachable/step2")
+	test.Preview(t)
 }

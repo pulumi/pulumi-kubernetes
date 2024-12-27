@@ -24,8 +24,8 @@ func TestKustomizeV2(t *testing.T) {
 	)
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
+	test.Preview(t)
+	test.Up(t)
 }
