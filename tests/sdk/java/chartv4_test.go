@@ -13,9 +13,9 @@ func TestChartv4(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/chartv4", opttest.SkipInstall())
 	t.Logf("into %s", test.Source())
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
-	test.Preview()
-	test.Up()
-	test.Up(optup.ExpectNoChanges())
+	test.Preview(t)
+	test.Up(t)
+	test.Up(t, optup.ExpectNoChanges())
 }
