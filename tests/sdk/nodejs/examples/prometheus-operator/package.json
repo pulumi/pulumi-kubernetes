@@ -2,7 +2,7 @@
     "name": "prometheus-operator",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/kubernetes": "^3.24.0",
+        "@pulumi/kubernetes": "3.30.2",
         "@pulumi/pulumi": "latest"
     },
     "peerDependencies": {
