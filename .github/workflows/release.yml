@@ -114,6 +114,47 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+    - name: Commit ${{ matrix.language }} SDK changes for Renovate
+      if: failure() && steps.worktreeClean.outcome == 'failure' &&
+        contains(github.actor, 'renovate') && github.event_name ==
+        'pull_request'
+      shell: bash
+      run: >
+        git diff --quiet -- sdk && echo "no changes to sdk" && exit
+
+        git config --global user.email "bot@pulumi.com"
+
+        git config --global user.name "pulumi-bot"
+
+        # Stash local changes and check out the PR's branch directly.
+
+        git stash
+
+        git fetch
+
+        git checkout "origin/$HEAD_REF"
+
+
+        # Apply and add our changes, but don't commit any files we expect to
+
+        # always change due to versioning.
+
+        git stash pop
+
+        git add sdk
+
+        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
+
+        git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
+
+
+        # Push with pulumi-bot credentials to trigger a re-run of the
+
+        # workflow. https://github.com/orgs/community/discussions/25702
+
+        git push https://pulumi-bot:${{ secrets.PULUMI_BOT_TOKEN }}@github.com/${{ github.repository }}     "HEAD:$HEAD_REF"
+      env:
+        HEAD_REF: ${{ github.head_ref }}
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
@@ -141,7 +182,7 @@ jobs:
     needs: prerequisites
     runs-on: pulumi-ubuntu-8core
     strategy:
-      fail-fast: true
+      fail-fast: ${{ ! contains(github.actor, 'renovate') }}
       matrix:
         language:
         - nodejs
@@ -221,9 +262,12 @@ jobs:
           sdk/python/pyproject.toml
     - name: Commit ${{ matrix.language }} SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
-        contains(github.actor, 'renovate')
+        contains(github.actor, 'renovate') && github.event_name ==
+        'pull_request'
       shell: bash
       run: >
+        git diff --quiet -- sdk && echo "no changes to sdk" && exit
+
         git config --global user.email "bot@pulumi.com"
 
         git config --global user.name "pulumi-bot"
@@ -245,7 +289,7 @@ jobs:
 
         git add sdk
 
-        git reset     sdk/python/*/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json     sdk/python/pyproject.toml
+        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
 
         git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
 
