@@ -48,6 +48,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/apiserver/pkg/storage/names"
 	"k8s.io/client-go/dynamic"
@@ -832,6 +833,27 @@ func Deletion(c DeleteConfig) error {
 	deletePolicy := metadata.DeletionPropagation(c.Inputs)
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
+	}
+
+	live, err := client.Get(c.Context, c.Name, metav1.GetOptions{})
+	if err != nil {
+		return nilIfGVKDeleted(err)
+	}
+
+	actualSSAManagers := sets.Set[string]{}
+	for _, f := range live.GetManagedFields() {
+		// Ignore fields not managed by pulumi SSA.
+		if !strings.HasPrefix(f.Manager, "pulumi-kubernetes-") {
+			continue
+		}
+		actualSSAManagers = actualSSAManagers.Insert(f.Manager)
+	}
+	if c.ServerSideApply && !actualSSAManagers.Has(c.FieldManager) {
+		// Didn't find our expected manager on the object. Assume it was
+		// upserted by another manager and refuse to delete it. For the sake of
+		// the program's state, report that it has been deleted since we are no
+		// longer managing it.
+		return nil
 	}
 
 	err = client.Delete(c.Context, c.Name, deleteOpts)
