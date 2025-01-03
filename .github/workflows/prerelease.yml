@@ -114,20 +114,61 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+    - name: Commit ${{ matrix.language }} SDK changes for Renovate
+      if: failure() && steps.worktreeClean.outcome == 'failure' &&
+        contains(github.actor, 'renovate') && github.event_name ==
+        'pull_request'
+      shell: bash
+      run: >
+        git diff --quiet -- sdk && echo "no changes to sdk" && exit
+
+        git config --global user.email "bot@pulumi.com"
+
+        git config --global user.name "pulumi-bot"
+
+        # Stash local changes and check out the PR's branch directly.
+
+        git stash
+
+        git fetch
+
+        git checkout "origin/$HEAD_REF"
+
+
+        # Apply and add our changes, but don't commit any files we expect to
+
+        # always change due to versioning.
+
+        git stash pop
+
+        git add sdk
+
+        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
+
+        git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
+
+
+        # Push with pulumi-bot credentials to trigger a re-run of the
+
+        # workflow. https://github.com/orgs/community/discussions/25702
+
+        git push https://pulumi-bot:${{ secrets.PULUMI_BOT_TOKEN }}@github.com/${{ github.repository }}     "HEAD:$HEAD_REF"
+      env:
+        HEAD_REF: ${{ github.head_ref }}
     - run: git status --porcelain
     - name: Tar provider binaries
       run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
         github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
         pulumi-gen-${{ env.PROVIDER}}
     - name: Upload artifacts
-      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@7f8b4b4bde536c465e797be725718b88c5d95e0e # v5.1.1
+      uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -141,7 +182,7 @@ jobs:
     needs: prerequisites
     runs-on: pulumi-ubuntu-8core
     strategy:
-      fail-fast: true
+      fail-fast: ${{ ! contains(github.actor, 'renovate') }}
       matrix:
         language:
         - nodejs
@@ -179,7 +220,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
@@ -187,7 +228,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
+      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -221,9 +262,12 @@ jobs:
           sdk/python/pyproject.toml
     - name: Commit ${{ matrix.language }} SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
-        contains(github.actor, 'renovate')
+        contains(github.actor, 'renovate') && github.event_name ==
+        'pull_request'
       shell: bash
       run: >
+        git diff --quiet -- sdk && echo "no changes to sdk" && exit
+
         git config --global user.email "bot@pulumi.com"
 
         git config --global user.name "pulumi-bot"
@@ -245,7 +289,7 @@ jobs:
 
         git add sdk
 
-        git reset     sdk/python/*/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json     sdk/python/pyproject.toml
+        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
 
         git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
 
@@ -261,7 +305,7 @@ jobs:
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
     - name: Upload artifacts
-      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
       with:
         name: ${{ matrix.language  }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
@@ -319,7 +363,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
@@ -327,7 +371,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
+      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -522,7 +566,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
@@ -594,7 +638,7 @@ jobs:
     - name: Install Pulumi CLI
       uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
     - name: Setup Java
-      uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
+      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -711,7 +755,7 @@ jobs:
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
     - name: Upload Kubernetes Artifacts
-      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
       with:
         name: config
         path: ~/.kube/config
