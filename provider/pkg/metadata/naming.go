@@ -37,8 +37,9 @@ func AssignNameIfAutonamable(randomSeed []byte, engineAutonaming *pulumirpc.Chec
 	if engineAutonaming != nil {
 		switch engineAutonaming.Mode {
 		case pulumirpc.CheckRequest_AutonamingOptions_DISABLE:
-			return errors.New("autonaming is disabled, please provide a name or generateName value")
+			return errors.New("autonaming is disabled, resource requires the .metadata.name field to be set")
 		case pulumirpc.CheckRequest_AutonamingOptions_ENFORCE, pulumirpc.CheckRequest_AutonamingOptions_PROPOSE:
+			contract.Assertf(engineAutonaming.ProposedName != "", "expected proposed name to be non-empty: %v", engineAutonaming)
 			autoname = engineAutonaming.ProposedName
 		}
 	}
