@@ -15,7 +15,7 @@ require (
 	github.com/pulumi/providertest v0.1.4
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.19.0
-	github.com/pulumi/pulumi/pkg/v3 v3.144.1
+	github.com/pulumi/pulumi/pkg/v3 v3.145.0
 	github.com/pulumi/pulumi/sdk/v3 v3.145.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.10.0
