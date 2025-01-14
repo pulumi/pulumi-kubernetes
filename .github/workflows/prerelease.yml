@@ -62,7 +62,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
@@ -211,7 +211,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -354,7 +354,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -502,7 +502,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
@@ -559,7 +559,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
     - name: Setup Node
       uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
       with:
@@ -636,7 +636,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
     - name: Setup Java
       uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
       with:
@@ -717,7 +717,7 @@ jobs:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -781,7 +781,7 @@ jobs:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
+      uses: pulumi/actions@c7fad9e2f0b79653172b36538b8b34b3c0291952 # v6.0.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
