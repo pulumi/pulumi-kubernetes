@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.20.0 (January 14, 2025)
+
 ### Added
 
 - Added support for autonaming configuration specified by the engine.
