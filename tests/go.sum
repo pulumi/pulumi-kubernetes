@@ -629,8 +629,8 @@ github.com/pulumi/cloud-ready-checks v1.2.0 h1:LDbuZEv2j0mTsx/PE4Ym7K8Ri+15P1UYU
 github.com/pulumi/cloud-ready-checks v1.2.0/go.mod h1:eAwb+lcO3Uo6+FIQeBrGARvq9333MWS5v/VqOUeLgI4=
 github.com/pulumi/esc v0.10.0 h1:jzBKzkLVW0mePeanDRfqSQoCJ5yrkux0jIwAkUxpRKE=
 github.com/pulumi/esc v0.10.0/go.mod h1:2Bfa+FWj/xl8CKqRTWbWgDX0SOD4opdQgvYSURTGK2c=
-github.com/pulumi/providertest v0.1.4 h1:25AeDXEcQLtRxJgcDG5TISYpOMoVoQHhv69vzfJtHws=
-github.com/pulumi/providertest v0.1.4/go.mod h1:bU07oPwpgNjGuuIT6CPnI/eLXaGHqhypFrxX5ZsABo4=
+github.com/pulumi/providertest v0.1.5 h1:35PH+SBNzWjkfO/rP5mSjrfuTUJZ5nxeo2Cb845EoYU=
+github.com/pulumi/providertest v0.1.5/go.mod h1:bU07oPwpgNjGuuIT6CPnI/eLXaGHqhypFrxX5ZsABo4=
 github.com/pulumi/pulumi/pkg/v3 v3.145.0 h1:hAhFLieunnCKuMd3GbLqE5uWQ1hpNLdl6+bCDFSF4YQ=
 github.com/pulumi/pulumi/pkg/v3 v3.145.0/go.mod h1:N19IsMJ3GyYO5N2JfpsCAVk0eH1NKkF05fZGn5dnhBE=
 github.com/pulumi/pulumi/sdk/v3 v3.145.0 h1:r5iOgz67RElFXJt4GVVY2SBGh5sR24mL9NOcKBiBi/k=
