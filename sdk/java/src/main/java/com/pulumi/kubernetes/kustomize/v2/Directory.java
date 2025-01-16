@@ -80,7 +80,7 @@ public class Directory extends com.pulumi.resources.ComponentResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public Directory(String name) {
+    public Directory(java.lang.String name) {
         this(name, DirectoryArgs.Empty);
     }
     /**
@@ -88,7 +88,7 @@ public class Directory extends com.pulumi.resources.ComponentResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public Directory(String name, DirectoryArgs args) {
+    public Directory(java.lang.String name, DirectoryArgs args) {
         this(name, args, null);
     }
     /**
@@ -97,7 +97,7 @@ public class Directory extends com.pulumi.resources.ComponentResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public Directory(String name, DirectoryArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+    public Directory(java.lang.String name, DirectoryArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
         super("kubernetes:kustomize/v2:Directory", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
     }
 
@@ -108,7 +108,7 @@ public class Directory extends com.pulumi.resources.ComponentResource {
         return args == null ? DirectoryArgs.Empty : args;
     }
 
-    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.ComponentResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();

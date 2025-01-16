@@ -82,7 +82,7 @@ public class PodPresetList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PodPresetList(String name) {
+    public PodPresetList(java.lang.String name) {
         this(name, PodPresetListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class PodPresetList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodPresetList(String name, PodPresetListArgs args) {
+    public PodPresetList(java.lang.String name, PodPresetListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class PodPresetList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodPresetList(String name, PodPresetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PodPresetList(java.lang.String name, PodPresetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PodPresetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, null, makeResourceOptions(options, id));
+    private PodPresetList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PodPresetListArgs makeArgs(PodPresetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class PodPresetList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class PodPresetList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PodPresetList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PodPresetList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PodPresetList(name, id, options);
     }
 }

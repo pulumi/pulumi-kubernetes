@@ -112,7 +112,7 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public RuntimeClass(String name) {
+    public RuntimeClass(java.lang.String name) {
         this(name, RuntimeClassArgs.Empty);
     }
     /**
@@ -120,7 +120,7 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public RuntimeClass(String name, RuntimeClassArgs args) {
+    public RuntimeClass(java.lang.String name, RuntimeClassArgs args) {
         this(name, args, null);
     }
     /**
@@ -129,12 +129,12 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public RuntimeClass(String name, RuntimeClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public RuntimeClass(java.lang.String name, RuntimeClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private RuntimeClass(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, null, makeResourceOptions(options, id));
+    private RuntimeClass(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, null, makeResourceOptions(options, id), false);
     }
 
     private static RuntimeClassArgs makeArgs(RuntimeClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -148,7 +148,7 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -167,7 +167,7 @@ public class RuntimeClass extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static RuntimeClass get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static RuntimeClass get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new RuntimeClass(name, id, options);
     }
 }

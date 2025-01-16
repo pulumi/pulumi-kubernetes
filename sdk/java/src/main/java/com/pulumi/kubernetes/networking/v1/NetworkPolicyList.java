@@ -82,7 +82,7 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public NetworkPolicyList(String name) {
+    public NetworkPolicyList(java.lang.String name) {
         this(name, NetworkPolicyListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public NetworkPolicyList(String name, NetworkPolicyListArgs args) {
+    public NetworkPolicyList(java.lang.String name, NetworkPolicyListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public NetworkPolicyList(String name, NetworkPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public NetworkPolicyList(java.lang.String name, NetworkPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private NetworkPolicyList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, null, makeResourceOptions(options, id));
+    private NetworkPolicyList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static NetworkPolicyListArgs makeArgs(NetworkPolicyListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class NetworkPolicyList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static NetworkPolicyList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static NetworkPolicyList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new NetworkPolicyList(name, id, options);
     }
 }

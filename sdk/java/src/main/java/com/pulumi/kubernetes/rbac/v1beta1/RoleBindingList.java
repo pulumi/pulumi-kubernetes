@@ -82,7 +82,7 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public RoleBindingList(String name) {
+    public RoleBindingList(java.lang.String name) {
         this(name, RoleBindingListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public RoleBindingList(String name, RoleBindingListArgs args) {
+    public RoleBindingList(java.lang.String name, RoleBindingListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public RoleBindingList(String name, RoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public RoleBindingList(java.lang.String name, RoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private RoleBindingList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, null, makeResourceOptions(options, id));
+    private RoleBindingList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static RoleBindingListArgs makeArgs(RoleBindingListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class RoleBindingList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static RoleBindingList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static RoleBindingList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new RoleBindingList(name, id, options);
     }
 }

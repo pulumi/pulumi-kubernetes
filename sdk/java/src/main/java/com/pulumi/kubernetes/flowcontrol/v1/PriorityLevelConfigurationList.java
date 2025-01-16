@@ -82,7 +82,7 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PriorityLevelConfigurationList(String name) {
+    public PriorityLevelConfigurationList(java.lang.String name) {
         this(name, PriorityLevelConfigurationListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PriorityLevelConfigurationList(String name, PriorityLevelConfigurationListArgs args) {
+    public PriorityLevelConfigurationList(java.lang.String name, PriorityLevelConfigurationListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PriorityLevelConfigurationList(String name, PriorityLevelConfigurationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PriorityLevelConfigurationList(java.lang.String name, PriorityLevelConfigurationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PriorityLevelConfigurationList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList", name, null, makeResourceOptions(options, id));
+    private PriorityLevelConfigurationList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfigurationList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PriorityLevelConfigurationListArgs makeArgs(PriorityLevelConfigurationListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PriorityLevelConfigurationList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PriorityLevelConfigurationList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PriorityLevelConfigurationList(name, id, options);
     }
 }

@@ -171,7 +171,7 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public StorageClass(String name) {
+    public StorageClass(java.lang.String name) {
         this(name, StorageClassArgs.Empty);
     }
     /**
@@ -179,7 +179,7 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public StorageClass(String name, StorageClassArgs args) {
+    public StorageClass(java.lang.String name, StorageClassArgs args) {
         this(name, args, null);
     }
     /**
@@ -188,12 +188,12 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public StorageClass(String name, StorageClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:StorageClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public StorageClass(java.lang.String name, StorageClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1:StorageClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private StorageClass(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1:StorageClass", name, null, makeResourceOptions(options, id));
+    private StorageClass(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1:StorageClass", name, null, makeResourceOptions(options, id), false);
     }
 
     private static StorageClassArgs makeArgs(StorageClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -207,7 +207,7 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -225,7 +225,7 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static StorageClass get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static StorageClass get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new StorageClass(name, id, options);
     }
 }

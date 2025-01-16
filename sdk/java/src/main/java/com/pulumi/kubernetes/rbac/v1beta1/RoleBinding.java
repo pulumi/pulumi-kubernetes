@@ -98,7 +98,7 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public RoleBinding(String name) {
+    public RoleBinding(java.lang.String name) {
         this(name, RoleBindingArgs.Empty);
     }
     /**
@@ -106,7 +106,7 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public RoleBinding(String name, RoleBindingArgs args) {
+    public RoleBinding(java.lang.String name, RoleBindingArgs args) {
         this(name, args, null);
     }
     /**
@@ -115,12 +115,12 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public RoleBinding(String name, RoleBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public RoleBinding(java.lang.String name, RoleBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private RoleBinding(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, null, makeResourceOptions(options, id));
+    private RoleBinding(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, null, makeResourceOptions(options, id), false);
     }
 
     private static RoleBindingArgs makeArgs(RoleBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -134,7 +134,7 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -153,7 +153,7 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static RoleBinding get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static RoleBinding get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new RoleBinding(name, id, options);
     }
 }

@@ -119,7 +119,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ServiceAccountPatch(String name) {
+    public ServiceAccountPatch(java.lang.String name) {
         this(name, ServiceAccountPatchArgs.Empty);
     }
     /**
@@ -127,7 +127,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args) {
+    public ServiceAccountPatch(java.lang.String name, @Nullable ServiceAccountPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -136,12 +136,12 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ServiceAccountPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ServiceAccountPatch(java.lang.String name, @Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ServiceAccountPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ServiceAccountPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ServiceAccountPatch", name, null, makeResourceOptions(options, id));
+    private ServiceAccountPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ServiceAccountPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ServiceAccountPatchArgs makeArgs(@Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -155,7 +155,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -170,7 +170,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ServiceAccountPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ServiceAccountPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ServiceAccountPatch(name, id, options);
     }
 }

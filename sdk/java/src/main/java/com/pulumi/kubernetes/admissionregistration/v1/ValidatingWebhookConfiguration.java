@@ -83,7 +83,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ValidatingWebhookConfiguration(String name) {
+    public ValidatingWebhookConfiguration(java.lang.String name) {
         this(name, ValidatingWebhookConfigurationArgs.Empty);
     }
     /**
@@ -91,7 +91,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingWebhookConfiguration(String name, @Nullable ValidatingWebhookConfigurationArgs args) {
+    public ValidatingWebhookConfiguration(java.lang.String name, @Nullable ValidatingWebhookConfigurationArgs args) {
         this(name, args, null);
     }
     /**
@@ -100,12 +100,12 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingWebhookConfiguration(String name, @Nullable ValidatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ValidatingWebhookConfiguration(java.lang.String name, @Nullable ValidatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ValidatingWebhookConfiguration(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, null, makeResourceOptions(options, id));
+    private ValidatingWebhookConfiguration(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ValidatingWebhookConfigurationArgs makeArgs(@Nullable ValidatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -119,7 +119,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -137,7 +137,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ValidatingWebhookConfiguration get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ValidatingWebhookConfiguration get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ValidatingWebhookConfiguration(name, id, options);
     }
 }

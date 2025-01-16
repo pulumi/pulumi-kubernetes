@@ -83,7 +83,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CSIDriver(String name) {
+    public CSIDriver(java.lang.String name) {
         this(name, CSIDriverArgs.Empty);
     }
     /**
@@ -91,7 +91,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSIDriver(String name, CSIDriverArgs args) {
+    public CSIDriver(java.lang.String name, CSIDriverArgs args) {
         this(name, args, null);
     }
     /**
@@ -100,12 +100,12 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSIDriver(String name, CSIDriverArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public CSIDriver(java.lang.String name, CSIDriverArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private CSIDriver(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, null, makeResourceOptions(options, id));
+    private CSIDriver(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, null, makeResourceOptions(options, id), false);
     }
 
     private static CSIDriverArgs makeArgs(CSIDriverArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -119,7 +119,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -137,7 +137,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static CSIDriver get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static CSIDriver get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new CSIDriver(name, id, options);
     }
 }

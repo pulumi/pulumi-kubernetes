@@ -66,14 +66,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+     * Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
      * 
      */
     @Import(name="resources")
     private @Nullable Output<List<String>> resources;
 
     /**
-     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
      * 
      */
     public Optional<Output<List<String>>> resources() {
@@ -217,7 +217,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
          * 
          * @return builder
          * 
@@ -228,7 +228,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
          * 
          * @return builder
          * 
@@ -238,7 +238,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+         * @param resources Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
          * 
          * @return builder
          * 
