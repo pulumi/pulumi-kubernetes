@@ -5,9 +5,9 @@
 
 ## 4.21.0 (January 16, 2025)
 
-### Added
+### Changed
 
-- Adding in pulumi-java v1.0.0
+- Upgrade `pulumi-java` to version `v1.0.0`  (<https://github.com/pulumi/pulumi-kubernetes/pull/3436>)
 
 ## 4.20.0 (January 14, 2025)
 
