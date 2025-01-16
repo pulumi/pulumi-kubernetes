@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 4.21.0 (January 16, 2025)
+
 ### Added
 
 - Adding in pulumi-java v1.0.0
