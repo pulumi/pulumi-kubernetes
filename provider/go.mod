@@ -18,9 +18,9 @@ require (
 	github.com/onsi/gomega v1.35.1
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.2.0
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.19.0
-	github.com/pulumi/pulumi/pkg/v3 v3.145.0
-	github.com/pulumi/pulumi/sdk/v3 v3.145.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.20.0
+	github.com/pulumi/pulumi/pkg/v3 v3.146.0
+	github.com/pulumi/pulumi/sdk/v3 v3.146.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/crypto v0.31.0
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
