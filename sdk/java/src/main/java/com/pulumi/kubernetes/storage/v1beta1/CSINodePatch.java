@@ -94,7 +94,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CSINodePatch(String name) {
+    public CSINodePatch(java.lang.String name) {
         this(name, CSINodePatchArgs.Empty);
     }
     /**
@@ -102,7 +102,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSINodePatch(String name, @Nullable CSINodePatchArgs args) {
+    public CSINodePatch(java.lang.String name, @Nullable CSINodePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -111,12 +111,12 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSINodePatch(String name, @Nullable CSINodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSINodePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public CSINodePatch(java.lang.String name, @Nullable CSINodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSINodePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private CSINodePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSINodePatch", name, null, makeResourceOptions(options, id));
+    private CSINodePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSINodePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static CSINodePatchArgs makeArgs(@Nullable CSINodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -130,7 +130,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -148,7 +148,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static CSINodePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static CSINodePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new CSINodePatch(name, id, options);
     }
 }

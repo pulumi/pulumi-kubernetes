@@ -89,7 +89,7 @@ public class ResourceClaimTemplate extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ResourceClaimTemplate(String name) {
+    public ResourceClaimTemplate(java.lang.String name) {
         this(name, ResourceClaimTemplateArgs.Empty);
     }
     /**
@@ -97,7 +97,7 @@ public class ResourceClaimTemplate extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ResourceClaimTemplate(String name, ResourceClaimTemplateArgs args) {
+    public ResourceClaimTemplate(java.lang.String name, ResourceClaimTemplateArgs args) {
         this(name, args, null);
     }
     /**
@@ -106,12 +106,12 @@ public class ResourceClaimTemplate extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ResourceClaimTemplate(String name, ResourceClaimTemplateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ResourceClaimTemplate(java.lang.String name, ResourceClaimTemplateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ResourceClaimTemplate(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate", name, null, makeResourceOptions(options, id));
+    private ResourceClaimTemplate(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ResourceClaimTemplateArgs makeArgs(ResourceClaimTemplateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -125,7 +125,7 @@ public class ResourceClaimTemplate extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -145,7 +145,7 @@ public class ResourceClaimTemplate extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ResourceClaimTemplate get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ResourceClaimTemplate get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ResourceClaimTemplate(name, id, options);
     }
 }

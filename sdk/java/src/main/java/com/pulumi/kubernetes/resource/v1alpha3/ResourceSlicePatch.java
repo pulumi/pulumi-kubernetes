@@ -104,7 +104,7 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ResourceSlicePatch(String name) {
+    public ResourceSlicePatch(java.lang.String name) {
         this(name, ResourceSlicePatchArgs.Empty);
     }
     /**
@@ -112,7 +112,7 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ResourceSlicePatch(String name, @Nullable ResourceSlicePatchArgs args) {
+    public ResourceSlicePatch(java.lang.String name, @Nullable ResourceSlicePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -121,12 +121,12 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ResourceSlicePatch(String name, @Nullable ResourceSlicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ResourceSlicePatch(java.lang.String name, @Nullable ResourceSlicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ResourceSlicePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch", name, null, makeResourceOptions(options, id));
+    private ResourceSlicePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ResourceSlicePatchArgs makeArgs(@Nullable ResourceSlicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -140,7 +140,7 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -159,7 +159,7 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ResourceSlicePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ResourceSlicePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ResourceSlicePatch(name, id, options);
     }
 }

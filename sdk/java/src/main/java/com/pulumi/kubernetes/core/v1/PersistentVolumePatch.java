@@ -103,7 +103,7 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PersistentVolumePatch(String name) {
+    public PersistentVolumePatch(java.lang.String name) {
         this(name, PersistentVolumePatchArgs.Empty);
     }
     /**
@@ -111,7 +111,7 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PersistentVolumePatch(String name, @Nullable PersistentVolumePatchArgs args) {
+    public PersistentVolumePatch(java.lang.String name, @Nullable PersistentVolumePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,12 +120,12 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PersistentVolumePatch(String name, @Nullable PersistentVolumePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PersistentVolumePatch(java.lang.String name, @Nullable PersistentVolumePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:PersistentVolumePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PersistentVolumePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumePatch", name, null, makeResourceOptions(options, id));
+    private PersistentVolumePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:PersistentVolumePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PersistentVolumePatchArgs makeArgs(@Nullable PersistentVolumePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -139,7 +139,7 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -154,7 +154,7 @@ public class PersistentVolumePatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PersistentVolumePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PersistentVolumePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PersistentVolumePatch(name, id, options);
     }
 }

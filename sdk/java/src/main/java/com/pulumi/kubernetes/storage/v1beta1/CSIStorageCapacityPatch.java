@@ -156,7 +156,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CSIStorageCapacityPatch(String name) {
+    public CSIStorageCapacityPatch(java.lang.String name) {
         this(name, CSIStorageCapacityPatchArgs.Empty);
     }
     /**
@@ -164,7 +164,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSIStorageCapacityPatch(String name, @Nullable CSIStorageCapacityPatchArgs args) {
+    public CSIStorageCapacityPatch(java.lang.String name, @Nullable CSIStorageCapacityPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -173,12 +173,12 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSIStorageCapacityPatch(String name, @Nullable CSIStorageCapacityPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public CSIStorageCapacityPatch(java.lang.String name, @Nullable CSIStorageCapacityPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private CSIStorageCapacityPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch", name, null, makeResourceOptions(options, id));
+    private CSIStorageCapacityPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static CSIStorageCapacityPatchArgs makeArgs(@Nullable CSIStorageCapacityPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -192,7 +192,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -211,7 +211,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static CSIStorageCapacityPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static CSIStorageCapacityPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new CSIStorageCapacityPatch(name, id, options);
     }
 }

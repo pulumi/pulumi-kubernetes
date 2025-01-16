@@ -99,7 +99,7 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ValidatingAdmissionPolicy(String name) {
+    public ValidatingAdmissionPolicy(java.lang.String name) {
         this(name, ValidatingAdmissionPolicyArgs.Empty);
     }
     /**
@@ -107,7 +107,7 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingAdmissionPolicy(String name, @Nullable ValidatingAdmissionPolicyArgs args) {
+    public ValidatingAdmissionPolicy(java.lang.String name, @Nullable ValidatingAdmissionPolicyArgs args) {
         this(name, args, null);
     }
     /**
@@ -116,12 +116,12 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingAdmissionPolicy(String name, @Nullable ValidatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ValidatingAdmissionPolicy(java.lang.String name, @Nullable ValidatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ValidatingAdmissionPolicy(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", name, null, makeResourceOptions(options, id));
+    private ValidatingAdmissionPolicy(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ValidatingAdmissionPolicyArgs makeArgs(@Nullable ValidatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -135,7 +135,7 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -154,7 +154,7 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ValidatingAdmissionPolicy get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ValidatingAdmissionPolicy get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ValidatingAdmissionPolicy(name, id, options);
     }
 }

@@ -66,7 +66,7 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PodDisruptionBudgetList(String name) {
+    public PodDisruptionBudgetList(java.lang.String name) {
         this(name, PodDisruptionBudgetListArgs.Empty);
     }
     /**
@@ -74,7 +74,7 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodDisruptionBudgetList(String name, PodDisruptionBudgetListArgs args) {
+    public PodDisruptionBudgetList(java.lang.String name, PodDisruptionBudgetListArgs args) {
         this(name, args, null);
     }
     /**
@@ -83,12 +83,12 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodDisruptionBudgetList(String name, PodDisruptionBudgetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PodDisruptionBudgetList(java.lang.String name, PodDisruptionBudgetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PodDisruptionBudgetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, null, makeResourceOptions(options, id));
+    private PodDisruptionBudgetList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PodDisruptionBudgetListArgs makeArgs(PodDisruptionBudgetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -102,7 +102,7 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -117,7 +117,7 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PodDisruptionBudgetList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PodDisruptionBudgetList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PodDisruptionBudgetList(name, id, options);
     }
 }

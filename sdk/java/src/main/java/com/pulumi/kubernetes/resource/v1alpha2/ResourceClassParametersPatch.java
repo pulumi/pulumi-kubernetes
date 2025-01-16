@@ -119,7 +119,7 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ResourceClassParametersPatch(String name) {
+    public ResourceClassParametersPatch(java.lang.String name) {
         this(name, ResourceClassParametersPatchArgs.Empty);
     }
     /**
@@ -127,7 +127,7 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ResourceClassParametersPatch(String name, @Nullable ResourceClassParametersPatchArgs args) {
+    public ResourceClassParametersPatch(java.lang.String name, @Nullable ResourceClassParametersPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -136,12 +136,12 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ResourceClassParametersPatch(String name, @Nullable ResourceClassParametersPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ResourceClassParametersPatch(java.lang.String name, @Nullable ResourceClassParametersPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ResourceClassParametersPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch", name, null, makeResourceOptions(options, id));
+    private ResourceClassParametersPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ResourceClassParametersPatchArgs makeArgs(@Nullable ResourceClassParametersPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -155,7 +155,7 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -170,7 +170,7 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ResourceClassParametersPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ResourceClassParametersPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ResourceClassParametersPatch(name, id, options);
     }
 }

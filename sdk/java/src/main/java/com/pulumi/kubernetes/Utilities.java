@@ -14,10 +14,11 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import com.pulumi.core.internal.Environment;
 import com.pulumi.deployment.InvokeOptions;
+import com.pulumi.deployment.InvokeOutputOptions;
 
 public class Utilities {
 
-	public static Optional<String> getEnv(String... names) {
+	public static Optional<java.lang.String> getEnv(java.lang.String... names) {
         for (var n : names) {
             var value = Environment.getEnvironmentVariable(n);
             if (value.isValue()) {
@@ -27,7 +28,7 @@ public class Utilities {
         return Optional.empty();
     }
 
-	public static Optional<Boolean> getEnvBoolean(String... names) {
+	public static Optional<java.lang.Boolean> getEnvBoolean(java.lang.String... names) {
         for (var n : names) {
             var value = Environment.getBooleanEnvironmentVariable(n);
             if (value.isValue()) {
@@ -37,7 +38,7 @@ public class Utilities {
         return Optional.empty();
 	}
 
-	public static Optional<Integer> getEnvInteger(String... names) {
+	public static Optional<java.lang.Integer> getEnvInteger(java.lang.String... names) {
         for (var n : names) {
             var value = Environment.getIntegerEnvironmentVariable(n);
             if (value.isValue()) {
@@ -47,7 +48,7 @@ public class Utilities {
         return Optional.empty();
 	}
 
-	public static Optional<Double> getEnvDouble(String... names) {
+	public static Optional<java.lang.Double> getEnvDouble(java.lang.String... names) {
         for (var n : names) {
             var value = Environment.getDoubleEnvironmentVariable(n);
             if (value.isValue()) {
@@ -57,19 +58,31 @@ public class Utilities {
         return Optional.empty();
 	}
 
-	public static InvokeOptions withVersion(@Nullable InvokeOptions options) {
-            if (options != null && options.getVersion().isPresent()) {
-                return options;
-            }
-            return new InvokeOptions(
-                options == null ? null : options.getParent().orElse(null),
-                options == null ? null : options.getProvider().orElse(null),
-                getVersion()
-            );
+    public static InvokeOptions withVersion(@Nullable InvokeOptions options) {
+        if (options != null && options.getVersion().isPresent()) {
+            return options;
         }
+        return new InvokeOptions(
+            options == null ? null : options.getParent().orElse(null),
+            options == null ? null : options.getProvider().orElse(null),
+            getVersion()
+        );
+    }
 
-    private static final String version;
-    public static String getVersion() {
+    public static InvokeOutputOptions withVersion(@Nullable InvokeOutputOptions options) {
+        if (options != null && options.getVersion().isPresent()) {
+            return options;
+        }
+        return new InvokeOutputOptions(
+            options == null ? null : options.getParent().orElse(null),
+            options == null ? null : options.getProvider().orElse(null),
+            getVersion(),
+            options == null ? null : options.getDependsOn()
+        );
+    }
+
+    private static final java.lang.String version;
+    public static java.lang.String getVersion() {
         return version;
     }
 
@@ -78,7 +91,7 @@ public class Utilities {
         var versionFile = Utilities.class.getClassLoader().getResourceAsStream(resourceName);
         if (versionFile == null) {
             throw new IllegalStateException(
-                    String.format("expected resource '%s' on Classpath, not found", resourceName)
+                    java.lang.String.format("expected resource '%s' on Classpath, not found", resourceName)
             );
         }
         version = new BufferedReader(new InputStreamReader(versionFile))

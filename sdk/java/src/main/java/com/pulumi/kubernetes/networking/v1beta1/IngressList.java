@@ -82,7 +82,7 @@ public class IngressList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public IngressList(String name) {
+    public IngressList(java.lang.String name) {
         this(name, IngressListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class IngressList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public IngressList(String name, IngressListArgs args) {
+    public IngressList(java.lang.String name, IngressListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class IngressList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public IngressList(String name, IngressListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1beta1:IngressList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public IngressList(java.lang.String name, IngressListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:networking.k8s.io/v1beta1:IngressList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private IngressList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:networking.k8s.io/v1beta1:IngressList", name, null, makeResourceOptions(options, id));
+    private IngressList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:networking.k8s.io/v1beta1:IngressList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static IngressListArgs makeArgs(IngressListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class IngressList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class IngressList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static IngressList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static IngressList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new IngressList(name, id, options);
     }
 }

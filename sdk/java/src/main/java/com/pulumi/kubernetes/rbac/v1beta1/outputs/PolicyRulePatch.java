@@ -27,7 +27,7 @@ public final class PolicyRulePatch {
      */
     private @Nullable List<String> resourceNames;
     /**
-     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
      * 
      */
     private @Nullable List<String> resources;
@@ -60,7 +60,7 @@ public final class PolicyRulePatch {
         return this.resourceNames == null ? List.of() : this.resourceNames;
     }
     /**
-     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*{@literal /}foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
+     * @return Resources is a list of resources this rule applies to.  &#39;*&#39; represents all resources in the specified apiGroups. &#39;*&#47;foo&#39; represents the subresource &#39;foo&#39; for all resources in the specified apiGroups.
      * 
      */
     public List<String> resources() {

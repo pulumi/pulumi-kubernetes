@@ -92,7 +92,7 @@ public class ClusterTrustBundlePatch extends com.pulumi.resources.CustomResource
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ClusterTrustBundlePatch(String name) {
+    public ClusterTrustBundlePatch(java.lang.String name) {
         this(name, ClusterTrustBundlePatchArgs.Empty);
     }
     /**
@@ -100,7 +100,7 @@ public class ClusterTrustBundlePatch extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ClusterTrustBundlePatch(String name, @Nullable ClusterTrustBundlePatchArgs args) {
+    public ClusterTrustBundlePatch(java.lang.String name, @Nullable ClusterTrustBundlePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -109,12 +109,12 @@ public class ClusterTrustBundlePatch extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ClusterTrustBundlePatch(String name, @Nullable ClusterTrustBundlePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ClusterTrustBundlePatch(java.lang.String name, @Nullable ClusterTrustBundlePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ClusterTrustBundlePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch", name, null, makeResourceOptions(options, id));
+    private ClusterTrustBundlePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ClusterTrustBundlePatchArgs makeArgs(@Nullable ClusterTrustBundlePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -128,7 +128,7 @@ public class ClusterTrustBundlePatch extends com.pulumi.resources.CustomResource
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -143,7 +143,7 @@ public class ClusterTrustBundlePatch extends com.pulumi.resources.CustomResource
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ClusterTrustBundlePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ClusterTrustBundlePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ClusterTrustBundlePatch(name, id, options);
     }
 }

@@ -103,7 +103,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ReplicationControllerPatch(String name) {
+    public ReplicationControllerPatch(java.lang.String name) {
         this(name, ReplicationControllerPatchArgs.Empty);
     }
     /**
@@ -111,7 +111,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ReplicationControllerPatch(String name, @Nullable ReplicationControllerPatchArgs args) {
+    public ReplicationControllerPatch(java.lang.String name, @Nullable ReplicationControllerPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,12 +120,12 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ReplicationControllerPatch(String name, @Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ReplicationControllerPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ReplicationControllerPatch(java.lang.String name, @Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ReplicationControllerPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ReplicationControllerPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ReplicationControllerPatch", name, null, makeResourceOptions(options, id));
+    private ReplicationControllerPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ReplicationControllerPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ReplicationControllerPatchArgs makeArgs(@Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -139,7 +139,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -154,7 +154,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ReplicationControllerPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ReplicationControllerPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ReplicationControllerPatch(name, id, options);
     }
 }

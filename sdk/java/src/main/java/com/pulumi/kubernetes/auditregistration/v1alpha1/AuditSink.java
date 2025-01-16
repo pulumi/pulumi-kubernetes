@@ -73,7 +73,7 @@ public class AuditSink extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public AuditSink(String name) {
+    public AuditSink(java.lang.String name) {
         this(name, AuditSinkArgs.Empty);
     }
     /**
@@ -81,7 +81,7 @@ public class AuditSink extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public AuditSink(String name, @Nullable AuditSinkArgs args) {
+    public AuditSink(java.lang.String name, @Nullable AuditSinkArgs args) {
         this(name, args, null);
     }
     /**
@@ -90,12 +90,12 @@ public class AuditSink extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public AuditSink(String name, @Nullable AuditSinkArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public AuditSink(java.lang.String name, @Nullable AuditSinkArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private AuditSink(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, null, makeResourceOptions(options, id));
+    private AuditSink(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, null, makeResourceOptions(options, id), false);
     }
 
     private static AuditSinkArgs makeArgs(@Nullable AuditSinkArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -109,7 +109,7 @@ public class AuditSink extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -124,7 +124,7 @@ public class AuditSink extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static AuditSink get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static AuditSink get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new AuditSink(name, id, options);
     }
 }

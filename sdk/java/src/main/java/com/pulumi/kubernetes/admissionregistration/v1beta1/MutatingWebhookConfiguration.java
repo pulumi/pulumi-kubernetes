@@ -83,7 +83,7 @@ public class MutatingWebhookConfiguration extends com.pulumi.resources.CustomRes
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public MutatingWebhookConfiguration(String name) {
+    public MutatingWebhookConfiguration(java.lang.String name) {
         this(name, MutatingWebhookConfigurationArgs.Empty);
     }
     /**
@@ -91,7 +91,7 @@ public class MutatingWebhookConfiguration extends com.pulumi.resources.CustomRes
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public MutatingWebhookConfiguration(String name, @Nullable MutatingWebhookConfigurationArgs args) {
+    public MutatingWebhookConfiguration(java.lang.String name, @Nullable MutatingWebhookConfigurationArgs args) {
         this(name, args, null);
     }
     /**
@@ -100,12 +100,12 @@ public class MutatingWebhookConfiguration extends com.pulumi.resources.CustomRes
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public MutatingWebhookConfiguration(String name, @Nullable MutatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public MutatingWebhookConfiguration(java.lang.String name, @Nullable MutatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private MutatingWebhookConfiguration(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, null, makeResourceOptions(options, id));
+    private MutatingWebhookConfiguration(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, null, makeResourceOptions(options, id), false);
     }
 
     private static MutatingWebhookConfigurationArgs makeArgs(@Nullable MutatingWebhookConfigurationArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -119,7 +119,7 @@ public class MutatingWebhookConfiguration extends com.pulumi.resources.CustomRes
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -137,7 +137,7 @@ public class MutatingWebhookConfiguration extends com.pulumi.resources.CustomRes
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static MutatingWebhookConfiguration get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static MutatingWebhookConfiguration get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new MutatingWebhookConfiguration(name, id, options);
     }
 }

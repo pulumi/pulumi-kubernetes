@@ -82,7 +82,7 @@ public class NodeList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public NodeList(String name) {
+    public NodeList(java.lang.String name) {
         this(name, NodeListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class NodeList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public NodeList(String name, NodeListArgs args) {
+    public NodeList(java.lang.String name, NodeListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class NodeList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public NodeList(String name, NodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:NodeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public NodeList(java.lang.String name, NodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:NodeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private NodeList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:NodeList", name, null, makeResourceOptions(options, id));
+    private NodeList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:NodeList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static NodeListArgs makeArgs(NodeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class NodeList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class NodeList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static NodeList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static NodeList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new NodeList(name, id, options);
     }
 }

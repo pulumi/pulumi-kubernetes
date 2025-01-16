@@ -81,7 +81,7 @@ public class MutatingAdmissionPolicy extends com.pulumi.resources.CustomResource
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public MutatingAdmissionPolicy(String name) {
+    public MutatingAdmissionPolicy(java.lang.String name) {
         this(name, MutatingAdmissionPolicyArgs.Empty);
     }
     /**
@@ -89,7 +89,7 @@ public class MutatingAdmissionPolicy extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public MutatingAdmissionPolicy(String name, @Nullable MutatingAdmissionPolicyArgs args) {
+    public MutatingAdmissionPolicy(java.lang.String name, @Nullable MutatingAdmissionPolicyArgs args) {
         this(name, args, null);
     }
     /**
@@ -98,12 +98,12 @@ public class MutatingAdmissionPolicy extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public MutatingAdmissionPolicy(String name, @Nullable MutatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public MutatingAdmissionPolicy(java.lang.String name, @Nullable MutatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private MutatingAdmissionPolicy(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy", name, null, makeResourceOptions(options, id));
+    private MutatingAdmissionPolicy(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy", name, null, makeResourceOptions(options, id), false);
     }
 
     private static MutatingAdmissionPolicyArgs makeArgs(@Nullable MutatingAdmissionPolicyArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -117,7 +117,7 @@ public class MutatingAdmissionPolicy extends com.pulumi.resources.CustomResource
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -132,7 +132,7 @@ public class MutatingAdmissionPolicy extends com.pulumi.resources.CustomResource
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static MutatingAdmissionPolicy get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static MutatingAdmissionPolicy get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new MutatingAdmissionPolicy(name, id, options);
     }
 }

@@ -103,7 +103,7 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CertificateSigningRequestPatch(String name) {
+    public CertificateSigningRequestPatch(java.lang.String name) {
         this(name, CertificateSigningRequestPatchArgs.Empty);
     }
     /**
@@ -111,7 +111,7 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CertificateSigningRequestPatch(String name, @Nullable CertificateSigningRequestPatchArgs args) {
+    public CertificateSigningRequestPatch(java.lang.String name, @Nullable CertificateSigningRequestPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,12 +120,12 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CertificateSigningRequestPatch(String name, @Nullable CertificateSigningRequestPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public CertificateSigningRequestPatch(java.lang.String name, @Nullable CertificateSigningRequestPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private CertificateSigningRequestPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch", name, null, makeResourceOptions(options, id));
+    private CertificateSigningRequestPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static CertificateSigningRequestPatchArgs makeArgs(@Nullable CertificateSigningRequestPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -139,7 +139,7 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -157,7 +157,7 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static CertificateSigningRequestPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static CertificateSigningRequestPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new CertificateSigningRequestPatch(name, id, options);
     }
 }
