@@ -120,10 +120,14 @@ jobs:
     - name: Create PR
       id: create-pr
       if: steps.gomod.outputs.changes != 0
-      run: |
+      run: >
         ver=$(cat .pulumi.version)
+
         msg="Automated upgrade: bump pulumi/pulumi to ${ver}"
-        gh pr create -t "$msg" -b "$msg" -B master
+
+        # See https://github.com/cli/cli/issues/6485#issuecomment-2560935183 for --head workaround
+
+        gh pr create -t "$msg" -b "$msg" --head $(git branch --show-current)
       env:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     name: weekly-pulumi-update
