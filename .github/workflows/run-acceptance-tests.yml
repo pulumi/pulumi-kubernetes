@@ -72,7 +72,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@f96d032a2758fdda7939e5728eff6c0d980ae894 # v1.6.0
+      uses: pulumi/provider-version-action@0391d47b9b0d865d33dd0a295b1fcf9f7021dd4c # v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -225,7 +225,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@f96d032a2758fdda7939e5728eff6c0d980ae894 # v1.6.0
+      uses: pulumi/provider-version-action@0391d47b9b0d865d33dd0a295b1fcf9f7021dd4c # v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -372,7 +372,7 @@ jobs:
         ref: ${{ env.PR_COMMIT_SHA }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@f96d032a2758fdda7939e5728eff6c0d980ae894 # v1.6.0
+      uses: pulumi/provider-version-action@0391d47b9b0d865d33dd0a295b1fcf9f7021dd4c # v1.5.3
       with:
         set-env: PROVIDER_VERSION
     - name: Install Go
@@ -538,7 +538,7 @@ jobs:
       run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
         's/go:embed/ goembed/g'
     - name: golangci-lint provider pkg
-      uses: golangci/golangci-lint-action@971e284b6050e8a5849b72094c50ab08da042db8 # v6.1.1
+      uses: golangci/golangci-lint-action@ec5d18412c0aeab7936cb16880d708ba2a64e1ae # v6.2.0
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: -c ../.golangci.yml
