@@ -168,3 +168,46 @@ install_nodejs_sdk::
 
 examples::
 	cd provider/pkg/gen/examples/upstream && go run generate.go ./yaml ./
+
+# Set these variables to enable signing of the windows binary
+AZURE_SIGNING_CLIENT_ID ?=
+AZURE_SIGNING_CLIENT_SECRET ?=
+AZURE_SIGNING_TENANT_ID ?=
+AZURE_SIGNING_KEY_VAULT_URI ?=
+SKIP_SIGNING ?=
+
+bin/jsign-6.0.jar:
+	wget https://github.com/ebourg/jsign/releases/download/6.0/jsign-6.0.jar --output-document=bin/jsign-6.0.jar
+
+sign-windows-exe-amd64: GORELEASER_ARCH := amd64_v1
+sign-windows-exe-arm64: GORELEASER_ARCH := arm64
+
+sign-windows-exe-%: bin/jsign-6.0.jar
+	@# Only sign windows binary if fully configured.
+	@# Test variables set by joining with | between and looking for || showing at least one variable is empty.
+	@# Move the binary to a temporary location and sign it there to avoid the target being up-to-date if signing fails.
+	@set -e; \
+	if [[ "${SKIP_SIGNING}" != "true" ]]; then \
+		if [[ "|${AZURE_SIGNING_CLIENT_ID}|${AZURE_SIGNING_CLIENT_SECRET}|${AZURE_SIGNING_TENANT_ID}|${AZURE_SIGNING_KEY_VAULT_URI}|" == *"||"* ]]; then \
+			echo "Can't sign windows binaries as required configuration not set: AZURE_SIGNING_CLIENT_ID, AZURE_SIGNING_CLIENT_SECRET, AZURE_SIGNING_TENANT_ID, AZURE_SIGNING_KEY_VAULT_URI"; \
+			echo "To rebuild with signing delete the unsigned windows exe file and rebuild with the fixed configuration"; \
+			if [[ "${CI}" == "true" ]]; then exit 1; fi; \
+		else \
+			file=dist/pulumi-kubernetes_windows_${GORELEASER_ARCH}/pulumi-resource-kubernetes.exe; \
+			mv $${file} $${file}.unsigned; \
+			az login --service-principal \
+				--username "${AZURE_SIGNING_CLIENT_ID}" \
+				--password "${AZURE_SIGNING_CLIENT_SECRET}" \
+				--tenant "${AZURE_SIGNING_TENANT_ID}" \
+				--output none; \
+			ACCESS_TOKEN=$$(az account get-access-token --resource "https://vault.azure.net" | jq -r .accessToken); \
+			java -jar bin/jsign-6.0.jar \
+				--storetype AZUREKEYVAULT \
+				--keystore "PulumiCodeSigning" \
+				--url "${AZURE_SIGNING_KEY_VAULT_URI}" \
+				--storepass "$${ACCESS_TOKEN}" \
+				$${file}.unsigned; \
+			mv $${file}.unsigned $${file}; \
+			az logout; \
+		fi; \
+	fi
