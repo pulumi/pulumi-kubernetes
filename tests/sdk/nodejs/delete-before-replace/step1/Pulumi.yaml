@@ -1,3 +1,0 @@
-name: delete-before-replace
-description: A program that tests partial provider failure.
-runtime: nodejs

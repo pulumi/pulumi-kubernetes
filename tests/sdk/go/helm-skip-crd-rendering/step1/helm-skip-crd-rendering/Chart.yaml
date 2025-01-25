@@ -1,4 +1,0 @@
-deprecated: true
-description: Chart to test skipping crd rendering
-name: skip-rendering-test
-version: 0.0.1
