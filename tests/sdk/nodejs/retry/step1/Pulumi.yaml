@@ -1,3 +1,0 @@
-name: retry-tests
-description: Tests whether Pulumi successfully retries failed create operations.
-runtime: nodejs
