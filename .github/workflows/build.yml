@@ -15,6 +15,13 @@ on:
     - "**"
   workflow_dispatch: {}
 env:
+  AZURE_SIGNING_CLIENT_ID: ${{ secrets.AZURE_SIGNING_CLIENT_ID }}
+  AZURE_SIGNING_CLIENT_SECRET: ${{ secrets.AZURE_SIGNING_CLIENT_SECRET }}
+  AZURE_SIGNING_TENANT_ID: ${{ secrets.AZURE_SIGNING_TENANT_ID }}
+  AZURE_SIGNING_KEY_VAULT_URI: ${{ secrets.AZURE_SIGNING_KEY_VAULT_URI }}
+  SKIP_SIGNING: ${{ secrets.AZURE_SIGNING_CLIENT_ID == '' &&
+    secrets.AZURE_SIGNING_CLIENT_SECRET == '' && secrets.AZURE_SIGNING_TENANT_ID
+    == '' && secrets.AZURE_SIGNING_KEY_VAULT_URI == '' }}
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -638,7 +645,7 @@ jobs:
       run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
         's/go:embed/ goembed/g'
     - name: golangci-lint provider pkg
-      uses: golangci/golangci-lint-action@971e284b6050e8a5849b72094c50ab08da042db8 # v6.1.1
+      uses: golangci/golangci-lint-action@ec5d18412c0aeab7936cb16880d708ba2a64e1ae # v6.2.0
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: -c ../.golangci.yml
