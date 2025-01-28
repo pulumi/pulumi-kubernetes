@@ -1,3 +1,0 @@
-name: autonaming-test
-description: A program that tests auto-naming of Kubernetes objects.
-runtime: nodejs
