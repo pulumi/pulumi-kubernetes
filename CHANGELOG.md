@@ -3,6 +3,12 @@
 
 ## Unreleased
 
+## 4.21.1 (January 27, 2025)
+
+### Added
+
+- Windows executable releases are now signed. (<https://github.com/pulumi/pulumi-kubernetes/pull/3455>)
+
 ## 4.21.0 (January 16, 2025)
 
 ### Changed
