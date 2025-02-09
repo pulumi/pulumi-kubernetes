@@ -227,15 +227,15 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
+      uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
+      uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -370,15 +370,15 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
+      uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
+      uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -425,7 +425,7 @@ jobs:
         name: config
         path: ~/.kube/
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+      uses: aws-actions/configure-aws-credentials@4fc4975a852c8cd99761e2de1f4ba73402e44dd9 # v4.0.3
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-region: ${{ env.AWS_REGION }}
@@ -434,7 +434,7 @@ jobs:
         role-session-name: ${{ env.PROVIDER }}@githubActions
         role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
+      uses: google-github-actions/auth@71f986410dfbc7added4569d411d040a91dc6935 # v2.1.8
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -442,7 +442,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@6189d56e4096ee891640bb02ac264be376592d6a # v2.1.2
+      uses: google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a # v2.1.4
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -513,7 +513,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+      uses: aws-actions/configure-aws-credentials@4fc4975a852c8cd99761e2de1f4ba73402e44dd9 # v4.0.3
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-region: us-east-2
@@ -573,11 +573,11 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
+      uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
-      uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Download python SDK
@@ -645,7 +645,7 @@ jobs:
     - name: Install Pulumi CLI
       uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
     - name: Setup Java
-      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
+      uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -747,7 +747,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
+      uses: google-github-actions/auth@71f986410dfbc7added4569d411d040a91dc6935 # v2.1.8
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -755,7 +755,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@6189d56e4096ee891640bb02ac264be376592d6a # v2.1.2
+      uses: google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a # v2.1.4
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
@@ -811,7 +811,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@6fc4af4b145ae7821d527454aa9bd537d1f2dc5f # v2.1.7
+      uses: google-github-actions/auth@71f986410dfbc7added4569d411d040a91dc6935 # v2.1.8
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -819,7 +819,7 @@ jobs:
           env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
     - name: Setup gcloud auth
-      uses: google-github-actions/setup-gcloud@6189d56e4096ee891640bb02ac264be376592d6a # v2.1.2
+      uses: google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a # v2.1.4
       with:
         install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
