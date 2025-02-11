@@ -1473,7 +1473,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "array",
 					Items: &pschema.TypeSpec{
-						Ref: "pulumi.json#/Any",
+						Ref: "pulumi.json#/Resource",
 					},
 				},
 				Description: "Resources created by the ConfigGroup.",
