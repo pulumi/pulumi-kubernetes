@@ -86,10 +86,12 @@ export class CustomResource extends pulumi.CustomResource {
             for (const key of Object.keys(args)) {
                 inputs[key] = (args as any)[key];
             }
+            inputs["metadata"] = args.metadata;
         } else {
             for (const key of Object.keys(args)) {
                 inputs[key] = undefined;
             }
+            inputs["metadata"] = undefined;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
