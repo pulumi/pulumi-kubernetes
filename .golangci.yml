@@ -16,14 +16,10 @@ linters:
   disable:
     - lll
 run:
-  skip-files:
-    - schema.go
-  skip-dirs:
-    - provider/pkg/gen
-  skip-dirs-use-default: true
   modules-download-mode: readonly
   timeout: 10m
 issues:
+  exclude-dirs-use-default: true
   exclude-rules:
-    path: "provider/cmd/pulumi-resource-kubernetes"
-    source: "^//go:embed"
+    - path: "provider/cmd/pulumi-resource-kubernetes"
+      source: "^//go:embed"
