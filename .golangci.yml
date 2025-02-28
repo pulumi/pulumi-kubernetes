@@ -20,6 +20,3 @@ run:
   timeout: 10m
 issues:
   exclude-dirs-use-default: true
-  exclude-rules:
-    - path: "provider/cmd/pulumi-resource-kubernetes"
-      source: "^//go:embed"
