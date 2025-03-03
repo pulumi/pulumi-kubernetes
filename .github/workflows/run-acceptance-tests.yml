@@ -83,7 +83,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@3da56e6feff8f5db8b48d3a396bc10ef1f968088 # v6.1.0
+      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
       with:
         pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
@@ -182,7 +182,7 @@ jobs:
         github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
         pulumi-gen-${{ env.PROVIDER}}
     - name: Upload artifacts
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
@@ -236,7 +236,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@3da56e6feff8f5db8b48d3a396bc10ef1f968088 # v6.1.0
+      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
@@ -330,7 +330,7 @@ jobs:
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
     - name: Upload artifacts
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
       with:
         name: ${{ matrix.language  }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
@@ -383,7 +383,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@3da56e6feff8f5db8b48d3a396bc10ef1f968088 # v6.1.0
+      uses: pulumi/actions@13b8b7177d6fb736766875dac9b78aab07bd785f # v6.0.1
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
