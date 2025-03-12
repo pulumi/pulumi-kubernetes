@@ -18,6 +18,7 @@ import (
 	"context"
 	"os"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -75,6 +76,16 @@ func (g *getsequence) Get(ctx context.Context, name string, opts metav1.GetOptio
 	return g.getters[g.idx].Get(ctx, name, opts, sub...)
 }
 
+type getdeferred struct {
+	wg sync.WaitGroup
+	objectGetter
+}
+
+func (g *getdeferred) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+	g.wg.Wait()
+	return g.objectGetter.Get(ctx, name, opts, sub...)
+}
+
 func TestDeleted(t *testing.T) {
 	stdout := logbuf{os.Stdout}
 
@@ -118,6 +129,45 @@ func TestDeleted(t *testing.T) {
 		source <- watch.Event{Type: watch.Deleted, Object: pod}
 		<-seen
 		done, err = cond.Satisfied()
+		assert.NoError(t, err)
+		assert.True(t, done)
+	})
+
+	t.Run("issue-3317", func(t *testing.T) {
+		ctx := context.Background()
+
+		getter := &getdeferred{objectGetter: &get200{pod}}
+		getter.wg.Add(1)
+		source := Static(make(chan watch.Event, 1))
+
+		cond, err := NewDeleted(ctx, source, getter, stdout, pod)
+		assert.NoError(t, err)
+
+		wg := sync.WaitGroup{}
+		wg.Add(1)
+		seen := make(chan struct{})
+		go func() {
+			cond.Range(func(e watch.Event) bool {
+				err := cond.Observe(e)
+				assert.NoError(t, err)
+				seen <- struct{}{}
+				return true
+			})
+			wg.Done()
+		}()
+
+		// Fire a 'deleted' event to be observed before the getter returns.
+		source <- watch.Event{Type: watch.Deleted, Object: pod}
+		<-seen
+		assert.True(t, cond.deleted.Load())
+
+		// Unblock the getter to return a (stale) object, which should be ignored.
+		getter.wg.Done()
+
+		// Wait for the Range operation to complete.
+		wg.Wait()
+
+		done, err := cond.Satisfied()
 		assert.NoError(t, err)
 		assert.True(t, done)
 	})
