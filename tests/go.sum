@@ -625,8 +625,8 @@ github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 h1:vkHw5I/plNdTr435
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231/go.mod h1:murToZ2N9hNJzewjHBgfFdXhZKjY3z5cYC1VXk+lbFE=
 github.com/pulumi/cloud-ready-checks v1.2.0 h1:LDbuZEv2j0mTsx/PE4Ym7K8Ri+15P1UYU+ZXHGT9hTE=
 github.com/pulumi/cloud-ready-checks v1.2.0/go.mod h1:eAwb+lcO3Uo6+FIQeBrGARvq9333MWS5v/VqOUeLgI4=
-github.com/pulumi/esc v0.10.0 h1:jzBKzkLVW0mePeanDRfqSQoCJ5yrkux0jIwAkUxpRKE=
-github.com/pulumi/esc v0.10.0/go.mod h1:2Bfa+FWj/xl8CKqRTWbWgDX0SOD4opdQgvYSURTGK2c=
+github.com/pulumi/esc v0.13.0 h1:O2MPR2koScaQ2fXwyer8Q3Dd7z+DCnaDfsgNl5mVNMk=
+github.com/pulumi/esc v0.13.0/go.mod h1:IIQo6W6Uzajt6f1RW4QvNxIRDlbK3TNQysnrwBHNo3U=
 github.com/pulumi/providertest v0.1.5 h1:35PH+SBNzWjkfO/rP5mSjrfuTUJZ5nxeo2Cb845EoYU=
 github.com/pulumi/providertest v0.1.5/go.mod h1:bU07oPwpgNjGuuIT6CPnI/eLXaGHqhypFrxX5ZsABo4=
 github.com/pulumi/pulumi/pkg/v3 v3.153.1 h1:8P3ryrJP0TwGG5qA20jJxuXRRcepj+pxGjPjGZQlbPE=
