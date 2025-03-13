@@ -24,6 +24,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic/dynamicinformer"
+	"k8s.io/client-go/tools/cache"
 )
 
 var (
@@ -57,7 +58,6 @@ func NewDynamicSource(
 			close(stopper)
 			factory.Shutdown()
 		}()
-		factory.Start(stopper)
 		return factory
 	})
 
@@ -95,16 +95,13 @@ func (des *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) 
 	}
 	i := informer.Informer()
 
-	// client-go logs a warning if we've already started the informer for this
-	// GVK, but the method to check whether that's the case isn't part of the
-	// public interface.
-	if check, ok := i.(interface{ HasStarted() bool }); ok {
-		if check.HasStarted() {
-			return events, nil
-		}
-	}
-	go informer.Informer().Run(des.stopper)
-	factory.WaitForCacheSync(des.stopper)
+	// Start the new informer by calling factory.Start (which is idempotent).
+	// This ensures that the informer is started exactly once and is cleaned up later.
+	factory.Start(des.stopper)
+
+	// Wait for the informer's cache to be synced, to ensure that
+	// we don't miss any events, especially deletes.
+	cache.WaitForCacheSync(des.stopper, i.HasSynced)
 
 	return events, nil
 }
