@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fix race condition in Deleted condition. (<https://github.com/pulumi/pulumi-kubernetes/pull/3550>)
+
 ## 4.21.1 (January 27, 2025)
 
 ### Added
