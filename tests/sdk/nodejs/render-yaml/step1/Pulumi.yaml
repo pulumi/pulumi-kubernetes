@@ -1,3 +1,0 @@
-name: render-yaml-tests
-description: Tests the option to render YAML rather than create k8s resources on a cluster.
-runtime: nodejs
