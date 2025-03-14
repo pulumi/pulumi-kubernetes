@@ -139,7 +139,7 @@ namespace Pulumi.Kubernetes.Yaml.V2
         /// Resources created by the ConfigGroup.
         /// </summary>
         [Output("resources")]
-        public Output<ImmutableArray<object>> Resources { get; private set; } = null!;
+        public Output<ImmutableArray<Pulumi.Resource>> Resources { get; private set; } = null!;
 
 
         /// <summary>
