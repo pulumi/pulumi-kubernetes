@@ -8,6 +8,10 @@
 - Update Pulumi dependency to v3.153.1 (<https://github.com/pulumi/pulumi-kubernetes/pull/3534>)
 - Update ESC dependency to v0.13.0 (<https://github.com/pulumi/pulumi-kubernetes/pull/3551>)
 
+### Fixed
+
+- Fix race condition in Deleted condition. (<https://github.com/pulumi/pulumi-kubernetes/pull/3550>)
+
 ## 4.21.1 (January 27, 2025)
 
 ### Added
