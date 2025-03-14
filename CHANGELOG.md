@@ -1,6 +1,12 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
+## 4.22.1 (March 14, 2025)
+
+### Fixed
+
+- Fix race condition in Deleted condition (<https://github.com/pulumi/pulumi-kubernetes/pull/3550>)
+
 ## 4.22.0 (March 13, 2025)
 
 ### Changed
