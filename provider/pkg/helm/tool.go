@@ -218,6 +218,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	client.Replace = true // Skip the name check
 	client.ClientOnly = !cmd.Validate
 	client.IncludeCRDs = cmd.IncludeCRDs
+	client.PlainHTTP = cmd.PlainHTTP
 
 	return cmd.runInstall(ctx)
 }
@@ -457,7 +458,6 @@ type cleanupF func() error
 
 // downloadAsset downloads an asset to the local filesystem.
 func downloadAsset(p getter.Providers, asset pulumi.AssetOrArchive) (string, cleanupF, error) {
-
 	a, isAsset := asset.(pulumi.Asset)
 	if !isAsset {
 		return "", nil, errors.New("expected an asset")
