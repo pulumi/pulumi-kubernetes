@@ -480,8 +480,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 				resourceSpec.Required = required
 
 				for _, t := range kind.Aliases() {
-					aliasedType := t
-					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: t})
 				}
 
 				// Check if the current resource exists in the overlays and overwrite types accordingly.
@@ -520,7 +519,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 
 					for _, t := range kind.Aliases() {
 						aliasedType := fmt.Sprintf("%sPatch", t)
-						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: aliasedType})
 					}
 
 					// Check if the current resource exists in the overlays and overwrite types accordingly.

@@ -419,7 +419,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -438,7 +438,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 							Alias("cg-options-cm-1-k8s-aliased"),
 							Alias(parentA.URN, tokens.Type("kubernetes:core/v1:ConfigMap"), "cg-options-cg-options-cm-1"),
 							Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -461,7 +461,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 						"Aliases": HaveExactElements(
 							Alias(parentA.URN, tokens.Type("kubernetes:yaml:ConfigFile"), "cg-options-testdata/options/configgroup/manifest.yaml"),
 							Alias("cg-options-testdata/options/configgroup/manifest.yaml-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -478,7 +478,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 							Alias("configgroup-cm-1-k8s-aliased"),
 							Alias(parentA.URN, tokens.Type("kubernetes:core/v1:ConfigMap"), "cg-options-configgroup-cm-1"),
 							Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -546,7 +546,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -565,7 +565,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 							Alias("configfile-cm-1-k8s-aliased"),
 							Alias(parentA.URN, tokens.Type("kubernetes:core/v1:ConfigMap"), "cf-options-configfile-cm-1"),
 							Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -642,7 +642,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -659,7 +659,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -733,7 +733,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")), Alias("chart-options-old"), Alias("chart-options-chart-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -749,7 +749,7 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),

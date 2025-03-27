@@ -2487,7 +2487,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2504,7 +2504,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2525,7 +2525,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2539,7 +2539,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2593,7 +2593,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2610,7 +2610,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2681,7 +2681,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2698,7 +2698,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2767,7 +2767,7 @@ func TestOptionPropagation(t *testing.T) {
 							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
 							Alias("chart-options-old"),
 							Alias("chart-options-chart-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2784,7 +2784,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),

@@ -458,7 +458,7 @@ var _ = Describe("Construct", func() {
 				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
 					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
 						"Request": MatchFields(IgnoreExtras, Fields{
-							"RetainOnDelete": BeTrue(),
+							"RetainOnDelete": PointTo(BeTrue()),
 						}),
 					}),
 				}))
