@@ -33,12 +33,12 @@ env:
   DOTNETVERSION: 8.0.x
   JAVAVERSION: "11"
   AWS_REGION: us-west-2
-  PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.61.0
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
-  GOOGLE_PROJECT_NUMBER: 637339343727
+  GOOGLE_PROJECT_NUMBER: "637339343727"
+  PULUMI_TEST_OWNER: moolumi
   PR_COMMIT_SHA: ${{ github.event.client_payload.pull_request.head.sha }}
 jobs:
   comment-notification:
@@ -194,7 +194,7 @@ jobs:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@28ba43ae48961b90635b50953d216767a6bea486 # v3.16.2
+      uses: 8398a7/action-slack@1750b5085f3ec60384090fb7c52965ef822e869e # v3.18.0
       with:
         author_name: Failure in building provider prerequisites
         fields: repo,commit,author,action
@@ -337,7 +337,7 @@ jobs:
         retention-days: 30
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@28ba43ae48961b90635b50953d216767a6bea486 # v3.16.2
+      uses: 8398a7/action-slack@1750b5085f3ec60384090fb7c52965ef822e869e # v3.18.0
       with:
         author_name: Failure while building SDKs
         fields: repo,commit,author,action
@@ -495,7 +495,7 @@ jobs:
         2h -parallel 4 -short ./...
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
-      uses: 8398a7/action-slack@28ba43ae48961b90635b50953d216767a6bea486 # v3.16.2
+      uses: 8398a7/action-slack@1750b5085f3ec60384090fb7c52965ef822e869e # v3.18.0
       with:
         author_name: Failure in SDK tests
         fields: repo,commit,author,action
