@@ -27,12 +27,12 @@ env:
   DOTNETVERSION: 8.0.x
   JAVAVERSION: "11"
   AWS_REGION: us-west-2
-  PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.61.0
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
-  GOOGLE_PROJECT_NUMBER: 637339343727
+  GOOGLE_PROJECT_NUMBER: "637339343727"
+  PULUMI_TEST_OWNER: moolumi
 jobs:
   comment-on-pr:
     runs-on: ubuntu-latest
