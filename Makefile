@@ -213,3 +213,13 @@ sign-goreleaser-exe-%: bin/jsign-6.0.jar
 			az logout; \
 		fi; \
 	fi
+
+# To make an immediately observable change to .ci-mgmt.yaml:
+#
+# - Edit .ci-mgmt.yaml
+# - Run make ci-mgmt to apply the change locally.
+#
+ci-mgmt: .ci-mgmt.yaml
+	go run github.com/pulumi/ci-mgmt/provider-ci@master generate
+.PHONY: ci-mgmt
+	fi
