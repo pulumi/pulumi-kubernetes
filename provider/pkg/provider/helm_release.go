@@ -285,8 +285,10 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	logger.V(9).Infof("[%s] Decoding release: %#v", label, stripped)
 
 	if v, ok := stripped["valueYamlFiles"]; ok {
-		switch reflect.TypeOf(v).Kind() {
-		case reflect.Slice, reflect.Array:
+		vType := reflect.TypeOf(v)
+		switch {
+		case vType == nil: // Value is nil, so do nothing to ensure we don't get a panic.
+		case vType.Kind() == reflect.Slice, vType.Kind() == reflect.Array:
 			s := reflect.ValueOf(v)
 			for i := 0; i < s.Len(); i++ {
 				val := s.Index(i).Interface()
