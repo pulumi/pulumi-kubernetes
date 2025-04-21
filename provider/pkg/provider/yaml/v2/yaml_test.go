@@ -42,6 +42,8 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: crontabs.stable.example.com
+  # Purposefully set annotations here to be null: pulumi/pulumi-kubernetes#3585
+  annotations: 
 spec:
   group: stable.example.com
   versions:

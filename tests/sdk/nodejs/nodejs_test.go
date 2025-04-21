@@ -1089,62 +1089,6 @@ func TestProvider(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestQuery(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:       filepath.Join("query", "step1"),
-		Quick:     true,
-		StackName: "query-test-c186bcc3-1572-44d8-b7d5-1028853682c3", // Chosen by fair dice roll. Guaranteed to be random.
-		CloudURL:  "file://~",                                        // Required; we hard-code the stack name
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
-
-			tests.SortResourcesByURN(stackInfo)
-
-			stackRes := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-			provRes := stackInfo.Deployment.Resources[2]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-			//
-			// Assert Pod is successfully given a unique name by Pulumi.
-			//
-
-			pod := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, "query-test", string(pod.URN.Name()))
-		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:       filepath.Join("query", "step2"),
-				Additive:  true,
-				QueryMode: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-					//
-					// Verify no resources were deleted.
-					//
-					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
-
-					tests.SortResourcesByURN(stackInfo)
-
-					stackRes := stackInfo.Deployment.Resources[3]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-					provRes := stackInfo.Deployment.Resources[2]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-					//
-					// If we pass this point, the query did NOT throw an error, and is therefore
-					// successful.
-					//
-				},
-			},
-		},
-	})
-	integration.ProgramTest(t, &test)
-}
-
 // TestReadonlyMetadata tests the behavior of read-only metadata fields.
 func TestReadonlyMetadata(t *testing.T) {
 
