@@ -1,6 +1,14 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
+## Unreleased
+
+## 4.22.2 (April 15, 2025)
+
+### Fixed
+
+- Fix panic when `valueYamlFiles` field in `helm.v3.Release` resources are nil (<https://github.com/pulumi/pulumi-kubernetes/pull/3601>)
+
 ## 4.22.1 (March 14, 2025)
 
 ### Fixed
