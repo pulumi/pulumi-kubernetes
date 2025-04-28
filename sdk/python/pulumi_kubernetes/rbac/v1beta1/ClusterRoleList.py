@@ -92,6 +92,9 @@ class ClusterRoleListArgs:
 
 
 class ClusterRoleList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

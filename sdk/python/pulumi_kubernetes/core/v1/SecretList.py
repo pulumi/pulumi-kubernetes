@@ -92,6 +92,9 @@ class SecretListArgs:
 
 
 class SecretList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:SecretList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

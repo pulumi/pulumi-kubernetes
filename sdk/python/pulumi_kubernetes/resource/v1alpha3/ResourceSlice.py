@@ -97,6 +97,9 @@ class ResourceSliceInitArgs:
 
 
 class ResourceSlice(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

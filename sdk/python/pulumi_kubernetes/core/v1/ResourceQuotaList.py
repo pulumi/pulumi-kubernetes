@@ -92,6 +92,9 @@ class ResourceQuotaListArgs:
 
 
 class ResourceQuotaList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:ResourceQuotaList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

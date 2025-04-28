@@ -92,6 +92,9 @@ class APIServiceListArgs:
 
 
 class APIServiceList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apiregistration.k8s.io/v1:APIServiceList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

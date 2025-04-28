@@ -93,6 +93,9 @@ class LeasePatchArgs:
 
 
 class LeasePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:coordination.k8s.io/v1beta1:LeasePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

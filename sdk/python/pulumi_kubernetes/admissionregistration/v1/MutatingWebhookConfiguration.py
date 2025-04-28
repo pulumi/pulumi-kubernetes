@@ -93,6 +93,9 @@ class MutatingWebhookConfigurationInitArgs:
 
 
 class MutatingWebhookConfiguration(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

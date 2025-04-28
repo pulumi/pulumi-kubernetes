@@ -92,6 +92,9 @@ class ReplicationControllerListArgs:
 
 
 class ReplicationControllerList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:ReplicationControllerList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -266,6 +266,9 @@ class ChartArgs:
 
 
 class Chart(pulumi.ComponentResource):
+
+    pulumi_type = "kubernetes:helm.sh/v4:Chart"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

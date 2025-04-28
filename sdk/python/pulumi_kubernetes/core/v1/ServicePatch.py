@@ -94,6 +94,9 @@ class ServicePatchArgs:
 
 
 class ServicePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:ServicePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

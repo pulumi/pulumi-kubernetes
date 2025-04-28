@@ -93,6 +93,9 @@ class EndpointsInitArgs:
 
 
 class Endpoints(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:Endpoints"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

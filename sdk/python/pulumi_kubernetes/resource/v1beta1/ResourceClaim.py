@@ -93,6 +93,9 @@ class ResourceClaimInitArgs:
 
 
 class ResourceClaim(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1beta1:ResourceClaim"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

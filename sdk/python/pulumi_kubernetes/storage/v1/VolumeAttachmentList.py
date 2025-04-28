@@ -93,6 +93,9 @@ class VolumeAttachmentListArgs:
 
 
 class VolumeAttachmentList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storage.k8s.io/v1:VolumeAttachmentList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

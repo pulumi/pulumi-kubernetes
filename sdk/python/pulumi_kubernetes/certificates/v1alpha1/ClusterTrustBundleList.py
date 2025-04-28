@@ -92,6 +92,9 @@ class ClusterTrustBundleListArgs:
 
 
 class ClusterTrustBundleList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

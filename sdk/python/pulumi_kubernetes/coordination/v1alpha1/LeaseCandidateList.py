@@ -92,6 +92,9 @@ class LeaseCandidateListArgs:
 
 
 class LeaseCandidateList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -125,6 +125,9 @@ class ResourceClassParametersInitArgs:
 
 
 class ResourceClassParameters(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1alpha2:ResourceClassParameters"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

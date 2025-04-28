@@ -94,6 +94,9 @@ class ReplicaSetPatchArgs:
 
 
 class ReplicaSetPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apps/v1beta2:ReplicaSetPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

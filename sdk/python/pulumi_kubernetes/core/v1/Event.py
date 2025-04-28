@@ -299,6 +299,9 @@ class EventInitArgs:
 
 
 class Event(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:Event"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

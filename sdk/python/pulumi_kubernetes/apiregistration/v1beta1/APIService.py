@@ -89,6 +89,9 @@ class APIServiceInitArgs:
 
 
 class APIService(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apiregistration.k8s.io/v1beta1:APIService"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

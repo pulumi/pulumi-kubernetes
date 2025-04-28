@@ -93,6 +93,9 @@ class StorageVersionMigrationPatchArgs:
 
 
 class StorageVersionMigrationPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

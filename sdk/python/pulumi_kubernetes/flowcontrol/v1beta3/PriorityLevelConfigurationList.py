@@ -92,6 +92,9 @@ class PriorityLevelConfigurationListArgs:
 
 
 class PriorityLevelConfigurationList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -73,6 +73,9 @@ class ConfigFileArgs:
 
 
 class ConfigFile(pulumi.ComponentResource):
+
+    pulumi_type = "kubernetes:yaml/v2:ConfigFile"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

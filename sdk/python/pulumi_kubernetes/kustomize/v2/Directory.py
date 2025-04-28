@@ -95,6 +95,9 @@ class DirectoryArgs:
 
 
 class Directory(pulumi.ComponentResource):
+
+    pulumi_type = "kubernetes:kustomize/v2:Directory"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

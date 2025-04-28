@@ -93,6 +93,9 @@ class RolePatchArgs:
 
 
 class RolePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RolePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

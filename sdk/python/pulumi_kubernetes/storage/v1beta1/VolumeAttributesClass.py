@@ -110,6 +110,9 @@ class VolumeAttributesClassInitArgs:
 
 
 class VolumeAttributesClass(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

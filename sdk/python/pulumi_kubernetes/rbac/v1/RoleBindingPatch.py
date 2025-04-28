@@ -109,6 +109,9 @@ class RoleBindingPatchArgs:
 
 
 class RoleBindingPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1:RoleBindingPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

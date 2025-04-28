@@ -107,6 +107,9 @@ class ControllerRevisionPatchArgs:
 
 
 class ControllerRevisionPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apps/v1beta1:ControllerRevisionPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -95,6 +95,9 @@ class CronJobInitArgs:
 
 
 class CronJob(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:batch/v1beta1:CronJob"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

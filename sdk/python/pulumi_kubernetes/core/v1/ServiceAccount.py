@@ -125,6 +125,9 @@ class ServiceAccountInitArgs:
 
 
 class ServiceAccount(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:ServiceAccount"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -94,6 +94,9 @@ class IngressPatchArgs:
 
 
 class IngressPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:extensions/v1beta1:IngressPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

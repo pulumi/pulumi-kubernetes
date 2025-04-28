@@ -92,6 +92,9 @@ class FlowSchemaListArgs:
 
 
 class FlowSchemaList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

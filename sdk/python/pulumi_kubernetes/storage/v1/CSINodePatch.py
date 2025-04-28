@@ -93,6 +93,9 @@ class CSINodePatchArgs:
 
 
 class CSINodePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storage.k8s.io/v1:CSINodePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

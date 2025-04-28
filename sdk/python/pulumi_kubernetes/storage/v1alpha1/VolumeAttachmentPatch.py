@@ -94,6 +94,9 @@ class VolumeAttachmentPatchArgs:
 
 
 class VolumeAttachmentPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,
