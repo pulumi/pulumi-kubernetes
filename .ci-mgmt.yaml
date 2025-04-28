@@ -1,8 +1,8 @@
 template: native
 provider: kubernetes
 lint: true
-aws: true
-gcp: true
+aws: true # need AWS credentials to test in EKS
+gcp: true # need GCP credentials to test in GKE
 pulumiVersionFile: .pulumi.version
 major-version: 4
 parallel: 3
