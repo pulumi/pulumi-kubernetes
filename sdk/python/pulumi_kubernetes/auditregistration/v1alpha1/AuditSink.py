@@ -89,6 +89,9 @@ class AuditSinkInitArgs:
 
 
 class AuditSink(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

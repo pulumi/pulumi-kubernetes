@@ -237,7 +237,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil, false)
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil, false, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -285,7 +285,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		"yaml/yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
-	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays)
+	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays, nil)
 	if err != nil {
 		panic(err)
 	}

@@ -93,6 +93,9 @@ class ResourceClassListArgs:
 
 
 class ResourceClassList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

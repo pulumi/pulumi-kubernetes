@@ -92,6 +92,9 @@ class PriorityClassListArgs:
 
 
 class PriorityClassList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:scheduling.k8s.io/v1:PriorityClassList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -93,6 +93,9 @@ class NamespaceInitArgs:
 
 
 class Namespace(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:Namespace"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

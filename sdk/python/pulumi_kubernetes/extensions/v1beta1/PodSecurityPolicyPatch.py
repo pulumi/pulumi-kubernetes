@@ -94,6 +94,9 @@ class PodSecurityPolicyPatchArgs:
 
 
 class PodSecurityPolicyPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:extensions/v1beta1:PodSecurityPolicyPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

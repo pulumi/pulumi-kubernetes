@@ -93,6 +93,9 @@ class StatefulSetListArgs:
 
 
 class StatefulSetList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apps/v1:StatefulSetList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

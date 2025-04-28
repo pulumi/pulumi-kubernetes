@@ -93,6 +93,9 @@ class ResourceSliceListArgs:
 
 
 class ResourceSliceList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1beta1:ResourceSliceList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

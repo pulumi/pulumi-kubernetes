@@ -139,6 +139,9 @@ class PriorityClassPatchArgs:
 
 
 class PriorityClassPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

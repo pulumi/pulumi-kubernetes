@@ -94,6 +94,9 @@ class DaemonSetPatchArgs:
 
 
 class DaemonSetPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:extensions/v1beta1:DaemonSetPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -93,6 +93,9 @@ class PodTemplateInitArgs:
 
 
 class PodTemplate(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:PodTemplate"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

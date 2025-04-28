@@ -93,6 +93,9 @@ class HorizontalPodAutoscalerInitArgs:
 
 
 class HorizontalPodAutoscaler(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

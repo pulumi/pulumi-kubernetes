@@ -94,6 +94,9 @@ class DeploymentInitArgs:
 
 
 class Deployment(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:apps/v1beta2:Deployment"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

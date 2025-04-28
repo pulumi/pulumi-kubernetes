@@ -93,6 +93,9 @@ class ServiceCIDRInitArgs:
 
 
 class ServiceCIDR(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:networking.k8s.io/v1beta1:ServiceCIDR"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

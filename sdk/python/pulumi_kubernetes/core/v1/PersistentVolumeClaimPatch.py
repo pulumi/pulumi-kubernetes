@@ -93,6 +93,9 @@ class PersistentVolumeClaimPatchInitArgs:
 
 
 class PersistentVolumeClaimPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:PersistentVolumeClaimPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

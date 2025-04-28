@@ -94,6 +94,9 @@ class JobInitArgs:
 
 
 class Job(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:batch/v1:Job"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

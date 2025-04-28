@@ -93,6 +93,9 @@ class CSIDriverPatchArgs:
 
 
 class CSIDriverPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:storage.k8s.io/v1:CSIDriverPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

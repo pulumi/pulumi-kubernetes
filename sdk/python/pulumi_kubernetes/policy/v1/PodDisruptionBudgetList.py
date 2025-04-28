@@ -92,6 +92,9 @@ class PodDisruptionBudgetListArgs:
 
 
 class PodDisruptionBudgetList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:policy/v1:PodDisruptionBudgetList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

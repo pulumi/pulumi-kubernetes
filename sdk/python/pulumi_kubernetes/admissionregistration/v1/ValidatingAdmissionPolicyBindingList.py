@@ -92,6 +92,9 @@ class ValidatingAdmissionPolicyBindingListArgs:
 
 
 class ValidatingAdmissionPolicyBindingList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

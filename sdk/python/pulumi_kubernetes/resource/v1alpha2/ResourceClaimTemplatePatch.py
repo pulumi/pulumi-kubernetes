@@ -97,6 +97,9 @@ class ResourceClaimTemplatePatchArgs:
 
 
 class ResourceClaimTemplatePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

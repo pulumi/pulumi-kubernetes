@@ -92,6 +92,9 @@ class ValidatingWebhookConfigurationListArgs:
 
 
 class ValidatingWebhookConfigurationList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -92,6 +92,9 @@ class IPAddressListArgs:
 
 
 class IPAddressList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:networking.k8s.io/v1beta1:IPAddressList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

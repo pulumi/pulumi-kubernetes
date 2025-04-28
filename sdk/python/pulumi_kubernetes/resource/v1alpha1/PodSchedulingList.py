@@ -92,6 +92,9 @@ class PodSchedulingListArgs:
 
 
 class PodSchedulingList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

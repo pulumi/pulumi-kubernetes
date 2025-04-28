@@ -93,6 +93,9 @@ class DaemonSetListArgs:
 
 
 class DaemonSetList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:extensions/v1beta1:DaemonSetList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

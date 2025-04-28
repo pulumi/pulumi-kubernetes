@@ -93,6 +93,9 @@ class IPAddressPatchArgs:
 
 
 class IPAddressPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

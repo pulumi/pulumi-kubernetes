@@ -93,6 +93,9 @@ class LeaseInitArgs:
 
 
 class Lease(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:coordination.k8s.io/v1:Lease"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -92,6 +92,9 @@ class PodListArgs:
 
 
 class PodList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:PodList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

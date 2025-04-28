@@ -92,6 +92,9 @@ class IngressClassListArgs:
 
 
 class IngressClassList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:networking.k8s.io/v1:IngressClassList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

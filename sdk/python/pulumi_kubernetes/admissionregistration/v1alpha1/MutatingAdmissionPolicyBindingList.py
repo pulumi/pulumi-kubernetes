@@ -92,6 +92,9 @@ class MutatingAdmissionPolicyBindingListArgs:
 
 
 class MutatingAdmissionPolicyBindingList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

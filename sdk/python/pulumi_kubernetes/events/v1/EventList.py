@@ -93,6 +93,9 @@ class EventListArgs:
 
 
 class EventList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:events.k8s.io/v1:EventList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

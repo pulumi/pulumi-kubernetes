@@ -92,6 +92,9 @@ class PersistentVolumeClaimListArgs:
 
 
 class PersistentVolumeClaimList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:PersistentVolumeClaimList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

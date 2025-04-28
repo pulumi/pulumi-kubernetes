@@ -123,6 +123,9 @@ class ConfigMapPatchArgs:
 
 
 class ConfigMapPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:ConfigMapPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -583,6 +583,9 @@ class ReleaseArgs:
 
 
 class Release(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:helm.sh/v3:Release"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

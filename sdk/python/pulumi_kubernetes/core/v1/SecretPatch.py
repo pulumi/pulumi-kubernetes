@@ -139,6 +139,9 @@ class SecretPatchArgs:
 
 
 class SecretPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:SecretPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

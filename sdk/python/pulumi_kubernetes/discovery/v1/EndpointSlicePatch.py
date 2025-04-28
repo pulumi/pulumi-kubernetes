@@ -126,6 +126,9 @@ class EndpointSlicePatchArgs:
 
 
 class EndpointSlicePatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:discovery.k8s.io/v1:EndpointSlicePatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

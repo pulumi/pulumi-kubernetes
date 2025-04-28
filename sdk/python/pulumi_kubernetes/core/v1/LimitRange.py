@@ -93,6 +93,9 @@ class LimitRangeInitArgs:
 
 
 class LimitRange(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:LimitRange"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -93,6 +93,9 @@ class BindingPatchArgs:
 
 
 class BindingPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:core/v1:BindingPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

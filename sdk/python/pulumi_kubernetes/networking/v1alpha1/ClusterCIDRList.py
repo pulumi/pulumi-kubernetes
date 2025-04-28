@@ -93,6 +93,9 @@ class ClusterCIDRListArgs:
 
 
 class ClusterCIDRList(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

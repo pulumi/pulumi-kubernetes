@@ -93,6 +93,9 @@ class RoleInitArgs:
 
 
 class Role(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role"
+
     @overload
     def __init__(__self__,
                  resource_name: str,

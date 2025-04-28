@@ -89,6 +89,9 @@ class AuditSinkPatchArgs:
 
 
 class AuditSinkPatch(pulumi.CustomResource):
+
+    pulumi_type = "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch"
+
     @overload
     def __init__(__self__,
                  resource_name: str,
