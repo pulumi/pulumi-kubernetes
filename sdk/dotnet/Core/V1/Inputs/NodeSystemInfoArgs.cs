@@ -70,6 +70,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> OsImage { get; set; } = null!;
 
         /// <summary>
+        /// Swap Info reported by the node.
+        /// </summary>
+        [Input("swap")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSwapStatusArgs>? Swap { get; set; }
+
+        /// <summary>
         /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
         /// </summary>
         [Input("systemUUID", required: true)]

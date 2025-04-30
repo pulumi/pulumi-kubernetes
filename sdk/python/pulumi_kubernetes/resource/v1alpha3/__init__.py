@@ -9,6 +9,9 @@ import typing
 from .DeviceClass import *
 from .DeviceClassList import *
 from .DeviceClassPatch import *
+from .DeviceTaintRule import *
+from .DeviceTaintRuleList import *
+from .DeviceTaintRulePatch import *
 from .PodSchedulingContext import *
 from .PodSchedulingContextList import *
 from .PodSchedulingContextPatch import *

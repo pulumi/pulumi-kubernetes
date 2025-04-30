@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * EndpointAddress is a tuple that describes single IP address.
+ * EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
  * 
  */
 public final class EndpointAddressArgs extends com.pulumi.resources.ResourceArgs {

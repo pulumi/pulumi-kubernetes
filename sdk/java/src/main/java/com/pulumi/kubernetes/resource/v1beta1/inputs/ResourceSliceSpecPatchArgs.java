@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.resource.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorPatchArgs;
+import com.pulumi.kubernetes.resource.v1beta1.inputs.CounterSetPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DevicePatchArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.ResourcePoolPatchArgs;
 import java.lang.Boolean;
@@ -27,7 +28,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * AllNodes indicates that all nodes have access to the resources in the pool.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
      * 
      */
     @Import(name="allNodes")
@@ -36,7 +37,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * @return AllNodes indicates that all nodes have access to the resources in the pool.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
      * 
      */
     public Optional<Output<Boolean>> allNodes() {
@@ -86,7 +87,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
      * 
      * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
      * 
      */
     @Import(name="nodeName")
@@ -97,7 +98,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
      * 
      * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
      * 
      */
     public Optional<Output<String>> nodeName() {
@@ -109,7 +110,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
      * 
      * Must use exactly one term.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
      * 
      */
     @Import(name="nodeSelector")
@@ -120,11 +121,30 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
      * 
      * Must use exactly one term.
      * 
-     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
      * 
      */
     public Optional<Output<NodeSelectorPatchArgs>> nodeSelector() {
         return Optional.ofNullable(this.nodeSelector);
+    }
+
+    /**
+     * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+     * 
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * 
+     */
+    @Import(name="perDeviceNodeSelection")
+    private @Nullable Output<Boolean> perDeviceNodeSelection;
+
+    /**
+     * @return PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+     * 
+     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * 
+     */
+    public Optional<Output<Boolean>> perDeviceNodeSelection() {
+        return Optional.ofNullable(this.perDeviceNodeSelection);
     }
 
     /**
@@ -142,6 +162,29 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         return Optional.ofNullable(this.pool);
     }
 
+    /**
+     * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+     * 
+     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * 
+     * The maximum number of SharedCounters is 32.
+     * 
+     */
+    @Import(name="sharedCounters")
+    private @Nullable Output<List<CounterSetPatchArgs>> sharedCounters;
+
+    /**
+     * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+     * 
+     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * 
+     * The maximum number of SharedCounters is 32.
+     * 
+     */
+    public Optional<Output<List<CounterSetPatchArgs>>> sharedCounters() {
+        return Optional.ofNullable(this.sharedCounters);
+    }
+
     private ResourceSliceSpecPatchArgs() {}
 
     private ResourceSliceSpecPatchArgs(ResourceSliceSpecPatchArgs $) {
@@ -150,7 +193,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         this.driver = $.driver;
         this.nodeName = $.nodeName;
         this.nodeSelector = $.nodeSelector;
+        this.perDeviceNodeSelection = $.perDeviceNodeSelection;
         this.pool = $.pool;
+        this.sharedCounters = $.sharedCounters;
     }
 
     public static Builder builder() {
@@ -174,7 +219,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param allNodes AllNodes indicates that all nodes have access to the resources in the pool.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
          * 
          * @return builder
          * 
@@ -187,7 +232,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param allNodes AllNodes indicates that all nodes have access to the resources in the pool.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
          * 
          * @return builder
          * 
@@ -263,7 +308,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          * 
          * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
          * 
          * @return builder
          * 
@@ -278,7 +323,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          * 
          * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
          * 
          * @return builder
          * 
@@ -292,7 +337,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          * 
          * Must use exactly one term.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
          * 
          * @return builder
          * 
@@ -307,13 +352,38 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          * 
          * Must use exactly one term.
          * 
-         * Exactly one of NodeName, NodeSelector and AllNodes must be set.
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
          * 
          * @return builder
          * 
          */
         public Builder nodeSelector(NodeSelectorPatchArgs nodeSelector) {
             return nodeSelector(Output.of(nodeSelector));
+        }
+
+        /**
+         * @param perDeviceNodeSelection PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+         * 
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder perDeviceNodeSelection(@Nullable Output<Boolean> perDeviceNodeSelection) {
+            $.perDeviceNodeSelection = perDeviceNodeSelection;
+            return this;
+        }
+
+        /**
+         * @param perDeviceNodeSelection PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+         * 
+         * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder perDeviceNodeSelection(Boolean perDeviceNodeSelection) {
+            return perDeviceNodeSelection(Output.of(perDeviceNodeSelection));
         }
 
         /**
@@ -335,6 +405,49 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          */
         public Builder pool(ResourcePoolPatchArgs pool) {
             return pool(Output.of(pool));
+        }
+
+        /**
+         * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+         * 
+         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * 
+         * The maximum number of SharedCounters is 32.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sharedCounters(@Nullable Output<List<CounterSetPatchArgs>> sharedCounters) {
+            $.sharedCounters = sharedCounters;
+            return this;
+        }
+
+        /**
+         * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+         * 
+         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * 
+         * The maximum number of SharedCounters is 32.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sharedCounters(List<CounterSetPatchArgs> sharedCounters) {
+            return sharedCounters(Output.of(sharedCounters));
+        }
+
+        /**
+         * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+         * 
+         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * 
+         * The maximum number of SharedCounters is 32.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder sharedCounters(CounterSetPatchArgs... sharedCounters) {
+            return sharedCounters(List.of(sharedCounters));
         }
 
         public ResourceSliceSpecPatchArgs build() {

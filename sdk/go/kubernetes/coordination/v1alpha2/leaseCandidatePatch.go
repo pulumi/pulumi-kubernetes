@@ -45,6 +45,9 @@ func NewLeaseCandidatePatch(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidatePatch"),
 		},
+		{
+			Type: pulumi.String("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidatePatch"),
+		},
 	})
 	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)

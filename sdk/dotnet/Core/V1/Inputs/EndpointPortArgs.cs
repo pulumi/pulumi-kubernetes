@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// EndpointPort is a tuple that describes a single port.
+    /// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
     /// </summary>
     public class EndpointPortArgs : global::Pulumi.ResourceArgs
     {

@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ReplicaSetStatus {
     /**
-     * @return The number of available replicas (ready for at least minReadySeconds) for this replica set.
+     * @return The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
      * 
      */
     private @Nullable Integer availableReplicas;
@@ -25,7 +25,7 @@ public final class ReplicaSetStatus {
      */
     private @Nullable List<ReplicaSetCondition> conditions;
     /**
-     * @return The number of pods that have labels matching the labels of the pod template of the replicaset.
+     * @return The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
      * 
      */
     private @Nullable Integer fullyLabeledReplicas;
@@ -35,19 +35,26 @@ public final class ReplicaSetStatus {
      */
     private @Nullable Integer observedGeneration;
     /**
-     * @return readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+     * @return The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
      * 
      */
     private @Nullable Integer readyReplicas;
     /**
-     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     private Integer replicas;
+    /**
+     * @return The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    private @Nullable Integer terminatingReplicas;
 
     private ReplicaSetStatus() {}
     /**
-     * @return The number of available replicas (ready for at least minReadySeconds) for this replica set.
+     * @return The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
      * 
      */
     public Optional<Integer> availableReplicas() {
@@ -61,7 +68,7 @@ public final class ReplicaSetStatus {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
-     * @return The number of pods that have labels matching the labels of the pod template of the replicaset.
+     * @return The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
      * 
      */
     public Optional<Integer> fullyLabeledReplicas() {
@@ -75,18 +82,27 @@ public final class ReplicaSetStatus {
         return Optional.ofNullable(this.observedGeneration);
     }
     /**
-     * @return readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+     * @return The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
      * 
      */
     public Optional<Integer> readyReplicas() {
         return Optional.ofNullable(this.readyReplicas);
     }
     /**
-     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Integer replicas() {
         return this.replicas;
+    }
+    /**
+     * @return The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    public Optional<Integer> terminatingReplicas() {
+        return Optional.ofNullable(this.terminatingReplicas);
     }
 
     public static Builder builder() {
@@ -104,6 +120,7 @@ public final class ReplicaSetStatus {
         private @Nullable Integer observedGeneration;
         private @Nullable Integer readyReplicas;
         private Integer replicas;
+        private @Nullable Integer terminatingReplicas;
         public Builder() {}
         public Builder(ReplicaSetStatus defaults) {
     	      Objects.requireNonNull(defaults);
@@ -113,6 +130,7 @@ public final class ReplicaSetStatus {
     	      this.observedGeneration = defaults.observedGeneration;
     	      this.readyReplicas = defaults.readyReplicas;
     	      this.replicas = defaults.replicas;
+    	      this.terminatingReplicas = defaults.terminatingReplicas;
         }
 
         @CustomType.Setter
@@ -156,6 +174,12 @@ public final class ReplicaSetStatus {
             this.replicas = replicas;
             return this;
         }
+        @CustomType.Setter
+        public Builder terminatingReplicas(@Nullable Integer terminatingReplicas) {
+
+            this.terminatingReplicas = terminatingReplicas;
+            return this;
+        }
         public ReplicaSetStatus build() {
             final var _resultValue = new ReplicaSetStatus();
             _resultValue.availableReplicas = availableReplicas;
@@ -164,6 +188,7 @@ public final class ReplicaSetStatus {
             _resultValue.observedGeneration = observedGeneration;
             _resultValue.readyReplicas = readyReplicas;
             _resultValue.replicas = replicas;
+            _resultValue.terminatingReplicas = terminatingReplicas;
             return _resultValue;
         }
     }

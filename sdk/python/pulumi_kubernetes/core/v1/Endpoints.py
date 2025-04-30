@@ -120,6 +120,10 @@ class Endpoints(pulumi.CustomResource):
                },
             ]
 
+        Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+
+        Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -147,6 +151,10 @@ class Endpoints(pulumi.CustomResource):
                  Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
                },
             ]
+
+        Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+
+        Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 
         :param str resource_name: The name of the resource.
         :param EndpointsInitArgs args: The arguments to use to populate this resource's properties.

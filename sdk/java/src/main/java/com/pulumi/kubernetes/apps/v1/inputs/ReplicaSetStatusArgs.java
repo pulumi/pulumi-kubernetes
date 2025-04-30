@@ -23,14 +23,14 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
     public static final ReplicaSetStatusArgs Empty = new ReplicaSetStatusArgs();
 
     /**
-     * The number of available replicas (ready for at least minReadySeconds) for this replica set.
+     * The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
      * 
      */
     @Import(name="availableReplicas")
     private @Nullable Output<Integer> availableReplicas;
 
     /**
-     * @return The number of available replicas (ready for at least minReadySeconds) for this replica set.
+     * @return The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
      * 
      */
     public Optional<Output<Integer>> availableReplicas() {
@@ -53,14 +53,14 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * The number of pods that have labels matching the labels of the pod template of the replicaset.
+     * The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
      * 
      */
     @Import(name="fullyLabeledReplicas")
     private @Nullable Output<Integer> fullyLabeledReplicas;
 
     /**
-     * @return The number of pods that have labels matching the labels of the pod template of the replicaset.
+     * @return The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
      * 
      */
     public Optional<Output<Integer>> fullyLabeledReplicas() {
@@ -83,14 +83,14 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+     * The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
      * 
      */
     @Import(name="readyReplicas")
     private @Nullable Output<Integer> readyReplicas;
 
     /**
-     * @return readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+     * @return The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
      * 
      */
     public Optional<Output<Integer>> readyReplicas() {
@@ -98,18 +98,37 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     @Import(name="replicas", required=true)
     private Output<Integer> replicas;
 
     /**
-     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Output<Integer> replicas() {
         return this.replicas;
+    }
+
+    /**
+     * The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    @Import(name="terminatingReplicas")
+    private @Nullable Output<Integer> terminatingReplicas;
+
+    /**
+     * @return The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    public Optional<Output<Integer>> terminatingReplicas() {
+        return Optional.ofNullable(this.terminatingReplicas);
     }
 
     private ReplicaSetStatusArgs() {}
@@ -121,6 +140,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         this.observedGeneration = $.observedGeneration;
         this.readyReplicas = $.readyReplicas;
         this.replicas = $.replicas;
+        this.terminatingReplicas = $.terminatingReplicas;
     }
 
     public static Builder builder() {
@@ -142,7 +162,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param availableReplicas The number of available replicas (ready for at least minReadySeconds) for this replica set.
+         * @param availableReplicas The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
          * 
          * @return builder
          * 
@@ -153,7 +173,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param availableReplicas The number of available replicas (ready for at least minReadySeconds) for this replica set.
+         * @param availableReplicas The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
          * 
          * @return builder
          * 
@@ -194,7 +214,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param fullyLabeledReplicas The number of pods that have labels matching the labels of the pod template of the replicaset.
+         * @param fullyLabeledReplicas The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
          * 
          * @return builder
          * 
@@ -205,7 +225,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param fullyLabeledReplicas The number of pods that have labels matching the labels of the pod template of the replicaset.
+         * @param fullyLabeledReplicas The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
          * 
          * @return builder
          * 
@@ -236,7 +256,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param readyReplicas readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+         * @param readyReplicas The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
          * 
          * @return builder
          * 
@@ -247,7 +267,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param readyReplicas readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+         * @param readyReplicas The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
          * 
          * @return builder
          * 
@@ -257,7 +277,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
@@ -268,13 +288,38 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
          */
         public Builder replicas(Integer replicas) {
             return replicas(Output.of(replicas));
+        }
+
+        /**
+         * @param terminatingReplicas The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+         * 
+         * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminatingReplicas(@Nullable Output<Integer> terminatingReplicas) {
+            $.terminatingReplicas = terminatingReplicas;
+            return this;
+        }
+
+        /**
+         * @param terminatingReplicas The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+         * 
+         * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminatingReplicas(Integer terminatingReplicas) {
+            return terminatingReplicas(Output.of(terminatingReplicas));
         }
 
         public ReplicaSetStatusArgs build() {

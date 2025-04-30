@@ -105,7 +105,7 @@ class EndpointsList(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
                  __props__=None):
         """
-        EndpointsList is a list of endpoints.
+        EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -121,7 +121,7 @@ class EndpointsList(pulumi.CustomResource):
                  args: EndpointsListArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        EndpointsList is a list of endpoints.
+        EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 
         :param str resource_name: The name of the resource.
         :param EndpointsListArgs args: The arguments to use to populate this resource's properties.

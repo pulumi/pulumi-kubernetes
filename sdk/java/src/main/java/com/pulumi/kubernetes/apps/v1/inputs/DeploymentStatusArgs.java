@@ -22,14 +22,14 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
     public static final DeploymentStatusArgs Empty = new DeploymentStatusArgs();
 
     /**
-     * Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+     * Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
      * 
      */
     @Import(name="availableReplicas")
     private @Nullable Output<Integer> availableReplicas;
 
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+     * @return Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
      * 
      */
     public Optional<Output<Integer>> availableReplicas() {
@@ -82,14 +82,14 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+     * Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
      * 
      */
     @Import(name="readyReplicas")
     private @Nullable Output<Integer> readyReplicas;
 
     /**
-     * @return readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+     * @return Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
      * 
      */
     public Optional<Output<Integer>> readyReplicas() {
@@ -97,18 +97,37 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+     * Total number of non-terminating pods targeted by this deployment (their labels match the selector).
      * 
      */
     @Import(name="replicas")
     private @Nullable Output<Integer> replicas;
 
     /**
-     * @return Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+     * @return Total number of non-terminating pods targeted by this deployment (their labels match the selector).
      * 
      */
     public Optional<Output<Integer>> replicas() {
         return Optional.ofNullable(this.replicas);
+    }
+
+    /**
+     * Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    @Import(name="terminatingReplicas")
+    private @Nullable Output<Integer> terminatingReplicas;
+
+    /**
+     * @return Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    public Optional<Output<Integer>> terminatingReplicas() {
+        return Optional.ofNullable(this.terminatingReplicas);
     }
 
     /**
@@ -127,14 +146,14 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+     * Total number of non-terminating pods targeted by this deployment that have the desired template spec.
      * 
      */
     @Import(name="updatedReplicas")
     private @Nullable Output<Integer> updatedReplicas;
 
     /**
-     * @return Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+     * @return Total number of non-terminating pods targeted by this deployment that have the desired template spec.
      * 
      */
     public Optional<Output<Integer>> updatedReplicas() {
@@ -150,6 +169,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         this.observedGeneration = $.observedGeneration;
         this.readyReplicas = $.readyReplicas;
         this.replicas = $.replicas;
+        this.terminatingReplicas = $.terminatingReplicas;
         this.unavailableReplicas = $.unavailableReplicas;
         this.updatedReplicas = $.updatedReplicas;
     }
@@ -173,7 +193,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+         * @param availableReplicas Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
          * 
          * @return builder
          * 
@@ -184,7 +204,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+         * @param availableReplicas Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
          * 
          * @return builder
          * 
@@ -267,7 +287,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param readyReplicas readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+         * @param readyReplicas Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
          * 
          * @return builder
          * 
@@ -278,7 +298,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param readyReplicas readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+         * @param readyReplicas Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
          * 
          * @return builder
          * 
@@ -288,7 +308,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+         * @param replicas Total number of non-terminating pods targeted by this deployment (their labels match the selector).
          * 
          * @return builder
          * 
@@ -299,13 +319,38 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+         * @param replicas Total number of non-terminating pods targeted by this deployment (their labels match the selector).
          * 
          * @return builder
          * 
          */
         public Builder replicas(Integer replicas) {
             return replicas(Output.of(replicas));
+        }
+
+        /**
+         * @param terminatingReplicas Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+         * 
+         * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminatingReplicas(@Nullable Output<Integer> terminatingReplicas) {
+            $.terminatingReplicas = terminatingReplicas;
+            return this;
+        }
+
+        /**
+         * @param terminatingReplicas Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+         * 
+         * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminatingReplicas(Integer terminatingReplicas) {
+            return terminatingReplicas(Output.of(terminatingReplicas));
         }
 
         /**
@@ -330,7 +375,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param updatedReplicas Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+         * @param updatedReplicas Total number of non-terminating pods targeted by this deployment that have the desired template spec.
          * 
          * @return builder
          * 
@@ -341,7 +386,7 @@ public final class DeploymentStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param updatedReplicas Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+         * @param updatedReplicas Total number of non-terminating pods targeted by this deployment that have the desired template spec.
          * 
          * @return builder
          * 

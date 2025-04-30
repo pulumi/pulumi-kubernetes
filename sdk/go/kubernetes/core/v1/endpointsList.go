@@ -13,7 +13,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsList struct {
 	pulumi.CustomResourceState
 

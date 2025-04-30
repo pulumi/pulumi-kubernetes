@@ -83,6 +83,7 @@ namespace Pulumi.Kubernetes.Coordination.V1Alpha2
                 Aliases =
                 {
                     new global::Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidatePatch" },
+                    new global::Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidatePatch" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

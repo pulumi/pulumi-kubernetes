@@ -59,7 +59,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     @Import(name="reservedFor")
@@ -72,7 +72,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     public Optional<Output<List<ResourceClaimConsumerReferenceArgs>>> reservedFor() {
@@ -164,7 +164,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 
@@ -181,7 +181,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 
@@ -197,7 +197,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 

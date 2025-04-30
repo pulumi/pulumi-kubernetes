@@ -213,6 +213,8 @@ __all__ = [
     'NodeSpecPatch',
     'NodeStatus',
     'NodeStatusPatch',
+    'NodeSwapStatus',
+    'NodeSwapStatusPatch',
     'NodeSystemInfo',
     'NodeSystemInfoPatch',
     'ObjectFieldSelector',
@@ -5431,6 +5433,8 @@ class ContainerStatus(dict):
             suggest = "container_id"
         elif key == "lastState":
             suggest = "last_state"
+        elif key == "stopSignal":
+            suggest = "stop_signal"
         elif key == "volumeMounts":
             suggest = "volume_mounts"
 
@@ -5458,6 +5462,7 @@ class ContainerStatus(dict):
                  resources: Optional['outputs.ResourceRequirements'] = None,
                  started: Optional[builtins.bool] = None,
                  state: Optional['outputs.ContainerState'] = None,
+                 stop_signal: Optional[builtins.str] = None,
                  user: Optional['outputs.ContainerUser'] = None,
                  volume_mounts: Optional[Sequence['outputs.VolumeMountStatus']] = None):
         """
@@ -5476,6 +5481,7 @@ class ContainerStatus(dict):
         :param 'ResourceRequirementsArgs' resources: Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
         :param builtins.bool started: Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         :param 'ContainerStateArgs' state: State holds details about the container's current condition.
+        :param builtins.str stop_signal: StopSignal reports the effective stop signal for this container
         :param 'ContainerUserArgs' user: User represents user identity information initially attached to the first process of the container
         :param Sequence['VolumeMountStatusArgs'] volume_mounts: Status of volume mounts.
         """
@@ -5498,6 +5504,8 @@ class ContainerStatus(dict):
             pulumi.set(__self__, "started", started)
         if state is not None:
             pulumi.set(__self__, "state", state)
+        if stop_signal is not None:
+            pulumi.set(__self__, "stop_signal", stop_signal)
         if user is not None:
             pulumi.set(__self__, "user", user)
         if volume_mounts is not None:
@@ -5602,6 +5610,14 @@ class ContainerStatus(dict):
         return pulumi.get(self, "state")
 
     @property
+    @pulumi.getter(name="stopSignal")
+    def stop_signal(self) -> Optional[builtins.str]:
+        """
+        StopSignal reports the effective stop signal for this container
+        """
+        return pulumi.get(self, "stop_signal")
+
+    @property
     @pulumi.getter
     def user(self) -> Optional['outputs.ContainerUser']:
         """
@@ -5638,6 +5654,8 @@ class ContainerStatusPatch(dict):
             suggest = "last_state"
         elif key == "restartCount":
             suggest = "restart_count"
+        elif key == "stopSignal":
+            suggest = "stop_signal"
         elif key == "volumeMounts":
             suggest = "volume_mounts"
 
@@ -5665,6 +5683,7 @@ class ContainerStatusPatch(dict):
                  restart_count: Optional[builtins.int] = None,
                  started: Optional[builtins.bool] = None,
                  state: Optional['outputs.ContainerStatePatch'] = None,
+                 stop_signal: Optional[builtins.str] = None,
                  user: Optional['outputs.ContainerUserPatch'] = None,
                  volume_mounts: Optional[Sequence['outputs.VolumeMountStatusPatch']] = None):
         """
@@ -5683,6 +5702,7 @@ class ContainerStatusPatch(dict):
         :param builtins.int restart_count: RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
         :param builtins.bool started: Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         :param 'ContainerStatePatchArgs' state: State holds details about the container's current condition.
+        :param builtins.str stop_signal: StopSignal reports the effective stop signal for this container
         :param 'ContainerUserPatchArgs' user: User represents user identity information initially attached to the first process of the container
         :param Sequence['VolumeMountStatusPatchArgs'] volume_mounts: Status of volume mounts.
         """
@@ -5710,6 +5730,8 @@ class ContainerStatusPatch(dict):
             pulumi.set(__self__, "started", started)
         if state is not None:
             pulumi.set(__self__, "state", state)
+        if stop_signal is not None:
+            pulumi.set(__self__, "stop_signal", stop_signal)
         if user is not None:
             pulumi.set(__self__, "user", user)
         if volume_mounts is not None:
@@ -5812,6 +5834,14 @@ class ContainerStatusPatch(dict):
         State holds details about the container's current condition.
         """
         return pulumi.get(self, "state")
+
+    @property
+    @pulumi.getter(name="stopSignal")
+    def stop_signal(self) -> Optional[builtins.str]:
+        """
+        StopSignal reports the effective stop signal for this container
+        """
+        return pulumi.get(self, "stop_signal")
 
     @property
     @pulumi.getter
@@ -6367,7 +6397,7 @@ class EmptyDirVolumeSourcePatch(dict):
 @pulumi.output_type
 class EndpointAddress(dict):
     """
-    EndpointAddress is a tuple that describes single IP address.
+    EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6394,7 +6424,7 @@ class EndpointAddress(dict):
                  node_name: Optional[builtins.str] = None,
                  target_ref: Optional['outputs.ObjectReference'] = None):
         """
-        EndpointAddress is a tuple that describes single IP address.
+        EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
         :param builtins.str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param builtins.str hostname: The Hostname of this endpoint
         :param builtins.str node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
@@ -6444,7 +6474,7 @@ class EndpointAddress(dict):
 @pulumi.output_type
 class EndpointAddressPatch(dict):
     """
-    EndpointAddress is a tuple that describes single IP address.
+    EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6471,7 +6501,7 @@ class EndpointAddressPatch(dict):
                  node_name: Optional[builtins.str] = None,
                  target_ref: Optional['outputs.ObjectReferencePatch'] = None):
         """
-        EndpointAddress is a tuple that describes single IP address.
+        EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
         :param builtins.str hostname: The Hostname of this endpoint
         :param builtins.str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param builtins.str node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
@@ -6522,7 +6552,7 @@ class EndpointAddressPatch(dict):
 @pulumi.output_type
 class EndpointPort(dict):
     """
-    EndpointPort is a tuple that describes a single port.
+    EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6547,7 +6577,7 @@ class EndpointPort(dict):
                  name: Optional[builtins.str] = None,
                  protocol: Optional[builtins.str] = None):
         """
-        EndpointPort is a tuple that describes a single port.
+        EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
         :param builtins.int port: The port number of the endpoint.
         :param builtins.str app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
@@ -6615,7 +6645,7 @@ class EndpointPort(dict):
 @pulumi.output_type
 class EndpointPortPatch(dict):
     """
-    EndpointPort is a tuple that describes a single port.
+    EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6640,7 +6670,7 @@ class EndpointPortPatch(dict):
                  port: Optional[builtins.int] = None,
                  protocol: Optional[builtins.str] = None):
         """
-        EndpointPort is a tuple that describes a single port.
+        EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
         :param builtins.str app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
                
                * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
@@ -6720,6 +6750,8 @@ class EndpointSubset(dict):
 
     	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
     	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+    Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6754,6 +6786,8 @@ class EndpointSubset(dict):
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        Deprecated: This API is deprecated in v1.33+.
         :param Sequence['EndpointAddressArgs'] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param Sequence['EndpointAddressArgs'] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param Sequence['EndpointPortArgs'] ports: Port numbers available on the related IP addresses.
@@ -6804,6 +6838,8 @@ class EndpointSubsetPatch(dict):
 
     	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
     	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+    Deprecated: This API is deprecated in v1.33+.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6838,6 +6874,8 @@ class EndpointSubsetPatch(dict):
 
         	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        Deprecated: This API is deprecated in v1.33+.
         :param Sequence['EndpointAddressPatchArgs'] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param Sequence['EndpointAddressPatchArgs'] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param Sequence['EndpointPortPatchArgs'] ports: Port numbers available on the related IP addresses.
@@ -6890,6 +6928,10 @@ class Endpoints(dict):
     	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
     	   },
     	]
+
+    Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+
+    Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6927,6 +6969,10 @@ class Endpoints(dict):
         	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
         	   },
         	]
+
+        Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+
+        Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
         :param builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -6977,7 +7023,7 @@ class Endpoints(dict):
 @pulumi.output_type
 class EnvFromSource(dict):
     """
-    EnvFromSource represents the source of a set of ConfigMaps
+    EnvFromSource represents the source of a set of ConfigMaps or Secrets
     """
     @staticmethod
     def __key_warning(key: str):
@@ -7003,9 +7049,9 @@ class EnvFromSource(dict):
                  prefix: Optional[builtins.str] = None,
                  secret_ref: Optional['outputs.SecretEnvSource'] = None):
         """
-        EnvFromSource represents the source of a set of ConfigMaps
+        EnvFromSource represents the source of a set of ConfigMaps or Secrets
         :param 'ConfigMapEnvSourceArgs' config_map_ref: The ConfigMap to select from
-        :param builtins.str prefix: An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        :param builtins.str prefix: Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         :param 'SecretEnvSourceArgs' secret_ref: The Secret to select from
         """
         if config_map_ref is not None:
@@ -7027,7 +7073,7 @@ class EnvFromSource(dict):
     @pulumi.getter
     def prefix(self) -> Optional[builtins.str]:
         """
-        An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         """
         return pulumi.get(self, "prefix")
 
@@ -7043,7 +7089,7 @@ class EnvFromSource(dict):
 @pulumi.output_type
 class EnvFromSourcePatch(dict):
     """
-    EnvFromSource represents the source of a set of ConfigMaps
+    EnvFromSource represents the source of a set of ConfigMaps or Secrets
     """
     @staticmethod
     def __key_warning(key: str):
@@ -7069,9 +7115,9 @@ class EnvFromSourcePatch(dict):
                  prefix: Optional[builtins.str] = None,
                  secret_ref: Optional['outputs.SecretEnvSourcePatch'] = None):
         """
-        EnvFromSource represents the source of a set of ConfigMaps
+        EnvFromSource represents the source of a set of ConfigMaps or Secrets
         :param 'ConfigMapEnvSourcePatchArgs' config_map_ref: The ConfigMap to select from
-        :param builtins.str prefix: An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        :param builtins.str prefix: Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         :param 'SecretEnvSourcePatchArgs' secret_ref: The Secret to select from
         """
         if config_map_ref is not None:
@@ -7093,7 +7139,7 @@ class EnvFromSourcePatch(dict):
     @pulumi.getter
     def prefix(self) -> Optional[builtins.str]:
         """
-        An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         """
         return pulumi.get(self, "prefix")
 
@@ -11349,6 +11395,8 @@ class Lifecycle(dict):
             suggest = "post_start"
         elif key == "preStop":
             suggest = "pre_stop"
+        elif key == "stopSignal":
+            suggest = "stop_signal"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in Lifecycle. Access the value via the '{suggest}' property getter instead.")
@@ -11363,16 +11411,20 @@ class Lifecycle(dict):
 
     def __init__(__self__, *,
                  post_start: Optional['outputs.LifecycleHandler'] = None,
-                 pre_stop: Optional['outputs.LifecycleHandler'] = None):
+                 pre_stop: Optional['outputs.LifecycleHandler'] = None,
+                 stop_signal: Optional[builtins.str] = None):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
         :param 'LifecycleHandlerArgs' post_start: PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         :param 'LifecycleHandlerArgs' pre_stop: PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        :param builtins.str stop_signal: StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
         """
         if post_start is not None:
             pulumi.set(__self__, "post_start", post_start)
         if pre_stop is not None:
             pulumi.set(__self__, "pre_stop", pre_stop)
+        if stop_signal is not None:
+            pulumi.set(__self__, "stop_signal", stop_signal)
 
     @property
     @pulumi.getter(name="postStart")
@@ -11389,6 +11441,14 @@ class Lifecycle(dict):
         PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         """
         return pulumi.get(self, "pre_stop")
+
+    @property
+    @pulumi.getter(name="stopSignal")
+    def stop_signal(self) -> Optional[builtins.str]:
+        """
+        StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+        """
+        return pulumi.get(self, "stop_signal")
 
 
 @pulumi.output_type
@@ -11563,6 +11623,8 @@ class LifecyclePatch(dict):
             suggest = "post_start"
         elif key == "preStop":
             suggest = "pre_stop"
+        elif key == "stopSignal":
+            suggest = "stop_signal"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in LifecyclePatch. Access the value via the '{suggest}' property getter instead.")
@@ -11577,16 +11639,20 @@ class LifecyclePatch(dict):
 
     def __init__(__self__, *,
                  post_start: Optional['outputs.LifecycleHandlerPatch'] = None,
-                 pre_stop: Optional['outputs.LifecycleHandlerPatch'] = None):
+                 pre_stop: Optional['outputs.LifecycleHandlerPatch'] = None,
+                 stop_signal: Optional[builtins.str] = None):
         """
         Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
         :param 'LifecycleHandlerPatchArgs' post_start: PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         :param 'LifecycleHandlerPatchArgs' pre_stop: PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        :param builtins.str stop_signal: StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
         """
         if post_start is not None:
             pulumi.set(__self__, "post_start", post_start)
         if pre_stop is not None:
             pulumi.set(__self__, "pre_stop", pre_stop)
+        if stop_signal is not None:
+            pulumi.set(__self__, "stop_signal", stop_signal)
 
     @property
     @pulumi.getter(name="postStart")
@@ -11603,6 +11669,14 @@ class LifecyclePatch(dict):
         PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         """
         return pulumi.get(self, "pre_stop")
+
+    @property
+    @pulumi.getter(name="stopSignal")
+    def stop_signal(self) -> Optional[builtins.str]:
+        """
+        StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+        """
+        return pulumi.get(self, "stop_signal")
 
 
 @pulumi.output_type
@@ -14985,6 +15059,52 @@ class NodeStatusPatch(dict):
 
 
 @pulumi.output_type
+class NodeSwapStatus(dict):
+    """
+    NodeSwapStatus represents swap memory information.
+    """
+    def __init__(__self__, *,
+                 capacity: Optional[builtins.int] = None):
+        """
+        NodeSwapStatus represents swap memory information.
+        :param builtins.int capacity: Total amount of swap memory in bytes.
+        """
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[builtins.int]:
+        """
+        Total amount of swap memory in bytes.
+        """
+        return pulumi.get(self, "capacity")
+
+
+@pulumi.output_type
+class NodeSwapStatusPatch(dict):
+    """
+    NodeSwapStatus represents swap memory information.
+    """
+    def __init__(__self__, *,
+                 capacity: Optional[builtins.int] = None):
+        """
+        NodeSwapStatus represents swap memory information.
+        :param builtins.int capacity: Total amount of swap memory in bytes.
+        """
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[builtins.int]:
+        """
+        Total amount of swap memory in bytes.
+        """
+        return pulumi.get(self, "capacity")
+
+
+@pulumi.output_type
 class NodeSystemInfo(dict):
     """
     NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
@@ -15032,7 +15152,8 @@ class NodeSystemInfo(dict):
                  machine_id: builtins.str,
                  operating_system: builtins.str,
                  os_image: builtins.str,
-                 system_uuid: builtins.str):
+                 system_uuid: builtins.str,
+                 swap: Optional['outputs.NodeSwapStatus'] = None):
         """
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
         :param builtins.str architecture: The Architecture reported by the node
@@ -15045,6 +15166,7 @@ class NodeSystemInfo(dict):
         :param builtins.str operating_system: The Operating System reported by the node
         :param builtins.str os_image: OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
         :param builtins.str system_uuid: SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+        :param 'NodeSwapStatusArgs' swap: Swap Info reported by the node.
         """
         pulumi.set(__self__, "architecture", architecture)
         pulumi.set(__self__, "boot_id", boot_id)
@@ -15056,6 +15178,8 @@ class NodeSystemInfo(dict):
         pulumi.set(__self__, "operating_system", operating_system)
         pulumi.set(__self__, "os_image", os_image)
         pulumi.set(__self__, "system_uuid", system_uuid)
+        if swap is not None:
+            pulumi.set(__self__, "swap", swap)
 
     @property
     @pulumi.getter
@@ -15137,6 +15261,14 @@ class NodeSystemInfo(dict):
         """
         return pulumi.get(self, "system_uuid")
 
+    @property
+    @pulumi.getter
+    def swap(self) -> Optional['outputs.NodeSwapStatus']:
+        """
+        Swap Info reported by the node.
+        """
+        return pulumi.get(self, "swap")
+
 
 @pulumi.output_type
 class NodeSystemInfoPatch(dict):
@@ -15186,6 +15318,7 @@ class NodeSystemInfoPatch(dict):
                  machine_id: Optional[builtins.str] = None,
                  operating_system: Optional[builtins.str] = None,
                  os_image: Optional[builtins.str] = None,
+                 swap: Optional['outputs.NodeSwapStatusPatch'] = None,
                  system_uuid: Optional[builtins.str] = None):
         """
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
@@ -15198,6 +15331,7 @@ class NodeSystemInfoPatch(dict):
         :param builtins.str machine_id: MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
         :param builtins.str operating_system: The Operating System reported by the node
         :param builtins.str os_image: OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+        :param 'NodeSwapStatusPatchArgs' swap: Swap Info reported by the node.
         :param builtins.str system_uuid: SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
         """
         if architecture is not None:
@@ -15218,6 +15352,8 @@ class NodeSystemInfoPatch(dict):
             pulumi.set(__self__, "operating_system", operating_system)
         if os_image is not None:
             pulumi.set(__self__, "os_image", os_image)
+        if swap is not None:
+            pulumi.set(__self__, "swap", swap)
         if system_uuid is not None:
             pulumi.set(__self__, "system_uuid", system_uuid)
 
@@ -15292,6 +15428,14 @@ class NodeSystemInfoPatch(dict):
         OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
         """
         return pulumi.get(self, "os_image")
+
+    @property
+    @pulumi.getter
+    def swap(self) -> Optional['outputs.NodeSwapStatusPatch']:
+        """
+        Swap Info reported by the node.
+        """
+        return pulumi.get(self, "swap")
 
     @property
     @pulumi.getter(name="systemUUID")
@@ -18449,8 +18593,8 @@ class PodAffinityTerm(dict):
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param builtins.str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
         :param '_meta.v1.LabelSelectorArgs' label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
-        :param Sequence[builtins.str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
-        :param Sequence[builtins.str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        :param Sequence[builtins.str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
+        :param Sequence[builtins.str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
         :param '_meta.v1.LabelSelectorArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param Sequence[builtins.str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         """
@@ -18486,7 +18630,7 @@ class PodAffinityTerm(dict):
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[Sequence[builtins.str]]:
         """
-        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
         """
         return pulumi.get(self, "match_label_keys")
 
@@ -18494,7 +18638,7 @@ class PodAffinityTerm(dict):
     @pulumi.getter(name="mismatchLabelKeys")
     def mismatch_label_keys(self) -> Optional[Sequence[builtins.str]]:
         """
-        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
         """
         return pulumi.get(self, "mismatch_label_keys")
 
@@ -18555,8 +18699,8 @@ class PodAffinityTermPatch(dict):
         """
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param '_meta.v1.LabelSelectorPatchArgs' label_selector: A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
-        :param Sequence[builtins.str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
-        :param Sequence[builtins.str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        :param Sequence[builtins.str] match_label_keys: MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
+        :param Sequence[builtins.str] mismatch_label_keys: MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
         :param '_meta.v1.LabelSelectorPatchArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         :param Sequence[builtins.str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         :param builtins.str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
@@ -18586,7 +18730,7 @@ class PodAffinityTermPatch(dict):
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[Sequence[builtins.str]]:
         """
-        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
         """
         return pulumi.get(self, "match_label_keys")
 
@@ -18594,7 +18738,7 @@ class PodAffinityTermPatch(dict):
     @pulumi.getter(name="mismatchLabelKeys")
     def mismatch_label_keys(self) -> Optional[Sequence[builtins.str]]:
         """
-        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+        MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
         """
         return pulumi.get(self, "mismatch_label_keys")
 
@@ -18743,6 +18887,8 @@ class PodCondition(dict):
             suggest = "last_probe_time"
         elif key == "lastTransitionTime":
             suggest = "last_transition_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in PodCondition. Access the value via the '{suggest}' property getter instead.")
@@ -18761,6 +18907,7 @@ class PodCondition(dict):
                  last_probe_time: Optional[builtins.str] = None,
                  last_transition_time: Optional[builtins.str] = None,
                  message: Optional[builtins.str] = None,
+                 observed_generation: Optional[builtins.int] = None,
                  reason: Optional[builtins.str] = None):
         """
         PodCondition contains details for the current condition of this pod.
@@ -18769,6 +18916,7 @@ class PodCondition(dict):
         :param builtins.str last_probe_time: Last time we probed the condition.
         :param builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param builtins.str message: Human-readable message indicating details about last transition.
+        :param builtins.int observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
         :param builtins.str reason: Unique, one-word, CamelCase reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
@@ -18779,6 +18927,8 @@ class PodCondition(dict):
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
 
@@ -18823,6 +18973,14 @@ class PodCondition(dict):
         return pulumi.get(self, "message")
 
     @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[builtins.int]:
+        """
+        If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
     @pulumi.getter
     def reason(self) -> Optional[builtins.str]:
         """
@@ -18843,6 +19001,8 @@ class PodConditionPatch(dict):
             suggest = "last_probe_time"
         elif key == "lastTransitionTime":
             suggest = "last_transition_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in PodConditionPatch. Access the value via the '{suggest}' property getter instead.")
@@ -18859,6 +19019,7 @@ class PodConditionPatch(dict):
                  last_probe_time: Optional[builtins.str] = None,
                  last_transition_time: Optional[builtins.str] = None,
                  message: Optional[builtins.str] = None,
+                 observed_generation: Optional[builtins.int] = None,
                  reason: Optional[builtins.str] = None,
                  status: Optional[builtins.str] = None,
                  type: Optional[builtins.str] = None):
@@ -18867,6 +19028,7 @@ class PodConditionPatch(dict):
         :param builtins.str last_probe_time: Last time we probed the condition.
         :param builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param builtins.str message: Human-readable message indicating details about last transition.
+        :param builtins.int observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
         :param builtins.str reason: Unique, one-word, CamelCase reason for the condition's last transition.
         :param builtins.str status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param builtins.str type: Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -18877,6 +19039,8 @@ class PodConditionPatch(dict):
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
         if status is not None:
@@ -18907,6 +19071,14 @@ class PodConditionPatch(dict):
         Human-readable message indicating details about last transition.
         """
         return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[builtins.int]:
+        """
+        If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        """
+        return pulumi.get(self, "observed_generation")
 
     @property
     @pulumi.getter
@@ -20215,7 +20387,7 @@ class PodSpec(dict):
         :param builtins.bool host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param builtins.str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
-        :param Sequence['ContainerArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        :param Sequence['ContainerArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param builtins.str node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
         :param Mapping[str, builtins.str] node_selector: NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
         :param 'PodOSArgs' os: Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
@@ -20459,7 +20631,7 @@ class PodSpec(dict):
     @pulumi.getter(name="initContainers")
     def init_containers(self) -> Optional[Sequence['outputs.Container']]:
         """
-        List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         """
         return pulumi.get(self, "init_containers")
 
@@ -20808,7 +20980,7 @@ class PodSpecPatch(dict):
         :param builtins.bool host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param builtins.str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param Sequence['LocalObjectReferencePatchArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
-        :param Sequence['ContainerPatchArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        :param Sequence['ContainerPatchArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param builtins.str node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
         :param Mapping[str, builtins.str] node_selector: NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
         :param 'PodOSPatchArgs' os: Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
@@ -21053,7 +21225,7 @@ class PodSpecPatch(dict):
     @pulumi.getter(name="initContainers")
     def init_containers(self) -> Optional[Sequence['outputs.ContainerPatch']]:
         """
-        List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         """
         return pulumi.get(self, "init_containers")
 
@@ -21284,6 +21456,8 @@ class PodStatus(dict):
             suggest = "init_container_statuses"
         elif key == "nominatedNodeName":
             suggest = "nominated_node_name"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
         elif key == "podIP":
             suggest = "pod_ip"
         elif key == "podIPs":
@@ -21315,6 +21489,7 @@ class PodStatus(dict):
                  init_container_statuses: Optional[Sequence['outputs.ContainerStatus']] = None,
                  message: Optional[builtins.str] = None,
                  nominated_node_name: Optional[builtins.str] = None,
+                 observed_generation: Optional[builtins.int] = None,
                  phase: Optional[builtins.str] = None,
                  pod_ip: Optional[builtins.str] = None,
                  pod_ips: Optional[Sequence['outputs.PodIP']] = None,
@@ -21333,6 +21508,7 @@ class PodStatus(dict):
         :param Sequence['ContainerStatusArgs'] init_container_statuses: Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         :param builtins.str message: A human readable message indicating details about why the pod is in this condition.
         :param builtins.str nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
+        :param builtins.int observed_generation: If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
         :param builtins.str phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
                
                Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -21342,7 +21518,7 @@ class PodStatus(dict):
         :param Sequence['PodIPArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
         :param builtins.str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         :param builtins.str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
-        :param builtins.str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        :param builtins.str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         :param Sequence['PodResourceClaimStatusArgs'] resource_claim_statuses: Status of resource claims.
         :param builtins.str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
@@ -21362,6 +21538,8 @@ class PodStatus(dict):
             pulumi.set(__self__, "message", message)
         if nominated_node_name is not None:
             pulumi.set(__self__, "nominated_node_name", nominated_node_name)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if phase is not None:
             pulumi.set(__self__, "phase", phase)
         if pod_ip is not None:
@@ -21444,6 +21622,14 @@ class PodStatus(dict):
         return pulumi.get(self, "nominated_node_name")
 
     @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[builtins.int]:
+        """
+        If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
     @pulumi.getter
     def phase(self) -> Optional[builtins.str]:
         """
@@ -21491,7 +21677,7 @@ class PodStatus(dict):
     @pulumi.getter
     def resize(self) -> Optional[builtins.str]:
         """
-        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         """
         return pulumi.get(self, "resize")
 
@@ -21532,6 +21718,8 @@ class PodStatusPatch(dict):
             suggest = "init_container_statuses"
         elif key == "nominatedNodeName":
             suggest = "nominated_node_name"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
         elif key == "podIP":
             suggest = "pod_ip"
         elif key == "podIPs":
@@ -21563,6 +21751,7 @@ class PodStatusPatch(dict):
                  init_container_statuses: Optional[Sequence['outputs.ContainerStatusPatch']] = None,
                  message: Optional[builtins.str] = None,
                  nominated_node_name: Optional[builtins.str] = None,
+                 observed_generation: Optional[builtins.int] = None,
                  phase: Optional[builtins.str] = None,
                  pod_ip: Optional[builtins.str] = None,
                  pod_ips: Optional[Sequence['outputs.PodIPPatch']] = None,
@@ -21581,6 +21770,7 @@ class PodStatusPatch(dict):
         :param Sequence['ContainerStatusPatchArgs'] init_container_statuses: Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         :param builtins.str message: A human readable message indicating details about why the pod is in this condition.
         :param builtins.str nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
+        :param builtins.int observed_generation: If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
         :param builtins.str phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
                
                Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -21590,7 +21780,7 @@ class PodStatusPatch(dict):
         :param Sequence['PodIPPatchArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
         :param builtins.str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         :param builtins.str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
-        :param builtins.str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        :param builtins.str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         :param Sequence['PodResourceClaimStatusPatchArgs'] resource_claim_statuses: Status of resource claims.
         :param builtins.str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
@@ -21610,6 +21800,8 @@ class PodStatusPatch(dict):
             pulumi.set(__self__, "message", message)
         if nominated_node_name is not None:
             pulumi.set(__self__, "nominated_node_name", nominated_node_name)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if phase is not None:
             pulumi.set(__self__, "phase", phase)
         if pod_ip is not None:
@@ -21692,6 +21884,14 @@ class PodStatusPatch(dict):
         return pulumi.get(self, "nominated_node_name")
 
     @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[builtins.int]:
+        """
+        If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
     @pulumi.getter
     def phase(self) -> Optional[builtins.str]:
         """
@@ -21739,7 +21939,7 @@ class PodStatusPatch(dict):
     @pulumi.getter
     def resize(self) -> Optional[builtins.str]:
         """
-        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         """
         return pulumi.get(self, "resize")
 
@@ -27572,7 +27772,7 @@ class ServiceSpec(dict):
         :param builtins.str session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param 'SessionAffinityConfigArgs' session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param Sequence[builtins.str] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
-        :param builtins.str traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+        :param builtins.str traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
         :param Union[builtins.str, 'ServiceSpecType'] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -27788,7 +27988,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="trafficDistribution")
     def traffic_distribution(self) -> Optional[builtins.str]:
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
         """
         return pulumi.get(self, "traffic_distribution")
 
@@ -27908,7 +28108,7 @@ class ServiceSpecPatch(dict):
         :param builtins.str session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param 'SessionAffinityConfigPatchArgs' session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param Sequence[builtins.str] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
-        :param builtins.str traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+        :param builtins.str traffic_distribution: TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
         :param Union[builtins.str, 'ServiceSpecType'] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
         """
         if allocate_load_balancer_node_ports is not None:
@@ -28124,7 +28324,7 @@ class ServiceSpecPatch(dict):
     @pulumi.getter(name="trafficDistribution")
     def traffic_distribution(self) -> Optional[builtins.str]:
         """
-        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+        TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
         """
         return pulumi.get(self, "traffic_distribution")
 
@@ -29423,10 +29623,10 @@ class TopologySpreadConstraint(dict):
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
         :param builtins.str node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
                
-               If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+               If this value is nil, the behavior is equivalent to the Honor policy.
         :param builtins.str node_taints_policy: NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
                
-               If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+               If this value is nil, the behavior is equivalent to the Ignore policy.
         """
         pulumi.set(__self__, "max_skew", max_skew)
         pulumi.set(__self__, "topology_key", topology_key)
@@ -29503,7 +29703,7 @@ class TopologySpreadConstraint(dict):
         """
         NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 
-        If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        If this value is nil, the behavior is equivalent to the Honor policy.
         """
         return pulumi.get(self, "node_affinity_policy")
 
@@ -29513,7 +29713,7 @@ class TopologySpreadConstraint(dict):
         """
         NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 
-        If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        If this value is nil, the behavior is equivalent to the Ignore policy.
         """
         return pulumi.get(self, "node_taints_policy")
 
@@ -29575,10 +29775,10 @@ class TopologySpreadConstraintPatch(dict):
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
         :param builtins.str node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
                
-               If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+               If this value is nil, the behavior is equivalent to the Honor policy.
         :param builtins.str node_taints_policy: NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
                
-               If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+               If this value is nil, the behavior is equivalent to the Ignore policy.
         :param builtins.str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         :param builtins.str when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
                  but giving higher precedence to topologies that would help reduce the
@@ -29644,7 +29844,7 @@ class TopologySpreadConstraintPatch(dict):
         """
         NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 
-        If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        If this value is nil, the behavior is equivalent to the Honor policy.
         """
         return pulumi.get(self, "node_affinity_policy")
 
@@ -29654,7 +29854,7 @@ class TopologySpreadConstraintPatch(dict):
         """
         NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 
-        If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        If this value is nil, the behavior is equivalent to the Ignore policy.
         """
         return pulumi.get(self, "node_taints_policy")
 
@@ -30073,7 +30273,7 @@ class Volume(dict):
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
-               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         :param 'ISCSIVolumeSourceArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
         :param 'NFSVolumeSourceArgs' nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param 'PersistentVolumeClaimVolumeSourceArgs' persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
@@ -30314,7 +30514,7 @@ class Volume(dict):
 
         - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         """
         return pulumi.get(self, "image")
 
@@ -31113,7 +31313,7 @@ class VolumePatch(dict):
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
-               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         :param 'ISCSIVolumeSourcePatchArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
         :param builtins.str name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param 'NFSVolumeSourcePatchArgs' nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -31348,7 +31548,7 @@ class VolumePatch(dict):
 
         - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         """
         return pulumi.get(self, "image")
 

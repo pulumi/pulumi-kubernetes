@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
     /// <summary>
-    /// EnvFromSource represents the source of a set of ConfigMaps
+    /// EnvFromSource represents the source of a set of ConfigMaps or Secrets
     /// </summary>
     [OutputType]
     public sealed class EnvFromSourcePatch
@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapEnvSourcePatch ConfigMapRef;
         /// <summary>
-        /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        /// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         /// </summary>
         public readonly string Prefix;
         /// <summary>

@@ -156,7 +156,7 @@ class LeaseCandidate(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'LeaseCandidate'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate"), pulumi.Alias(type_="kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(LeaseCandidate, __self__).__init__(
             'kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate',

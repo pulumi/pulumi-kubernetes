@@ -163,7 +163,8 @@ public class ResourceSlicePatch extends com.pulumi.resources.CustomResource {
             .version(Utilities.getVersion())
             .aliases(List.of(
                 Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch").build()),
-                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceSlicePatch").build())
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceSlicePatch").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta2:ResourceSlicePatch").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

@@ -83,6 +83,14 @@ if not MYPY:
 
         Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         """
+        node_allocatable_update_period_seconds: NotRequired[pulumi.Input[builtins.int]]
+        """
+        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+        This field is mutable.
+        """
         pod_info_on_mount: NotRequired[pulumi.Input[builtins.bool]]
         """
         podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -152,6 +160,7 @@ class CSIDriverSpecPatchArgs:
     def __init__(__self__, *,
                  attach_required: Optional[pulumi.Input[builtins.bool]] = None,
                  fs_group_policy: Optional[pulumi.Input[builtins.str]] = None,
+                 node_allocatable_update_period_seconds: Optional[pulumi.Input[builtins.int]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[builtins.bool]] = None,
                  requires_republish: Optional[pulumi.Input[builtins.bool]] = None,
                  se_linux_mount: Optional[pulumi.Input[builtins.bool]] = None,
@@ -168,6 +177,11 @@ class CSIDriverSpecPatchArgs:
                This field was immutable in Kubernetes < 1.29 and now is mutable.
                
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+        :param pulumi.Input[builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+               
+               This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               
+               This field is mutable.
         :param pulumi.Input[builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
                
                The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -216,6 +230,8 @@ class CSIDriverSpecPatchArgs:
             pulumi.set(__self__, "attach_required", attach_required)
         if fs_group_policy is not None:
             pulumi.set(__self__, "fs_group_policy", fs_group_policy)
+        if node_allocatable_update_period_seconds is not None:
+            pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
         if pod_info_on_mount is not None:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
@@ -258,6 +274,22 @@ class CSIDriverSpecPatchArgs:
     @fs_group_policy.setter
     def fs_group_policy(self, value: Optional[pulumi.Input[builtins.str]]):
         pulumi.set(self, "fs_group_policy", value)
+
+    @property
+    @pulumi.getter(name="nodeAllocatableUpdatePeriodSeconds")
+    def node_allocatable_update_period_seconds(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+        This field is mutable.
+        """
+        return pulumi.get(self, "node_allocatable_update_period_seconds")
+
+    @node_allocatable_update_period_seconds.setter
+    def node_allocatable_update_period_seconds(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "node_allocatable_update_period_seconds", value)
 
     @property
     @pulumi.getter(name="podInfoOnMount")
@@ -388,6 +420,14 @@ if not MYPY:
 
         Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         """
+        node_allocatable_update_period_seconds: NotRequired[pulumi.Input[builtins.int]]
+        """
+        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+        This field is mutable.
+        """
         pod_info_on_mount: NotRequired[pulumi.Input[builtins.bool]]
         """
         podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -457,6 +497,7 @@ class CSIDriverSpecArgs:
     def __init__(__self__, *,
                  attach_required: Optional[pulumi.Input[builtins.bool]] = None,
                  fs_group_policy: Optional[pulumi.Input[builtins.str]] = None,
+                 node_allocatable_update_period_seconds: Optional[pulumi.Input[builtins.int]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[builtins.bool]] = None,
                  requires_republish: Optional[pulumi.Input[builtins.bool]] = None,
                  se_linux_mount: Optional[pulumi.Input[builtins.bool]] = None,
@@ -473,6 +514,11 @@ class CSIDriverSpecArgs:
                This field was immutable in Kubernetes < 1.29 and now is mutable.
                
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+        :param pulumi.Input[builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+               
+               This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               
+               This field is mutable.
         :param pulumi.Input[builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
                
                The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -521,6 +567,8 @@ class CSIDriverSpecArgs:
             pulumi.set(__self__, "attach_required", attach_required)
         if fs_group_policy is not None:
             pulumi.set(__self__, "fs_group_policy", fs_group_policy)
+        if node_allocatable_update_period_seconds is not None:
+            pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
         if pod_info_on_mount is not None:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
@@ -563,6 +611,22 @@ class CSIDriverSpecArgs:
     @fs_group_policy.setter
     def fs_group_policy(self, value: Optional[pulumi.Input[builtins.str]]):
         pulumi.set(self, "fs_group_policy", value)
+
+    @property
+    @pulumi.getter(name="nodeAllocatableUpdatePeriodSeconds")
+    def node_allocatable_update_period_seconds(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+        This field is mutable.
+        """
+        return pulumi.get(self, "node_allocatable_update_period_seconds")
+
+    @node_allocatable_update_period_seconds.setter
+    def node_allocatable_update_period_seconds(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "node_allocatable_update_period_seconds", value)
 
     @property
     @pulumi.getter(name="podInfoOnMount")
@@ -2130,6 +2194,12 @@ if not MYPY:
         """
         VolumeError captures an error encountered during a volume operation.
         """
+        error_code: NotRequired[pulumi.Input[builtins.int]]
+        """
+        errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+
+        This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        """
         message: NotRequired[pulumi.Input[builtins.str]]
         """
         message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -2144,17 +2214,37 @@ elif False:
 @pulumi.input_type
 class VolumeErrorArgs:
     def __init__(__self__, *,
+                 error_code: Optional[pulumi.Input[builtins.int]] = None,
                  message: Optional[pulumi.Input[builtins.str]] = None,
                  time: Optional[pulumi.Input[builtins.str]] = None):
         """
         VolumeError captures an error encountered during a volume operation.
+        :param pulumi.Input[builtins.int] error_code: errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+               
+               This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         :param pulumi.Input[builtins.str] message: message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param pulumi.Input[builtins.str] time: time represents the time the error was encountered.
         """
+        if error_code is not None:
+            pulumi.set(__self__, "error_code", error_code)
         if message is not None:
             pulumi.set(__self__, "message", message)
         if time is not None:
             pulumi.set(__self__, "time", time)
+
+    @property
+    @pulumi.getter(name="errorCode")
+    def error_code(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+
+        This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        """
+        return pulumi.get(self, "error_code")
+
+    @error_code.setter
+    def error_code(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "error_code", value)
 
     @property
     @pulumi.getter

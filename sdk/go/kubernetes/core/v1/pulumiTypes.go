@@ -12490,6 +12490,8 @@ type ContainerStatus struct {
 	Started *bool `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State *ContainerState `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal *string `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User *ContainerUser `pulumi:"user"`
 	// Status of volume mounts.
@@ -12535,6 +12537,8 @@ type ContainerStatusArgs struct {
 	Started pulumi.BoolPtrInput `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State ContainerStatePtrInput `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User ContainerUserPtrInput `pulumi:"user"`
 	// Status of volume mounts.
@@ -12655,6 +12659,11 @@ func (o ContainerStatusOutput) State() ContainerStatePtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerState { return v.State }).(ContainerStatePtrOutput)
 }
 
+// StopSignal reports the effective stop signal for this container
+func (o ContainerStatusOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerStatus) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 // User represents user identity information initially attached to the first process of the container
 func (o ContainerStatusOutput) User() ContainerUserPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerUser { return v.User }).(ContainerUserPtrOutput)
@@ -12713,6 +12722,8 @@ type ContainerStatusPatch struct {
 	Started *bool `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State *ContainerStatePatch `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal *string `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User *ContainerUserPatch `pulumi:"user"`
 	// Status of volume mounts.
@@ -12758,6 +12769,8 @@ type ContainerStatusPatchArgs struct {
 	Started pulumi.BoolPtrInput `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State ContainerStatePatchPtrInput `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User ContainerUserPatchPtrInput `pulumi:"user"`
 	// Status of volume mounts.
@@ -12876,6 +12889,11 @@ func (o ContainerStatusPatchOutput) Started() pulumi.BoolPtrOutput {
 // State holds details about the container's current condition.
 func (o ContainerStatusPatchOutput) State() ContainerStatePatchPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *ContainerStatePatch { return v.State }).(ContainerStatePatchPtrOutput)
+}
+
+// StopSignal reports the effective stop signal for this container
+func (o ContainerStatusPatchOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
 }
 
 // User represents user identity information initially attached to the first process of the container
@@ -14638,7 +14656,7 @@ func (o EmptyDirVolumeSourcePatchPtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddress struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
@@ -14661,7 +14679,7 @@ type EndpointAddressInput interface {
 	ToEndpointAddressOutputWithContext(context.Context) EndpointAddressOutput
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
@@ -14710,7 +14728,7 @@ func (i EndpointAddressArray) ToEndpointAddressArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointAddressArrayOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressOutput struct{ *pulumi.OutputState }
 
 func (EndpointAddressOutput) ElementType() reflect.Type {
@@ -14765,7 +14783,7 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 	}).(EndpointAddressOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatch struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
@@ -14788,7 +14806,7 @@ type EndpointAddressPatchInput interface {
 	ToEndpointAddressPatchOutputWithContext(context.Context) EndpointAddressPatchOutput
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatchArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
@@ -14837,7 +14855,7 @@ func (i EndpointAddressPatchArray) ToEndpointAddressPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointAddressPatchArrayOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointAddressPatchOutput) ElementType() reflect.Type {
@@ -14892,7 +14910,7 @@ func (o EndpointAddressPatchArrayOutput) Index(i pulumi.IntInput) EndpointAddres
 	}).(EndpointAddressPatchOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPort struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -14924,7 +14942,7 @@ type EndpointPortInput interface {
 	ToEndpointPortOutputWithContext(context.Context) EndpointPortOutput
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortArgs struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -14982,7 +15000,7 @@ func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortArrayOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortOutput) ElementType() reflect.Type {
@@ -15046,7 +15064,7 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 	}).(EndpointPortOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatch struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -15078,7 +15096,7 @@ type EndpointPortPatchInput interface {
 	ToEndpointPortPatchOutputWithContext(context.Context) EndpointPortPatchOutput
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatchArgs struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -15136,7 +15154,7 @@ func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchArrayOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortPatchOutput) ElementType() reflect.Type {
@@ -15211,6 +15229,8 @@ func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatch
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubset struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddress `pulumi:"addresses"`
@@ -15242,6 +15262,8 @@ type EndpointSubsetInput interface {
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressArrayInput `pulumi:"addresses"`
@@ -15299,6 +15321,8 @@ func (i EndpointSubsetArray) ToEndpointSubsetArrayOutputWithContext(ctx context.
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetOutput) ElementType() reflect.Type {
@@ -15359,6 +15383,8 @@ func (o EndpointSubsetArrayOutput) Index(i pulumi.IntInput) EndpointSubsetOutput
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatch struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddressPatch `pulumi:"addresses"`
@@ -15390,6 +15416,8 @@ type EndpointSubsetPatchInput interface {
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatchArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressPatchArrayInput `pulumi:"addresses"`
@@ -15447,6 +15475,8 @@ func (i EndpointSubsetPatchArray) ToEndpointSubsetPatchArrayOutputWithContext(ct
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetPatchOutput) ElementType() reflect.Type {
@@ -15509,6 +15539,10 @@ func (o EndpointSubsetPatchArrayOutput) Index(i pulumi.IntInput) EndpointSubsetP
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15544,6 +15578,10 @@ type EndpointsTypeInput interface {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15605,6 +15643,10 @@ func (i EndpointsTypeArray) ToEndpointsTypeArrayOutputWithContext(ctx context.Co
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsTypeOutput) ElementType() reflect.Type {
@@ -15659,7 +15701,7 @@ func (o EndpointsTypeArrayOutput) Index(i pulumi.IntInput) EndpointsTypeOutput {
 	}).(EndpointsTypeOutput)
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15682,7 +15724,7 @@ type EndpointsListTypeInput interface {
 	ToEndpointsListTypeOutputWithContext(context.Context) EndpointsListTypeOutput
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15706,7 +15748,7 @@ func (i EndpointsListTypeArgs) ToEndpointsListTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListTypeOutput)
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListTypeOutput) ElementType() reflect.Type {
@@ -15754,6 +15796,10 @@ func (o EndpointsListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15789,6 +15835,10 @@ type EndpointsPatchTypeInput interface {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15825,6 +15875,10 @@ func (i EndpointsPatchTypeArgs) ToEndpointsPatchTypeOutputWithContext(ctx contex
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsPatchTypeOutput) ElementType() reflect.Type {
@@ -15859,11 +15913,11 @@ func (o EndpointsPatchTypeOutput) Subsets() EndpointSubsetPatchArrayOutput {
 	return o.ApplyT(func(v EndpointsPatchType) []EndpointSubsetPatch { return v.Subsets }).(EndpointSubsetPatchArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSource struct {
 	// The ConfigMap to select from
 	ConfigMapRef *ConfigMapEnvSource `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix *string `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef *SecretEnvSource `pulumi:"secretRef"`
@@ -15880,11 +15934,11 @@ type EnvFromSourceInput interface {
 	ToEnvFromSourceOutputWithContext(context.Context) EnvFromSourceOutput
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourceArgs struct {
 	// The ConfigMap to select from
 	ConfigMapRef ConfigMapEnvSourcePtrInput `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef SecretEnvSourcePtrInput `pulumi:"secretRef"`
@@ -15927,7 +15981,7 @@ func (i EnvFromSourceArray) ToEnvFromSourceArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(EnvFromSourceArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourceOutput struct{ *pulumi.OutputState }
 
 func (EnvFromSourceOutput) ElementType() reflect.Type {
@@ -15947,7 +16001,7 @@ func (o EnvFromSourceOutput) ConfigMapRef() ConfigMapEnvSourcePtrOutput {
 	return o.ApplyT(func(v EnvFromSource) *ConfigMapEnvSource { return v.ConfigMapRef }).(ConfigMapEnvSourcePtrOutput)
 }
 
-// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 func (o EnvFromSourceOutput) Prefix() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EnvFromSource) *string { return v.Prefix }).(pulumi.StringPtrOutput)
 }
@@ -15977,11 +16031,11 @@ func (o EnvFromSourceArrayOutput) Index(i pulumi.IntInput) EnvFromSourceOutput {
 	}).(EnvFromSourceOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatch struct {
 	// The ConfigMap to select from
 	ConfigMapRef *ConfigMapEnvSourcePatch `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix *string `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef *SecretEnvSourcePatch `pulumi:"secretRef"`
@@ -15998,11 +16052,11 @@ type EnvFromSourcePatchInput interface {
 	ToEnvFromSourcePatchOutputWithContext(context.Context) EnvFromSourcePatchOutput
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatchArgs struct {
 	// The ConfigMap to select from
 	ConfigMapRef ConfigMapEnvSourcePatchPtrInput `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef SecretEnvSourcePatchPtrInput `pulumi:"secretRef"`
@@ -16045,7 +16099,7 @@ func (i EnvFromSourcePatchArray) ToEnvFromSourcePatchArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(EnvFromSourcePatchArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (EnvFromSourcePatchOutput) ElementType() reflect.Type {
@@ -16065,7 +16119,7 @@ func (o EnvFromSourcePatchOutput) ConfigMapRef() ConfigMapEnvSourcePatchPtrOutpu
 	return o.ApplyT(func(v EnvFromSourcePatch) *ConfigMapEnvSourcePatch { return v.ConfigMapRef }).(ConfigMapEnvSourcePatchPtrOutput)
 }
 
-// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 func (o EnvFromSourcePatchOutput) Prefix() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EnvFromSourcePatch) *string { return v.Prefix }).(pulumi.StringPtrOutput)
 }
@@ -26110,6 +26164,8 @@ type Lifecycle struct {
 	PostStart *LifecycleHandler `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop *LifecycleHandler `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal *string `pulumi:"stopSignal"`
 }
 
 // LifecycleInput is an input type that accepts LifecycleArgs and LifecycleOutput values.
@@ -26129,6 +26185,8 @@ type LifecycleArgs struct {
 	PostStart LifecycleHandlerPtrInput `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop LifecycleHandlerPtrInput `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 }
 
 func (LifecycleArgs) ElementType() reflect.Type {
@@ -26219,6 +26277,11 @@ func (o LifecycleOutput) PreStop() LifecycleHandlerPtrOutput {
 	return o.ApplyT(func(v Lifecycle) *LifecycleHandler { return v.PreStop }).(LifecycleHandlerPtrOutput)
 }
 
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecycleOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Lifecycle) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 type LifecyclePtrOutput struct{ *pulumi.OutputState }
 
 func (LifecyclePtrOutput) ElementType() reflect.Type {
@@ -26261,6 +26324,16 @@ func (o LifecyclePtrOutput) PreStop() LifecycleHandlerPtrOutput {
 		}
 		return v.PreStop
 	}).(LifecycleHandlerPtrOutput)
+}
+
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePtrOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Lifecycle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StopSignal
+	}).(pulumi.StringPtrOutput)
 }
 
 // LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
@@ -26663,6 +26736,8 @@ type LifecyclePatch struct {
 	PostStart *LifecycleHandlerPatch `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop *LifecycleHandlerPatch `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal *string `pulumi:"stopSignal"`
 }
 
 // LifecyclePatchInput is an input type that accepts LifecyclePatchArgs and LifecyclePatchOutput values.
@@ -26682,6 +26757,8 @@ type LifecyclePatchArgs struct {
 	PostStart LifecycleHandlerPatchPtrInput `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop LifecycleHandlerPatchPtrInput `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 }
 
 func (LifecyclePatchArgs) ElementType() reflect.Type {
@@ -26772,6 +26849,11 @@ func (o LifecyclePatchOutput) PreStop() LifecycleHandlerPatchPtrOutput {
 	return o.ApplyT(func(v LifecyclePatch) *LifecycleHandlerPatch { return v.PreStop }).(LifecycleHandlerPatchPtrOutput)
 }
 
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePatchOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LifecyclePatch) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 type LifecyclePatchPtrOutput struct{ *pulumi.OutputState }
 
 func (LifecyclePatchPtrOutput) ElementType() reflect.Type {
@@ -26814,6 +26896,16 @@ func (o LifecyclePatchPtrOutput) PreStop() LifecycleHandlerPatchPtrOutput {
 		}
 		return v.PreStop
 	}).(LifecycleHandlerPatchPtrOutput)
+}
+
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePatchPtrOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LifecyclePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StopSignal
+	}).(pulumi.StringPtrOutput)
 }
 
 // LimitRange sets resource usage limits for each kind of resource in a Namespace.
@@ -36162,6 +36254,286 @@ func (o NodeStatusPatchPtrOutput) VolumesInUse() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatus struct {
+	// Total amount of swap memory in bytes.
+	Capacity *int `pulumi:"capacity"`
+}
+
+// NodeSwapStatusInput is an input type that accepts NodeSwapStatusArgs and NodeSwapStatusOutput values.
+// You can construct a concrete instance of `NodeSwapStatusInput` via:
+//
+//	NodeSwapStatusArgs{...}
+type NodeSwapStatusInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusOutput() NodeSwapStatusOutput
+	ToNodeSwapStatusOutputWithContext(context.Context) NodeSwapStatusOutput
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusArgs struct {
+	// Total amount of swap memory in bytes.
+	Capacity pulumi.IntPtrInput `pulumi:"capacity"`
+}
+
+func (NodeSwapStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatus)(nil)).Elem()
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusOutput() NodeSwapStatusOutput {
+	return i.ToNodeSwapStatusOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusOutputWithContext(ctx context.Context) NodeSwapStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusOutput)
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return i.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusOutput).ToNodeSwapStatusPtrOutputWithContext(ctx)
+}
+
+// NodeSwapStatusPtrInput is an input type that accepts NodeSwapStatusArgs, NodeSwapStatusPtr and NodeSwapStatusPtrOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPtrInput` via:
+//
+//	        NodeSwapStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeSwapStatusPtrInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput
+	ToNodeSwapStatusPtrOutputWithContext(context.Context) NodeSwapStatusPtrOutput
+}
+
+type nodeSwapStatusPtrType NodeSwapStatusArgs
+
+func NodeSwapStatusPtr(v *NodeSwapStatusArgs) NodeSwapStatusPtrInput {
+	return (*nodeSwapStatusPtrType)(v)
+}
+
+func (*nodeSwapStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatus)(nil)).Elem()
+}
+
+func (i *nodeSwapStatusPtrType) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return i.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeSwapStatusPtrType) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatus)(nil)).Elem()
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusOutput() NodeSwapStatusOutput {
+	return o
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusOutputWithContext(ctx context.Context) NodeSwapStatusOutput {
+	return o
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return o.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSwapStatus) *NodeSwapStatus {
+		return &v
+	}).(NodeSwapStatusPtrOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeSwapStatus) *int { return v.Capacity }).(pulumi.IntPtrOutput)
+}
+
+type NodeSwapStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatus)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPtrOutput) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPtrOutput) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPtrOutput) Elem() NodeSwapStatusOutput {
+	return o.ApplyT(func(v *NodeSwapStatus) NodeSwapStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSwapStatus
+		return ret
+	}).(NodeSwapStatusOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPtrOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodeSwapStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(pulumi.IntPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatch struct {
+	// Total amount of swap memory in bytes.
+	Capacity *int `pulumi:"capacity"`
+}
+
+// NodeSwapStatusPatchInput is an input type that accepts NodeSwapStatusPatchArgs and NodeSwapStatusPatchOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPatchInput` via:
+//
+//	NodeSwapStatusPatchArgs{...}
+type NodeSwapStatusPatchInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput
+	ToNodeSwapStatusPatchOutputWithContext(context.Context) NodeSwapStatusPatchOutput
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatchArgs struct {
+	// Total amount of swap memory in bytes.
+	Capacity pulumi.IntPtrInput `pulumi:"capacity"`
+}
+
+func (NodeSwapStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput {
+	return i.ToNodeSwapStatusPatchOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchOutputWithContext(ctx context.Context) NodeSwapStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchOutput)
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return i.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchOutput).ToNodeSwapStatusPatchPtrOutputWithContext(ctx)
+}
+
+// NodeSwapStatusPatchPtrInput is an input type that accepts NodeSwapStatusPatchArgs, NodeSwapStatusPatchPtr and NodeSwapStatusPatchPtrOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPatchPtrInput` via:
+//
+//	        NodeSwapStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeSwapStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput
+	ToNodeSwapStatusPatchPtrOutputWithContext(context.Context) NodeSwapStatusPatchPtrOutput
+}
+
+type nodeSwapStatusPatchPtrType NodeSwapStatusPatchArgs
+
+func NodeSwapStatusPatchPtr(v *NodeSwapStatusPatchArgs) NodeSwapStatusPatchPtrInput {
+	return (*nodeSwapStatusPatchPtrType)(v)
+}
+
+func (*nodeSwapStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (i *nodeSwapStatusPatchPtrType) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return i.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeSwapStatusPatchPtrType) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchOutputWithContext(ctx context.Context) NodeSwapStatusPatchOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return o.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSwapStatusPatch) *NodeSwapStatusPatch {
+		return &v
+	}).(NodeSwapStatusPatchPtrOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPatchOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeSwapStatusPatch) *int { return v.Capacity }).(pulumi.IntPtrOutput)
+}
+
+type NodeSwapStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPatchPtrOutput) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchPtrOutput) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchPtrOutput) Elem() NodeSwapStatusPatchOutput {
+	return o.ApplyT(func(v *NodeSwapStatusPatch) NodeSwapStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSwapStatusPatch
+		return ret
+	}).(NodeSwapStatusPatchOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPatchPtrOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodeSwapStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(pulumi.IntPtrOutput)
+}
+
 // NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
 type NodeSystemInfo struct {
 	// The Architecture reported by the node
@@ -36182,6 +36554,8 @@ type NodeSystemInfo struct {
 	OperatingSystem string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage string `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap *NodeSwapStatus `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID string `pulumi:"systemUUID"`
 }
@@ -36217,6 +36591,8 @@ type NodeSystemInfoArgs struct {
 	OperatingSystem pulumi.StringInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringInput `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap NodeSwapStatusPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID pulumi.StringInput `pulumi:"systemUUID"`
 }
@@ -36344,6 +36720,11 @@ func (o NodeSystemInfoOutput) OsImage() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.OsImage }).(pulumi.StringOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoOutput) Swap() NodeSwapStatusPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfo) *NodeSwapStatus { return v.Swap }).(NodeSwapStatusPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoOutput) SystemUUID() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.SystemUUID }).(pulumi.StringOutput)
@@ -36463,6 +36844,16 @@ func (o NodeSystemInfoPtrOutput) OsImage() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoPtrOutput) Swap() NodeSwapStatusPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfo) *NodeSwapStatus {
+		if v == nil {
+			return nil
+		}
+		return v.Swap
+	}).(NodeSwapStatusPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoPtrOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeSystemInfo) *string {
@@ -36493,6 +36884,8 @@ type NodeSystemInfoPatch struct {
 	OperatingSystem *string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage *string `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap *NodeSwapStatusPatch `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID *string `pulumi:"systemUUID"`
 }
@@ -36528,6 +36921,8 @@ type NodeSystemInfoPatchArgs struct {
 	OperatingSystem pulumi.StringPtrInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringPtrInput `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap NodeSwapStatusPatchPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID pulumi.StringPtrInput `pulumi:"systemUUID"`
 }
@@ -36655,6 +37050,11 @@ func (o NodeSystemInfoPatchOutput) OsImage() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *string { return v.OsImage }).(pulumi.StringPtrOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoPatchOutput) Swap() NodeSwapStatusPatchPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfoPatch) *NodeSwapStatusPatch { return v.Swap }).(NodeSwapStatusPatchPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoPatchOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *string { return v.SystemUUID }).(pulumi.StringPtrOutput)
@@ -36772,6 +37172,16 @@ func (o NodeSystemInfoPatchPtrOutput) OsImage() pulumi.StringPtrOutput {
 		}
 		return v.OsImage
 	}).(pulumi.StringPtrOutput)
+}
+
+// Swap Info reported by the node.
+func (o NodeSystemInfoPatchPtrOutput) Swap() NodeSwapStatusPatchPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfoPatch) *NodeSwapStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Swap
+	}).(NodeSwapStatusPatchPtrOutput)
 }
 
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -43490,9 +43900,9 @@ func (o PodAffinityPatchPtrOutput) RequiredDuringSchedulingIgnoredDuringExecutio
 type PodAffinityTerm struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
@@ -43517,9 +43927,9 @@ type PodAffinityTermInput interface {
 type PodAffinityTermArgs struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
@@ -43586,12 +43996,12 @@ func (o PodAffinityTermOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -43635,9 +44045,9 @@ func (o PodAffinityTermArrayOutput) Index(i pulumi.IntInput) PodAffinityTermOutp
 type PodAffinityTermPatch struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelectorPatch `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelectorPatch `pulumi:"namespaceSelector"`
@@ -43662,9 +44072,9 @@ type PodAffinityTermPatchInput interface {
 type PodAffinityTermPatchArgs struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPatchPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPatchPtrInput `pulumi:"namespaceSelector"`
@@ -43782,12 +44192,12 @@ func (o PodAffinityTermPatchOutput) LabelSelector() metav1.LabelSelectorPatchPtr
 	return o.ApplyT(func(v PodAffinityTermPatch) *metav1.LabelSelectorPatch { return v.LabelSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -43841,7 +44251,7 @@ func (o PodAffinityTermPatchPtrOutput) LabelSelector() metav1.LabelSelectorPatch
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchPtrOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
 		if v == nil {
@@ -43851,7 +44261,7 @@ func (o PodAffinityTermPatchPtrOutput) MatchLabelKeys() pulumi.StringArrayOutput
 	}).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchPtrOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
 		if v == nil {
@@ -44243,6 +44653,8 @@ type PodCondition struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44270,6 +44682,8 @@ type PodConditionArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44345,6 +44759,11 @@ func (o PodConditionOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodConditionOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCondition) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // Unique, one-word, CamelCase reason for the condition's last transition.
 func (o PodConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -44388,6 +44807,8 @@ type PodConditionPatch struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44415,6 +44836,8 @@ type PodConditionPatchArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44488,6 +44911,11 @@ func (o PodConditionPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
 // Human-readable message indicating details about last transition.
 func (o PodConditionPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodConditionPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodConditionPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // Unique, one-word, CamelCase reason for the condition's last transition.
@@ -47609,7 +48037,7 @@ type PodSpec struct {
 	Hostname *string `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReference `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers []Container `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName *string `pulumi:"nodeName"`
@@ -47718,7 +48146,7 @@ type PodSpecArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferenceArrayInput `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers ContainerArrayInput `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -47937,7 +48365,7 @@ func (o PodSpecOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	return o.ApplyT(func(v PodSpec) []LocalObjectReference { return v.ImagePullSecrets }).(LocalObjectReferenceArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecOutput) InitContainers() ContainerArrayOutput {
 	return o.ApplyT(func(v PodSpec) []Container { return v.InitContainers }).(ContainerArrayOutput)
 }
@@ -48250,7 +48678,7 @@ func (o PodSpecPtrOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	}).(LocalObjectReferenceArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPtrOutput) InitContainers() ContainerArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []Container {
 		if v == nil {
@@ -48546,7 +48974,7 @@ type PodSpecPatch struct {
 	Hostname *string `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReferencePatch `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers []ContainerPatch `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName *string `pulumi:"nodeName"`
@@ -48655,7 +49083,7 @@ type PodSpecPatchArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferencePatchArrayInput `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers ContainerPatchArrayInput `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -48874,7 +49302,7 @@ func (o PodSpecPatchOutput) ImagePullSecrets() LocalObjectReferencePatchArrayOut
 	return o.ApplyT(func(v PodSpecPatch) []LocalObjectReferencePatch { return v.ImagePullSecrets }).(LocalObjectReferencePatchArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPatchOutput) InitContainers() ContainerPatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []ContainerPatch { return v.InitContainers }).(ContainerPatchArrayOutput)
 }
@@ -49187,7 +49615,7 @@ func (o PodSpecPatchPtrOutput) ImagePullSecrets() LocalObjectReferencePatchArray
 	}).(LocalObjectReferencePatchArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPatchPtrOutput) InitContainers() ContainerPatchArrayOutput {
 	return o.ApplyT(func(v *PodSpecPatch) []ContainerPatch {
 		if v == nil {
@@ -49469,6 +49897,8 @@ type PodStatus struct {
 	Message *string `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName *string `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49483,7 +49913,7 @@ type PodStatus struct {
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize *string `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses []PodResourceClaimStatus `pulumi:"resourceClaimStatuses"`
@@ -49520,6 +49950,8 @@ type PodStatusArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName pulumi.StringPtrInput `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49534,7 +49966,7 @@ type PodStatusArgs struct {
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses PodResourceClaimStatusArrayInput `pulumi:"resourceClaimStatuses"`
@@ -49660,6 +50092,11 @@ func (o PodStatusOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.NominatedNodeName }).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 //
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49689,7 +50126,7 @@ func (o PodStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
@@ -49808,6 +50245,16 @@ func (o PodStatusPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
+}
+
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 //
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49862,7 +50309,7 @@ func (o PodStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPtrOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -49910,6 +50357,8 @@ type PodStatusPatch struct {
 	Message *string `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName *string `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49924,7 +50373,7 @@ type PodStatusPatch struct {
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize *string `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses []PodResourceClaimStatusPatch `pulumi:"resourceClaimStatuses"`
@@ -49961,6 +50410,8 @@ type PodStatusPatchArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName pulumi.StringPtrInput `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49975,7 +50426,7 @@ type PodStatusPatchArgs struct {
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses PodResourceClaimStatusPatchArrayInput `pulumi:"resourceClaimStatuses"`
@@ -50101,6 +50552,11 @@ func (o PodStatusPatchOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.NominatedNodeName }).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 //
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -50130,7 +50586,7 @@ func (o PodStatusPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPatchOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
@@ -50249,6 +50705,16 @@ func (o PodStatusPatchPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
+}
+
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 //
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -50303,7 +50769,7 @@ func (o PodStatusPatchPtrOutput) Reason() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPatchPtrOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatusPatch) *string {
 		if v == nil {
@@ -65001,7 +65467,7 @@ type ServiceSpec struct {
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution *string `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -65064,7 +65530,7 @@ type ServiceSpecArgs struct {
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution pulumi.StringPtrInput `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -65252,7 +65718,7 @@ func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.TrafficDistribution }).(pulumi.StringPtrOutput)
 }
@@ -65490,7 +65956,7 @@ func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPtrOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -65556,7 +66022,7 @@ type ServiceSpecPatch struct {
 	SessionAffinityConfig *SessionAffinityConfigPatch `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution *string `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -65619,7 +66085,7 @@ type ServiceSpecPatchArgs struct {
 	SessionAffinityConfig SessionAffinityConfigPatchPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution pulumi.StringPtrInput `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -65807,7 +66273,7 @@ func (o ServiceSpecPatchOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpecPatch) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPatchOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpecPatch) *string { return v.TrafficDistribution }).(pulumi.StringPtrOutput)
 }
@@ -66045,7 +66511,7 @@ func (o ServiceSpecPatchPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPatchPtrOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpecPatch) *string {
 		if v == nil {
@@ -69305,11 +69771,11 @@ type TopologySpreadConstraint struct {
 	MinDomains *int `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy *string `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy *string `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey string `pulumi:"topologyKey"`
@@ -69347,11 +69813,11 @@ type TopologySpreadConstraintArgs struct {
 	MinDomains pulumi.IntPtrInput `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy pulumi.StringPtrInput `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy pulumi.StringPtrInput `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey pulumi.StringInput `pulumi:"topologyKey"`
@@ -69440,14 +69906,14 @@ func (o TopologySpreadConstraintOutput) MinDomains() pulumi.IntPtrOutput {
 
 // NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 //
-// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Honor policy.
 func (o TopologySpreadConstraintOutput) NodeAffinityPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) *string { return v.NodeAffinityPolicy }).(pulumi.StringPtrOutput)
 }
 
 // NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 //
-// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Ignore policy.
 func (o TopologySpreadConstraintOutput) NodeTaintsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) *string { return v.NodeTaintsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -69503,11 +69969,11 @@ type TopologySpreadConstraintPatch struct {
 	MinDomains *int `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy *string `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy *string `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey *string `pulumi:"topologyKey"`
@@ -69545,11 +70011,11 @@ type TopologySpreadConstraintPatchArgs struct {
 	MinDomains pulumi.IntPtrInput `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy pulumi.StringPtrInput `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy pulumi.StringPtrInput `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey pulumi.StringPtrInput `pulumi:"topologyKey"`
@@ -69638,14 +70104,14 @@ func (o TopologySpreadConstraintPatchOutput) MinDomains() pulumi.IntPtrOutput {
 
 // NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 //
-// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Honor policy.
 func (o TopologySpreadConstraintPatchOutput) NodeAffinityPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *string { return v.NodeAffinityPolicy }).(pulumi.StringPtrOutput)
 }
 
 // NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 //
-// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Ignore policy.
 func (o TopologySpreadConstraintPatchOutput) NodeTaintsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *string { return v.NodeTaintsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -70488,7 +70954,7 @@ type Volume struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image *ImageVolumeSource `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi *ISCSIVolumeSource `pulumi:"iscsi"`
@@ -70582,7 +71048,7 @@ type VolumeArgs struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image ImageVolumeSourcePtrInput `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi ISCSIVolumeSourcePtrInput `pulumi:"iscsi"`
@@ -70769,7 +71235,7 @@ func (o VolumeOutput) HostPath() HostPathVolumeSourcePtrOutput {
 //
 // - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 //
-// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 func (o VolumeOutput) Image() ImageVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ImageVolumeSource { return v.Image }).(ImageVolumeSourcePtrOutput)
 }
@@ -72020,7 +72486,7 @@ type VolumePatch struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image *ImageVolumeSourcePatch `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi *ISCSIVolumeSourcePatch `pulumi:"iscsi"`
@@ -72114,7 +72580,7 @@ type VolumePatchArgs struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image ImageVolumeSourcePatchPtrInput `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi ISCSIVolumeSourcePatchPtrInput `pulumi:"iscsi"`
@@ -72301,7 +72767,7 @@ func (o VolumePatchOutput) HostPath() HostPathVolumeSourcePatchPtrOutput {
 //
 // - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 //
-// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 func (o VolumePatchOutput) Image() ImageVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *ImageVolumeSourcePatch { return v.Image }).(ImageVolumeSourcePatchPtrOutput)
 }
@@ -74439,6 +74905,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPtrInput)(nil)).Elem(), NodeStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPatchInput)(nil)).Elem(), NodeStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPatchPtrInput)(nil)).Elem(), NodeStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusInput)(nil)).Elem(), NodeSwapStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPtrInput)(nil)).Elem(), NodeSwapStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPatchInput)(nil)).Elem(), NodeSwapStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPatchPtrInput)(nil)).Elem(), NodeSwapStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoInput)(nil)).Elem(), NodeSystemInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoPtrInput)(nil)).Elem(), NodeSystemInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoPatchInput)(nil)).Elem(), NodeSystemInfoPatchArgs{})
@@ -75230,6 +75700,10 @@ func init() {
 	pulumi.RegisterOutputType(NodeStatusPtrOutput{})
 	pulumi.RegisterOutputType(NodeStatusPatchOutput{})
 	pulumi.RegisterOutputType(NodeStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPtrOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPatchOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoPtrOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoPatchOutput{})

@@ -1629,6 +1629,8 @@ class DeploymentStatus(dict):
             suggest = "observed_generation"
         elif key == "readyReplicas":
             suggest = "ready_replicas"
+        elif key == "terminatingReplicas":
+            suggest = "terminating_replicas"
         elif key == "unavailableReplicas":
             suggest = "unavailable_replicas"
         elif key == "updatedReplicas":
@@ -1652,18 +1654,22 @@ class DeploymentStatus(dict):
                  observed_generation: Optional[builtins.int] = None,
                  ready_replicas: Optional[builtins.int] = None,
                  replicas: Optional[builtins.int] = None,
+                 terminating_replicas: Optional[builtins.int] = None,
                  unavailable_replicas: Optional[builtins.int] = None,
                  updated_replicas: Optional[builtins.int] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
-        :param builtins.int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        :param builtins.int available_replicas: Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         :param builtins.int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param Sequence['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
         :param builtins.int observed_generation: The generation observed by the deployment controller.
-        :param builtins.int ready_replicas: readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
-        :param builtins.int replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        :param builtins.int ready_replicas: Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
+        :param builtins.int replicas: Total number of non-terminating pods targeted by this deployment (their labels match the selector).
+        :param builtins.int terminating_replicas: Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+               
+               This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
         :param builtins.int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
-        :param builtins.int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        :param builtins.int updated_replicas: Total number of non-terminating pods targeted by this deployment that have the desired template spec.
         """
         if available_replicas is not None:
             pulumi.set(__self__, "available_replicas", available_replicas)
@@ -1677,6 +1683,8 @@ class DeploymentStatus(dict):
             pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
             pulumi.set(__self__, "replicas", replicas)
+        if terminating_replicas is not None:
+            pulumi.set(__self__, "terminating_replicas", terminating_replicas)
         if unavailable_replicas is not None:
             pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
         if updated_replicas is not None:
@@ -1686,7 +1694,7 @@ class DeploymentStatus(dict):
     @pulumi.getter(name="availableReplicas")
     def available_replicas(self) -> Optional[builtins.int]:
         """
-        Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         """
         return pulumi.get(self, "available_replicas")
 
@@ -1718,7 +1726,7 @@ class DeploymentStatus(dict):
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[builtins.int]:
         """
-        readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+        Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -1726,9 +1734,19 @@ class DeploymentStatus(dict):
     @pulumi.getter
     def replicas(self) -> Optional[builtins.int]:
         """
-        Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        Total number of non-terminating pods targeted by this deployment (their labels match the selector).
         """
         return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="terminatingReplicas")
+    def terminating_replicas(self) -> Optional[builtins.int]:
+        """
+        Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+
+        This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        """
+        return pulumi.get(self, "terminating_replicas")
 
     @property
     @pulumi.getter(name="unavailableReplicas")
@@ -1742,7 +1760,7 @@ class DeploymentStatus(dict):
     @pulumi.getter(name="updatedReplicas")
     def updated_replicas(self) -> Optional[builtins.int]:
         """
-        Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        Total number of non-terminating pods targeted by this deployment that have the desired template spec.
         """
         return pulumi.get(self, "updated_replicas")
 
@@ -1763,6 +1781,8 @@ class DeploymentStatusPatch(dict):
             suggest = "observed_generation"
         elif key == "readyReplicas":
             suggest = "ready_replicas"
+        elif key == "terminatingReplicas":
+            suggest = "terminating_replicas"
         elif key == "unavailableReplicas":
             suggest = "unavailable_replicas"
         elif key == "updatedReplicas":
@@ -1786,18 +1806,22 @@ class DeploymentStatusPatch(dict):
                  observed_generation: Optional[builtins.int] = None,
                  ready_replicas: Optional[builtins.int] = None,
                  replicas: Optional[builtins.int] = None,
+                 terminating_replicas: Optional[builtins.int] = None,
                  unavailable_replicas: Optional[builtins.int] = None,
                  updated_replicas: Optional[builtins.int] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
-        :param builtins.int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        :param builtins.int available_replicas: Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         :param builtins.int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param Sequence['DeploymentConditionPatchArgs'] conditions: Represents the latest available observations of a deployment's current state.
         :param builtins.int observed_generation: The generation observed by the deployment controller.
-        :param builtins.int ready_replicas: readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
-        :param builtins.int replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        :param builtins.int ready_replicas: Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
+        :param builtins.int replicas: Total number of non-terminating pods targeted by this deployment (their labels match the selector).
+        :param builtins.int terminating_replicas: Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+               
+               This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
         :param builtins.int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
-        :param builtins.int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        :param builtins.int updated_replicas: Total number of non-terminating pods targeted by this deployment that have the desired template spec.
         """
         if available_replicas is not None:
             pulumi.set(__self__, "available_replicas", available_replicas)
@@ -1811,6 +1835,8 @@ class DeploymentStatusPatch(dict):
             pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
             pulumi.set(__self__, "replicas", replicas)
+        if terminating_replicas is not None:
+            pulumi.set(__self__, "terminating_replicas", terminating_replicas)
         if unavailable_replicas is not None:
             pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
         if updated_replicas is not None:
@@ -1820,7 +1846,7 @@ class DeploymentStatusPatch(dict):
     @pulumi.getter(name="availableReplicas")
     def available_replicas(self) -> Optional[builtins.int]:
         """
-        Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         """
         return pulumi.get(self, "available_replicas")
 
@@ -1852,7 +1878,7 @@ class DeploymentStatusPatch(dict):
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[builtins.int]:
         """
-        readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+        Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -1860,9 +1886,19 @@ class DeploymentStatusPatch(dict):
     @pulumi.getter
     def replicas(self) -> Optional[builtins.int]:
         """
-        Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        Total number of non-terminating pods targeted by this deployment (their labels match the selector).
         """
         return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="terminatingReplicas")
+    def terminating_replicas(self) -> Optional[builtins.int]:
+        """
+        Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+
+        This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        """
+        return pulumi.get(self, "terminating_replicas")
 
     @property
     @pulumi.getter(name="unavailableReplicas")
@@ -1876,7 +1912,7 @@ class DeploymentStatusPatch(dict):
     @pulumi.getter(name="updatedReplicas")
     def updated_replicas(self) -> Optional[builtins.int]:
         """
-        Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        Total number of non-terminating pods targeted by this deployment that have the desired template spec.
         """
         return pulumi.get(self, "updated_replicas")
 
@@ -2278,8 +2314,8 @@ class ReplicaSetSpec(dict):
         ReplicaSetSpec is the specification of a ReplicaSet.
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param builtins.int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        :param '_core.v1.PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param builtins.int replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        :param '_core.v1.PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
         """
         pulumi.set(__self__, "selector", selector)
         if min_ready_seconds is not None:
@@ -2309,7 +2345,7 @@ class ReplicaSetSpec(dict):
     @pulumi.getter
     def replicas(self) -> Optional[builtins.int]:
         """
-        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         """
         return pulumi.get(self, "replicas")
 
@@ -2317,7 +2353,7 @@ class ReplicaSetSpec(dict):
     @pulumi.getter
     def template(self) -> Optional['_core.v1.outputs.PodTemplateSpec']:
         """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
         """
         return pulumi.get(self, "template")
 
@@ -2352,9 +2388,9 @@ class ReplicaSetSpecPatch(dict):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
         :param builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param builtins.int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        :param builtins.int replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param '_core.v1.PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param '_core.v1.PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
         """
         if min_ready_seconds is not None:
             pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
@@ -2377,7 +2413,7 @@ class ReplicaSetSpecPatch(dict):
     @pulumi.getter
     def replicas(self) -> Optional[builtins.int]:
         """
-        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         """
         return pulumi.get(self, "replicas")
 
@@ -2393,7 +2429,7 @@ class ReplicaSetSpecPatch(dict):
     @pulumi.getter
     def template(self) -> Optional['_core.v1.outputs.PodTemplateSpecPatch']:
         """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
         """
         return pulumi.get(self, "template")
 
@@ -2414,6 +2450,8 @@ class ReplicaSetStatus(dict):
             suggest = "observed_generation"
         elif key == "readyReplicas":
             suggest = "ready_replicas"
+        elif key == "terminatingReplicas":
+            suggest = "terminating_replicas"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ReplicaSetStatus. Access the value via the '{suggest}' property getter instead.")
@@ -2432,15 +2470,19 @@ class ReplicaSetStatus(dict):
                  conditions: Optional[Sequence['outputs.ReplicaSetCondition']] = None,
                  fully_labeled_replicas: Optional[builtins.int] = None,
                  observed_generation: Optional[builtins.int] = None,
-                 ready_replicas: Optional[builtins.int] = None):
+                 ready_replicas: Optional[builtins.int] = None,
+                 terminating_replicas: Optional[builtins.int] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
-        :param builtins.int replicas: Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        :param builtins.int available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        :param builtins.int replicas: Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        :param builtins.int available_replicas: The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         :param Sequence['ReplicaSetConditionArgs'] conditions: Represents the latest available observations of a replica set's current state.
-        :param builtins.int fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
+        :param builtins.int fully_labeled_replicas: The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         :param builtins.int observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
-        :param builtins.int ready_replicas: readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+        :param builtins.int ready_replicas: The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
+        :param builtins.int terminating_replicas: The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+               
+               This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
         """
         pulumi.set(__self__, "replicas", replicas)
         if available_replicas is not None:
@@ -2453,12 +2495,14 @@ class ReplicaSetStatus(dict):
             pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
             pulumi.set(__self__, "ready_replicas", ready_replicas)
+        if terminating_replicas is not None:
+            pulumi.set(__self__, "terminating_replicas", terminating_replicas)
 
     @property
     @pulumi.getter
     def replicas(self) -> builtins.int:
         """
-        Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         """
         return pulumi.get(self, "replicas")
 
@@ -2466,7 +2510,7 @@ class ReplicaSetStatus(dict):
     @pulumi.getter(name="availableReplicas")
     def available_replicas(self) -> Optional[builtins.int]:
         """
-        The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         """
         return pulumi.get(self, "available_replicas")
 
@@ -2482,7 +2526,7 @@ class ReplicaSetStatus(dict):
     @pulumi.getter(name="fullyLabeledReplicas")
     def fully_labeled_replicas(self) -> Optional[builtins.int]:
         """
-        The number of pods that have labels matching the labels of the pod template of the replicaset.
+        The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         """
         return pulumi.get(self, "fully_labeled_replicas")
 
@@ -2498,9 +2542,19 @@ class ReplicaSetStatus(dict):
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[builtins.int]:
         """
-        readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+        The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
+
+    @property
+    @pulumi.getter(name="terminatingReplicas")
+    def terminating_replicas(self) -> Optional[builtins.int]:
+        """
+        The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+
+        This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        """
+        return pulumi.get(self, "terminating_replicas")
 
 
 @pulumi.output_type
@@ -2519,6 +2573,8 @@ class ReplicaSetStatusPatch(dict):
             suggest = "observed_generation"
         elif key == "readyReplicas":
             suggest = "ready_replicas"
+        elif key == "terminatingReplicas":
+            suggest = "terminating_replicas"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ReplicaSetStatusPatch. Access the value via the '{suggest}' property getter instead.")
@@ -2537,15 +2593,19 @@ class ReplicaSetStatusPatch(dict):
                  fully_labeled_replicas: Optional[builtins.int] = None,
                  observed_generation: Optional[builtins.int] = None,
                  ready_replicas: Optional[builtins.int] = None,
-                 replicas: Optional[builtins.int] = None):
+                 replicas: Optional[builtins.int] = None,
+                 terminating_replicas: Optional[builtins.int] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
-        :param builtins.int available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        :param builtins.int available_replicas: The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         :param Sequence['ReplicaSetConditionPatchArgs'] conditions: Represents the latest available observations of a replica set's current state.
-        :param builtins.int fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
+        :param builtins.int fully_labeled_replicas: The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         :param builtins.int observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
-        :param builtins.int ready_replicas: readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
-        :param builtins.int replicas: Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        :param builtins.int ready_replicas: The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
+        :param builtins.int replicas: Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        :param builtins.int terminating_replicas: The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+               
+               This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
         """
         if available_replicas is not None:
             pulumi.set(__self__, "available_replicas", available_replicas)
@@ -2559,12 +2619,14 @@ class ReplicaSetStatusPatch(dict):
             pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
             pulumi.set(__self__, "replicas", replicas)
+        if terminating_replicas is not None:
+            pulumi.set(__self__, "terminating_replicas", terminating_replicas)
 
     @property
     @pulumi.getter(name="availableReplicas")
     def available_replicas(self) -> Optional[builtins.int]:
         """
-        The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         """
         return pulumi.get(self, "available_replicas")
 
@@ -2580,7 +2642,7 @@ class ReplicaSetStatusPatch(dict):
     @pulumi.getter(name="fullyLabeledReplicas")
     def fully_labeled_replicas(self) -> Optional[builtins.int]:
         """
-        The number of pods that have labels matching the labels of the pod template of the replicaset.
+        The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         """
         return pulumi.get(self, "fully_labeled_replicas")
 
@@ -2596,7 +2658,7 @@ class ReplicaSetStatusPatch(dict):
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[builtins.int]:
         """
-        readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+        The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -2604,9 +2666,19 @@ class ReplicaSetStatusPatch(dict):
     @pulumi.getter
     def replicas(self) -> Optional[builtins.int]:
         """
-        Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         """
         return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="terminatingReplicas")
+    def terminating_replicas(self) -> Optional[builtins.int]:
+        """
+        The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+
+        This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        """
+        return pulumi.get(self, "terminating_replicas")
 
 
 @pulumi.output_type
@@ -3399,9 +3471,7 @@ class StatefulSetSpec(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "serviceName":
-            suggest = "service_name"
-        elif key == "minReadySeconds":
+        if key == "minReadySeconds":
             suggest = "min_ready_seconds"
         elif key == "persistentVolumeClaimRetentionPolicy":
             suggest = "persistent_volume_claim_retention_policy"
@@ -3409,6 +3479,8 @@ class StatefulSetSpec(dict):
             suggest = "pod_management_policy"
         elif key == "revisionHistoryLimit":
             suggest = "revision_history_limit"
+        elif key == "serviceName":
+            suggest = "service_name"
         elif key == "updateStrategy":
             suggest = "update_strategy"
         elif key == "volumeClaimTemplates":
@@ -3427,7 +3499,6 @@ class StatefulSetSpec(dict):
 
     def __init__(__self__, *,
                  selector: '_meta.v1.outputs.LabelSelector',
-                 service_name: builtins.str,
                  template: '_core.v1.outputs.PodTemplateSpec',
                  min_ready_seconds: Optional[builtins.int] = None,
                  ordinals: Optional['outputs.StatefulSetOrdinals'] = None,
@@ -3435,12 +3506,12 @@ class StatefulSetSpec(dict):
                  pod_management_policy: Optional[builtins.str] = None,
                  replicas: Optional[builtins.int] = None,
                  revision_history_limit: Optional[builtins.int] = None,
+                 service_name: Optional[builtins.str] = None,
                  update_strategy: Optional['outputs.StatefulSetUpdateStrategy'] = None,
                  volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param builtins.str service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
         :param '_core.v1.PodTemplateSpecArgs' template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
         :param builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param 'StatefulSetOrdinalsArgs' ordinals: ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
@@ -3448,11 +3519,11 @@ class StatefulSetSpec(dict):
         :param builtins.str pod_management_policy: podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
         :param builtins.int replicas: replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
         :param builtins.int revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+        :param builtins.str service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
         :param 'StatefulSetUpdateStrategyArgs' update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
         :param Sequence['_core.v1.PersistentVolumeClaimArgs'] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
         pulumi.set(__self__, "selector", selector)
-        pulumi.set(__self__, "service_name", service_name)
         pulumi.set(__self__, "template", template)
         if min_ready_seconds is not None:
             pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
@@ -3466,6 +3537,8 @@ class StatefulSetSpec(dict):
             pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
             pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if service_name is not None:
+            pulumi.set(__self__, "service_name", service_name)
         if update_strategy is not None:
             pulumi.set(__self__, "update_strategy", update_strategy)
         if volume_claim_templates is not None:
@@ -3478,14 +3551,6 @@ class StatefulSetSpec(dict):
         selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         """
         return pulumi.get(self, "selector")
-
-    @property
-    @pulumi.getter(name="serviceName")
-    def service_name(self) -> builtins.str:
-        """
-        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-        """
-        return pulumi.get(self, "service_name")
 
     @property
     @pulumi.getter
@@ -3542,6 +3607,14 @@ class StatefulSetSpec(dict):
         revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
         """
         return pulumi.get(self, "revision_history_limit")
+
+    @property
+    @pulumi.getter(name="serviceName")
+    def service_name(self) -> Optional[builtins.str]:
+        """
+        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+        """
+        return pulumi.get(self, "service_name")
 
     @property
     @pulumi.getter(name="updateStrategy")

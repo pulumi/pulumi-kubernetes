@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.storage.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.storage.v1.outputs.TokenRequest;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,15 @@ public final class CSIDriverSpec {
      * 
      */
     private @Nullable String fsGroupPolicy;
+    /**
+     * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+     * 
+     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * 
+     * This field is mutable.
+     * 
+     */
+    private @Nullable Integer nodeAllocatableUpdatePeriodSeconds;
     /**
      * @return podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
      * 
@@ -118,6 +128,17 @@ public final class CSIDriverSpec {
      */
     public Optional<String> fsGroupPolicy() {
         return Optional.ofNullable(this.fsGroupPolicy);
+    }
+    /**
+     * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+     * 
+     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * 
+     * This field is mutable.
+     * 
+     */
+    public Optional<Integer> nodeAllocatableUpdatePeriodSeconds() {
+        return Optional.ofNullable(this.nodeAllocatableUpdatePeriodSeconds);
     }
     /**
      * @return podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -210,6 +231,7 @@ public final class CSIDriverSpec {
     public static final class Builder {
         private @Nullable Boolean attachRequired;
         private @Nullable String fsGroupPolicy;
+        private @Nullable Integer nodeAllocatableUpdatePeriodSeconds;
         private @Nullable Boolean podInfoOnMount;
         private @Nullable Boolean requiresRepublish;
         private @Nullable Boolean seLinuxMount;
@@ -221,6 +243,7 @@ public final class CSIDriverSpec {
     	      Objects.requireNonNull(defaults);
     	      this.attachRequired = defaults.attachRequired;
     	      this.fsGroupPolicy = defaults.fsGroupPolicy;
+    	      this.nodeAllocatableUpdatePeriodSeconds = defaults.nodeAllocatableUpdatePeriodSeconds;
     	      this.podInfoOnMount = defaults.podInfoOnMount;
     	      this.requiresRepublish = defaults.requiresRepublish;
     	      this.seLinuxMount = defaults.seLinuxMount;
@@ -239,6 +262,12 @@ public final class CSIDriverSpec {
         public Builder fsGroupPolicy(@Nullable String fsGroupPolicy) {
 
             this.fsGroupPolicy = fsGroupPolicy;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder nodeAllocatableUpdatePeriodSeconds(@Nullable Integer nodeAllocatableUpdatePeriodSeconds) {
+
+            this.nodeAllocatableUpdatePeriodSeconds = nodeAllocatableUpdatePeriodSeconds;
             return this;
         }
         @CustomType.Setter
@@ -287,6 +316,7 @@ public final class CSIDriverSpec {
             final var _resultValue = new CSIDriverSpec();
             _resultValue.attachRequired = attachRequired;
             _resultValue.fsGroupPolicy = fsGroupPolicy;
+            _resultValue.nodeAllocatableUpdatePeriodSeconds = nodeAllocatableUpdatePeriodSeconds;
             _resultValue.podInfoOnMount = podInfoOnMount;
             _resultValue.requiresRepublish = requiresRepublish;
             _resultValue.seLinuxMount = seLinuxMount;

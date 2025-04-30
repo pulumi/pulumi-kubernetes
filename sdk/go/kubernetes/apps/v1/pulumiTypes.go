@@ -3556,7 +3556,7 @@ func (o DeploymentSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrO
 
 // DeploymentStatus is the most recently observed status of the Deployment.
 type DeploymentStatus struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+	// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -3564,13 +3564,17 @@ type DeploymentStatus struct {
 	Conditions []DeploymentCondition `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+	// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+	// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 	Replicas *int `pulumi:"replicas"`
+	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas *int `pulumi:"unavailableReplicas"`
-	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+	// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 	UpdatedReplicas *int `pulumi:"updatedReplicas"`
 }
 
@@ -3587,7 +3591,7 @@ type DeploymentStatusInput interface {
 
 // DeploymentStatus is the most recently observed status of the Deployment.
 type DeploymentStatusArgs struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+	// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -3595,13 +3599,17 @@ type DeploymentStatusArgs struct {
 	Conditions DeploymentConditionArrayInput `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+	// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+	// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas pulumi.IntPtrInput `pulumi:"unavailableReplicas"`
-	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+	// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 	UpdatedReplicas pulumi.IntPtrInput `pulumi:"updatedReplicas"`
 }
 
@@ -3683,7 +3691,7 @@ func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutputWithContext(ctx conte
 	}).(DeploymentStatusPtrOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -3703,14 +3711,21 @@ func (o DeploymentStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+}
+
+// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o DeploymentStatusOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeploymentStatus) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
@@ -3718,7 +3733,7 @@ func (o DeploymentStatusOutput) UnavailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
@@ -3747,7 +3762,7 @@ func (o DeploymentStatusPtrOutput) Elem() DeploymentStatusOutput {
 	}).(DeploymentStatusOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
@@ -3787,7 +3802,7 @@ func (o DeploymentStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
@@ -3797,13 +3812,25 @@ func (o DeploymentStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
 			return nil
 		}
 		return v.Replicas
+	}).(pulumi.IntPtrOutput)
+}
+
+// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o DeploymentStatusPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DeploymentStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TerminatingReplicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -3817,7 +3844,7 @@ func (o DeploymentStatusPtrOutput) UnavailableReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
@@ -3829,7 +3856,7 @@ func (o DeploymentStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 
 // DeploymentStatus is the most recently observed status of the Deployment.
 type DeploymentStatusPatch struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+	// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -3837,13 +3864,17 @@ type DeploymentStatusPatch struct {
 	Conditions []DeploymentConditionPatch `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+	// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+	// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 	Replicas *int `pulumi:"replicas"`
+	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas *int `pulumi:"unavailableReplicas"`
-	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+	// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 	UpdatedReplicas *int `pulumi:"updatedReplicas"`
 }
 
@@ -3860,7 +3891,7 @@ type DeploymentStatusPatchInput interface {
 
 // DeploymentStatus is the most recently observed status of the Deployment.
 type DeploymentStatusPatchArgs struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+	// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -3868,13 +3899,17 @@ type DeploymentStatusPatchArgs struct {
 	Conditions DeploymentConditionPatchArrayInput `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+	// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+	// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas pulumi.IntPtrInput `pulumi:"unavailableReplicas"`
-	// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+	// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 	UpdatedReplicas pulumi.IntPtrInput `pulumi:"updatedReplicas"`
 }
 
@@ -3956,7 +3991,7 @@ func (o DeploymentStatusPatchOutput) ToDeploymentStatusPatchPtrOutputWithContext
 	}).(DeploymentStatusPatchPtrOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusPatchOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -3976,14 +4011,21 @@ func (o DeploymentStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusPatchOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+}
+
+// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o DeploymentStatusPatchOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
 
 // Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
@@ -3991,7 +4033,7 @@ func (o DeploymentStatusPatchOutput) UnavailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.UnavailableReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusPatchOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.UpdatedReplicas }).(pulumi.IntPtrOutput)
 }
@@ -4020,7 +4062,7 @@ func (o DeploymentStatusPatchPtrOutput) Elem() DeploymentStatusPatchOutput {
 	}).(DeploymentStatusPatchOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 func (o DeploymentStatusPatchPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
 		if v == nil {
@@ -4060,7 +4102,7 @@ func (o DeploymentStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput
 	}).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusPatchPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
 		if v == nil {
@@ -4070,13 +4112,25 @@ func (o DeploymentStatusPatchPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 func (o DeploymentStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
 		if v == nil {
 			return nil
 		}
 		return v.Replicas
+	}).(pulumi.IntPtrOutput)
+}
+
+// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o DeploymentStatusPatchPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TerminatingReplicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -4090,7 +4144,7 @@ func (o DeploymentStatusPatchPtrOutput) UnavailableReplicas() pulumi.IntPtrOutpu
 	}).(pulumi.IntPtrOutput)
 }
 
-// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
 func (o DeploymentStatusPatchPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
 		if v == nil {
@@ -4830,7 +4884,7 @@ func (o ReplicaSetConditionPatchArrayOutput) Index(i pulumi.IntInput) ReplicaSet
 type ReplicaSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Items []ReplicaSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -4853,7 +4907,7 @@ type ReplicaSetListTypeInput interface {
 type ReplicaSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Items ReplicaSetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -4893,7 +4947,7 @@ func (o ReplicaSetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReplicaSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetListTypeOutput) Items() ReplicaSetTypeArrayOutput {
 	return o.ApplyT(func(v ReplicaSetListType) []ReplicaSetType { return v.Items }).(ReplicaSetTypeArrayOutput)
 }
@@ -5003,11 +5057,11 @@ func (o ReplicaSetPatchTypeOutput) Status() ReplicaSetStatusPatchPtrOutput {
 type ReplicaSetSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
-	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelector `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 	Template *corev1.PodTemplateSpec `pulumi:"template"`
 }
 
@@ -5026,11 +5080,11 @@ type ReplicaSetSpecInput interface {
 type ReplicaSetSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
-	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 	Template corev1.PodTemplateSpecPtrInput `pulumi:"template"`
 }
 
@@ -5117,7 +5171,7 @@ func (o ReplicaSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetSpecOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
@@ -5127,7 +5181,7 @@ func (o ReplicaSetSpecOutput) Selector() metav1.LabelSelectorOutput {
 	return o.ApplyT(func(v ReplicaSetSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 func (o ReplicaSetSpecOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpec) *corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecPtrOutput)
 }
@@ -5166,7 +5220,7 @@ func (o ReplicaSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetSpec) *int {
 		if v == nil {
@@ -5186,7 +5240,7 @@ func (o ReplicaSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 func (o ReplicaSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetSpec) *corev1.PodTemplateSpec {
 		if v == nil {
@@ -5200,11 +5254,11 @@ func (o ReplicaSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 type ReplicaSetSpecPatch struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
-	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
 }
 
@@ -5223,11 +5277,11 @@ type ReplicaSetSpecPatchInput interface {
 type ReplicaSetSpecPatchArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
-	// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
 }
 
@@ -5314,7 +5368,7 @@ func (o ReplicaSetSpecPatchOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpecPatch) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetSpecPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpecPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
@@ -5324,7 +5378,7 @@ func (o ReplicaSetSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput
 	return o.ApplyT(func(v ReplicaSetSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 func (o ReplicaSetSpecPatchOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v ReplicaSetSpecPatch) *corev1.PodTemplateSpecPatch { return v.Template }).(corev1.PodTemplateSpecPatchPtrOutput)
 }
@@ -5363,7 +5417,7 @@ func (o ReplicaSetSpecPatchPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetSpecPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetSpecPatch) *int {
 		if v == nil {
@@ -5383,7 +5437,7 @@ func (o ReplicaSetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOut
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
 func (o ReplicaSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetSpecPatch) *corev1.PodTemplateSpecPatch {
 		if v == nil {
@@ -5395,18 +5449,22 @@ func (o ReplicaSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrO
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
 type ReplicaSetStatus struct {
-	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+	// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// Represents the latest available observations of a replica set's current state.
 	Conditions []ReplicaSetCondition `pulumi:"conditions"`
-	// The number of pods that have labels matching the labels of the pod template of the replicaset.
+	// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 	FullyLabeledReplicas *int `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+	// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas int `pulumi:"replicas"`
+	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 }
 
 // ReplicaSetStatusInput is an input type that accepts ReplicaSetStatusArgs and ReplicaSetStatusOutput values.
@@ -5422,18 +5480,22 @@ type ReplicaSetStatusInput interface {
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
 type ReplicaSetStatusArgs struct {
-	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+	// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// Represents the latest available observations of a replica set's current state.
 	Conditions ReplicaSetConditionArrayInput `pulumi:"conditions"`
-	// The number of pods that have labels matching the labels of the pod template of the replicaset.
+	// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 	FullyLabeledReplicas pulumi.IntPtrInput `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+	// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas pulumi.IntInput `pulumi:"replicas"`
+	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 }
 
 func (ReplicaSetStatusArgs) ElementType() reflect.Type {
@@ -5514,7 +5576,7 @@ func (o ReplicaSetStatusOutput) ToReplicaSetStatusPtrOutputWithContext(ctx conte
 	}).(ReplicaSetStatusPtrOutput)
 }
 
-// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 func (o ReplicaSetStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5524,7 +5586,7 @@ func (o ReplicaSetStatusOutput) Conditions() ReplicaSetConditionArrayOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) []ReplicaSetCondition { return v.Conditions }).(ReplicaSetConditionArrayOutput)
 }
 
-// The number of pods that have labels matching the labels of the pod template of the replicaset.
+// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 func (o ReplicaSetStatusOutput) FullyLabeledReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.FullyLabeledReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5534,14 +5596,21 @@ func (o ReplicaSetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetStatusOutput) Replicas() pulumi.IntOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
+}
+
+// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o ReplicaSetStatusOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
 
 type ReplicaSetStatusPtrOutput struct{ *pulumi.OutputState }
@@ -5568,7 +5637,7 @@ func (o ReplicaSetStatusPtrOutput) Elem() ReplicaSetStatusOutput {
 	}).(ReplicaSetStatusOutput)
 }
 
-// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 func (o ReplicaSetStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5588,7 +5657,7 @@ func (o ReplicaSetStatusPtrOutput) Conditions() ReplicaSetConditionArrayOutput {
 	}).(ReplicaSetConditionArrayOutput)
 }
 
-// The number of pods that have labels matching the labels of the pod template of the replicaset.
+// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 func (o ReplicaSetStatusPtrOutput) FullyLabeledReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5608,7 +5677,7 @@ func (o ReplicaSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5618,7 +5687,7 @@ func (o ReplicaSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5628,20 +5697,36 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o ReplicaSetStatusPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ReplicaSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TerminatingReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
 // ReplicaSetStatus represents the current status of a ReplicaSet.
 type ReplicaSetStatusPatch struct {
-	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+	// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// Represents the latest available observations of a replica set's current state.
 	Conditions []ReplicaSetConditionPatch `pulumi:"conditions"`
-	// The number of pods that have labels matching the labels of the pod template of the replicaset.
+	// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 	FullyLabeledReplicas *int `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+	// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas *int `pulumi:"replicas"`
+	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 }
 
 // ReplicaSetStatusPatchInput is an input type that accepts ReplicaSetStatusPatchArgs and ReplicaSetStatusPatchOutput values.
@@ -5657,18 +5742,22 @@ type ReplicaSetStatusPatchInput interface {
 
 // ReplicaSetStatus represents the current status of a ReplicaSet.
 type ReplicaSetStatusPatchArgs struct {
-	// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+	// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// Represents the latest available observations of a replica set's current state.
 	Conditions ReplicaSetConditionPatchArrayInput `pulumi:"conditions"`
-	// The number of pods that have labels matching the labels of the pod template of the replicaset.
+	// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 	FullyLabeledReplicas pulumi.IntPtrInput `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+	// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
+	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+	//
+	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 }
 
 func (ReplicaSetStatusPatchArgs) ElementType() reflect.Type {
@@ -5749,7 +5838,7 @@ func (o ReplicaSetStatusPatchOutput) ToReplicaSetStatusPatchPtrOutputWithContext
 	}).(ReplicaSetStatusPatchPtrOutput)
 }
 
-// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 func (o ReplicaSetStatusPatchOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5759,7 +5848,7 @@ func (o ReplicaSetStatusPatchOutput) Conditions() ReplicaSetConditionPatchArrayO
 	return o.ApplyT(func(v ReplicaSetStatusPatch) []ReplicaSetConditionPatch { return v.Conditions }).(ReplicaSetConditionPatchArrayOutput)
 }
 
-// The number of pods that have labels matching the labels of the pod template of the replicaset.
+// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 func (o ReplicaSetStatusPatchOutput) FullyLabeledReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.FullyLabeledReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5769,14 +5858,21 @@ func (o ReplicaSetStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusPatchOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+}
+
+// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o ReplicaSetStatusPatchOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
 
 type ReplicaSetStatusPatchPtrOutput struct{ *pulumi.OutputState }
@@ -5803,7 +5899,7 @@ func (o ReplicaSetStatusPatchPtrOutput) Elem() ReplicaSetStatusPatchOutput {
 	}).(ReplicaSetStatusPatchOutput)
 }
 
-// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
 func (o ReplicaSetStatusPatchPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
@@ -5823,7 +5919,7 @@ func (o ReplicaSetStatusPatchPtrOutput) Conditions() ReplicaSetConditionPatchArr
 	}).(ReplicaSetConditionPatchArrayOutput)
 }
 
-// The number of pods that have labels matching the labels of the pod template of the replicaset.
+// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
 func (o ReplicaSetStatusPatchPtrOutput) FullyLabeledReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
@@ -5843,7 +5939,7 @@ func (o ReplicaSetStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput
 	}).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusPatchPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
@@ -5853,13 +5949,25 @@ func (o ReplicaSetStatusPatchPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
 			return nil
 		}
 		return v.Replicas
+	}).(pulumi.IntPtrOutput)
+}
+
+// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+//
+// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+func (o ReplicaSetStatusPatchPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TerminatingReplicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -8151,7 +8259,7 @@ type StatefulSetSpec struct {
 	// selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName string `pulumi:"serviceName"`
+	ServiceName *string `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
@@ -8188,7 +8296,7 @@ type StatefulSetSpecArgs struct {
 	// selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-	ServiceName pulumi.StringInput `pulumi:"serviceName"`
+	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
 	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
@@ -8313,8 +8421,8 @@ func (o StatefulSetSpecOutput) Selector() metav1.LabelSelectorOutput {
 }
 
 // serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-func (o StatefulSetSpecOutput) ServiceName() pulumi.StringOutput {
-	return o.ApplyT(func(v StatefulSetSpec) string { return v.ServiceName }).(pulumi.StringOutput)
+func (o StatefulSetSpecOutput) ServiceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatefulSetSpec) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
 // template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
@@ -8432,7 +8540,7 @@ func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return &v.ServiceName
+		return v.ServiceName
 	}).(pulumi.StringPtrOutput)
 }
 

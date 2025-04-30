@@ -317,7 +317,7 @@ type LeaseCandidateSpec struct {
 	PingTime *string `pulumi:"pingTime"`
 	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy string `pulumi:"strategy"`
 }
 
@@ -344,7 +344,7 @@ type LeaseCandidateSpecArgs struct {
 	PingTime pulumi.StringPtrInput `pulumi:"pingTime"`
 	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy pulumi.StringInput `pulumi:"strategy"`
 }
 
@@ -451,7 +451,7 @@ func (o LeaseCandidateSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecOutput) Strategy() pulumi.StringOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) string { return v.Strategy }).(pulumi.StringOutput)
 }
@@ -530,7 +530,7 @@ func (o LeaseCandidateSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
 		if v == nil {
@@ -552,7 +552,7 @@ type LeaseCandidateSpecPatch struct {
 	PingTime *string `pulumi:"pingTime"`
 	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy *string `pulumi:"strategy"`
 }
 
@@ -579,7 +579,7 @@ type LeaseCandidateSpecPatchArgs struct {
 	PingTime pulumi.StringPtrInput `pulumi:"pingTime"`
 	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
@@ -686,7 +686,7 @@ func (o LeaseCandidateSpecPatchOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecPatchOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
@@ -765,7 +765,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecPatchPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {

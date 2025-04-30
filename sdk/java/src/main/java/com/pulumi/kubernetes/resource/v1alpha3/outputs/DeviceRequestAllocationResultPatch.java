@@ -4,8 +4,10 @@
 package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTolerationPatch;
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -39,10 +41,21 @@ public final class DeviceRequestAllocationResultPatch {
      */
     private @Nullable String pool;
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     private @Nullable String request;
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    private @Nullable List<DeviceTolerationPatch> tolerations;
 
     private DeviceRequestAllocationResultPatch() {}
     /**
@@ -80,11 +93,24 @@ public final class DeviceRequestAllocationResultPatch {
         return Optional.ofNullable(this.pool);
     }
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     public Optional<String> request() {
         return Optional.ofNullable(this.request);
+    }
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public List<DeviceTolerationPatch> tolerations() {
+        return this.tolerations == null ? List.of() : this.tolerations;
     }
 
     public static Builder builder() {
@@ -101,6 +127,7 @@ public final class DeviceRequestAllocationResultPatch {
         private @Nullable String driver;
         private @Nullable String pool;
         private @Nullable String request;
+        private @Nullable List<DeviceTolerationPatch> tolerations;
         public Builder() {}
         public Builder(DeviceRequestAllocationResultPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -109,6 +136,7 @@ public final class DeviceRequestAllocationResultPatch {
     	      this.driver = defaults.driver;
     	      this.pool = defaults.pool;
     	      this.request = defaults.request;
+    	      this.tolerations = defaults.tolerations;
         }
 
         @CustomType.Setter
@@ -141,6 +169,15 @@ public final class DeviceRequestAllocationResultPatch {
             this.request = request;
             return this;
         }
+        @CustomType.Setter
+        public Builder tolerations(@Nullable List<DeviceTolerationPatch> tolerations) {
+
+            this.tolerations = tolerations;
+            return this;
+        }
+        public Builder tolerations(DeviceTolerationPatch... tolerations) {
+            return tolerations(List.of(tolerations));
+        }
         public DeviceRequestAllocationResultPatch build() {
             final var _resultValue = new DeviceRequestAllocationResultPatch();
             _resultValue.adminAccess = adminAccess;
@@ -148,6 +185,7 @@ public final class DeviceRequestAllocationResultPatch {
             _resultValue.driver = driver;
             _resultValue.pool = pool;
             _resultValue.request = request;
+            _resultValue.tolerations = tolerations;
             return _resultValue;
         }
     }

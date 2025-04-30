@@ -42,14 +42,14 @@ public final class TopologySpreadConstraint {
     /**
      * @return NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
      * 
-     * If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Honor policy.
      * 
      */
     private @Nullable String nodeAffinityPolicy;
     /**
      * @return NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
      * 
-     * If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Ignore policy.
      * 
      */
     private @Nullable String nodeTaintsPolicy;
@@ -103,7 +103,7 @@ public final class TopologySpreadConstraint {
     /**
      * @return NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
      * 
-     * If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Honor policy.
      * 
      */
     public Optional<String> nodeAffinityPolicy() {
@@ -112,7 +112,7 @@ public final class TopologySpreadConstraint {
     /**
      * @return NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
      * 
-     * If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Ignore policy.
      * 
      */
     public Optional<String> nodeTaintsPolicy() {

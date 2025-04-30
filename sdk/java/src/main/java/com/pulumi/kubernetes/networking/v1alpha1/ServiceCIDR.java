@@ -139,6 +139,7 @@ public class ServiceCIDR extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:networking.k8s.io/v1:ServiceCIDR").build()),
                 Output.of(Alias.builder().type("kubernetes:networking.k8s.io/v1beta1:ServiceCIDR").build())
             ))
             .build();

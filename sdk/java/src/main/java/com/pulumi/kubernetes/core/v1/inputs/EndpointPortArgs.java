@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * EndpointPort is a tuple that describes a single port.
+ * EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
  * 
  */
 public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {

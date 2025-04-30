@@ -6,6 +6,8 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSelector;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSubRequest;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceToleration;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -19,6 +21,8 @@ public final class DeviceRequest {
     /**
      * @return AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
@@ -31,10 +35,13 @@ public final class DeviceRequest {
      * count field.
      * 
      * - All: This request is for all of the matching devices in a pool.
+     * At least one device must exist on the node for the allocation to succeed.
      * Allocation will fail if some devices are already allocated,
      * unless adminAccess is requested.
      * 
-     * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
      * 
@@ -43,33 +50,63 @@ public final class DeviceRequest {
     /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     private @Nullable Integer count;
     /**
      * @return DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
-     * A class is required. Which classes are available depends on the cluster.
+     * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
      * 
      * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
      * 
      */
-    private String deviceClassName;
+    private @Nullable String deviceClassName;
+    /**
+     * @return FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+     * 
+     * This field may only be set in the entries of DeviceClaim.Requests.
+     * 
+     * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+     * 
+     */
+    private @Nullable List<DeviceSubRequest> firstAvailable;
     /**
      * @return Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
      * 
-     * Must be a DNS label.
+     * Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
      * 
      */
     private String name;
     /**
      * @return Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     private @Nullable List<DeviceSelector> selectors;
+    /**
+     * @return If specified, the request&#39;s tolerations.
+     * 
+     * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+     * 
+     * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    private @Nullable List<DeviceToleration> tolerations;
 
     private DeviceRequest() {}
     /**
      * @return AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
@@ -85,10 +122,13 @@ public final class DeviceRequest {
      * count field.
      * 
      * - All: This request is for all of the matching devices in a pool.
+     * At least one device must exist on the node for the allocation to succeed.
      * Allocation will fail if some devices are already allocated,
      * unless adminAccess is requested.
      * 
-     * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
      * 
@@ -99,6 +139,8 @@ public final class DeviceRequest {
     /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     public Optional<Integer> count() {
         return Optional.ofNullable(this.count);
@@ -106,18 +148,29 @@ public final class DeviceRequest {
     /**
      * @return DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
-     * A class is required. Which classes are available depends on the cluster.
+     * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
      * 
      * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
      * 
      */
-    public String deviceClassName() {
-        return this.deviceClassName;
+    public Optional<String> deviceClassName() {
+        return Optional.ofNullable(this.deviceClassName);
+    }
+    /**
+     * @return FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+     * 
+     * This field may only be set in the entries of DeviceClaim.Requests.
+     * 
+     * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+     * 
+     */
+    public List<DeviceSubRequest> firstAvailable() {
+        return this.firstAvailable == null ? List.of() : this.firstAvailable;
     }
     /**
      * @return Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
      * 
-     * Must be a DNS label.
+     * Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
      * 
      */
     public String name() {
@@ -126,9 +179,28 @@ public final class DeviceRequest {
     /**
      * @return Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     public List<DeviceSelector> selectors() {
         return this.selectors == null ? List.of() : this.selectors;
+    }
+    /**
+     * @return If specified, the request&#39;s tolerations.
+     * 
+     * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+     * 
+     * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public List<DeviceToleration> tolerations() {
+        return this.tolerations == null ? List.of() : this.tolerations;
     }
 
     public static Builder builder() {
@@ -143,9 +215,11 @@ public final class DeviceRequest {
         private @Nullable Boolean adminAccess;
         private @Nullable String allocationMode;
         private @Nullable Integer count;
-        private String deviceClassName;
+        private @Nullable String deviceClassName;
+        private @Nullable List<DeviceSubRequest> firstAvailable;
         private String name;
         private @Nullable List<DeviceSelector> selectors;
+        private @Nullable List<DeviceToleration> tolerations;
         public Builder() {}
         public Builder(DeviceRequest defaults) {
     	      Objects.requireNonNull(defaults);
@@ -153,8 +227,10 @@ public final class DeviceRequest {
     	      this.allocationMode = defaults.allocationMode;
     	      this.count = defaults.count;
     	      this.deviceClassName = defaults.deviceClassName;
+    	      this.firstAvailable = defaults.firstAvailable;
     	      this.name = defaults.name;
     	      this.selectors = defaults.selectors;
+    	      this.tolerations = defaults.tolerations;
         }
 
         @CustomType.Setter
@@ -176,12 +252,19 @@ public final class DeviceRequest {
             return this;
         }
         @CustomType.Setter
-        public Builder deviceClassName(String deviceClassName) {
-            if (deviceClassName == null) {
-              throw new MissingRequiredPropertyException("DeviceRequest", "deviceClassName");
-            }
+        public Builder deviceClassName(@Nullable String deviceClassName) {
+
             this.deviceClassName = deviceClassName;
             return this;
+        }
+        @CustomType.Setter
+        public Builder firstAvailable(@Nullable List<DeviceSubRequest> firstAvailable) {
+
+            this.firstAvailable = firstAvailable;
+            return this;
+        }
+        public Builder firstAvailable(DeviceSubRequest... firstAvailable) {
+            return firstAvailable(List.of(firstAvailable));
         }
         @CustomType.Setter
         public Builder name(String name) {
@@ -200,14 +283,25 @@ public final class DeviceRequest {
         public Builder selectors(DeviceSelector... selectors) {
             return selectors(List.of(selectors));
         }
+        @CustomType.Setter
+        public Builder tolerations(@Nullable List<DeviceToleration> tolerations) {
+
+            this.tolerations = tolerations;
+            return this;
+        }
+        public Builder tolerations(DeviceToleration... tolerations) {
+            return tolerations(List.of(tolerations));
+        }
         public DeviceRequest build() {
             final var _resultValue = new DeviceRequest();
             _resultValue.adminAccess = adminAccess;
             _resultValue.allocationMode = allocationMode;
             _resultValue.count = count;
             _resultValue.deviceClassName = deviceClassName;
+            _resultValue.firstAvailable = firstAvailable;
             _resultValue.name = name;
             _resultValue.selectors = selectors;
+            _resultValue.tolerations = tolerations;
             return _resultValue;
         }
     }

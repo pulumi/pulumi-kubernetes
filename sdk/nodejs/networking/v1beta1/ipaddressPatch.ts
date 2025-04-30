@@ -82,7 +82,7 @@ export class IPAddressPatch extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:IPAddressPatch" }, { type: "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(IPAddressPatch.__pulumiType, name, resourceInputs, opts);
     }

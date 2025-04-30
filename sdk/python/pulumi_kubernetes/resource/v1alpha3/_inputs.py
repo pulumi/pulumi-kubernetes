@@ -30,6 +30,12 @@ __all__ = [
     'CELDeviceSelectorPatchArgsDict',
     'CELDeviceSelectorArgs',
     'CELDeviceSelectorArgsDict',
+    'CounterSetPatchArgs',
+    'CounterSetPatchArgsDict',
+    'CounterSetArgs',
+    'CounterSetArgsDict',
+    'CounterArgs',
+    'CounterArgsDict',
     'DeviceAllocationConfigurationArgs',
     'DeviceAllocationConfigurationArgsDict',
     'DeviceAllocationResultArgs',
@@ -58,6 +64,10 @@ __all__ = [
     'DeviceConstraintPatchArgsDict',
     'DeviceConstraintArgs',
     'DeviceConstraintArgsDict',
+    'DeviceCounterConsumptionPatchArgs',
+    'DeviceCounterConsumptionPatchArgsDict',
+    'DeviceCounterConsumptionArgs',
+    'DeviceCounterConsumptionArgsDict',
     'DevicePatchArgs',
     'DevicePatchArgsDict',
     'DeviceRequestAllocationResultArgs',
@@ -70,6 +80,28 @@ __all__ = [
     'DeviceSelectorPatchArgsDict',
     'DeviceSelectorArgs',
     'DeviceSelectorArgsDict',
+    'DeviceSubRequestPatchArgs',
+    'DeviceSubRequestPatchArgsDict',
+    'DeviceSubRequestArgs',
+    'DeviceSubRequestArgsDict',
+    'DeviceTaintPatchArgs',
+    'DeviceTaintPatchArgsDict',
+    'DeviceTaintRuleSpecPatchArgs',
+    'DeviceTaintRuleSpecPatchArgsDict',
+    'DeviceTaintRuleSpecArgs',
+    'DeviceTaintRuleSpecArgsDict',
+    'DeviceTaintRuleArgs',
+    'DeviceTaintRuleArgsDict',
+    'DeviceTaintSelectorPatchArgs',
+    'DeviceTaintSelectorPatchArgsDict',
+    'DeviceTaintSelectorArgs',
+    'DeviceTaintSelectorArgsDict',
+    'DeviceTaintArgs',
+    'DeviceTaintArgsDict',
+    'DeviceTolerationPatchArgs',
+    'DeviceTolerationPatchArgsDict',
+    'DeviceTolerationArgs',
+    'DeviceTolerationArgsDict',
     'DeviceArgs',
     'DeviceArgsDict',
     'NetworkDeviceDataArgs',
@@ -142,6 +174,8 @@ if not MYPY:
         conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
         """
         Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+
+        Must not contain more than 8 entries.
         """
         data: NotRequired[Any]
         """
@@ -175,6 +209,8 @@ class AllocatedDeviceStatusArgs:
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+               
+               Must not contain more than 8 entries.
         :param Any data: Data contains arbitrary driver-specific data.
                
                The length of the raw data must be smaller or equal to 10 Ki.
@@ -235,6 +271,8 @@ class AllocatedDeviceStatusArgs:
     def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+
+        Must not contain more than 8 entries.
         """
         return pulumi.get(self, "conditions")
 
@@ -362,6 +400,12 @@ if not MYPY:
         """
         BasicDevice defines one device instance.
         """
+        all_nodes: NotRequired[pulumi.Input[builtins.bool]]
+        """
+        AllNodes indicates that all nodes have access to the device.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
         attributes: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgsDict']]]]
         """
         Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
@@ -373,6 +417,34 @@ if not MYPY:
         Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 
         The maximum number of attributes and capacities combined is 32.
+        """
+        consumes_counters: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgsDict']]]]
+        """
+        ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+
+        There can only be a single entry per counterSet.
+
+        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        """
+        node_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        NodeName identifies the node where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorPatchArgsDict']]
+        """
+        NodeSelector defines the nodes where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        taints: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgsDict']]]]
+        """
+        If specified, these are the driver-defined taints.
+
+        The maximum number of taints is 4.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
 elif False:
     BasicDevicePatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -380,21 +452,69 @@ elif False:
 @pulumi.input_type
 class BasicDevicePatchArgs:
     def __init__(__self__, *,
+                 all_nodes: Optional[pulumi.Input[builtins.bool]] = None,
                  attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgs']]]] = None,
-                 capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]] = None):
+                 capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]] = None,
+                 consumes_counters: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgs']]]] = None,
+                 node_name: Optional[pulumi.Input[builtins.str]] = None,
+                 node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
+                 taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]]] = None):
         """
         BasicDevice defines one device instance.
+        :param pulumi.Input[builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the device.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
         :param pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgs']]] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
         :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgs']]] consumes_counters: ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+               
+               There can only be a single entry per counterSet.
+               
+               The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        :param pulumi.Input[builtins.str] node_name: NodeName identifies the node where the device is available.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param pulumi.Input['_core.v1.NodeSelectorPatchArgs'] node_selector: NodeSelector defines the nodes where the device is available.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]] taints: If specified, these are the driver-defined taints.
+               
+               The maximum number of taints is 4.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
+        if all_nodes is not None:
+            pulumi.set(__self__, "all_nodes", all_nodes)
         if attributes is not None:
             pulumi.set(__self__, "attributes", attributes)
         if capacity is not None:
             pulumi.set(__self__, "capacity", capacity)
+        if consumes_counters is not None:
+            pulumi.set(__self__, "consumes_counters", consumes_counters)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
+
+    @property
+    @pulumi.getter(name="allNodes")
+    def all_nodes(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        AllNodes indicates that all nodes have access to the device.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "all_nodes")
+
+    @all_nodes.setter
+    def all_nodes(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "all_nodes", value)
 
     @property
     @pulumi.getter
@@ -424,11 +544,77 @@ class BasicDevicePatchArgs:
     def capacity(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]]):
         pulumi.set(self, "capacity", value)
 
+    @property
+    @pulumi.getter(name="consumesCounters")
+    def consumes_counters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgs']]]]:
+        """
+        ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+
+        There can only be a single entry per counterSet.
+
+        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        """
+        return pulumi.get(self, "consumes_counters")
+
+    @consumes_counters.setter
+    def consumes_counters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgs']]]]):
+        pulumi.set(self, "consumes_counters", value)
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        NodeName identifies the node where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "node_name", value)
+
+    @property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']]:
+        """
+        NodeSelector defines the nodes where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']]):
+        pulumi.set(self, "node_selector", value)
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]]]:
+        """
+        If specified, these are the driver-defined taints.
+
+        The maximum number of taints is 4.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "taints")
+
+    @taints.setter
+    def taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]]]):
+        pulumi.set(self, "taints", value)
+
 
 if not MYPY:
     class BasicDeviceArgsDict(TypedDict):
         """
         BasicDevice defines one device instance.
+        """
+        all_nodes: NotRequired[pulumi.Input[builtins.bool]]
+        """
+        AllNodes indicates that all nodes have access to the device.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
         """
         attributes: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgsDict']]]]
         """
@@ -442,27 +628,103 @@ if not MYPY:
 
         The maximum number of attributes and capacities combined is 32.
         """
+        consumes_counters: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgsDict']]]]
+        """
+        ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+
+        There can only be a single entry per counterSet.
+
+        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        """
+        node_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        NodeName identifies the node where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
+        """
+        NodeSelector defines the nodes where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        taints: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgsDict']]]]
+        """
+        If specified, these are the driver-defined taints.
+
+        The maximum number of taints is 4.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
 elif False:
     BasicDeviceArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class BasicDeviceArgs:
     def __init__(__self__, *,
+                 all_nodes: Optional[pulumi.Input[builtins.bool]] = None,
                  attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgs']]]] = None,
-                 capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]] = None):
+                 capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]] = None,
+                 consumes_counters: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]]] = None,
+                 node_name: Optional[pulumi.Input[builtins.str]] = None,
+                 node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
+                 taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]]] = None):
         """
         BasicDevice defines one device instance.
+        :param pulumi.Input[builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the device.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
         :param pulumi.Input[Mapping[str, pulumi.Input['DeviceAttributeArgs']]] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
         :param pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]] consumes_counters: ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+               
+               There can only be a single entry per counterSet.
+               
+               The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        :param pulumi.Input[builtins.str] node_name: NodeName identifies the node where the device is available.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param pulumi.Input['_core.v1.NodeSelectorArgs'] node_selector: NodeSelector defines the nodes where the device is available.
+               
+               Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]] taints: If specified, these are the driver-defined taints.
+               
+               The maximum number of taints is 4.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
+        if all_nodes is not None:
+            pulumi.set(__self__, "all_nodes", all_nodes)
         if attributes is not None:
             pulumi.set(__self__, "attributes", attributes)
         if capacity is not None:
             pulumi.set(__self__, "capacity", capacity)
+        if consumes_counters is not None:
+            pulumi.set(__self__, "consumes_counters", consumes_counters)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
+
+    @property
+    @pulumi.getter(name="allNodes")
+    def all_nodes(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        AllNodes indicates that all nodes have access to the device.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "all_nodes")
+
+    @all_nodes.setter
+    def all_nodes(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "all_nodes", value)
 
     @property
     @pulumi.getter
@@ -491,6 +753,66 @@ class BasicDeviceArgs:
     @capacity.setter
     def capacity(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[builtins.str]]]]):
         pulumi.set(self, "capacity", value)
+
+    @property
+    @pulumi.getter(name="consumesCounters")
+    def consumes_counters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]]]:
+        """
+        ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+
+        There can only be a single entry per counterSet.
+
+        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        """
+        return pulumi.get(self, "consumes_counters")
+
+    @consumes_counters.setter
+    def consumes_counters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]]]):
+        pulumi.set(self, "consumes_counters", value)
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        NodeName identifies the node where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "node_name", value)
+
+    @property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional[pulumi.Input['_core.v1.NodeSelectorArgs']]:
+        """
+        NodeSelector defines the nodes where the device is available.
+
+        Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']]):
+        pulumi.set(self, "node_selector", value)
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]]]:
+        """
+        If specified, these are the driver-defined taints.
+
+        The maximum number of taints is 4.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "taints")
+
+    @taints.setter
+    def taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]]]):
+        pulumi.set(self, "taints", value)
 
 
 if not MYPY:
@@ -733,6 +1055,183 @@ class CELDeviceSelectorArgs:
 
 
 if not MYPY:
+    class CounterSetPatchArgsDict(TypedDict):
+        """
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+
+        The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+        """
+        counters: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['CounterArgsDict']]]]
+        """
+        Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+
+        To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+
+        The maximum number of counters is 32.
+        """
+        name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+elif False:
+    CounterSetPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class CounterSetPatchArgs:
+    def __init__(__self__, *,
+                 counters: Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]] = None,
+                 name: Optional[pulumi.Input[builtins.str]] = None):
+        """
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+
+        The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+        :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+               
+               To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+               
+               The maximum number of counters is 32.
+        :param pulumi.Input[builtins.str] name: CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+        if counters is not None:
+            pulumi.set(__self__, "counters", counters)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def counters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]]:
+        """
+        Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+
+        To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+
+        The maximum number of counters is 32.
+        """
+        return pulumi.get(self, "counters")
+
+    @counters.setter
+    def counters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]]):
+        pulumi.set(self, "counters", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "name", value)
+
+
+if not MYPY:
+    class CounterSetArgsDict(TypedDict):
+        """
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+
+        The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+        """
+        counters: pulumi.Input[Mapping[str, pulumi.Input['CounterArgsDict']]]
+        """
+        Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+
+        To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+
+        The maximum number of counters is 32.
+        """
+        name: pulumi.Input[builtins.str]
+        """
+        CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+elif False:
+    CounterSetArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class CounterSetArgs:
+    def __init__(__self__, *,
+                 counters: pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]],
+                 name: pulumi.Input[builtins.str]):
+        """
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+
+        The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+        :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+               
+               To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+               
+               The maximum number of counters is 32.
+        :param pulumi.Input[builtins.str] name: CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+        pulumi.set(__self__, "counters", counters)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def counters(self) -> pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]:
+        """
+        Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
+
+        To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
+
+        The maximum number of counters is 32.
+        """
+        return pulumi.get(self, "counters")
+
+    @counters.setter
+    def counters(self, value: pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]):
+        pulumi.set(self, "counters", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[builtins.str]:
+        """
+        CounterSet is the name of the set from which the counters defined will be consumed.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "name", value)
+
+
+if not MYPY:
+    class CounterArgsDict(TypedDict):
+        """
+        Counter describes a quantity associated with a device.
+        """
+        value: pulumi.Input[builtins.str]
+        """
+        Value defines how much of a certain device counter is available.
+        """
+elif False:
+    CounterArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class CounterArgs:
+    def __init__(__self__, *,
+                 value: pulumi.Input[builtins.str]):
+        """
+        Counter describes a quantity associated with a device.
+        :param pulumi.Input[builtins.str] value: Value defines how much of a certain device counter is available.
+        """
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[builtins.str]:
+        """
+        Value defines how much of a certain device counter is available.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+if not MYPY:
     class DeviceAllocationConfigurationArgsDict(TypedDict):
         """
         DeviceAllocationConfiguration gets embedded in an AllocationResult.
@@ -748,6 +1247,8 @@ if not MYPY:
         requests: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
 elif False:
     DeviceAllocationConfigurationArgsDict: TypeAlias = Mapping[str, Any]
@@ -763,6 +1264,8 @@ class DeviceAllocationConfigurationArgs:
         :param pulumi.Input[builtins.str] source: Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
         :param pulumi.Input['OpaqueDeviceConfigurationArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+               
+               References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         pulumi.set(__self__, "source", source)
         if opaque is not None:
@@ -799,6 +1302,8 @@ class DeviceAllocationConfigurationArgs:
     def requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         return pulumi.get(self, "requests")
 
@@ -977,6 +1482,8 @@ if not MYPY:
         requests: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
 elif False:
     DeviceClaimConfigurationPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -990,6 +1497,8 @@ class DeviceClaimConfigurationPatchArgs:
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
         :param pulumi.Input['OpaqueDeviceConfigurationPatchArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+               
+               References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         if opaque is not None:
             pulumi.set(__self__, "opaque", opaque)
@@ -1013,6 +1522,8 @@ class DeviceClaimConfigurationPatchArgs:
     def requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         return pulumi.get(self, "requests")
 
@@ -1033,6 +1544,8 @@ if not MYPY:
         requests: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
 elif False:
     DeviceClaimConfigurationArgsDict: TypeAlias = Mapping[str, Any]
@@ -1046,6 +1559,8 @@ class DeviceClaimConfigurationArgs:
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
         :param pulumi.Input['OpaqueDeviceConfigurationArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+               
+               References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         if opaque is not None:
             pulumi.set(__self__, "opaque", opaque)
@@ -1069,6 +1584,8 @@ class DeviceClaimConfigurationArgs:
     def requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
         """
         return pulumi.get(self, "requests")
 
@@ -1616,6 +2133,8 @@ if not MYPY:
         requests: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
 elif False:
     DeviceConstraintPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -1633,6 +2152,8 @@ class DeviceConstraintPatchArgs:
                
                Must include the domain qualifier.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] requests: Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+               
+               References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
         if match_attribute is not None:
             pulumi.set(__self__, "match_attribute", match_attribute)
@@ -1660,6 +2181,8 @@ class DeviceConstraintPatchArgs:
     def requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
         return pulumi.get(self, "requests")
 
@@ -1684,6 +2207,8 @@ if not MYPY:
         requests: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
 elif False:
     DeviceConstraintArgsDict: TypeAlias = Mapping[str, Any]
@@ -1701,6 +2226,8 @@ class DeviceConstraintArgs:
                
                Must include the domain qualifier.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] requests: Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+               
+               References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
         if match_attribute is not None:
             pulumi.set(__self__, "match_attribute", match_attribute)
@@ -1728,12 +2255,136 @@ class DeviceConstraintArgs:
     def requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+
+        References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
         return pulumi.get(self, "requests")
 
     @requests.setter
     def requests(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]):
         pulumi.set(self, "requests", value)
+
+
+if not MYPY:
+    class DeviceCounterConsumptionPatchArgsDict(TypedDict):
+        """
+        DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+        """
+        counter_set: NotRequired[pulumi.Input[builtins.str]]
+        """
+        CounterSet defines the set from which the counters defined will be consumed.
+        """
+        counters: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['CounterArgsDict']]]]
+        """
+        Counters defines the Counter that will be consumed by the device.
+
+        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+elif False:
+    DeviceCounterConsumptionPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceCounterConsumptionPatchArgs:
+    def __init__(__self__, *,
+                 counter_set: Optional[pulumi.Input[builtins.str]] = None,
+                 counters: Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]] = None):
+        """
+        DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+        :param pulumi.Input[builtins.str] counter_set: CounterSet defines the set from which the counters defined will be consumed.
+        :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the Counter that will be consumed by the device.
+               
+               The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+        if counter_set is not None:
+            pulumi.set(__self__, "counter_set", counter_set)
+        if counters is not None:
+            pulumi.set(__self__, "counters", counters)
+
+    @property
+    @pulumi.getter(name="counterSet")
+    def counter_set(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        CounterSet defines the set from which the counters defined will be consumed.
+        """
+        return pulumi.get(self, "counter_set")
+
+    @counter_set.setter
+    def counter_set(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "counter_set", value)
+
+    @property
+    @pulumi.getter
+    def counters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]]:
+        """
+        Counters defines the Counter that will be consumed by the device.
+
+        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+        return pulumi.get(self, "counters")
+
+    @counters.setter
+    def counters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]]):
+        pulumi.set(self, "counters", value)
+
+
+if not MYPY:
+    class DeviceCounterConsumptionArgsDict(TypedDict):
+        """
+        DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+        """
+        counter_set: pulumi.Input[builtins.str]
+        """
+        CounterSet defines the set from which the counters defined will be consumed.
+        """
+        counters: pulumi.Input[Mapping[str, pulumi.Input['CounterArgsDict']]]
+        """
+        Counters defines the Counter that will be consumed by the device.
+
+        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+elif False:
+    DeviceCounterConsumptionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceCounterConsumptionArgs:
+    def __init__(__self__, *,
+                 counter_set: pulumi.Input[builtins.str],
+                 counters: pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]):
+        """
+        DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+        :param pulumi.Input[builtins.str] counter_set: CounterSet defines the set from which the counters defined will be consumed.
+        :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the Counter that will be consumed by the device.
+               
+               The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+        pulumi.set(__self__, "counter_set", counter_set)
+        pulumi.set(__self__, "counters", counters)
+
+    @property
+    @pulumi.getter(name="counterSet")
+    def counter_set(self) -> pulumi.Input[builtins.str]:
+        """
+        CounterSet defines the set from which the counters defined will be consumed.
+        """
+        return pulumi.get(self, "counter_set")
+
+    @counter_set.setter
+    def counter_set(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "counter_set", value)
+
+    @property
+    @pulumi.getter
+    def counters(self) -> pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]:
+        """
+        Counters defines the Counter that will be consumed by the device.
+
+        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        """
+        return pulumi.get(self, "counters")
+
+    @counters.setter
+    def counters(self, value: pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]):
+        pulumi.set(self, "counters", value)
 
 
 if not MYPY:
@@ -1815,13 +2466,23 @@ if not MYPY:
         """
         request: pulumi.Input[builtins.str]
         """
-        Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+
+        Multiple devices may have been allocated per request.
         """
         admin_access: NotRequired[pulumi.Input[builtins.bool]]
         """
         AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
 
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        """
+        tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgsDict']]]]
+        """
+        A copy of all tolerations specified in the request at the time when the device got allocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
 elif False:
     DeviceRequestAllocationResultArgsDict: TypeAlias = Mapping[str, Any]
@@ -1833,7 +2494,8 @@ class DeviceRequestAllocationResultArgs:
                  driver: pulumi.Input[builtins.str],
                  pool: pulumi.Input[builtins.str],
                  request: pulumi.Input[builtins.str],
-                 admin_access: Optional[pulumi.Input[builtins.bool]] = None):
+                 admin_access: Optional[pulumi.Input[builtins.bool]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
         :param pulumi.Input[builtins.str] device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
@@ -1843,10 +2505,17 @@ class DeviceRequestAllocationResultArgs:
         :param pulumi.Input[builtins.str] pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
-        :param pulumi.Input[builtins.str] request: Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        :param pulumi.Input[builtins.str] request: Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+               
+               Multiple devices may have been allocated per request.
         :param pulumi.Input[builtins.bool] admin_access: AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]] tolerations: A copy of all tolerations specified in the request at the time when the device got allocated.
+               
+               The maximum number of tolerations is 16.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
         pulumi.set(__self__, "device", device)
         pulumi.set(__self__, "driver", driver)
@@ -1854,6 +2523,8 @@ class DeviceRequestAllocationResultArgs:
         pulumi.set(__self__, "request", request)
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
 
     @property
     @pulumi.getter
@@ -1899,7 +2570,9 @@ class DeviceRequestAllocationResultArgs:
     @pulumi.getter
     def request(self) -> pulumi.Input[builtins.str]:
         """
-        Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+
+        Multiple devices may have been allocated per request.
         """
         return pulumi.get(self, "request")
 
@@ -1921,17 +2594,33 @@ class DeviceRequestAllocationResultArgs:
     def admin_access(self, value: Optional[pulumi.Input[builtins.bool]]):
         pulumi.set(self, "admin_access", value)
 
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]:
+        """
+        A copy of all tolerations specified in the request at the time when the device got allocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
 
 if not MYPY:
     class DeviceRequestPatchArgsDict(TypedDict):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-
-        A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
         """
         admin_access: NotRequired[pulumi.Input[builtins.bool]]
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
@@ -1944,24 +2633,37 @@ if not MYPY:
           count field.
 
         - All: This request is for all of the matching devices in a pool.
+          At least one device must exist on the node for the allocation to succeed.
           Allocation will fail if some devices are already allocated,
           unless adminAccess is requested.
 
-        If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         count: NotRequired[pulumi.Input[builtins.int]]
         """
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         """
         device_class_name: NotRequired[pulumi.Input[builtins.str]]
         """
         DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 
-        A class is required. Which classes are available depends on the cluster.
+        A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 
         Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        first_available: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestPatchArgsDict']]]]
+        """
+        FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+
+        This field may only be set in the entries of DeviceClaim.Requests.
+
+        DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
         """
         name: NotRequired[pulumi.Input[builtins.str]]
         """
@@ -1972,6 +2674,22 @@ if not MYPY:
         selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]
         """
         Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        """
+        tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgsDict']]]]
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
 elif False:
     DeviceRequestPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -1983,13 +2701,15 @@ class DeviceRequestPatchArgs:
                  allocation_mode: Optional[pulumi.Input[builtins.str]] = None,
                  count: Optional[pulumi.Input[builtins.int]] = None,
                  device_class_name: Optional[pulumi.Input[builtins.str]] = None,
+                 first_available: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestPatchArgs']]]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
-                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]] = None):
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]] = None):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-
-        A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
         :param pulumi.Input[builtins.bool] admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param pulumi.Input[builtins.str] allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
@@ -1999,22 +2719,45 @@ class DeviceRequestPatchArgs:
                  count field.
                
                - All: This request is for all of the matching devices in a pool.
+                 At least one device must exist on the node for the allocation to succeed.
                  Allocation will fail if some devices are already allocated,
                  unless adminAccess is requested.
                
-               If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         :param pulumi.Input[builtins.int] count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         :param pulumi.Input[builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
                
-               A class is required. Which classes are available depends on the cluster.
+               A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
                
                Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestPatchArgs']]] first_available: FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+               
+               This field may only be set in the entries of DeviceClaim.Requests.
+               
+               DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
         :param pulumi.Input[builtins.str] name: Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
                
                Must be a DNS label.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]] tolerations: If specified, the request's tolerations.
+               
+               Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+               
+               In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+               
+               The maximum number of tolerations is 16.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
@@ -2024,16 +2767,22 @@ class DeviceRequestPatchArgs:
             pulumi.set(__self__, "count", count)
         if device_class_name is not None:
             pulumi.set(__self__, "device_class_name", device_class_name)
+        if first_available is not None:
+            pulumi.set(__self__, "first_available", first_available)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
 
     @property
     @pulumi.getter(name="adminAccess")
     def admin_access(self) -> Optional[pulumi.Input[builtins.bool]]:
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
@@ -2054,10 +2803,13 @@ class DeviceRequestPatchArgs:
           count field.
 
         - All: This request is for all of the matching devices in a pool.
+          At least one device must exist on the node for the allocation to succeed.
           Allocation will fail if some devices are already allocated,
           unless adminAccess is requested.
 
-        If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
@@ -2072,6 +2824,8 @@ class DeviceRequestPatchArgs:
     def count(self) -> Optional[pulumi.Input[builtins.int]]:
         """
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         """
         return pulumi.get(self, "count")
 
@@ -2085,7 +2839,7 @@ class DeviceRequestPatchArgs:
         """
         DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 
-        A class is required. Which classes are available depends on the cluster.
+        A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 
         Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
         """
@@ -2094,6 +2848,22 @@ class DeviceRequestPatchArgs:
     @device_class_name.setter
     def device_class_name(self, value: Optional[pulumi.Input[builtins.str]]):
         pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter(name="firstAvailable")
+    def first_available(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestPatchArgs']]]]:
+        """
+        FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+
+        This field may only be set in the entries of DeviceClaim.Requests.
+
+        DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+        """
+        return pulumi.get(self, "first_available")
+
+    @first_available.setter
+    def first_available(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestPatchArgs']]]]):
+        pulumi.set(self, "first_available", value)
 
     @property
     @pulumi.getter
@@ -2114,6 +2884,8 @@ class DeviceRequestPatchArgs:
     def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]:
         """
         Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         """
         return pulumi.get(self, "selectors")
 
@@ -2121,21 +2893,33 @@ class DeviceRequestPatchArgs:
     def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]):
         pulumi.set(self, "selectors", value)
 
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]]:
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
 
 if not MYPY:
     class DeviceRequestArgsDict(TypedDict):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-
-        A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
-        """
-        device_class_name: pulumi.Input[builtins.str]
-        """
-        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
-
-        A class is required. Which classes are available depends on the cluster.
-
-        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
         """
         name: pulumi.Input[builtins.str]
         """
@@ -2146,6 +2930,8 @@ if not MYPY:
         admin_access: NotRequired[pulumi.Input[builtins.bool]]
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
@@ -2158,20 +2944,57 @@ if not MYPY:
           count field.
 
         - All: This request is for all of the matching devices in a pool.
+          At least one device must exist on the node for the allocation to succeed.
           Allocation will fail if some devices are already allocated,
           unless adminAccess is requested.
 
-        If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         count: NotRequired[pulumi.Input[builtins.int]]
         """
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        """
+        device_class_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+
+        A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        first_available: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgsDict']]]]
+        """
+        FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+
+        This field may only be set in the entries of DeviceClaim.Requests.
+
+        DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
         """
         selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]
         """
         Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        """
+        tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgsDict']]]]
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
 elif False:
     DeviceRequestArgsDict: TypeAlias = Mapping[str, Any]
@@ -2179,25 +3002,22 @@ elif False:
 @pulumi.input_type
 class DeviceRequestArgs:
     def __init__(__self__, *,
-                 device_class_name: pulumi.Input[builtins.str],
                  name: pulumi.Input[builtins.str],
                  admin_access: Optional[pulumi.Input[builtins.bool]] = None,
                  allocation_mode: Optional[pulumi.Input[builtins.str]] = None,
                  count: Optional[pulumi.Input[builtins.int]] = None,
-                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]] = None):
+                 device_class_name: Optional[pulumi.Input[builtins.str]] = None,
+                 first_available: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgs']]]] = None,
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]] = None):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-
-        A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
-        :param pulumi.Input[builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
-               
-               A class is required. Which classes are available depends on the cluster.
-               
-               Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
         :param pulumi.Input[builtins.str] name: Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
                
                Must be a DNS label.
         :param pulumi.Input[builtins.bool] admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param pulumi.Input[builtins.str] allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
@@ -2207,16 +3027,43 @@ class DeviceRequestArgs:
                  count field.
                
                - All: This request is for all of the matching devices in a pool.
+                 At least one device must exist on the node for the allocation to succeed.
                  Allocation will fail if some devices are already allocated,
                  unless adminAccess is requested.
                
-               If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         :param pulumi.Input[builtins.int] count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        :param pulumi.Input[builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+               
+               A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
+               
+               Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgs']]] first_available: FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+               
+               This field may only be set in the entries of DeviceClaim.Requests.
+               
+               DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]] tolerations: If specified, the request's tolerations.
+               
+               Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+               
+               In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+               
+               The maximum number of tolerations is 16.
+               
+               This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
-        pulumi.set(__self__, "device_class_name", device_class_name)
         pulumi.set(__self__, "name", name)
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
@@ -2224,24 +3071,14 @@ class DeviceRequestArgs:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if device_class_name is not None:
+            pulumi.set(__self__, "device_class_name", device_class_name)
+        if first_available is not None:
+            pulumi.set(__self__, "first_available", first_available)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
-
-    @property
-    @pulumi.getter(name="deviceClassName")
-    def device_class_name(self) -> pulumi.Input[builtins.str]:
-        """
-        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
-
-        A class is required. Which classes are available depends on the cluster.
-
-        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-        """
-        return pulumi.get(self, "device_class_name")
-
-    @device_class_name.setter
-    def device_class_name(self, value: pulumi.Input[builtins.str]):
-        pulumi.set(self, "device_class_name", value)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
 
     @property
     @pulumi.getter
@@ -2263,6 +3100,8 @@ class DeviceRequestArgs:
         """
         AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
 
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
         return pulumi.get(self, "admin_access")
@@ -2282,10 +3121,13 @@ class DeviceRequestArgs:
           count field.
 
         - All: This request is for all of the matching devices in a pool.
+          At least one device must exist on the node for the allocation to succeed.
           Allocation will fail if some devices are already allocated,
           unless adminAccess is requested.
 
-        If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
@@ -2300,6 +3142,8 @@ class DeviceRequestArgs:
     def count(self) -> Optional[pulumi.Input[builtins.int]]:
         """
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         """
         return pulumi.get(self, "count")
 
@@ -2308,16 +3152,72 @@ class DeviceRequestArgs:
         pulumi.set(self, "count", value)
 
     @property
+    @pulumi.getter(name="deviceClassName")
+    def device_class_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+
+        A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        return pulumi.get(self, "device_class_name")
+
+    @device_class_name.setter
+    def device_class_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter(name="firstAvailable")
+    def first_available(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgs']]]]:
+        """
+        FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+
+        This field may only be set in the entries of DeviceClaim.Requests.
+
+        DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+        """
+        return pulumi.get(self, "first_available")
+
+    @first_available.setter
+    def first_available(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgs']]]]):
+        pulumi.set(self, "first_available", value)
+
+    @property
     @pulumi.getter
     def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]:
         """
         Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         """
         return pulumi.get(self, "selectors")
 
     @selectors.setter
     def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]):
         pulumi.set(self, "selectors", value)
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]:
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
 
 
 if not MYPY:
@@ -2390,6 +3290,1330 @@ class DeviceSelectorArgs:
     @cel.setter
     def cel(self, value: Optional[pulumi.Input['CELDeviceSelectorArgs']]):
         pulumi.set(self, "cel", value)
+
+
+if not MYPY:
+    class DeviceSubRequestPatchArgsDict(TypedDict):
+        """
+        DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+
+        DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+        """
+        allocation_mode: NotRequired[pulumi.Input[builtins.str]]
+        """
+        AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+
+        - All: This request is for all of the matching devices in a pool.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        """
+        count: NotRequired[pulumi.Input[builtins.int]]
+        """
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        """
+        device_class_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+
+        A class is required. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+
+        Must be a DNS label.
+        """
+        selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]
+        """
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        """
+        tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgsDict']]]]
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+elif False:
+    DeviceSubRequestPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceSubRequestPatchArgs:
+    def __init__(__self__, *,
+                 allocation_mode: Optional[pulumi.Input[builtins.str]] = None,
+                 count: Optional[pulumi.Input[builtins.int]] = None,
+                 device_class_name: Optional[pulumi.Input[builtins.str]] = None,
+                 name: Optional[pulumi.Input[builtins.str]] = None,
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]] = None):
+        """
+        DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+
+        DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+        :param pulumi.Input[builtins.str] allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+               
+               - ExactCount: This request is for a specific number of devices.
+                 This is the default. The exact number is provided in the
+                 count field.
+               
+               - All: This request is for all of the matching devices in a pool.
+                 Allocation will fail if some devices are already allocated,
+                 unless adminAccess is requested.
+               
+               If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               
+               More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param pulumi.Input[builtins.int] count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param pulumi.Input[builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+               
+               A class is required. Which classes are available depends on the cluster.
+               
+               Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        :param pulumi.Input[builtins.str] name: Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+               
+               Must be a DNS label.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]] tolerations: If specified, the request's tolerations.
+               
+               Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+               
+               In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+               
+               The maximum number of tolerations is 16.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        if allocation_mode is not None:
+            pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if device_class_name is not None:
+            pulumi.set(__self__, "device_class_name", device_class_name)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if selectors is not None:
+            pulumi.set(__self__, "selectors", selectors)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @property
+    @pulumi.getter(name="allocationMode")
+    def allocation_mode(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+
+        - All: This request is for all of the matching devices in a pool.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        """
+        return pulumi.get(self, "allocation_mode")
+
+    @allocation_mode.setter
+    def allocation_mode(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "allocation_mode", value)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "count", value)
+
+    @property
+    @pulumi.getter(name="deviceClassName")
+    def device_class_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+
+        A class is required. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        return pulumi.get(self, "device_class_name")
+
+    @device_class_name.setter
+    def device_class_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+
+        Must be a DNS label.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]:
+        """
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        """
+        return pulumi.get(self, "selectors")
+
+    @selectors.setter
+    def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]):
+        pulumi.set(self, "selectors", value)
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]]:
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
+
+if not MYPY:
+    class DeviceSubRequestArgsDict(TypedDict):
+        """
+        DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+
+        DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+        """
+        device_class_name: pulumi.Input[builtins.str]
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+
+        A class is required. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        name: pulumi.Input[builtins.str]
+        """
+        Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+
+        Must be a DNS label.
+        """
+        allocation_mode: NotRequired[pulumi.Input[builtins.str]]
+        """
+        AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+
+        - All: This request is for all of the matching devices in a pool.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        """
+        count: NotRequired[pulumi.Input[builtins.int]]
+        """
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        """
+        selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]
+        """
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        """
+        tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgsDict']]]]
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+elif False:
+    DeviceSubRequestArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceSubRequestArgs:
+    def __init__(__self__, *,
+                 device_class_name: pulumi.Input[builtins.str],
+                 name: pulumi.Input[builtins.str],
+                 allocation_mode: Optional[pulumi.Input[builtins.str]] = None,
+                 count: Optional[pulumi.Input[builtins.int]] = None,
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]] = None):
+        """
+        DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+
+        DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+        :param pulumi.Input[builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+               
+               A class is required. Which classes are available depends on the cluster.
+               
+               Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        :param pulumi.Input[builtins.str] name: Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+               
+               Must be a DNS label.
+        :param pulumi.Input[builtins.str] allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+               
+               - ExactCount: This request is for a specific number of devices.
+                 This is the default. The exact number is provided in the
+                 count field.
+               
+               - All: This request is for all of the matching devices in a pool.
+                 Allocation will fail if some devices are already allocated,
+                 unless adminAccess is requested.
+               
+               If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+               
+               More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param pulumi.Input[builtins.int] count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]] tolerations: If specified, the request's tolerations.
+               
+               Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+               
+               In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+               
+               The maximum number of tolerations is 16.
+               
+               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        pulumi.set(__self__, "device_class_name", device_class_name)
+        pulumi.set(__self__, "name", name)
+        if allocation_mode is not None:
+            pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if selectors is not None:
+            pulumi.set(__self__, "selectors", selectors)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @property
+    @pulumi.getter(name="deviceClassName")
+    def device_class_name(self) -> pulumi.Input[builtins.str]:
+        """
+        DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+
+        A class is required. Which classes are available depends on the cluster.
+
+        Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+        """
+        return pulumi.get(self, "device_class_name")
+
+    @device_class_name.setter
+    def device_class_name(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[builtins.str]:
+        """
+        Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+
+        Must be a DNS label.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="allocationMode")
+    def allocation_mode(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+
+        - ExactCount: This request is for a specific number of devices.
+          This is the default. The exact number is provided in the
+          count field.
+
+        - All: This request is for all of the matching devices in a pool.
+          Allocation will fail if some devices are already allocated,
+          unless adminAccess is requested.
+
+        If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+
+        More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        """
+        return pulumi.get(self, "allocation_mode")
+
+    @allocation_mode.setter
+    def allocation_mode(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "allocation_mode", value)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "count", value)
+
+    @property
+    @pulumi.getter
+    def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]:
+        """
+        Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+        """
+        return pulumi.get(self, "selectors")
+
+    @selectors.setter
+    def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]):
+        pulumi.set(self, "selectors", value)
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]:
+        """
+        If specified, the request's tolerations.
+
+        Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+
+        In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+
+        The maximum number of tolerations is 16.
+
+        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
+
+if not MYPY:
+    class DeviceTaintPatchArgsDict(TypedDict):
+        """
+        The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+        """
+        effect: NotRequired[pulumi.Input[builtins.str]]
+        """
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        """
+        key: NotRequired[pulumi.Input[builtins.str]]
+        """
+        The taint key to be applied to a device. Must be a label name.
+        """
+        time_added: NotRequired[pulumi.Input[builtins.str]]
+        """
+        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        """
+        value: NotRequired[pulumi.Input[builtins.str]]
+        """
+        The taint value corresponding to the taint key. Must be a label value.
+        """
+elif False:
+    DeviceTaintPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintPatchArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[builtins.str]] = None,
+                 key: Optional[pulumi.Input[builtins.str]] = None,
+                 time_added: Optional[pulumi.Input[builtins.str]] = None,
+                 value: Optional[pulumi.Input[builtins.str]] = None):
+        """
+        The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+        :param pulumi.Input[builtins.str] effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        :param pulumi.Input[builtins.str] key: The taint key to be applied to a device. Must be a label name.
+        :param pulumi.Input[builtins.str] time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param pulumi.Input[builtins.str] value: The taint value corresponding to the taint key. Must be a label value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if time_added is not None:
+            pulumi.set(__self__, "time_added", time_added)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The taint key to be applied to a device. Must be a label name.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter(name="timeAdded")
+    def time_added(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        """
+        return pulumi.get(self, "time_added")
+
+    @time_added.setter
+    def time_added(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "time_added", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The taint value corresponding to the taint key. Must be a label value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+if not MYPY:
+    class DeviceTaintRuleSpecPatchArgsDict(TypedDict):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+        """
+        device_selector: NotRequired[pulumi.Input['DeviceTaintSelectorPatchArgsDict']]
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        taint: NotRequired[pulumi.Input['DeviceTaintPatchArgsDict']]
+        """
+        The taint that gets applied to matching devices.
+        """
+elif False:
+    DeviceTaintRuleSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintRuleSpecPatchArgs:
+    def __init__(__self__, *,
+                 device_selector: Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']] = None,
+                 taint: Optional[pulumi.Input['DeviceTaintPatchArgs']] = None):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+        :param pulumi.Input['DeviceTaintSelectorPatchArgs'] device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        :param pulumi.Input['DeviceTaintPatchArgs'] taint: The taint that gets applied to matching devices.
+        """
+        if device_selector is not None:
+            pulumi.set(__self__, "device_selector", device_selector)
+        if taint is not None:
+            pulumi.set(__self__, "taint", taint)
+
+    @property
+    @pulumi.getter(name="deviceSelector")
+    def device_selector(self) -> Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']]:
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        return pulumi.get(self, "device_selector")
+
+    @device_selector.setter
+    def device_selector(self, value: Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']]):
+        pulumi.set(self, "device_selector", value)
+
+    @property
+    @pulumi.getter
+    def taint(self) -> Optional[pulumi.Input['DeviceTaintPatchArgs']]:
+        """
+        The taint that gets applied to matching devices.
+        """
+        return pulumi.get(self, "taint")
+
+    @taint.setter
+    def taint(self, value: Optional[pulumi.Input['DeviceTaintPatchArgs']]):
+        pulumi.set(self, "taint", value)
+
+
+if not MYPY:
+    class DeviceTaintRuleSpecArgsDict(TypedDict):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+        """
+        taint: pulumi.Input['DeviceTaintArgsDict']
+        """
+        The taint that gets applied to matching devices.
+        """
+        device_selector: NotRequired[pulumi.Input['DeviceTaintSelectorArgsDict']]
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+elif False:
+    DeviceTaintRuleSpecArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintRuleSpecArgs:
+    def __init__(__self__, *,
+                 taint: pulumi.Input['DeviceTaintArgs'],
+                 device_selector: Optional[pulumi.Input['DeviceTaintSelectorArgs']] = None):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+        :param pulumi.Input['DeviceTaintArgs'] taint: The taint that gets applied to matching devices.
+        :param pulumi.Input['DeviceTaintSelectorArgs'] device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        pulumi.set(__self__, "taint", taint)
+        if device_selector is not None:
+            pulumi.set(__self__, "device_selector", device_selector)
+
+    @property
+    @pulumi.getter
+    def taint(self) -> pulumi.Input['DeviceTaintArgs']:
+        """
+        The taint that gets applied to matching devices.
+        """
+        return pulumi.get(self, "taint")
+
+    @taint.setter
+    def taint(self, value: pulumi.Input['DeviceTaintArgs']):
+        pulumi.set(self, "taint", value)
+
+    @property
+    @pulumi.getter(name="deviceSelector")
+    def device_selector(self) -> Optional[pulumi.Input['DeviceTaintSelectorArgs']]:
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        return pulumi.get(self, "device_selector")
+
+    @device_selector.setter
+    def device_selector(self, value: Optional[pulumi.Input['DeviceTaintSelectorArgs']]):
+        pulumi.set(self, "device_selector", value)
+
+
+if not MYPY:
+    class DeviceTaintRuleArgsDict(TypedDict):
+        """
+        DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+        """
+        spec: pulumi.Input['DeviceTaintRuleSpecArgsDict']
+        """
+        Spec specifies the selector and one taint.
+
+        Changing the spec automatically increments the metadata.generation number.
+        """
+        api_version: NotRequired[pulumi.Input[builtins.str]]
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        kind: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+        """
+        Standard object metadata
+        """
+elif False:
+    DeviceTaintRuleArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintRuleArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['DeviceTaintRuleSpecArgs'],
+                 api_version: Optional[pulumi.Input[builtins.str]] = None,
+                 kind: Optional[pulumi.Input[builtins.str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
+        """
+        DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+        :param pulumi.Input['DeviceTaintRuleSpecArgs'] spec: Spec specifies the selector and one taint.
+               
+               Changing the spec automatically increments the metadata.generation number.
+        :param pulumi.Input[builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha3')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'DeviceTaintRule')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['DeviceTaintRuleSpecArgs']:
+        """
+        Spec specifies the selector and one taint.
+
+        Changing the spec automatically increments the metadata.generation number.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['DeviceTaintRuleSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+
+if not MYPY:
+    class DeviceTaintSelectorPatchArgsDict(TypedDict):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+        """
+        device: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        device_class_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        """
+        driver: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        pool: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]
+        """
+        Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+elif False:
+    DeviceTaintSelectorPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintSelectorPatchArgs:
+    def __init__(__self__, *,
+                 device: Optional[pulumi.Input[builtins.str]] = None,
+                 device_class_name: Optional[pulumi.Input[builtins.str]] = None,
+                 driver: Optional[pulumi.Input[builtins.str]] = None,
+                 pool: Optional[pulumi.Input[builtins.str]] = None,
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]] = None):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+        :param pulumi.Input[builtins.str] device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+               
+               Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        :param pulumi.Input[builtins.str] device_class_name: If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        :param pulumi.Input[builtins.str] driver: If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        :param pulumi.Input[builtins.str] pool: If pool is set, only devices in that pool are selected.
+               
+               Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]] selectors: Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+        if device is not None:
+            pulumi.set(__self__, "device", device)
+        if device_class_name is not None:
+            pulumi.set(__self__, "device_class_name", device_class_name)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+        if selectors is not None:
+            pulumi.set(__self__, "selectors", selectors)
+
+    @property
+    @pulumi.getter
+    def device(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        return pulumi.get(self, "device")
+
+    @device.setter
+    def device(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device", value)
+
+    @property
+    @pulumi.getter(name="deviceClassName")
+    def device_class_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        """
+        return pulumi.get(self, "device_class_name")
+
+    @device_class_name.setter
+    def device_class_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "driver", value)
+
+    @property
+    @pulumi.getter
+    def pool(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        return pulumi.get(self, "pool")
+
+    @pool.setter
+    def pool(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "pool", value)
+
+    @property
+    @pulumi.getter
+    def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]:
+        """
+        Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+        return pulumi.get(self, "selectors")
+
+    @selectors.setter
+    def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]):
+        pulumi.set(self, "selectors", value)
+
+
+if not MYPY:
+    class DeviceTaintSelectorArgsDict(TypedDict):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+        """
+        device: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        device_class_name: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        """
+        driver: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        pool: NotRequired[pulumi.Input[builtins.str]]
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]
+        """
+        Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+elif False:
+    DeviceTaintSelectorArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintSelectorArgs:
+    def __init__(__self__, *,
+                 device: Optional[pulumi.Input[builtins.str]] = None,
+                 device_class_name: Optional[pulumi.Input[builtins.str]] = None,
+                 driver: Optional[pulumi.Input[builtins.str]] = None,
+                 pool: Optional[pulumi.Input[builtins.str]] = None,
+                 selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]] = None):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+        :param pulumi.Input[builtins.str] device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+               
+               Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        :param pulumi.Input[builtins.str] device_class_name: If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        :param pulumi.Input[builtins.str] driver: If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        :param pulumi.Input[builtins.str] pool: If pool is set, only devices in that pool are selected.
+               
+               Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]] selectors: Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+        if device is not None:
+            pulumi.set(__self__, "device", device)
+        if device_class_name is not None:
+            pulumi.set(__self__, "device_class_name", device_class_name)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+        if selectors is not None:
+            pulumi.set(__self__, "selectors", selectors)
+
+    @property
+    @pulumi.getter
+    def device(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        return pulumi.get(self, "device")
+
+    @device.setter
+    def device(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device", value)
+
+    @property
+    @pulumi.getter(name="deviceClassName")
+    def device_class_name(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
+        """
+        return pulumi.get(self, "device_class_name")
+
+    @device_class_name.setter
+    def device_class_name(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "device_class_name", value)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "driver", value)
+
+    @property
+    @pulumi.getter
+    def pool(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        return pulumi.get(self, "pool")
+
+    @pool.setter
+    def pool(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "pool", value)
+
+    @property
+    @pulumi.getter
+    def selectors(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]:
+        """
+        Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
+        """
+        return pulumi.get(self, "selectors")
+
+    @selectors.setter
+    def selectors(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]]):
+        pulumi.set(self, "selectors", value)
+
+
+if not MYPY:
+    class DeviceTaintArgsDict(TypedDict):
+        """
+        The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+        """
+        effect: pulumi.Input[builtins.str]
+        """
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        """
+        key: pulumi.Input[builtins.str]
+        """
+        The taint key to be applied to a device. Must be a label name.
+        """
+        time_added: NotRequired[pulumi.Input[builtins.str]]
+        """
+        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        """
+        value: NotRequired[pulumi.Input[builtins.str]]
+        """
+        The taint value corresponding to the taint key. Must be a label value.
+        """
+elif False:
+    DeviceTaintArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTaintArgs:
+    def __init__(__self__, *,
+                 effect: pulumi.Input[builtins.str],
+                 key: pulumi.Input[builtins.str],
+                 time_added: Optional[pulumi.Input[builtins.str]] = None,
+                 value: Optional[pulumi.Input[builtins.str]] = None):
+        """
+        The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+        :param pulumi.Input[builtins.str] effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        :param pulumi.Input[builtins.str] key: The taint key to be applied to a device. Must be a label name.
+        :param pulumi.Input[builtins.str] time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param pulumi.Input[builtins.str] value: The taint value corresponding to the taint key. Must be a label value.
+        """
+        pulumi.set(__self__, "effect", effect)
+        pulumi.set(__self__, "key", key)
+        if time_added is not None:
+            pulumi.set(__self__, "time_added", time_added)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> pulumi.Input[builtins.str]:
+        """
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[builtins.str]:
+        """
+        The taint key to be applied to a device. Must be a label name.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[builtins.str]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter(name="timeAdded")
+    def time_added(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        """
+        return pulumi.get(self, "time_added")
+
+    @time_added.setter
+    def time_added(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "time_added", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        The taint value corresponding to the taint key. Must be a label value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+if not MYPY:
+    class DeviceTolerationPatchArgsDict(TypedDict):
+        """
+        The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+        """
+        effect: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        """
+        key: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        """
+        operator: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        """
+        toleration_seconds: NotRequired[pulumi.Input[builtins.int]]
+        """
+        TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        """
+        value: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+elif False:
+    DeviceTolerationPatchArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTolerationPatchArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[builtins.str]] = None,
+                 key: Optional[pulumi.Input[builtins.str]] = None,
+                 operator: Optional[pulumi.Input[builtins.str]] = None,
+                 toleration_seconds: Optional[pulumi.Input[builtins.int]] = None,
+                 value: Optional[pulumi.Input[builtins.str]] = None):
+        """
+        The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+        :param pulumi.Input[builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        :param pulumi.Input[builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        :param pulumi.Input[builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        :param pulumi.Input[builtins.int] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        :param pulumi.Input[builtins.str] value: Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @toleration_seconds.setter
+    def toleration_seconds(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "toleration_seconds", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "value", value)
+
+
+if not MYPY:
+    class DeviceTolerationArgsDict(TypedDict):
+        """
+        The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+        """
+        effect: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        """
+        key: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        """
+        operator: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        """
+        toleration_seconds: NotRequired[pulumi.Input[builtins.int]]
+        """
+        TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        """
+        value: NotRequired[pulumi.Input[builtins.str]]
+        """
+        Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+elif False:
+    DeviceTolerationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class DeviceTolerationArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[builtins.str]] = None,
+                 key: Optional[pulumi.Input[builtins.str]] = None,
+                 operator: Optional[pulumi.Input[builtins.str]] = None,
+                 toleration_seconds: Optional[pulumi.Input[builtins.int]] = None,
+                 value: Optional[pulumi.Input[builtins.str]] = None):
+        """
+        The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+        :param pulumi.Input[builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        :param pulumi.Input[builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        :param pulumi.Input[builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        :param pulumi.Input[builtins.int] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        :param pulumi.Input[builtins.str] value: Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+        """
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> Optional[pulumi.Input[builtins.int]]:
+        """
+        TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @toleration_seconds.setter
+    def toleration_seconds(self, value: Optional[pulumi.Input[builtins.int]]):
+        pulumi.set(self, "toleration_seconds", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[builtins.str]]:
+        """
+        Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[builtins.str]]):
+        pulumi.set(self, "value", value)
 
 
 if not MYPY:
@@ -2467,6 +4691,8 @@ if not MYPY:
         ips: NotRequired[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]
         """
         IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+
+        Must not contain more than 16 entries.
         """
 elif False:
     NetworkDeviceDataArgsDict: TypeAlias = Mapping[str, Any]
@@ -2486,6 +4712,8 @@ class NetworkDeviceDataArgs:
                
                Must not be longer than 256 characters.
         :param pulumi.Input[Sequence[pulumi.Input[builtins.str]]] ips: IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+               
+               Must not contain more than 16 entries.
         """
         if hardware_address is not None:
             pulumi.set(__self__, "hardware_address", hardware_address)
@@ -2527,6 +4755,8 @@ class NetworkDeviceDataArgs:
     def ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[builtins.str]]]]:
         """
         IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+
+        Must not contain more than 16 entries.
         """
         return pulumi.get(self, "ips")
 
@@ -3279,7 +5509,7 @@ if not MYPY:
 
         Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 
-        There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        There can be at most 256 such reservations. This may get increased in the future, but not reduced.
         """
 elif False:
     ResourceClaimStatusArgsDict: TypeAlias = Mapping[str, Any]
@@ -3306,7 +5536,7 @@ class ResourceClaimStatusArgs:
                
                Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
                
-               There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+               There can be at most 256 such reservations. This may get increased in the future, but not reduced.
         """
         if allocation is not None:
             pulumi.set(__self__, "allocation", allocation)
@@ -3367,7 +5597,7 @@ class ResourceClaimStatusArgs:
 
         Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 
-        There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        There can be at most 256 such reservations. This may get increased in the future, but not reduced.
         """
         return pulumi.get(self, "reserved_for")
 
@@ -3905,7 +6135,7 @@ if not MYPY:
         """
         AllNodes indicates that all nodes have access to the resources in the pool.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         devices: NotRequired[pulumi.Input[Sequence[pulumi.Input['DevicePatchArgsDict']]]]
         """
@@ -3925,7 +6155,7 @@ if not MYPY:
 
         This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         """
         node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorPatchArgsDict']]
         """
@@ -3933,11 +6163,25 @@ if not MYPY:
 
         Must use exactly one term.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        """
+        per_device_node_selection: NotRequired[pulumi.Input[builtins.bool]]
+        """
+        PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         pool: NotRequired[pulumi.Input['ResourcePoolPatchArgsDict']]
         """
         Pool describes the pool that this ResourceSlice belongs to.
+        """
+        shared_counters: NotRequired[pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgsDict']]]]
+        """
+        SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+
+        The names of the SharedCounters must be unique in the ResourceSlice.
+
+        The maximum number of SharedCounters is 32.
         """
 elif False:
     ResourceSliceSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
@@ -3950,12 +6194,14 @@ class ResourceSliceSpecPatchArgs:
                  driver: Optional[pulumi.Input[builtins.str]] = None,
                  node_name: Optional[pulumi.Input[builtins.str]] = None,
                  node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
-                 pool: Optional[pulumi.Input['ResourcePoolPatchArgs']] = None):
+                 per_device_node_selection: Optional[pulumi.Input[builtins.bool]] = None,
+                 pool: Optional[pulumi.Input['ResourcePoolPatchArgs']] = None,
+                 shared_counters: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgs']]]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
         :param pulumi.Input[builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the resources in the pool.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param pulumi.Input[Sequence[pulumi.Input['DevicePatchArgs']]] devices: Devices lists some or all of the devices in this pool.
                
                Must not have more than 128 entries.
@@ -3966,13 +6212,21 @@ class ResourceSliceSpecPatchArgs:
                
                This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         :param pulumi.Input['_core.v1.NodeSelectorPatchArgs'] node_selector: NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
                
                Must use exactly one term.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        :param pulumi.Input[builtins.bool] per_device_node_selection: PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+               
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param pulumi.Input['ResourcePoolPatchArgs'] pool: Pool describes the pool that this ResourceSlice belongs to.
+        :param pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgs']]] shared_counters: SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+               
+               The names of the SharedCounters must be unique in the ResourceSlice.
+               
+               The maximum number of SharedCounters is 32.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
@@ -3984,8 +6238,12 @@ class ResourceSliceSpecPatchArgs:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+        if per_device_node_selection is not None:
+            pulumi.set(__self__, "per_device_node_selection", per_device_node_selection)
         if pool is not None:
             pulumi.set(__self__, "pool", pool)
+        if shared_counters is not None:
+            pulumi.set(__self__, "shared_counters", shared_counters)
 
     @property
     @pulumi.getter(name="allNodes")
@@ -3993,7 +6251,7 @@ class ResourceSliceSpecPatchArgs:
         """
         AllNodes indicates that all nodes have access to the resources in the pool.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         return pulumi.get(self, "all_nodes")
 
@@ -4037,7 +6295,7 @@ class ResourceSliceSpecPatchArgs:
 
         This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         """
         return pulumi.get(self, "node_name")
 
@@ -4053,13 +6311,27 @@ class ResourceSliceSpecPatchArgs:
 
         Must use exactly one term.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         return pulumi.get(self, "node_selector")
 
     @node_selector.setter
     def node_selector(self, value: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']]):
         pulumi.set(self, "node_selector", value)
+
+    @property
+    @pulumi.getter(name="perDeviceNodeSelection")
+    def per_device_node_selection(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        """
+        return pulumi.get(self, "per_device_node_selection")
+
+    @per_device_node_selection.setter
+    def per_device_node_selection(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "per_device_node_selection", value)
 
     @property
     @pulumi.getter
@@ -4072,6 +6344,22 @@ class ResourceSliceSpecPatchArgs:
     @pool.setter
     def pool(self, value: Optional[pulumi.Input['ResourcePoolPatchArgs']]):
         pulumi.set(self, "pool", value)
+
+    @property
+    @pulumi.getter(name="sharedCounters")
+    def shared_counters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgs']]]]:
+        """
+        SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+
+        The names of the SharedCounters must be unique in the ResourceSlice.
+
+        The maximum number of SharedCounters is 32.
+        """
+        return pulumi.get(self, "shared_counters")
+
+    @shared_counters.setter
+    def shared_counters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgs']]]]):
+        pulumi.set(self, "shared_counters", value)
 
 
 if not MYPY:
@@ -4093,7 +6381,7 @@ if not MYPY:
         """
         AllNodes indicates that all nodes have access to the resources in the pool.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         devices: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceArgsDict']]]]
         """
@@ -4107,7 +6395,7 @@ if not MYPY:
 
         This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         """
         node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
         """
@@ -4115,7 +6403,21 @@ if not MYPY:
 
         Must use exactly one term.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        """
+        per_device_node_selection: NotRequired[pulumi.Input[builtins.bool]]
+        """
+        PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        """
+        shared_counters: NotRequired[pulumi.Input[Sequence[pulumi.Input['CounterSetArgsDict']]]]
+        """
+        SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+
+        The names of the SharedCounters must be unique in the ResourceSlice.
+
+        The maximum number of SharedCounters is 32.
         """
 elif False:
     ResourceSliceSpecArgsDict: TypeAlias = Mapping[str, Any]
@@ -4128,7 +6430,9 @@ class ResourceSliceSpecArgs:
                  all_nodes: Optional[pulumi.Input[builtins.bool]] = None,
                  devices: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceArgs']]]] = None,
                  node_name: Optional[pulumi.Input[builtins.str]] = None,
-                 node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None):
+                 node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
+                 per_device_node_selection: Optional[pulumi.Input[builtins.bool]] = None,
+                 shared_counters: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetArgs']]]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
         :param pulumi.Input[builtins.str] driver: Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
@@ -4137,7 +6441,7 @@ class ResourceSliceSpecArgs:
         :param pulumi.Input['ResourcePoolArgs'] pool: Pool describes the pool that this ResourceSlice belongs to.
         :param pulumi.Input[builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the resources in the pool.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceArgs']]] devices: Devices lists some or all of the devices in this pool.
                
                Must not have more than 128 entries.
@@ -4145,12 +6449,20 @@ class ResourceSliceSpecArgs:
                
                This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         :param pulumi.Input['_core.v1.NodeSelectorArgs'] node_selector: NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
                
                Must use exactly one term.
                
-               Exactly one of NodeName, NodeSelector and AllNodes must be set.
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        :param pulumi.Input[builtins.bool] per_device_node_selection: PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+               
+               Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        :param pulumi.Input[Sequence[pulumi.Input['CounterSetArgs']]] shared_counters: SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+               
+               The names of the SharedCounters must be unique in the ResourceSlice.
+               
+               The maximum number of SharedCounters is 32.
         """
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "pool", pool)
@@ -4162,6 +6474,10 @@ class ResourceSliceSpecArgs:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+        if per_device_node_selection is not None:
+            pulumi.set(__self__, "per_device_node_selection", per_device_node_selection)
+        if shared_counters is not None:
+            pulumi.set(__self__, "shared_counters", shared_counters)
 
     @property
     @pulumi.getter
@@ -4195,7 +6511,7 @@ class ResourceSliceSpecArgs:
         """
         AllNodes indicates that all nodes have access to the resources in the pool.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         return pulumi.get(self, "all_nodes")
 
@@ -4225,7 +6541,7 @@ class ResourceSliceSpecArgs:
 
         This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         """
         return pulumi.get(self, "node_name")
 
@@ -4241,13 +6557,43 @@ class ResourceSliceSpecArgs:
 
         Must use exactly one term.
 
-        Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         """
         return pulumi.get(self, "node_selector")
 
     @node_selector.setter
     def node_selector(self, value: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']]):
         pulumi.set(self, "node_selector", value)
+
+    @property
+    @pulumi.getter(name="perDeviceNodeSelection")
+    def per_device_node_selection(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+
+        Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        """
+        return pulumi.get(self, "per_device_node_selection")
+
+    @per_device_node_selection.setter
+    def per_device_node_selection(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "per_device_node_selection", value)
+
+    @property
+    @pulumi.getter(name="sharedCounters")
+    def shared_counters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetArgs']]]]:
+        """
+        SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+
+        The names of the SharedCounters must be unique in the ResourceSlice.
+
+        The maximum number of SharedCounters is 32.
+        """
+        return pulumi.get(self, "shared_counters")
+
+    @shared_counters.setter
+    def shared_counters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetArgs']]]]):
+        pulumi.set(self, "shared_counters", value)
 
 
 if not MYPY:

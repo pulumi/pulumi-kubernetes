@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HPAScalingRules {
     /**
-     * @return policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+     * @return policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
      * 
      */
     private @Nullable List<HPAScalingPolicy> policies;
@@ -29,10 +29,19 @@ public final class HPAScalingRules {
      * 
      */
     private @Nullable Integer stabilizationWindowSeconds;
+    /**
+     * @return tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+     * 
+     * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+     * 
+     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * 
+     */
+    private @Nullable String tolerance;
 
     private HPAScalingRules() {}
     /**
-     * @return policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+     * @return policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
      * 
      */
     public List<HPAScalingPolicy> policies() {
@@ -52,6 +61,17 @@ public final class HPAScalingRules {
     public Optional<Integer> stabilizationWindowSeconds() {
         return Optional.ofNullable(this.stabilizationWindowSeconds);
     }
+    /**
+     * @return tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+     * 
+     * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+     * 
+     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * 
+     */
+    public Optional<String> tolerance() {
+        return Optional.ofNullable(this.tolerance);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -65,12 +85,14 @@ public final class HPAScalingRules {
         private @Nullable List<HPAScalingPolicy> policies;
         private @Nullable String selectPolicy;
         private @Nullable Integer stabilizationWindowSeconds;
+        private @Nullable String tolerance;
         public Builder() {}
         public Builder(HPAScalingRules defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.policies = defaults.policies;
     	      this.selectPolicy = defaults.selectPolicy;
     	      this.stabilizationWindowSeconds = defaults.stabilizationWindowSeconds;
+    	      this.tolerance = defaults.tolerance;
         }
 
         @CustomType.Setter
@@ -94,11 +116,18 @@ public final class HPAScalingRules {
             this.stabilizationWindowSeconds = stabilizationWindowSeconds;
             return this;
         }
+        @CustomType.Setter
+        public Builder tolerance(@Nullable String tolerance) {
+
+            this.tolerance = tolerance;
+            return this;
+        }
         public HPAScalingRules build() {
             final var _resultValue = new HPAScalingRules();
             _resultValue.policies = policies;
             _resultValue.selectPolicy = selectPolicy;
             _resultValue.stabilizationWindowSeconds = stabilizationWindowSeconds;
+            _resultValue.tolerance = tolerance;
             return _resultValue;
         }
     }

@@ -32,7 +32,7 @@ public final class EndpointPort {
      */
     private @Nullable String name;
     /**
-     * @return port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+     * @return port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
      * 
      */
     private @Nullable Integer port;
@@ -67,7 +67,7 @@ public final class EndpointPort {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+     * @return port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
      * 
      */
     public Optional<Integer> port() {

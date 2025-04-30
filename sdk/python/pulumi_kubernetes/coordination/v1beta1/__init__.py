@@ -7,6 +7,9 @@ from ... import _utilities
 import typing
 # Export this package's modules as members:
 from .Lease import *
+from .LeaseCandidate import *
+from .LeaseCandidateList import *
+from .LeaseCandidatePatch import *
 from .LeaseList import *
 from .LeasePatch import *
 from ._inputs import *

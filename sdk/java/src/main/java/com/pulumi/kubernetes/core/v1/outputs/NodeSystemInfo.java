@@ -5,8 +5,11 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.outputs.NodeSwapStatus;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class NodeSystemInfo {
@@ -55,6 +58,11 @@ public final class NodeSystemInfo {
      * 
      */
     private String osImage;
+    /**
+     * @return Swap Info reported by the node.
+     * 
+     */
+    private @Nullable NodeSwapStatus swap;
     /**
      * @return SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * 
@@ -126,6 +134,13 @@ public final class NodeSystemInfo {
         return this.osImage;
     }
     /**
+     * @return Swap Info reported by the node.
+     * 
+     */
+    public Optional<NodeSwapStatus> swap() {
+        return Optional.ofNullable(this.swap);
+    }
+    /**
      * @return SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * 
      */
@@ -151,6 +166,7 @@ public final class NodeSystemInfo {
         private String machineID;
         private String operatingSystem;
         private String osImage;
+        private @Nullable NodeSwapStatus swap;
         private String systemUUID;
         public Builder() {}
         public Builder(NodeSystemInfo defaults) {
@@ -164,6 +180,7 @@ public final class NodeSystemInfo {
     	      this.machineID = defaults.machineID;
     	      this.operatingSystem = defaults.operatingSystem;
     	      this.osImage = defaults.osImage;
+    	      this.swap = defaults.swap;
     	      this.systemUUID = defaults.systemUUID;
         }
 
@@ -240,6 +257,12 @@ public final class NodeSystemInfo {
             return this;
         }
         @CustomType.Setter
+        public Builder swap(@Nullable NodeSwapStatus swap) {
+
+            this.swap = swap;
+            return this;
+        }
+        @CustomType.Setter
         public Builder systemUUID(String systemUUID) {
             if (systemUUID == null) {
               throw new MissingRequiredPropertyException("NodeSystemInfo", "systemUUID");
@@ -258,6 +281,7 @@ public final class NodeSystemInfo {
             _resultValue.machineID = machineID;
             _resultValue.operatingSystem = operatingSystem;
             _resultValue.osImage = osImage;
+            _resultValue.swap = swap;
             _resultValue.systemUUID = systemUUID;
             return _resultValue;
         }

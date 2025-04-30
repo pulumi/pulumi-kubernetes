@@ -36,14 +36,14 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
         return this.apiVersion;
     }
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     @Export(name="items", refs={List.class,ReplicaSet.class}, tree="[0,1]")
     private Output<List<ReplicaSet>> items;
 
     /**
-     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Output<List<ReplicaSet>> items() {

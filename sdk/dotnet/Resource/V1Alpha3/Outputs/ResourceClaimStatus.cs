@@ -39,7 +39,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// 
         /// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
         /// 
-        /// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        /// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.ResourceClaimConsumerReference> ReservedFor;
 

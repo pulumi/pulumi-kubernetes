@@ -30,6 +30,10 @@ import javax.annotation.Nullable;
  *        },
  *     ]
  * 
+ * Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+ * 
+ * Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
+ * 
  */
 @ResourceType(type="kubernetes:core/v1:Endpoints")
 public class Endpoints extends com.pulumi.resources.CustomResource {

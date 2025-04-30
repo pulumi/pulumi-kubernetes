@@ -19,7 +19,7 @@ public final class ReplicaSetSpecPatch {
      */
     private @Nullable Integer minReadySeconds;
     /**
-     * @return Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     private @Nullable Integer replicas;
@@ -29,7 +29,7 @@ public final class ReplicaSetSpecPatch {
      */
     private @Nullable LabelSelectorPatch selector;
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
      * 
      */
     private @Nullable PodTemplateSpecPatch template;
@@ -43,7 +43,7 @@ public final class ReplicaSetSpecPatch {
         return Optional.ofNullable(this.minReadySeconds);
     }
     /**
-     * @return Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Optional<Integer> replicas() {
@@ -57,7 +57,7 @@ public final class ReplicaSetSpecPatch {
         return Optional.ofNullable(this.selector);
     }
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
      * 
      */
     public Optional<PodTemplateSpecPatch> template() {
