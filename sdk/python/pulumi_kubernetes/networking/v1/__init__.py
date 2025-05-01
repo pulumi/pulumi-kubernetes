@@ -12,8 +12,14 @@ from .IngressClassList import *
 from .IngressClassPatch import *
 from .IngressList import *
 from .IngressPatch import *
+from .IPAddress import *
+from .IPAddressList import *
+from .IPAddressPatch import *
 from .NetworkPolicy import *
 from .NetworkPolicyList import *
 from .NetworkPolicyPatch import *
+from .ServiceCIDR import *
+from .ServiceCIDRList import *
+from .ServiceCIDRPatch import *
 from ._inputs import *
 from . import outputs

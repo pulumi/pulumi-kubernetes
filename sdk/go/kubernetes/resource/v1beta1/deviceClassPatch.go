@@ -51,6 +51,9 @@ func NewDeviceClassPatch(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch"),
 		},
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta2:DeviceClassPatch"),
+		},
 	})
 	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)

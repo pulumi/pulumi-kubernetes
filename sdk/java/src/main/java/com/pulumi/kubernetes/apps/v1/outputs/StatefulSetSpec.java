@@ -59,7 +59,7 @@ public final class StatefulSetSpec {
      * @return serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.
      * 
      */
-    private String serviceName;
+    private @Nullable String serviceName;
     /**
      * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
      * 
@@ -130,8 +130,8 @@ public final class StatefulSetSpec {
      * @return serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.
      * 
      */
-    public String serviceName() {
-        return this.serviceName;
+    public Optional<String> serviceName() {
+        return Optional.ofNullable(this.serviceName);
     }
     /**
      * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
@@ -171,7 +171,7 @@ public final class StatefulSetSpec {
         private @Nullable Integer replicas;
         private @Nullable Integer revisionHistoryLimit;
         private LabelSelector selector;
-        private String serviceName;
+        private @Nullable String serviceName;
         private PodTemplateSpec template;
         private @Nullable StatefulSetUpdateStrategy updateStrategy;
         private @Nullable List<PersistentVolumeClaim> volumeClaimTemplates;
@@ -236,10 +236,8 @@ public final class StatefulSetSpec {
             return this;
         }
         @CustomType.Setter
-        public Builder serviceName(String serviceName) {
-            if (serviceName == null) {
-              throw new MissingRequiredPropertyException("StatefulSetSpec", "serviceName");
-            }
+        public Builder serviceName(@Nullable String serviceName) {
+
             this.serviceName = serviceName;
             return this;
         }

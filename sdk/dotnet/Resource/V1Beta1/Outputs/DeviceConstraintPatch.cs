@@ -26,6 +26,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         public readonly string MatchAttribute;
         /// <summary>
         /// Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+        /// 
+        /// References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
         /// </summary>
         public readonly ImmutableArray<string> Requests;
 

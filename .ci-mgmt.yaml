@@ -6,6 +6,8 @@ gcp: true # need GCP credentials to test in GKE
 pulumiVersionFile: .pulumi.version
 major-version: 4
 parallel: 3
+toolVersions:
+  go: 1.24.x
 envOverride:
   AWS_REGION: us-west-2
   PULUMI_TEST_OWNER: moolumi

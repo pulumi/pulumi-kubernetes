@@ -1954,14 +1954,24 @@ func (o HPAScalingPolicyPatchArrayOutput) Index(i pulumi.IntInput) HPAScalingPol
 	}).(HPAScalingPolicyPatchOutput)
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRules struct {
-	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies []HPAScalingPolicy `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy *string `pulumi:"selectPolicy"`
 	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds *int `pulumi:"stabilizationWindowSeconds"`
+	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+	//
+	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+	//
+	// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+	Tolerance *string `pulumi:"tolerance"`
 }
 
 // HPAScalingRulesInput is an input type that accepts HPAScalingRulesArgs and HPAScalingRulesOutput values.
@@ -1975,14 +1985,24 @@ type HPAScalingRulesInput interface {
 	ToHPAScalingRulesOutputWithContext(context.Context) HPAScalingRulesOutput
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRulesArgs struct {
-	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies HPAScalingPolicyArrayInput `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy pulumi.StringPtrInput `pulumi:"selectPolicy"`
 	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds pulumi.IntPtrInput `pulumi:"stabilizationWindowSeconds"`
+	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+	//
+	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+	//
+	// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+	Tolerance pulumi.StringPtrInput `pulumi:"tolerance"`
 }
 
 func (HPAScalingRulesArgs) ElementType() reflect.Type {
@@ -2038,7 +2058,11 @@ func (i *hpascalingRulesPtrType) ToHPAScalingRulesPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingRulesPtrOutput)
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRulesOutput struct{ *pulumi.OutputState }
 
 func (HPAScalingRulesOutput) ElementType() reflect.Type {
@@ -2063,7 +2087,7 @@ func (o HPAScalingRulesOutput) ToHPAScalingRulesPtrOutputWithContext(ctx context
 	}).(HPAScalingRulesPtrOutput)
 }
 
-// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 func (o HPAScalingRulesOutput) Policies() HPAScalingPolicyArrayOutput {
 	return o.ApplyT(func(v HPAScalingRules) []HPAScalingPolicy { return v.Policies }).(HPAScalingPolicyArrayOutput)
 }
@@ -2076,6 +2100,15 @@ func (o HPAScalingRulesOutput) SelectPolicy() pulumi.StringPtrOutput {
 // stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingRules) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
+// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+//
+// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+//
+// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+func (o HPAScalingRulesOutput) Tolerance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *string { return v.Tolerance }).(pulumi.StringPtrOutput)
 }
 
 type HPAScalingRulesPtrOutput struct{ *pulumi.OutputState }
@@ -2102,7 +2135,7 @@ func (o HPAScalingRulesPtrOutput) Elem() HPAScalingRulesOutput {
 	}).(HPAScalingRulesOutput)
 }
 
-// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 func (o HPAScalingRulesPtrOutput) Policies() HPAScalingPolicyArrayOutput {
 	return o.ApplyT(func(v *HPAScalingRules) []HPAScalingPolicy {
 		if v == nil {
@@ -2132,14 +2165,38 @@ func (o HPAScalingRulesPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutp
 	}).(pulumi.IntPtrOutput)
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+//
+// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+//
+// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+func (o HPAScalingRulesPtrOutput) Tolerance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HPAScalingRules) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Tolerance
+	}).(pulumi.StringPtrOutput)
+}
+
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRulesPatch struct {
-	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies []HPAScalingPolicyPatch `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy *string `pulumi:"selectPolicy"`
 	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds *int `pulumi:"stabilizationWindowSeconds"`
+	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+	//
+	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+	//
+	// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+	Tolerance *string `pulumi:"tolerance"`
 }
 
 // HPAScalingRulesPatchInput is an input type that accepts HPAScalingRulesPatchArgs and HPAScalingRulesPatchOutput values.
@@ -2153,14 +2210,24 @@ type HPAScalingRulesPatchInput interface {
 	ToHPAScalingRulesPatchOutputWithContext(context.Context) HPAScalingRulesPatchOutput
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRulesPatchArgs struct {
-	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies HPAScalingPolicyPatchArrayInput `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy pulumi.StringPtrInput `pulumi:"selectPolicy"`
 	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds pulumi.IntPtrInput `pulumi:"stabilizationWindowSeconds"`
+	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+	//
+	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+	//
+	// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+	Tolerance pulumi.StringPtrInput `pulumi:"tolerance"`
 }
 
 func (HPAScalingRulesPatchArgs) ElementType() reflect.Type {
@@ -2216,7 +2283,11 @@ func (i *hpascalingRulesPatchPtrType) ToHPAScalingRulesPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingRulesPatchPtrOutput)
 }
 
-// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+// HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+//
+// Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+//
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
 type HPAScalingRulesPatchOutput struct{ *pulumi.OutputState }
 
 func (HPAScalingRulesPatchOutput) ElementType() reflect.Type {
@@ -2241,7 +2312,7 @@ func (o HPAScalingRulesPatchOutput) ToHPAScalingRulesPatchPtrOutputWithContext(c
 	}).(HPAScalingRulesPatchPtrOutput)
 }
 
-// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 func (o HPAScalingRulesPatchOutput) Policies() HPAScalingPolicyPatchArrayOutput {
 	return o.ApplyT(func(v HPAScalingRulesPatch) []HPAScalingPolicyPatch { return v.Policies }).(HPAScalingPolicyPatchArrayOutput)
 }
@@ -2254,6 +2325,15 @@ func (o HPAScalingRulesPatchOutput) SelectPolicy() pulumi.StringPtrOutput {
 // stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesPatchOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingRulesPatch) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
+// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+//
+// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+//
+// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+func (o HPAScalingRulesPatchOutput) Tolerance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HPAScalingRulesPatch) *string { return v.Tolerance }).(pulumi.StringPtrOutput)
 }
 
 type HPAScalingRulesPatchPtrOutput struct{ *pulumi.OutputState }
@@ -2280,7 +2360,7 @@ func (o HPAScalingRulesPatchPtrOutput) Elem() HPAScalingRulesPatchOutput {
 	}).(HPAScalingRulesPatchOutput)
 }
 
-// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 func (o HPAScalingRulesPatchPtrOutput) Policies() HPAScalingPolicyPatchArrayOutput {
 	return o.ApplyT(func(v *HPAScalingRulesPatch) []HPAScalingPolicyPatch {
 		if v == nil {
@@ -2308,6 +2388,20 @@ func (o HPAScalingRulesPatchPtrOutput) StabilizationWindowSeconds() pulumi.IntPt
 		}
 		return v.StabilizationWindowSeconds
 	}).(pulumi.IntPtrOutput)
+}
+
+// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+//
+// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+//
+// This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+func (o HPAScalingRulesPatchPtrOutput) Tolerance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HPAScalingRulesPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Tolerance
+	}).(pulumi.StringPtrOutput)
 }
 
 // HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.

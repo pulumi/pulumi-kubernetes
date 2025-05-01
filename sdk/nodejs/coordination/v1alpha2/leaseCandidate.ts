@@ -76,7 +76,7 @@ export class LeaseCandidate extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate" }, { type: "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(LeaseCandidate.__pulumiType, name, resourceInputs, opts);
     }

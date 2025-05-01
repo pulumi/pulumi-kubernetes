@@ -214,6 +214,21 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
+     * StopSignal reports the effective stop signal for this container
+     * 
+     */
+    @Import(name="stopSignal")
+    private @Nullable Output<String> stopSignal;
+
+    /**
+     * @return StopSignal reports the effective stop signal for this container
+     * 
+     */
+    public Optional<Output<String>> stopSignal() {
+        return Optional.ofNullable(this.stopSignal);
+    }
+
+    /**
      * User represents user identity information initially attached to the first process of the container
      * 
      */
@@ -258,6 +273,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         this.restartCount = $.restartCount;
         this.started = $.started;
         this.state = $.state;
+        this.stopSignal = $.stopSignal;
         this.user = $.user;
         this.volumeMounts = $.volumeMounts;
     }
@@ -544,6 +560,27 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder state(ContainerStateArgs state) {
             return state(Output.of(state));
+        }
+
+        /**
+         * @param stopSignal StopSignal reports the effective stop signal for this container
+         * 
+         * @return builder
+         * 
+         */
+        public Builder stopSignal(@Nullable Output<String> stopSignal) {
+            $.stopSignal = stopSignal;
+            return this;
+        }
+
+        /**
+         * @param stopSignal StopSignal reports the effective stop signal for this container
+         * 
+         * @return builder
+         * 
+         */
+        public Builder stopSignal(String stopSignal) {
+            return stopSignal(Output.of(stopSignal));
         }
 
         /**

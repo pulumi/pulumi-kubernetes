@@ -19,7 +19,7 @@ type ReplicaSetList struct {
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
-	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Items ReplicaSetTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
@@ -74,7 +74,7 @@ func (ReplicaSetListState) ElementType() reflect.Type {
 type replicaSetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Items []ReplicaSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -86,7 +86,7 @@ type replicaSetListArgs struct {
 type ReplicaSetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 	Items ReplicaSetTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
@@ -186,7 +186,7 @@ func (o ReplicaSetListOutput) ApiVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *ReplicaSetList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
-// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
 func (o ReplicaSetListOutput) Items() ReplicaSetTypeArrayOutput {
 	return o.ApplyT(func(v *ReplicaSetList) ReplicaSetTypeArrayOutput { return v.Items }).(ReplicaSetTypeArrayOutput)
 }

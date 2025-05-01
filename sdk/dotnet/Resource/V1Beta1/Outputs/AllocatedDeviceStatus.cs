@@ -18,6 +18,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
     {
         /// <summary>
         /// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+        /// 
+        /// Must not contain more than 8 entries.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.Condition> Conditions;
         /// <summary>

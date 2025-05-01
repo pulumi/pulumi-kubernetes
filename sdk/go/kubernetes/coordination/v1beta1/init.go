@@ -23,6 +23,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "kubernetes:coordination.k8s.io/v1beta1:Lease":
 		r = &Lease{}
+	case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate":
+		r = &LeaseCandidate{}
+	case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidateList":
+		r = &LeaseCandidateList{}
+	case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidatePatch":
+		r = &LeaseCandidatePatch{}
 	case "kubernetes:coordination.k8s.io/v1beta1:LeaseList":
 		r = &LeaseList{}
 	case "kubernetes:coordination.k8s.io/v1beta1:LeasePatch":

@@ -63,6 +63,8 @@ const (
 	DeploymentList                       Kind = "DeploymentList"
 	DeviceClass                          Kind = "DeviceClass"
 	DeviceClassList                      Kind = "DeviceClassList"
+	DeviceTaintRule                      Kind = "DeviceTaintRule"
+	DeviceTaintRuleList                  Kind = "DeviceTaintRuleList"
 	EndpointSlice                        Kind = "EndpointSlice"
 	EndpointSliceList                    Kind = "EndpointSliceList"
 	Endpoints                            Kind = "Endpoints"
@@ -295,6 +297,7 @@ const (
 	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
 	ResourceV1A3              groupVersion = "resource.k8s.io/v1alpha3"
 	ResourceV1B1              groupVersion = "resource.k8s.io/v1beta1"
+	ResourceV1B2              groupVersion = "resource.k8s.io/v1beta2"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
@@ -371,6 +374,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"resource.k8s.io/v1alpha2",
 	"resource.k8s.io/v1alpha3",
 	"resource.k8s.io/v1beta1",
+	"resource.k8s.io/v1beta2",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
 	"scheduling.k8s.io/v1beta1",
@@ -426,9 +430,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList",
 	"kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList",
 	"kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
+	"kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundleList",
 	"kubernetes:coordination.k8s.io/v1:LeaseList",
 	"kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList",
 	"kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidateList",
+	"kubernetes:coordination.k8s.io/v1beta1:LeaseCandidateList",
 	"kubernetes:coordination.k8s.io/v1beta1:LeaseList",
 	"kubernetes:core/v1:ConfigMapList",
 	"kubernetes:core/v1:EndpointsList",
@@ -465,9 +471,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationList",
+	"kubernetes:networking.k8s.io/v1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1:IngressList",
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyList",
+	"kubernetes:networking.k8s.io/v1:ServiceCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList",
@@ -505,6 +513,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1alpha3:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRuleList",
 	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList",
@@ -513,6 +522,10 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceSliceList",
+	"kubernetes:resource.k8s.io/v1beta2:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceSliceList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",

@@ -27,6 +27,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &DeviceClassList{}
 	case "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch":
 		r = &DeviceClassPatch{}
+	case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule":
+		r = &DeviceTaintRule{}
+	case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRuleList":
+		r = &DeviceTaintRuleList{}
+	case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch":
+		r = &DeviceTaintRulePatch{}
 	case "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext":
 		r = &PodSchedulingContext{}
 	case "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList":

@@ -80,6 +80,7 @@ import (
 	resourcev1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1alpha2"
 	resourcev1alpha3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1alpha3"
 	resourcev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1beta1"
+	resourcev1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1beta2"
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha1"
 	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1beta1"
@@ -323,9 +324,11 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"certificates.k8s.io/v1/CertificateSigningRequestList",
 		"certificates.k8s.io/v1alpha1/ClusterTrustBundleList",
 		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
+		"certificates.k8s.io/v1beta1/ClusterTrustBundleList",
 		"coordination.k8s.io/v1/LeaseList",
 		"coordination.k8s.io/v1alpha1/LeaseCandidateList",
 		"coordination.k8s.io/v1alpha2/LeaseCandidateList",
+		"coordination.k8s.io/v1beta1/LeaseCandidateList",
 		"coordination.k8s.io/v1beta1/LeaseList",
 		"v1/ConfigMapList",
 		"v1/EndpointsList",
@@ -362,9 +365,11 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList",
+		"networking.k8s.io/v1/IPAddressList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
 		"networking.k8s.io/v1/NetworkPolicyList",
+		"networking.k8s.io/v1/ServiceCIDRList",
 		"networking.k8s.io/v1alpha1/ClusterCIDRList",
 		"networking.k8s.io/v1alpha1/IPAddressList",
 		"networking.k8s.io/v1alpha1/ServiceCIDRList",
@@ -402,6 +407,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"resource.k8s.io/v1alpha2/ResourceClassParametersList",
 		"resource.k8s.io/v1alpha2/ResourceSliceList",
 		"resource.k8s.io/v1alpha3/DeviceClassList",
+		"resource.k8s.io/v1alpha3/DeviceTaintRuleList",
 		"resource.k8s.io/v1alpha3/PodSchedulingContextList",
 		"resource.k8s.io/v1alpha3/ResourceClaimList",
 		"resource.k8s.io/v1alpha3/ResourceClaimTemplateList",
@@ -410,6 +416,10 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"resource.k8s.io/v1beta1/ResourceClaimList",
 		"resource.k8s.io/v1beta1/ResourceClaimTemplateList",
 		"resource.k8s.io/v1beta1/ResourceSliceList",
+		"resource.k8s.io/v1beta2/DeviceClassList",
+		"resource.k8s.io/v1beta2/ResourceClaimList",
+		"resource.k8s.io/v1beta2/ResourceClaimTemplateList",
+		"resource.k8s.io/v1beta2/ResourceSliceList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
@@ -770,6 +780,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "certificates.k8s.io/v1beta1/ClusterTrustBundle":
+		var res certificatesv1beta1.ClusterTrustBundle
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundle", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "coordination.k8s.io/v1/Lease":
 		var res coordinationv1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:Lease", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -794,6 +811,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "coordination.k8s.io/v1beta1/Lease":
 		var res coordinationv1beta1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "coordination.k8s.io/v1beta1/LeaseCandidate":
+		var res coordinationv1beta1.LeaseCandidate
+		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1057,6 +1081,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "networking.k8s.io/v1/IPAddress":
+		var res networkingv1.IPAddress
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:IPAddress", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "networking.k8s.io/v1/Ingress":
 		var res networkingv1.Ingress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:Ingress", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1074,6 +1105,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "networking.k8s.io/v1/NetworkPolicy":
 		var res networkingv1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "networking.k8s.io/v1/ServiceCIDR":
+		var res networkingv1.ServiceCIDR
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:ServiceCIDR", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1337,6 +1375,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha3/DeviceTaintRule":
+		var res resourcev1alpha3.DeviceTaintRule
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "resource.k8s.io/v1alpha3/PodSchedulingContext":
 		var res resourcev1alpha3.PodSchedulingContext
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1389,6 +1434,34 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "resource.k8s.io/v1beta1/ResourceSlice":
 		var res resourcev1beta1.ResourceSlice
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta1:ResourceSlice", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1beta2/DeviceClass":
+		var res resourcev1beta2.DeviceClass
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:DeviceClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1beta2/ResourceClaim":
+		var res resourcev1beta2.ResourceClaim
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceClaim", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1beta2/ResourceClaimTemplate":
+		var res resourcev1beta2.ResourceClaimTemplate
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplate", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1beta2/ResourceSlice":
+		var res resourcev1beta2.ResourceSlice
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceSlice", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

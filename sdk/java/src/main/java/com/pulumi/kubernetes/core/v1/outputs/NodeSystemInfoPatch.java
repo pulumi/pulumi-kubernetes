@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.NodeSwapStatusPatch;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -56,6 +57,11 @@ public final class NodeSystemInfoPatch {
      * 
      */
     private @Nullable String osImage;
+    /**
+     * @return Swap Info reported by the node.
+     * 
+     */
+    private @Nullable NodeSwapStatusPatch swap;
     /**
      * @return SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * 
@@ -127,6 +133,13 @@ public final class NodeSystemInfoPatch {
         return Optional.ofNullable(this.osImage);
     }
     /**
+     * @return Swap Info reported by the node.
+     * 
+     */
+    public Optional<NodeSwapStatusPatch> swap() {
+        return Optional.ofNullable(this.swap);
+    }
+    /**
      * @return SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * 
      */
@@ -152,6 +165,7 @@ public final class NodeSystemInfoPatch {
         private @Nullable String machineID;
         private @Nullable String operatingSystem;
         private @Nullable String osImage;
+        private @Nullable NodeSwapStatusPatch swap;
         private @Nullable String systemUUID;
         public Builder() {}
         public Builder(NodeSystemInfoPatch defaults) {
@@ -165,6 +179,7 @@ public final class NodeSystemInfoPatch {
     	      this.machineID = defaults.machineID;
     	      this.operatingSystem = defaults.operatingSystem;
     	      this.osImage = defaults.osImage;
+    	      this.swap = defaults.swap;
     	      this.systemUUID = defaults.systemUUID;
         }
 
@@ -223,6 +238,12 @@ public final class NodeSystemInfoPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder swap(@Nullable NodeSwapStatusPatch swap) {
+
+            this.swap = swap;
+            return this;
+        }
+        @CustomType.Setter
         public Builder systemUUID(@Nullable String systemUUID) {
 
             this.systemUUID = systemUUID;
@@ -239,6 +260,7 @@ public final class NodeSystemInfoPatch {
             _resultValue.machineID = machineID;
             _resultValue.operatingSystem = operatingSystem;
             _resultValue.osImage = osImage;
+            _resultValue.swap = swap;
             _resultValue.systemUUID = systemUUID;
             return _resultValue;
         }

@@ -83,6 +83,7 @@ namespace Pulumi.Kubernetes.Resource.V1Beta1
                 Aliases =
                 {
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha3:DeviceClass" },
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta2:DeviceClass" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

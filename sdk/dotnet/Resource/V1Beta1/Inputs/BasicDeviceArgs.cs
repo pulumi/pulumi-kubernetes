@@ -15,6 +15,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
     /// </summary>
     public class BasicDeviceArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// AllNodes indicates that all nodes have access to the device.
+        /// 
+        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        /// </summary>
+        [Input("allNodes")]
+        public Input<bool>? AllNodes { get; set; }
+
         [Input("attributes")]
         private InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceAttributeArgs>? _attributes;
 
@@ -41,6 +49,56 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         {
             get => _capacity ?? (_capacity = new InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceCapacityArgs>());
             set => _capacity = value;
+        }
+
+        [Input("consumesCounters")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceCounterConsumptionArgs>? _consumesCounters;
+
+        /// <summary>
+        /// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+        /// 
+        /// There can only be a single entry per counterSet.
+        /// 
+        /// The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceCounterConsumptionArgs> ConsumesCounters
+        {
+            get => _consumesCounters ?? (_consumesCounters = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceCounterConsumptionArgs>());
+            set => _consumesCounters = value;
+        }
+
+        /// <summary>
+        /// NodeName identifies the node where the device is available.
+        /// 
+        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        /// </summary>
+        [Input("nodeName")]
+        public Input<string>? NodeName { get; set; }
+
+        /// <summary>
+        /// NodeSelector defines the nodes where the device is available.
+        /// 
+        /// Must use exactly one term.
+        /// 
+        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        /// </summary>
+        [Input("nodeSelector")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorArgs>? NodeSelector { get; set; }
+
+        [Input("taints")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceTaintArgs>? _taints;
+
+        /// <summary>
+        /// If specified, these are the driver-defined taints.
+        /// 
+        /// The maximum number of taints is 4.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceTaintArgs> Taints
+        {
+            get => _taints ?? (_taints = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceTaintArgs>());
+            set => _taints = value;
         }
 
         public BasicDeviceArgs()

@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.LifecycleHandlerPatchArgs;
+import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -49,11 +50,27 @@ public final class LifecyclePatchArgs extends com.pulumi.resources.ResourceArgs 
         return Optional.ofNullable(this.preStop);
     }
 
+    /**
+     * StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+     * 
+     */
+    @Import(name="stopSignal")
+    private @Nullable Output<String> stopSignal;
+
+    /**
+     * @return StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+     * 
+     */
+    public Optional<Output<String>> stopSignal() {
+        return Optional.ofNullable(this.stopSignal);
+    }
+
     private LifecyclePatchArgs() {}
 
     private LifecyclePatchArgs(LifecyclePatchArgs $) {
         this.postStart = $.postStart;
         this.preStop = $.preStop;
+        this.stopSignal = $.stopSignal;
     }
 
     public static Builder builder() {
@@ -114,6 +131,27 @@ public final class LifecyclePatchArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder preStop(LifecycleHandlerPatchArgs preStop) {
             return preStop(Output.of(preStop));
+        }
+
+        /**
+         * @param stopSignal StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+         * 
+         * @return builder
+         * 
+         */
+        public Builder stopSignal(@Nullable Output<String> stopSignal) {
+            $.stopSignal = stopSignal;
+            return this;
+        }
+
+        /**
+         * @param stopSignal StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+         * 
+         * @return builder
+         * 
+         */
+        public Builder stopSignal(String stopSignal) {
+            return stopSignal(Output.of(stopSignal));
         }
 
         public LifecyclePatchArgs build() {

@@ -137,15 +137,15 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
      * serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.
      * 
      */
-    @Import(name="serviceName", required=true)
-    private Output<String> serviceName;
+    @Import(name="serviceName")
+    private @Nullable Output<String> serviceName;
 
     /**
      * @return serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &#34;pod-specific-string&#34; is managed by the StatefulSet controller.
      * 
      */
-    public Output<String> serviceName() {
-        return this.serviceName;
+    public Optional<Output<String>> serviceName() {
+        return Optional.ofNullable(this.serviceName);
     }
 
     /**
@@ -380,7 +380,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
          * @return builder
          * 
          */
-        public Builder serviceName(Output<String> serviceName) {
+        public Builder serviceName(@Nullable Output<String> serviceName) {
             $.serviceName = serviceName;
             return this;
         }
@@ -471,9 +471,6 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         public StatefulSetSpecArgs build() {
             if ($.selector == null) {
                 throw new MissingRequiredPropertyException("StatefulSetSpecArgs", "selector");
-            }
-            if ($.serviceName == null) {
-                throw new MissingRequiredPropertyException("StatefulSetSpecArgs", "serviceName");
             }
             if ($.template == null) {
                 throw new MissingRequiredPropertyException("StatefulSetSpecArgs", "template");

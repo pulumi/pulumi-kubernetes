@@ -145,6 +145,7 @@ public class ServiceCIDRPatch extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:networking.k8s.io/v1:ServiceCIDRPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRPatch").build())
             ))
             .build();

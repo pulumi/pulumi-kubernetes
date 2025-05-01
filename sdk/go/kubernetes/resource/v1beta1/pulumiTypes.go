@@ -18,6 +18,8 @@ var _ = utilities.GetEnvOrDefault
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
 type AllocatedDeviceStatus struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	//
+	// Must not contain more than 8 entries.
 	Conditions []metav1.Condition `pulumi:"conditions"`
 	// Data contains arbitrary driver-specific data.
 	//
@@ -51,6 +53,8 @@ type AllocatedDeviceStatusInput interface {
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
 type AllocatedDeviceStatusArgs struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	//
+	// Must not contain more than 8 entries.
 	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 	// Data contains arbitrary driver-specific data.
 	//
@@ -123,6 +127,8 @@ func (o AllocatedDeviceStatusOutput) ToAllocatedDeviceStatusOutputWithContext(ct
 }
 
 // Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+//
+// Must not contain more than 8 entries.
 func (o AllocatedDeviceStatusOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
 }
@@ -181,6 +187,8 @@ func (o AllocatedDeviceStatusArrayOutput) Index(i pulumi.IntInput) AllocatedDevi
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
 type AllocatedDeviceStatusPatch struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	//
+	// Must not contain more than 8 entries.
 	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
 	// Data contains arbitrary driver-specific data.
 	//
@@ -214,6 +222,8 @@ type AllocatedDeviceStatusPatchInput interface {
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
 type AllocatedDeviceStatusPatchArgs struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+	//
+	// Must not contain more than 8 entries.
 	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
 	// Data contains arbitrary driver-specific data.
 	//
@@ -286,6 +296,8 @@ func (o AllocatedDeviceStatusPatchOutput) ToAllocatedDeviceStatusPatchOutputWith
 }
 
 // Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+//
+// Must not contain more than 8 entries.
 func (o AllocatedDeviceStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
 }
@@ -661,6 +673,10 @@ func (o AllocationResultPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchP
 
 // BasicDevice defines one device instance.
 type BasicDevice struct {
+	// AllNodes indicates that all nodes have access to the device.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	AllNodes *bool `pulumi:"allNodes"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -669,6 +685,28 @@ type BasicDevice struct {
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Capacity map[string]DeviceCapacity `pulumi:"capacity"`
+	// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+	//
+	// There can only be a single entry per counterSet.
+	//
+	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	ConsumesCounters []DeviceCounterConsumption `pulumi:"consumesCounters"`
+	// NodeName identifies the node where the device is available.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeName *string `pulumi:"nodeName"`
+	// NodeSelector defines the nodes where the device is available.
+	//
+	// Must use exactly one term.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
+	// If specified, these are the driver-defined taints.
+	//
+	// The maximum number of taints is 4.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Taints []DeviceTaint `pulumi:"taints"`
 }
 
 // BasicDeviceInput is an input type that accepts BasicDeviceArgs and BasicDeviceOutput values.
@@ -684,6 +722,10 @@ type BasicDeviceInput interface {
 
 // BasicDevice defines one device instance.
 type BasicDeviceArgs struct {
+	// AllNodes indicates that all nodes have access to the device.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -692,6 +734,28 @@ type BasicDeviceArgs struct {
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Capacity DeviceCapacityMapInput `pulumi:"capacity"`
+	// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+	//
+	// There can only be a single entry per counterSet.
+	//
+	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	ConsumesCounters DeviceCounterConsumptionArrayInput `pulumi:"consumesCounters"`
+	// NodeName identifies the node where the device is available.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// NodeSelector defines the nodes where the device is available.
+	//
+	// Must use exactly one term.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
+	// If specified, these are the driver-defined taints.
+	//
+	// The maximum number of taints is 4.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Taints DeviceTaintArrayInput `pulumi:"taints"`
 }
 
 func (BasicDeviceArgs) ElementType() reflect.Type {
@@ -772,6 +836,13 @@ func (o BasicDeviceOutput) ToBasicDevicePtrOutputWithContext(ctx context.Context
 	}).(BasicDevicePtrOutput)
 }
 
+// AllNodes indicates that all nodes have access to the device.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDeviceOutput) AllNodes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v BasicDevice) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
@@ -784,6 +855,40 @@ func (o BasicDeviceOutput) Attributes() DeviceAttributeMapOutput {
 // The maximum number of attributes and capacities combined is 32.
 func (o BasicDeviceOutput) Capacity() DeviceCapacityMapOutput {
 	return o.ApplyT(func(v BasicDevice) map[string]DeviceCapacity { return v.Capacity }).(DeviceCapacityMapOutput)
+}
+
+// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+//
+// There can only be a single entry per counterSet.
+//
+// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+func (o BasicDeviceOutput) ConsumesCounters() DeviceCounterConsumptionArrayOutput {
+	return o.ApplyT(func(v BasicDevice) []DeviceCounterConsumption { return v.ConsumesCounters }).(DeviceCounterConsumptionArrayOutput)
+}
+
+// NodeName identifies the node where the device is available.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDeviceOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v BasicDevice) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// NodeSelector defines the nodes where the device is available.
+//
+// Must use exactly one term.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDeviceOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
+	return o.ApplyT(func(v BasicDevice) *corev1.NodeSelector { return v.NodeSelector }).(corev1.NodeSelectorPtrOutput)
+}
+
+// If specified, these are the driver-defined taints.
+//
+// The maximum number of taints is 4.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o BasicDeviceOutput) Taints() DeviceTaintArrayOutput {
+	return o.ApplyT(func(v BasicDevice) []DeviceTaint { return v.Taints }).(DeviceTaintArrayOutput)
 }
 
 type BasicDevicePtrOutput struct{ *pulumi.OutputState }
@@ -810,6 +915,18 @@ func (o BasicDevicePtrOutput) Elem() BasicDeviceOutput {
 	}).(BasicDeviceOutput)
 }
 
+// AllNodes indicates that all nodes have access to the device.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePtrOutput) AllNodes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *BasicDevice) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllNodes
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
@@ -834,8 +951,66 @@ func (o BasicDevicePtrOutput) Capacity() DeviceCapacityMapOutput {
 	}).(DeviceCapacityMapOutput)
 }
 
+// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+//
+// There can only be a single entry per counterSet.
+//
+// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+func (o BasicDevicePtrOutput) ConsumesCounters() DeviceCounterConsumptionArrayOutput {
+	return o.ApplyT(func(v *BasicDevice) []DeviceCounterConsumption {
+		if v == nil {
+			return nil
+		}
+		return v.ConsumesCounters
+	}).(DeviceCounterConsumptionArrayOutput)
+}
+
+// NodeName identifies the node where the device is available.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *BasicDevice) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeSelector defines the nodes where the device is available.
+//
+// Must use exactly one term.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
+	return o.ApplyT(func(v *BasicDevice) *corev1.NodeSelector {
+		if v == nil {
+			return nil
+		}
+		return v.NodeSelector
+	}).(corev1.NodeSelectorPtrOutput)
+}
+
+// If specified, these are the driver-defined taints.
+//
+// The maximum number of taints is 4.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o BasicDevicePtrOutput) Taints() DeviceTaintArrayOutput {
+	return o.ApplyT(func(v *BasicDevice) []DeviceTaint {
+		if v == nil {
+			return nil
+		}
+		return v.Taints
+	}).(DeviceTaintArrayOutput)
+}
+
 // BasicDevice defines one device instance.
 type BasicDevicePatch struct {
+	// AllNodes indicates that all nodes have access to the device.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	AllNodes *bool `pulumi:"allNodes"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -844,6 +1019,28 @@ type BasicDevicePatch struct {
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Capacity map[string]DeviceCapacity `pulumi:"capacity"`
+	// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+	//
+	// There can only be a single entry per counterSet.
+	//
+	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	ConsumesCounters []DeviceCounterConsumptionPatch `pulumi:"consumesCounters"`
+	// NodeName identifies the node where the device is available.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeName *string `pulumi:"nodeName"`
+	// NodeSelector defines the nodes where the device is available.
+	//
+	// Must use exactly one term.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
+	// If specified, these are the driver-defined taints.
+	//
+	// The maximum number of taints is 4.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Taints []DeviceTaintPatch `pulumi:"taints"`
 }
 
 // BasicDevicePatchInput is an input type that accepts BasicDevicePatchArgs and BasicDevicePatchOutput values.
@@ -859,6 +1056,10 @@ type BasicDevicePatchInput interface {
 
 // BasicDevice defines one device instance.
 type BasicDevicePatchArgs struct {
+	// AllNodes indicates that all nodes have access to the device.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -867,6 +1068,28 @@ type BasicDevicePatchArgs struct {
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Capacity DeviceCapacityMapInput `pulumi:"capacity"`
+	// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+	//
+	// There can only be a single entry per counterSet.
+	//
+	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	ConsumesCounters DeviceCounterConsumptionPatchArrayInput `pulumi:"consumesCounters"`
+	// NodeName identifies the node where the device is available.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// NodeSelector defines the nodes where the device is available.
+	//
+	// Must use exactly one term.
+	//
+	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
+	// If specified, these are the driver-defined taints.
+	//
+	// The maximum number of taints is 4.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Taints DeviceTaintPatchArrayInput `pulumi:"taints"`
 }
 
 func (BasicDevicePatchArgs) ElementType() reflect.Type {
@@ -947,6 +1170,13 @@ func (o BasicDevicePatchOutput) ToBasicDevicePatchPtrOutputWithContext(ctx conte
 	}).(BasicDevicePatchPtrOutput)
 }
 
+// AllNodes indicates that all nodes have access to the device.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchOutput) AllNodes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v BasicDevicePatch) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
@@ -959,6 +1189,40 @@ func (o BasicDevicePatchOutput) Attributes() DeviceAttributeMapOutput {
 // The maximum number of attributes and capacities combined is 32.
 func (o BasicDevicePatchOutput) Capacity() DeviceCapacityMapOutput {
 	return o.ApplyT(func(v BasicDevicePatch) map[string]DeviceCapacity { return v.Capacity }).(DeviceCapacityMapOutput)
+}
+
+// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+//
+// There can only be a single entry per counterSet.
+//
+// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+func (o BasicDevicePatchOutput) ConsumesCounters() DeviceCounterConsumptionPatchArrayOutput {
+	return o.ApplyT(func(v BasicDevicePatch) []DeviceCounterConsumptionPatch { return v.ConsumesCounters }).(DeviceCounterConsumptionPatchArrayOutput)
+}
+
+// NodeName identifies the node where the device is available.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v BasicDevicePatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// NodeSelector defines the nodes where the device is available.
+//
+// Must use exactly one term.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
+	return o.ApplyT(func(v BasicDevicePatch) *corev1.NodeSelectorPatch { return v.NodeSelector }).(corev1.NodeSelectorPatchPtrOutput)
+}
+
+// If specified, these are the driver-defined taints.
+//
+// The maximum number of taints is 4.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o BasicDevicePatchOutput) Taints() DeviceTaintPatchArrayOutput {
+	return o.ApplyT(func(v BasicDevicePatch) []DeviceTaintPatch { return v.Taints }).(DeviceTaintPatchArrayOutput)
 }
 
 type BasicDevicePatchPtrOutput struct{ *pulumi.OutputState }
@@ -985,6 +1249,18 @@ func (o BasicDevicePatchPtrOutput) Elem() BasicDevicePatchOutput {
 	}).(BasicDevicePatchOutput)
 }
 
+// AllNodes indicates that all nodes have access to the device.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchPtrOutput) AllNodes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AllNodes
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
@@ -1007,6 +1283,60 @@ func (o BasicDevicePatchPtrOutput) Capacity() DeviceCapacityMapOutput {
 		}
 		return v.Capacity
 	}).(DeviceCapacityMapOutput)
+}
+
+// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+//
+// There can only be a single entry per counterSet.
+//
+// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+func (o BasicDevicePatchPtrOutput) ConsumesCounters() DeviceCounterConsumptionPatchArrayOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) []DeviceCounterConsumptionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ConsumesCounters
+	}).(DeviceCounterConsumptionPatchArrayOutput)
+}
+
+// NodeName identifies the node where the device is available.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchPtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeSelector defines the nodes where the device is available.
+//
+// Must use exactly one term.
+//
+// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+func (o BasicDevicePatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) *corev1.NodeSelectorPatch {
+		if v == nil {
+			return nil
+		}
+		return v.NodeSelector
+	}).(corev1.NodeSelectorPatchPtrOutput)
+}
+
+// If specified, these are the driver-defined taints.
+//
+// The maximum number of taints is 4.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o BasicDevicePatchPtrOutput) Taints() DeviceTaintPatchArrayOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) []DeviceTaintPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Taints
+	}).(DeviceTaintPatchArrayOutput)
 }
 
 // CELDeviceSelector contains a CEL expression for selecting a device.
@@ -1513,6 +1843,403 @@ func (o CELDeviceSelectorPatchPtrOutput) Expression() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Counter describes a quantity associated with a device.
+type Counter struct {
+	// Value defines how much of a certain device counter is available.
+	Value string `pulumi:"value"`
+}
+
+// CounterInput is an input type that accepts CounterArgs and CounterOutput values.
+// You can construct a concrete instance of `CounterInput` via:
+//
+//	CounterArgs{...}
+type CounterInput interface {
+	pulumi.Input
+
+	ToCounterOutput() CounterOutput
+	ToCounterOutputWithContext(context.Context) CounterOutput
+}
+
+// Counter describes a quantity associated with a device.
+type CounterArgs struct {
+	// Value defines how much of a certain device counter is available.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (CounterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Counter)(nil)).Elem()
+}
+
+func (i CounterArgs) ToCounterOutput() CounterOutput {
+	return i.ToCounterOutputWithContext(context.Background())
+}
+
+func (i CounterArgs) ToCounterOutputWithContext(ctx context.Context) CounterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterOutput)
+}
+
+// CounterMapInput is an input type that accepts CounterMap and CounterMapOutput values.
+// You can construct a concrete instance of `CounterMapInput` via:
+//
+//	CounterMap{ "key": CounterArgs{...} }
+type CounterMapInput interface {
+	pulumi.Input
+
+	ToCounterMapOutput() CounterMapOutput
+	ToCounterMapOutputWithContext(context.Context) CounterMapOutput
+}
+
+type CounterMap map[string]CounterInput
+
+func (CounterMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]Counter)(nil)).Elem()
+}
+
+func (i CounterMap) ToCounterMapOutput() CounterMapOutput {
+	return i.ToCounterMapOutputWithContext(context.Background())
+}
+
+func (i CounterMap) ToCounterMapOutputWithContext(ctx context.Context) CounterMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterMapOutput)
+}
+
+// Counter describes a quantity associated with a device.
+type CounterOutput struct{ *pulumi.OutputState }
+
+func (CounterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Counter)(nil)).Elem()
+}
+
+func (o CounterOutput) ToCounterOutput() CounterOutput {
+	return o
+}
+
+func (o CounterOutput) ToCounterOutputWithContext(ctx context.Context) CounterOutput {
+	return o
+}
+
+// Value defines how much of a certain device counter is available.
+func (o CounterOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v Counter) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type CounterMapOutput struct{ *pulumi.OutputState }
+
+func (CounterMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]Counter)(nil)).Elem()
+}
+
+func (o CounterMapOutput) ToCounterMapOutput() CounterMapOutput {
+	return o
+}
+
+func (o CounterMapOutput) ToCounterMapOutputWithContext(ctx context.Context) CounterMapOutput {
+	return o
+}
+
+func (o CounterMapOutput) MapIndex(k pulumi.StringInput) CounterOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) Counter {
+		return vs[0].(map[string]Counter)[vs[1].(string)]
+	}).(CounterOutput)
+}
+
+// Counter describes a quantity associated with a device.
+type CounterPatch struct {
+	// Value defines how much of a certain device counter is available.
+	Value *string `pulumi:"value"`
+}
+
+// CounterPatchInput is an input type that accepts CounterPatchArgs and CounterPatchOutput values.
+// You can construct a concrete instance of `CounterPatchInput` via:
+//
+//	CounterPatchArgs{...}
+type CounterPatchInput interface {
+	pulumi.Input
+
+	ToCounterPatchOutput() CounterPatchOutput
+	ToCounterPatchOutputWithContext(context.Context) CounterPatchOutput
+}
+
+// Counter describes a quantity associated with a device.
+type CounterPatchArgs struct {
+	// Value defines how much of a certain device counter is available.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (CounterPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterPatch)(nil)).Elem()
+}
+
+func (i CounterPatchArgs) ToCounterPatchOutput() CounterPatchOutput {
+	return i.ToCounterPatchOutputWithContext(context.Background())
+}
+
+func (i CounterPatchArgs) ToCounterPatchOutputWithContext(ctx context.Context) CounterPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterPatchOutput)
+}
+
+// Counter describes a quantity associated with a device.
+type CounterPatchOutput struct{ *pulumi.OutputState }
+
+func (CounterPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterPatch)(nil)).Elem()
+}
+
+func (o CounterPatchOutput) ToCounterPatchOutput() CounterPatchOutput {
+	return o
+}
+
+func (o CounterPatchOutput) ToCounterPatchOutputWithContext(ctx context.Context) CounterPatchOutput {
+	return o
+}
+
+// Value defines how much of a certain device counter is available.
+func (o CounterPatchOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CounterPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSet struct {
+	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+	//
+	// The maximum number of counters is 32.
+	Counters map[string]Counter `pulumi:"counters"`
+	// Name defines the name of the counter set. It must be a DNS label.
+	Name string `pulumi:"name"`
+}
+
+// CounterSetInput is an input type that accepts CounterSetArgs and CounterSetOutput values.
+// You can construct a concrete instance of `CounterSetInput` via:
+//
+//	CounterSetArgs{...}
+type CounterSetInput interface {
+	pulumi.Input
+
+	ToCounterSetOutput() CounterSetOutput
+	ToCounterSetOutputWithContext(context.Context) CounterSetOutput
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSetArgs struct {
+	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+	//
+	// The maximum number of counters is 32.
+	Counters CounterMapInput `pulumi:"counters"`
+	// Name defines the name of the counter set. It must be a DNS label.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (CounterSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterSet)(nil)).Elem()
+}
+
+func (i CounterSetArgs) ToCounterSetOutput() CounterSetOutput {
+	return i.ToCounterSetOutputWithContext(context.Background())
+}
+
+func (i CounterSetArgs) ToCounterSetOutputWithContext(ctx context.Context) CounterSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterSetOutput)
+}
+
+// CounterSetArrayInput is an input type that accepts CounterSetArray and CounterSetArrayOutput values.
+// You can construct a concrete instance of `CounterSetArrayInput` via:
+//
+//	CounterSetArray{ CounterSetArgs{...} }
+type CounterSetArrayInput interface {
+	pulumi.Input
+
+	ToCounterSetArrayOutput() CounterSetArrayOutput
+	ToCounterSetArrayOutputWithContext(context.Context) CounterSetArrayOutput
+}
+
+type CounterSetArray []CounterSetInput
+
+func (CounterSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CounterSet)(nil)).Elem()
+}
+
+func (i CounterSetArray) ToCounterSetArrayOutput() CounterSetArrayOutput {
+	return i.ToCounterSetArrayOutputWithContext(context.Background())
+}
+
+func (i CounterSetArray) ToCounterSetArrayOutputWithContext(ctx context.Context) CounterSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterSetArrayOutput)
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSetOutput struct{ *pulumi.OutputState }
+
+func (CounterSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterSet)(nil)).Elem()
+}
+
+func (o CounterSetOutput) ToCounterSetOutput() CounterSetOutput {
+	return o
+}
+
+func (o CounterSetOutput) ToCounterSetOutputWithContext(ctx context.Context) CounterSetOutput {
+	return o
+}
+
+// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+//
+// The maximum number of counters is 32.
+func (o CounterSetOutput) Counters() CounterMapOutput {
+	return o.ApplyT(func(v CounterSet) map[string]Counter { return v.Counters }).(CounterMapOutput)
+}
+
+// Name defines the name of the counter set. It must be a DNS label.
+func (o CounterSetOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CounterSet) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type CounterSetArrayOutput struct{ *pulumi.OutputState }
+
+func (CounterSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CounterSet)(nil)).Elem()
+}
+
+func (o CounterSetArrayOutput) ToCounterSetArrayOutput() CounterSetArrayOutput {
+	return o
+}
+
+func (o CounterSetArrayOutput) ToCounterSetArrayOutputWithContext(ctx context.Context) CounterSetArrayOutput {
+	return o
+}
+
+func (o CounterSetArrayOutput) Index(i pulumi.IntInput) CounterSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CounterSet {
+		return vs[0].([]CounterSet)[vs[1].(int)]
+	}).(CounterSetOutput)
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSetPatch struct {
+	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+	//
+	// The maximum number of counters is 32.
+	Counters map[string]Counter `pulumi:"counters"`
+	// Name defines the name of the counter set. It must be a DNS label.
+	Name *string `pulumi:"name"`
+}
+
+// CounterSetPatchInput is an input type that accepts CounterSetPatchArgs and CounterSetPatchOutput values.
+// You can construct a concrete instance of `CounterSetPatchInput` via:
+//
+//	CounterSetPatchArgs{...}
+type CounterSetPatchInput interface {
+	pulumi.Input
+
+	ToCounterSetPatchOutput() CounterSetPatchOutput
+	ToCounterSetPatchOutputWithContext(context.Context) CounterSetPatchOutput
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSetPatchArgs struct {
+	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+	//
+	// The maximum number of counters is 32.
+	Counters CounterMapInput `pulumi:"counters"`
+	// Name defines the name of the counter set. It must be a DNS label.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (CounterSetPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterSetPatch)(nil)).Elem()
+}
+
+func (i CounterSetPatchArgs) ToCounterSetPatchOutput() CounterSetPatchOutput {
+	return i.ToCounterSetPatchOutputWithContext(context.Background())
+}
+
+func (i CounterSetPatchArgs) ToCounterSetPatchOutputWithContext(ctx context.Context) CounterSetPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterSetPatchOutput)
+}
+
+// CounterSetPatchArrayInput is an input type that accepts CounterSetPatchArray and CounterSetPatchArrayOutput values.
+// You can construct a concrete instance of `CounterSetPatchArrayInput` via:
+//
+//	CounterSetPatchArray{ CounterSetPatchArgs{...} }
+type CounterSetPatchArrayInput interface {
+	pulumi.Input
+
+	ToCounterSetPatchArrayOutput() CounterSetPatchArrayOutput
+	ToCounterSetPatchArrayOutputWithContext(context.Context) CounterSetPatchArrayOutput
+}
+
+type CounterSetPatchArray []CounterSetPatchInput
+
+func (CounterSetPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CounterSetPatch)(nil)).Elem()
+}
+
+func (i CounterSetPatchArray) ToCounterSetPatchArrayOutput() CounterSetPatchArrayOutput {
+	return i.ToCounterSetPatchArrayOutputWithContext(context.Background())
+}
+
+func (i CounterSetPatchArray) ToCounterSetPatchArrayOutputWithContext(ctx context.Context) CounterSetPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CounterSetPatchArrayOutput)
+}
+
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+//
+// The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+type CounterSetPatchOutput struct{ *pulumi.OutputState }
+
+func (CounterSetPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CounterSetPatch)(nil)).Elem()
+}
+
+func (o CounterSetPatchOutput) ToCounterSetPatchOutput() CounterSetPatchOutput {
+	return o
+}
+
+func (o CounterSetPatchOutput) ToCounterSetPatchOutputWithContext(ctx context.Context) CounterSetPatchOutput {
+	return o
+}
+
+// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+//
+// The maximum number of counters is 32.
+func (o CounterSetPatchOutput) Counters() CounterMapOutput {
+	return o.ApplyT(func(v CounterSetPatch) map[string]Counter { return v.Counters }).(CounterMapOutput)
+}
+
+// Name defines the name of the counter set. It must be a DNS label.
+func (o CounterSetPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CounterSetPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type CounterSetPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (CounterSetPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CounterSetPatch)(nil)).Elem()
+}
+
+func (o CounterSetPatchArrayOutput) ToCounterSetPatchArrayOutput() CounterSetPatchArrayOutput {
+	return o
+}
+
+func (o CounterSetPatchArrayOutput) ToCounterSetPatchArrayOutputWithContext(ctx context.Context) CounterSetPatchArrayOutput {
+	return o
+}
+
+func (o CounterSetPatchArrayOutput) Index(i pulumi.IntInput) CounterSetPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CounterSetPatch {
+		return vs[0].([]CounterSetPatch)[vs[1].(int)]
+	}).(CounterSetPatchOutput)
+}
+
 // Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
 type Device struct {
 	// Basic defines one device instance.
@@ -1627,6 +2354,8 @@ type DeviceAllocationConfiguration struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque *OpaqueDeviceConfiguration `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 	// Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
 	Source string `pulumi:"source"`
@@ -1648,6 +2377,8 @@ type DeviceAllocationConfigurationArgs struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque OpaqueDeviceConfigurationPtrInput `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 	// Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
 	Source pulumi.StringInput `pulumi:"source"`
@@ -1711,6 +2442,8 @@ func (o DeviceAllocationConfigurationOutput) Opaque() OpaqueDeviceConfigurationP
 }
 
 // Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 func (o DeviceAllocationConfigurationOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceAllocationConfiguration) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -1745,6 +2478,8 @@ type DeviceAllocationConfigurationPatch struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque *OpaqueDeviceConfigurationPatch `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 	// Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
 	Source *string `pulumi:"source"`
@@ -1766,6 +2501,8 @@ type DeviceAllocationConfigurationPatchArgs struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque OpaqueDeviceConfigurationPatchPtrInput `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 	// Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
 	Source pulumi.StringPtrInput `pulumi:"source"`
@@ -1829,6 +2566,8 @@ func (o DeviceAllocationConfigurationPatchOutput) Opaque() OpaqueDeviceConfigura
 }
 
 // Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 func (o DeviceAllocationConfigurationPatchOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceAllocationConfigurationPatch) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -2739,6 +3478,8 @@ type DeviceClaimConfiguration struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque *OpaqueDeviceConfiguration `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 }
 
@@ -2758,6 +3499,8 @@ type DeviceClaimConfigurationArgs struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque OpaqueDeviceConfigurationPtrInput `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 }
 
@@ -2819,6 +3562,8 @@ func (o DeviceClaimConfigurationOutput) Opaque() OpaqueDeviceConfigurationPtrOut
 }
 
 // Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 func (o DeviceClaimConfigurationOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceClaimConfiguration) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -2848,6 +3593,8 @@ type DeviceClaimConfigurationPatch struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque *OpaqueDeviceConfigurationPatch `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 }
 
@@ -2867,6 +3614,8 @@ type DeviceClaimConfigurationPatchArgs struct {
 	// Opaque provides driver-specific configuration parameters.
 	Opaque OpaqueDeviceConfigurationPatchPtrInput `pulumi:"opaque"`
 	// Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 }
 
@@ -2928,6 +3677,8 @@ func (o DeviceClaimConfigurationPatchOutput) Opaque() OpaqueDeviceConfigurationP
 }
 
 // Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
 func (o DeviceClaimConfigurationPatchOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceClaimConfigurationPatch) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -3903,6 +4654,8 @@ type DeviceConstraint struct {
 	// Must include the domain qualifier.
 	MatchAttribute *string `pulumi:"matchAttribute"`
 	// Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 }
 
@@ -3926,6 +4679,8 @@ type DeviceConstraintArgs struct {
 	// Must include the domain qualifier.
 	MatchAttribute pulumi.StringPtrInput `pulumi:"matchAttribute"`
 	// Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 }
 
@@ -3991,6 +4746,8 @@ func (o DeviceConstraintOutput) MatchAttribute() pulumi.StringPtrOutput {
 }
 
 // Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 func (o DeviceConstraintOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceConstraint) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -4024,6 +4781,8 @@ type DeviceConstraintPatch struct {
 	// Must include the domain qualifier.
 	MatchAttribute *string `pulumi:"matchAttribute"`
 	// Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 	Requests []string `pulumi:"requests"`
 }
 
@@ -4047,6 +4806,8 @@ type DeviceConstraintPatchArgs struct {
 	// Must include the domain qualifier.
 	MatchAttribute pulumi.StringPtrInput `pulumi:"matchAttribute"`
 	// Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+	//
+	// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 	Requests pulumi.StringArrayInput `pulumi:"requests"`
 }
 
@@ -4112,6 +4873,8 @@ func (o DeviceConstraintPatchOutput) MatchAttribute() pulumi.StringPtrOutput {
 }
 
 // Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+//
+// References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
 func (o DeviceConstraintPatchOutput) Requests() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceConstraintPatch) []string { return v.Requests }).(pulumi.StringArrayOutput)
 }
@@ -4134,6 +4897,236 @@ func (o DeviceConstraintPatchArrayOutput) Index(i pulumi.IntInput) DeviceConstra
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceConstraintPatch {
 		return vs[0].([]DeviceConstraintPatch)[vs[1].(int)]
 	}).(DeviceConstraintPatchOutput)
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumption struct {
+	// CounterSet is the name of the set from which the counters defined will be consumed.
+	CounterSet string `pulumi:"counterSet"`
+	// Counters defines the counters that will be consumed by the device.
+	//
+	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	Counters map[string]Counter `pulumi:"counters"`
+}
+
+// DeviceCounterConsumptionInput is an input type that accepts DeviceCounterConsumptionArgs and DeviceCounterConsumptionOutput values.
+// You can construct a concrete instance of `DeviceCounterConsumptionInput` via:
+//
+//	DeviceCounterConsumptionArgs{...}
+type DeviceCounterConsumptionInput interface {
+	pulumi.Input
+
+	ToDeviceCounterConsumptionOutput() DeviceCounterConsumptionOutput
+	ToDeviceCounterConsumptionOutputWithContext(context.Context) DeviceCounterConsumptionOutput
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumptionArgs struct {
+	// CounterSet is the name of the set from which the counters defined will be consumed.
+	CounterSet pulumi.StringInput `pulumi:"counterSet"`
+	// Counters defines the counters that will be consumed by the device.
+	//
+	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	Counters CounterMapInput `pulumi:"counters"`
+}
+
+func (DeviceCounterConsumptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceCounterConsumption)(nil)).Elem()
+}
+
+func (i DeviceCounterConsumptionArgs) ToDeviceCounterConsumptionOutput() DeviceCounterConsumptionOutput {
+	return i.ToDeviceCounterConsumptionOutputWithContext(context.Background())
+}
+
+func (i DeviceCounterConsumptionArgs) ToDeviceCounterConsumptionOutputWithContext(ctx context.Context) DeviceCounterConsumptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceCounterConsumptionOutput)
+}
+
+// DeviceCounterConsumptionArrayInput is an input type that accepts DeviceCounterConsumptionArray and DeviceCounterConsumptionArrayOutput values.
+// You can construct a concrete instance of `DeviceCounterConsumptionArrayInput` via:
+//
+//	DeviceCounterConsumptionArray{ DeviceCounterConsumptionArgs{...} }
+type DeviceCounterConsumptionArrayInput interface {
+	pulumi.Input
+
+	ToDeviceCounterConsumptionArrayOutput() DeviceCounterConsumptionArrayOutput
+	ToDeviceCounterConsumptionArrayOutputWithContext(context.Context) DeviceCounterConsumptionArrayOutput
+}
+
+type DeviceCounterConsumptionArray []DeviceCounterConsumptionInput
+
+func (DeviceCounterConsumptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceCounterConsumption)(nil)).Elem()
+}
+
+func (i DeviceCounterConsumptionArray) ToDeviceCounterConsumptionArrayOutput() DeviceCounterConsumptionArrayOutput {
+	return i.ToDeviceCounterConsumptionArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceCounterConsumptionArray) ToDeviceCounterConsumptionArrayOutputWithContext(ctx context.Context) DeviceCounterConsumptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceCounterConsumptionArrayOutput)
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumptionOutput struct{ *pulumi.OutputState }
+
+func (DeviceCounterConsumptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceCounterConsumption)(nil)).Elem()
+}
+
+func (o DeviceCounterConsumptionOutput) ToDeviceCounterConsumptionOutput() DeviceCounterConsumptionOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionOutput) ToDeviceCounterConsumptionOutputWithContext(ctx context.Context) DeviceCounterConsumptionOutput {
+	return o
+}
+
+// CounterSet is the name of the set from which the counters defined will be consumed.
+func (o DeviceCounterConsumptionOutput) CounterSet() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceCounterConsumption) string { return v.CounterSet }).(pulumi.StringOutput)
+}
+
+// Counters defines the counters that will be consumed by the device.
+//
+// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+func (o DeviceCounterConsumptionOutput) Counters() CounterMapOutput {
+	return o.ApplyT(func(v DeviceCounterConsumption) map[string]Counter { return v.Counters }).(CounterMapOutput)
+}
+
+type DeviceCounterConsumptionArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceCounterConsumptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceCounterConsumption)(nil)).Elem()
+}
+
+func (o DeviceCounterConsumptionArrayOutput) ToDeviceCounterConsumptionArrayOutput() DeviceCounterConsumptionArrayOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionArrayOutput) ToDeviceCounterConsumptionArrayOutputWithContext(ctx context.Context) DeviceCounterConsumptionArrayOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionArrayOutput) Index(i pulumi.IntInput) DeviceCounterConsumptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceCounterConsumption {
+		return vs[0].([]DeviceCounterConsumption)[vs[1].(int)]
+	}).(DeviceCounterConsumptionOutput)
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumptionPatch struct {
+	// CounterSet is the name of the set from which the counters defined will be consumed.
+	CounterSet *string `pulumi:"counterSet"`
+	// Counters defines the counters that will be consumed by the device.
+	//
+	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	Counters map[string]Counter `pulumi:"counters"`
+}
+
+// DeviceCounterConsumptionPatchInput is an input type that accepts DeviceCounterConsumptionPatchArgs and DeviceCounterConsumptionPatchOutput values.
+// You can construct a concrete instance of `DeviceCounterConsumptionPatchInput` via:
+//
+//	DeviceCounterConsumptionPatchArgs{...}
+type DeviceCounterConsumptionPatchInput interface {
+	pulumi.Input
+
+	ToDeviceCounterConsumptionPatchOutput() DeviceCounterConsumptionPatchOutput
+	ToDeviceCounterConsumptionPatchOutputWithContext(context.Context) DeviceCounterConsumptionPatchOutput
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumptionPatchArgs struct {
+	// CounterSet is the name of the set from which the counters defined will be consumed.
+	CounterSet pulumi.StringPtrInput `pulumi:"counterSet"`
+	// Counters defines the counters that will be consumed by the device.
+	//
+	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	Counters CounterMapInput `pulumi:"counters"`
+}
+
+func (DeviceCounterConsumptionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceCounterConsumptionPatch)(nil)).Elem()
+}
+
+func (i DeviceCounterConsumptionPatchArgs) ToDeviceCounterConsumptionPatchOutput() DeviceCounterConsumptionPatchOutput {
+	return i.ToDeviceCounterConsumptionPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceCounterConsumptionPatchArgs) ToDeviceCounterConsumptionPatchOutputWithContext(ctx context.Context) DeviceCounterConsumptionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceCounterConsumptionPatchOutput)
+}
+
+// DeviceCounterConsumptionPatchArrayInput is an input type that accepts DeviceCounterConsumptionPatchArray and DeviceCounterConsumptionPatchArrayOutput values.
+// You can construct a concrete instance of `DeviceCounterConsumptionPatchArrayInput` via:
+//
+//	DeviceCounterConsumptionPatchArray{ DeviceCounterConsumptionPatchArgs{...} }
+type DeviceCounterConsumptionPatchArrayInput interface {
+	pulumi.Input
+
+	ToDeviceCounterConsumptionPatchArrayOutput() DeviceCounterConsumptionPatchArrayOutput
+	ToDeviceCounterConsumptionPatchArrayOutputWithContext(context.Context) DeviceCounterConsumptionPatchArrayOutput
+}
+
+type DeviceCounterConsumptionPatchArray []DeviceCounterConsumptionPatchInput
+
+func (DeviceCounterConsumptionPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceCounterConsumptionPatch)(nil)).Elem()
+}
+
+func (i DeviceCounterConsumptionPatchArray) ToDeviceCounterConsumptionPatchArrayOutput() DeviceCounterConsumptionPatchArrayOutput {
+	return i.ToDeviceCounterConsumptionPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceCounterConsumptionPatchArray) ToDeviceCounterConsumptionPatchArrayOutputWithContext(ctx context.Context) DeviceCounterConsumptionPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceCounterConsumptionPatchArrayOutput)
+}
+
+// DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+type DeviceCounterConsumptionPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceCounterConsumptionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceCounterConsumptionPatch)(nil)).Elem()
+}
+
+func (o DeviceCounterConsumptionPatchOutput) ToDeviceCounterConsumptionPatchOutput() DeviceCounterConsumptionPatchOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionPatchOutput) ToDeviceCounterConsumptionPatchOutputWithContext(ctx context.Context) DeviceCounterConsumptionPatchOutput {
+	return o
+}
+
+// CounterSet is the name of the set from which the counters defined will be consumed.
+func (o DeviceCounterConsumptionPatchOutput) CounterSet() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceCounterConsumptionPatch) *string { return v.CounterSet }).(pulumi.StringPtrOutput)
+}
+
+// Counters defines the counters that will be consumed by the device.
+//
+// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+func (o DeviceCounterConsumptionPatchOutput) Counters() CounterMapOutput {
+	return o.ApplyT(func(v DeviceCounterConsumptionPatch) map[string]Counter { return v.Counters }).(CounterMapOutput)
+}
+
+type DeviceCounterConsumptionPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceCounterConsumptionPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceCounterConsumptionPatch)(nil)).Elem()
+}
+
+func (o DeviceCounterConsumptionPatchArrayOutput) ToDeviceCounterConsumptionPatchArrayOutput() DeviceCounterConsumptionPatchArrayOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionPatchArrayOutput) ToDeviceCounterConsumptionPatchArrayOutputWithContext(ctx context.Context) DeviceCounterConsumptionPatchArrayOutput {
+	return o
+}
+
+func (o DeviceCounterConsumptionPatchArrayOutput) Index(i pulumi.IntInput) DeviceCounterConsumptionPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceCounterConsumptionPatch {
+		return vs[0].([]DeviceCounterConsumptionPatch)[vs[1].(int)]
+	}).(DeviceCounterConsumptionPatchOutput)
 }
 
 // Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
@@ -4246,10 +5239,10 @@ func (o DevicePatchArrayOutput) Index(i pulumi.IntInput) DevicePatchOutput {
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequest struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
@@ -4260,27 +5253,52 @@ type DeviceRequest struct {
 	// count field.
 	//
 	// - All: This request is for all of the matching devices in a pool.
+	// At least one device must exist on the node for the allocation to succeed.
 	// Allocation will fail if some devices are already allocated,
 	// unless adminAccess is requested.
 	//
-	// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
-	// A class is required. Which classes are available depends on the cluster.
+	// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 	//
 	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-	DeviceClassName string `pulumi:"deviceClassName"`
+	DeviceClassName *string `pulumi:"deviceClassName"`
+	// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+	//
+	// This field may only be set in the entries of DeviceClaim.Requests.
+	//
+	// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+	FirstAvailable []DeviceSubRequest `pulumi:"firstAvailable"`
 	// Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 	//
-	// Must be a DNS label.
+	// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 	Name string `pulumi:"name"`
 	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Selectors []DeviceSelector `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceToleration `pulumi:"tolerations"`
 }
 
 // DeviceRequestInput is an input type that accepts DeviceRequestArgs and DeviceRequestOutput values.
@@ -4295,10 +5313,10 @@ type DeviceRequestInput interface {
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestArgs struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
@@ -4309,27 +5327,52 @@ type DeviceRequestArgs struct {
 	// count field.
 	//
 	// - All: This request is for all of the matching devices in a pool.
+	// At least one device must exist on the node for the allocation to succeed.
 	// Allocation will fail if some devices are already allocated,
 	// unless adminAccess is requested.
 	//
-	// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
-	// A class is required. Which classes are available depends on the cluster.
+	// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 	//
 	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-	DeviceClassName pulumi.StringInput `pulumi:"deviceClassName"`
+	DeviceClassName pulumi.StringPtrInput `pulumi:"deviceClassName"`
+	// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+	//
+	// This field may only be set in the entries of DeviceClaim.Requests.
+	//
+	// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+	FirstAvailable DeviceSubRequestArrayInput `pulumi:"firstAvailable"`
 	// Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 	//
-	// Must be a DNS label.
+	// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 	Name pulumi.StringInput `pulumi:"name"`
 	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Selectors DeviceSelectorArrayInput `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
 }
 
 func (DeviceRequestArgs) ElementType() reflect.Type {
@@ -4370,8 +5413,6 @@ func (i DeviceRequestArray) ToDeviceRequestArrayOutputWithContext(ctx context.Co
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestOutput struct{ *pulumi.OutputState }
 
 func (DeviceRequestOutput) ElementType() reflect.Type {
@@ -4388,6 +5429,8 @@ func (o DeviceRequestOutput) ToDeviceRequestOutputWithContext(ctx context.Contex
 
 // AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
 //
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+//
 // This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 func (o DeviceRequestOutput) AdminAccess() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceRequest) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
@@ -4400,10 +5443,13 @@ func (o DeviceRequestOutput) AdminAccess() pulumi.BoolPtrOutput {
 // count field.
 //
 // - All: This request is for all of the matching devices in a pool.
+// At least one device must exist on the node for the allocation to succeed.
 // Allocation will fail if some devices are already allocated,
 // unless adminAccess is requested.
 //
-// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 //
 // More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 func (o DeviceRequestOutput) AllocationMode() pulumi.StringPtrOutput {
@@ -4411,29 +5457,57 @@ func (o DeviceRequestOutput) AllocationMode() pulumi.StringPtrOutput {
 }
 
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 func (o DeviceRequestOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 //
-// A class is required. Which classes are available depends on the cluster.
+// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 //
 // Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-func (o DeviceRequestOutput) DeviceClassName() pulumi.StringOutput {
-	return o.ApplyT(func(v DeviceRequest) string { return v.DeviceClassName }).(pulumi.StringOutput)
+func (o DeviceRequestOutput) DeviceClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRequest) *string { return v.DeviceClassName }).(pulumi.StringPtrOutput)
+}
+
+// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+//
+// This field may only be set in the entries of DeviceClaim.Requests.
+//
+// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+func (o DeviceRequestOutput) FirstAvailable() DeviceSubRequestArrayOutput {
+	return o.ApplyT(func(v DeviceRequest) []DeviceSubRequest { return v.FirstAvailable }).(DeviceSubRequestArrayOutput)
 }
 
 // Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 //
-// Must be a DNS label.
+// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 func (o DeviceRequestOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequest) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 func (o DeviceRequestOutput) Selectors() DeviceSelectorArrayOutput {
 	return o.ApplyT(func(v DeviceRequest) []DeviceSelector { return v.Selectors }).(DeviceSelectorArrayOutput)
+}
+
+// If specified, the request's tolerations.
+//
+// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+//
+// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceRequestOutput) Tolerations() DeviceTolerationArrayOutput {
+	return o.ApplyT(func(v DeviceRequest) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
 }
 
 type DeviceRequestArrayOutput struct{ *pulumi.OutputState }
@@ -4472,8 +5546,16 @@ type DeviceRequestAllocationResult struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool string `pulumi:"pool"`
-	// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+	// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+	//
+	// Multiple devices may have been allocated per request.
 	Request string `pulumi:"request"`
+	// A copy of all tolerations specified in the request at the time when the device got allocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceToleration `pulumi:"tolerations"`
 }
 
 // DeviceRequestAllocationResultInput is an input type that accepts DeviceRequestAllocationResultArgs and DeviceRequestAllocationResultOutput values.
@@ -4503,8 +5585,16 @@ type DeviceRequestAllocationResultArgs struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool pulumi.StringInput `pulumi:"pool"`
-	// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+	// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+	//
+	// Multiple devices may have been allocated per request.
 	Request pulumi.StringInput `pulumi:"request"`
+	// A copy of all tolerations specified in the request at the time when the device got allocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
 }
 
 func (DeviceRequestAllocationResultArgs) ElementType() reflect.Type {
@@ -4585,9 +5675,20 @@ func (o DeviceRequestAllocationResultOutput) Pool() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Pool }).(pulumi.StringOutput)
 }
 
-// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+//
+// Multiple devices may have been allocated per request.
 func (o DeviceRequestAllocationResultOutput) Request() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Request }).(pulumi.StringOutput)
+}
+
+// A copy of all tolerations specified in the request at the time when the device got allocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceRequestAllocationResultOutput) Tolerations() DeviceTolerationArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
 }
 
 type DeviceRequestAllocationResultArrayOutput struct{ *pulumi.OutputState }
@@ -4626,8 +5727,16 @@ type DeviceRequestAllocationResultPatch struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool *string `pulumi:"pool"`
-	// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+	// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+	//
+	// Multiple devices may have been allocated per request.
 	Request *string `pulumi:"request"`
+	// A copy of all tolerations specified in the request at the time when the device got allocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
 }
 
 // DeviceRequestAllocationResultPatchInput is an input type that accepts DeviceRequestAllocationResultPatchArgs and DeviceRequestAllocationResultPatchOutput values.
@@ -4657,8 +5766,16 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool pulumi.StringPtrInput `pulumi:"pool"`
-	// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+	// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+	//
+	// Multiple devices may have been allocated per request.
 	Request pulumi.StringPtrInput `pulumi:"request"`
+	// A copy of all tolerations specified in the request at the time when the device got allocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
 }
 
 func (DeviceRequestAllocationResultPatchArgs) ElementType() reflect.Type {
@@ -4739,9 +5856,20 @@ func (o DeviceRequestAllocationResultPatchOutput) Pool() pulumi.StringPtrOutput 
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Pool }).(pulumi.StringPtrOutput)
 }
 
-// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+//
+// Multiple devices may have been allocated per request.
 func (o DeviceRequestAllocationResultPatchOutput) Request() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Request }).(pulumi.StringPtrOutput)
+}
+
+// A copy of all tolerations specified in the request at the time when the device got allocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceRequestAllocationResultPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
 }
 
 type DeviceRequestAllocationResultPatchArrayOutput struct{ *pulumi.OutputState }
@@ -4765,10 +5893,10 @@ func (o DeviceRequestAllocationResultPatchArrayOutput) Index(i pulumi.IntInput) 
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestPatch struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
@@ -4779,27 +5907,52 @@ type DeviceRequestPatch struct {
 	// count field.
 	//
 	// - All: This request is for all of the matching devices in a pool.
+	// At least one device must exist on the node for the allocation to succeed.
 	// Allocation will fail if some devices are already allocated,
 	// unless adminAccess is requested.
 	//
-	// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
-	// A class is required. Which classes are available depends on the cluster.
+	// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 	//
 	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
 	DeviceClassName *string `pulumi:"deviceClassName"`
+	// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+	//
+	// This field may only be set in the entries of DeviceClaim.Requests.
+	//
+	// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+	FirstAvailable []DeviceSubRequestPatch `pulumi:"firstAvailable"`
 	// Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 	//
-	// Must be a DNS label.
+	// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 	Name *string `pulumi:"name"`
 	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Selectors []DeviceSelectorPatch `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
 }
 
 // DeviceRequestPatchInput is an input type that accepts DeviceRequestPatchArgs and DeviceRequestPatchOutput values.
@@ -4814,10 +5967,10 @@ type DeviceRequestPatchInput interface {
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestPatchArgs struct {
 	// AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
@@ -4828,27 +5981,52 @@ type DeviceRequestPatchArgs struct {
 	// count field.
 	//
 	// - All: This request is for all of the matching devices in a pool.
+	// At least one device must exist on the node for the allocation to succeed.
 	// Allocation will fail if some devices are already allocated,
 	// unless adminAccess is requested.
 	//
-	// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
-	// A class is required. Which classes are available depends on the cluster.
+	// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 	//
 	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
 	DeviceClassName pulumi.StringPtrInput `pulumi:"deviceClassName"`
+	// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+	//
+	// This field may only be set in the entries of DeviceClaim.Requests.
+	//
+	// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+	FirstAvailable DeviceSubRequestPatchArrayInput `pulumi:"firstAvailable"`
 	// Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 	//
-	// Must be a DNS label.
+	// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	Selectors DeviceSelectorPatchArrayInput `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
 }
 
 func (DeviceRequestPatchArgs) ElementType() reflect.Type {
@@ -4889,8 +6067,6 @@ func (i DeviceRequestPatchArray) ToDeviceRequestPatchArrayOutputWithContext(ctx 
 }
 
 // DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
-//
-// A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
 type DeviceRequestPatchOutput struct{ *pulumi.OutputState }
 
 func (DeviceRequestPatchOutput) ElementType() reflect.Type {
@@ -4907,6 +6083,8 @@ func (o DeviceRequestPatchOutput) ToDeviceRequestPatchOutputWithContext(ctx cont
 
 // AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
 //
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+//
 // This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 func (o DeviceRequestPatchOutput) AdminAccess() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
@@ -4919,10 +6097,13 @@ func (o DeviceRequestPatchOutput) AdminAccess() pulumi.BoolPtrOutput {
 // count field.
 //
 // - All: This request is for all of the matching devices in a pool.
+// At least one device must exist on the node for the allocation to succeed.
 // Allocation will fail if some devices are already allocated,
 // unless adminAccess is requested.
 //
-// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 //
 // More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 func (o DeviceRequestPatchOutput) AllocationMode() pulumi.StringPtrOutput {
@@ -4930,29 +6111,57 @@ func (o DeviceRequestPatchOutput) AllocationMode() pulumi.StringPtrOutput {
 }
 
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 func (o DeviceRequestPatchOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 //
-// A class is required. Which classes are available depends on the cluster.
+// A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
 //
 // Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
 func (o DeviceRequestPatchOutput) DeviceClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) *string { return v.DeviceClassName }).(pulumi.StringPtrOutput)
 }
 
+// FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+//
+// This field may only be set in the entries of DeviceClaim.Requests.
+//
+// DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+func (o DeviceRequestPatchOutput) FirstAvailable() DeviceSubRequestPatchArrayOutput {
+	return o.ApplyT(func(v DeviceRequestPatch) []DeviceSubRequestPatch { return v.FirstAvailable }).(DeviceSubRequestPatchArrayOutput)
+}
+
 // Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
 //
-// Must be a DNS label.
+// Must be a DNS label and unique among all DeviceRequests in a ResourceClaim.
 func (o DeviceRequestPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 func (o DeviceRequestPatchOutput) Selectors() DeviceSelectorPatchArrayOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) []DeviceSelectorPatch { return v.Selectors }).(DeviceSelectorPatchArrayOutput)
+}
+
+// If specified, the request's tolerations.
+//
+// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+//
+// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceRequestPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
+	return o.ApplyT(func(v DeviceRequestPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
 }
 
 type DeviceRequestPatchArrayOutput struct{ *pulumi.OutputState }
@@ -5175,6 +6384,990 @@ func (o DeviceSelectorPatchArrayOutput) Index(i pulumi.IntInput) DeviceSelectorP
 	}).(DeviceSelectorPatchOutput)
 }
 
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequest struct {
+	// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+	//
+	// - ExactCount: This request is for a specific number of devices.
+	// This is the default. The exact number is provided in the
+	// count field.
+	//
+	// - All: This subrequest is for all of the matching devices in a pool.
+	// Allocation will fail if some devices are already allocated,
+	// unless adminAccess is requested.
+	//
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+	//
+	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+	AllocationMode *string `pulumi:"allocationMode"`
+	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	Count *int `pulumi:"count"`
+	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+	//
+	// A class is required. Which classes are available depends on the cluster.
+	//
+	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+	DeviceClassName string `pulumi:"deviceClassName"`
+	// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+	//
+	// Must be a DNS label.
+	Name string `pulumi:"name"`
+	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+	Selectors []DeviceSelector `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceToleration `pulumi:"tolerations"`
+}
+
+// DeviceSubRequestInput is an input type that accepts DeviceSubRequestArgs and DeviceSubRequestOutput values.
+// You can construct a concrete instance of `DeviceSubRequestInput` via:
+//
+//	DeviceSubRequestArgs{...}
+type DeviceSubRequestInput interface {
+	pulumi.Input
+
+	ToDeviceSubRequestOutput() DeviceSubRequestOutput
+	ToDeviceSubRequestOutputWithContext(context.Context) DeviceSubRequestOutput
+}
+
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequestArgs struct {
+	// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+	//
+	// - ExactCount: This request is for a specific number of devices.
+	// This is the default. The exact number is provided in the
+	// count field.
+	//
+	// - All: This subrequest is for all of the matching devices in a pool.
+	// Allocation will fail if some devices are already allocated,
+	// unless adminAccess is requested.
+	//
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+	//
+	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+	//
+	// A class is required. Which classes are available depends on the cluster.
+	//
+	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+	DeviceClassName pulumi.StringInput `pulumi:"deviceClassName"`
+	// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+	//
+	// Must be a DNS label.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+	Selectors DeviceSelectorArrayInput `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
+}
+
+func (DeviceSubRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceSubRequest)(nil)).Elem()
+}
+
+func (i DeviceSubRequestArgs) ToDeviceSubRequestOutput() DeviceSubRequestOutput {
+	return i.ToDeviceSubRequestOutputWithContext(context.Background())
+}
+
+func (i DeviceSubRequestArgs) ToDeviceSubRequestOutputWithContext(ctx context.Context) DeviceSubRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceSubRequestOutput)
+}
+
+// DeviceSubRequestArrayInput is an input type that accepts DeviceSubRequestArray and DeviceSubRequestArrayOutput values.
+// You can construct a concrete instance of `DeviceSubRequestArrayInput` via:
+//
+//	DeviceSubRequestArray{ DeviceSubRequestArgs{...} }
+type DeviceSubRequestArrayInput interface {
+	pulumi.Input
+
+	ToDeviceSubRequestArrayOutput() DeviceSubRequestArrayOutput
+	ToDeviceSubRequestArrayOutputWithContext(context.Context) DeviceSubRequestArrayOutput
+}
+
+type DeviceSubRequestArray []DeviceSubRequestInput
+
+func (DeviceSubRequestArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceSubRequest)(nil)).Elem()
+}
+
+func (i DeviceSubRequestArray) ToDeviceSubRequestArrayOutput() DeviceSubRequestArrayOutput {
+	return i.ToDeviceSubRequestArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceSubRequestArray) ToDeviceSubRequestArrayOutputWithContext(ctx context.Context) DeviceSubRequestArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceSubRequestArrayOutput)
+}
+
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequestOutput struct{ *pulumi.OutputState }
+
+func (DeviceSubRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceSubRequest)(nil)).Elem()
+}
+
+func (o DeviceSubRequestOutput) ToDeviceSubRequestOutput() DeviceSubRequestOutput {
+	return o
+}
+
+func (o DeviceSubRequestOutput) ToDeviceSubRequestOutputWithContext(ctx context.Context) DeviceSubRequestOutput {
+	return o
+}
+
+// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+//
+// - ExactCount: This request is for a specific number of devices.
+// This is the default. The exact number is provided in the
+// count field.
+//
+// - All: This subrequest is for all of the matching devices in a pool.
+// Allocation will fail if some devices are already allocated,
+// unless adminAccess is requested.
+//
+// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+//
+// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+func (o DeviceSubRequestOutput) AllocationMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequest) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
+}
+
+// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+func (o DeviceSubRequestOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+//
+// A class is required. Which classes are available depends on the cluster.
+//
+// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+func (o DeviceSubRequestOutput) DeviceClassName() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceSubRequest) string { return v.DeviceClassName }).(pulumi.StringOutput)
+}
+
+// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+//
+// Must be a DNS label.
+func (o DeviceSubRequestOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceSubRequest) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+func (o DeviceSubRequestOutput) Selectors() DeviceSelectorArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequest) []DeviceSelector { return v.Selectors }).(DeviceSelectorArrayOutput)
+}
+
+// If specified, the request's tolerations.
+//
+// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+//
+// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceSubRequestOutput) Tolerations() DeviceTolerationArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequest) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
+}
+
+type DeviceSubRequestArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceSubRequestArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceSubRequest)(nil)).Elem()
+}
+
+func (o DeviceSubRequestArrayOutput) ToDeviceSubRequestArrayOutput() DeviceSubRequestArrayOutput {
+	return o
+}
+
+func (o DeviceSubRequestArrayOutput) ToDeviceSubRequestArrayOutputWithContext(ctx context.Context) DeviceSubRequestArrayOutput {
+	return o
+}
+
+func (o DeviceSubRequestArrayOutput) Index(i pulumi.IntInput) DeviceSubRequestOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceSubRequest {
+		return vs[0].([]DeviceSubRequest)[vs[1].(int)]
+	}).(DeviceSubRequestOutput)
+}
+
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequestPatch struct {
+	// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+	//
+	// - ExactCount: This request is for a specific number of devices.
+	// This is the default. The exact number is provided in the
+	// count field.
+	//
+	// - All: This subrequest is for all of the matching devices in a pool.
+	// Allocation will fail if some devices are already allocated,
+	// unless adminAccess is requested.
+	//
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+	//
+	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+	AllocationMode *string `pulumi:"allocationMode"`
+	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	Count *int `pulumi:"count"`
+	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+	//
+	// A class is required. Which classes are available depends on the cluster.
+	//
+	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+	DeviceClassName *string `pulumi:"deviceClassName"`
+	// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+	//
+	// Must be a DNS label.
+	Name *string `pulumi:"name"`
+	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+	Selectors []DeviceSelectorPatch `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
+}
+
+// DeviceSubRequestPatchInput is an input type that accepts DeviceSubRequestPatchArgs and DeviceSubRequestPatchOutput values.
+// You can construct a concrete instance of `DeviceSubRequestPatchInput` via:
+//
+//	DeviceSubRequestPatchArgs{...}
+type DeviceSubRequestPatchInput interface {
+	pulumi.Input
+
+	ToDeviceSubRequestPatchOutput() DeviceSubRequestPatchOutput
+	ToDeviceSubRequestPatchOutputWithContext(context.Context) DeviceSubRequestPatchOutput
+}
+
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequestPatchArgs struct {
+	// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+	//
+	// - ExactCount: This request is for a specific number of devices.
+	// This is the default. The exact number is provided in the
+	// count field.
+	//
+	// - All: This subrequest is for all of the matching devices in a pool.
+	// Allocation will fail if some devices are already allocated,
+	// unless adminAccess is requested.
+	//
+	// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+	//
+	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+	//
+	// A class is required. Which classes are available depends on the cluster.
+	//
+	// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+	DeviceClassName pulumi.StringPtrInput `pulumi:"deviceClassName"`
+	// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+	//
+	// Must be a DNS label.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+	Selectors DeviceSelectorPatchArrayInput `pulumi:"selectors"`
+	// If specified, the request's tolerations.
+	//
+	// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+	//
+	// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+	//
+	// The maximum number of tolerations is 16.
+	//
+	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
+}
+
+func (DeviceSubRequestPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceSubRequestPatch)(nil)).Elem()
+}
+
+func (i DeviceSubRequestPatchArgs) ToDeviceSubRequestPatchOutput() DeviceSubRequestPatchOutput {
+	return i.ToDeviceSubRequestPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceSubRequestPatchArgs) ToDeviceSubRequestPatchOutputWithContext(ctx context.Context) DeviceSubRequestPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceSubRequestPatchOutput)
+}
+
+// DeviceSubRequestPatchArrayInput is an input type that accepts DeviceSubRequestPatchArray and DeviceSubRequestPatchArrayOutput values.
+// You can construct a concrete instance of `DeviceSubRequestPatchArrayInput` via:
+//
+//	DeviceSubRequestPatchArray{ DeviceSubRequestPatchArgs{...} }
+type DeviceSubRequestPatchArrayInput interface {
+	pulumi.Input
+
+	ToDeviceSubRequestPatchArrayOutput() DeviceSubRequestPatchArrayOutput
+	ToDeviceSubRequestPatchArrayOutputWithContext(context.Context) DeviceSubRequestPatchArrayOutput
+}
+
+type DeviceSubRequestPatchArray []DeviceSubRequestPatchInput
+
+func (DeviceSubRequestPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceSubRequestPatch)(nil)).Elem()
+}
+
+func (i DeviceSubRequestPatchArray) ToDeviceSubRequestPatchArrayOutput() DeviceSubRequestPatchArrayOutput {
+	return i.ToDeviceSubRequestPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceSubRequestPatchArray) ToDeviceSubRequestPatchArrayOutputWithContext(ctx context.Context) DeviceSubRequestPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceSubRequestPatchArrayOutput)
+}
+
+// DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+//
+// DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
+type DeviceSubRequestPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceSubRequestPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceSubRequestPatch)(nil)).Elem()
+}
+
+func (o DeviceSubRequestPatchOutput) ToDeviceSubRequestPatchOutput() DeviceSubRequestPatchOutput {
+	return o
+}
+
+func (o DeviceSubRequestPatchOutput) ToDeviceSubRequestPatchOutputWithContext(ctx context.Context) DeviceSubRequestPatchOutput {
+	return o
+}
+
+// AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+//
+// - ExactCount: This request is for a specific number of devices.
+// This is the default. The exact number is provided in the
+// count field.
+//
+// - All: This subrequest is for all of the matching devices in a pool.
+// Allocation will fail if some devices are already allocated,
+// unless adminAccess is requested.
+//
+// If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+//
+// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+func (o DeviceSubRequestPatchOutput) AllocationMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
+}
+
+// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+func (o DeviceSubRequestPatchOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+//
+// A class is required. Which classes are available depends on the cluster.
+//
+// Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+func (o DeviceSubRequestPatchOutput) DeviceClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) *string { return v.DeviceClassName }).(pulumi.StringPtrOutput)
+}
+
+// Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+//
+// Must be a DNS label.
+func (o DeviceSubRequestPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+func (o DeviceSubRequestPatchOutput) Selectors() DeviceSelectorPatchArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) []DeviceSelectorPatch { return v.Selectors }).(DeviceSelectorPatchArrayOutput)
+}
+
+// If specified, the request's tolerations.
+//
+// Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+//
+// In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+//
+// The maximum number of tolerations is 16.
+//
+// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+func (o DeviceSubRequestPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
+}
+
+type DeviceSubRequestPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceSubRequestPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceSubRequestPatch)(nil)).Elem()
+}
+
+func (o DeviceSubRequestPatchArrayOutput) ToDeviceSubRequestPatchArrayOutput() DeviceSubRequestPatchArrayOutput {
+	return o
+}
+
+func (o DeviceSubRequestPatchArrayOutput) ToDeviceSubRequestPatchArrayOutputWithContext(ctx context.Context) DeviceSubRequestPatchArrayOutput {
+	return o
+}
+
+func (o DeviceSubRequestPatchArrayOutput) Index(i pulumi.IntInput) DeviceSubRequestPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceSubRequestPatch {
+		return vs[0].([]DeviceSubRequestPatch)[vs[1].(int)]
+	}).(DeviceSubRequestPatchOutput)
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaint struct {
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	Effect string `pulumi:"effect"`
+	// The taint key to be applied to a device. Must be a label name.
+	Key string `pulumi:"key"`
+	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	TimeAdded *string `pulumi:"timeAdded"`
+	// The taint value corresponding to the taint key. Must be a label value.
+	Value *string `pulumi:"value"`
+}
+
+// DeviceTaintInput is an input type that accepts DeviceTaintArgs and DeviceTaintOutput values.
+// You can construct a concrete instance of `DeviceTaintInput` via:
+//
+//	DeviceTaintArgs{...}
+type DeviceTaintInput interface {
+	pulumi.Input
+
+	ToDeviceTaintOutput() DeviceTaintOutput
+	ToDeviceTaintOutputWithContext(context.Context) DeviceTaintOutput
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaintArgs struct {
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	Effect pulumi.StringInput `pulumi:"effect"`
+	// The taint key to be applied to a device. Must be a label name.
+	Key pulumi.StringInput `pulumi:"key"`
+	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
+	// The taint value corresponding to the taint key. Must be a label value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (DeviceTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaint)(nil)).Elem()
+}
+
+func (i DeviceTaintArgs) ToDeviceTaintOutput() DeviceTaintOutput {
+	return i.ToDeviceTaintOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintArgs) ToDeviceTaintOutputWithContext(ctx context.Context) DeviceTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintOutput)
+}
+
+// DeviceTaintArrayInput is an input type that accepts DeviceTaintArray and DeviceTaintArrayOutput values.
+// You can construct a concrete instance of `DeviceTaintArrayInput` via:
+//
+//	DeviceTaintArray{ DeviceTaintArgs{...} }
+type DeviceTaintArrayInput interface {
+	pulumi.Input
+
+	ToDeviceTaintArrayOutput() DeviceTaintArrayOutput
+	ToDeviceTaintArrayOutputWithContext(context.Context) DeviceTaintArrayOutput
+}
+
+type DeviceTaintArray []DeviceTaintInput
+
+func (DeviceTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaint)(nil)).Elem()
+}
+
+func (i DeviceTaintArray) ToDeviceTaintArrayOutput() DeviceTaintArrayOutput {
+	return i.ToDeviceTaintArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintArray) ToDeviceTaintArrayOutputWithContext(ctx context.Context) DeviceTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintArrayOutput)
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaintOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaint)(nil)).Elem()
+}
+
+func (o DeviceTaintOutput) ToDeviceTaintOutput() DeviceTaintOutput {
+	return o
+}
+
+func (o DeviceTaintOutput) ToDeviceTaintOutputWithContext(ctx context.Context) DeviceTaintOutput {
+	return o
+}
+
+// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+func (o DeviceTaintOutput) Effect() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceTaint) string { return v.Effect }).(pulumi.StringOutput)
+}
+
+// The taint key to be applied to a device. Must be a label name.
+func (o DeviceTaintOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceTaint) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+func (o DeviceTaintOutput) TimeAdded() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaint) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
+}
+
+// The taint value corresponding to the taint key. Must be a label value.
+func (o DeviceTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaint)(nil)).Elem()
+}
+
+func (o DeviceTaintArrayOutput) ToDeviceTaintArrayOutput() DeviceTaintArrayOutput {
+	return o
+}
+
+func (o DeviceTaintArrayOutput) ToDeviceTaintArrayOutputWithContext(ctx context.Context) DeviceTaintArrayOutput {
+	return o
+}
+
+func (o DeviceTaintArrayOutput) Index(i pulumi.IntInput) DeviceTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceTaint {
+		return vs[0].([]DeviceTaint)[vs[1].(int)]
+	}).(DeviceTaintOutput)
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaintPatch struct {
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	Effect *string `pulumi:"effect"`
+	// The taint key to be applied to a device. Must be a label name.
+	Key *string `pulumi:"key"`
+	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	TimeAdded *string `pulumi:"timeAdded"`
+	// The taint value corresponding to the taint key. Must be a label value.
+	Value *string `pulumi:"value"`
+}
+
+// DeviceTaintPatchInput is an input type that accepts DeviceTaintPatchArgs and DeviceTaintPatchOutput values.
+// You can construct a concrete instance of `DeviceTaintPatchInput` via:
+//
+//	DeviceTaintPatchArgs{...}
+type DeviceTaintPatchInput interface {
+	pulumi.Input
+
+	ToDeviceTaintPatchOutput() DeviceTaintPatchOutput
+	ToDeviceTaintPatchOutputWithContext(context.Context) DeviceTaintPatchOutput
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaintPatchArgs struct {
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// The taint key to be applied to a device. Must be a label name.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
+	// The taint value corresponding to the taint key. Must be a label value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (DeviceTaintPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintPatch)(nil)).Elem()
+}
+
+func (i DeviceTaintPatchArgs) ToDeviceTaintPatchOutput() DeviceTaintPatchOutput {
+	return i.ToDeviceTaintPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintPatchArgs) ToDeviceTaintPatchOutputWithContext(ctx context.Context) DeviceTaintPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintPatchOutput)
+}
+
+// DeviceTaintPatchArrayInput is an input type that accepts DeviceTaintPatchArray and DeviceTaintPatchArrayOutput values.
+// You can construct a concrete instance of `DeviceTaintPatchArrayInput` via:
+//
+//	DeviceTaintPatchArray{ DeviceTaintPatchArgs{...} }
+type DeviceTaintPatchArrayInput interface {
+	pulumi.Input
+
+	ToDeviceTaintPatchArrayOutput() DeviceTaintPatchArrayOutput
+	ToDeviceTaintPatchArrayOutputWithContext(context.Context) DeviceTaintPatchArrayOutput
+}
+
+type DeviceTaintPatchArray []DeviceTaintPatchInput
+
+func (DeviceTaintPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaintPatch)(nil)).Elem()
+}
+
+func (i DeviceTaintPatchArray) ToDeviceTaintPatchArrayOutput() DeviceTaintPatchArrayOutput {
+	return i.ToDeviceTaintPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintPatchArray) ToDeviceTaintPatchArrayOutputWithContext(ctx context.Context) DeviceTaintPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintPatchArrayOutput)
+}
+
+// The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+type DeviceTaintPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintPatchOutput) ToDeviceTaintPatchOutput() DeviceTaintPatchOutput {
+	return o
+}
+
+func (o DeviceTaintPatchOutput) ToDeviceTaintPatchOutputWithContext(ctx context.Context) DeviceTaintPatchOutput {
+	return o
+}
+
+// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+func (o DeviceTaintPatchOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// The taint key to be applied to a device. Must be a label name.
+func (o DeviceTaintPatchOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+func (o DeviceTaintPatchOutput) TimeAdded() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
+}
+
+// The taint value corresponding to the taint key. Must be a label value.
+func (o DeviceTaintPatchOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTaintPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaintPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintPatchArrayOutput) ToDeviceTaintPatchArrayOutput() DeviceTaintPatchArrayOutput {
+	return o
+}
+
+func (o DeviceTaintPatchArrayOutput) ToDeviceTaintPatchArrayOutputWithContext(ctx context.Context) DeviceTaintPatchArrayOutput {
+	return o
+}
+
+func (o DeviceTaintPatchArrayOutput) Index(i pulumi.IntInput) DeviceTaintPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceTaintPatch {
+		return vs[0].([]DeviceTaintPatch)[vs[1].(int)]
+	}).(DeviceTaintPatchOutput)
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceToleration struct {
+	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+	Effect *string `pulumi:"effect"`
+	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+	Key *string `pulumi:"key"`
+	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+	Operator *string `pulumi:"operator"`
+	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+	TolerationSeconds *int `pulumi:"tolerationSeconds"`
+	// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+	Value *string `pulumi:"value"`
+}
+
+// DeviceTolerationInput is an input type that accepts DeviceTolerationArgs and DeviceTolerationOutput values.
+// You can construct a concrete instance of `DeviceTolerationInput` via:
+//
+//	DeviceTolerationArgs{...}
+type DeviceTolerationInput interface {
+	pulumi.Input
+
+	ToDeviceTolerationOutput() DeviceTolerationOutput
+	ToDeviceTolerationOutputWithContext(context.Context) DeviceTolerationOutput
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceTolerationArgs struct {
+	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
+	// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (DeviceTolerationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceToleration)(nil)).Elem()
+}
+
+func (i DeviceTolerationArgs) ToDeviceTolerationOutput() DeviceTolerationOutput {
+	return i.ToDeviceTolerationOutputWithContext(context.Background())
+}
+
+func (i DeviceTolerationArgs) ToDeviceTolerationOutputWithContext(ctx context.Context) DeviceTolerationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTolerationOutput)
+}
+
+// DeviceTolerationArrayInput is an input type that accepts DeviceTolerationArray and DeviceTolerationArrayOutput values.
+// You can construct a concrete instance of `DeviceTolerationArrayInput` via:
+//
+//	DeviceTolerationArray{ DeviceTolerationArgs{...} }
+type DeviceTolerationArrayInput interface {
+	pulumi.Input
+
+	ToDeviceTolerationArrayOutput() DeviceTolerationArrayOutput
+	ToDeviceTolerationArrayOutputWithContext(context.Context) DeviceTolerationArrayOutput
+}
+
+type DeviceTolerationArray []DeviceTolerationInput
+
+func (DeviceTolerationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceToleration)(nil)).Elem()
+}
+
+func (i DeviceTolerationArray) ToDeviceTolerationArrayOutput() DeviceTolerationArrayOutput {
+	return i.ToDeviceTolerationArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceTolerationArray) ToDeviceTolerationArrayOutputWithContext(ctx context.Context) DeviceTolerationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTolerationArrayOutput)
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceTolerationOutput struct{ *pulumi.OutputState }
+
+func (DeviceTolerationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceToleration)(nil)).Elem()
+}
+
+func (o DeviceTolerationOutput) ToDeviceTolerationOutput() DeviceTolerationOutput {
+	return o
+}
+
+func (o DeviceTolerationOutput) ToDeviceTolerationOutputWithContext(ctx context.Context) DeviceTolerationOutput {
+	return o
+}
+
+// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+func (o DeviceTolerationOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceToleration) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+func (o DeviceTolerationOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceToleration) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+func (o DeviceTolerationOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceToleration) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+func (o DeviceTolerationOutput) TolerationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceToleration) *int { return v.TolerationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+func (o DeviceTolerationOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceToleration) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTolerationArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceTolerationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceToleration)(nil)).Elem()
+}
+
+func (o DeviceTolerationArrayOutput) ToDeviceTolerationArrayOutput() DeviceTolerationArrayOutput {
+	return o
+}
+
+func (o DeviceTolerationArrayOutput) ToDeviceTolerationArrayOutputWithContext(ctx context.Context) DeviceTolerationArrayOutput {
+	return o
+}
+
+func (o DeviceTolerationArrayOutput) Index(i pulumi.IntInput) DeviceTolerationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceToleration {
+		return vs[0].([]DeviceToleration)[vs[1].(int)]
+	}).(DeviceTolerationOutput)
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceTolerationPatch struct {
+	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+	Effect *string `pulumi:"effect"`
+	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+	Key *string `pulumi:"key"`
+	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+	Operator *string `pulumi:"operator"`
+	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+	TolerationSeconds *int `pulumi:"tolerationSeconds"`
+	// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+	Value *string `pulumi:"value"`
+}
+
+// DeviceTolerationPatchInput is an input type that accepts DeviceTolerationPatchArgs and DeviceTolerationPatchOutput values.
+// You can construct a concrete instance of `DeviceTolerationPatchInput` via:
+//
+//	DeviceTolerationPatchArgs{...}
+type DeviceTolerationPatchInput interface {
+	pulumi.Input
+
+	ToDeviceTolerationPatchOutput() DeviceTolerationPatchOutput
+	ToDeviceTolerationPatchOutputWithContext(context.Context) DeviceTolerationPatchOutput
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceTolerationPatchArgs struct {
+	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
+	// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (DeviceTolerationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTolerationPatch)(nil)).Elem()
+}
+
+func (i DeviceTolerationPatchArgs) ToDeviceTolerationPatchOutput() DeviceTolerationPatchOutput {
+	return i.ToDeviceTolerationPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceTolerationPatchArgs) ToDeviceTolerationPatchOutputWithContext(ctx context.Context) DeviceTolerationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTolerationPatchOutput)
+}
+
+// DeviceTolerationPatchArrayInput is an input type that accepts DeviceTolerationPatchArray and DeviceTolerationPatchArrayOutput values.
+// You can construct a concrete instance of `DeviceTolerationPatchArrayInput` via:
+//
+//	DeviceTolerationPatchArray{ DeviceTolerationPatchArgs{...} }
+type DeviceTolerationPatchArrayInput interface {
+	pulumi.Input
+
+	ToDeviceTolerationPatchArrayOutput() DeviceTolerationPatchArrayOutput
+	ToDeviceTolerationPatchArrayOutputWithContext(context.Context) DeviceTolerationPatchArrayOutput
+}
+
+type DeviceTolerationPatchArray []DeviceTolerationPatchInput
+
+func (DeviceTolerationPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTolerationPatch)(nil)).Elem()
+}
+
+func (i DeviceTolerationPatchArray) ToDeviceTolerationPatchArrayOutput() DeviceTolerationPatchArrayOutput {
+	return i.ToDeviceTolerationPatchArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceTolerationPatchArray) ToDeviceTolerationPatchArrayOutputWithContext(ctx context.Context) DeviceTolerationPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTolerationPatchArrayOutput)
+}
+
+// The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+type DeviceTolerationPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceTolerationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTolerationPatch)(nil)).Elem()
+}
+
+func (o DeviceTolerationPatchOutput) ToDeviceTolerationPatchOutput() DeviceTolerationPatchOutput {
+	return o
+}
+
+func (o DeviceTolerationPatchOutput) ToDeviceTolerationPatchOutputWithContext(ctx context.Context) DeviceTolerationPatchOutput {
+	return o
+}
+
+// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+func (o DeviceTolerationPatchOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTolerationPatch) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+func (o DeviceTolerationPatchOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTolerationPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+func (o DeviceTolerationPatchOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTolerationPatch) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+func (o DeviceTolerationPatchOutput) TolerationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceTolerationPatch) *int { return v.TolerationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+func (o DeviceTolerationPatchOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTolerationPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTolerationPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceTolerationPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTolerationPatch)(nil)).Elem()
+}
+
+func (o DeviceTolerationPatchArrayOutput) ToDeviceTolerationPatchArrayOutput() DeviceTolerationPatchArrayOutput {
+	return o
+}
+
+func (o DeviceTolerationPatchArrayOutput) ToDeviceTolerationPatchArrayOutputWithContext(ctx context.Context) DeviceTolerationPatchArrayOutput {
+	return o
+}
+
+func (o DeviceTolerationPatchArrayOutput) Index(i pulumi.IntInput) DeviceTolerationPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceTolerationPatch {
+		return vs[0].([]DeviceTolerationPatch)[vs[1].(int)]
+	}).(DeviceTolerationPatchOutput)
+}
+
 // NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
 type NetworkDeviceData struct {
 	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
@@ -5186,6 +7379,8 @@ type NetworkDeviceData struct {
 	// Must not be longer than 256 characters.
 	InterfaceName *string `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	//
+	// Must not contain more than 16 entries.
 	Ips []string `pulumi:"ips"`
 }
 
@@ -5211,6 +7406,8 @@ type NetworkDeviceDataArgs struct {
 	// Must not be longer than 256 characters.
 	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	//
+	// Must not contain more than 16 entries.
 	Ips pulumi.StringArrayInput `pulumi:"ips"`
 }
 
@@ -5307,6 +7504,8 @@ func (o NetworkDeviceDataOutput) InterfaceName() pulumi.StringPtrOutput {
 }
 
 // IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+//
+// Must not contain more than 16 entries.
 func (o NetworkDeviceDataOutput) Ips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NetworkDeviceData) []string { return v.Ips }).(pulumi.StringArrayOutput)
 }
@@ -5360,6 +7559,8 @@ func (o NetworkDeviceDataPtrOutput) InterfaceName() pulumi.StringPtrOutput {
 }
 
 // IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+//
+// Must not contain more than 16 entries.
 func (o NetworkDeviceDataPtrOutput) Ips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *NetworkDeviceData) []string {
 		if v == nil {
@@ -5380,6 +7581,8 @@ type NetworkDeviceDataPatch struct {
 	// Must not be longer than 256 characters.
 	InterfaceName *string `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	//
+	// Must not contain more than 16 entries.
 	Ips []string `pulumi:"ips"`
 }
 
@@ -5405,6 +7608,8 @@ type NetworkDeviceDataPatchArgs struct {
 	// Must not be longer than 256 characters.
 	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+	//
+	// Must not contain more than 16 entries.
 	Ips pulumi.StringArrayInput `pulumi:"ips"`
 }
 
@@ -5501,6 +7706,8 @@ func (o NetworkDeviceDataPatchOutput) InterfaceName() pulumi.StringPtrOutput {
 }
 
 // IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+//
+// Must not contain more than 16 entries.
 func (o NetworkDeviceDataPatchOutput) Ips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NetworkDeviceDataPatch) []string { return v.Ips }).(pulumi.StringArrayOutput)
 }
@@ -5554,6 +7761,8 @@ func (o NetworkDeviceDataPatchPtrOutput) InterfaceName() pulumi.StringPtrOutput 
 }
 
 // IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+//
+// Must not contain more than 16 entries.
 func (o NetworkDeviceDataPatchPtrOutput) Ips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *NetworkDeviceDataPatch) []string {
 		if v == nil {
@@ -6711,7 +8920,7 @@ type ResourceClaimStatus struct {
 	//
 	// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 	//
-	// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+	// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 	ReservedFor []ResourceClaimConsumerReference `pulumi:"reservedFor"`
 }
 
@@ -6738,7 +8947,7 @@ type ResourceClaimStatusArgs struct {
 	//
 	// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 	//
-	// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+	// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 	ReservedFor ResourceClaimConsumerReferenceArrayInput `pulumi:"reservedFor"`
 }
 
@@ -6836,7 +9045,7 @@ func (o ResourceClaimStatusOutput) Devices() AllocatedDeviceStatusArrayOutput {
 //
 // Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 //
-// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 func (o ResourceClaimStatusOutput) ReservedFor() ResourceClaimConsumerReferenceArrayOutput {
 	return o.ApplyT(func(v ResourceClaimStatus) []ResourceClaimConsumerReference { return v.ReservedFor }).(ResourceClaimConsumerReferenceArrayOutput)
 }
@@ -6891,7 +9100,7 @@ func (o ResourceClaimStatusPtrOutput) Devices() AllocatedDeviceStatusArrayOutput
 //
 // Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 //
-// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 func (o ResourceClaimStatusPtrOutput) ReservedFor() ResourceClaimConsumerReferenceArrayOutput {
 	return o.ApplyT(func(v *ResourceClaimStatus) []ResourceClaimConsumerReference {
 		if v == nil {
@@ -6913,7 +9122,7 @@ type ResourceClaimStatusPatch struct {
 	//
 	// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 	//
-	// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+	// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 	ReservedFor []ResourceClaimConsumerReferencePatch `pulumi:"reservedFor"`
 }
 
@@ -6940,7 +9149,7 @@ type ResourceClaimStatusPatchArgs struct {
 	//
 	// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 	//
-	// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+	// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 	ReservedFor ResourceClaimConsumerReferencePatchArrayInput `pulumi:"reservedFor"`
 }
 
@@ -7038,7 +9247,7 @@ func (o ResourceClaimStatusPatchOutput) Devices() AllocatedDeviceStatusPatchArra
 //
 // Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 //
-// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 func (o ResourceClaimStatusPatchOutput) ReservedFor() ResourceClaimConsumerReferencePatchArrayOutput {
 	return o.ApplyT(func(v ResourceClaimStatusPatch) []ResourceClaimConsumerReferencePatch { return v.ReservedFor }).(ResourceClaimConsumerReferencePatchArrayOutput)
 }
@@ -7093,7 +9302,7 @@ func (o ResourceClaimStatusPatchPtrOutput) Devices() AllocatedDeviceStatusPatchA
 //
 // Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
 //
-// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
 func (o ResourceClaimStatusPatchPtrOutput) ReservedFor() ResourceClaimConsumerReferencePatchArrayOutput {
 	return o.ApplyT(func(v *ResourceClaimStatusPatch) []ResourceClaimConsumerReferencePatch {
 		if v == nil {
@@ -8301,7 +10510,7 @@ func (o ResourceSlicePatchTypeOutput) Spec() ResourceSliceSpecPatchPtrOutput {
 type ResourceSliceSpec struct {
 	// AllNodes indicates that all nodes have access to the resources in the pool.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	AllNodes *bool `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
@@ -8315,16 +10524,26 @@ type ResourceSliceSpec struct {
 	//
 	// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 	NodeName *string `pulumi:"nodeName"`
 	// NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 	//
 	// Must use exactly one term.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
+	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+	//
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+	PerDeviceNodeSelection *bool `pulumi:"perDeviceNodeSelection"`
 	// Pool describes the pool that this ResourceSlice belongs to.
 	Pool ResourcePool `pulumi:"pool"`
+	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+	//
+	// The names of the SharedCounters must be unique in the ResourceSlice.
+	//
+	// The maximum number of SharedCounters is 32.
+	SharedCounters []CounterSet `pulumi:"sharedCounters"`
 }
 
 // ResourceSliceSpecInput is an input type that accepts ResourceSliceSpecArgs and ResourceSliceSpecOutput values.
@@ -8342,7 +10561,7 @@ type ResourceSliceSpecInput interface {
 type ResourceSliceSpecArgs struct {
 	// AllNodes indicates that all nodes have access to the resources in the pool.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
@@ -8356,16 +10575,26 @@ type ResourceSliceSpecArgs struct {
 	//
 	// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 	//
 	// Must use exactly one term.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
+	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+	//
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+	PerDeviceNodeSelection pulumi.BoolPtrInput `pulumi:"perDeviceNodeSelection"`
 	// Pool describes the pool that this ResourceSlice belongs to.
 	Pool ResourcePoolInput `pulumi:"pool"`
+	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+	//
+	// The names of the SharedCounters must be unique in the ResourceSlice.
+	//
+	// The maximum number of SharedCounters is 32.
+	SharedCounters CounterSetArrayInput `pulumi:"sharedCounters"`
 }
 
 func (ResourceSliceSpecArgs) ElementType() reflect.Type {
@@ -8397,7 +10626,7 @@ func (o ResourceSliceSpecOutput) ToResourceSliceSpecOutputWithContext(ctx contex
 
 // AllNodes indicates that all nodes have access to the resources in the pool.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecOutput) AllNodes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
 }
@@ -8420,7 +10649,7 @@ func (o ResourceSliceSpecOutput) Driver() pulumi.StringOutput {
 //
 // This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 func (o ResourceSliceSpecOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
@@ -8429,9 +10658,16 @@ func (o ResourceSliceSpecOutput) NodeName() pulumi.StringPtrOutput {
 //
 // Must use exactly one term.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) *corev1.NodeSelector { return v.NodeSelector }).(corev1.NodeSelectorPtrOutput)
+}
+
+// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+//
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+func (o ResourceSliceSpecOutput) PerDeviceNodeSelection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceSliceSpec) *bool { return v.PerDeviceNodeSelection }).(pulumi.BoolPtrOutput)
 }
 
 // Pool describes the pool that this ResourceSlice belongs to.
@@ -8439,11 +10675,20 @@ func (o ResourceSliceSpecOutput) Pool() ResourcePoolOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) ResourcePool { return v.Pool }).(ResourcePoolOutput)
 }
 
+// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+//
+// The names of the SharedCounters must be unique in the ResourceSlice.
+//
+// The maximum number of SharedCounters is 32.
+func (o ResourceSliceSpecOutput) SharedCounters() CounterSetArrayOutput {
+	return o.ApplyT(func(v ResourceSliceSpec) []CounterSet { return v.SharedCounters }).(CounterSetArrayOutput)
+}
+
 // ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
 type ResourceSliceSpecPatch struct {
 	// AllNodes indicates that all nodes have access to the resources in the pool.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	AllNodes *bool `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
@@ -8457,16 +10702,26 @@ type ResourceSliceSpecPatch struct {
 	//
 	// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 	NodeName *string `pulumi:"nodeName"`
 	// NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 	//
 	// Must use exactly one term.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
+	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+	//
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+	PerDeviceNodeSelection *bool `pulumi:"perDeviceNodeSelection"`
 	// Pool describes the pool that this ResourceSlice belongs to.
 	Pool *ResourcePoolPatch `pulumi:"pool"`
+	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+	//
+	// The names of the SharedCounters must be unique in the ResourceSlice.
+	//
+	// The maximum number of SharedCounters is 32.
+	SharedCounters []CounterSetPatch `pulumi:"sharedCounters"`
 }
 
 // ResourceSliceSpecPatchInput is an input type that accepts ResourceSliceSpecPatchArgs and ResourceSliceSpecPatchOutput values.
@@ -8484,7 +10739,7 @@ type ResourceSliceSpecPatchInput interface {
 type ResourceSliceSpecPatchArgs struct {
 	// AllNodes indicates that all nodes have access to the resources in the pool.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
@@ -8498,16 +10753,26 @@ type ResourceSliceSpecPatchArgs struct {
 	//
 	// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 	//
 	// Must use exactly one term.
 	//
-	// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
+	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+	//
+	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+	PerDeviceNodeSelection pulumi.BoolPtrInput `pulumi:"perDeviceNodeSelection"`
 	// Pool describes the pool that this ResourceSlice belongs to.
 	Pool ResourcePoolPatchPtrInput `pulumi:"pool"`
+	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+	//
+	// The names of the SharedCounters must be unique in the ResourceSlice.
+	//
+	// The maximum number of SharedCounters is 32.
+	SharedCounters CounterSetPatchArrayInput `pulumi:"sharedCounters"`
 }
 
 func (ResourceSliceSpecPatchArgs) ElementType() reflect.Type {
@@ -8590,7 +10855,7 @@ func (o ResourceSliceSpecPatchOutput) ToResourceSliceSpecPatchPtrOutputWithConte
 
 // AllNodes indicates that all nodes have access to the resources in the pool.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecPatchOutput) AllNodes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
 }
@@ -8613,7 +10878,7 @@ func (o ResourceSliceSpecPatchOutput) Driver() pulumi.StringPtrOutput {
 //
 // This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 func (o ResourceSliceSpecPatchOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
@@ -8622,14 +10887,30 @@ func (o ResourceSliceSpecPatchOutput) NodeName() pulumi.StringPtrOutput {
 //
 // Must use exactly one term.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecPatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *corev1.NodeSelectorPatch { return v.NodeSelector }).(corev1.NodeSelectorPatchPtrOutput)
+}
+
+// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+//
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+func (o ResourceSliceSpecPatchOutput) PerDeviceNodeSelection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ResourceSliceSpecPatch) *bool { return v.PerDeviceNodeSelection }).(pulumi.BoolPtrOutput)
 }
 
 // Pool describes the pool that this ResourceSlice belongs to.
 func (o ResourceSliceSpecPatchOutput) Pool() ResourcePoolPatchPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *ResourcePoolPatch { return v.Pool }).(ResourcePoolPatchPtrOutput)
+}
+
+// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+//
+// The names of the SharedCounters must be unique in the ResourceSlice.
+//
+// The maximum number of SharedCounters is 32.
+func (o ResourceSliceSpecPatchOutput) SharedCounters() CounterSetPatchArrayOutput {
+	return o.ApplyT(func(v ResourceSliceSpecPatch) []CounterSetPatch { return v.SharedCounters }).(CounterSetPatchArrayOutput)
 }
 
 type ResourceSliceSpecPatchPtrOutput struct{ *pulumi.OutputState }
@@ -8658,7 +10939,7 @@ func (o ResourceSliceSpecPatchPtrOutput) Elem() ResourceSliceSpecPatchOutput {
 
 // AllNodes indicates that all nodes have access to the resources in the pool.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecPatchPtrOutput) AllNodes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) *bool {
 		if v == nil {
@@ -8696,7 +10977,7 @@ func (o ResourceSliceSpecPatchPtrOutput) Driver() pulumi.StringPtrOutput {
 //
 // This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
 func (o ResourceSliceSpecPatchPtrOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) *string {
 		if v == nil {
@@ -8710,7 +10991,7 @@ func (o ResourceSliceSpecPatchPtrOutput) NodeName() pulumi.StringPtrOutput {
 //
 // Must use exactly one term.
 //
-// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 func (o ResourceSliceSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) *corev1.NodeSelectorPatch {
 		if v == nil {
@@ -8718,6 +10999,18 @@ func (o ResourceSliceSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatch
 		}
 		return v.NodeSelector
 	}).(corev1.NodeSelectorPatchPtrOutput)
+}
+
+// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+//
+// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+func (o ResourceSliceSpecPatchPtrOutput) PerDeviceNodeSelection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ResourceSliceSpecPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PerDeviceNodeSelection
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Pool describes the pool that this ResourceSlice belongs to.
@@ -8728,6 +11021,20 @@ func (o ResourceSliceSpecPatchPtrOutput) Pool() ResourcePoolPatchPtrOutput {
 		}
 		return v.Pool
 	}).(ResourcePoolPatchPtrOutput)
+}
+
+// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+//
+// The names of the SharedCounters must be unique in the ResourceSlice.
+//
+// The maximum number of SharedCounters is 32.
+func (o ResourceSliceSpecPatchPtrOutput) SharedCounters() CounterSetPatchArrayOutput {
+	return o.ApplyT(func(v *ResourceSliceSpecPatch) []CounterSetPatch {
+		if v == nil {
+			return nil
+		}
+		return v.SharedCounters
+	}).(CounterSetPatchArrayOutput)
 }
 
 func init() {
@@ -8747,6 +11054,13 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPtrInput)(nil)).Elem(), CELDeviceSelectorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPatchInput)(nil)).Elem(), CELDeviceSelectorPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPatchPtrInput)(nil)).Elem(), CELDeviceSelectorPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterInput)(nil)).Elem(), CounterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterMapInput)(nil)).Elem(), CounterMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterPatchInput)(nil)).Elem(), CounterPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterSetInput)(nil)).Elem(), CounterSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterSetArrayInput)(nil)).Elem(), CounterSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterSetPatchInput)(nil)).Elem(), CounterSetPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CounterSetPatchArrayInput)(nil)).Elem(), CounterSetPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceInput)(nil)).Elem(), DeviceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceArrayInput)(nil)).Elem(), DeviceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceAllocationConfigurationInput)(nil)).Elem(), DeviceAllocationConfigurationArgs{})
@@ -8786,6 +11100,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceConstraintArrayInput)(nil)).Elem(), DeviceConstraintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceConstraintPatchInput)(nil)).Elem(), DeviceConstraintPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceConstraintPatchArrayInput)(nil)).Elem(), DeviceConstraintPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionInput)(nil)).Elem(), DeviceCounterConsumptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionArrayInput)(nil)).Elem(), DeviceCounterConsumptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionPatchInput)(nil)).Elem(), DeviceCounterConsumptionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionPatchArrayInput)(nil)).Elem(), DeviceCounterConsumptionPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePatchInput)(nil)).Elem(), DevicePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePatchArrayInput)(nil)).Elem(), DevicePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceRequestInput)(nil)).Elem(), DeviceRequestArgs{})
@@ -8800,6 +11118,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorArrayInput)(nil)).Elem(), DeviceSelectorArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorPatchInput)(nil)).Elem(), DeviceSelectorPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSelectorPatchArrayInput)(nil)).Elem(), DeviceSelectorPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSubRequestInput)(nil)).Elem(), DeviceSubRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSubRequestArrayInput)(nil)).Elem(), DeviceSubRequestArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSubRequestPatchInput)(nil)).Elem(), DeviceSubRequestPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceSubRequestPatchArrayInput)(nil)).Elem(), DeviceSubRequestPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintInput)(nil)).Elem(), DeviceTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintArrayInput)(nil)).Elem(), DeviceTaintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintPatchInput)(nil)).Elem(), DeviceTaintPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintPatchArrayInput)(nil)).Elem(), DeviceTaintPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationInput)(nil)).Elem(), DeviceTolerationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationArrayInput)(nil)).Elem(), DeviceTolerationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationPatchInput)(nil)).Elem(), DeviceTolerationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationPatchArrayInput)(nil)).Elem(), DeviceTolerationPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataInput)(nil)).Elem(), NetworkDeviceDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPtrInput)(nil)).Elem(), NetworkDeviceDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
@@ -8856,6 +11186,13 @@ func init() {
 	pulumi.RegisterOutputType(CELDeviceSelectorPtrOutput{})
 	pulumi.RegisterOutputType(CELDeviceSelectorPatchOutput{})
 	pulumi.RegisterOutputType(CELDeviceSelectorPatchPtrOutput{})
+	pulumi.RegisterOutputType(CounterOutput{})
+	pulumi.RegisterOutputType(CounterMapOutput{})
+	pulumi.RegisterOutputType(CounterPatchOutput{})
+	pulumi.RegisterOutputType(CounterSetOutput{})
+	pulumi.RegisterOutputType(CounterSetArrayOutput{})
+	pulumi.RegisterOutputType(CounterSetPatchOutput{})
+	pulumi.RegisterOutputType(CounterSetPatchArrayOutput{})
 	pulumi.RegisterOutputType(DeviceOutput{})
 	pulumi.RegisterOutputType(DeviceArrayOutput{})
 	pulumi.RegisterOutputType(DeviceAllocationConfigurationOutput{})
@@ -8895,6 +11232,10 @@ func init() {
 	pulumi.RegisterOutputType(DeviceConstraintArrayOutput{})
 	pulumi.RegisterOutputType(DeviceConstraintPatchOutput{})
 	pulumi.RegisterOutputType(DeviceConstraintPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceCounterConsumptionOutput{})
+	pulumi.RegisterOutputType(DeviceCounterConsumptionArrayOutput{})
+	pulumi.RegisterOutputType(DeviceCounterConsumptionPatchOutput{})
+	pulumi.RegisterOutputType(DeviceCounterConsumptionPatchArrayOutput{})
 	pulumi.RegisterOutputType(DevicePatchOutput{})
 	pulumi.RegisterOutputType(DevicePatchArrayOutput{})
 	pulumi.RegisterOutputType(DeviceRequestOutput{})
@@ -8909,6 +11250,18 @@ func init() {
 	pulumi.RegisterOutputType(DeviceSelectorArrayOutput{})
 	pulumi.RegisterOutputType(DeviceSelectorPatchOutput{})
 	pulumi.RegisterOutputType(DeviceSelectorPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceSubRequestOutput{})
+	pulumi.RegisterOutputType(DeviceSubRequestArrayOutput{})
+	pulumi.RegisterOutputType(DeviceSubRequestPatchOutput{})
+	pulumi.RegisterOutputType(DeviceSubRequestPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTaintOutput{})
+	pulumi.RegisterOutputType(DeviceTaintArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTaintPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTaintPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTolerationOutput{})
+	pulumi.RegisterOutputType(DeviceTolerationArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTolerationPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTolerationPatchArrayOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPtrOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPatchOutput{})

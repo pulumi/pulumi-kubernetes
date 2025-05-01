@@ -38,7 +38,7 @@ func TestCSAToSSANoManagedFields(t *testing.T) {
 
 	// 1. Create the deployment using pulumi-kubernetes in CSA mode.
 	test := pulumitest.NewPulumiTest(t, "testdata/csa-to-ssa", opttest.SkipInstall())
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

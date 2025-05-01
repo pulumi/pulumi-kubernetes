@@ -45,6 +45,12 @@ func NewClusterTrustBundlePatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("certificates.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("ClusterTrustBundle")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource ClusterTrustBundlePatch
 	err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch", name, args, &resource, opts...)

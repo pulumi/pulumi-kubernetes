@@ -12,7 +12,7 @@ import (
 // TestPreviewReplacements ensures that replacements for immutable fields are correctly previewed.
 func TestPreviewReplacements(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/preview-replacements", opttest.SkipInstall())
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})
@@ -34,7 +34,7 @@ func TestCRDPreviews(t *testing.T) {
 
 	// 1. Create the CRD resource
 	test := pulumitest.NewPulumiTest(t, testFolder, opttest.SkipInstall())
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

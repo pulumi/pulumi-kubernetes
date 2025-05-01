@@ -27,12 +27,16 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
     /**
      * Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
      * 
+     * Must not contain more than 8 entries.
+     * 
      */
     @Import(name="conditions")
     private @Nullable Output<List<ConditionArgs>> conditions;
 
     /**
      * @return Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+     * 
+     * Must not contain more than 8 entries.
      * 
      */
     public Optional<Output<List<ConditionArgs>>> conditions() {
@@ -158,6 +162,8 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         /**
          * @param conditions Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
          * 
+         * Must not contain more than 8 entries.
+         * 
          * @return builder
          * 
          */
@@ -169,6 +175,8 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         /**
          * @param conditions Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
          * 
+         * Must not contain more than 8 entries.
+         * 
          * @return builder
          * 
          */
@@ -178,6 +186,8 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
 
         /**
          * @param conditions Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+         * 
+         * Must not contain more than 8 entries.
          * 
          * @return builder
          * 

@@ -29,7 +29,7 @@ import (
 func TestJavaCanCreateCRD(t *testing.T) {
 	// Step 1 creates a CRD with `x-kubernetes-preserve-unknown-fields` set to true.
 	test := pulumitest.NewPulumiTest(t, "testdata/crd-java/step1")
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

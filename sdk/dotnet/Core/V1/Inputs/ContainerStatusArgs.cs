@@ -102,6 +102,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStateArgs>? State { get; set; }
 
         /// <summary>
+        /// StopSignal reports the effective stop signal for this container
+        /// </summary>
+        [Input("stopSignal")]
+        public Input<string>? StopSignal { get; set; }
+
+        /// <summary>
         /// User represents user identity information initially attached to the first process of the container
         /// </summary>
         [Input("user")]

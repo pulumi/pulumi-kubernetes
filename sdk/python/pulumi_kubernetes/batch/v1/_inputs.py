@@ -773,7 +773,7 @@ if not MYPY:
         """
         backoff_limit_per_index: NotRequired[pulumi.Input[builtins.int]]
         """
-        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         """
         completion_mode: NotRequired[pulumi.Input[builtins.str]]
         """
@@ -801,7 +801,7 @@ if not MYPY:
         """
         max_failed_indexes: NotRequired[pulumi.Input[builtins.int]]
         """
-        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         """
         parallelism: NotRequired[pulumi.Input[builtins.int]]
         """
@@ -827,8 +827,6 @@ if not MYPY:
         success_policy: NotRequired[pulumi.Input['SuccessPolicyPatchArgsDict']]
         """
         successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-
-        This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         """
         suspend: NotRequired[pulumi.Input[builtins.bool]]
         """
@@ -868,7 +866,7 @@ class JobSpecPatchArgs:
         JobSpec describes how the job execution will look like.
         :param pulumi.Input[builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
         :param pulumi.Input[builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
-        :param pulumi.Input[builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param pulumi.Input[builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         :param pulumi.Input[builtins.str] completion_mode: completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
                
                `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
@@ -881,7 +879,7 @@ class JobSpecPatchArgs:
                
                This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         :param pulumi.Input[builtins.bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
-        :param pulumi.Input[builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param pulumi.Input[builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         :param pulumi.Input[builtins.int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input['PodFailurePolicyPatchArgs'] pod_failure_policy: Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
         :param pulumi.Input[builtins.str] pod_replacement_policy: podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
@@ -892,8 +890,6 @@ class JobSpecPatchArgs:
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['SuccessPolicyPatchArgs'] success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-               
-               This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         :param pulumi.Input[builtins.bool] suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param pulumi.Input['_core.v1.PodTemplateSpecPatchArgs'] template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[builtins.int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
@@ -959,7 +955,7 @@ class JobSpecPatchArgs:
     @pulumi.getter(name="backoffLimitPerIndex")
     def backoff_limit_per_index(self) -> Optional[pulumi.Input[builtins.int]]:
         """
-        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         """
         return pulumi.get(self, "backoff_limit_per_index")
 
@@ -1027,7 +1023,7 @@ class JobSpecPatchArgs:
     @pulumi.getter(name="maxFailedIndexes")
     def max_failed_indexes(self) -> Optional[pulumi.Input[builtins.int]]:
         """
-        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         """
         return pulumi.get(self, "max_failed_indexes")
 
@@ -1093,8 +1089,6 @@ class JobSpecPatchArgs:
     def success_policy(self) -> Optional[pulumi.Input['SuccessPolicyPatchArgs']]:
         """
         successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-
-        This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         """
         return pulumi.get(self, "success_policy")
 
@@ -1158,7 +1152,7 @@ if not MYPY:
         """
         backoff_limit_per_index: NotRequired[pulumi.Input[builtins.int]]
         """
-        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         """
         completion_mode: NotRequired[pulumi.Input[builtins.str]]
         """
@@ -1186,7 +1180,7 @@ if not MYPY:
         """
         max_failed_indexes: NotRequired[pulumi.Input[builtins.int]]
         """
-        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         """
         parallelism: NotRequired[pulumi.Input[builtins.int]]
         """
@@ -1212,8 +1206,6 @@ if not MYPY:
         success_policy: NotRequired[pulumi.Input['SuccessPolicyArgsDict']]
         """
         successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-
-        This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         """
         suspend: NotRequired[pulumi.Input[builtins.bool]]
         """
@@ -1250,7 +1242,7 @@ class JobSpecArgs:
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
         :param pulumi.Input[builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
-        :param pulumi.Input[builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param pulumi.Input[builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         :param pulumi.Input[builtins.str] completion_mode: completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
                
                `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
@@ -1263,7 +1255,7 @@ class JobSpecArgs:
                
                This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         :param pulumi.Input[builtins.bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
-        :param pulumi.Input[builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        :param pulumi.Input[builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         :param pulumi.Input[builtins.int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input['PodFailurePolicyArgs'] pod_failure_policy: Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
         :param pulumi.Input[builtins.str] pod_replacement_policy: podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
@@ -1274,8 +1266,6 @@ class JobSpecArgs:
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['SuccessPolicyArgs'] success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-               
-               This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         :param pulumi.Input[builtins.bool] suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param pulumi.Input[builtins.int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
@@ -1351,7 +1341,7 @@ class JobSpecArgs:
     @pulumi.getter(name="backoffLimitPerIndex")
     def backoff_limit_per_index(self) -> Optional[pulumi.Input[builtins.int]]:
         """
-        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         """
         return pulumi.get(self, "backoff_limit_per_index")
 
@@ -1419,7 +1409,7 @@ class JobSpecArgs:
     @pulumi.getter(name="maxFailedIndexes")
     def max_failed_indexes(self) -> Optional[pulumi.Input[builtins.int]]:
         """
-        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+        Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         """
         return pulumi.get(self, "max_failed_indexes")
 
@@ -1485,8 +1475,6 @@ class JobSpecArgs:
     def success_policy(self) -> Optional[pulumi.Input['SuccessPolicyArgs']]:
         """
         successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-
-        This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
         """
         return pulumi.get(self, "success_policy")
 
@@ -1551,8 +1539,6 @@ if not MYPY:
         failed_indexes: NotRequired[pulumi.Input[builtins.str]]
         """
         FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-
-        This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         """
         ready: NotRequired[pulumi.Input[builtins.int]]
         """
@@ -1614,8 +1600,6 @@ class JobStatusArgs:
                More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[builtins.int] failed: The number of pods which reached phase Failed. The value increases monotonically.
         :param pulumi.Input[builtins.str] failed_indexes: FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-               
-               This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         :param pulumi.Input[builtins.int] ready: The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
         :param pulumi.Input[builtins.str] start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
                
@@ -1725,8 +1709,6 @@ class JobStatusArgs:
     def failed_indexes(self) -> Optional[pulumi.Input[builtins.str]]:
         """
         FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-
-        This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         """
         return pulumi.get(self, "failed_indexes")
 
@@ -2431,8 +2413,6 @@ if not MYPY:
           running pods are terminated.
         - FailIndex: indicates that the pod's index is marked as Failed and will
           not be restarted.
-          This value is beta-level. It can be used when the
-          `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         - Ignore: indicates that the counter towards the .backoffLimit is not
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the
@@ -2464,8 +2444,6 @@ class PodFailurePolicyRulePatchArgs:
                  running pods are terminated.
                - FailIndex: indicates that the pod's index is marked as Failed and will
                  not be restarted.
-                 This value is beta-level. It can be used when the
-                 `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
                - Ignore: indicates that the counter towards the .backoffLimit is not
                  incremented and a replacement pod is created.
                - Count: indicates that the pod is handled in the default way - the
@@ -2491,8 +2469,6 @@ class PodFailurePolicyRulePatchArgs:
           running pods are terminated.
         - FailIndex: indicates that the pod's index is marked as Failed and will
           not be restarted.
-          This value is beta-level. It can be used when the
-          `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         - Ignore: indicates that the counter towards the .backoffLimit is not
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the
@@ -2543,8 +2519,6 @@ if not MYPY:
           running pods are terminated.
         - FailIndex: indicates that the pod's index is marked as Failed and will
           not be restarted.
-          This value is beta-level. It can be used when the
-          `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         - Ignore: indicates that the counter towards the .backoffLimit is not
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the
@@ -2576,8 +2550,6 @@ class PodFailurePolicyRuleArgs:
                  running pods are terminated.
                - FailIndex: indicates that the pod's index is marked as Failed and will
                  not be restarted.
-                 This value is beta-level. It can be used when the
-                 `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
                - Ignore: indicates that the counter towards the .backoffLimit is not
                  incremented and a replacement pod is created.
                - Count: indicates that the pod is handled in the default way - the
@@ -2602,8 +2574,6 @@ class PodFailurePolicyRuleArgs:
           running pods are terminated.
         - FailIndex: indicates that the pod's index is marked as Failed and will
           not be restarted.
-          This value is beta-level. It can be used when the
-          `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
         - Ignore: indicates that the counter towards the .backoffLimit is not
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the

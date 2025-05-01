@@ -9,6 +9,7 @@ import com.pulumi.kubernetes.core.v1.outputs.HostIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodConditionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatusPatch;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -58,6 +59,11 @@ public final class PodStatusPatch {
      */
     private @Nullable String nominatedNodeName;
     /**
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    private @Nullable Integer observedGeneration;
+    /**
      * @return The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod&#39;s status. There are five possible phase values:
      * 
      * Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -87,7 +93,7 @@ public final class PodStatusPatch {
      */
     private @Nullable String reason;
     /**
-     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     private @Nullable String resize;
@@ -160,6 +166,13 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.nominatedNodeName);
     }
     /**
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    public Optional<Integer> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+    /**
      * @return The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod&#39;s status. There are five possible phase values:
      * 
      * Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -199,7 +212,7 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.reason);
     }
     /**
-     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     public Optional<String> resize() {
@@ -237,6 +250,7 @@ public final class PodStatusPatch {
         private @Nullable List<ContainerStatusPatch> initContainerStatuses;
         private @Nullable String message;
         private @Nullable String nominatedNodeName;
+        private @Nullable Integer observedGeneration;
         private @Nullable String phase;
         private @Nullable String podIP;
         private @Nullable List<PodIPPatch> podIPs;
@@ -256,6 +270,7 @@ public final class PodStatusPatch {
     	      this.initContainerStatuses = defaults.initContainerStatuses;
     	      this.message = defaults.message;
     	      this.nominatedNodeName = defaults.nominatedNodeName;
+    	      this.observedGeneration = defaults.observedGeneration;
     	      this.phase = defaults.phase;
     	      this.podIP = defaults.podIP;
     	      this.podIPs = defaults.podIPs;
@@ -330,6 +345,12 @@ public final class PodStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
+            this.observedGeneration = observedGeneration;
+            return this;
+        }
+        @CustomType.Setter
         public Builder phase(@Nullable String phase) {
 
             this.phase = phase;
@@ -393,6 +414,7 @@ public final class PodStatusPatch {
             _resultValue.initContainerStatuses = initContainerStatuses;
             _resultValue.message = message;
             _resultValue.nominatedNodeName = nominatedNodeName;
+            _resultValue.observedGeneration = observedGeneration;
             _resultValue.phase = phase;
             _resultValue.podIP = podIP;
             _resultValue.podIPs = podIPs;

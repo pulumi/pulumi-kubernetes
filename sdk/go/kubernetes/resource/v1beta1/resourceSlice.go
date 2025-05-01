@@ -58,6 +58,9 @@ func NewResourceSlice(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha3:ResourceSlice"),
 		},
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta2:ResourceSlice"),
+		},
 	})
 	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)

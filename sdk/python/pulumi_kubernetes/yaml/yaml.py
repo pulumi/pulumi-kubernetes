@@ -980,6 +980,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"certificates.k8s.io/v1beta1/CertificateSigningRequestList:{x}",
                        CertificateSigningRequestList(f"{x}", opts, **obj)))]
+    if gvk == "certificates.k8s.io/v1beta1/ClusterTrustBundle":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1beta1 import ClusterTrustBundle
+        return [identifier.apply(
+            lambda x: (f"certificates.k8s.io/v1beta1/ClusterTrustBundle:{x}",
+                       ClusterTrustBundle(f"{x}", opts, **obj)))]
+    if gvk == "certificates.k8s.io/v1beta1/ClusterTrustBundleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1beta1 import ClusterTrustBundleList
+        return [identifier.apply(
+            lambda x: (f"certificates.k8s.io/v1beta1/ClusterTrustBundleList:{x}",
+                       ClusterTrustBundleList(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1/Lease":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.coordination.v1 import Lease
@@ -1022,6 +1034,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1beta1/Lease:{x}",
                        Lease(f"{x}", opts, **obj)))]
+    if gvk == "coordination.k8s.io/v1beta1/LeaseCandidate":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1beta1 import LeaseCandidate
+        return [identifier.apply(
+            lambda x: (f"coordination.k8s.io/v1beta1/LeaseCandidate:{x}",
+                       LeaseCandidate(f"{x}", opts, **obj)))]
+    if gvk == "coordination.k8s.io/v1beta1/LeaseCandidateList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1beta1 import LeaseCandidateList
+        return [identifier.apply(
+            lambda x: (f"coordination.k8s.io/v1beta1/LeaseCandidateList:{x}",
+                       LeaseCandidateList(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1beta1/LeaseList":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.coordination.v1beta1 import LeaseList
@@ -1460,6 +1484,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"meta/v1/Status:{x}",
                        Status(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/IPAddress":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import IPAddress
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/IPAddress:{x}",
+                       IPAddress(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/IPAddressList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import IPAddressList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/IPAddressList:{x}",
+                       IPAddressList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/Ingress":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1 import Ingress
@@ -1496,6 +1532,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicyList:{x}",
                        NetworkPolicyList(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/ServiceCIDR":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import ServiceCIDR
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/ServiceCIDR:{x}",
+                       ServiceCIDR(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1/ServiceCIDRList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import ServiceCIDRList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1/ServiceCIDRList:{x}",
+                       ServiceCIDRList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1alpha1/ClusterCIDR":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1alpha1 import ClusterCIDR
@@ -1940,6 +1988,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"resource.k8s.io/v1alpha3/DeviceClassList:{x}",
                        DeviceClassList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha3/DeviceTaintRule":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha3 import DeviceTaintRule
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha3/DeviceTaintRule:{x}",
+                       DeviceTaintRule(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha3/DeviceTaintRuleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha3 import DeviceTaintRuleList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha3/DeviceTaintRuleList:{x}",
+                       DeviceTaintRuleList(f"{x}", opts, **obj)))]
     if gvk == "resource.k8s.io/v1alpha3/PodSchedulingContext":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.resource.v1alpha3 import PodSchedulingContext
@@ -2035,6 +2095,54 @@ def _parse_yaml_object(
         from pulumi_kubernetes.resource.v1beta1 import ResourceSliceList
         return [identifier.apply(
             lambda x: (f"resource.k8s.io/v1beta1/ResourceSliceList:{x}",
+                       ResourceSliceList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/DeviceClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import DeviceClass
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/DeviceClass:{x}",
+                       DeviceClass(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/DeviceClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import DeviceClassList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/DeviceClassList:{x}",
+                       DeviceClassList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceClaim":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceClaim
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceClaim:{x}",
+                       ResourceClaim(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceClaimList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceClaimList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceClaimList:{x}",
+                       ResourceClaimList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceClaimTemplate":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceClaimTemplate
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceClaimTemplate:{x}",
+                       ResourceClaimTemplate(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceClaimTemplateList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceClaimTemplateList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceClaimTemplateList:{x}",
+                       ResourceClaimTemplateList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceSlice":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceSlice
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceSlice:{x}",
+                       ResourceSlice(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1beta2/ResourceSliceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1beta2 import ResourceSliceList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1beta2/ResourceSliceList:{x}",
                        ResourceSliceList(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClass":
         # Import locally to avoid name collisions.

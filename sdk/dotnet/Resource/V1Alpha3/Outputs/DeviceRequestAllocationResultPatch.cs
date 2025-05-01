@@ -39,9 +39,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// </summary>
         public readonly string Pool;
         /// <summary>
-        /// Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+        /// Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+        /// 
+        /// Multiple devices may have been allocated per request.
         /// </summary>
         public readonly string Request;
+        /// <summary>
+        /// A copy of all tolerations specified in the request at the time when the device got allocated.
+        /// 
+        /// The maximum number of tolerations is 16.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTolerationPatch> Tolerations;
 
         [OutputConstructor]
         private DeviceRequestAllocationResultPatch(
@@ -53,13 +63,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
             string pool,
 
-            string request)
+            string request,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTolerationPatch> tolerations)
         {
             AdminAccess = adminAccess;
             Device = device;
             Driver = driver;
             Pool = pool;
             Request = request;
+            Tolerations = tolerations;
         }
     }
 }

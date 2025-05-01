@@ -6,8 +6,10 @@ package com.pulumi.kubernetes.resource.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceTolerationArgs;
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -94,18 +96,45 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     }
 
     /**
-     * Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     @Import(name="request", required=true)
     private Output<String> request;
 
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     public Output<String> request() {
         return this.request;
+    }
+
+    /**
+     * A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    @Import(name="tolerations")
+    private @Nullable Output<List<DeviceTolerationArgs>> tolerations;
+
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
+        return Optional.ofNullable(this.tolerations);
     }
 
     private DeviceRequestAllocationResultArgs() {}
@@ -116,6 +145,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         this.driver = $.driver;
         this.pool = $.pool;
         this.request = $.request;
+        this.tolerations = $.tolerations;
     }
 
     public static Builder builder() {
@@ -233,7 +263,9 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         }
 
         /**
-         * @param request Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+         * @param request Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+         * 
+         * Multiple devices may have been allocated per request.
          * 
          * @return builder
          * 
@@ -244,13 +276,58 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         }
 
         /**
-         * @param request Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+         * @param request Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+         * 
+         * Multiple devices may have been allocated per request.
          * 
          * @return builder
          * 
          */
         public Builder request(String request) {
             return request(Output.of(request));
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(@Nullable Output<List<DeviceTolerationArgs>> tolerations) {
+            $.tolerations = tolerations;
+            return this;
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(List<DeviceTolerationArgs> tolerations) {
+            return tolerations(Output.of(tolerations));
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(DeviceTolerationArgs... tolerations) {
+            return tolerations(List.of(tolerations));
         }
 
         public DeviceRequestAllocationResultArgs build() {

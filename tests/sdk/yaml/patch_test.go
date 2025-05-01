@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//nolint:goconst // yaml
 package test
 
 import (
@@ -64,7 +65,9 @@ func TestPatchResources(t *testing.T) {
 			return nil, fmt.Errorf("failed to get %s %s: %w", kind, name, err)
 		}
 		objOutput := new(obj)
-		json.Unmarshal(outB, &objOutput)
+		if err := json.Unmarshal(outB, &objOutput); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal %s %s output: %w", kind, name, err)
+		}
 		return objOutput, nil
 	}
 
@@ -87,7 +90,7 @@ func TestPatchResources(t *testing.T) {
 		if language != "yaml" {
 			test.Install(t)
 		}
-		t.Logf("into %s", test.Source())
+		t.Logf("into %s", test.WorkingDir())
 		t.Cleanup(func() {
 			test.Destroy(t)
 		})

@@ -22,7 +22,7 @@ func TestKustomizeV2(t *testing.T) {
 		opttest.Env("KUSTOMIZE_PLUGIN_HOME", pluginHome),
 		opttest.SkipInstall(),
 	)
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

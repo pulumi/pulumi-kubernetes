@@ -19,6 +19,8 @@ public final class AllocatedDeviceStatus {
     /**
      * @return Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
      * 
+     * Must not contain more than 8 entries.
+     * 
      */
     private @Nullable List<Condition> conditions;
     /**
@@ -56,6 +58,8 @@ public final class AllocatedDeviceStatus {
     private AllocatedDeviceStatus() {}
     /**
      * @return Conditions contains the latest observation of the device&#39;s state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+     * 
+     * Must not contain more than 8 entries.
      * 
      */
     public List<Condition> conditions() {

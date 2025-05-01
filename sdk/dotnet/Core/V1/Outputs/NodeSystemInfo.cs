@@ -53,6 +53,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string OsImage;
         /// <summary>
+        /// Swap Info reported by the node.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSwapStatus Swap;
+        /// <summary>
         /// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
         /// </summary>
         public readonly string SystemUUID;
@@ -77,6 +81,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string osImage,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSwapStatus swap,
+
             string systemUUID)
         {
             Architecture = architecture;
@@ -88,6 +94,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             MachineID = machineID;
             OperatingSystem = operatingSystem;
             OsImage = osImage;
+            Swap = swap;
             SystemUUID = systemUUID;
         }
     }

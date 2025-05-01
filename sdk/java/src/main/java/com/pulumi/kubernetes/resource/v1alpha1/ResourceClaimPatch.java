@@ -149,7 +149,8 @@ public class ResourceClaimPatch extends com.pulumi.resources.CustomResource {
             .aliases(List.of(
                 Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:ResourceClaimPatch").build()),
-                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceClaimPatch").build())
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:ResourceClaimPatch").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta2:ResourceClaimPatch").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

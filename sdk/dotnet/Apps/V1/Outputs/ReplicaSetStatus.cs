@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
     public sealed class ReplicaSetStatus
     {
         /// <summary>
-        /// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        /// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         /// </summary>
         public readonly int AvailableReplicas;
         /// <summary>
@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Apps.V1.ReplicaSetCondition> Conditions;
         /// <summary>
-        /// The number of pods that have labels matching the labels of the pod template of the replicaset.
+        /// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         /// </summary>
         public readonly int FullyLabeledReplicas;
         /// <summary>
@@ -33,13 +33,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>
-        /// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+        /// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
         /// </summary>
         public readonly int ReadyReplicas;
         /// <summary>
-        /// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        /// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         /// </summary>
         public readonly int Replicas;
+        /// <summary>
+        /// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+        /// 
+        /// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        /// </summary>
+        public readonly int TerminatingReplicas;
 
         [OutputConstructor]
         private ReplicaSetStatus(
@@ -53,7 +59,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 
             int readyReplicas,
 
-            int replicas)
+            int replicas,
+
+            int terminatingReplicas)
         {
             AvailableReplicas = availableReplicas;
             Conditions = conditions;
@@ -61,6 +69,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
             ObservedGeneration = observedGeneration;
             ReadyReplicas = readyReplicas;
             Replicas = replicas;
+            TerminatingReplicas = terminatingReplicas;
         }
     }
 }

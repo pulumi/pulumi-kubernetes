@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Core.V1
 {
     /// <summary>
-    /// EndpointsList is a list of endpoints.
+    /// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:EndpointsList")]
     public partial class EndpointsList : KubernetesResource

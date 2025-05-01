@@ -11,7 +11,7 @@ import (
 // TestAutonaming ensures that custom resource autonaming configuration works as expected.
 func TestAutonaming(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/autonaming", opttest.SkipInstall(), opttest.Env("PULUMI_EXPERIMENTAL", "1"))
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

@@ -16,7 +16,7 @@ import (
 // - uses implicit and explicit dependencies
 func TestYamlV2(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/yamlv2", opttest.SkipInstall())
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})
@@ -28,7 +28,7 @@ func TestYamlV2(t *testing.T) {
 // https://github.com/pulumi/pulumi-kubernetes/issues/3022
 func TestJobUnreachable(t *testing.T) {
 	test := pulumitest.NewPulumiTest(t, "testdata/job-unreachable", opttest.SkipInstall())
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})

@@ -364,7 +364,10 @@ _utilities.register(
   "classes": {
    "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest": "CertificateSigningRequest",
    "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList": "CertificateSigningRequestList",
-   "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestPatch": "CertificateSigningRequestPatch"
+   "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestPatch": "CertificateSigningRequestPatch",
+   "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundle": "ClusterTrustBundle",
+   "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundleList": "ClusterTrustBundleList",
+   "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch": "ClusterTrustBundlePatch"
   }
  },
  {
@@ -403,6 +406,9 @@ _utilities.register(
   "fqn": "pulumi_kubernetes.coordination.v1beta1",
   "classes": {
    "kubernetes:coordination.k8s.io/v1beta1:Lease": "Lease",
+   "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate": "LeaseCandidate",
+   "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidateList": "LeaseCandidateList",
+   "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidatePatch": "LeaseCandidatePatch",
    "kubernetes:coordination.k8s.io/v1beta1:LeaseList": "LeaseList",
    "kubernetes:coordination.k8s.io/v1beta1:LeasePatch": "LeasePatch"
   }
@@ -629,6 +635,9 @@ _utilities.register(
   "mod": "networking.k8s.io/v1",
   "fqn": "pulumi_kubernetes.networking.v1",
   "classes": {
+   "kubernetes:networking.k8s.io/v1:IPAddress": "IPAddress",
+   "kubernetes:networking.k8s.io/v1:IPAddressList": "IPAddressList",
+   "kubernetes:networking.k8s.io/v1:IPAddressPatch": "IPAddressPatch",
    "kubernetes:networking.k8s.io/v1:Ingress": "Ingress",
    "kubernetes:networking.k8s.io/v1:IngressClass": "IngressClass",
    "kubernetes:networking.k8s.io/v1:IngressClassList": "IngressClassList",
@@ -637,7 +646,10 @@ _utilities.register(
    "kubernetes:networking.k8s.io/v1:IngressPatch": "IngressPatch",
    "kubernetes:networking.k8s.io/v1:NetworkPolicy": "NetworkPolicy",
    "kubernetes:networking.k8s.io/v1:NetworkPolicyList": "NetworkPolicyList",
-   "kubernetes:networking.k8s.io/v1:NetworkPolicyPatch": "NetworkPolicyPatch"
+   "kubernetes:networking.k8s.io/v1:NetworkPolicyPatch": "NetworkPolicyPatch",
+   "kubernetes:networking.k8s.io/v1:ServiceCIDR": "ServiceCIDR",
+   "kubernetes:networking.k8s.io/v1:ServiceCIDRList": "ServiceCIDRList",
+   "kubernetes:networking.k8s.io/v1:ServiceCIDRPatch": "ServiceCIDRPatch"
   }
  },
  {
@@ -840,6 +852,9 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha3:DeviceClass": "DeviceClass",
    "kubernetes:resource.k8s.io/v1alpha3:DeviceClassList": "DeviceClassList",
    "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule": "DeviceTaintRule",
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRuleList": "DeviceTaintRuleList",
+   "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch": "DeviceTaintRulePatch",
    "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext": "PodSchedulingContext",
    "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList": "PodSchedulingContextList",
    "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextPatch": "PodSchedulingContextPatch",
@@ -871,6 +886,25 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1beta1:ResourceSlice": "ResourceSlice",
    "kubernetes:resource.k8s.io/v1beta1:ResourceSliceList": "ResourceSliceList",
    "kubernetes:resource.k8s.io/v1beta1:ResourceSlicePatch": "ResourceSlicePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1beta2",
+  "fqn": "pulumi_kubernetes.resource.v1beta2",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1beta2:DeviceClass": "DeviceClass",
+   "kubernetes:resource.k8s.io/v1beta2:DeviceClassList": "DeviceClassList",
+   "kubernetes:resource.k8s.io/v1beta2:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceSliceList": "ResourceSliceList",
+   "kubernetes:resource.k8s.io/v1beta2:ResourceSlicePatch": "ResourceSlicePatch"
   }
  },
  {

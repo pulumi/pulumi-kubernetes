@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,6 +28,11 @@ public final class PodCondition {
      * 
      */
     private @Nullable String message;
+    /**
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    private @Nullable Integer observedGeneration;
     /**
      * @return Unique, one-word, CamelCase reason for the condition&#39;s last transition.
      * 
@@ -66,6 +72,13 @@ public final class PodCondition {
         return Optional.ofNullable(this.message);
     }
     /**
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    public Optional<Integer> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+    /**
      * @return Unique, one-word, CamelCase reason for the condition&#39;s last transition.
      * 
      */
@@ -99,6 +112,7 @@ public final class PodCondition {
         private @Nullable String lastProbeTime;
         private @Nullable String lastTransitionTime;
         private @Nullable String message;
+        private @Nullable Integer observedGeneration;
         private @Nullable String reason;
         private String status;
         private String type;
@@ -108,6 +122,7 @@ public final class PodCondition {
     	      this.lastProbeTime = defaults.lastProbeTime;
     	      this.lastTransitionTime = defaults.lastTransitionTime;
     	      this.message = defaults.message;
+    	      this.observedGeneration = defaults.observedGeneration;
     	      this.reason = defaults.reason;
     	      this.status = defaults.status;
     	      this.type = defaults.type;
@@ -129,6 +144,12 @@ public final class PodCondition {
         public Builder message(@Nullable String message) {
 
             this.message = message;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
+            this.observedGeneration = observedGeneration;
             return this;
         }
         @CustomType.Setter
@@ -158,6 +179,7 @@ public final class PodCondition {
             _resultValue.lastProbeTime = lastProbeTime;
             _resultValue.lastTransitionTime = lastTransitionTime;
             _resultValue.message = message;
+            _resultValue.observedGeneration = observedGeneration;
             _resultValue.reason = reason;
             _resultValue.status = status;
             _resultValue.type = type;

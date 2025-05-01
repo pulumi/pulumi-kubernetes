@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.storage.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,6 +12,13 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class VolumeError {
+    /**
+     * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+     * 
+     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * 
+     */
+    private @Nullable Integer errorCode;
     /**
      * @return message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
      * 
@@ -23,6 +31,15 @@ public final class VolumeError {
     private @Nullable String time;
 
     private VolumeError() {}
+    /**
+     * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+     * 
+     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * 
+     */
+    public Optional<Integer> errorCode() {
+        return Optional.ofNullable(this.errorCode);
+    }
     /**
      * @return message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
      * 
@@ -47,15 +64,23 @@ public final class VolumeError {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable Integer errorCode;
         private @Nullable String message;
         private @Nullable String time;
         public Builder() {}
         public Builder(VolumeError defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.errorCode = defaults.errorCode;
     	      this.message = defaults.message;
     	      this.time = defaults.time;
         }
 
+        @CustomType.Setter
+        public Builder errorCode(@Nullable Integer errorCode) {
+
+            this.errorCode = errorCode;
+            return this;
+        }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
 
@@ -70,6 +95,7 @@ public final class VolumeError {
         }
         public VolumeError build() {
             final var _resultValue = new VolumeError();
+            _resultValue.errorCode = errorCode;
             _resultValue.message = message;
             _resultValue.time = time;
             return _resultValue;

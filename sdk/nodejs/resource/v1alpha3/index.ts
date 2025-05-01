@@ -20,6 +20,21 @@ export type DeviceClassPatch = import("./deviceClassPatch").DeviceClassPatch;
 export const DeviceClassPatch: typeof import("./deviceClassPatch").DeviceClassPatch = null as any;
 utilities.lazyLoad(exports, ["DeviceClassPatch"], () => require("./deviceClassPatch"));
 
+export { DeviceTaintRuleArgs } from "./deviceTaintRule";
+export type DeviceTaintRule = import("./deviceTaintRule").DeviceTaintRule;
+export const DeviceTaintRule: typeof import("./deviceTaintRule").DeviceTaintRule = null as any;
+utilities.lazyLoad(exports, ["DeviceTaintRule"], () => require("./deviceTaintRule"));
+
+export { DeviceTaintRuleListArgs } from "./deviceTaintRuleList";
+export type DeviceTaintRuleList = import("./deviceTaintRuleList").DeviceTaintRuleList;
+export const DeviceTaintRuleList: typeof import("./deviceTaintRuleList").DeviceTaintRuleList = null as any;
+utilities.lazyLoad(exports, ["DeviceTaintRuleList"], () => require("./deviceTaintRuleList"));
+
+export { DeviceTaintRulePatchArgs } from "./deviceTaintRulePatch";
+export type DeviceTaintRulePatch = import("./deviceTaintRulePatch").DeviceTaintRulePatch;
+export const DeviceTaintRulePatch: typeof import("./deviceTaintRulePatch").DeviceTaintRulePatch = null as any;
+utilities.lazyLoad(exports, ["DeviceTaintRulePatch"], () => require("./deviceTaintRulePatch"));
+
 export { PodSchedulingContextArgs } from "./podSchedulingContext";
 export type PodSchedulingContext = import("./podSchedulingContext").PodSchedulingContext;
 export const PodSchedulingContext: typeof import("./podSchedulingContext").PodSchedulingContext = null as any;
@@ -91,6 +106,12 @@ const _module = {
                 return new DeviceClassList(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch":
                 return new DeviceClassPatch(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule":
+                return new DeviceTaintRule(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRuleList":
+                return new DeviceTaintRuleList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch":
+                return new DeviceTaintRulePatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext":
                 return new PodSchedulingContext(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList":

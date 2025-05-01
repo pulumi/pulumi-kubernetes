@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Updated Kubernetes schemas and libraries to v1.33.0. (<https://github.com/pulumi/pulumi-kubernetes/pull/3619>)
+
 ## 4.22.2 (April 15, 2025)
 
 ### Fixed

@@ -29,6 +29,8 @@ public final class NetworkDeviceDataPatch {
     /**
      * @return IPs lists the network addresses assigned to the device&#39;s network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: &#34;192.0.2.5/24&#34; for IPv4 and &#34;2001:db8::5/64&#34; for IPv6.
      * 
+     * Must not contain more than 16 entries.
+     * 
      */
     private @Nullable List<String> ips;
 
@@ -53,6 +55,8 @@ public final class NetworkDeviceDataPatch {
     }
     /**
      * @return IPs lists the network addresses assigned to the device&#39;s network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: &#34;192.0.2.5/24&#34; for IPv4 and &#34;2001:db8::5/64&#34; for IPv6.
+     * 
+     * Must not contain more than 16 entries.
      * 
      */
     public List<String> ips() {
