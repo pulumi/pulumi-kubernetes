@@ -46,7 +46,7 @@ func TestHelmUnknowns(t *testing.T) {
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"
 	test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/)
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 
 	urn := func(baseType tokens.Type, name string) string {
 		return string(resource.NewURN("test", "helm-release-unknowns", "", baseType, name))

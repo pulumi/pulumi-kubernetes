@@ -68,7 +68,7 @@ func TestAwaitGeneric(t *testing.T) {
 	touch := func(t *testing.T, dir string) {
 		t.Helper()
 		t.Log("touching resources")
-		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh"))
+		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh")) // #nosec G204
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
@@ -80,7 +80,7 @@ func TestAwaitGeneric(t *testing.T) {
 		time.Sleep(1 * time.Second)
 		t.Log("marking resources ready")
 		t.Helper()
-		cmd := exec.Command(filepath.Join(dir, "make-ready.sh"))
+		cmd := exec.Command(filepath.Join(dir, "make-ready.sh")) // #nosec G204
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
@@ -177,7 +177,7 @@ func TestAwaitGeneric(t *testing.T) {
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
 		)
-		dir := test.Source()
+		dir := test.WorkingDir()
 		t.Cleanup(func() {
 			test.Destroy(t)
 		})
@@ -220,7 +220,7 @@ func TestAwaitGeneric(t *testing.T) {
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
 		)
-		dir := test.Source()
+		dir := test.WorkingDir()
 		t.Cleanup(func() {
 			test.Destroy(t)
 		})
