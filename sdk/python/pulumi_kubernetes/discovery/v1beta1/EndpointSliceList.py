@@ -92,10 +92,8 @@ class EndpointSliceListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList")
 class EndpointSliceList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:discovery.k8s.io/v1beta1:EndpointSliceList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

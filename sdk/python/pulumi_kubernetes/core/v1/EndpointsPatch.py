@@ -92,10 +92,8 @@ class EndpointsPatchArgs:
         pulumi.set(self, "subsets", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:EndpointsPatch")
 class EndpointsPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:EndpointsPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

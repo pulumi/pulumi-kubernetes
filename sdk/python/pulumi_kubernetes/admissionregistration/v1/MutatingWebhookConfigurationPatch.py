@@ -92,10 +92,8 @@ class MutatingWebhookConfigurationPatchArgs:
         pulumi.set(self, "webhooks", value)
 
 
+@pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch")
 class MutatingWebhookConfigurationPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -92,10 +92,8 @@ class APIServicePatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:apiregistration.k8s.io/v1:APIServicePatch")
 class APIServicePatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apiregistration.k8s.io/v1:APIServicePatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

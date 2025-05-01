@@ -92,10 +92,8 @@ class ResourceQuotaPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:ResourceQuotaPatch")
 class ResourceQuotaPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:ResourceQuotaPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

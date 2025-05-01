@@ -106,10 +106,8 @@ class ControllerRevisionPatchArgs:
         pulumi.set(self, "revision", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1beta2:ControllerRevisionPatch")
 class ControllerRevisionPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1beta2:ControllerRevisionPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

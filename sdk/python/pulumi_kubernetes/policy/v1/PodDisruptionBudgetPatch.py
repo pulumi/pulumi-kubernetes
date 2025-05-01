@@ -92,10 +92,8 @@ class PodDisruptionBudgetPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:policy/v1:PodDisruptionBudgetPatch")
 class PodDisruptionBudgetPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:policy/v1:PodDisruptionBudgetPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

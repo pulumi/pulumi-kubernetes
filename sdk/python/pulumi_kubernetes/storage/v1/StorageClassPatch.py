@@ -187,10 +187,8 @@ class StorageClassPatchArgs:
         pulumi.set(self, "volume_binding_mode", value)
 
 
+@pulumi.type_token("kubernetes:storage.k8s.io/v1:StorageClassPatch")
 class StorageClassPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:storage.k8s.io/v1:StorageClassPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

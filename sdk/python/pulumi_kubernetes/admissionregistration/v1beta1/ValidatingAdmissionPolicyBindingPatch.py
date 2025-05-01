@@ -92,10 +92,8 @@ class ValidatingAdmissionPolicyBindingPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch")
 class ValidatingAdmissionPolicyBindingPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

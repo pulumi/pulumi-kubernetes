@@ -92,10 +92,8 @@ class DeploymentListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1beta1:DeploymentList")
 class DeploymentList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1beta1:DeploymentList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

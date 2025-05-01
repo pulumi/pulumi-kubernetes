@@ -97,10 +97,8 @@ class ResourceSlicePatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch")
 class ResourceSlicePatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

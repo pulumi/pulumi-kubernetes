@@ -92,10 +92,8 @@ class ValidatingWebhookConfigurationInitArgs:
         pulumi.set(self, "webhooks", value)
 
 
+@pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration")
 class ValidatingWebhookConfiguration(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

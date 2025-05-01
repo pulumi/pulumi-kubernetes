@@ -92,10 +92,8 @@ class ReplicationControllerInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:ReplicationController")
 class ReplicationController(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:ReplicationController"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

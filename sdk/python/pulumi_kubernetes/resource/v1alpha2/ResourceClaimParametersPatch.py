@@ -128,10 +128,8 @@ class ResourceClaimParametersPatchArgs:
         pulumi.set(self, "shareable", value)
 
 
+@pulumi.type_token("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch")
 class ResourceClaimParametersPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimParametersPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

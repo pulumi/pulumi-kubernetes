@@ -91,10 +91,8 @@ class IPAddressListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:networking.k8s.io/v1alpha1:IPAddressList")
 class IPAddressList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:networking.k8s.io/v1alpha1:IPAddressList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

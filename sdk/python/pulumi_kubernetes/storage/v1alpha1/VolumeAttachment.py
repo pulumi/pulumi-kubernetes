@@ -92,10 +92,8 @@ class VolumeAttachmentInitArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment")
 class VolumeAttachment(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

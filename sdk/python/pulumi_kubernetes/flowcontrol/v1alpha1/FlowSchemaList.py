@@ -91,10 +91,8 @@ class FlowSchemaListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList")
 class FlowSchemaList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchemaList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

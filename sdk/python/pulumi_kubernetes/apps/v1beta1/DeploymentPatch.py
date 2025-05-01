@@ -93,10 +93,8 @@ class DeploymentPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1beta1:DeploymentPatch")
 class DeploymentPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1beta1:DeploymentPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

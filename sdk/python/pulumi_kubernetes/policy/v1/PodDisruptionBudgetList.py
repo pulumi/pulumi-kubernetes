@@ -91,10 +91,8 @@ class PodDisruptionBudgetListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:policy/v1:PodDisruptionBudgetList")
 class PodDisruptionBudgetList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:policy/v1:PodDisruptionBudgetList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,
