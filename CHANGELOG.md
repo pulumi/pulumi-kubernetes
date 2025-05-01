@@ -1,7 +1,7 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
-## Unreleased
+## 4.23.0 (May 1, 2025)
 
 ### Changed
 
