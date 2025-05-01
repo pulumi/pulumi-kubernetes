@@ -107,10 +107,8 @@ class ClusterRoleBindingInitArgs:
         pulumi.set(self, "subjects", value)
 
 
+@pulumi.type_token("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding")
 class ClusterRoleBinding(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

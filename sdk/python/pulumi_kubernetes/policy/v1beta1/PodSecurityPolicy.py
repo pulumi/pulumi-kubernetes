@@ -93,10 +93,8 @@ class PodSecurityPolicyInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:policy/v1beta1:PodSecurityPolicy")
 class PodSecurityPolicy(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:policy/v1beta1:PodSecurityPolicy"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

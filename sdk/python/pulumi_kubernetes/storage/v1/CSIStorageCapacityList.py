@@ -91,10 +91,8 @@ class CSIStorageCapacityListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:storage.k8s.io/v1:CSIStorageCapacityList")
 class CSIStorageCapacityList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:storage.k8s.io/v1:CSIStorageCapacityList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -92,10 +92,8 @@ class NetworkPolicyInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:extensions/v1beta1:NetworkPolicy")
 class NetworkPolicy(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:extensions/v1beta1:NetworkPolicy"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

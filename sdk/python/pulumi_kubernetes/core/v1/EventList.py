@@ -91,10 +91,8 @@ class EventListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:EventList")
 class EventList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:EventList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

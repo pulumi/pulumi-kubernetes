@@ -138,10 +138,8 @@ class SecretInitArgs:
         pulumi.set(self, "type", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:Secret")
 class Secret(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:Secret"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

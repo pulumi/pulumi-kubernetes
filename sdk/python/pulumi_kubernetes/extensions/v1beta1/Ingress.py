@@ -93,10 +93,8 @@ class IngressInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:extensions/v1beta1:Ingress")
 class Ingress(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:extensions/v1beta1:Ingress"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

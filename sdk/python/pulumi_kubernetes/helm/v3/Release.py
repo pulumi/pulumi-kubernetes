@@ -582,10 +582,8 @@ class ReleaseArgs:
         pulumi.set(self, "wait_for_jobs", value)
 
 
+@pulumi.type_token("kubernetes:helm.sh/v3:Release")
 class Release(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:helm.sh/v3:Release"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

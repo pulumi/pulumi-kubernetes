@@ -91,10 +91,8 @@ class ControllerRevisionListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1:ControllerRevisionList")
 class ControllerRevisionList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1:ControllerRevisionList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

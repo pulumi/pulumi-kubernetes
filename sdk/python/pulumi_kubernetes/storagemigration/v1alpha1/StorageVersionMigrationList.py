@@ -91,10 +91,8 @@ class StorageVersionMigrationListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList")
 class StorageVersionMigrationList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

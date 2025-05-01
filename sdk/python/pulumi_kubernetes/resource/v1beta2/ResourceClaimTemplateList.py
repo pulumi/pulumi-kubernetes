@@ -91,10 +91,8 @@ class ResourceClaimTemplateListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList")
 class ResourceClaimTemplateList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

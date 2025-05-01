@@ -100,10 +100,8 @@ class DeviceClassInitArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:resource.k8s.io/v1alpha3:DeviceClass")
 class DeviceClass(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:resource.k8s.io/v1alpha3:DeviceClass"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

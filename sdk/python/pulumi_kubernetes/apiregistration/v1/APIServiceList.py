@@ -91,10 +91,8 @@ class APIServiceListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:apiregistration.k8s.io/v1:APIServiceList")
 class APIServiceList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apiregistration.k8s.io/v1:APIServiceList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

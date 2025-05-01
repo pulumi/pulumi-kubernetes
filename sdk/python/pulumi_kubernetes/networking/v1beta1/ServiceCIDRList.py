@@ -91,10 +91,8 @@ class ServiceCIDRListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:networking.k8s.io/v1beta1:ServiceCIDRList")
 class ServiceCIDRList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

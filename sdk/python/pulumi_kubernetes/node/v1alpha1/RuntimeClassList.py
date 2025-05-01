@@ -92,10 +92,8 @@ class RuntimeClassListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList")
 class RuntimeClassList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:node.k8s.io/v1alpha1:RuntimeClassList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -93,10 +93,8 @@ class ClusterCIDRInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR")
 class ClusterCIDR(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

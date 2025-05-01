@@ -92,10 +92,8 @@ class MutatingAdmissionPolicyPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch")
 class MutatingAdmissionPolicyPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,
