@@ -97,6 +97,7 @@ func TestExistsInVersion(t *testing.T) {
 		{GroupVersionKind{}, nil, false},
 		{toGVK(AppsV1, Deployment), &v18, false},
 		{toGVK(AppsV1, Deployment), &v19, true},
+		{toGVK(ResourceV1B1, DeviceClass), &v132, true},
 		{toGVK(ResourceV1B2, DeviceClass), &v132, false},
 		{toGVK(ResourceV1B2, DeviceClass), &v133, true},
 	}

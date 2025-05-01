@@ -213,6 +213,11 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case PodDisruptionBudget, PodDisruptionBudgetList:
 			return &v121
 		}
+	case ResourceV1B1:
+		switch k {
+		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+			return &v132
+		}
 	case ResourceV1B2:
 		switch k {
 		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
