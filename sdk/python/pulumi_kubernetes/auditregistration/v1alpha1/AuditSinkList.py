@@ -87,10 +87,8 @@ class AuditSinkListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList")
 class AuditSinkList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -91,10 +91,8 @@ class BindingArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:Binding")
 class Binding(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:Binding"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

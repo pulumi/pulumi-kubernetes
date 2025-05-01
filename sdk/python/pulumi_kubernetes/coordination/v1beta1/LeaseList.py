@@ -91,10 +91,8 @@ class LeaseListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:coordination.k8s.io/v1beta1:LeaseList")
 class LeaseList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:coordination.k8s.io/v1beta1:LeaseList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

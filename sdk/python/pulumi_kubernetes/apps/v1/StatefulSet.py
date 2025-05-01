@@ -93,10 +93,8 @@ class StatefulSetInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1:StatefulSet")
 class StatefulSet(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1:StatefulSet"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

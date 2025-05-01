@@ -139,10 +139,8 @@ class StatusArgs:
         pulumi.set(self, "reason", value)
 
 
+@pulumi.type_token("kubernetes:meta/v1:Status")
 class Status(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:meta/v1:Status"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

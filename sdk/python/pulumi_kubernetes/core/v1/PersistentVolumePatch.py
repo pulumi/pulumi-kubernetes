@@ -92,10 +92,8 @@ class PersistentVolumePatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:PersistentVolumePatch")
 class PersistentVolumePatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:PersistentVolumePatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

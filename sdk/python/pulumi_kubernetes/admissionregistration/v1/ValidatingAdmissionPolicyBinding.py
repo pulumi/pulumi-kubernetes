@@ -92,10 +92,8 @@ class ValidatingAdmissionPolicyBindingInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding")
 class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -300,10 +300,8 @@ class EventInitArgs:
         pulumi.set(self, "type", value)
 
 
+@pulumi.type_token("kubernetes:events.k8s.io/v1:Event")
 class Event(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:events.k8s.io/v1:Event"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

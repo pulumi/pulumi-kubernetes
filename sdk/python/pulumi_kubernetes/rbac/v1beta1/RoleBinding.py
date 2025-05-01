@@ -107,10 +107,8 @@ class RoleBindingInitArgs:
         pulumi.set(self, "subjects", value)
 
 
+@pulumi.type_token("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding")
 class RoleBinding(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

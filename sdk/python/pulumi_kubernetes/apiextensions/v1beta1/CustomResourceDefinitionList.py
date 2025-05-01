@@ -87,10 +87,8 @@ class CustomResourceDefinitionListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList")
 class CustomResourceDefinitionList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

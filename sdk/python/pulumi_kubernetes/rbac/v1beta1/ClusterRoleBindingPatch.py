@@ -108,10 +108,8 @@ class ClusterRoleBindingPatchArgs:
         pulumi.set(self, "subjects", value)
 
 
+@pulumi.type_token("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingPatch")
 class ClusterRoleBindingPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

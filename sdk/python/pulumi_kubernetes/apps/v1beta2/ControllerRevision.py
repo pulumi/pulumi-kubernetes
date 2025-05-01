@@ -105,10 +105,8 @@ class ControllerRevisionInitArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:apps/v1beta2:ControllerRevision")
 class ControllerRevision(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:apps/v1beta2:ControllerRevision"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

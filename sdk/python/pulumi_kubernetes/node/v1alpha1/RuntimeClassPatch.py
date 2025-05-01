@@ -93,10 +93,8 @@ class RuntimeClassPatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch")
 class RuntimeClassPatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

@@ -92,10 +92,8 @@ class FlowSchemaInitArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema")
 class FlowSchema(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

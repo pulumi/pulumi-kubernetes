@@ -92,10 +92,8 @@ class LimitRangePatchArgs:
         pulumi.set(self, "spec", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:LimitRangePatch")
 class LimitRangePatch(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:LimitRangePatch"
-
     @overload
     def __init__(__self__,
                  resource_name: str,

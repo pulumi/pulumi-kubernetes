@@ -91,10 +91,8 @@ class PersistentVolumeClaimListArgs:
         pulumi.set(self, "metadata", value)
 
 
+@pulumi.type_token("kubernetes:core/v1:PersistentVolumeClaimList")
 class PersistentVolumeClaimList(pulumi.CustomResource):
-
-    pulumi_type = "kubernetes:core/v1:PersistentVolumeClaimList"
-
     @overload
     def __init__(__self__,
                  resource_name: str,
