@@ -181,7 +181,7 @@ jobs:
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
+      uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d # v5.4.2
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -228,7 +228,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -241,7 +241,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+      uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -250,7 +250,7 @@ jobs:
       uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
       with:
         gradle-version: "7.6"
-    - name: Download provider + tfgen binaries
+    - name: Download provider
       uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
@@ -344,6 +344,7 @@ jobs:
         - dotnet
         - go
         - java
+        - yaml
     name: test
     permissions:
       contents: read
@@ -372,7 +373,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -385,7 +386,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+      uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
@@ -394,7 +395,7 @@ jobs:
       uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
       with:
         gradle-version: "7.6"
-    - name: Download provider + tfgen binaries
+    - name: Download provider
       uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
@@ -406,11 +407,13 @@ jobs:
       run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
         -exec chmod +x {} \;
     - name: Download SDK
+      if: ${{ matrix.language != 'yaml' }}
       uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
       with:
         name: ${{ matrix.language }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
     - name: UnTar SDK folder
+      if: ${{ matrix.language != 'yaml' }}
       run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
         github.workspace}}/sdk/${{ matrix.language}}
     - name: Update path
@@ -423,6 +426,7 @@ jobs:
         pip3 install virtualenv==20.0.23
         pip3 install pipenv
     - name: Install dependencies
+      if: ${{ matrix.language != 'yaml' }}
       run: make install_${{ matrix.language}}_sdk
     - name: Make Kube Directory
       run: mkdir -p "~/.kube/"
@@ -439,7 +443,7 @@ jobs:
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
     - name: Export AWS Credentials
-      uses: pulumi/esc-action@efb0bc8946938f0dfbfa00e829196ec95f0d0ea7 # v1.4.0
+      uses: pulumi/esc-action@41fd832f44f4820124b5350b5f84a00f741f234e # v1.3.0
       env:
         PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
       with:
@@ -579,7 +583,7 @@ jobs:
     - name: Install Pulumi CLI
       uses: pulumi/actions@9519177da243fd32cab35cdbf19cce1ab7472fcc # v6.2.0
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -678,7 +682,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -704,7 +708,7 @@ jobs:
 
         sudo mv kubectl /usr/local/bin
     - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
+      run: gcloud --quiet auth configure-docker gcr.io,us-central1-docker.pkg.dev # Ensure that all test artifact registry locations are supplied here.
     - name: Set stack name in output
       id: stackname
       run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
@@ -742,7 +746,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -768,7 +772,7 @@ jobs:
 
         sudo mv kubectl /usr/local/bin
     - name: Login to Google Cloud Registry
-      run: gcloud --quiet auth configure-docker
+      run: gcloud --quiet auth configure-docker gcr.io,us-central1-docker.pkg.dev # Ensure that all test artifact registry locations are supplied here.
     - name: Destroy test infra
       run: ./scripts/ci-cluster-destroy.sh ${{
         needs.build-test-cluster.outputs.stack-name }}
