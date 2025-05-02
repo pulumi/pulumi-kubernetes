@@ -1,3 +1,0 @@
-name: smoke-test
-description: A program that smoke-tests the Kubernetes SDK, specifying inputs with dicts
-runtime: python
