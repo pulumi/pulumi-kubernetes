@@ -1,6 +1,12 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
+## HEAD (Unreleased)
+
+### Added
+
+- Extended the `pulumi.com/waitFor` annotation to support complex logical expressions with nested AND/OR conditions. (<https://github.com/pulumi/pulumi-kubernetes/pull/XXXX>)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
@@ -1534,7 +1540,7 @@ not be affected by this change.
 
 ### Bug fixes
 
-- Fix deprecation warnings and docs. (<https://github.com/pulumi/pulumi-kubernetes/pull/918> and <https://github.com> /pulumi/pulumi-kubernetes/pull/921).
+- Fix deprecation warnings and docs. (<https://github.com/pulumi/pulumi-kubernetes/pull/918>).
 
 ## 1.4.0 (December 9, 2019)
 
@@ -1706,7 +1712,7 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ### Important
 
-This release reverts the default diff behavior back to the pre-`0.25.3` behavior. A new flag has
+This release disables the dry-run diff behavior introduced in `0.25.3` by default. A new flag has
 been added to the provider options called `enableDryRun`, that can be used to opt in to the new
 diff behavior. This will eventually become the default behavior after further testing to ensure
 that this change is not disruptive.
