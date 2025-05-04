@@ -1540,7 +1540,7 @@ not be affected by this change.
 
 ### Bug fixes
 
-- Fix deprecation warnings and docs. (<https://github.com/pulumi/pulumi-kubernetes/pull/918>).
+- Fix deprecation warnings and docs. (<https://github.com/pulumi/pulumi-kubernetes/pull/918> and <https://github.com> /pulumi/pulumi-kubernetes/pull/921).
 
 ## 1.4.0 (December 9, 2019)
 
