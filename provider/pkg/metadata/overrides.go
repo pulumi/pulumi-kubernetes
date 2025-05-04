@@ -77,6 +77,83 @@ func DeletionPropagation(obj *unstructured.Unstructured) metav1.DeletionPropagat
 	}
 }
 
+// parseWaitForCondition parses the pulumi.com/waitFor annotation value
+func parseWaitForCondition(annotation string) (interface{}, error) {
+	// Try to parse as JSON (either complex object or array)
+	var condition interface{}
+	err := json.Unmarshal([]byte(annotation), &condition)
+	if err == nil {
+		return validateWaitForCondition(condition)
+	}
+
+	// If not valid JSON, treat as single string condition
+	return annotation, nil
+}
+
+// validateWaitForCondition validates the structure of a complex condition
+func validateWaitForCondition(condition interface{}) (interface{}, error) {
+	switch c := condition.(type) {
+	case []interface{}:
+		// Validate each condition in the array
+		for i, item := range c {
+			validated, err := validateWaitForCondition(item)
+			if err != nil {
+				return nil, fmt.Errorf("invalid condition at index %d: %v", i, err)
+			}
+			c[i] = validated
+		}
+		return c, nil
+
+	case map[string]interface{}:
+		// Validate complex condition with operator
+		operator, ok := c["operator"].(string)
+		if !ok {
+			return nil, fmt.Errorf("complex condition must have 'operator' field")
+		}
+
+		if strings.ToLower(operator) != "and" && strings.ToLower(operator) != "or" {
+			return nil, fmt.Errorf("unsupported operator: %s (must be 'and' or 'or')", operator)
+		}
+
+		conditions, ok := c["conditions"].([]interface{})
+		if !ok {
+			return nil, fmt.Errorf("complex condition must have 'conditions' array")
+		}
+
+		if len(conditions) == 0 {
+			return nil, fmt.Errorf("'conditions' array cannot be empty")
+		}
+
+		// Recursively validate nested conditions
+		for i, item := range conditions {
+			validated, err := validateWaitForCondition(item)
+			if err != nil {
+				return nil, fmt.Errorf("invalid condition at index %d: %v", i, err)
+			}
+			conditions[i] = validated
+		}
+
+		c["conditions"] = conditions
+		return c, nil
+
+	case string:
+		// String conditions are valid as-is
+		return c, nil
+
+	default:
+		return nil, fmt.Errorf("unsupported condition type: %T", condition)
+	}
+}
+
+// handleWaitForAnnotation processes the pulumi.com/waitFor annotation
+func handleWaitForAnnotation(obj *unstructured.Unstructured) (interface{}, error) {
+	annotations := getAnnotations(obj)
+	if waitForStr, ok := annotations["pulumi.com/waitFor"]; ok {
+		return parseWaitForCondition(waitForStr)
+	}
+	return nil, nil
+}
+
 // ReadyCondition reads annotations on the provided object and returns a
 // condition.Satisfier appropriate to await on for creates and updates:
 //   - If the "pulumi.com/skipAwait" annotation is true, the ready condition
