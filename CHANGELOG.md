@@ -1712,7 +1712,7 @@ discovery.v1beta1.EndpointSlice and discovery.v1beta1.EndpointSliceList.
 
 ### Important
 
-This release disables the dry-run diff behavior introduced in `0.25.3` by default. A new flag has
+This release reverts the default diff behavior back to the pre-`0.25.3` behavior. A new flag has
 been added to the provider options called `enableDryRun`, that can be used to opt in to the new
 diff behavior. This will eventually become the default behavior after further testing to ensure
 that this change is not disruptive.
