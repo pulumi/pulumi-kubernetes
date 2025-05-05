@@ -1,0 +1,18 @@
+name: delete-with-rename
+runtime: yaml
+description: |
+  Changing a resource's name, but leaving .metadata untouched, should not
+  result in a deletion from the cluster.
+
+resources:
+  # Change the resource's name from "pod" to "mypod" but leave everything
+  # else the same.
+  mypod:
+    type: kubernetes:core/v1:Pod
+    properties:
+      spec:
+        containers:
+          - image: nginx:1.14.2
+            name: nginx
+            ports:
+              - containerPort: 80
