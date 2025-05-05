@@ -18,9 +18,6 @@ OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
-JAVA_GEN		 := pulumi-java-gen
-JAVA_GEN_VERSION := v1.0.0
-
 WORKING_DIR     := $(shell pwd)
 
 # Override during CI using `make [TARGET] PROVIDER_VERSION=""` or by setting a PROVIDER_VERSION environment variable
@@ -96,15 +93,12 @@ python_sdk::
 	PYPI_VERSION=$(PYPI_VERSION) ./scripts/build_python_sdk.sh
 
 java_sdk:: PACKAGE_VERSION := $(shell pulumictl convert-version --language generic -v "$(VERSION_GENERIC)")
-java_sdk:: bin/pulumi-java-gen
-	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --overlay provider/pkg/gen/java-templates \
-		--out sdk/java --build gradle-nexus
+java_sdk::
+	pulumi package gen-sdk --language java $(SCHEMA_FILE) \
+		--overlays provider/pkg/gen/java-templates --out sdk
 	cd ${PACKDIR}/java/ && \
 		echo "module fake_java_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		gradle --console=plain build
-
-bin/pulumi-java-gen::
-	$(shell pulumictl download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java)
 
 .PHONY: build
 build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
