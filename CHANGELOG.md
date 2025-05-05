@@ -1,6 +1,12 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
+## HEAD (Unreleased)
+
+### Added
+
+- Extended the `pulumi.com/waitFor` annotation to support complex logical expressions with nested AND/OR conditions. (<https://github.com/pulumi/pulumi-kubernetes/pull/XXXX>)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
