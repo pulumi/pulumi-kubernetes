@@ -53,7 +53,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@9519177da243fd32cab35cdbf19cce1ab7472fcc # v6.2.0
+      uses: pulumi/actions@df5a93ad715135263c732ba288301bd044c383c0 # v6.3.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup DotNet
