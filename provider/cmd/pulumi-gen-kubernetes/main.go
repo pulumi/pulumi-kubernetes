@@ -123,7 +123,7 @@ func readSchema(schemaPath string, version string) *schema.Package {
 	}
 	pkgSpec.Version = version
 
-	pkg, err := schema.ImportSpec(pkgSpec, nil)
+	pkg, err := schema.ImportSpec(pkgSpec, nil, schema.ValidationOptions{})
 	if err != nil {
 		panic(err)
 	}
