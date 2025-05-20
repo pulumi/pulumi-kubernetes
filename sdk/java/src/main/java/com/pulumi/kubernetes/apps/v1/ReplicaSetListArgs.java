@@ -36,14 +36,14 @@ public final class ReplicaSetListArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     @Import(name="items", required=true)
     private Output<List<ReplicaSetArgs>> items;
 
     /**
-     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Output<List<ReplicaSetArgs>> items() {
@@ -129,7 +129,7 @@ public final class ReplicaSetListArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
@@ -140,7 +140,7 @@ public final class ReplicaSetListArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
@@ -150,7 +150,7 @@ public final class ReplicaSetListArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+         * @param items List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 

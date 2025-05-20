@@ -91,7 +91,7 @@ public class CustomResourceDefinition extends com.pulumi.resources.CustomResourc
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public CustomResourceDefinition(String name) {
+    public CustomResourceDefinition(java.lang.String name) {
         this(name, CustomResourceDefinitionArgs.Empty);
     }
     /**
@@ -99,7 +99,7 @@ public class CustomResourceDefinition extends com.pulumi.resources.CustomResourc
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CustomResourceDefinition(String name, CustomResourceDefinitionArgs args) {
+    public CustomResourceDefinition(java.lang.String name, CustomResourceDefinitionArgs args) {
         this(name, args, null);
     }
     /**
@@ -108,12 +108,12 @@ public class CustomResourceDefinition extends com.pulumi.resources.CustomResourc
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CustomResourceDefinition(String name, CustomResourceDefinitionArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public CustomResourceDefinition(java.lang.String name, CustomResourceDefinitionArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private CustomResourceDefinition(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, null, makeResourceOptions(options, id));
+    private CustomResourceDefinition(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, null, makeResourceOptions(options, id), false);
     }
 
     private static CustomResourceDefinitionArgs makeArgs(CustomResourceDefinitionArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -127,7 +127,7 @@ public class CustomResourceDefinition extends com.pulumi.resources.CustomResourc
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -145,7 +145,7 @@ public class CustomResourceDefinition extends com.pulumi.resources.CustomResourc
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static CustomResourceDefinition get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static CustomResourceDefinition get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new CustomResourceDefinition(name, id, options);
     }
 }

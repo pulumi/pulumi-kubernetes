@@ -19,10 +19,6 @@ import javax.annotation.Nullable;
 /**
  * ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
  * 
- * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don&#39;t use params, otherwise N is the number of parameters selected by the binding.
- * 
- * The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
- * 
  */
 @ResourceType(type="kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding")
 public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.CustomResource {
@@ -87,7 +83,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ValidatingAdmissionPolicyBinding(String name) {
+    public ValidatingAdmissionPolicyBinding(java.lang.String name) {
         this(name, ValidatingAdmissionPolicyBindingArgs.Empty);
     }
     /**
@@ -95,7 +91,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingAdmissionPolicyBinding(String name, @Nullable ValidatingAdmissionPolicyBindingArgs args) {
+    public ValidatingAdmissionPolicyBinding(java.lang.String name, @Nullable ValidatingAdmissionPolicyBindingArgs args) {
         this(name, args, null);
     }
     /**
@@ -104,12 +100,12 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingAdmissionPolicyBinding(String name, @Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ValidatingAdmissionPolicyBinding(java.lang.String name, @Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ValidatingAdmissionPolicyBinding(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding", name, null, makeResourceOptions(options, id));
+    private ValidatingAdmissionPolicyBinding(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ValidatingAdmissionPolicyBindingArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -123,7 +119,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -142,7 +138,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ValidatingAdmissionPolicyBinding get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ValidatingAdmissionPolicyBinding get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ValidatingAdmissionPolicyBinding(name, id, options);
     }
 }

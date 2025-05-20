@@ -86,6 +86,8 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha3
                 {
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim" },
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta1:ResourceClaim" },
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta2:ResourceClaim" },
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

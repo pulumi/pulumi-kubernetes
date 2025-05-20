@@ -30,8 +30,6 @@ public final class PodFailurePolicyRuleArgs extends com.pulumi.resources.Resourc
      *   running pods are terminated.
      * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
      *   not be restarted.
-     *   This value is beta-level. It can be used when the
-     *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
      * - Count: indicates that the pod is handled in the default way - the
@@ -49,8 +47,6 @@ public final class PodFailurePolicyRuleArgs extends com.pulumi.resources.Resourc
      *   running pods are terminated.
      * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
      *   not be restarted.
-     *   This value is beta-level. It can be used when the
-     *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
      * - Count: indicates that the pod is handled in the default way - the
@@ -125,8 +121,6 @@ public final class PodFailurePolicyRuleArgs extends com.pulumi.resources.Resourc
          *   running pods are terminated.
          * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
          *   not be restarted.
-         *   This value is beta-level. It can be used when the
-         *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
          * - Ignore: indicates that the counter towards the .backoffLimit is not
          *   incremented and a replacement pod is created.
          * - Count: indicates that the pod is handled in the default way - the
@@ -148,8 +142,6 @@ public final class PodFailurePolicyRuleArgs extends com.pulumi.resources.Resourc
          *   running pods are terminated.
          * - FailIndex: indicates that the pod&#39;s index is marked as Failed and will
          *   not be restarted.
-         *   This value is beta-level. It can be used when the
-         *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
          * - Ignore: indicates that the counter towards the .backoffLimit is not
          *   incremented and a replacement pod is created.
          * - Count: indicates that the pod is handled in the default way - the

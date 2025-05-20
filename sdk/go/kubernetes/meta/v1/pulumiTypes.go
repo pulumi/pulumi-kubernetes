@@ -1192,6 +1192,8 @@ type DeleteOptions struct {
 	DryRun []string `pulumi:"dryRun"`
 	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 	GracePeriodSeconds *int `pulumi:"gracePeriodSeconds"`
+	// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+	IgnoreStoreReadErrorWithClusterBreakingPotential *bool `pulumi:"ignoreStoreReadErrorWithClusterBreakingPotential"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
@@ -1221,6 +1223,8 @@ type DeleteOptionsArgs struct {
 	DryRun pulumi.StringArrayInput `pulumi:"dryRun"`
 	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 	GracePeriodSeconds pulumi.IntPtrInput `pulumi:"gracePeriodSeconds"`
+	// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+	IgnoreStoreReadErrorWithClusterBreakingPotential pulumi.BoolPtrInput `pulumi:"ignoreStoreReadErrorWithClusterBreakingPotential"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
@@ -1324,6 +1328,11 @@ func (o DeleteOptionsOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeleteOptions) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
 }
 
+// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+func (o DeleteOptionsOutput) IgnoreStoreReadErrorWithClusterBreakingPotential() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeleteOptions) *bool { return v.IgnoreStoreReadErrorWithClusterBreakingPotential }).(pulumi.BoolPtrOutput)
+}
+
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeleteOptionsOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeleteOptions) *string { return v.Kind }).(pulumi.StringPtrOutput)
@@ -1398,6 +1407,16 @@ func (o DeleteOptionsPtrOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+func (o DeleteOptionsPtrOutput) IgnoreStoreReadErrorWithClusterBreakingPotential() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DeleteOptions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IgnoreStoreReadErrorWithClusterBreakingPotential
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeleteOptionsPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeleteOptions) *string {
@@ -1446,6 +1465,8 @@ type DeleteOptionsPatch struct {
 	DryRun []string `pulumi:"dryRun"`
 	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 	GracePeriodSeconds *int `pulumi:"gracePeriodSeconds"`
+	// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+	IgnoreStoreReadErrorWithClusterBreakingPotential *bool `pulumi:"ignoreStoreReadErrorWithClusterBreakingPotential"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
@@ -1475,6 +1496,8 @@ type DeleteOptionsPatchArgs struct {
 	DryRun pulumi.StringArrayInput `pulumi:"dryRun"`
 	// The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 	GracePeriodSeconds pulumi.IntPtrInput `pulumi:"gracePeriodSeconds"`
+	// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+	IgnoreStoreReadErrorWithClusterBreakingPotential pulumi.BoolPtrInput `pulumi:"ignoreStoreReadErrorWithClusterBreakingPotential"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
@@ -1578,6 +1601,11 @@ func (o DeleteOptionsPatchOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeleteOptionsPatch) *int { return v.GracePeriodSeconds }).(pulumi.IntPtrOutput)
 }
 
+// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+func (o DeleteOptionsPatchOutput) IgnoreStoreReadErrorWithClusterBreakingPotential() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeleteOptionsPatch) *bool { return v.IgnoreStoreReadErrorWithClusterBreakingPotential }).(pulumi.BoolPtrOutput)
+}
+
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o DeleteOptionsPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeleteOptionsPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
@@ -1650,6 +1678,16 @@ func (o DeleteOptionsPatchPtrOutput) GracePeriodSeconds() pulumi.IntPtrOutput {
 		}
 		return v.GracePeriodSeconds
 	}).(pulumi.IntPtrOutput)
+}
+
+// if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+func (o DeleteOptionsPatchPtrOutput) IgnoreStoreReadErrorWithClusterBreakingPotential() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *DeleteOptionsPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IgnoreStoreReadErrorWithClusterBreakingPotential
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds

@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// EndpointAddress is a tuple that describes single IP address.
+    /// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
     /// </summary>
     public class EndpointAddressPatchArgs : global::Pulumi.ResourceArgs
     {

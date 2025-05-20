@@ -13,6 +13,10 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 
+/**
+ * PortStatus represents the error condition of a service port
+ * 
+ */
 public final class PortStatusArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PortStatusArgs Empty = new PortStatusArgs();

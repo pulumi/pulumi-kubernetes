@@ -29,7 +29,7 @@ public final class JobSpec {
      */
     private @Nullable Integer backoffLimit;
     /**
-     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable.
      * 
      */
     private @Nullable Integer backoffLimitPerIndex;
@@ -52,7 +52,7 @@ public final class JobSpec {
     /**
      * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
      * 
-     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
      * 
      */
     private @Nullable String managedBy;
@@ -62,7 +62,7 @@ public final class JobSpec {
      */
     private @Nullable Boolean manualSelector;
     /**
-     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
      * 
      */
     private @Nullable Integer maxFailedIndexes;
@@ -93,8 +93,6 @@ public final class JobSpec {
     private @Nullable LabelSelector selector;
     /**
      * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-     * 
-     * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
      * 
      */
     private @Nullable SuccessPolicy successPolicy;
@@ -130,7 +128,7 @@ public final class JobSpec {
         return Optional.ofNullable(this.backoffLimit);
     }
     /**
-     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable.
      * 
      */
     public Optional<Integer> backoffLimitPerIndex() {
@@ -159,7 +157,7 @@ public final class JobSpec {
     /**
      * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
      * 
-     * This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+     * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
      * 
      */
     public Optional<String> managedBy() {
@@ -173,7 +171,7 @@ public final class JobSpec {
         return Optional.ofNullable(this.manualSelector);
     }
     /**
-     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
      * 
      */
     public Optional<Integer> maxFailedIndexes() {
@@ -214,8 +212,6 @@ public final class JobSpec {
     }
     /**
      * @return successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-     * 
-     * This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
      * 
      */
     public Optional<SuccessPolicy> successPolicy() {

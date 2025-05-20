@@ -42,7 +42,7 @@ export class ReplicaSetList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"apps/v1">;
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      */
     public readonly items!: pulumi.Output<outputs.apps.v1.ReplicaSet[]>;
     /**
@@ -92,7 +92,7 @@ export interface ReplicaSetListArgs {
      */
     apiVersion?: pulumi.Input<"apps/v1">;
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      */
     items: pulumi.Input<pulumi.Input<inputs.apps.v1.ReplicaSet>[]>;
     /**

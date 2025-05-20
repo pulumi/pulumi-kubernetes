@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.coordination.v1alpha1;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,6 +13,7 @@ import com.pulumi.kubernetes.coordination.v1alpha1.LeaseCandidateArgs;
 import com.pulumi.kubernetes.coordination.v1alpha1.outputs.LeaseCandidateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
@@ -81,7 +83,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public LeaseCandidate(String name) {
+    public LeaseCandidate(java.lang.String name) {
         this(name, LeaseCandidateArgs.Empty);
     }
     /**
@@ -89,7 +91,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public LeaseCandidate(String name, @Nullable LeaseCandidateArgs args) {
+    public LeaseCandidate(java.lang.String name, @Nullable LeaseCandidateArgs args) {
         this(name, args, null);
     }
     /**
@@ -98,12 +100,12 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public LeaseCandidate(String name, @Nullable LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public LeaseCandidate(java.lang.String name, @Nullable LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private LeaseCandidate(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate", name, null, makeResourceOptions(options, id));
+    private LeaseCandidate(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate", name, null, makeResourceOptions(options, id), false);
     }
 
     private static LeaseCandidateArgs makeArgs(@Nullable LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -117,9 +119,13 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate").build()),
+                Output.of(Alias.builder().type("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
@@ -132,7 +138,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static LeaseCandidate get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static LeaseCandidate get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new LeaseCandidate(name, id, options);
     }
 }

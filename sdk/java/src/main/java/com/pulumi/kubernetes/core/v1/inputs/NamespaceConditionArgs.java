@@ -20,23 +20,47 @@ public final class NamespaceConditionArgs extends com.pulumi.resources.ResourceA
 
     public static final NamespaceConditionArgs Empty = new NamespaceConditionArgs();
 
+    /**
+     * Last time the condition transitioned from one status to another.
+     * 
+     */
     @Import(name="lastTransitionTime")
     private @Nullable Output<String> lastTransitionTime;
 
+    /**
+     * @return Last time the condition transitioned from one status to another.
+     * 
+     */
     public Optional<Output<String>> lastTransitionTime() {
         return Optional.ofNullable(this.lastTransitionTime);
     }
 
+    /**
+     * Human-readable message indicating details about last transition.
+     * 
+     */
     @Import(name="message")
     private @Nullable Output<String> message;
 
+    /**
+     * @return Human-readable message indicating details about last transition.
+     * 
+     */
     public Optional<Output<String>> message() {
         return Optional.ofNullable(this.message);
     }
 
+    /**
+     * Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+     * 
+     */
     @Import(name="reason")
     private @Nullable Output<String> reason;
 
+    /**
+     * @return Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+     * 
+     */
     public Optional<Output<String>> reason() {
         return Optional.ofNullable(this.reason);
     }
@@ -99,29 +123,65 @@ public final class NamespaceConditionArgs extends com.pulumi.resources.ResourceA
             $ = new NamespaceConditionArgs(Objects.requireNonNull(defaults));
         }
 
+        /**
+         * @param lastTransitionTime Last time the condition transitioned from one status to another.
+         * 
+         * @return builder
+         * 
+         */
         public Builder lastTransitionTime(@Nullable Output<String> lastTransitionTime) {
             $.lastTransitionTime = lastTransitionTime;
             return this;
         }
 
+        /**
+         * @param lastTransitionTime Last time the condition transitioned from one status to another.
+         * 
+         * @return builder
+         * 
+         */
         public Builder lastTransitionTime(String lastTransitionTime) {
             return lastTransitionTime(Output.of(lastTransitionTime));
         }
 
+        /**
+         * @param message Human-readable message indicating details about last transition.
+         * 
+         * @return builder
+         * 
+         */
         public Builder message(@Nullable Output<String> message) {
             $.message = message;
             return this;
         }
 
+        /**
+         * @param message Human-readable message indicating details about last transition.
+         * 
+         * @return builder
+         * 
+         */
         public Builder message(String message) {
             return message(Output.of(message));
         }
 
+        /**
+         * @param reason Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+         * 
+         * @return builder
+         * 
+         */
         public Builder reason(@Nullable Output<String> reason) {
             $.reason = reason;
             return this;
         }
 
+        /**
+         * @param reason Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+         * 
+         * @return builder
+         * 
+         */
         public Builder reason(String reason) {
             return reason(Output.of(reason));
         }

@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -66,6 +67,21 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    @Import(name="observedGeneration")
+    private @Nullable Output<Integer> observedGeneration;
+
+    /**
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    public Optional<Output<Integer>> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+
+    /**
      * Unique, one-word, CamelCase reason for the condition&#39;s last transition.
      * 
      */
@@ -116,6 +132,7 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
         this.lastProbeTime = $.lastProbeTime;
         this.lastTransitionTime = $.lastTransitionTime;
         this.message = $.message;
+        this.observedGeneration = $.observedGeneration;
         this.reason = $.reason;
         this.status = $.status;
         this.type = $.type;
@@ -200,6 +217,27 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder message(String message) {
             return message(Output.of(message));
+        }
+
+        /**
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(@Nullable Output<Integer> observedGeneration) {
+            $.observedGeneration = observedGeneration;
+            return this;
+        }
+
+        /**
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(Integer observedGeneration) {
+            return observedGeneration(Output.of(observedGeneration));
         }
 
         /**

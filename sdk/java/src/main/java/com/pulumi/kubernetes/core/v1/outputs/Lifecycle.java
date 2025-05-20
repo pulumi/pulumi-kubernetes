@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.LifecycleHandler;
+import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -21,6 +22,11 @@ public final class Lifecycle {
      * 
      */
     private @Nullable LifecycleHandler preStop;
+    /**
+     * @return StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+     * 
+     */
+    private @Nullable String stopSignal;
 
     private Lifecycle() {}
     /**
@@ -37,6 +43,13 @@ public final class Lifecycle {
     public Optional<LifecycleHandler> preStop() {
         return Optional.ofNullable(this.preStop);
     }
+    /**
+     * @return StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+     * 
+     */
+    public Optional<String> stopSignal() {
+        return Optional.ofNullable(this.stopSignal);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -49,11 +62,13 @@ public final class Lifecycle {
     public static final class Builder {
         private @Nullable LifecycleHandler postStart;
         private @Nullable LifecycleHandler preStop;
+        private @Nullable String stopSignal;
         public Builder() {}
         public Builder(Lifecycle defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.postStart = defaults.postStart;
     	      this.preStop = defaults.preStop;
+    	      this.stopSignal = defaults.stopSignal;
         }
 
         @CustomType.Setter
@@ -68,10 +83,17 @@ public final class Lifecycle {
             this.preStop = preStop;
             return this;
         }
+        @CustomType.Setter
+        public Builder stopSignal(@Nullable String stopSignal) {
+
+            this.stopSignal = stopSignal;
+            return this;
+        }
         public Lifecycle build() {
             final var _resultValue = new Lifecycle();
             _resultValue.postStart = postStart;
             _resultValue.preStop = preStop;
+            _resultValue.stopSignal = stopSignal;
             return _resultValue;
         }
     }

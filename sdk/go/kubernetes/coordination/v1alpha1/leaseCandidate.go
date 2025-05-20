@@ -35,6 +35,15 @@ func NewLeaseCandidate(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("coordination.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("LeaseCandidate")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate"),
+		},
+		{
+			Type: pulumi.String("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource LeaseCandidate
 	err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidate", name, args, &resource, opts...)

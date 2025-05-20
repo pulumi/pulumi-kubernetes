@@ -4,7 +4,6 @@ import (
 	b64 "encoding/base64"
 	"fmt"
 	"math/rand"
-	"time"
 
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml"
@@ -57,7 +56,6 @@ func main() {
 		}
 
 		randSuffix := func() string {
-			rand.Seed(time.Now().UnixNano())
 			b := make([]rune, 5)
 			letters := []rune("abcdefghijklmnopqrstuvwxyz")
 			for i := range b {

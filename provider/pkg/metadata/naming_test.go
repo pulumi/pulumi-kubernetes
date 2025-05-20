@@ -19,6 +19,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
@@ -31,8 +32,9 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	// o1 has no name, so autonaming succeeds.
 	o1 := &unstructured.Unstructured{}
 	pm1 := resource.NewPropertyMap(struct{}{})
-	AssignNameIfAutonamable(nil, o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	err := AssignNameIfAutonamable(nil, nil, o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.NoError(t, err)
 	assert.True(t, IsAutonamed(o1))
 	assert.True(t, strings.HasPrefix(o1.GetName(), "foo-"))
 	assert.Len(t, o1.GetName(), 12)
@@ -44,8 +46,9 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	o2 := propMapToUnstructured(pm2)
-	AssignNameIfAutonamable(nil, o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	err = AssignNameIfAutonamable(nil, nil, o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
+	assert.NoError(t, err)
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
 
@@ -56,8 +59,9 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	o3 := propMapToUnstructured(pm3)
-	AssignNameIfAutonamable(nil, o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	err = AssignNameIfAutonamable(nil, nil, o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.NoError(t, err)
 	assert.False(t, IsAutonamed(o3))
 	assert.Equal(t, "", o3.GetName())
 
@@ -68,8 +72,9 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	o4 := propMapToUnstructured(pm4)
-	AssignNameIfAutonamable(nil, o4, pm4, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	err = AssignNameIfAutonamable(nil, nil, o4, pm4, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
+	assert.NoError(t, err)
 	assert.False(t, IsAutonamed(o4))
 	assert.Equal(t, "bar-", o4.GetGenerateName())
 	assert.Equal(t, "", o4.GetName())
@@ -81,11 +86,37 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	o5 := propMapToUnstructured(pm5)
-	AssignNameIfAutonamable(nil, o5, pm5, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	err = AssignNameIfAutonamable(nil, nil, o5, pm5, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.NoError(t, err)
 	assert.False(t, IsAutonamed(o5))
 	assert.Equal(t, "", o5.GetGenerateName())
 	assert.Equal(t, "", o5.GetName())
+
+	// o6 has no name, a name is proposed by the engine, so autonaming picks the proposed name.
+	o6 := &unstructured.Unstructured{}
+	autonamingProposed := &pulumirpc.CheckRequest_AutonamingOptions{
+		Mode:         pulumirpc.CheckRequest_AutonamingOptions_PROPOSE,
+		ProposedName: "bar",
+	}
+	err = AssignNameIfAutonamable(nil, autonamingProposed, o6, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.NoError(t, err)
+	assert.True(t, IsAutonamed(o6))
+	assert.Equal(t, "bar", o6.GetName())
+
+	// o7 has no name, but autonaming is disabled by the engine, so autonaming fails.
+	o7 := &unstructured.Unstructured{}
+	autonamingDisabled := &pulumirpc.CheckRequest_AutonamingOptions{
+		Mode: pulumirpc.CheckRequest_AutonamingOptions_DISABLE,
+	}
+	err = AssignNameIfAutonamable(nil, autonamingDisabled, o7, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "autonaming is disabled")
+	assert.False(t, IsAutonamed(o7))
+	assert.Equal(t, "", o7.GetGenerateName())
+	assert.Equal(t, "", o7.GetName())
 }
 
 func TestAdoptName(t *testing.T) {

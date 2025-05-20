@@ -19,7 +19,7 @@ public final class EnvFromSourcePatch {
      */
     private @Nullable ConfigMapEnvSourcePatch configMapRef;
     /**
-     * @return An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
      * 
      */
     private @Nullable String prefix;
@@ -38,7 +38,7 @@ public final class EnvFromSourcePatch {
         return Optional.ofNullable(this.configMapRef);
     }
     /**
-     * @return An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
      * 
      */
     public Optional<String> prefix() {

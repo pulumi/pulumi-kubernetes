@@ -14,7 +14,7 @@ const myk8s2 = new k8s.Provider("myk8s2", {
 const nginxcontainer = new k8s.core.v1.Pod("nginx", {
     spec: {
         containers: [{
-            image: "nginx:1.7.9",
+            image: "nginx:1.27.2",
             name: "nginx",
             ports: [{ containerPort: 80 }],
         }],
@@ -25,7 +25,7 @@ const nginxcontainer = new k8s.core.v1.Pod("nginx", {
 const nginxcontainer2 = new k8s.core.v1.Pod("nginx2", {
     spec: {
         containers: [{
-            image: "nginx:1.7.9",
+            image: "nginx:1.27.2",
             name: "nginx",
             ports: [{ containerPort: 80 }],
         }],

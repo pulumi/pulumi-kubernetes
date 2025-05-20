@@ -101,14 +101,14 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+     * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. The &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
      * 
      */
     @Export(name="secrets", refs={List.class,ObjectReferencePatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<ObjectReferencePatch>> secrets;
 
     /**
-     * @return Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+     * @return Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. The &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
      * 
      */
     public Output<Optional<List<ObjectReferencePatch>>> secrets() {
@@ -119,7 +119,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ServiceAccountPatch(String name) {
+    public ServiceAccountPatch(java.lang.String name) {
         this(name, ServiceAccountPatchArgs.Empty);
     }
     /**
@@ -127,7 +127,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args) {
+    public ServiceAccountPatch(java.lang.String name, @Nullable ServiceAccountPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -136,12 +136,12 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ServiceAccountPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ServiceAccountPatch(java.lang.String name, @Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ServiceAccountPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ServiceAccountPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ServiceAccountPatch", name, null, makeResourceOptions(options, id));
+    private ServiceAccountPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ServiceAccountPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ServiceAccountPatchArgs makeArgs(@Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -155,7 +155,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -170,7 +170,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ServiceAccountPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ServiceAccountPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ServiceAccountPatch(name, id, options);
     }
 }

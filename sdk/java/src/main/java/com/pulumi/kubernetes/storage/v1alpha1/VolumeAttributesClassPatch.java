@@ -108,7 +108,7 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public VolumeAttributesClassPatch(String name) {
+    public VolumeAttributesClassPatch(java.lang.String name) {
         this(name, VolumeAttributesClassPatchArgs.Empty);
     }
     /**
@@ -116,7 +116,7 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public VolumeAttributesClassPatch(String name, @Nullable VolumeAttributesClassPatchArgs args) {
+    public VolumeAttributesClassPatch(java.lang.String name, @Nullable VolumeAttributesClassPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -125,12 +125,12 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public VolumeAttributesClassPatch(String name, @Nullable VolumeAttributesClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public VolumeAttributesClassPatch(java.lang.String name, @Nullable VolumeAttributesClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private VolumeAttributesClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, null, makeResourceOptions(options, id));
+    private VolumeAttributesClassPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static VolumeAttributesClassPatchArgs makeArgs(@Nullable VolumeAttributesClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -144,7 +144,7 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -162,7 +162,7 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static VolumeAttributesClassPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static VolumeAttributesClassPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new VolumeAttributesClassPatch(name, id, options);
     }
 }

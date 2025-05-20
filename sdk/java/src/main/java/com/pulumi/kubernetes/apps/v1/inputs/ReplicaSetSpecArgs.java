@@ -38,14 +38,14 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     @Import(name="replicas")
     private @Nullable Output<Integer> replicas;
 
     /**
-     * @return Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Optional<Output<Integer>> replicas() {
@@ -68,14 +68,14 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
      * 
      */
     @Import(name="template")
     private @Nullable Output<PodTemplateSpecArgs> template;
 
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
      * 
      */
     public Optional<Output<PodTemplateSpecArgs>> template() {
@@ -131,7 +131,7 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param replicas Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
@@ -142,7 +142,7 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param replicas Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
          * 
          * @return builder
          * 
@@ -173,7 +173,7 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class ReplicaSetSpecArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
          * 
          * @return builder
          * 

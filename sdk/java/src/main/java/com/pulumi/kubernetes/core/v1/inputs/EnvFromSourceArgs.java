@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * EnvFromSource represents the source of a set of ConfigMaps
+ * EnvFromSource represents the source of a set of ConfigMaps or Secrets
  * 
  */
 public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
@@ -37,14 +37,14 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+     * Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
      * 
      */
     @Import(name="prefix")
     private @Nullable Output<String> prefix;
 
     /**
-     * @return An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
      * 
      */
     public Optional<Output<String>> prefix() {
@@ -114,7 +114,7 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param prefix An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+         * @param prefix Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param prefix An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+         * @param prefix Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
          * 
          * @return builder
          * 

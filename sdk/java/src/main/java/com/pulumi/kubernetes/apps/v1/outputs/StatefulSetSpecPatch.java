@@ -30,7 +30,7 @@ public final class StatefulSetSpecPatch {
      */
     private @Nullable StatefulSetOrdinalsPatch ordinals;
     /**
-     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
      * 
      */
     private @Nullable StatefulSetPersistentVolumeClaimRetentionPolicyPatch persistentVolumeClaimRetentionPolicy;
@@ -91,7 +91,7 @@ public final class StatefulSetSpecPatch {
         return Optional.ofNullable(this.ordinals);
     }
     /**
-     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+     * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
      * 
      */
     public Optional<StatefulSetPersistentVolumeClaimRetentionPolicyPatch> persistentVolumeClaimRetentionPolicy() {

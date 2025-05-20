@@ -15,50 +15,50 @@ import javax.annotation.Nullable;
 @CustomType
 public final class LifecycleHandler {
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     private @Nullable ExecAction exec;
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     private @Nullable HTTPGetAction httpGet;
     /**
-     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * @return Sleep represents a duration that the container should sleep.
      * 
      */
     private @Nullable SleepAction sleep;
     /**
-     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
      * 
      */
     private @Nullable TCPSocketAction tcpSocket;
 
     private LifecycleHandler() {}
     /**
-     * @return Exec specifies the action to take.
+     * @return Exec specifies a command to execute in the container.
      * 
      */
     public Optional<ExecAction> exec() {
         return Optional.ofNullable(this.exec);
     }
     /**
-     * @return HTTPGet specifies the http request to perform.
+     * @return HTTPGet specifies an HTTP GET request to perform.
      * 
      */
     public Optional<HTTPGetAction> httpGet() {
         return Optional.ofNullable(this.httpGet);
     }
     /**
-     * @return Sleep represents the duration that the container should sleep before being terminated.
+     * @return Sleep represents a duration that the container should sleep.
      * 
      */
     public Optional<SleepAction> sleep() {
         return Optional.ofNullable(this.sleep);
     }
     /**
-     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+     * @return Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
      * 
      */
     public Optional<TCPSocketAction> tcpSocket() {

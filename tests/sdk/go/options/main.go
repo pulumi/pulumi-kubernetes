@@ -61,7 +61,9 @@ func main() {
 			}
 			return nil
 		}
-		ctx.RegisterStackTransformation(applyDefaultOpts)
+		if err = ctx.RegisterStackTransformation(applyDefaultOpts); err != nil {
+			return err
+		}
 
 		// applyAlias is a Pulumi transformation that applies a unique alias to each resource.
 		applyAlias := func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {

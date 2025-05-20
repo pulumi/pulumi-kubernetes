@@ -10,6 +10,21 @@ export type Lease = import("./lease").Lease;
 export const Lease: typeof import("./lease").Lease = null as any;
 utilities.lazyLoad(exports, ["Lease"], () => require("./lease"));
 
+export { LeaseCandidateArgs } from "./leaseCandidate";
+export type LeaseCandidate = import("./leaseCandidate").LeaseCandidate;
+export const LeaseCandidate: typeof import("./leaseCandidate").LeaseCandidate = null as any;
+utilities.lazyLoad(exports, ["LeaseCandidate"], () => require("./leaseCandidate"));
+
+export { LeaseCandidateListArgs } from "./leaseCandidateList";
+export type LeaseCandidateList = import("./leaseCandidateList").LeaseCandidateList;
+export const LeaseCandidateList: typeof import("./leaseCandidateList").LeaseCandidateList = null as any;
+utilities.lazyLoad(exports, ["LeaseCandidateList"], () => require("./leaseCandidateList"));
+
+export { LeaseCandidatePatchArgs } from "./leaseCandidatePatch";
+export type LeaseCandidatePatch = import("./leaseCandidatePatch").LeaseCandidatePatch;
+export const LeaseCandidatePatch: typeof import("./leaseCandidatePatch").LeaseCandidatePatch = null as any;
+utilities.lazyLoad(exports, ["LeaseCandidatePatch"], () => require("./leaseCandidatePatch"));
+
 export { LeaseListArgs } from "./leaseList";
 export type LeaseList = import("./leaseList").LeaseList;
 export const LeaseList: typeof import("./leaseList").LeaseList = null as any;
@@ -27,6 +42,12 @@ const _module = {
         switch (type) {
             case "kubernetes:coordination.k8s.io/v1beta1:Lease":
                 return new Lease(name, <any>undefined, { urn })
+            case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate":
+                return new LeaseCandidate(name, <any>undefined, { urn })
+            case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidateList":
+                return new LeaseCandidateList(name, <any>undefined, { urn })
+            case "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidatePatch":
+                return new LeaseCandidatePatch(name, <any>undefined, { urn })
             case "kubernetes:coordination.k8s.io/v1beta1:LeaseList":
                 return new LeaseList(name, <any>undefined, { urn })
             case "kubernetes:coordination.k8s.io/v1beta1:LeasePatch":

@@ -6,8 +6,13 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceTolerationArgs;
+import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -17,6 +22,25 @@ import java.util.Objects;
 public final class DeviceRequestAllocationResultArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final DeviceRequestAllocationResultArgs Empty = new DeviceRequestAllocationResultArgs();
+
+    /**
+     * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    @Import(name="adminAccess")
+    private @Nullable Output<Boolean> adminAccess;
+
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    public Optional<Output<Boolean>> adminAccess() {
+        return Optional.ofNullable(this.adminAccess);
+    }
 
     /**
      * Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
@@ -72,27 +96,56 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     }
 
     /**
-     * Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     @Import(name="request", required=true)
     private Output<String> request;
 
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     public Output<String> request() {
         return this.request;
     }
 
+    /**
+     * A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    @Import(name="tolerations")
+    private @Nullable Output<List<DeviceTolerationArgs>> tolerations;
+
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
+        return Optional.ofNullable(this.tolerations);
+    }
+
     private DeviceRequestAllocationResultArgs() {}
 
     private DeviceRequestAllocationResultArgs(DeviceRequestAllocationResultArgs $) {
+        this.adminAccess = $.adminAccess;
         this.device = $.device;
         this.driver = $.driver;
         this.pool = $.pool;
         this.request = $.request;
+        this.tolerations = $.tolerations;
     }
 
     public static Builder builder() {
@@ -111,6 +164,31 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
 
         public Builder(DeviceRequestAllocationResultArgs defaults) {
             $ = new DeviceRequestAllocationResultArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param adminAccess AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder adminAccess(@Nullable Output<Boolean> adminAccess) {
+            $.adminAccess = adminAccess;
+            return this;
+        }
+
+        /**
+         * @param adminAccess AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder adminAccess(Boolean adminAccess) {
+            return adminAccess(Output.of(adminAccess));
         }
 
         /**
@@ -185,7 +263,9 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         }
 
         /**
-         * @param request Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+         * @param request Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+         * 
+         * Multiple devices may have been allocated per request.
          * 
          * @return builder
          * 
@@ -196,13 +276,58 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         }
 
         /**
-         * @param request Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+         * @param request Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+         * 
+         * Multiple devices may have been allocated per request.
          * 
          * @return builder
          * 
          */
         public Builder request(String request) {
             return request(Output.of(request));
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(@Nullable Output<List<DeviceTolerationArgs>> tolerations) {
+            $.tolerations = tolerations;
+            return this;
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(List<DeviceTolerationArgs> tolerations) {
+            return tolerations(Output.of(tolerations));
+        }
+
+        /**
+         * @param tolerations A copy of all tolerations specified in the request at the time when the device got allocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(DeviceTolerationArgs... tolerations) {
+            return tolerations(List.of(tolerations));
         }
 
         public DeviceRequestAllocationResultArgs build() {

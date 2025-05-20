@@ -82,7 +82,7 @@ public class LimitRangeList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public LimitRangeList(String name) {
+    public LimitRangeList(java.lang.String name) {
         this(name, LimitRangeListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class LimitRangeList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public LimitRangeList(String name, LimitRangeListArgs args) {
+    public LimitRangeList(java.lang.String name, LimitRangeListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class LimitRangeList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public LimitRangeList(String name, LimitRangeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:LimitRangeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public LimitRangeList(java.lang.String name, LimitRangeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:LimitRangeList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private LimitRangeList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:LimitRangeList", name, null, makeResourceOptions(options, id));
+    private LimitRangeList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:LimitRangeList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static LimitRangeListArgs makeArgs(LimitRangeListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class LimitRangeList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class LimitRangeList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static LimitRangeList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static LimitRangeList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new LimitRangeList(name, id, options);
     }
 }

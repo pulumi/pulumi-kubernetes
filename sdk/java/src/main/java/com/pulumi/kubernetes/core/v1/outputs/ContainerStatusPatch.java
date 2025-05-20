@@ -83,6 +83,11 @@ public final class ContainerStatusPatch {
      */
     private @Nullable ContainerStatePatch state;
     /**
+     * @return StopSignal reports the effective stop signal for this container
+     * 
+     */
+    private @Nullable String stopSignal;
+    /**
      * @return User represents user identity information initially attached to the first process of the container
      * 
      */
@@ -181,6 +186,13 @@ public final class ContainerStatusPatch {
         return Optional.ofNullable(this.state);
     }
     /**
+     * @return StopSignal reports the effective stop signal for this container
+     * 
+     */
+    public Optional<String> stopSignal() {
+        return Optional.ofNullable(this.stopSignal);
+    }
+    /**
      * @return User represents user identity information initially attached to the first process of the container
      * 
      */
@@ -216,6 +228,7 @@ public final class ContainerStatusPatch {
         private @Nullable Integer restartCount;
         private @Nullable Boolean started;
         private @Nullable ContainerStatePatch state;
+        private @Nullable String stopSignal;
         private @Nullable ContainerUserPatch user;
         private @Nullable List<VolumeMountStatusPatch> volumeMounts;
         public Builder() {}
@@ -233,6 +246,7 @@ public final class ContainerStatusPatch {
     	      this.restartCount = defaults.restartCount;
     	      this.started = defaults.started;
     	      this.state = defaults.state;
+    	      this.stopSignal = defaults.stopSignal;
     	      this.user = defaults.user;
     	      this.volumeMounts = defaults.volumeMounts;
         }
@@ -313,6 +327,12 @@ public final class ContainerStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder stopSignal(@Nullable String stopSignal) {
+
+            this.stopSignal = stopSignal;
+            return this;
+        }
+        @CustomType.Setter
         public Builder user(@Nullable ContainerUserPatch user) {
 
             this.user = user;
@@ -341,6 +361,7 @@ public final class ContainerStatusPatch {
             _resultValue.restartCount = restartCount;
             _resultValue.started = started;
             _resultValue.state = state;
+            _resultValue.stopSignal = stopSignal;
             _resultValue.user = user;
             _resultValue.volumeMounts = volumeMounts;
             return _resultValue;

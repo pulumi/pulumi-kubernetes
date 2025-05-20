@@ -69,14 +69,14 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+     * port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
      * 
      */
     @Import(name="port")
     private @Nullable Output<Integer> port;
 
     /**
-     * @return port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+     * @return port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
      * 
      */
     public Optional<Output<Integer>> port() {
@@ -186,7 +186,7 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param port port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+         * @param port port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
          * 
          * @return builder
          * 
@@ -197,7 +197,7 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param port port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+         * @param port port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service&#39;s target port. EndpointSlices used for other purposes may have a nil port.
          * 
          * @return builder
          * 

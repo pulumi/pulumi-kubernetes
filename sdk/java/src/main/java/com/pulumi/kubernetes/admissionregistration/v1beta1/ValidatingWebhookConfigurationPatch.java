@@ -90,7 +90,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ValidatingWebhookConfigurationPatch(String name) {
+    public ValidatingWebhookConfigurationPatch(java.lang.String name) {
         this(name, ValidatingWebhookConfigurationPatchArgs.Empty);
     }
     /**
@@ -98,7 +98,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingWebhookConfigurationPatch(String name, @Nullable ValidatingWebhookConfigurationPatchArgs args) {
+    public ValidatingWebhookConfigurationPatch(java.lang.String name, @Nullable ValidatingWebhookConfigurationPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,12 +107,12 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingWebhookConfigurationPatch(String name, @Nullable ValidatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ValidatingWebhookConfigurationPatch(java.lang.String name, @Nullable ValidatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ValidatingWebhookConfigurationPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, null, makeResourceOptions(options, id));
+    private ValidatingWebhookConfigurationPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ValidatingWebhookConfigurationPatchArgs makeArgs(@Nullable ValidatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -126,7 +126,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -144,7 +144,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ValidatingWebhookConfigurationPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ValidatingWebhookConfigurationPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ValidatingWebhookConfigurationPatch(name, id, options);
     }
 }

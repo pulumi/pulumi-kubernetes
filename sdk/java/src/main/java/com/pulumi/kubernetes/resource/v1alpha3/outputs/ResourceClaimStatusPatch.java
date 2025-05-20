@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.AllocatedDeviceStatusPatch;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.AllocationResultPatch;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.ResourceClaimConsumerReferencePatch;
 import java.lang.Boolean;
@@ -29,13 +30,18 @@ public final class ResourceClaimStatusPatch {
      */
     private @Nullable Boolean deallocationRequested;
     /**
+     * @return Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    private @Nullable List<AllocatedDeviceStatusPatch> devices;
+    /**
      * @return ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
      * 
      * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     private @Nullable List<ResourceClaimConsumerReferencePatch> reservedFor;
@@ -60,13 +66,20 @@ public final class ResourceClaimStatusPatch {
         return Optional.ofNullable(this.deallocationRequested);
     }
     /**
+     * @return Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    public List<AllocatedDeviceStatusPatch> devices() {
+        return this.devices == null ? List.of() : this.devices;
+    }
+    /**
      * @return ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
      * 
      * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     public List<ResourceClaimConsumerReferencePatch> reservedFor() {
@@ -84,12 +97,14 @@ public final class ResourceClaimStatusPatch {
     public static final class Builder {
         private @Nullable AllocationResultPatch allocation;
         private @Nullable Boolean deallocationRequested;
+        private @Nullable List<AllocatedDeviceStatusPatch> devices;
         private @Nullable List<ResourceClaimConsumerReferencePatch> reservedFor;
         public Builder() {}
         public Builder(ResourceClaimStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.allocation = defaults.allocation;
     	      this.deallocationRequested = defaults.deallocationRequested;
+    	      this.devices = defaults.devices;
     	      this.reservedFor = defaults.reservedFor;
         }
 
@@ -106,6 +121,15 @@ public final class ResourceClaimStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder devices(@Nullable List<AllocatedDeviceStatusPatch> devices) {
+
+            this.devices = devices;
+            return this;
+        }
+        public Builder devices(AllocatedDeviceStatusPatch... devices) {
+            return devices(List.of(devices));
+        }
+        @CustomType.Setter
         public Builder reservedFor(@Nullable List<ResourceClaimConsumerReferencePatch> reservedFor) {
 
             this.reservedFor = reservedFor;
@@ -118,6 +142,7 @@ public final class ResourceClaimStatusPatch {
             final var _resultValue = new ResourceClaimStatusPatch();
             _resultValue.allocation = allocation;
             _resultValue.deallocationRequested = deallocationRequested;
+            _resultValue.devices = devices;
             _resultValue.reservedFor = reservedFor;
             return _resultValue;
         }

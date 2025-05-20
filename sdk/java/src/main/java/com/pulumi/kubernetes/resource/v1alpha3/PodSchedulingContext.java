@@ -101,7 +101,7 @@ public class PodSchedulingContext extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PodSchedulingContext(String name) {
+    public PodSchedulingContext(java.lang.String name) {
         this(name, PodSchedulingContextArgs.Empty);
     }
     /**
@@ -109,7 +109,7 @@ public class PodSchedulingContext extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodSchedulingContext(String name, PodSchedulingContextArgs args) {
+    public PodSchedulingContext(java.lang.String name, PodSchedulingContextArgs args) {
         this(name, args, null);
     }
     /**
@@ -118,12 +118,12 @@ public class PodSchedulingContext extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodSchedulingContext(String name, PodSchedulingContextArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PodSchedulingContext(java.lang.String name, PodSchedulingContextArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PodSchedulingContext(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", name, null, makeResourceOptions(options, id));
+    private PodSchedulingContext(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PodSchedulingContextArgs makeArgs(PodSchedulingContextArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -137,7 +137,7 @@ public class PodSchedulingContext extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -155,7 +155,7 @@ public class PodSchedulingContext extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PodSchedulingContext get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PodSchedulingContext get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PodSchedulingContext(name, id, options);
     }
 }

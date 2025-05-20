@@ -50,6 +50,12 @@ func NewResourceClaimTemplate(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate"),
 		},
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate"),
+		},
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplate"),
+		},
 	})
 	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)

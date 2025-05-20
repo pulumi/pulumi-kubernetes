@@ -15,7 +15,6 @@
 package provider
 
 import (
-	"bufio"
 	"context"
 	"encoding/json"
 	"errors"
@@ -48,6 +47,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
@@ -87,9 +87,6 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	streamInvokeList     = "kubernetes:kubernetes:list"
-	streamInvokeWatch    = "kubernetes:kubernetes:watch"
-	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
 	invokeDecodeYaml     = "kubernetes:yaml:decode"
 	invokeHelmTemplate   = "kubernetes:helm:template"
 	invokeKustomize      = "kubernetes:kustomize:directory"
@@ -852,6 +849,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
 			config.WarningHandler = rest.NoWarnings{}
+			config.UserAgent = version.UserAgent
 		}
 	}
 
@@ -901,8 +899,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	return &pulumirpc.ConfigureResponse{
-		AcceptSecrets:   true,
-		SupportsPreview: true,
+		AcceptSecrets:                   true,
+		SupportsPreview:                 true,
+		SupportsAutonamingConfiguration: true,
 	}, nil
 }
 
@@ -993,7 +992,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 			return nil, errors.New("missing required field 'directory' of type string")
 		}
 
-		result, err := kustomizeDirectory(directory, k.clientSet)
+		result, err := kustomizeDirectory(ctx, directory, k.clientSet)
 		if err != nil {
 			return nil, err
 		}
@@ -1011,328 +1010,6 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 	default:
 		return nil, fmt.Errorf("unknown Invoke type %q", tok)
-	}
-}
-
-// StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
-// back as a series of messages.
-func (k *kubeProvider) StreamInvoke(
-	req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer,
-) error {
-	// Important: Some invoke logic is intended to run during preview, and the Kubernetes provider
-	// inputs may not have resolved yet. Any invoke logic that depends on an active cluster must check
-	// k.clusterUnreachable and handle that condition appropriately.
-
-	// Unmarshal arguments.
-	tok := req.GetTok()
-	label := fmt.Sprintf("%s.StreamInvoke(%s)", k.label(), tok)
-	args, err := plugin.UnmarshalProperties(
-		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal %v args during an StreamInvoke call: %w", tok, err)
-	}
-
-	switch tok {
-	case streamInvokeList:
-		//
-		// Request a list of all resources of some type, in some number of namespaces.
-		//
-		// DESIGN NOTES: `list` must be a `StreamInvoke` instead of an `Invoke` to avoid the gRPC
-		// message size limit. Unlike `watch`, which will continue until the user cancels the
-		// request, `list` is guaranteed to terminate after all the resources are listed. The role
-		// of the SDK implementations of `list` is thus to wait for the stream to terminate,
-		// aggregate the resources into a list, and return to the user.
-		//
-		// We send the resources asynchronously. This requires an "event loop" (below), which
-		// continuously attempts to send the resource, checking for cancellation on each send. This
-		// allows for the theoretical possibility that the gRPC client cancels the `list` operation
-		// prior to completion. The SDKs implementing `list` will very probably never expose a
-		// `cancel` handler in the way that `watch` does; `watch` requires it because a watcher is
-		// expected to never terminate, and users of the various SDKs need a way to tell the
-		// provider to stop streaming and reclaim the resources associated with the stream.
-		//
-		// Still, we implement this cancellation also for `list`, primarily for completeness. We'd
-		// like to avoid an unpleasant and non-actionable error that would appear on a `Send` on a
-		// client that is no longer accepting requests. This also helps to guard against the
-		// possibility that some dark corner of gRPC signals cancellation by accident, e.g., during
-		// shutdown.
-		//
-
-		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
-		}
-
-		namespace := ""
-		if args["namespace"].HasValue() {
-			namespace = args["namespace"].StringValue()
-		}
-		if !args["group"].HasValue() || !args["version"].HasValue() || !args["kind"].HasValue() {
-			return fmt.Errorf(
-				"list requires a group, version, and kind that uniquely specify the resource type")
-		}
-		cl, err := k.clientSet.ResourceClient(schema.GroupVersionKind{
-			Group:   args["group"].StringValue(),
-			Version: args["version"].StringValue(),
-			Kind:    args["kind"].StringValue(),
-		}, namespace)
-		if err != nil {
-			return err
-		}
-
-		list, err := cl.List(k.canceler.context, metav1.ListOptions{})
-		if err != nil {
-			return err
-		}
-
-		//
-		// List resources. Send them one-by-one, asynchronously, to the client requesting them.
-		//
-
-		objects := make(chan map[string]any)
-		defer close(objects)
-		done := make(chan struct{})
-		defer close(done)
-		go func() {
-			for _, o := range list.Items {
-				objects <- o.Object
-			}
-			done <- struct{}{}
-		}()
-
-		for {
-			select {
-			case <-k.canceler.context.Done():
-				//
-				// `kubeProvider#Cancel` was called. Terminate the `StreamInvoke` RPC, free all
-				// resources, and exit without error.
-				//
-
-				return nil
-			case <-done:
-				//
-				// Success. Return.
-				//
-
-				return nil
-			case o := <-objects:
-				//
-				// Publish resource from the list back to user.
-				//
-
-				resp, err := plugin.MarshalProperties(
-					resource.NewPropertyMapFromMap(o),
-					plugin.MarshalOptions{})
-				if err != nil {
-					return err
-				}
-
-				err = server.Send(&pulumirpc.InvokeResponse{Return: resp})
-				if err != nil {
-					return err
-				}
-			case <-server.Context().Done():
-				//
-				// gRPC stream was cancelled from the client that issued the `StreamInvoke` request
-				// to us. In this case, we terminate the `StreamInvoke` RPC, free all resources, and
-				// exit without error.
-				//
-				// This is required for `watch`, but is implemented in `list` for completeness.
-				// Users calling `watch` from one of the SDKs need to be able to cancel a `watch`
-				// and signal to the provider that it's ok to reclaim the resources associated with
-				// a `watch`. In `list` it's to prevent the user from getting weird errors if a
-				// client somehow cancels the streaming request and they subsequently send a message
-				// anyway.
-				//
-
-				return nil
-			}
-		}
-	case streamInvokeWatch:
-		//
-		// Set up resource watcher.
-		//
-
-		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
-		}
-
-		namespace := ""
-		if args["namespace"].HasValue() {
-			namespace = args["namespace"].StringValue()
-		}
-		if !args["group"].HasValue() || !args["version"].HasValue() || !args["kind"].HasValue() {
-			return fmt.Errorf(
-				"watch requires a group, version, and kind that uniquely specify the resource type")
-		}
-		cl, err := k.clientSet.ResourceClient(schema.GroupVersionKind{
-			Group:   args["group"].StringValue(),
-			Version: args["version"].StringValue(),
-			Kind:    args["kind"].StringValue(),
-		}, namespace)
-		if err != nil {
-			return err
-		}
-
-		watch, err := cl.Watch(k.canceler.context, metav1.ListOptions{})
-		if err != nil {
-			return err
-		}
-
-		//
-		// Watch for resource updates, and stream them back to the caller.
-		//
-
-		for {
-			select {
-			case <-k.canceler.context.Done():
-				//
-				// `kubeProvider#Cancel` was called. Terminate the `StreamInvoke` RPC, free all
-				// resources, and exit without error.
-				//
-
-				watch.Stop()
-				return nil
-			case event := <-watch.ResultChan():
-				//
-				// Kubernetes resource was updated. Publish resource update back to user.
-				//
-
-				resp, err := plugin.MarshalProperties(
-					resource.NewPropertyMapFromMap(
-						map[string]any{
-							"type":   event.Type,
-							"object": event.Object.(*unstructured.Unstructured).Object,
-						}),
-					plugin.MarshalOptions{})
-				if err != nil {
-					return err
-				}
-
-				err = server.Send(&pulumirpc.InvokeResponse{Return: resp})
-				if err != nil {
-					return err
-				}
-			case <-server.Context().Done():
-				//
-				// gRPC stream was cancelled from the client that issued the `StreamInvoke` request
-				// to us. In this case, we terminate the `StreamInvoke` RPC, free all resources, and
-				// exit without error.
-				//
-				// Usually, this happens in the language provider, e.g., in the call to `cancel`
-				// below.
-				//
-				//     const deployments = await streamInvoke("kubernetes:kubernetes:watch", {
-				//         group: "apps", version: "v1", kind: "Deployment",
-				//     });
-				//     deployments.cancel();
-				//
-
-				watch.Stop()
-				return nil
-			}
-		}
-	case streamInvokePodLogs:
-		//
-		// Set up log stream for Pod.
-		//
-
-		if k.clusterUnreachable {
-			return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
-		}
-
-		namespace := "default"
-		if args["namespace"].HasValue() {
-			namespace = args["namespace"].StringValue()
-		}
-
-		if !args["name"].HasValue() {
-			return fmt.Errorf(
-				"could not retrieve pod logs because the pod name was not present")
-		}
-		name := args["name"].StringValue()
-
-		podLogs, err := k.logClient.Logs(namespace, name)
-		if err != nil {
-			return err
-		}
-		defer contract.IgnoreClose(podLogs)
-
-		//
-		// Enumerate logs by line. Send back to the user.
-		//
-		// TODO: We send the logs back one-by-one, but we should probably batch them instead.
-		//
-
-		logLines := make(chan string)
-		defer close(logLines)
-		done := make(chan error)
-		defer close(done)
-
-		go func() {
-			podLogLines := bufio.NewScanner(podLogs)
-			for podLogLines.Scan() {
-				logLines <- podLogLines.Text()
-			}
-
-			if err := podLogLines.Err(); err != nil {
-				done <- err
-			} else {
-				done <- nil
-			}
-		}()
-
-		for {
-			select {
-			case <-k.canceler.context.Done():
-				//
-				// `kubeProvider#Cancel` was called. Terminate the `StreamInvoke` RPC, free all
-				// resources, and exit without error.
-				//
-
-				return nil
-			case err := <-done:
-				//
-				// Complete. Return the error if applicable.
-				//
-
-				return err
-			case line := <-logLines:
-				//
-				// Publish log line back to user.
-				//
-
-				resp, err := plugin.MarshalProperties(
-					resource.NewPropertyMapFromMap(
-						map[string]any{"lines": []string{line}}),
-					plugin.MarshalOptions{})
-				if err != nil {
-					return err
-				}
-
-				err = server.Send(&pulumirpc.InvokeResponse{Return: resp})
-				if err != nil {
-					return err
-				}
-			case <-server.Context().Done():
-				//
-				// gRPC stream was cancelled from the client that issued the `StreamInvoke` request
-				// to us. In this case, we terminate the `StreamInvoke` RPC, free all resources, and
-				// exit without error.
-				//
-				// Usually, this happens in the language provider, e.g., in the call to `cancel`
-				// below.
-				//
-				//     const podLogLines = await streamInvoke("kubernetes:kubernetes:podLogs", {
-				//         namespace: "default", name: "nginx-f94d8bc55-xftvs",
-				//     });
-				//     podLogLines.cancel();
-				//
-
-				return nil
-			}
-		}
-	default:
-		return fmt.Errorf("unknown Invoke type '%s'", tok)
 	}
 }
 
@@ -1456,7 +1133,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
+		err = metadata.AssignNameIfAutonamable(req.RandomSeed, req.Autonaming, newInputs, news, urn)
+		if err != nil {
+			return nil, err
+		}
 
 		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. Do not set this label for SSA
 		// resources since the fieldManagers field contains granular information about the managers.
@@ -2923,29 +2603,42 @@ func mapReplStripComputed(v resource.PropertyValue) (any, bool) {
 	return nil, false
 }
 
-// mapReplUnderscoreToDash is needed to work around cases where SDKs don't allow dashes in variable names, and so the
-// parameter is renamed with an underscore during schema generation. This function normalizes those keys to the format
-// expected by the cluster.
-func mapReplUnderscoreToDash(v string) (string, bool) {
-	switch v {
-	case "x_kubernetes_embedded_resource":
-		return "x-kubernetes-embedded-resource", true
-	case "x_kubernetes_int_or_string":
-		return "x-kubernetes-int-or-string", true
-	case "x_kubernetes_list_map_keys":
-		return "x-kubernetes-list-map-keys", true
-	case "x_kubernetes_list_type":
-		return "x-kubernetes-list-type", true
-	case "x_kubernetes_map_type":
-		return "x-kubernetes-map-type", true
-	case "x_kubernetes_preserve_unknown_fields":
-		return "x-kubernetes-preserve-unknown-fields", true
-	case "x_kubernetes_validations":
-		return "x-kubernetes-validations", true
-	}
-	return "", false
+// underscoreToDashMap holds the mappings between underscore and dash keys.
+var underscoreToDashMap = map[string]string{
+	"x_kubernetes_embedded_resource":       "x-kubernetes-embedded-resource",
+	"x_kubernetes_int_or_string":           "x-kubernetes-int-or-string",
+	"x_kubernetes_list_map_keys":           "x-kubernetes-list-map-keys",
+	"x_kubernetes_list_type":               "x-kubernetes-list-type",
+	"x_kubernetes_map_type":                "x-kubernetes-map-type",
+	"x_kubernetes_preserve_unknown_fields": "x-kubernetes-preserve-unknown-fields",
+	"x_kubernetes_validations":             "x-kubernetes-validations",
 }
 
+// dashedToUnderscoreMap holds the reverse mappings between dash and underscore keys. This
+// is a precomputed map based on underscoreToDashMap at runtime to avoid duplicating
+// code, or extra passes over the map.
+var dashToUnderscoreMap map[string]string = func() map[string]string {
+	dashToUnderscoreMap := make(map[string]string, len(underscoreToDashMap))
+	for k, v := range underscoreToDashMap {
+		dashToUnderscoreMap[v] = k
+	}
+	return dashToUnderscoreMap
+}()
+
+// mapReplUnderscoreToDash denormalizes keys by replacing underscores with dashes.
+func mapReplUnderscoreToDash(v string) (string, bool) {
+	val, ok := underscoreToDashMap[v]
+	return val, ok
+}
+
+// mapReplDashToUnderscore normalizes keys by replacing dashes with underscores.
+func mapReplDashToUnderscore(v string) (resource.PropertyKey, bool) {
+	val, ok := dashToUnderscoreMap[v]
+	return resource.PropertyKey(val), ok
+}
+
+// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name denormalization
+// and secret stripping.
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
 }
@@ -2960,11 +2653,17 @@ func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstr
 	return oldInputs.GetAPIVersion()
 }
 
+// checkpointObject generates a checkpointed PropertyMap from the live and input Kubernetes objects.
+// It normalizes `x-kubernetes-*` fields to their underscored equivalents, handles secret data annotations,
+// processes `stringData` for secret kinds by marking corresponding `data` fields as secrets,
+// and includes metadata such as the initial API version and field manager.
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
 	initialAPIVersion, fieldManager string,
 ) resource.PropertyMap {
-	object := resource.NewPropertyMapFromMap(live.Object)
-	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
+	// When checkpointing the live object, we need to ensure we normalize any `x-kubernetes-*` fields to their
+	// underscored versions so they can be correctly diffed, and deseriazlied to their typed SDK equivalents.
+	object := resource.NewPropertyMapFromMapRepl(live.Object, mapReplDashToUnderscore, nil)
+	inputsPM := resource.NewPropertyMapFromMapRepl(inputs.Object, mapReplDashToUnderscore, nil)
 
 	annotateSecrets(object, fromInputs)
 	annotateSecrets(inputsPM, fromInputs)
@@ -2996,10 +2695,14 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	return object
 }
 
+// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field names.
+// It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live containing the live state.
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	// Since we are converting everything to unstructured's, we need to strip out any secretness that
 	// may nested deep within the object.
-	pm := obj.MapRepl(nil, mapReplStripSecrets)
+	// Note: we also handle conversion of underscored `x_kubernetes_*` fields to their respective dashed
+	// versions here.
+	pm := obj.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)
 
 	//
 	// NOTE: Inputs are now stored in `__inputs` to allow output properties to work. The inputs and
@@ -3024,7 +2727,7 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 
 	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]any)}
 	live = &unstructured.Unstructured{Object: liveMap.(map[string]any)}
-	return
+	return oldInputs, live
 }
 
 // partialError creates an error for resources that did not complete an operation in progress.

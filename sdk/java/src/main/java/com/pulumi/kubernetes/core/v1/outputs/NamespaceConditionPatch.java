@@ -11,8 +11,20 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class NamespaceConditionPatch {
+    /**
+     * @return Last time the condition transitioned from one status to another.
+     * 
+     */
     private @Nullable String lastTransitionTime;
+    /**
+     * @return Human-readable message indicating details about last transition.
+     * 
+     */
     private @Nullable String message;
+    /**
+     * @return Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+     * 
+     */
     private @Nullable String reason;
     /**
      * @return Status of the condition, one of True, False, Unknown.
@@ -26,12 +38,24 @@ public final class NamespaceConditionPatch {
     private @Nullable String type;
 
     private NamespaceConditionPatch() {}
+    /**
+     * @return Last time the condition transitioned from one status to another.
+     * 
+     */
     public Optional<String> lastTransitionTime() {
         return Optional.ofNullable(this.lastTransitionTime);
     }
+    /**
+     * @return Human-readable message indicating details about last transition.
+     * 
+     */
     public Optional<String> message() {
         return Optional.ofNullable(this.message);
     }
+    /**
+     * @return Unique, one-word, CamelCase reason for the condition&#39;s last transition.
+     * 
+     */
     public Optional<String> reason() {
         return Optional.ofNullable(this.reason);
     }

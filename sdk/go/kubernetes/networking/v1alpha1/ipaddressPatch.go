@@ -43,6 +43,9 @@ func NewIPAddressPatch(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("IPAddress")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1:IPAddressPatch"),
+		},
+		{
 			Type: pulumi.String("kubernetes:networking.k8s.io/v1beta1:IPAddressPatch"),
 		},
 	})

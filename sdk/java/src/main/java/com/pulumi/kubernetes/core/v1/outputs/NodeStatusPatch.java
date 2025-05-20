@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class NodeStatusPatch {
     /**
-     * @return List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node&#39;s address in its own status or consumers of the downward API (status.hostIP).
+     * @return List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node&#39;s address in its own status or consumers of the downward API (status.hostIP).
      * 
      */
     private @Nullable List<NodeAddressPatch> addresses;
@@ -38,7 +38,7 @@ public final class NodeStatusPatch {
      */
     private @Nullable Map<String,String> capacity;
     /**
-     * @return Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+     * @return Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
      * 
      */
     private @Nullable List<NodeConditionPatch> conditions;
@@ -63,7 +63,7 @@ public final class NodeStatusPatch {
      */
     private @Nullable List<ContainerImagePatch> images;
     /**
-     * @return Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+     * @return Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
      * 
      */
     private @Nullable NodeSystemInfoPatch nodeInfo;
@@ -90,7 +90,7 @@ public final class NodeStatusPatch {
 
     private NodeStatusPatch() {}
     /**
-     * @return List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node&#39;s address in its own status or consumers of the downward API (status.hostIP).
+     * @return List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node&#39;s address in its own status or consumers of the downward API (status.hostIP).
      * 
      */
     public List<NodeAddressPatch> addresses() {
@@ -111,7 +111,7 @@ public final class NodeStatusPatch {
         return this.capacity == null ? Map.of() : this.capacity;
     }
     /**
-     * @return Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+     * @return Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
      * 
      */
     public List<NodeConditionPatch> conditions() {
@@ -146,7 +146,7 @@ public final class NodeStatusPatch {
         return this.images == null ? List.of() : this.images;
     }
     /**
-     * @return Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+     * @return Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
      * 
      */
     public Optional<NodeSystemInfoPatch> nodeInfo() {

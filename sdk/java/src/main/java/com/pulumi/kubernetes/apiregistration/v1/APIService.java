@@ -99,7 +99,7 @@ public class APIService extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public APIService(String name) {
+    public APIService(java.lang.String name) {
         this(name, APIServiceArgs.Empty);
     }
     /**
@@ -107,7 +107,7 @@ public class APIService extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public APIService(String name, @Nullable APIServiceArgs args) {
+    public APIService(java.lang.String name, @Nullable APIServiceArgs args) {
         this(name, args, null);
     }
     /**
@@ -116,12 +116,12 @@ public class APIService extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public APIService(String name, @Nullable APIServiceArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiregistration.k8s.io/v1:APIService", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public APIService(java.lang.String name, @Nullable APIServiceArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiregistration.k8s.io/v1:APIService", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private APIService(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiregistration.k8s.io/v1:APIService", name, null, makeResourceOptions(options, id));
+    private APIService(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiregistration.k8s.io/v1:APIService", name, null, makeResourceOptions(options, id), false);
     }
 
     private static APIServiceArgs makeArgs(@Nullable APIServiceArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -135,7 +135,7 @@ public class APIService extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -155,7 +155,7 @@ public class APIService extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static APIService get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static APIService get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new APIService(name, id, options);
     }
 }

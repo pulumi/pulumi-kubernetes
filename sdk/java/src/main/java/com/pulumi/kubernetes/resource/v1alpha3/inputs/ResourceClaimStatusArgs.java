@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.AllocatedDeviceStatusArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.AllocationResultArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.ResourceClaimConsumerReferenceArgs;
 import java.lang.Boolean;
@@ -61,13 +62,28 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
     }
 
     /**
+     * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    @Import(name="devices")
+    private @Nullable Output<List<AllocatedDeviceStatusArgs>> devices;
+
+    /**
+     * @return Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+     * 
+     */
+    public Optional<Output<List<AllocatedDeviceStatusArgs>>> devices() {
+        return Optional.ofNullable(this.devices);
+    }
+
+    /**
      * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
      * 
      * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     @Import(name="reservedFor")
@@ -80,7 +96,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
      * 
      * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
      * 
-     * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+     * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
      * 
      */
     public Optional<Output<List<ResourceClaimConsumerReferenceArgs>>> reservedFor() {
@@ -92,6 +108,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
     private ResourceClaimStatusArgs(ResourceClaimStatusArgs $) {
         this.allocation = $.allocation;
         this.deallocationRequested = $.deallocationRequested;
+        this.devices = $.devices;
         this.reservedFor = $.reservedFor;
     }
 
@@ -164,13 +181,44 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
         }
 
         /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(@Nullable Output<List<AllocatedDeviceStatusArgs>> devices) {
+            $.devices = devices;
+            return this;
+        }
+
+        /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(List<AllocatedDeviceStatusArgs> devices) {
+            return devices(Output.of(devices));
+        }
+
+        /**
+         * @param devices Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder devices(AllocatedDeviceStatusArgs... devices) {
+            return devices(List.of(devices));
+        }
+
+        /**
          * @param reservedFor ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
          * 
          * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 
@@ -187,7 +235,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 
@@ -203,7 +251,7 @@ public final class ResourceClaimStatusArgs extends com.pulumi.resources.Resource
          * 
          * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
          * 
-         * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+         * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
          * 
          * @return builder
          * 

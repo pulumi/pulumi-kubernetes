@@ -15,15 +15,25 @@ var _ = utilities.GetEnvOrDefault
 
 // Info contains versioning information. how we'll want to distribute that information.
 type Info struct {
-	BuildDate    string `pulumi:"buildDate"`
-	Compiler     string `pulumi:"compiler"`
-	GitCommit    string `pulumi:"gitCommit"`
-	GitTreeState string `pulumi:"gitTreeState"`
-	GitVersion   string `pulumi:"gitVersion"`
-	GoVersion    string `pulumi:"goVersion"`
-	Major        string `pulumi:"major"`
-	Minor        string `pulumi:"minor"`
-	Platform     string `pulumi:"platform"`
+	BuildDate string `pulumi:"buildDate"`
+	Compiler  string `pulumi:"compiler"`
+	// EmulationMajor is the major version of the emulation version
+	EmulationMajor *string `pulumi:"emulationMajor"`
+	// EmulationMinor is the minor version of the emulation version
+	EmulationMinor *string `pulumi:"emulationMinor"`
+	GitCommit      string  `pulumi:"gitCommit"`
+	GitTreeState   string  `pulumi:"gitTreeState"`
+	GitVersion     string  `pulumi:"gitVersion"`
+	GoVersion      string  `pulumi:"goVersion"`
+	// Major is the major version of the binary version
+	Major string `pulumi:"major"`
+	// MinCompatibilityMajor is the major version of the minimum compatibility version
+	MinCompatibilityMajor *string `pulumi:"minCompatibilityMajor"`
+	// MinCompatibilityMinor is the minor version of the minimum compatibility version
+	MinCompatibilityMinor *string `pulumi:"minCompatibilityMinor"`
+	// Minor is the minor version of the binary version
+	Minor    string `pulumi:"minor"`
+	Platform string `pulumi:"platform"`
 }
 
 // InfoInput is an input type that accepts InfoArgs and InfoOutput values.
@@ -39,15 +49,25 @@ type InfoInput interface {
 
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoArgs struct {
-	BuildDate    pulumi.StringInput `pulumi:"buildDate"`
-	Compiler     pulumi.StringInput `pulumi:"compiler"`
-	GitCommit    pulumi.StringInput `pulumi:"gitCommit"`
-	GitTreeState pulumi.StringInput `pulumi:"gitTreeState"`
-	GitVersion   pulumi.StringInput `pulumi:"gitVersion"`
-	GoVersion    pulumi.StringInput `pulumi:"goVersion"`
-	Major        pulumi.StringInput `pulumi:"major"`
-	Minor        pulumi.StringInput `pulumi:"minor"`
-	Platform     pulumi.StringInput `pulumi:"platform"`
+	BuildDate pulumi.StringInput `pulumi:"buildDate"`
+	Compiler  pulumi.StringInput `pulumi:"compiler"`
+	// EmulationMajor is the major version of the emulation version
+	EmulationMajor pulumi.StringPtrInput `pulumi:"emulationMajor"`
+	// EmulationMinor is the minor version of the emulation version
+	EmulationMinor pulumi.StringPtrInput `pulumi:"emulationMinor"`
+	GitCommit      pulumi.StringInput    `pulumi:"gitCommit"`
+	GitTreeState   pulumi.StringInput    `pulumi:"gitTreeState"`
+	GitVersion     pulumi.StringInput    `pulumi:"gitVersion"`
+	GoVersion      pulumi.StringInput    `pulumi:"goVersion"`
+	// Major is the major version of the binary version
+	Major pulumi.StringInput `pulumi:"major"`
+	// MinCompatibilityMajor is the major version of the minimum compatibility version
+	MinCompatibilityMajor pulumi.StringPtrInput `pulumi:"minCompatibilityMajor"`
+	// MinCompatibilityMinor is the minor version of the minimum compatibility version
+	MinCompatibilityMinor pulumi.StringPtrInput `pulumi:"minCompatibilityMinor"`
+	// Minor is the minor version of the binary version
+	Minor    pulumi.StringInput `pulumi:"minor"`
+	Platform pulumi.StringInput `pulumi:"platform"`
 }
 
 func (InfoArgs) ElementType() reflect.Type {
@@ -85,6 +105,16 @@ func (o InfoOutput) Compiler() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.Compiler }).(pulumi.StringOutput)
 }
 
+// EmulationMajor is the major version of the emulation version
+func (o InfoOutput) EmulationMajor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Info) *string { return v.EmulationMajor }).(pulumi.StringPtrOutput)
+}
+
+// EmulationMinor is the minor version of the emulation version
+func (o InfoOutput) EmulationMinor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Info) *string { return v.EmulationMinor }).(pulumi.StringPtrOutput)
+}
+
 func (o InfoOutput) GitCommit() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.GitCommit }).(pulumi.StringOutput)
 }
@@ -101,10 +131,22 @@ func (o InfoOutput) GoVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.GoVersion }).(pulumi.StringOutput)
 }
 
+// Major is the major version of the binary version
 func (o InfoOutput) Major() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.Major }).(pulumi.StringOutput)
 }
 
+// MinCompatibilityMajor is the major version of the minimum compatibility version
+func (o InfoOutput) MinCompatibilityMajor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Info) *string { return v.MinCompatibilityMajor }).(pulumi.StringPtrOutput)
+}
+
+// MinCompatibilityMinor is the minor version of the minimum compatibility version
+func (o InfoOutput) MinCompatibilityMinor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Info) *string { return v.MinCompatibilityMinor }).(pulumi.StringPtrOutput)
+}
+
+// Minor is the minor version of the binary version
 func (o InfoOutput) Minor() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.Minor }).(pulumi.StringOutput)
 }
@@ -115,15 +157,25 @@ func (o InfoOutput) Platform() pulumi.StringOutput {
 
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoPatch struct {
-	BuildDate    *string `pulumi:"buildDate"`
-	Compiler     *string `pulumi:"compiler"`
-	GitCommit    *string `pulumi:"gitCommit"`
-	GitTreeState *string `pulumi:"gitTreeState"`
-	GitVersion   *string `pulumi:"gitVersion"`
-	GoVersion    *string `pulumi:"goVersion"`
-	Major        *string `pulumi:"major"`
-	Minor        *string `pulumi:"minor"`
-	Platform     *string `pulumi:"platform"`
+	BuildDate *string `pulumi:"buildDate"`
+	Compiler  *string `pulumi:"compiler"`
+	// EmulationMajor is the major version of the emulation version
+	EmulationMajor *string `pulumi:"emulationMajor"`
+	// EmulationMinor is the minor version of the emulation version
+	EmulationMinor *string `pulumi:"emulationMinor"`
+	GitCommit      *string `pulumi:"gitCommit"`
+	GitTreeState   *string `pulumi:"gitTreeState"`
+	GitVersion     *string `pulumi:"gitVersion"`
+	GoVersion      *string `pulumi:"goVersion"`
+	// Major is the major version of the binary version
+	Major *string `pulumi:"major"`
+	// MinCompatibilityMajor is the major version of the minimum compatibility version
+	MinCompatibilityMajor *string `pulumi:"minCompatibilityMajor"`
+	// MinCompatibilityMinor is the minor version of the minimum compatibility version
+	MinCompatibilityMinor *string `pulumi:"minCompatibilityMinor"`
+	// Minor is the minor version of the binary version
+	Minor    *string `pulumi:"minor"`
+	Platform *string `pulumi:"platform"`
 }
 
 // InfoPatchInput is an input type that accepts InfoPatchArgs and InfoPatchOutput values.
@@ -139,15 +191,25 @@ type InfoPatchInput interface {
 
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoPatchArgs struct {
-	BuildDate    pulumi.StringPtrInput `pulumi:"buildDate"`
-	Compiler     pulumi.StringPtrInput `pulumi:"compiler"`
-	GitCommit    pulumi.StringPtrInput `pulumi:"gitCommit"`
-	GitTreeState pulumi.StringPtrInput `pulumi:"gitTreeState"`
-	GitVersion   pulumi.StringPtrInput `pulumi:"gitVersion"`
-	GoVersion    pulumi.StringPtrInput `pulumi:"goVersion"`
-	Major        pulumi.StringPtrInput `pulumi:"major"`
-	Minor        pulumi.StringPtrInput `pulumi:"minor"`
-	Platform     pulumi.StringPtrInput `pulumi:"platform"`
+	BuildDate pulumi.StringPtrInput `pulumi:"buildDate"`
+	Compiler  pulumi.StringPtrInput `pulumi:"compiler"`
+	// EmulationMajor is the major version of the emulation version
+	EmulationMajor pulumi.StringPtrInput `pulumi:"emulationMajor"`
+	// EmulationMinor is the minor version of the emulation version
+	EmulationMinor pulumi.StringPtrInput `pulumi:"emulationMinor"`
+	GitCommit      pulumi.StringPtrInput `pulumi:"gitCommit"`
+	GitTreeState   pulumi.StringPtrInput `pulumi:"gitTreeState"`
+	GitVersion     pulumi.StringPtrInput `pulumi:"gitVersion"`
+	GoVersion      pulumi.StringPtrInput `pulumi:"goVersion"`
+	// Major is the major version of the binary version
+	Major pulumi.StringPtrInput `pulumi:"major"`
+	// MinCompatibilityMajor is the major version of the minimum compatibility version
+	MinCompatibilityMajor pulumi.StringPtrInput `pulumi:"minCompatibilityMajor"`
+	// MinCompatibilityMinor is the minor version of the minimum compatibility version
+	MinCompatibilityMinor pulumi.StringPtrInput `pulumi:"minCompatibilityMinor"`
+	// Minor is the minor version of the binary version
+	Minor    pulumi.StringPtrInput `pulumi:"minor"`
+	Platform pulumi.StringPtrInput `pulumi:"platform"`
 }
 
 func (InfoPatchArgs) ElementType() reflect.Type {
@@ -185,6 +247,16 @@ func (o InfoPatchOutput) Compiler() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v InfoPatch) *string { return v.Compiler }).(pulumi.StringPtrOutput)
 }
 
+// EmulationMajor is the major version of the emulation version
+func (o InfoPatchOutput) EmulationMajor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.EmulationMajor }).(pulumi.StringPtrOutput)
+}
+
+// EmulationMinor is the minor version of the emulation version
+func (o InfoPatchOutput) EmulationMinor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.EmulationMinor }).(pulumi.StringPtrOutput)
+}
+
 func (o InfoPatchOutput) GitCommit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v InfoPatch) *string { return v.GitCommit }).(pulumi.StringPtrOutput)
 }
@@ -201,10 +273,22 @@ func (o InfoPatchOutput) GoVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v InfoPatch) *string { return v.GoVersion }).(pulumi.StringPtrOutput)
 }
 
+// Major is the major version of the binary version
 func (o InfoPatchOutput) Major() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v InfoPatch) *string { return v.Major }).(pulumi.StringPtrOutput)
 }
 
+// MinCompatibilityMajor is the major version of the minimum compatibility version
+func (o InfoPatchOutput) MinCompatibilityMajor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.MinCompatibilityMajor }).(pulumi.StringPtrOutput)
+}
+
+// MinCompatibilityMinor is the minor version of the minimum compatibility version
+func (o InfoPatchOutput) MinCompatibilityMinor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.MinCompatibilityMinor }).(pulumi.StringPtrOutput)
+}
+
+// Minor is the minor version of the binary version
 func (o InfoPatchOutput) Minor() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v InfoPatch) *string { return v.Minor }).(pulumi.StringPtrOutput)
 }

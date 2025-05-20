@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PortStatus represents the error condition of a service port
+    /// </summary>
     [OutputType]
     public sealed class PortStatusPatch
     {

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.discovery.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.discovery.v1.inputs.ForNodeArgs;
 import com.pulumi.kubernetes.discovery.v1.inputs.ForZoneArgs;
 import java.util.List;
 import java.util.Objects;
@@ -21,14 +22,29 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
     public static final EndpointHintsArgs Empty = new EndpointHintsArgs();
 
     /**
-     * forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+     * forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * 
+     */
+    @Import(name="forNodes")
+    private @Nullable Output<List<ForNodeArgs>> forNodes;
+
+    /**
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * 
+     */
+    public Optional<Output<List<ForNodeArgs>>> forNodes() {
+        return Optional.ofNullable(this.forNodes);
+    }
+
+    /**
+     * forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     @Import(name="forZones")
     private @Nullable Output<List<ForZoneArgs>> forZones;
 
     /**
-     * @return forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+     * @return forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     public Optional<Output<List<ForZoneArgs>>> forZones() {
@@ -38,6 +54,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
     private EndpointHintsArgs() {}
 
     private EndpointHintsArgs(EndpointHintsArgs $) {
+        this.forNodes = $.forNodes;
         this.forZones = $.forZones;
     }
 
@@ -60,7 +77,38 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forNodes(@Nullable Output<List<ForNodeArgs>> forNodes) {
+            $.forNodes = forNodes;
+            return this;
+        }
+
+        /**
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forNodes(List<ForNodeArgs> forNodes) {
+            return forNodes(Output.of(forNodes));
+        }
+
+        /**
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forNodes(ForNodeArgs... forNodes) {
+            return forNodes(List.of(forNodes));
+        }
+
+        /**
+         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 
@@ -71,7 +119,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 
@@ -81,7 +129,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+         * @param forZones forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 

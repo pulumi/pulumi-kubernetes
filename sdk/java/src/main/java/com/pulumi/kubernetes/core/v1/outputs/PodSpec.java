@@ -16,6 +16,7 @@ import com.pulumi.kubernetes.core.v1.outputs.PodReadinessGate;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaim;
 import com.pulumi.kubernetes.core.v1.outputs.PodSchedulingGate;
 import com.pulumi.kubernetes.core.v1.outputs.PodSecurityContext;
+import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirements;
 import com.pulumi.kubernetes.core.v1.outputs.Toleration;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraint;
 import com.pulumi.kubernetes.core.v1.outputs.Volume;
@@ -106,7 +107,7 @@ public final class PodSpec {
      */
     private @Nullable List<LocalObjectReference> imagePullSecrets;
     /**
-     * @return List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+     * @return List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
      * 
      */
     private @Nullable List<Container> initContainers;
@@ -164,6 +165,15 @@ public final class PodSpec {
      */
     private @Nullable List<PodResourceClaim> resourceClaims;
     /**
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * 
+     * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+     * 
+     * This is an alpha field and requires enabling the PodLevelResources feature gate.
+     * 
+     */
+    private @Nullable ResourceRequirements resources;
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -201,7 +211,7 @@ public final class PodSpec {
      */
     private @Nullable String serviceAccountName;
     /**
-     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
      * 
      */
     private @Nullable Boolean setHostnameAsFQDN;
@@ -343,7 +353,7 @@ public final class PodSpec {
         return this.imagePullSecrets == null ? List.of() : this.imagePullSecrets;
     }
     /**
-     * @return List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+     * @return List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
      * 
      */
     public List<Container> initContainers() {
@@ -421,6 +431,17 @@ public final class PodSpec {
         return this.resourceClaims == null ? List.of() : this.resourceClaims;
     }
     /**
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * 
+     * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+     * 
+     * This is an alpha field and requires enabling the PodLevelResources feature gate.
+     * 
+     */
+    public Optional<ResourceRequirements> resources() {
+        return Optional.ofNullable(this.resources);
+    }
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -472,7 +493,7 @@ public final class PodSpec {
         return Optional.ofNullable(this.serviceAccountName);
     }
     /**
-     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+     * @return If true the pod&#39;s hostname will be configured as the pod&#39;s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
      * 
      */
     public Optional<Boolean> setHostnameAsFQDN() {
@@ -555,6 +576,7 @@ public final class PodSpec {
         private @Nullable String priorityClassName;
         private @Nullable List<PodReadinessGate> readinessGates;
         private @Nullable List<PodResourceClaim> resourceClaims;
+        private @Nullable ResourceRequirements resources;
         private @Nullable String restartPolicy;
         private @Nullable String runtimeClassName;
         private @Nullable String schedulerName;
@@ -597,6 +619,7 @@ public final class PodSpec {
     	      this.priorityClassName = defaults.priorityClassName;
     	      this.readinessGates = defaults.readinessGates;
     	      this.resourceClaims = defaults.resourceClaims;
+    	      this.resources = defaults.resources;
     	      this.restartPolicy = defaults.restartPolicy;
     	      this.runtimeClassName = defaults.runtimeClassName;
     	      this.schedulerName = defaults.schedulerName;
@@ -787,6 +810,12 @@ public final class PodSpec {
             return resourceClaims(List.of(resourceClaims));
         }
         @CustomType.Setter
+        public Builder resources(@Nullable ResourceRequirements resources) {
+
+            this.resources = resources;
+            return this;
+        }
+        @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
 
             this.restartPolicy = restartPolicy;
@@ -909,6 +938,7 @@ public final class PodSpec {
             _resultValue.priorityClassName = priorityClassName;
             _resultValue.readinessGates = readinessGates;
             _resultValue.resourceClaims = resourceClaims;
+            _resultValue.resources = resources;
             _resultValue.restartPolicy = restartPolicy;
             _resultValue.runtimeClassName = runtimeClassName;
             _resultValue.schedulerName = schedulerName;

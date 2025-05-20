@@ -123,7 +123,7 @@ func readSchema(schemaPath string, version string) *schema.Package {
 	}
 	pkgSpec.Version = version
 
-	pkg, err := schema.ImportSpec(pkgSpec, nil)
+	pkg, err := schema.ImportSpec(pkgSpec, nil, schema.ValidationOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -144,13 +144,17 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	// - apps/v1beta2/*
 	// - networking/v1beta1/IngressClass
 	// - flowcontrol/v1beta2/* (removed in v1.29, and has schema changes in v1.28)
-	// - resource.k8s.io/v1alpha2 (removed in v1.31)
-	// - networking.k8s.io/v1alpha1 (removed in v1.31)
+	// Removed in v1.31:
+	// - resource.k8s.io/v1alpha2
+	// - networking.k8s.io/v1alpha1
+	// Removed in v1.32:
+	// - coordination.k8s.io/v1alpha1
+	// - resource.k8s.io/v1alpha3
 	// Since these resources will continue to be important to users for the foreseeable future, we will merge in
 	// newer specs on top of this spec so that these resources continue to be available in our SDKs.
 	urlFmt := "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.%s.0/api/openapi-spec/swagger.json"
 	filenameFmt := "swagger-v1.%s.0.json"
-	for _, v := range []string{"17", "18", "19", "20", "26", "28", "30"} {
+	for _, v := range []string{"17", "18", "19", "20", "26", "28", "30", "31"} {
 		legacySwaggerPath := filepath.Join(swaggerDir, fmt.Sprintf(filenameFmt, v))
 		err = DownloadFile(legacySwaggerPath, fmt.Sprintf(urlFmt, v))
 		if err != nil {
@@ -233,7 +237,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
-	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil, false)
+	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays, nil, false, nil)
 	if err != nil {
 		panic(err)
 	}
@@ -281,7 +285,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		"yaml/yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
-	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays)
+	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays, nil)
 	if err != nil {
 		panic(err)
 	}

@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.storage.v1.inputs.TokenRequestArgs;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +63,29 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> fsGroupPolicy() {
         return Optional.ofNullable(this.fsGroupPolicy);
+    }
+
+    /**
+     * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+     * 
+     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * 
+     * This field is mutable.
+     * 
+     */
+    @Import(name="nodeAllocatableUpdatePeriodSeconds")
+    private @Nullable Output<Integer> nodeAllocatableUpdatePeriodSeconds;
+
+    /**
+     * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+     * 
+     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * 
+     * This field is mutable.
+     * 
+     */
+    public Optional<Output<Integer>> nodeAllocatableUpdatePeriodSeconds() {
+        return Optional.ofNullable(this.nodeAllocatableUpdatePeriodSeconds);
     }
 
     /**
@@ -233,6 +257,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     private CSIDriverSpecArgs(CSIDriverSpecArgs $) {
         this.attachRequired = $.attachRequired;
         this.fsGroupPolicy = $.fsGroupPolicy;
+        this.nodeAllocatableUpdatePeriodSeconds = $.nodeAllocatableUpdatePeriodSeconds;
         this.podInfoOnMount = $.podInfoOnMount;
         this.requiresRepublish = $.requiresRepublish;
         this.seLinuxMount = $.seLinuxMount;
@@ -311,6 +336,35 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder fsGroupPolicy(String fsGroupPolicy) {
             return fsGroupPolicy(Output.of(fsGroupPolicy));
+        }
+
+        /**
+         * @param nodeAllocatableUpdatePeriodSeconds nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+         * 
+         * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+         * 
+         * This field is mutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableUpdatePeriodSeconds(@Nullable Output<Integer> nodeAllocatableUpdatePeriodSeconds) {
+            $.nodeAllocatableUpdatePeriodSeconds = nodeAllocatableUpdatePeriodSeconds;
+            return this;
+        }
+
+        /**
+         * @param nodeAllocatableUpdatePeriodSeconds nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+         * 
+         * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+         * 
+         * This field is mutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableUpdatePeriodSeconds(Integer nodeAllocatableUpdatePeriodSeconds) {
+            return nodeAllocatableUpdatePeriodSeconds(Output.of(nodeAllocatableUpdatePeriodSeconds));
         }
 
         /**

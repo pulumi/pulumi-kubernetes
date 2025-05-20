@@ -7,6 +7,8 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceSelectorArgs;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceSubRequestArgs;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceTolerationArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -19,8 +21,6 @@ import javax.annotation.Nullable;
 /**
  * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
  * 
- * A DeviceClassName is currently required. Clients must check that it is indeed set. It&#39;s absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
- * 
  */
 public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
 
@@ -29,12 +29,20 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
      */
     @Import(name="adminAccess")
     private @Nullable Output<Boolean> adminAccess;
 
     /**
      * @return AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     public Optional<Output<Boolean>> adminAccess() {
@@ -49,10 +57,13 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
      * count field.
      * 
      * - All: This request is for all of the matching devices in a pool.
+     * At least one device must exist on the node for the allocation to succeed.
      * Allocation will fail if some devices are already allocated,
      * unless adminAccess is requested.
      * 
-     * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
      * 
@@ -68,10 +79,13 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
      * count field.
      * 
      * - All: This request is for all of the matching devices in a pool.
+     * At least one device must exist on the node for the allocation to succeed.
      * Allocation will fail if some devices are already allocated,
      * unless adminAccess is requested.
      * 
-     * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
      * 
@@ -83,12 +97,16 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     @Import(name="count")
     private @Nullable Output<Integer> count;
 
     /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
      */
     public Optional<Output<Integer>> count() {
@@ -98,24 +116,47 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
-     * A class is required. Which classes are available depends on the cluster.
+     * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
      * 
      * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
      * 
      */
-    @Import(name="deviceClassName", required=true)
-    private Output<String> deviceClassName;
+    @Import(name="deviceClassName")
+    private @Nullable Output<String> deviceClassName;
 
     /**
      * @return DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
-     * A class is required. Which classes are available depends on the cluster.
+     * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
      * 
      * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
      * 
      */
-    public Output<String> deviceClassName() {
-        return this.deviceClassName;
+    public Optional<Output<String>> deviceClassName() {
+        return Optional.ofNullable(this.deviceClassName);
+    }
+
+    /**
+     * FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+     * 
+     * This field may only be set in the entries of DeviceClaim.Requests.
+     * 
+     * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+     * 
+     */
+    @Import(name="firstAvailable")
+    private @Nullable Output<List<DeviceSubRequestArgs>> firstAvailable;
+
+    /**
+     * @return FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+     * 
+     * This field may only be set in the entries of DeviceClaim.Requests.
+     * 
+     * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+     * 
+     */
+    public Optional<Output<List<DeviceSubRequestArgs>>> firstAvailable() {
+        return Optional.ofNullable(this.firstAvailable);
     }
 
     /**
@@ -140,6 +181,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     @Import(name="selectors")
     private @Nullable Output<List<DeviceSelectorArgs>> selectors;
@@ -147,9 +190,46 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
      * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
      */
     public Optional<Output<List<DeviceSelectorArgs>>> selectors() {
         return Optional.ofNullable(this.selectors);
+    }
+
+    /**
+     * If specified, the request&#39;s tolerations.
+     * 
+     * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+     * 
+     * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    @Import(name="tolerations")
+    private @Nullable Output<List<DeviceTolerationArgs>> tolerations;
+
+    /**
+     * @return If specified, the request&#39;s tolerations.
+     * 
+     * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+     * 
+     * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
+        return Optional.ofNullable(this.tolerations);
     }
 
     private DeviceRequestArgs() {}
@@ -159,8 +239,10 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         this.allocationMode = $.allocationMode;
         this.count = $.count;
         this.deviceClassName = $.deviceClassName;
+        this.firstAvailable = $.firstAvailable;
         this.name = $.name;
         this.selectors = $.selectors;
+        this.tolerations = $.tolerations;
     }
 
     public static Builder builder() {
@@ -184,6 +266,10 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * 
          * @return builder
          * 
          */
@@ -194,6 +280,10 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
+         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
          * 
          * @return builder
          * 
@@ -210,10 +300,13 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          * count field.
          * 
          * - All: This request is for all of the matching devices in a pool.
+         * At least one device must exist on the node for the allocation to succeed.
          * Allocation will fail if some devices are already allocated,
          * unless adminAccess is requested.
          * 
-         * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+         * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
          * 
          * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
          * 
@@ -233,10 +326,13 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          * count field.
          * 
          * - All: This request is for all of the matching devices in a pool.
+         * At least one device must exist on the node for the allocation to succeed.
          * Allocation will fail if some devices are already allocated,
          * unless adminAccess is requested.
          * 
-         * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+         * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
          * 
          * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
          * 
@@ -250,6 +346,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param count Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
          * @return builder
          * 
          */
@@ -261,6 +359,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param count Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
          * @return builder
          * 
          */
@@ -271,14 +371,14 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param deviceClassName DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
          * 
-         * A class is required. Which classes are available depends on the cluster.
+         * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
          * 
          * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
          * 
          * @return builder
          * 
          */
-        public Builder deviceClassName(Output<String> deviceClassName) {
+        public Builder deviceClassName(@Nullable Output<String> deviceClassName) {
             $.deviceClassName = deviceClassName;
             return this;
         }
@@ -286,7 +386,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param deviceClassName DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
          * 
-         * A class is required. Which classes are available depends on the cluster.
+         * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
          * 
          * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
          * 
@@ -295,6 +395,49 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder deviceClassName(String deviceClassName) {
             return deviceClassName(Output.of(deviceClassName));
+        }
+
+        /**
+         * @param firstAvailable FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+         * 
+         * This field may only be set in the entries of DeviceClaim.Requests.
+         * 
+         * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder firstAvailable(@Nullable Output<List<DeviceSubRequestArgs>> firstAvailable) {
+            $.firstAvailable = firstAvailable;
+            return this;
+        }
+
+        /**
+         * @param firstAvailable FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+         * 
+         * This field may only be set in the entries of DeviceClaim.Requests.
+         * 
+         * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder firstAvailable(List<DeviceSubRequestArgs> firstAvailable) {
+            return firstAvailable(Output.of(firstAvailable));
+        }
+
+        /**
+         * @param firstAvailable FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
+         * 
+         * This field may only be set in the entries of DeviceClaim.Requests.
+         * 
+         * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder firstAvailable(DeviceSubRequestArgs... firstAvailable) {
+            return firstAvailable(List.of(firstAvailable));
         }
 
         /**
@@ -325,6 +468,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param selectors Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
          * @return builder
          * 
          */
@@ -336,6 +481,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param selectors Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
          * @return builder
          * 
          */
@@ -346,6 +493,8 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param selectors Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
          * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
          * @return builder
          * 
          */
@@ -353,10 +502,68 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
             return selectors(List.of(selectors));
         }
 
+        /**
+         * @param tolerations If specified, the request&#39;s tolerations.
+         * 
+         * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+         * 
+         * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(@Nullable Output<List<DeviceTolerationArgs>> tolerations) {
+            $.tolerations = tolerations;
+            return this;
+        }
+
+        /**
+         * @param tolerations If specified, the request&#39;s tolerations.
+         * 
+         * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+         * 
+         * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(List<DeviceTolerationArgs> tolerations) {
+            return tolerations(Output.of(tolerations));
+        }
+
+        /**
+         * @param tolerations If specified, the request&#39;s tolerations.
+         * 
+         * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+         * 
+         * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+         * 
+         * The maximum number of tolerations is 16.
+         * 
+         * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerations(DeviceTolerationArgs... tolerations) {
+            return tolerations(List.of(tolerations));
+        }
+
         public DeviceRequestArgs build() {
-            if ($.deviceClassName == null) {
-                throw new MissingRequiredPropertyException("DeviceRequestArgs", "deviceClassName");
-            }
             if ($.name == null) {
                 throw new MissingRequiredPropertyException("DeviceRequestArgs", "name");
             }

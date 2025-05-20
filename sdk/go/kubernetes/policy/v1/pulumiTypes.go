@@ -504,8 +504,6 @@ type PodDisruptionBudgetSpec struct {
 	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-	//
-	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -537,8 +535,6 @@ type PodDisruptionBudgetSpecArgs struct {
 	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-	//
-	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -644,8 +640,6 @@ func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput 
 // AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-//
-// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -713,8 +707,6 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 // AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-//
-// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *string {
 		if v == nil {
@@ -741,8 +733,6 @@ type PodDisruptionBudgetSpecPatch struct {
 	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-	//
-	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -774,8 +764,6 @@ type PodDisruptionBudgetSpecPatchArgs struct {
 	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-	//
-	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -881,8 +869,6 @@ func (o PodDisruptionBudgetSpecPatchOutput) Selector() metav1.LabelSelectorPatch
 // AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-//
-// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPatchOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -950,8 +936,6 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 // AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-//
-// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPatchPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) *string {
 		if v == nil {

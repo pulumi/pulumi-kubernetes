@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.resource.v1alpha3;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,6 +13,7 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import com.pulumi.kubernetes.resource.v1alpha3.DeviceClassPatchArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceClassSpecPatch;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -98,7 +100,7 @@ public class DeviceClassPatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public DeviceClassPatch(String name) {
+    public DeviceClassPatch(java.lang.String name) {
         this(name, DeviceClassPatchArgs.Empty);
     }
     /**
@@ -106,7 +108,7 @@ public class DeviceClassPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public DeviceClassPatch(String name, @Nullable DeviceClassPatchArgs args) {
+    public DeviceClassPatch(java.lang.String name, @Nullable DeviceClassPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -115,12 +117,12 @@ public class DeviceClassPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public DeviceClassPatch(String name, @Nullable DeviceClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public DeviceClassPatch(java.lang.String name, @Nullable DeviceClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private DeviceClassPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch", name, null, makeResourceOptions(options, id));
+    private DeviceClassPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static DeviceClassPatchArgs makeArgs(@Nullable DeviceClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -134,9 +136,13 @@ public class DeviceClassPatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta1:DeviceClassPatch").build()),
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1beta2:DeviceClassPatch").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }
@@ -149,7 +155,7 @@ public class DeviceClassPatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static DeviceClassPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static DeviceClassPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new DeviceClassPatch(name, id, options);
     }
 }

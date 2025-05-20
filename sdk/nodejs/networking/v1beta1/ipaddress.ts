@@ -76,7 +76,7 @@ export class IPAddress extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1alpha1:IPAddress" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:IPAddress" }, { type: "kubernetes:networking.k8s.io/v1alpha1:IPAddress" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(IPAddress.__pulumiType, name, resourceInputs, opts);
     }

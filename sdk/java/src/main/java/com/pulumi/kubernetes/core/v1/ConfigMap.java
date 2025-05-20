@@ -110,7 +110,7 @@ public class ConfigMap extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ConfigMap(String name) {
+    public ConfigMap(java.lang.String name) {
         this(name, ConfigMapArgs.Empty);
     }
     /**
@@ -118,7 +118,7 @@ public class ConfigMap extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ConfigMap(String name, @Nullable ConfigMapArgs args) {
+    public ConfigMap(java.lang.String name, @Nullable ConfigMapArgs args) {
         this(name, args, null);
     }
     /**
@@ -127,12 +127,12 @@ public class ConfigMap extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ConfigMap(String name, @Nullable ConfigMapArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ConfigMap", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ConfigMap(java.lang.String name, @Nullable ConfigMapArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ConfigMap", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ConfigMap(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:ConfigMap", name, null, makeResourceOptions(options, id));
+    private ConfigMap(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:ConfigMap", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ConfigMapArgs makeArgs(@Nullable ConfigMapArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -146,7 +146,7 @@ public class ConfigMap extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -161,7 +161,7 @@ public class ConfigMap extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ConfigMap get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ConfigMap get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ConfigMap(name, id, options);
     }
 }

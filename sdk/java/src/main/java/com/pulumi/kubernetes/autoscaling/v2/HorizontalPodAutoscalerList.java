@@ -82,7 +82,7 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public HorizontalPodAutoscalerList(String name) {
+    public HorizontalPodAutoscalerList(java.lang.String name) {
         this(name, HorizontalPodAutoscalerListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public HorizontalPodAutoscalerList(String name, HorizontalPodAutoscalerListArgs args) {
+    public HorizontalPodAutoscalerList(java.lang.String name, HorizontalPodAutoscalerListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public HorizontalPodAutoscalerList(String name, HorizontalPodAutoscalerListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:autoscaling/v2:HorizontalPodAutoscalerList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public HorizontalPodAutoscalerList(java.lang.String name, HorizontalPodAutoscalerListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:autoscaling/v2:HorizontalPodAutoscalerList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private HorizontalPodAutoscalerList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:autoscaling/v2:HorizontalPodAutoscalerList", name, null, makeResourceOptions(options, id));
+    private HorizontalPodAutoscalerList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:autoscaling/v2:HorizontalPodAutoscalerList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static HorizontalPodAutoscalerListArgs makeArgs(HorizontalPodAutoscalerListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static HorizontalPodAutoscalerList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static HorizontalPodAutoscalerList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new HorizontalPodAutoscalerList(name, id, options);
     }
 }

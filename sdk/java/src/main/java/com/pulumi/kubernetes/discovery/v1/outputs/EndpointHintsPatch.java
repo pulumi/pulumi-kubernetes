@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.discovery.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.discovery.v1.outputs.ForNodePatch;
 import com.pulumi.kubernetes.discovery.v1.outputs.ForZonePatch;
 import java.util.List;
 import java.util.Objects;
@@ -12,14 +13,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EndpointHintsPatch {
     /**
-     * @return forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * 
+     */
+    private @Nullable List<ForNodePatch> forNodes;
+    /**
+     * @return forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     private @Nullable List<ForZonePatch> forZones;
 
     private EndpointHintsPatch() {}
     /**
-     * @return forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * 
+     */
+    public List<ForNodePatch> forNodes() {
+        return this.forNodes == null ? List.of() : this.forNodes;
+    }
+    /**
+     * @return forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     public List<ForZonePatch> forZones() {
@@ -35,13 +48,24 @@ public final class EndpointHintsPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable List<ForNodePatch> forNodes;
         private @Nullable List<ForZonePatch> forZones;
         public Builder() {}
         public Builder(EndpointHintsPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.forNodes = defaults.forNodes;
     	      this.forZones = defaults.forZones;
         }
 
+        @CustomType.Setter
+        public Builder forNodes(@Nullable List<ForNodePatch> forNodes) {
+
+            this.forNodes = forNodes;
+            return this;
+        }
+        public Builder forNodes(ForNodePatch... forNodes) {
+            return forNodes(List.of(forNodes));
+        }
         @CustomType.Setter
         public Builder forZones(@Nullable List<ForZonePatch> forZones) {
 
@@ -53,6 +77,7 @@ public final class EndpointHintsPatch {
         }
         public EndpointHintsPatch build() {
             final var _resultValue = new EndpointHintsPatch();
+            _resultValue.forNodes = forNodes;
             _resultValue.forZones = forZones;
             return _resultValue;
         }

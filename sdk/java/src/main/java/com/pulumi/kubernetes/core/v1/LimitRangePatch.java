@@ -88,7 +88,7 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public LimitRangePatch(String name) {
+    public LimitRangePatch(java.lang.String name) {
         this(name, LimitRangePatchArgs.Empty);
     }
     /**
@@ -96,7 +96,7 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public LimitRangePatch(String name, @Nullable LimitRangePatchArgs args) {
+    public LimitRangePatch(java.lang.String name, @Nullable LimitRangePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -105,12 +105,12 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public LimitRangePatch(String name, @Nullable LimitRangePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:LimitRangePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public LimitRangePatch(java.lang.String name, @Nullable LimitRangePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:LimitRangePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private LimitRangePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:LimitRangePatch", name, null, makeResourceOptions(options, id));
+    private LimitRangePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:LimitRangePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static LimitRangePatchArgs makeArgs(@Nullable LimitRangePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -124,7 +124,7 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -139,7 +139,7 @@ public class LimitRangePatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static LimitRangePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static LimitRangePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new LimitRangePatch(name, id, options);
     }
 }

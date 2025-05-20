@@ -82,7 +82,7 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public PersistentVolumeClaimList(String name) {
+    public PersistentVolumeClaimList(java.lang.String name) {
         this(name, PersistentVolumeClaimListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PersistentVolumeClaimList(String name, PersistentVolumeClaimListArgs args) {
+    public PersistentVolumeClaimList(java.lang.String name, PersistentVolumeClaimListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PersistentVolumeClaimList(String name, PersistentVolumeClaimListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumeClaimList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public PersistentVolumeClaimList(java.lang.String name, PersistentVolumeClaimListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:PersistentVolumeClaimList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private PersistentVolumeClaimList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:PersistentVolumeClaimList", name, null, makeResourceOptions(options, id));
+    private PersistentVolumeClaimList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:PersistentVolumeClaimList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static PersistentVolumeClaimListArgs makeArgs(PersistentVolumeClaimListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class PersistentVolumeClaimList extends com.pulumi.resources.CustomResour
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static PersistentVolumeClaimList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static PersistentVolumeClaimList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new PersistentVolumeClaimList(name, id, options);
     }
 }

@@ -43,17 +43,17 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable List<String> accessModes;
     /**
-     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
      * 
      */
     private @Nullable AWSElasticBlockStoreVolumeSource awsElasticBlockStore;
     /**
-     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
      * 
      */
     private @Nullable AzureDiskVolumeSource azureDisk;
     /**
-     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
      * 
      */
     private @Nullable AzureFilePersistentVolumeSource azureFile;
@@ -63,12 +63,12 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable Map<String,String> capacity;
     /**
-     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
      * 
      */
     private @Nullable CephFSPersistentVolumeSource cephfs;
     /**
-     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
      * 
      */
     private @Nullable CinderPersistentVolumeSource cinder;
@@ -78,7 +78,7 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable ObjectReference claimRef;
     /**
-     * @return csi represents storage that is handled by an external CSI driver (Beta feature).
+     * @return csi represents storage that is handled by an external CSI driver.
      * 
      */
     private @Nullable CSIPersistentVolumeSource csi;
@@ -88,22 +88,22 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable FCVolumeSource fc;
     /**
-     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
      * 
      */
     private @Nullable FlexPersistentVolumeSource flexVolume;
     /**
-     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
      * 
      */
     private @Nullable FlockerVolumeSource flocker;
     /**
-     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
      * 
      */
     private @Nullable GCEPersistentDiskVolumeSource gcePersistentDisk;
     /**
-     * @return glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * @return glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
      * 
      */
     private @Nullable GlusterfsPersistentVolumeSource glusterfs;
@@ -143,27 +143,27 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable String persistentVolumeReclaimPolicy;
     /**
-     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
      * 
      */
     private @Nullable PhotonPersistentDiskVolumeSource photonPersistentDisk;
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
      * 
      */
     private @Nullable PortworxVolumeSource portworxVolume;
     /**
-     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
      * 
      */
     private @Nullable QuobyteVolumeSource quobyte;
     /**
-     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
      * 
      */
     private @Nullable RBDPersistentVolumeSource rbd;
     /**
-     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
      * 
      */
     private @Nullable ScaleIOPersistentVolumeSource scaleIO;
@@ -173,7 +173,7 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable String storageClassName;
     /**
-     * @return storageOS represents a StorageOS volume that is attached to the kubelet&#39;s host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+     * @return storageOS represents a StorageOS volume that is attached to the kubelet&#39;s host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
      * 
      */
     private @Nullable StorageOSPersistentVolumeSource storageos;
@@ -188,7 +188,7 @@ public final class PersistentVolumeSpec {
      */
     private @Nullable String volumeMode;
     /**
-     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
      * 
      */
     private @Nullable VsphereVirtualDiskVolumeSource vsphereVolume;
@@ -202,21 +202,21 @@ public final class PersistentVolumeSpec {
         return this.accessModes == null ? List.of() : this.accessModes;
     }
     /**
-     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
      * 
      */
     public Optional<AWSElasticBlockStoreVolumeSource> awsElasticBlockStore() {
         return Optional.ofNullable(this.awsElasticBlockStore);
     }
     /**
-     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
      * 
      */
     public Optional<AzureDiskVolumeSource> azureDisk() {
         return Optional.ofNullable(this.azureDisk);
     }
     /**
-     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
      * 
      */
     public Optional<AzureFilePersistentVolumeSource> azureFile() {
@@ -230,14 +230,14 @@ public final class PersistentVolumeSpec {
         return this.capacity == null ? Map.of() : this.capacity;
     }
     /**
-     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
      * 
      */
     public Optional<CephFSPersistentVolumeSource> cephfs() {
         return Optional.ofNullable(this.cephfs);
     }
     /**
-     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
      * 
      */
     public Optional<CinderPersistentVolumeSource> cinder() {
@@ -251,7 +251,7 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.claimRef);
     }
     /**
-     * @return csi represents storage that is handled by an external CSI driver (Beta feature).
+     * @return csi represents storage that is handled by an external CSI driver.
      * 
      */
     public Optional<CSIPersistentVolumeSource> csi() {
@@ -265,28 +265,28 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.fc);
     }
     /**
-     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
      * 
      */
     public Optional<FlexPersistentVolumeSource> flexVolume() {
         return Optional.ofNullable(this.flexVolume);
     }
     /**
-     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
      * 
      */
     public Optional<FlockerVolumeSource> flocker() {
         return Optional.ofNullable(this.flocker);
     }
     /**
-     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
      * 
      */
     public Optional<GCEPersistentDiskVolumeSource> gcePersistentDisk() {
         return Optional.ofNullable(this.gcePersistentDisk);
     }
     /**
-     * @return glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * @return glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
      * 
      */
     public Optional<GlusterfsPersistentVolumeSource> glusterfs() {
@@ -342,35 +342,35 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.persistentVolumeReclaimPolicy);
     }
     /**
-     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
      * 
      */
     public Optional<PhotonPersistentDiskVolumeSource> photonPersistentDisk() {
         return Optional.ofNullable(this.photonPersistentDisk);
     }
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
      * 
      */
     public Optional<PortworxVolumeSource> portworxVolume() {
         return Optional.ofNullable(this.portworxVolume);
     }
     /**
-     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
      * 
      */
     public Optional<QuobyteVolumeSource> quobyte() {
         return Optional.ofNullable(this.quobyte);
     }
     /**
-     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
      * 
      */
     public Optional<RBDPersistentVolumeSource> rbd() {
         return Optional.ofNullable(this.rbd);
     }
     /**
-     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
      * 
      */
     public Optional<ScaleIOPersistentVolumeSource> scaleIO() {
@@ -384,7 +384,7 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.storageClassName);
     }
     /**
-     * @return storageOS represents a StorageOS volume that is attached to the kubelet&#39;s host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+     * @return storageOS represents a StorageOS volume that is attached to the kubelet&#39;s host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
      * 
      */
     public Optional<StorageOSPersistentVolumeSource> storageos() {
@@ -405,7 +405,7 @@ public final class PersistentVolumeSpec {
         return Optional.ofNullable(this.volumeMode);
     }
     /**
-     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
      * 
      */
     public Optional<VsphereVirtualDiskVolumeSource> vsphereVolume() {

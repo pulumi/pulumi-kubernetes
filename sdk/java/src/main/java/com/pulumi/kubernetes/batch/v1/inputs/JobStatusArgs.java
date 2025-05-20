@@ -109,16 +109,12 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
      * 
-     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
-     * 
      */
     @Import(name="failedIndexes")
     private @Nullable Output<String> failedIndexes;
 
     /**
      * @return FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
-     * 
-     * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<Output<String>> failedIndexes() {
@@ -386,8 +382,6 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param failedIndexes FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
          * 
-         * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
-         * 
          * @return builder
          * 
          */
@@ -398,8 +392,6 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param failedIndexes FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. The set of failed indexes cannot overlap with the set of completed indexes.
-         * 
-         * This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 

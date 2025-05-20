@@ -27,6 +27,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("preStop")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.LifecycleHandlerArgs>? PreStop { get; set; }
 
+        /// <summary>
+        /// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+        /// </summary>
+        [Input("stopSignal")]
+        public Input<string>? StopSignal { get; set; }
+
         public LifecycleArgs()
         {
         }

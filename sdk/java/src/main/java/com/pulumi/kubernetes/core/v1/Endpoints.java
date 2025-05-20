@@ -30,6 +30,10 @@ import javax.annotation.Nullable;
  *        },
  *     ]
  * 
+ * Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+ * 
+ * Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
+ * 
  */
 @ResourceType(type="kubernetes:core/v1:Endpoints")
 public class Endpoints extends com.pulumi.resources.CustomResource {
@@ -94,7 +98,7 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public Endpoints(String name) {
+    public Endpoints(java.lang.String name) {
         this(name, EndpointsArgs.Empty);
     }
     /**
@@ -102,7 +106,7 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public Endpoints(String name, @Nullable EndpointsArgs args) {
+    public Endpoints(java.lang.String name, @Nullable EndpointsArgs args) {
         this(name, args, null);
     }
     /**
@@ -111,12 +115,12 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public Endpoints(String name, @Nullable EndpointsArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:Endpoints", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public Endpoints(java.lang.String name, @Nullable EndpointsArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:Endpoints", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private Endpoints(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:core/v1:Endpoints", name, null, makeResourceOptions(options, id));
+    private Endpoints(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:core/v1:Endpoints", name, null, makeResourceOptions(options, id), false);
     }
 
     private static EndpointsArgs makeArgs(@Nullable EndpointsArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -130,7 +134,7 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -145,7 +149,7 @@ public class Endpoints extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static Endpoints get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static Endpoints get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new Endpoints(name, id, options);
     }
 }

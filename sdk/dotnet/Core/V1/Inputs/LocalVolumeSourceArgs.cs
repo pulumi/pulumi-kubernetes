@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// Local represents directly-attached storage with node affinity (Beta feature)
+    /// Local represents directly-attached storage with node affinity
     /// </summary>
     public class LocalVolumeSourceArgs : global::Pulumi.ResourceArgs
     {

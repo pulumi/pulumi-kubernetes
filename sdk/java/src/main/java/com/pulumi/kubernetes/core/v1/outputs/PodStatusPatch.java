@@ -9,6 +9,7 @@ import com.pulumi.kubernetes.core.v1.outputs.HostIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodConditionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatusPatch;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -23,12 +24,12 @@ public final class PodStatusPatch {
      */
     private @Nullable List<PodConditionPatch> conditions;
     /**
-     * @return The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     private @Nullable List<ContainerStatusPatch> containerStatuses;
     /**
-     * @return Status for any ephemeral containers that have run in this pod.
+     * @return Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     private @Nullable List<ContainerStatusPatch> ephemeralContainerStatuses;
@@ -43,7 +44,7 @@ public final class PodStatusPatch {
      */
     private @Nullable List<HostIPPatch> hostIPs;
     /**
-     * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     private @Nullable List<ContainerStatusPatch> initContainerStatuses;
@@ -57,6 +58,11 @@ public final class PodStatusPatch {
      * 
      */
     private @Nullable String nominatedNodeName;
+    /**
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    private @Nullable Integer observedGeneration;
     /**
      * @return The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod&#39;s status. There are five possible phase values:
      * 
@@ -87,7 +93,7 @@ public final class PodStatusPatch {
      */
     private @Nullable String reason;
     /**
-     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     private @Nullable String resize;
@@ -111,14 +117,14 @@ public final class PodStatusPatch {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
-     * @return The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public List<ContainerStatusPatch> containerStatuses() {
         return this.containerStatuses == null ? List.of() : this.containerStatuses;
     }
     /**
-     * @return Status for any ephemeral containers that have run in this pod.
+     * @return Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public List<ContainerStatusPatch> ephemeralContainerStatuses() {
@@ -139,7 +145,7 @@ public final class PodStatusPatch {
         return this.hostIPs == null ? List.of() : this.hostIPs;
     }
     /**
-     * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     public List<ContainerStatusPatch> initContainerStatuses() {
@@ -158,6 +164,13 @@ public final class PodStatusPatch {
      */
     public Optional<String> nominatedNodeName() {
         return Optional.ofNullable(this.nominatedNodeName);
+    }
+    /**
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    public Optional<Integer> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
     }
     /**
      * @return The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod&#39;s status. There are five possible phase values:
@@ -199,7 +212,7 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.reason);
     }
     /**
-     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     public Optional<String> resize() {
@@ -237,6 +250,7 @@ public final class PodStatusPatch {
         private @Nullable List<ContainerStatusPatch> initContainerStatuses;
         private @Nullable String message;
         private @Nullable String nominatedNodeName;
+        private @Nullable Integer observedGeneration;
         private @Nullable String phase;
         private @Nullable String podIP;
         private @Nullable List<PodIPPatch> podIPs;
@@ -256,6 +270,7 @@ public final class PodStatusPatch {
     	      this.initContainerStatuses = defaults.initContainerStatuses;
     	      this.message = defaults.message;
     	      this.nominatedNodeName = defaults.nominatedNodeName;
+    	      this.observedGeneration = defaults.observedGeneration;
     	      this.phase = defaults.phase;
     	      this.podIP = defaults.podIP;
     	      this.podIPs = defaults.podIPs;
@@ -330,6 +345,12 @@ public final class PodStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
+            this.observedGeneration = observedGeneration;
+            return this;
+        }
+        @CustomType.Setter
         public Builder phase(@Nullable String phase) {
 
             this.phase = phase;
@@ -393,6 +414,7 @@ public final class PodStatusPatch {
             _resultValue.initContainerStatuses = initContainerStatuses;
             _resultValue.message = message;
             _resultValue.nominatedNodeName = nominatedNodeName;
+            _resultValue.observedGeneration = observedGeneration;
             _resultValue.phase = phase;
             _resultValue.podIP = podIP;
             _resultValue.podIPs = podIPs;

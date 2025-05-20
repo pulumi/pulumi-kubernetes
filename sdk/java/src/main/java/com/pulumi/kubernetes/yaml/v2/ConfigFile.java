@@ -97,7 +97,7 @@ public class ConfigFile extends com.pulumi.resources.ComponentResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ConfigFile(String name) {
+    public ConfigFile(java.lang.String name) {
         this(name, ConfigFileArgs.Empty);
     }
     /**
@@ -105,7 +105,7 @@ public class ConfigFile extends com.pulumi.resources.ComponentResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ConfigFile(String name, ConfigFileArgs args) {
+    public ConfigFile(java.lang.String name, ConfigFileArgs args) {
         this(name, args, null);
     }
     /**
@@ -114,7 +114,7 @@ public class ConfigFile extends com.pulumi.resources.ComponentResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ConfigFile(String name, ConfigFileArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+    public ConfigFile(java.lang.String name, ConfigFileArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
         super("kubernetes:yaml/v2:ConfigFile", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
     }
 
@@ -125,7 +125,7 @@ public class ConfigFile extends com.pulumi.resources.ComponentResource {
         return args == null ? ConfigFileArgs.Empty : args;
     }
 
-    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.ComponentResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();

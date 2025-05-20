@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.storage.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,6 +19,25 @@ import javax.annotation.Nullable;
 public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final VolumeErrorArgs Empty = new VolumeErrorArgs();
+
+    /**
+     * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+     * 
+     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * 
+     */
+    @Import(name="errorCode")
+    private @Nullable Output<Integer> errorCode;
+
+    /**
+     * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+     * 
+     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * 
+     */
+    public Optional<Output<Integer>> errorCode() {
+        return Optional.ofNullable(this.errorCode);
+    }
 
     /**
      * message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -52,6 +72,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
     private VolumeErrorArgs() {}
 
     private VolumeErrorArgs(VolumeErrorArgs $) {
+        this.errorCode = $.errorCode;
         this.message = $.message;
         this.time = $.time;
     }
@@ -72,6 +93,31 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(VolumeErrorArgs defaults) {
             $ = new VolumeErrorArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param errorCode errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+         * 
+         * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder errorCode(@Nullable Output<Integer> errorCode) {
+            $.errorCode = errorCode;
+            return this;
+        }
+
+        /**
+         * @param errorCode errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+         * 
+         * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder errorCode(Integer errorCode) {
+            return errorCode(Output.of(errorCode));
         }
 
         /**

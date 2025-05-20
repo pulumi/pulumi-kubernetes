@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.core.v1.inputs.HostIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimStatusArgs;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -41,14 +42,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     @Import(name="containerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> containerStatuses;
 
     /**
-     * @return The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> containerStatuses() {
@@ -56,14 +57,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status for any ephemeral containers that have run in this pod.
+     * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     @Import(name="ephemeralContainerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> ephemeralContainerStatuses;
 
     /**
-     * @return Status for any ephemeral containers that have run in this pod.
+     * @return Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> ephemeralContainerStatuses() {
@@ -101,14 +102,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     @Import(name="initContainerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> initContainerStatuses;
 
     /**
-     * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * @return Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> initContainerStatuses() {
@@ -143,6 +144,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> nominatedNodeName() {
         return Optional.ofNullable(this.nominatedNodeName);
+    }
+
+    /**
+     * If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    @Import(name="observedGeneration")
+    private @Nullable Output<Integer> observedGeneration;
+
+    /**
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * 
+     */
+    public Optional<Output<Integer>> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
     }
 
     /**
@@ -229,14 +245,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     @Import(name="resize")
     private @Nullable Output<String> resize;
 
     /**
-     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * 
      */
     public Optional<Output<String>> resize() {
@@ -284,6 +300,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.initContainerStatuses = $.initContainerStatuses;
         this.message = $.message;
         this.nominatedNodeName = $.nominatedNodeName;
+        this.observedGeneration = $.observedGeneration;
         this.phase = $.phase;
         this.podIP = $.podIP;
         this.podIPs = $.podIPs;
@@ -344,7 +361,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -355,7 +372,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -365,7 +382,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param containerStatuses The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param containerStatuses Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -375,7 +392,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -386,7 +403,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -396,7 +413,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
+         * @param ephemeralContainerStatuses Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
          * 
          * @return builder
          * 
@@ -458,7 +475,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 
@@ -469,7 +486,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 
@@ -479,7 +496,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param initContainerStatuses The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+         * @param initContainerStatuses Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
          * 
          * @return builder
          * 
@@ -528,6 +545,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder nominatedNodeName(String nominatedNodeName) {
             return nominatedNodeName(Output.of(nominatedNodeName));
+        }
+
+        /**
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(@Nullable Output<Integer> observedGeneration) {
+            $.observedGeneration = observedGeneration;
+            return this;
+        }
+
+        /**
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(Integer observedGeneration) {
+            return observedGeneration(Output.of(observedGeneration));
         }
 
         /**
@@ -654,7 +692,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
          * 
          * @return builder
          * 
@@ -665,7 +703,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34; Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
          * 
          * @return builder
          * 

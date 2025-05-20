@@ -17,13 +17,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
     public sealed class EndpointHints
     {
         /// <summary>
-        /// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+        /// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.ForNode> ForNodes;
+        /// <summary>
+        /// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.ForZone> ForZones;
 
         [OutputConstructor]
-        private EndpointHints(ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.ForZone> forZones)
+        private EndpointHints(
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.ForNode> forNodes,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.ForZone> forZones)
         {
+            ForNodes = forNodes;
             ForZones = forZones;
         }
     }

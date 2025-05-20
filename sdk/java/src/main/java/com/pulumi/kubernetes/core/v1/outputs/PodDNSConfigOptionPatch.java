@@ -12,20 +12,28 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PodDNSConfigOptionPatch {
     /**
-     * @return Required.
+     * @return Name is this DNS resolver option&#39;s name. Required.
      * 
      */
     private @Nullable String name;
+    /**
+     * @return Value is this DNS resolver option&#39;s value.
+     * 
+     */
     private @Nullable String value;
 
     private PodDNSConfigOptionPatch() {}
     /**
-     * @return Required.
+     * @return Name is this DNS resolver option&#39;s name. Required.
      * 
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
     }
+    /**
+     * @return Value is this DNS resolver option&#39;s value.
+     * 
+     */
     public Optional<String> value() {
         return Optional.ofNullable(this.value);
     }

@@ -15,7 +15,11 @@ import javax.annotation.Nullable;
 
 
 /**
- * HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+ * HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+ * 
+ * Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+ * 
+ * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)
  * 
  */
 public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.ResourceArgs {
@@ -23,14 +27,14 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
     public static final HPAScalingRulesPatchArgs Empty = new HPAScalingRulesPatchArgs();
 
     /**
-     * policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+     * policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
      * 
      */
     @Import(name="policies")
     private @Nullable Output<List<HPAScalingPolicyPatchArgs>> policies;
 
     /**
-     * @return policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+     * @return policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
      * 
      */
     public Optional<Output<List<HPAScalingPolicyPatchArgs>>> policies() {
@@ -67,12 +71,36 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
         return Optional.ofNullable(this.stabilizationWindowSeconds);
     }
 
+    /**
+     * tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+     * 
+     * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+     * 
+     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * 
+     */
+    @Import(name="tolerance")
+    private @Nullable Output<String> tolerance;
+
+    /**
+     * @return tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+     * 
+     * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+     * 
+     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * 
+     */
+    public Optional<Output<String>> tolerance() {
+        return Optional.ofNullable(this.tolerance);
+    }
+
     private HPAScalingRulesPatchArgs() {}
 
     private HPAScalingRulesPatchArgs(HPAScalingRulesPatchArgs $) {
         this.policies = $.policies;
         this.selectPolicy = $.selectPolicy;
         this.stabilizationWindowSeconds = $.stabilizationWindowSeconds;
+        this.tolerance = $.tolerance;
     }
 
     public static Builder builder() {
@@ -94,7 +122,7 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param policies policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+         * @param policies policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
          * 
          * @return builder
          * 
@@ -105,7 +133,7 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param policies policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+         * @param policies policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
          * 
          * @return builder
          * 
@@ -115,7 +143,7 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param policies policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+         * @param policies policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
          * 
          * @return builder
          * 
@@ -164,6 +192,35 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
          */
         public Builder stabilizationWindowSeconds(Integer stabilizationWindowSeconds) {
             return stabilizationWindowSeconds(Output.of(stabilizationWindowSeconds));
+        }
+
+        /**
+         * @param tolerance tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+         * 
+         * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+         * 
+         * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerance(@Nullable Output<String> tolerance) {
+            $.tolerance = tolerance;
+            return this;
+        }
+
+        /**
+         * @param tolerance tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+         * 
+         * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+         * 
+         * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder tolerance(String tolerance) {
+            return tolerance(Output.of(tolerance));
         }
 
         public HPAScalingRulesPatchArgs build() {

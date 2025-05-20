@@ -80,7 +80,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public AuditSinkPatch(String name) {
+    public AuditSinkPatch(java.lang.String name) {
         this(name, AuditSinkPatchArgs.Empty);
     }
     /**
@@ -88,7 +88,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public AuditSinkPatch(String name, @Nullable AuditSinkPatchArgs args) {
+    public AuditSinkPatch(java.lang.String name, @Nullable AuditSinkPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -97,12 +97,12 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public AuditSinkPatch(String name, @Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public AuditSinkPatch(java.lang.String name, @Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private AuditSinkPatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, null, makeResourceOptions(options, id));
+    private AuditSinkPatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static AuditSinkPatchArgs makeArgs(@Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -116,7 +116,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -131,7 +131,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static AuditSinkPatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static AuditSinkPatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new AuditSinkPatch(name, id, options);
     }
 }

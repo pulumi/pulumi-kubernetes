@@ -30,7 +30,7 @@ new k8s.core.v1.Pod("no-metadata-pod", {
         containers: [
             {
                 name: "nginx",
-                image: "nginx:1.7.9",
+                image: "nginx:1.27.2",
                 ports: [{containerPort: 80}]
             }
         ]
@@ -49,7 +49,7 @@ new k8s.core.v1.Pod("default-ns-pod", {
         containers: [
             {
                 name: "nginx",
-                image: "nginx:1.7.9",
+                image: "nginx:1.27.2",
                 ports: [{containerPort: 80}]
             }
         ]

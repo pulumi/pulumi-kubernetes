@@ -105,7 +105,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public APIServicePatch(String name) {
+    public APIServicePatch(java.lang.String name) {
         this(name, APIServicePatchArgs.Empty);
     }
     /**
@@ -113,7 +113,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public APIServicePatch(String name, @Nullable APIServicePatchArgs args) {
+    public APIServicePatch(java.lang.String name, @Nullable APIServicePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,12 +122,12 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public APIServicePatch(String name, @Nullable APIServicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public APIServicePatch(java.lang.String name, @Nullable APIServicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private APIServicePatch(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, null, makeResourceOptions(options, id));
+    private APIServicePatch(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, null, makeResourceOptions(options, id), false);
     }
 
     private static APIServicePatchArgs makeArgs(@Nullable APIServicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -141,7 +141,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
@@ -161,7 +161,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static APIServicePatch get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static APIServicePatch get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new APIServicePatch(name, id, options);
     }
 }

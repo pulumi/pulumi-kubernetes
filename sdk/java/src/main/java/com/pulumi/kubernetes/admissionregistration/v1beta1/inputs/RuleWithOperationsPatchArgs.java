@@ -68,7 +68,7 @@ public final class RuleWithOperationsPatchArgs extends com.pulumi.resources.Reso
     /**
      * Resources is a list of resources this rule applies to.
      * 
-     * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*{@literal /}scale&#39; means all scale subresources. &#39;*{@literal /}*&#39; means all resources and their subresources.
+     * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 
      * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
      * 
@@ -81,7 +81,7 @@ public final class RuleWithOperationsPatchArgs extends com.pulumi.resources.Reso
     /**
      * @return Resources is a list of resources this rule applies to.
      * 
-     * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*{@literal /}scale&#39; means all scale subresources. &#39;*{@literal /}*&#39; means all resources and their subresources.
+     * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 
      * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
      * 
@@ -231,7 +231,7 @@ public final class RuleWithOperationsPatchArgs extends com.pulumi.resources.Reso
         /**
          * @param resources Resources is a list of resources this rule applies to.
          * 
-         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*{@literal /}scale&#39; means all scale subresources. &#39;*{@literal /}*&#39; means all resources and their subresources.
+         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 
          * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
          * 
@@ -248,7 +248,7 @@ public final class RuleWithOperationsPatchArgs extends com.pulumi.resources.Reso
         /**
          * @param resources Resources is a list of resources this rule applies to.
          * 
-         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*{@literal /}scale&#39; means all scale subresources. &#39;*{@literal /}*&#39; means all resources and their subresources.
+         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 
          * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
          * 
@@ -264,7 +264,7 @@ public final class RuleWithOperationsPatchArgs extends com.pulumi.resources.Reso
         /**
          * @param resources Resources is a list of resources this rule applies to.
          * 
-         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*{@literal /}scale&#39; means all scale subresources. &#39;*{@literal /}*&#39; means all resources and their subresources.
+         * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 
          * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
          * 

@@ -51,14 +51,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     public static final VolumeArgs Empty = new VolumeArgs();
 
     /**
-     * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+     * awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
      * 
      */
     @Import(name="awsElasticBlockStore")
     private @Nullable Output<AWSElasticBlockStoreVolumeSourceArgs> awsElasticBlockStore;
 
     /**
-     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+     * @return awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
      * 
      */
     public Optional<Output<AWSElasticBlockStoreVolumeSourceArgs>> awsElasticBlockStore() {
@@ -66,14 +66,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+     * azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
      * 
      */
     @Import(name="azureDisk")
     private @Nullable Output<AzureDiskVolumeSourceArgs> azureDisk;
 
     /**
-     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+     * @return azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
      * 
      */
     public Optional<Output<AzureDiskVolumeSourceArgs>> azureDisk() {
@@ -81,14 +81,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+     * azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
      * 
      */
     @Import(name="azureFile")
     private @Nullable Output<AzureFileVolumeSourceArgs> azureFile;
 
     /**
-     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+     * @return azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
      * 
      */
     public Optional<Output<AzureFileVolumeSourceArgs>> azureFile() {
@@ -96,14 +96,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+     * cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
      * 
      */
     @Import(name="cephfs")
     private @Nullable Output<CephFSVolumeSourceArgs> cephfs;
 
     /**
-     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+     * @return cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
      * 
      */
     public Optional<Output<CephFSVolumeSourceArgs>> cephfs() {
@@ -111,14 +111,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+     * cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
      * 
      */
     @Import(name="cinder")
     private @Nullable Output<CinderVolumeSourceArgs> cinder;
 
     /**
-     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+     * @return cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
      * 
      */
     public Optional<Output<CinderVolumeSourceArgs>> cinder() {
@@ -141,14 +141,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+     * csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
      * 
      */
     @Import(name="csi")
     private @Nullable Output<CSIVolumeSourceArgs> csi;
 
     /**
-     * @return csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+     * @return csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
      * 
      */
     public Optional<Output<CSIVolumeSourceArgs>> csi() {
@@ -242,14 +242,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+     * flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
      * 
      */
     @Import(name="flexVolume")
     private @Nullable Output<FlexVolumeSourceArgs> flexVolume;
 
     /**
-     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+     * @return flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
      * 
      */
     public Optional<Output<FlexVolumeSourceArgs>> flexVolume() {
@@ -257,14 +257,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running
+     * flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
      * 
      */
     @Import(name="flocker")
     private @Nullable Output<FlockerVolumeSourceArgs> flocker;
 
     /**
-     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running
+     * @return flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
      * 
      */
     public Optional<Output<FlockerVolumeSourceArgs>> flocker() {
@@ -272,14 +272,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+     * gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
      * 
      */
     @Import(name="gcePersistentDisk")
     private @Nullable Output<GCEPersistentDiskVolumeSourceArgs> gcePersistentDisk;
 
     /**
-     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+     * @return gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
      * 
      */
     public Optional<Output<GCEPersistentDiskVolumeSourceArgs>> gcePersistentDisk() {
@@ -287,14 +287,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
+     * gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
      * 
      */
     @Import(name="gitRepo")
     private @Nullable Output<GitRepoVolumeSourceArgs> gitRepo;
 
     /**
-     * @return gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
+     * @return gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
      * 
      */
     public Optional<Output<GitRepoVolumeSourceArgs>> gitRepo() {
@@ -302,14 +302,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
      * 
      */
     @Import(name="glusterfs")
     private @Nullable Output<GlusterfsVolumeSourceArgs> glusterfs;
 
     /**
-     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
      * 
      */
     public Optional<Output<GlusterfsVolumeSourceArgs>> glusterfs() {
@@ -336,7 +336,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn&#39;t present. - IfNotPresent: the kubelet pulls if the reference isn&#39;t already present on disk. Container creation will fail if the reference isn&#39;t present and the pull fails.
      * 
-     * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+     * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
      * 
      */
     @Import(name="image")
@@ -347,7 +347,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn&#39;t present. - IfNotPresent: the kubelet pulls if the reference isn&#39;t already present on disk. Container creation will fail if the reference isn&#39;t present and the pull fails.
      * 
-     * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+     * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
      * 
      */
     public Optional<Output<ImageVolumeSourceArgs>> image() {
@@ -415,14 +415,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+     * photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
      * 
      */
     @Import(name="photonPersistentDisk")
     private @Nullable Output<PhotonPersistentDiskVolumeSourceArgs> photonPersistentDisk;
 
     /**
-     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+     * @return photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
      * 
      */
     public Optional<Output<PhotonPersistentDiskVolumeSourceArgs>> photonPersistentDisk() {
@@ -430,14 +430,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+     * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
      * 
      */
     @Import(name="portworxVolume")
     private @Nullable Output<PortworxVolumeSourceArgs> portworxVolume;
 
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
      * 
      */
     public Optional<Output<PortworxVolumeSourceArgs>> portworxVolume() {
@@ -460,14 +460,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+     * quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
      * 
      */
     @Import(name="quobyte")
     private @Nullable Output<QuobyteVolumeSourceArgs> quobyte;
 
     /**
-     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+     * @return quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
      * 
      */
     public Optional<Output<QuobyteVolumeSourceArgs>> quobyte() {
@@ -475,14 +475,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
      * 
      */
     @Import(name="rbd")
     private @Nullable Output<RBDVolumeSourceArgs> rbd;
 
     /**
-     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
      * 
      */
     public Optional<Output<RBDVolumeSourceArgs>> rbd() {
@@ -490,14 +490,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+     * scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
      * 
      */
     @Import(name="scaleIO")
     private @Nullable Output<ScaleIOVolumeSourceArgs> scaleIO;
 
     /**
-     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+     * @return scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
      * 
      */
     public Optional<Output<ScaleIOVolumeSourceArgs>> scaleIO() {
@@ -520,14 +520,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+     * storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
      * 
      */
     @Import(name="storageos")
     private @Nullable Output<StorageOSVolumeSourceArgs> storageos;
 
     /**
-     * @return storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+     * @return storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
      * 
      */
     public Optional<Output<StorageOSVolumeSourceArgs>> storageos() {
@@ -535,14 +535,14 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+     * vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
      * 
      */
     @Import(name="vsphereVolume")
     private @Nullable Output<VsphereVirtualDiskVolumeSourceArgs> vsphereVolume;
 
     /**
-     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+     * @return vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
      * 
      */
     public Optional<Output<VsphereVirtualDiskVolumeSourceArgs>> vsphereVolume() {
@@ -604,7 +604,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param awsElasticBlockStore awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+         * @param awsElasticBlockStore awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
          * 
          * @return builder
          * 
@@ -615,7 +615,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param awsElasticBlockStore awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+         * @param awsElasticBlockStore awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
          * 
          * @return builder
          * 
@@ -625,7 +625,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param azureDisk azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+         * @param azureDisk azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
          * 
          * @return builder
          * 
@@ -636,7 +636,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param azureDisk azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+         * @param azureDisk azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
          * 
          * @return builder
          * 
@@ -646,7 +646,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param azureFile azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+         * @param azureFile azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
          * 
          * @return builder
          * 
@@ -657,7 +657,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param azureFile azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+         * @param azureFile azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
          * 
          * @return builder
          * 
@@ -667,7 +667,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cephfs cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+         * @param cephfs cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
          * 
          * @return builder
          * 
@@ -678,7 +678,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cephfs cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+         * @param cephfs cephFS represents a Ceph FS mount on the host that shares a pod&#39;s lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
          * 
          * @return builder
          * 
@@ -688,7 +688,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cinder cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+         * @param cinder cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
          * 
          * @return builder
          * 
@@ -699,7 +699,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cinder cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+         * @param cinder cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
          * 
          * @return builder
          * 
@@ -730,7 +730,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param csi csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+         * @param csi csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
          * 
          * @return builder
          * 
@@ -741,7 +741,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param csi csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+         * @param csi csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
          * 
          * @return builder
          * 
@@ -861,7 +861,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param flexVolume flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+         * @param flexVolume flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
          * 
          * @return builder
          * 
@@ -872,7 +872,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param flexVolume flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+         * @param flexVolume flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
          * 
          * @return builder
          * 
@@ -882,7 +882,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param flocker flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running
+         * @param flocker flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
          * 
          * @return builder
          * 
@@ -893,7 +893,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param flocker flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running
+         * @param flocker flocker represents a Flocker volume attached to a kubelet&#39;s host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
          * 
          * @return builder
          * 
@@ -903,7 +903,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gcePersistentDisk gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+         * @param gcePersistentDisk gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
          * 
          * @return builder
          * 
@@ -914,7 +914,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gcePersistentDisk gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+         * @param gcePersistentDisk gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
          * 
          * @return builder
          * 
@@ -924,7 +924,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gitRepo gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
+         * @param gitRepo gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
          * 
          * @return builder
          * 
@@ -935,7 +935,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param gitRepo gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
+         * @param gitRepo gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod&#39;s container.
          * 
          * @return builder
          * 
@@ -945,7 +945,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param glusterfs glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+         * @param glusterfs glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
          * 
          * @return builder
          * 
@@ -956,7 +956,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param glusterfs glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+         * @param glusterfs glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
          * 
          * @return builder
          * 
@@ -991,7 +991,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn&#39;t present. - IfNotPresent: the kubelet pulls if the reference isn&#39;t already present on disk. Container creation will fail if the reference isn&#39;t present and the pull fails.
          * 
-         * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+         * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
          * 
          * @return builder
          * 
@@ -1006,7 +1006,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn&#39;t present. - IfNotPresent: the kubelet pulls if the reference isn&#39;t already present on disk. Container creation will fail if the reference isn&#39;t present and the pull fails.
          * 
-         * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+         * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
          * 
          * @return builder
          * 
@@ -1100,7 +1100,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param photonPersistentDisk photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+         * @param photonPersistentDisk photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
          * 
          * @return builder
          * 
@@ -1111,7 +1111,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param photonPersistentDisk photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+         * @param photonPersistentDisk photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
          * 
          * @return builder
          * 
@@ -1121,7 +1121,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
          * 
          * @return builder
          * 
@@ -1132,7 +1132,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
          * 
          * @return builder
          * 
@@ -1163,7 +1163,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param quobyte quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+         * @param quobyte quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
          * 
          * @return builder
          * 
@@ -1174,7 +1174,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param quobyte quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+         * @param quobyte quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
          * 
          * @return builder
          * 
@@ -1184,7 +1184,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rbd rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+         * @param rbd rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
          * 
          * @return builder
          * 
@@ -1195,7 +1195,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rbd rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+         * @param rbd rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
          * 
          * @return builder
          * 
@@ -1205,7 +1205,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param scaleIO scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+         * @param scaleIO scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
          * 
          * @return builder
          * 
@@ -1216,7 +1216,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param scaleIO scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+         * @param scaleIO scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
          * 
          * @return builder
          * 
@@ -1247,7 +1247,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param storageos storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+         * @param storageos storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
          * 
          * @return builder
          * 
@@ -1258,7 +1258,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param storageos storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+         * @param storageos storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
          * 
          * @return builder
          * 
@@ -1268,7 +1268,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param vsphereVolume vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+         * @param vsphereVolume vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
          * 
          * @return builder
          * 
@@ -1279,7 +1279,7 @@ public final class VolumeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param vsphereVolume vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+         * @param vsphereVolume vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
          * 
          * @return builder
          * 

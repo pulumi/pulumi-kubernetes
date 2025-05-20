@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     public class MetricSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+        /// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         /// </summary>
         [Input("containerResource")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.ContainerResourceMetricSourceArgs>? ContainerResource { get; set; }
@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.ResourceMetricSourceArgs>? Resource { get; set; }
 
         /// <summary>
-        /// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        /// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

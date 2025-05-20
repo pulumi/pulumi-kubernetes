@@ -36,14 +36,14 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
         return this.apiVersion;
     }
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     @Export(name="items", refs={List.class,ReplicaSet.class}, tree="[0,1]")
     private Output<List<ReplicaSet>> items;
 
     /**
-     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * @return List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * 
      */
     public Output<List<ReplicaSet>> items() {
@@ -82,7 +82,7 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public ReplicaSetList(String name) {
+    public ReplicaSetList(java.lang.String name) {
         this(name, ReplicaSetListArgs.Empty);
     }
     /**
@@ -90,7 +90,7 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ReplicaSetList(String name, ReplicaSetListArgs args) {
+    public ReplicaSetList(java.lang.String name, ReplicaSetListArgs args) {
         this(name, args, null);
     }
     /**
@@ -99,12 +99,12 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ReplicaSetList(String name, ReplicaSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1:ReplicaSetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()));
+    public ReplicaSetList(java.lang.String name, ReplicaSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apps/v1:ReplicaSetList", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
-    private ReplicaSetList(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
-        super("kubernetes:apps/v1:ReplicaSetList", name, null, makeResourceOptions(options, id));
+    private ReplicaSetList(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+        super("kubernetes:apps/v1:ReplicaSetList", name, null, makeResourceOptions(options, id), false);
     }
 
     private static ReplicaSetListArgs makeArgs(ReplicaSetListArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
@@ -118,7 +118,7 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
             .build();
     }
 
-    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();
@@ -133,7 +133,7 @@ public class ReplicaSetList extends com.pulumi.resources.CustomResource {
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param options Optional settings to control the behavior of the CustomResource.
      */
-    public static ReplicaSetList get(String name, Output<String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public static ReplicaSetList get(java.lang.String name, Output<java.lang.String> id, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         return new ReplicaSetList(name, id, options);
     }
 }

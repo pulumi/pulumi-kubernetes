@@ -15,6 +15,9 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
+ * _Looking for the Release resource? Please use the [v3 package](/registry/packages/kubernetes/api-docs/helm/v3/release/)
+ * for production use cases, and stay tuned for an updated Release resource, coming soon._
+ * 
  * _See also: [New: Helm Chart v4 resource with new features and languages](/blog/kubernetes-chart-v4/)_
  * 
  * Chart is a component representing a collection of resources described by a Helm Chart.
@@ -258,7 +261,7 @@ public class Chart extends com.pulumi.resources.ComponentResource {
      *
      * @param name The _unique_ name of the resulting resource.
      */
-    public Chart(String name) {
+    public Chart(java.lang.String name) {
         this(name, ChartArgs.Empty);
     }
     /**
@@ -266,7 +269,7 @@ public class Chart extends com.pulumi.resources.ComponentResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public Chart(String name, ChartArgs args) {
+    public Chart(java.lang.String name, ChartArgs args) {
         this(name, args, null);
     }
     /**
@@ -275,7 +278,7 @@ public class Chart extends com.pulumi.resources.ComponentResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public Chart(String name, ChartArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
+    public Chart(java.lang.String name, ChartArgs args, @Nullable com.pulumi.resources.ComponentResourceOptions options) {
         super("kubernetes:helm.sh/v4:Chart", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), true);
     }
 
@@ -286,7 +289,7 @@ public class Chart extends com.pulumi.resources.ComponentResource {
         return args == null ? ChartArgs.Empty : args;
     }
 
-    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<String> id) {
+    private static com.pulumi.resources.ComponentResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.ComponentResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.ComponentResourceOptions.builder()
             .version(Utilities.getVersion())
             .build();

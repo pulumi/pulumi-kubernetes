@@ -1967,7 +1967,7 @@ type JobSpec struct {
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit *int `pulumi:"backoffLimit"`
-	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex *int `pulumi:"backoffLimitPerIndex"`
 	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
@@ -1981,11 +1981,11 @@ type JobSpec struct {
 	Completions *int `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
-	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 	MaxFailedIndexes *int `pulumi:"maxFailedIndexes"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
@@ -2001,8 +2001,6 @@ type JobSpec struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-	//
-	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy *SuccessPolicy `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
@@ -2029,7 +2027,7 @@ type JobSpecArgs struct {
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
-	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex pulumi.IntPtrInput `pulumi:"backoffLimitPerIndex"`
 	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
@@ -2043,11 +2041,11 @@ type JobSpecArgs struct {
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
-	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 	MaxFailedIndexes pulumi.IntPtrInput `pulumi:"maxFailedIndexes"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
@@ -2063,8 +2061,6 @@ type JobSpecArgs struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-	//
-	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy SuccessPolicyPtrInput `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
@@ -2162,7 +2158,7 @@ func (o JobSpecOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
-// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 func (o JobSpecOutput) BackoffLimitPerIndex() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimitPerIndex }).(pulumi.IntPtrOutput)
 }
@@ -2185,7 +2181,7 @@ func (o JobSpecOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.ManagedBy }).(pulumi.StringPtrOutput)
 }
@@ -2195,7 +2191,7 @@ func (o JobSpecOutput) ManualSelector() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JobSpec) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 func (o JobSpecOutput) MaxFailedIndexes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.MaxFailedIndexes }).(pulumi.IntPtrOutput)
 }
@@ -2227,8 +2223,6 @@ func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-//
-// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecOutput) SuccessPolicy() SuccessPolicyPtrOutput {
 	return o.ApplyT(func(v JobSpec) *SuccessPolicy { return v.SuccessPolicy }).(SuccessPolicyPtrOutput)
 }
@@ -2292,7 +2286,7 @@ func (o JobSpecPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 func (o JobSpecPtrOutput) BackoffLimitPerIndex() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *int {
 		if v == nil {
@@ -2330,7 +2324,7 @@ func (o JobSpecPtrOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPtrOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *string {
 		if v == nil {
@@ -2350,7 +2344,7 @@ func (o JobSpecPtrOutput) ManualSelector() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 func (o JobSpecPtrOutput) MaxFailedIndexes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *int {
 		if v == nil {
@@ -2407,8 +2401,6 @@ func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 }
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-//
-// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPtrOutput) SuccessPolicy() SuccessPolicyPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *SuccessPolicy {
 		if v == nil {
@@ -2454,7 +2446,7 @@ type JobSpecPatch struct {
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit *int `pulumi:"backoffLimit"`
-	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex *int `pulumi:"backoffLimitPerIndex"`
 	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
@@ -2468,11 +2460,11 @@ type JobSpecPatch struct {
 	Completions *int `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy *string `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
-	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 	MaxFailedIndexes *int `pulumi:"maxFailedIndexes"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
@@ -2488,8 +2480,6 @@ type JobSpecPatch struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-	//
-	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy *SuccessPolicyPatch `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
@@ -2516,7 +2506,7 @@ type JobSpecPatchArgs struct {
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
-	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex pulumi.IntPtrInput `pulumi:"backoffLimitPerIndex"`
 	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
@@ -2530,11 +2520,11 @@ type JobSpecPatchArgs struct {
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 	//
-	// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+	// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 	ManagedBy pulumi.StringPtrInput `pulumi:"managedBy"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
-	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+	// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 	MaxFailedIndexes pulumi.IntPtrInput `pulumi:"maxFailedIndexes"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
@@ -2550,8 +2540,6 @@ type JobSpecPatchArgs struct {
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-	//
-	// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 	SuccessPolicy SuccessPolicyPatchPtrInput `pulumi:"successPolicy"`
 	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
@@ -2649,7 +2637,7 @@ func (o JobSpecPatchOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
-// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 func (o JobSpecPatchOutput) BackoffLimitPerIndex() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.BackoffLimitPerIndex }).(pulumi.IntPtrOutput)
 }
@@ -2672,7 +2660,7 @@ func (o JobSpecPatchOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPatchOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *string { return v.ManagedBy }).(pulumi.StringPtrOutput)
 }
@@ -2682,7 +2670,7 @@ func (o JobSpecPatchOutput) ManualSelector() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *bool { return v.ManualSelector }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 func (o JobSpecPatchOutput) MaxFailedIndexes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.MaxFailedIndexes }).(pulumi.IntPtrOutput)
 }
@@ -2714,8 +2702,6 @@ func (o JobSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 }
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-//
-// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPatchOutput) SuccessPolicy() SuccessPolicyPatchPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *SuccessPolicyPatch { return v.SuccessPolicy }).(SuccessPolicyPatchPtrOutput)
 }
@@ -2779,7 +2765,7 @@ func (o JobSpecPatchPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 func (o JobSpecPatchPtrOutput) BackoffLimitPerIndex() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *int {
 		if v == nil {
@@ -2817,7 +2803,7 @@ func (o JobSpecPatchPtrOutput) Completions() pulumi.IntPtrOutput {
 
 // ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
 //
-// This field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).
+// This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
 func (o JobSpecPatchPtrOutput) ManagedBy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *string {
 		if v == nil {
@@ -2837,7 +2823,7 @@ func (o JobSpecPatchPtrOutput) ManualSelector() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+// Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
 func (o JobSpecPatchPtrOutput) MaxFailedIndexes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *int {
 		if v == nil {
@@ -2894,8 +2880,6 @@ func (o JobSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 }
 
 // successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
-//
-// This field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default).
 func (o JobSpecPatchPtrOutput) SuccessPolicy() SuccessPolicyPatchPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *SuccessPolicyPatch {
 		if v == nil {
@@ -2952,8 +2936,6 @@ type JobStatus struct {
 	// The number of pods which reached phase Failed. The value increases monotonically.
 	Failed *int `pulumi:"failed"`
 	// FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-	//
-	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes *string `pulumi:"failedIndexes"`
 	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready *int `pulumi:"ready"`
@@ -3006,8 +2988,6 @@ type JobStatusArgs struct {
 	// The number of pods which reached phase Failed. The value increases monotonically.
 	Failed pulumi.IntPtrInput `pulumi:"failed"`
 	// FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-	//
-	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes pulumi.StringPtrInput `pulumi:"failedIndexes"`
 	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready pulumi.IntPtrInput `pulumi:"ready"`
@@ -3140,8 +3120,6 @@ func (o JobStatusOutput) Failed() pulumi.IntPtrOutput {
 }
 
 // FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-//
-// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 func (o JobStatusOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatus) *string { return v.FailedIndexes }).(pulumi.StringPtrOutput)
 }
@@ -3261,8 +3239,6 @@ func (o JobStatusPtrOutput) Failed() pulumi.IntPtrOutput {
 }
 
 // FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-//
-// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 func (o JobStatusPtrOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *string {
 		if v == nil {
@@ -3350,8 +3326,6 @@ type JobStatusPatch struct {
 	// The number of pods which reached phase Failed. The value increases monotonically.
 	Failed *int `pulumi:"failed"`
 	// FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-	//
-	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes *string `pulumi:"failedIndexes"`
 	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready *int `pulumi:"ready"`
@@ -3404,8 +3378,6 @@ type JobStatusPatchArgs struct {
 	// The number of pods which reached phase Failed. The value increases monotonically.
 	Failed pulumi.IntPtrInput `pulumi:"failed"`
 	// FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-	//
-	// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	FailedIndexes pulumi.StringPtrInput `pulumi:"failedIndexes"`
 	// The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).
 	Ready pulumi.IntPtrInput `pulumi:"ready"`
@@ -3538,8 +3510,6 @@ func (o JobStatusPatchOutput) Failed() pulumi.IntPtrOutput {
 }
 
 // FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-//
-// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 func (o JobStatusPatchOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *string { return v.FailedIndexes }).(pulumi.StringPtrOutput)
 }
@@ -3659,8 +3629,6 @@ func (o JobStatusPatchPtrOutput) Failed() pulumi.IntPtrOutput {
 }
 
 // FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". The set of failed indexes cannot overlap with the set of completed indexes.
-//
-// This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 func (o JobStatusPatchPtrOutput) FailedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatusPatch) *string {
 		if v == nil {
@@ -4975,8 +4943,6 @@ type PodFailurePolicyRule struct {
 	//   running pods are terminated.
 	// - FailIndex: indicates that the pod's index is marked as Failed and will
 	//   not be restarted.
-	//   This value is beta-level. It can be used when the
-	//   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
 	// - Count: indicates that the pod is handled in the default way - the
@@ -5008,8 +4974,6 @@ type PodFailurePolicyRuleArgs struct {
 	//   running pods are terminated.
 	// - FailIndex: indicates that the pod's index is marked as Failed and will
 	//   not be restarted.
-	//   This value is beta-level. It can be used when the
-	//   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
 	// - Count: indicates that the pod is handled in the default way - the
@@ -5080,8 +5044,6 @@ func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutputWithContext(ctx 
 //     running pods are terminated.
 //   - FailIndex: indicates that the pod's index is marked as Failed and will
 //     not be restarted.
-//     This value is beta-level. It can be used when the
-//     `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 //   - Ignore: indicates that the counter towards the .backoffLimit is not
 //     incremented and a replacement pod is created.
 //   - Count: indicates that the pod is handled in the default way - the
@@ -5129,8 +5091,6 @@ type PodFailurePolicyRulePatch struct {
 	//   running pods are terminated.
 	// - FailIndex: indicates that the pod's index is marked as Failed and will
 	//   not be restarted.
-	//   This value is beta-level. It can be used when the
-	//   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
 	// - Count: indicates that the pod is handled in the default way - the
@@ -5162,8 +5122,6 @@ type PodFailurePolicyRulePatchArgs struct {
 	//   running pods are terminated.
 	// - FailIndex: indicates that the pod's index is marked as Failed and will
 	//   not be restarted.
-	//   This value is beta-level. It can be used when the
-	//   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
 	// - Count: indicates that the pod is handled in the default way - the
@@ -5234,8 +5192,6 @@ func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutputWithCo
 //     running pods are terminated.
 //   - FailIndex: indicates that the pod's index is marked as Failed and will
 //     not be restarted.
-//     This value is beta-level. It can be used when the
-//     `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
 //   - Ignore: indicates that the counter towards the .backoffLimit is not
 //     incremented and a replacement pod is created.
 //   - Count: indicates that the pod is handled in the default way - the

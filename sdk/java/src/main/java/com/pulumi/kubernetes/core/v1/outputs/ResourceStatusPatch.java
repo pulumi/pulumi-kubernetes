@@ -14,26 +14,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ResourceStatusPatch {
     /**
-     * @return Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+     * @return Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     private @Nullable String name;
     /**
-     * @return List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+     * @return List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
      * 
      */
     private @Nullable List<ResourceHealthPatch> resources;
 
     private ResourceStatusPatch() {}
     /**
-     * @return Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+     * @return Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it&#39;s definition.
+     * @return List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
      * 
      */
     public List<ResourceHealthPatch> resources() {

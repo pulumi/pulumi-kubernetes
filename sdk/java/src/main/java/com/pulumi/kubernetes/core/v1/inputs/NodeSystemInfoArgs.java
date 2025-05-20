@@ -6,8 +6,11 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.inputs.NodeSwapStatusArgs;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -154,6 +157,21 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
+     * Swap Info reported by the node.
+     * 
+     */
+    @Import(name="swap")
+    private @Nullable Output<NodeSwapStatusArgs> swap;
+
+    /**
+     * @return Swap Info reported by the node.
+     * 
+     */
+    public Optional<Output<NodeSwapStatusArgs>> swap() {
+        return Optional.ofNullable(this.swap);
+    }
+
+    /**
      * SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * 
      */
@@ -180,6 +198,7 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
         this.machineID = $.machineID;
         this.operatingSystem = $.operatingSystem;
         this.osImage = $.osImage;
+        this.swap = $.swap;
         this.systemUUID = $.systemUUID;
     }
 
@@ -388,6 +407,27 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder osImage(String osImage) {
             return osImage(Output.of(osImage));
+        }
+
+        /**
+         * @param swap Swap Info reported by the node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder swap(@Nullable Output<NodeSwapStatusArgs> swap) {
+            $.swap = swap;
+            return this;
+        }
+
+        /**
+         * @param swap Swap Info reported by the node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder swap(NodeSwapStatusArgs swap) {
+            return swap(Output.of(swap));
         }
 
         /**

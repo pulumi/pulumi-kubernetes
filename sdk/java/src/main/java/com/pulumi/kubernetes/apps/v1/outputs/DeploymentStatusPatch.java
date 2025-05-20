@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class DeploymentStatusPatch {
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+     * @return Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
      * 
      */
     private @Nullable Integer availableReplicas;
@@ -34,29 +34,36 @@ public final class DeploymentStatusPatch {
      */
     private @Nullable Integer observedGeneration;
     /**
-     * @return readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+     * @return Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
      * 
      */
     private @Nullable Integer readyReplicas;
     /**
-     * @return Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+     * @return Total number of non-terminating pods targeted by this deployment (their labels match the selector).
      * 
      */
     private @Nullable Integer replicas;
+    /**
+     * @return Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    private @Nullable Integer terminatingReplicas;
     /**
      * @return Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
      * 
      */
     private @Nullable Integer unavailableReplicas;
     /**
-     * @return Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+     * @return Total number of non-terminating pods targeted by this deployment that have the desired template spec.
      * 
      */
     private @Nullable Integer updatedReplicas;
 
     private DeploymentStatusPatch() {}
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+     * @return Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
      * 
      */
     public Optional<Integer> availableReplicas() {
@@ -84,18 +91,27 @@ public final class DeploymentStatusPatch {
         return Optional.ofNullable(this.observedGeneration);
     }
     /**
-     * @return readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+     * @return Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
      * 
      */
     public Optional<Integer> readyReplicas() {
         return Optional.ofNullable(this.readyReplicas);
     }
     /**
-     * @return Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+     * @return Total number of non-terminating pods targeted by this deployment (their labels match the selector).
      * 
      */
     public Optional<Integer> replicas() {
         return Optional.ofNullable(this.replicas);
+    }
+    /**
+     * @return Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * 
+     */
+    public Optional<Integer> terminatingReplicas() {
+        return Optional.ofNullable(this.terminatingReplicas);
     }
     /**
      * @return Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
@@ -105,7 +121,7 @@ public final class DeploymentStatusPatch {
         return Optional.ofNullable(this.unavailableReplicas);
     }
     /**
-     * @return Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+     * @return Total number of non-terminating pods targeted by this deployment that have the desired template spec.
      * 
      */
     public Optional<Integer> updatedReplicas() {
@@ -127,6 +143,7 @@ public final class DeploymentStatusPatch {
         private @Nullable Integer observedGeneration;
         private @Nullable Integer readyReplicas;
         private @Nullable Integer replicas;
+        private @Nullable Integer terminatingReplicas;
         private @Nullable Integer unavailableReplicas;
         private @Nullable Integer updatedReplicas;
         public Builder() {}
@@ -138,6 +155,7 @@ public final class DeploymentStatusPatch {
     	      this.observedGeneration = defaults.observedGeneration;
     	      this.readyReplicas = defaults.readyReplicas;
     	      this.replicas = defaults.replicas;
+    	      this.terminatingReplicas = defaults.terminatingReplicas;
     	      this.unavailableReplicas = defaults.unavailableReplicas;
     	      this.updatedReplicas = defaults.updatedReplicas;
         }
@@ -182,6 +200,12 @@ public final class DeploymentStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder terminatingReplicas(@Nullable Integer terminatingReplicas) {
+
+            this.terminatingReplicas = terminatingReplicas;
+            return this;
+        }
+        @CustomType.Setter
         public Builder unavailableReplicas(@Nullable Integer unavailableReplicas) {
 
             this.unavailableReplicas = unavailableReplicas;
@@ -201,6 +225,7 @@ public final class DeploymentStatusPatch {
             _resultValue.observedGeneration = observedGeneration;
             _resultValue.readyReplicas = readyReplicas;
             _resultValue.replicas = replicas;
+            _resultValue.terminatingReplicas = terminatingReplicas;
             _resultValue.unavailableReplicas = unavailableReplicas;
             _resultValue.updatedReplicas = updatedReplicas;
             return _resultValue;

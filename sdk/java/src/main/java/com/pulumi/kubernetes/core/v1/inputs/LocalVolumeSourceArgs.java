@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * Local represents directly-attached storage with node affinity (Beta feature)
+ * Local represents directly-attached storage with node affinity
  * 
  */
 public final class LocalVolumeSourceArgs extends com.pulumi.resources.ResourceArgs {

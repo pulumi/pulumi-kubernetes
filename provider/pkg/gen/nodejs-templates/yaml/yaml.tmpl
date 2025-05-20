@@ -18,7 +18,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
 import * as glob from "glob";
-import fetch from "node-fetch";
 {{- range .Packages}}
 import * as {{.}} from "../{{.}}";
 {{- end}}

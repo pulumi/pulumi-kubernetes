@@ -68,7 +68,7 @@ func TestAwaitGeneric(t *testing.T) {
 	touch := func(t *testing.T, dir string) {
 		t.Helper()
 		t.Log("touching resources")
-		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh"))
+		cmd := exec.Command(filepath.Join(dir, "make-progressing.sh")) // #nosec G204
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
@@ -80,7 +80,7 @@ func TestAwaitGeneric(t *testing.T) {
 		time.Sleep(1 * time.Second)
 		t.Log("marking resources ready")
 		t.Helper()
-		cmd := exec.Command(filepath.Join(dir, "make-ready.sh"))
+		cmd := exec.Command(filepath.Join(dir, "make-ready.sh")) // #nosec G204
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
@@ -177,9 +177,9 @@ func TestAwaitGeneric(t *testing.T) {
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
 		)
-		dir := test.Source()
+		dir := test.WorkingDir()
 		t.Cleanup(func() {
-			test.Destroy()
+			test.Destroy(t)
 		})
 
 		// Use kubectl to simulate an operator acting on our resources.
@@ -190,14 +190,14 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Create
-		up := test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up := test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
 		assertAllResourcesReady(t, up.Outputs)
 
 		// Touch our resources and refresh in order to trigger an update later.
 		touch(t, dir)
 
 		// Read
-		refresh := test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+		refresh := test.Refresh(t, optrefresh.ProgressStreams(os.Stdout))
 		require.NotNil(t, refresh.Summary.ResourceChanges)
 		assert.Equal(t, 5, (*refresh.Summary.ResourceChanges)["update"])
 
@@ -208,7 +208,7 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Update
-		up = test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up = test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
 		assertAllResourcesReady(t, up.Outputs)
 	})
 
@@ -220,9 +220,9 @@ func TestAwaitGeneric(t *testing.T) {
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
 		)
-		dir := test.Source()
+		dir := test.WorkingDir()
 		t.Cleanup(func() {
-			test.Destroy()
+			test.Destroy(t)
 		})
 
 		// Use kubectl to simulate an operator acting on our resources.
@@ -233,7 +233,7 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Create
-		up := test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up := test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
 		assertGenericResourceUntouched(t, up.Outputs)
 		assertWaitForResourcesReady(t, up.Outputs)
 
@@ -241,7 +241,7 @@ func TestAwaitGeneric(t *testing.T) {
 		touch(t, dir)
 
 		// Read
-		refresh := test.Refresh(optrefresh.ProgressStreams(os.Stdout))
+		refresh := test.Refresh(t, optrefresh.ProgressStreams(os.Stdout))
 		require.NotNil(t, refresh.Summary.ResourceChanges)
 		assert.Equal(t, 5, (*refresh.Summary.ResourceChanges)["update"])
 
@@ -252,7 +252,7 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Update
-		up = test.Up(optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up = test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
 		assertGenericResourceUntouched(t, up.Outputs)
 		assertWaitForResourcesReady(t, up.Outputs)
 	})
@@ -265,9 +265,9 @@ func TestAwaitCertManager(t *testing.T) {
 		"testdata/await/cert-manager",
 	)
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	test.Up(optup.ProgressStreams(os.Stdout))
-	test.Destroy(optdestroy.ProgressStreams(os.Stdout))
+	test.Up(t, optup.ProgressStreams(os.Stdout))
+	test.Destroy(t, optdestroy.ProgressStreams(os.Stdout))
 }

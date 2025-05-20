@@ -5,11 +5,23 @@ package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceToleration;
+import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class DeviceRequestAllocationResult {
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    private @Nullable Boolean adminAccess;
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
@@ -30,12 +42,32 @@ public final class DeviceRequestAllocationResult {
      */
     private String pool;
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     private String request;
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    private @Nullable List<DeviceToleration> tolerations;
 
     private DeviceRequestAllocationResult() {}
+    /**
+     * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+     * 
+     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * 
+     */
+    public Optional<Boolean> adminAccess() {
+        return Optional.ofNullable(this.adminAccess);
+    }
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
@@ -62,11 +94,24 @@ public final class DeviceRequestAllocationResult {
         return this.pool;
     }
     /**
-     * @return Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
+     * @return Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format &lt;main request&gt;/&lt;subrequest&gt;.
+     * 
+     * Multiple devices may have been allocated per request.
      * 
      */
     public String request() {
         return this.request;
+    }
+    /**
+     * @return A copy of all tolerations specified in the request at the time when the device got allocated.
+     * 
+     * The maximum number of tolerations is 16.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * 
+     */
+    public List<DeviceToleration> tolerations() {
+        return this.tolerations == null ? List.of() : this.tolerations;
     }
 
     public static Builder builder() {
@@ -78,19 +123,29 @@ public final class DeviceRequestAllocationResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable Boolean adminAccess;
         private String device;
         private String driver;
         private String pool;
         private String request;
+        private @Nullable List<DeviceToleration> tolerations;
         public Builder() {}
         public Builder(DeviceRequestAllocationResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.adminAccess = defaults.adminAccess;
     	      this.device = defaults.device;
     	      this.driver = defaults.driver;
     	      this.pool = defaults.pool;
     	      this.request = defaults.request;
+    	      this.tolerations = defaults.tolerations;
         }
 
+        @CustomType.Setter
+        public Builder adminAccess(@Nullable Boolean adminAccess) {
+
+            this.adminAccess = adminAccess;
+            return this;
+        }
         @CustomType.Setter
         public Builder device(String device) {
             if (device == null) {
@@ -123,12 +178,23 @@ public final class DeviceRequestAllocationResult {
             this.request = request;
             return this;
         }
+        @CustomType.Setter
+        public Builder tolerations(@Nullable List<DeviceToleration> tolerations) {
+
+            this.tolerations = tolerations;
+            return this;
+        }
+        public Builder tolerations(DeviceToleration... tolerations) {
+            return tolerations(List.of(tolerations));
+        }
         public DeviceRequestAllocationResult build() {
             final var _resultValue = new DeviceRequestAllocationResult();
+            _resultValue.adminAccess = adminAccess;
             _resultValue.device = device;
             _resultValue.driver = driver;
             _resultValue.pool = pool;
             _resultValue.request = request;
+            _resultValue.tolerations = tolerations;
             return _resultValue;
         }
     }
