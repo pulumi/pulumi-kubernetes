@@ -15,12 +15,12 @@ require (
 	github.com/pulumi/providertest v0.3.1
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0
-	github.com/pulumi/pulumi/pkg/v3 v3.170.0
-	github.com/pulumi/pulumi/sdk/v3 v3.170.0
+	github.com/pulumi/pulumi/pkg/v3 v3.171.0
+	github.com/pulumi/pulumi/sdk/v3 v3.171.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
-	google.golang.org/protobuf v1.36.5
+	google.golang.org/protobuf v1.36.6
 	helm.sh/helm/v3 v3.17.3
 	k8s.io/apimachinery v0.33.0
 	k8s.io/client-go v0.33.0
@@ -37,13 +37,13 @@ require (
 	cloud.google.com/go/storage v1.39.1 // indirect
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240716105424-66b64c4bb379 // indirect
-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.11.1 // indirect
-	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.6.0 // indirect
-	github.com/Azure/azure-sdk-for-go/sdk/internal v1.8.0 // indirect
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0 // indirect
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.8.2 // indirect
+	github.com/Azure/azure-sdk-for-go/sdk/internal v1.10.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/keyvault/azkeys v0.10.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/keyvault/internal v0.7.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
-	github.com/AzureAD/microsoft-authentication-library-for-go v1.2.2 // indirect
+	github.com/AzureAD/microsoft-authentication-library-for-go v1.3.3 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
@@ -221,7 +221,7 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/cloud-ready-checks v1.3.0 // indirect
-	github.com/pulumi/esc v0.13.0 // indirect
+	github.com/pulumi/esc v0.14.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/rubenv/sql-migrate v1.7.1 // indirect
