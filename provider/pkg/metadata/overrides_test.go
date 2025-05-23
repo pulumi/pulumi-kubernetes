@@ -378,3 +378,176 @@ type noopClientGetter struct{}
 func (noopClientGetter) ResourceClientForObject(*unstructured.Unstructured) (dynamic.ResourceInterface, error) {
 	return nil, nil
 }
+
+func TestParseWaitForCondition(t *testing.T) {
+	tests := []struct {
+		name       string
+		annotation string
+		expected   interface{}
+		wantErr    bool
+	}{
+		{
+			name:       "string condition",
+			annotation: "condition=Ready",
+			expected:   "condition=Ready",
+			wantErr:    false,
+		},
+		{
+			name:       "jsonpath condition",
+			annotation: "jsonpath={.status.phase}=Running",
+			expected:   "jsonpath={.status.phase}=Running",
+			wantErr:    false,
+		},
+		{
+			name:       "array of conditions",
+			annotation: `["condition=Ready", "jsonpath={.status.phase}=Running"]`,
+			expected: []interface{}{
+				"condition=Ready",
+				"jsonpath={.status.phase}=Running",
+			},
+			wantErr: false,
+		},
+		{
+			name:       "complex AND condition",
+			annotation: `{"operator":"and","conditions":["condition=Ready","jsonpath={.status.phase}=Running"]}`,
+			expected: map[string]interface{}{
+				"operator": "and",
+				"conditions": []interface{}{
+					"condition=Ready",
+					"jsonpath={.status.phase}=Running",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "complex OR condition",
+			annotation: `{"operator":"or","conditions":["jsonpath={.status.phase}=Running","jsonpath={.status.phase}=Succeeded"]}`,
+			expected: map[string]interface{}{
+				"operator": "or",
+				"conditions": []interface{}{
+					"jsonpath={.status.phase}=Running",
+					"jsonpath={.status.phase}=Succeeded",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "nested complex condition",
+			annotation: `{"operator":"and","conditions":["condition=Ready",{"operator":"or","conditions":["jsonpath={.status.phase}=Running","jsonpath={.status.phase}=Succeeded"]}]}`,
+			expected: map[string]interface{}{
+				"operator": "and",
+				"conditions": []interface{}{
+					"condition=Ready",
+					map[string]interface{}{
+						"operator": "or",
+						"conditions": []interface{}{
+							"jsonpath={.status.phase}=Running",
+							"jsonpath={.status.phase}=Succeeded",
+						},
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name:       "invalid operator",
+			annotation: `{"operator":"xor","conditions":["condition=Ready"]}`,
+			expected:   nil,
+			wantErr:    true,
+		},
+		{
+			name:       "missing conditions",
+			annotation: `{"operator":"and"}`,
+			expected:   nil,
+			wantErr:    true,
+		},
+		{
+			name:       "empty conditions array",
+			annotation: `{"operator":"and","conditions":[]}`,
+			expected:   nil,
+			wantErr:    true,
+		},
+	}
+	
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := parseWaitForCondition(tt.annotation)
+			
+			if tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, tt.expected, result)
+			}
+		})
+	}
+}
+
+func TestHandleWaitForAnnotation(t *testing.T) {
+	tests := []struct {
+		name     string
+		obj      *unstructured.Unstructured
+		expected interface{}
+		wantErr  bool
+	}{
+		{
+			name: "single condition",
+			obj: &unstructured.Unstructured{
+				Object: map[string]interface{}{
+					"metadata": map[string]interface{}{
+						"annotations": map[string]interface{}{
+							"pulumi.com/waitFor": "condition=Ready",
+						},
+					},
+				},
+			},
+			expected: "condition=Ready",
+			wantErr:  false,
+		},
+		{
+			name: "complex condition",
+			obj: &unstructured.Unstructured{
+				Object: map[string]interface{}{
+					"metadata": map[string]interface{}{
+						"annotations": map[string]interface{}{
+							"pulumi.com/waitFor": `{"operator":"or","conditions":["jsonpath={.status.phase}=Running","jsonpath={.status.phase}=Succeeded"]}`,
+						},
+					},
+				},
+			},
+			expected: map[string]interface{}{
+				"operator": "or",
+				"conditions": []interface{}{
+					"jsonpath={.status.phase}=Running",
+					"jsonpath={.status.phase}=Succeeded",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "no annotation",
+			obj: &unstructured.Unstructured{
+				Object: map[string]interface{}{
+					"metadata": map[string]interface{}{
+						"annotations": map[string]interface{}{},
+					},
+				},
+			},
+			expected: nil,
+			wantErr:  false,
+		},
+	}
+	
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := handleWaitForAnnotation(tt.obj)
+			
+			if tt.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, tt.expected, result)
+			}
+		})
+	}
+}
