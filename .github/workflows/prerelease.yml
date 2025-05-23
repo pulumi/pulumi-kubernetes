@@ -115,7 +115,8 @@ jobs:
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
-          sdk/dotnet/Pulumi.*.csproj
+          sdk/dotnet/*.*.csproj
+          sdk/dotnet/version.txt
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
@@ -148,7 +149,14 @@ jobs:
 
         git add sdk
 
-        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
+        git reset sdk/python/*/pulumi-plugin.json \
+            sdk/python/pyproject.toml \
+            sdk/dotnet/pulumi-plugin.json \
+            sdk/dotnet/*.*.csproj \
+            sdk/dotnet/version.txt \
+            sdk/go/*/pulumi-plugin.json \
+            sdk/go/*/internal/pulumiUtilities.go \
+            sdk/nodejs/package.json
 
         git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
 
@@ -173,7 +181,7 @@ jobs:
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d # v5.4.2
+      uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -261,7 +269,8 @@ jobs:
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
-          sdk/dotnet/Pulumi.*.csproj
+          sdk/dotnet/*.*.csproj
+          sdk/dotnet/version.txt
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
@@ -294,7 +303,14 @@ jobs:
 
         git add sdk
 
-        git reset     sdk/python/*/pulumi-plugin.json     sdk/python/pyproject.toml     sdk/dotnet/pulumi-plugin.json     sdk/dotnet/Pulumi.*.csproj     sdk/go/*/pulumi-plugin.json     sdk/go/*/internal/pulumiUtilities.go     sdk/nodejs/package.json
+        git reset sdk/python/*/pulumi-plugin.json \
+            sdk/python/pyproject.toml \
+            sdk/dotnet/pulumi-plugin.json \
+            sdk/dotnet/*.*.csproj \
+            sdk/dotnet/version.txt \
+            sdk/go/*/pulumi-plugin.json \
+            sdk/go/*/internal/pulumiUtilities.go \
+            sdk/nodejs/package.json
 
         git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
 
@@ -519,7 +535,7 @@ jobs:
       with:
         pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@f24d7193d98baebaeacc7e2227925dd47cc267f5 # v4.2.0
+      uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-region: us-east-2
