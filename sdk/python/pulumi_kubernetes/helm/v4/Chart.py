@@ -27,6 +27,7 @@ class ChartArgs:
                  keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  namespace: Optional[pulumi.Input[builtins.str]] = None,
+                 plain_http: Optional[pulumi.Input[builtins.bool]] = None,
                  post_renderer: Optional[pulumi.Input['PostRendererArgs']] = None,
                  repository_opts: Optional[pulumi.Input['RepositoryOptsArgs']] = None,
                  resource_prefix: Optional[pulumi.Input[builtins.str]] = None,
@@ -44,6 +45,7 @@ class ChartArgs:
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[builtins.str] name: Release name.
         :param pulumi.Input[builtins.str] namespace: Namespace for the release.
+        :param pulumi.Input[builtins.bool] plain_http: Use insecure HTTP for the chart download instead of HTTPS.
         :param pulumi.Input['PostRendererArgs'] post_renderer: Specification defining the post-renderer to use.
         :param pulumi.Input['RepositoryOptsArgs'] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
@@ -65,6 +67,8 @@ class ChartArgs:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
+        if plain_http is not None:
+            pulumi.set(__self__, "plain_http", plain_http)
         if post_renderer is not None:
             pulumi.set(__self__, "post_renderer", post_renderer)
         if repository_opts is not None:
@@ -155,6 +159,18 @@ class ChartArgs:
     @namespace.setter
     def namespace(self, value: Optional[pulumi.Input[builtins.str]]):
         pulumi.set(self, "namespace", value)
+
+    @property
+    @pulumi.getter(name="plainHttp")
+    def plain_http(self) -> Optional[pulumi.Input[builtins.bool]]:
+        """
+        Use insecure HTTP for the chart download instead of HTTPS.
+        """
+        return pulumi.get(self, "plain_http")
+
+    @plain_http.setter
+    def plain_http(self, value: Optional[pulumi.Input[builtins.bool]]):
+        pulumi.set(self, "plain_http", value)
 
     @property
     @pulumi.getter(name="postRenderer")
@@ -277,6 +293,7 @@ class Chart(pulumi.ComponentResource):
                  keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  namespace: Optional[pulumi.Input[builtins.str]] = None,
+                 plain_http: Optional[pulumi.Input[builtins.bool]] = None,
                  post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
                  repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
                  resource_prefix: Optional[pulumi.Input[builtins.str]] = None,
@@ -463,6 +480,7 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[builtins.str] name: Release name.
         :param pulumi.Input[builtins.str] namespace: Namespace for the release.
+        :param pulumi.Input[builtins.bool] plain_http: Use insecure HTTP for the chart download instead of HTTPS.
         :param pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']] post_renderer: Specification defining the post-renderer to use.
         :param pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
@@ -668,6 +686,7 @@ class Chart(pulumi.ComponentResource):
                  keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: Optional[pulumi.Input[builtins.str]] = None,
                  namespace: Optional[pulumi.Input[builtins.str]] = None,
+                 plain_http: Optional[pulumi.Input[builtins.bool]] = None,
                  post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
                  repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
                  resource_prefix: Optional[pulumi.Input[builtins.str]] = None,
@@ -696,6 +715,7 @@ class Chart(pulumi.ComponentResource):
             __props__.__dict__["keyring"] = keyring
             __props__.__dict__["name"] = name
             __props__.__dict__["namespace"] = namespace
+            __props__.__dict__["plain_http"] = plain_http
             __props__.__dict__["post_renderer"] = post_renderer
             __props__.__dict__["repository_opts"] = repository_opts
             __props__.__dict__["resource_prefix"] = resource_prefix
