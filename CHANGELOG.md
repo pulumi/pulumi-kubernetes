@@ -1,6 +1,12 @@
 <!-- markdownlint-configure-file { "MD024": { "siblings_only": true } } -->
 # CHANGELOG
 
+## Unreleased
+
+### Added
+
+- Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed

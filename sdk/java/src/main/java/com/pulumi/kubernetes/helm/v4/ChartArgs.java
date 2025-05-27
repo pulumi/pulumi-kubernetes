@@ -114,6 +114,21 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Use insecure HTTP for the chart download instead of HTTPS.
+     * 
+     */
+    @Import(name="plainHttp")
+    private @Nullable Output<Boolean> plainHttp;
+
+    /**
+     * @return Use insecure HTTP for the chart download instead of HTTPS.
+     * 
+     */
+    public Optional<Output<Boolean>> plainHttp() {
+        return Optional.ofNullable(this.plainHttp);
+    }
+
+    /**
      * Specification defining the post-renderer to use.
      * 
      */
@@ -257,6 +272,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         this.keyring = $.keyring;
         this.name = $.name;
         this.namespace = $.namespace;
+        this.plainHttp = $.plainHttp;
         this.postRenderer = $.postRenderer;
         this.repositoryOpts = $.repositoryOpts;
         this.resourcePrefix = $.resourcePrefix;
@@ -410,6 +426,27 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder namespace(String namespace) {
             return namespace(Output.of(namespace));
+        }
+
+        /**
+         * @param plainHttp Use insecure HTTP for the chart download instead of HTTPS.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder plainHttp(@Nullable Output<Boolean> plainHttp) {
+            $.plainHttp = plainHttp;
+            return this;
+        }
+
+        /**
+         * @param plainHttp Use insecure HTTP for the chart download instead of HTTPS.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder plainHttp(Boolean plainHttp) {
+            return plainHttp(Output.of(plainHttp));
         }
 
         /**
