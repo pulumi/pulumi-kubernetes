@@ -351,25 +351,8 @@ func defaultKeyring() string {
 // newRegistryClient returns a new registry client
 // https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L345-L360
 func newRegistryClient(settings *cli.EnvSettings,
-	certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool, username, password string,
+	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
 ) (*registry.Client, error) {
-	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipTLSverify {
-		registryClient, err := newRegistryClientWithTLS(settings, certFile, keyFile, caFile, insecureSkipTLSverify, username, password)
-		if err != nil {
-			return nil, err
-		}
-		return registryClient, nil
-	}
-	registryClient, err := newDefaultRegistryClient(settings, plainHTTP, username, password)
-	if err != nil {
-		return nil, err
-	}
-	return registryClient, nil
-}
-
-// newDefaultRegistryClient returns a new registry client with default options
-// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L362-L380
-func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool, username, password string) (*registry.Client, error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
@@ -382,46 +365,21 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool, usernam
 		opts = append(opts, registry.ClientOptPlainHTTP())
 	}
 
-	// Create a new registry client
-	registryClient, err := registry.NewClient(opts...)
-	if err != nil {
-		return nil, err
-	}
-	return registryClient, nil
-}
-
-// newRegistryClientWithTLS
-// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L382C1-L413C2
-func newRegistryClientWithTLS(settings *cli.EnvSettings,
-	certFile, keyFile, caFile string, insecureSkipTLSverify bool, username, password string,
-) (*registry.Client, error) {
-	tlsConf, err := NewTLSConfig(
-		WithInsecureSkipVerify(insecureSkipTLSverify),
-		WithCertKeyPairFiles(certFile, keyFile),
-		WithCAFile(caFile),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("can't create TLS config for client: %w", err)
-	}
-
-	// Create a new registry client
-	registryClient, err := registry.NewClient(
-		registry.ClientOptDebug(settings.Debug),
-		registry.ClientOptEnableCache(true),
-		registry.ClientOptWriter(os.Stderr),
-		registry.ClientOptCredentialsFile(settings.RegistryConfig),
-		registry.ClientOptHTTPClient(&http.Client{
+	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipVerify {
+		tlsConf, err := newTLSConfig(certFile, keyFile, caFile, insecureSkipVerify)
+		if err != nil {
+			return nil, err
+		}
+		tlsOpt := registry.ClientOptHTTPClient(&http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: tlsConf,
 				Proxy:           http.ProxyFromEnvironment,
 			},
-		}),
-		registry.ClientOptBasicAuth(username, password),
-	)
-	if err != nil {
-		return nil, err
+		})
+		opts = append(opts, tlsOpt)
 	}
-	return registryClient, nil
+
+	return registry.NewClient(opts...)
 }
 
 // checkIfInstallable validates if a chart can be installed
