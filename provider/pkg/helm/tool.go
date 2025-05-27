@@ -354,6 +354,7 @@ func newRegistryClient(settings *cli.EnvSettings,
 	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
 ) (*registry.Client, error) {
 	logStream := debugStream()
+
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
 		registry.ClientOptEnableCache(true),
