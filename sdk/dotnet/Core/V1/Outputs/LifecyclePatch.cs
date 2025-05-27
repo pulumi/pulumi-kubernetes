@@ -24,15 +24,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.LifecycleHandlerPatch PreStop;
+        /// <summary>
+        /// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+        /// </summary>
+        public readonly string StopSignal;
 
         [OutputConstructor]
         private LifecyclePatch(
             Pulumi.Kubernetes.Types.Outputs.Core.V1.LifecycleHandlerPatch postStart,
 
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.LifecycleHandlerPatch preStop)
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.LifecycleHandlerPatch preStop,
+
+            string stopSignal)
         {
             PostStart = postStart;
             PreStop = preStop;
+            StopSignal = stopSignal;
         }
     }
 }

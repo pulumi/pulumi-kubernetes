@@ -21,6 +21,12 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:networking.k8s.io/v1:IPAddress":
+		r = &IPAddress{}
+	case "kubernetes:networking.k8s.io/v1:IPAddressList":
+		r = &IPAddressList{}
+	case "kubernetes:networking.k8s.io/v1:IPAddressPatch":
+		r = &IPAddressPatch{}
 	case "kubernetes:networking.k8s.io/v1:Ingress":
 		r = &Ingress{}
 	case "kubernetes:networking.k8s.io/v1:IngressClass":
@@ -39,6 +45,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &NetworkPolicyList{}
 	case "kubernetes:networking.k8s.io/v1:NetworkPolicyPatch":
 		r = &NetworkPolicyPatch{}
+	case "kubernetes:networking.k8s.io/v1:ServiceCIDR":
+		r = &ServiceCIDR{}
+	case "kubernetes:networking.k8s.io/v1:ServiceCIDRList":
+		r = &ServiceCIDRList{}
+	case "kubernetes:networking.k8s.io/v1:ServiceCIDRPatch":
+		r = &ServiceCIDRPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

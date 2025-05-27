@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ProbeArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Exec specifies the action to take.
+        /// Exec specifies a command to execute in the container.
         /// </summary>
         [Input("exec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ExecActionArgs>? Exec { get; set; }
@@ -28,13 +28,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? FailureThreshold { get; set; }
 
         /// <summary>
-        /// GRPC specifies an action involving a GRPC port.
+        /// GRPC specifies a GRPC HealthCheckRequest.
         /// </summary>
         [Input("grpc")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GRPCActionArgs>? Grpc { get; set; }
 
         /// <summary>
-        /// HTTPGet specifies the http request to perform.
+        /// HTTPGet specifies an HTTP GET request to perform.
         /// </summary>
         [Input("httpGet")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.HTTPGetActionArgs>? HttpGet { get; set; }
@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? SuccessThreshold { get; set; }
 
         /// <summary>
-        /// TCPSocket specifies an action involving a TCP port.
+        /// TCPSocket specifies a connection to a TCP port.
         /// </summary>
         [Input("tcpSocket")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.TCPSocketActionArgs>? TcpSocket { get; set; }

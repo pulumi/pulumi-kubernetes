@@ -103,17 +103,17 @@ func ReadyCondition(
 	logger *logging.DedupLogger,
 	inputs *unstructured.Unstructured,
 	obj *unstructured.Unstructured,
-) (condition.Satisfier, error) {
+) (condition.Satisfier, bool, error) {
 	if SkipAwaitLogic(inputs) {
-		return condition.NewImmediate(logger, obj), nil
+		return condition.NewImmediate(logger, obj), true, nil
 	}
 
 	val := GetAnnotationValue(obj, AnnotationWaitFor)
 	if val == "" {
 		if os.Getenv("PULUMI_K8S_AWAIT_ALL") != "true" {
-			return condition.NewImmediate(nil, obj), nil
+			return condition.NewImmediate(nil, obj), false, nil
 		}
-		return condition.NewReady(ctx, source, logger, obj), nil
+		return condition.NewReady(ctx, source, logger, obj), false, nil
 	}
 
 	// Attempt to interpret the annotation as a JSON string array, and if that
@@ -124,7 +124,7 @@ func ReadyCondition(
 		values = append(values, val)
 	}
 	if len(values) == 0 {
-		return nil, fmt.Errorf("at least one condition must be specified")
+		return nil, false, fmt.Errorf("at least one condition must be specified")
 	}
 
 	conditions := make([]condition.Satisfier, 0, len(values))
@@ -133,28 +133,29 @@ func ReadyCondition(
 		case strings.HasPrefix(expr, "jsonpath="):
 			jsp, err := jsonpath.Parse(expr)
 			if err != nil {
-				return nil, err
+				return nil, false, err
 			}
 			cond, err := condition.NewJSONPath(ctx, source, logger, obj, jsp)
 			if err != nil {
-				return nil, err
+				return nil, false, err
 			}
 			conditions = append(conditions, cond)
 		case strings.HasPrefix(expr, "condition="):
 			cond, err := condition.NewCustom(ctx, source, logger, obj, expr)
 			if err != nil {
-				return nil, err
+				return nil, false, err
 			}
 			conditions = append(conditions, cond)
 		default:
-			return nil, fmt.Errorf(`expected a "jsonpath=" or "condition=" prefix, got %q`, expr)
+			return nil, false, fmt.Errorf(`expected a "jsonpath=" or "condition=" prefix, got %q`, expr)
 		}
 	}
 
 	if len(conditions) == 1 {
-		return conditions[0], nil
+		return conditions[0], true, nil
 	}
-	return condition.NewAll(conditions...)
+	all, err := condition.NewAll(conditions...)
+	return all, true, err
 }
 
 // DeletedCondition inspects the object's annotations and returns a

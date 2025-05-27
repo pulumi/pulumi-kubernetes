@@ -28,7 +28,7 @@ import (
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	"github.com/stretchr/testify/assert"
@@ -42,6 +42,8 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: crontabs.stable.example.com
+  # Purposefully set annotations here to be null: pulumi/pulumi-kubernetes#3585
+  annotations: 
 spec:
   group: stable.example.com
   versions:

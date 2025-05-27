@@ -44,6 +44,7 @@ import (
 	certificatesv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/certificates/v1beta1"
 	coordinationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/coordination/v1"
 	coordinationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/coordination/v1alpha1"
+	coordinationv1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/coordination/v1alpha2"
 	coordinationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/coordination/v1beta1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	discoveryv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/discovery/v1"
@@ -71,6 +72,8 @@ import (
 	resourcev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1alpha1"
 	resourcev1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1alpha2"
 	resourcev1alpha3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1alpha3"
+	resourcev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1beta1"
+	resourcev1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/resource/v1beta2"
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha1"
 	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1beta1"
@@ -90,6 +93,8 @@ func IsListKind(apiVersion, kind string) bool {
 		"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBindingList",
 		"admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1alpha1/MutatingAdmissionPolicyBindingList",
+		"admissionregistration.k8s.io/v1alpha1/MutatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList",
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList",
@@ -125,8 +130,11 @@ func IsListKind(apiVersion, kind string) bool {
 		"certificates.k8s.io/v1/CertificateSigningRequestList",
 		"certificates.k8s.io/v1alpha1/ClusterTrustBundleList",
 		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
+		"certificates.k8s.io/v1beta1/ClusterTrustBundleList",
 		"coordination.k8s.io/v1/LeaseList",
 		"coordination.k8s.io/v1alpha1/LeaseCandidateList",
+		"coordination.k8s.io/v1alpha2/LeaseCandidateList",
+		"coordination.k8s.io/v1beta1/LeaseCandidateList",
 		"coordination.k8s.io/v1beta1/LeaseList",
 		"v1/ConfigMapList",
 		"v1/EndpointsList",
@@ -163,9 +171,11 @@ func IsListKind(apiVersion, kind string) bool {
 		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList",
+		"networking.k8s.io/v1/IPAddressList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
 		"networking.k8s.io/v1/NetworkPolicyList",
+		"networking.k8s.io/v1/ServiceCIDRList",
 		"networking.k8s.io/v1alpha1/ClusterCIDRList",
 		"networking.k8s.io/v1alpha1/IPAddressList",
 		"networking.k8s.io/v1alpha1/ServiceCIDRList",
@@ -203,9 +213,19 @@ func IsListKind(apiVersion, kind string) bool {
 		"resource.k8s.io/v1alpha2/ResourceClassParametersList",
 		"resource.k8s.io/v1alpha2/ResourceSliceList",
 		"resource.k8s.io/v1alpha3/DeviceClassList",
+		"resource.k8s.io/v1alpha3/DeviceTaintRuleList",
 		"resource.k8s.io/v1alpha3/PodSchedulingContextList",
 		"resource.k8s.io/v1alpha3/ResourceClaimList",
 		"resource.k8s.io/v1alpha3/ResourceClaimTemplateList",
+		"resource.k8s.io/v1alpha3/ResourceSliceList",
+		"resource.k8s.io/v1beta1/DeviceClassList",
+		"resource.k8s.io/v1beta1/ResourceClaimList",
+		"resource.k8s.io/v1beta1/ResourceClaimTemplateList",
+		"resource.k8s.io/v1beta1/ResourceSliceList",
+		"resource.k8s.io/v1beta2/DeviceClassList",
+		"resource.k8s.io/v1beta2/ResourceClaimList",
+		"resource.k8s.io/v1beta2/ResourceClaimTemplateList",
+		"resource.k8s.io/v1beta2/ResourceSliceList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
@@ -258,6 +278,20 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "admissionregistration.k8s.io/v1alpha1/MutatingAdmissionPolicy":
+		var res admissionregistrationv1alpha1.MutatingAdmissionPolicy
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicy", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "admissionregistration.k8s.io/v1alpha1/MutatingAdmissionPolicyBinding":
+		var res admissionregistrationv1alpha1.MutatingAdmissionPolicyBinding
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBinding", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -507,6 +541,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "certificates.k8s.io/v1beta1/ClusterTrustBundle":
+		var res certificatesv1beta1.ClusterTrustBundle
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundle", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "coordination.k8s.io/v1/Lease":
 		var res coordinationv1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:Lease", name, props, &res, opts...)
@@ -521,9 +562,23 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "coordination.k8s.io/v1alpha2/LeaseCandidate":
+		var res coordinationv1alpha2.LeaseCandidate
+		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "coordination.k8s.io/v1beta1/Lease":
 		var res coordinationv1beta1.Lease
 		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:Lease", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "coordination.k8s.io/v1beta1/LeaseCandidate":
+		var res coordinationv1beta1.LeaseCandidate
+		err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -787,6 +842,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "networking.k8s.io/v1/IPAddress":
+		var res networkingv1.IPAddress
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:IPAddress", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "networking.k8s.io/v1/Ingress":
 		var res networkingv1.Ingress
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:Ingress", name, props, &res, opts...)
@@ -804,6 +866,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "networking.k8s.io/v1/NetworkPolicy":
 		var res networkingv1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "networking.k8s.io/v1/ServiceCIDR":
+		var res networkingv1.ServiceCIDR
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:ServiceCIDR", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1067,6 +1136,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "resource.k8s.io/v1alpha3/DeviceTaintRule":
+		var res resourcev1alpha3.DeviceTaintRule
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "resource.k8s.io/v1alpha3/PodSchedulingContext":
 		var res resourcev1alpha3.PodSchedulingContext
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContext", name, props, &res, opts...)
@@ -1091,6 +1167,62 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "resource.k8s.io/v1alpha3/ResourceSlice":
 		var res resourcev1alpha3.ResourceSlice
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:ResourceSlice", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta1/DeviceClass":
+		var res resourcev1beta1.DeviceClass
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta1:DeviceClass", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta1/ResourceClaim":
+		var res resourcev1beta1.ResourceClaim
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta1:ResourceClaim", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta1/ResourceClaimTemplate":
+		var res resourcev1beta1.ResourceClaimTemplate
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta1/ResourceSlice":
+		var res resourcev1beta1.ResourceSlice
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta1:ResourceSlice", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta2/DeviceClass":
+		var res resourcev1beta2.DeviceClass
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:DeviceClass", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta2/ResourceClaim":
+		var res resourcev1beta2.ResourceClaim
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceClaim", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta2/ResourceClaimTemplate":
+		var res resourcev1beta2.ResourceClaimTemplate
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplate", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1beta2/ResourceSlice":
+		var res resourcev1beta2.ResourceSlice
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1beta2:ResourceSlice", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}

@@ -43,8 +43,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
         /// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
         /// 
         /// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-        /// 
-        /// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
         /// </summary>
         [Input("unhealthyPodEvictionPolicy")]
         public Input<string>? UnhealthyPodEvictionPolicy { get; set; }

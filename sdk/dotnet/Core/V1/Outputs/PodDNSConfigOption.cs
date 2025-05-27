@@ -17,9 +17,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PodDNSConfigOption
     {
         /// <summary>
-        /// Required.
+        /// Name is this DNS resolver option's name. Required.
         /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Value is this DNS resolver option's value.
+        /// </summary>
         public readonly string Value;
 
         [OutputConstructor]

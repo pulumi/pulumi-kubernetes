@@ -58,7 +58,7 @@ func NewDeleted(
 	return dc, nil
 }
 
-// Range establishes an Informer and confirms the object still existsr.
+// Range establishes an Informer and confirms the object still exists.
 // If a Deleted event isn't Observed by the time the underlying Observer is
 // exhausted, we attempt a final lookup on the cluster to be absolutely sure it
 // still exists.
@@ -141,7 +141,6 @@ func (dc *Deleted) refreshClusterState() {
 	_, err := dc.getter.Get(ctx, dc.Object().GetName(), metav1.GetOptions{})
 	if err == nil {
 		// Still exists.
-		dc.deleted.Store(false)
 		return
 	}
 	if k8serrors.IsNotFound(err) {

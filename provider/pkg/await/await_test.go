@@ -350,6 +350,15 @@ func TestCreation(t *testing.T) {
 			awaiter: awaitUnexpected,
 			expect:  []expectF{previewed("default", "foo")},
 		},
+		{
+			name: "WaitFor",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  withWaitFor(validPodUnstructured),
+			},
+			awaiter: awaitUnexpected, // waitFor annotation takes precedence.
+			expect:  []expectF{created("default", "foo")},
+		},
 		// FUTURE: test server-side apply (depends on https://github.com/kubernetes/kubernetes/issues/115598)
 	}
 
@@ -624,6 +633,15 @@ func TestUpdate(t *testing.T) {
 			},
 			awaiter: awaitUnexpected,
 			expect:  []expectF{previewed("default", "foo")},
+		},
+		{
+			name: "WaitFor",
+			args: args{
+				resType: tokens.Type("kubernetes:core/v1:Pod"),
+				inputs:  withWaitFor(validPodUnstructured),
+			},
+			awaiter: awaitUnexpected, // waitFor annotation takes precedence.
+			expect:  []expectF{updated("default", "foo"), logged()},
 		},
 		// FUTURE: test server-side apply (depends on https://github.com/kubernetes/kubernetes/issues/115598)
 	}
@@ -1050,6 +1068,14 @@ func withSkipAwait(obj *unstructured.Unstructured) *unstructured.Unstructured {
 	copy := obj.DeepCopy()
 	copy.SetAnnotations(map[string]string{
 		"pulumi.com/skipAwait": "true",
+	})
+	return copy
+}
+
+func withWaitFor(obj *unstructured.Unstructured) *unstructured.Unstructured {
+	copy := obj.DeepCopy()
+	copy.SetAnnotations(map[string]string{
+		"pulumi.com/waitFor": "jsonpath={.metadata}", // Succeeds immediately.
 	})
 	return copy
 }

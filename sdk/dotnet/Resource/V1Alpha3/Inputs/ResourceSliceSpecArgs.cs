@@ -18,7 +18,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// <summary>
         /// AllNodes indicates that all nodes have access to the resources in the pool.
         /// 
-        /// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         /// </summary>
         [Input("allNodes")]
         public Input<bool>? AllNodes { get; set; }
@@ -50,7 +50,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// 
         /// This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
         /// 
-        /// Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
+        /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
         /// </summary>
         [Input("nodeName")]
         public Input<string>? NodeName { get; set; }
@@ -60,16 +60,40 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// 
         /// Must use exactly one term.
         /// 
-        /// Exactly one of NodeName, NodeSelector and AllNodes must be set.
+        /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         /// </summary>
         [Input("nodeSelector")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorArgs>? NodeSelector { get; set; }
+
+        /// <summary>
+        /// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+        /// 
+        /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        /// </summary>
+        [Input("perDeviceNodeSelection")]
+        public Input<bool>? PerDeviceNodeSelection { get; set; }
 
         /// <summary>
         /// Pool describes the pool that this ResourceSlice belongs to.
         /// </summary>
         [Input("pool", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.ResourcePoolArgs> Pool { get; set; } = null!;
+
+        [Input("sharedCounters")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.CounterSetArgs>? _sharedCounters;
+
+        /// <summary>
+        /// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+        /// 
+        /// The names of the SharedCounters must be unique in the ResourceSlice.
+        /// 
+        /// The maximum number of SharedCounters is 32.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.CounterSetArgs> SharedCounters
+        {
+            get => _sharedCounters ?? (_sharedCounters = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.CounterSetArgs>());
+            set => _sharedCounters = value;
+        }
 
         public ResourceSliceSpecArgs()
         {

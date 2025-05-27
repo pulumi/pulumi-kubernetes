@@ -39,6 +39,7 @@ var (
 		"qux": map[string]any{
 			"xuq": "oof",
 		},
+		"x_kubernetes_preserve_unknown_fields": true,
 	}
 	objLive = map[string]any{
 		initialAPIVersionKey: "",
@@ -48,6 +49,26 @@ var (
 		"xuq": map[string]any{
 			"qux": "foo",
 		},
+		"x_kubernetes_preserve_unknown_fields": true,
+	}
+
+	objInputsWithDash = map[string]any{
+		"foo": "bar",
+		"baz": float64(1234),
+		"qux": map[string]any{
+			"xuq": "oof",
+		},
+		"x-kubernetes-preserve-unknown-fields": true,
+	}
+	objLiveWithDash = map[string]any{
+		initialAPIVersionKey: "",
+		fieldManagerKey:      "",
+		"oof":                "bar",
+		"zab":                float64(4321),
+		"xuq": map[string]any{
+			"qux": "foo",
+		},
+		"x-kubernetes-preserve-unknown-fields": true,
 	}
 )
 
@@ -58,8 +79,8 @@ func TestParseOldCheckpointObject(t *testing.T) {
 	})
 
 	oldInputs, live := parseCheckpointObject(old)
-	assert.Equal(t, objInputs, oldInputs.Object)
-	assert.Equal(t, objLive, live.Object)
+	assert.Equal(t, objInputsWithDash, oldInputs.Object)
+	assert.Equal(t, objLiveWithDash, live.Object)
 }
 
 func TestParseNewCheckpointObject(t *testing.T) {
@@ -67,8 +88,8 @@ func TestParseNewCheckpointObject(t *testing.T) {
 	old["__inputs"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(objInputs))
 
 	oldInputs, live := parseCheckpointObject(old)
-	assert.Equal(t, objInputs, oldInputs.Object)
-	assert.Equal(t, objLive, live.Object)
+	assert.Equal(t, objInputsWithDash, oldInputs.Object)
+	assert.Equal(t, objLiveWithDash, live.Object)
 }
 
 func TestCheckpointObject(t *testing.T) {
@@ -118,13 +139,46 @@ func TestCheckpointSecretObject(t *testing.T) {
 	assert.True(t, oldInputsVal["data"].ContainsSecrets())
 }
 
+// Ensure that well-known x-kubernetes-* fields are normazlied to x_kubernetes_*
+// in the checkpoint object.
+func TestCheckpointXKubernetesFields(t *testing.T) {
+	objInputWithDash := map[string]any{
+		"kind": "fakekind",
+		"spec": map[string]any{
+			"x-kubernetes-preserve-unknown-fields": "true",
+		},
+	}
+	objLiveWithDash := map[string]any{
+		initialAPIVersionKey: "",
+		fieldManagerKey:      "",
+		"kind":               "fakekind",
+		"spec": map[string]any{
+			"x-kubernetes-preserve-unknown-fields": "true",
+		},
+	}
+
+	inputs := &unstructured.Unstructured{Object: objInputWithDash}
+	live := &unstructured.Unstructured{Object: objLiveWithDash}
+
+	obj := checkpointObject(inputs, live, nil, "", "")
+	assert.NotNil(t, obj)
+
+	// Ensure we do not have the original x-kubernetes-* fields in the checkpoint objects.
+	assert.NotContains(t, obj.Mappable()["spec"], "x-kubernetes-preserve-unknown-fields")
+	assert.NotContains(t, obj["__inputs"].Mappable(), "x-kubernetes-preserve-unknown-fields")
+
+	// Ensure we have the normalized x_kubernetes_* fields in the checkpoint objects.
+	assert.Contains(t, obj.Mappable()["spec"], "x_kubernetes_preserve_unknown_fields")
+	assert.Contains(t, obj["__inputs"].Mappable().(map[string]any)["spec"], "x_kubernetes_preserve_unknown_fields")
+}
+
 func TestRoundtripCheckpointObject(t *testing.T) {
 	old := resource.NewPropertyMapFromMap(objLive)
 	old["__inputs"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(objInputs))
 
 	oldInputs, oldLive := parseCheckpointObject(old)
-	assert.Equal(t, objInputs, oldInputs.Object)
-	assert.Equal(t, objLive, oldLive.Object)
+	assert.Equal(t, objInputsWithDash, oldInputs.Object)
+	assert.Equal(t, objLiveWithDash, oldLive.Object)
 
 	obj := checkpointObject(oldInputs, oldLive, nil, "", "")
 	assert.Equal(t, old, obj)

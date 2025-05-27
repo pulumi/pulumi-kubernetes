@@ -272,7 +272,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	defer cancel()
 
 	source := condition.NewDynamicSource(ctx, c.ClientSet, outputs.GetNamespace())
-	ready, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
+	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
 	if err != nil {
 		return outputs, err
 	}
@@ -281,7 +281,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	if c.awaiters != nil {
 		a = c.awaiters
 	}
-	if spec, ok := a[id]; ok && spec.await != nil {
+	// Use our built-in await logic only if the user hasn't specified any await
+	// overrides.
+	if spec, ok := a[id]; ok && spec.await != nil && !custom {
 		conf := awaitConfig{
 			ctx:               c.Context,
 			urn:               c.URN,
@@ -432,7 +434,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	defer cancel()
 
 	source := condition.NewDynamicSource(ctx, c.ClientSet, currentOutputs.GetNamespace())
-	ready, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
+	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
 	if err != nil {
 		return currentOutputs, err
 	}
@@ -441,7 +443,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	if c.awaiters != nil {
 		a = c.awaiters
 	}
-	if spec, ok := a[id]; ok && spec.await != nil {
+	// Use our built-in await logic only if the user hasn't specified any await
+	// overrides.
+	if spec, ok := a[id]; ok && spec.await != nil && !custom {
 		conf := awaitConfig{
 			ctx:               c.Context,
 			urn:               c.URN,

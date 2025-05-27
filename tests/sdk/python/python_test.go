@@ -28,9 +28,9 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
 	. "github.com/onsi/gomega/gstruct"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
@@ -693,7 +693,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("cg-options-old"), Alias("cg-options-cg-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -710,7 +710,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -731,7 +731,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -747,7 +747,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -801,7 +801,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -817,7 +817,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -888,7 +888,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -905,7 +905,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -970,11 +970,11 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK applies resource_prefix ("chart-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(
-							Alias("chart-options-old"), 
-							Alias("chart-options-chart-options-aliased"), 
+						"Aliases": ConsistOf(
+							Alias("chart-options-old"),
+							Alias("chart-options-chart-options-aliased"),
 							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -992,7 +992,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           ConsistOf(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),

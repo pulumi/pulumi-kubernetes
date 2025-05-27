@@ -23,9 +23,9 @@ import (
 	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
 	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
@@ -442,6 +442,25 @@ var _ = Describe("Construct", func() {
 			})
 		})
 
+		Describe("Plain HTTP set", func() {
+			BeforeEach(func() {
+				inputs["plainHttp"] = resource.NewBoolProperty(true)
+			})
+			It("should use plain HTTP", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(executor.Action().PlainHTTP).To(Equal(true))
+			})
+		})
+
+		Describe("Plain HTTP unset", func() {
+			It("should not use plain HTTP by default", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(executor.Action().PlainHTTP).To(Equal(false))
+			})
+		})
+
 		Describe("helm.sh/resource-policy: keep", func() {
 			BeforeEach(func() {
 				inputs["values"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(map[string]any{
@@ -458,7 +477,7 @@ var _ = Describe("Construct", func() {
 				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
 					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
 						"Request": MatchFields(IgnoreExtras, Fields{
-							"RetainOnDelete": BeTrue(),
+							"RetainOnDelete": PointTo(BeTrue()),
 						}),
 					}),
 				}))

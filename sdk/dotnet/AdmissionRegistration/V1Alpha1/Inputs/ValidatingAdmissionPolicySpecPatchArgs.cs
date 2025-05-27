@@ -28,15 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         }
 
         /// <summary>
-        /// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
-        /// 
-        /// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
-        /// 
-        /// failurePolicy does not define how validations that evaluate to false are handled.
-        /// 
-        /// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
-        /// 
-        /// Allowed values are Ignore or Fail. Defaults to Fail.
+        /// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         /// </summary>
         [Input("failurePolicy")]
         public Input<string>? FailurePolicy { get; set; }
@@ -78,7 +70,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.ValidationPatchArgs>? _validations;
 
         /// <summary>
-        /// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        /// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.ValidationPatchArgs> Validations
         {

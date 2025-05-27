@@ -480,8 +480,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 				resourceSpec.Required = required
 
 				for _, t := range kind.Aliases() {
-					aliasedType := t
-					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: t})
 				}
 
 				// Check if the current resource exists in the overlays and overwrite types accordingly.
@@ -520,7 +519,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 
 					for _, t := range kind.Aliases() {
 						aliasedType := fmt.Sprintf("%sPatch", t)
-						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: aliasedType})
 					}
 
 					// Check if the current resource exists in the overlays and overwrite types accordingly.
@@ -617,12 +616,8 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	})
 
 	nodeDeps := map[string]string{
-		"shell-quote":       "^1.6.1",
-		"tmp":               "^0.0.33",
-		"@types/tmp":        "^0.0.33",
-		"glob":              "^10.3.10",
-		"node-fetch":        "^2.3.0",
-		"@types/node-fetch": "^2.1.4",
+		"shell-quote": "^1.6.1",
+		"glob":        "^10.3.10",
 	}
 	if gen.pulumiKubernetesDependency != "" {
 		nodeDeps["@pulumi/kubernetes"] = gen.pulumiKubernetesDependency

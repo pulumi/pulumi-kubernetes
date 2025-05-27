@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// GRPCAction specifies an action involving a GRPC service.
+    /// </summary>
     [OutputType]
     public sealed class GRPCAction
     {

@@ -86,6 +86,8 @@ export class ClusterTrustBundlePatch extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ClusterTrustBundlePatch.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -2560,7 +2560,7 @@ func (o AzureFileVolumeSourcePatchPtrOutput) ShareName() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2583,7 +2583,7 @@ type BindingTypeInput interface {
 	ToBindingTypeOutputWithContext(context.Context) BindingTypeOutput
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2607,7 +2607,7 @@ func (i BindingTypeArgs) ToBindingTypeOutputWithContext(ctx context.Context) Bin
 	return pulumi.ToOutputWithContext(ctx, i).(BindingTypeOutput)
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingTypeOutput struct{ *pulumi.OutputState }
 
 func (BindingTypeOutput) ElementType() reflect.Type {
@@ -2642,7 +2642,7 @@ func (o BindingTypeOutput) Target() ObjectReferenceOutput {
 	return o.ApplyT(func(v BindingType) ObjectReference { return v.Target }).(ObjectReferenceOutput)
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2665,7 +2665,7 @@ type BindingPatchTypeInput interface {
 	ToBindingPatchTypeOutputWithContext(context.Context) BindingPatchTypeOutput
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2689,7 +2689,7 @@ func (i BindingPatchTypeArgs) ToBindingPatchTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(BindingPatchTypeOutput)
 }
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type BindingPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (BindingPatchTypeOutput) ElementType() reflect.Type {
@@ -2724,7 +2724,7 @@ func (o BindingPatchTypeOutput) Target() ObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v BindingPatchType) *ObjectReferencePatch { return v.Target }).(ObjectReferencePatchPtrOutput)
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSource struct {
 	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef *SecretReference `pulumi:"controllerExpandSecretRef"`
@@ -2759,7 +2759,7 @@ type CSIPersistentVolumeSourceInput interface {
 	ToCSIPersistentVolumeSourceOutputWithContext(context.Context) CSIPersistentVolumeSourceOutput
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSourceArgs struct {
 	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef SecretReferencePtrInput `pulumi:"controllerExpandSecretRef"`
@@ -2836,7 +2836,7 @@ func (i *csipersistentVolumeSourcePtrType) ToCSIPersistentVolumeSourcePtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(CSIPersistentVolumeSourcePtrOutput)
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSourceOutput struct{ *pulumi.OutputState }
 
 func (CSIPersistentVolumeSourceOutput) ElementType() reflect.Type {
@@ -3035,7 +3035,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) VolumeHandle() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSourcePatch struct {
 	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef *SecretReferencePatch `pulumi:"controllerExpandSecretRef"`
@@ -3070,7 +3070,7 @@ type CSIPersistentVolumeSourcePatchInput interface {
 	ToCSIPersistentVolumeSourcePatchOutputWithContext(context.Context) CSIPersistentVolumeSourcePatchOutput
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSourcePatchArgs struct {
 	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef SecretReferencePatchPtrInput `pulumi:"controllerExpandSecretRef"`
@@ -3147,7 +3147,7 @@ func (i *csipersistentVolumeSourcePatchPtrType) ToCSIPersistentVolumeSourcePatch
 	return pulumi.ToOutputWithContext(ctx, i).(CSIPersistentVolumeSourcePatchPtrOutput)
 }
 
-// Represents storage that is managed by an external CSI volume driver (Beta feature)
+// Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (CSIPersistentVolumeSourcePatchOutput) ElementType() reflect.Type {
@@ -12490,6 +12490,8 @@ type ContainerStatus struct {
 	Started *bool `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State *ContainerState `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal *string `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User *ContainerUser `pulumi:"user"`
 	// Status of volume mounts.
@@ -12535,6 +12537,8 @@ type ContainerStatusArgs struct {
 	Started pulumi.BoolPtrInput `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State ContainerStatePtrInput `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User ContainerUserPtrInput `pulumi:"user"`
 	// Status of volume mounts.
@@ -12655,6 +12659,11 @@ func (o ContainerStatusOutput) State() ContainerStatePtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerState { return v.State }).(ContainerStatePtrOutput)
 }
 
+// StopSignal reports the effective stop signal for this container
+func (o ContainerStatusOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerStatus) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 // User represents user identity information initially attached to the first process of the container
 func (o ContainerStatusOutput) User() ContainerUserPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerUser { return v.User }).(ContainerUserPtrOutput)
@@ -12713,6 +12722,8 @@ type ContainerStatusPatch struct {
 	Started *bool `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State *ContainerStatePatch `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal *string `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User *ContainerUserPatch `pulumi:"user"`
 	// Status of volume mounts.
@@ -12758,6 +12769,8 @@ type ContainerStatusPatchArgs struct {
 	Started pulumi.BoolPtrInput `pulumi:"started"`
 	// State holds details about the container's current condition.
 	State ContainerStatePatchPtrInput `pulumi:"state"`
+	// StopSignal reports the effective stop signal for this container
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 	// User represents user identity information initially attached to the first process of the container
 	User ContainerUserPatchPtrInput `pulumi:"user"`
 	// Status of volume mounts.
@@ -12876,6 +12889,11 @@ func (o ContainerStatusPatchOutput) Started() pulumi.BoolPtrOutput {
 // State holds details about the container's current condition.
 func (o ContainerStatusPatchOutput) State() ContainerStatePatchPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *ContainerStatePatch { return v.State }).(ContainerStatePatchPtrOutput)
+}
+
+// StopSignal reports the effective stop signal for this container
+func (o ContainerStatusPatchOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
 }
 
 // User represents user identity information initially attached to the first process of the container
@@ -14638,7 +14656,7 @@ func (o EmptyDirVolumeSourcePatchPtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddress struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
@@ -14661,7 +14679,7 @@ type EndpointAddressInput interface {
 	ToEndpointAddressOutputWithContext(context.Context) EndpointAddressOutput
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
@@ -14710,7 +14728,7 @@ func (i EndpointAddressArray) ToEndpointAddressArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointAddressArrayOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressOutput struct{ *pulumi.OutputState }
 
 func (EndpointAddressOutput) ElementType() reflect.Type {
@@ -14765,7 +14783,7 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 	}).(EndpointAddressOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatch struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
@@ -14788,7 +14806,7 @@ type EndpointAddressPatchInput interface {
 	ToEndpointAddressPatchOutputWithContext(context.Context) EndpointAddressPatchOutput
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatchArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
@@ -14837,7 +14855,7 @@ func (i EndpointAddressPatchArray) ToEndpointAddressPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointAddressPatchArrayOutput)
 }
 
-// EndpointAddress is a tuple that describes single IP address.
+// EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
 type EndpointAddressPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointAddressPatchOutput) ElementType() reflect.Type {
@@ -14892,7 +14910,7 @@ func (o EndpointAddressPatchArrayOutput) Index(i pulumi.IntInput) EndpointAddres
 	}).(EndpointAddressPatchOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPort struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -14924,7 +14942,7 @@ type EndpointPortInput interface {
 	ToEndpointPortOutputWithContext(context.Context) EndpointPortOutput
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortArgs struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -14982,7 +15000,7 @@ func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortArrayOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortOutput) ElementType() reflect.Type {
@@ -15046,7 +15064,7 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 	}).(EndpointPortOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatch struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -15078,7 +15096,7 @@ type EndpointPortPatchInput interface {
 	ToEndpointPortPatchOutputWithContext(context.Context) EndpointPortPatchOutput
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatchArgs struct {
 	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 	//
@@ -15136,7 +15154,7 @@ func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchArrayOutput)
 }
 
-// EndpointPort is a tuple that describes a single port.
+// EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
 type EndpointPortPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointPortPatchOutput) ElementType() reflect.Type {
@@ -15211,6 +15229,8 @@ func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatch
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubset struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddress `pulumi:"addresses"`
@@ -15242,6 +15262,8 @@ type EndpointSubsetInput interface {
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressArrayInput `pulumi:"addresses"`
@@ -15299,6 +15321,8 @@ func (i EndpointSubsetArray) ToEndpointSubsetArrayOutputWithContext(ctx context.
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetOutput) ElementType() reflect.Type {
@@ -15359,6 +15383,8 @@ func (o EndpointSubsetArrayOutput) Index(i pulumi.IntInput) EndpointSubsetOutput
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatch struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddressPatch `pulumi:"addresses"`
@@ -15390,6 +15416,8 @@ type EndpointSubsetPatchInput interface {
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatchArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressPatchArrayInput `pulumi:"addresses"`
@@ -15447,6 +15475,8 @@ func (i EndpointSubsetPatchArray) ToEndpointSubsetPatchArrayOutputWithContext(ct
 //
 //	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
 //	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+// Deprecated: This API is deprecated in v1.33+.
 type EndpointSubsetPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetPatchOutput) ElementType() reflect.Type {
@@ -15509,6 +15539,10 @@ func (o EndpointSubsetPatchArrayOutput) Index(i pulumi.IntInput) EndpointSubsetP
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15544,6 +15578,10 @@ type EndpointsTypeInput interface {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15605,6 +15643,10 @@ func (i EndpointsTypeArray) ToEndpointsTypeArrayOutputWithContext(ctx context.Co
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsTypeOutput) ElementType() reflect.Type {
@@ -15659,7 +15701,7 @@ func (o EndpointsTypeArrayOutput) Index(i pulumi.IntInput) EndpointsTypeOutput {
 	}).(EndpointsTypeOutput)
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15682,7 +15724,7 @@ type EndpointsListTypeInput interface {
 	ToEndpointsListTypeOutputWithContext(context.Context) EndpointsListTypeOutput
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15706,7 +15748,7 @@ func (i EndpointsListTypeArgs) ToEndpointsListTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListTypeOutput)
 }
 
-// EndpointsList is a list of endpoints.
+// EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 type EndpointsListTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListTypeOutput) ElementType() reflect.Type {
@@ -15754,6 +15796,10 @@ func (o EndpointsListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -15789,6 +15835,10 @@ type EndpointsPatchTypeInput interface {
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -15825,6 +15875,10 @@ func (i EndpointsPatchTypeArgs) ToEndpointsPatchTypeOutputWithContext(ctx contex
 //	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
 //	   },
 //	]
+//
+// Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+//
+// Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
 type EndpointsPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsPatchTypeOutput) ElementType() reflect.Type {
@@ -15859,11 +15913,11 @@ func (o EndpointsPatchTypeOutput) Subsets() EndpointSubsetPatchArrayOutput {
 	return o.ApplyT(func(v EndpointsPatchType) []EndpointSubsetPatch { return v.Subsets }).(EndpointSubsetPatchArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSource struct {
 	// The ConfigMap to select from
 	ConfigMapRef *ConfigMapEnvSource `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix *string `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef *SecretEnvSource `pulumi:"secretRef"`
@@ -15880,11 +15934,11 @@ type EnvFromSourceInput interface {
 	ToEnvFromSourceOutputWithContext(context.Context) EnvFromSourceOutput
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourceArgs struct {
 	// The ConfigMap to select from
 	ConfigMapRef ConfigMapEnvSourcePtrInput `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef SecretEnvSourcePtrInput `pulumi:"secretRef"`
@@ -15927,7 +15981,7 @@ func (i EnvFromSourceArray) ToEnvFromSourceArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(EnvFromSourceArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourceOutput struct{ *pulumi.OutputState }
 
 func (EnvFromSourceOutput) ElementType() reflect.Type {
@@ -15947,7 +16001,7 @@ func (o EnvFromSourceOutput) ConfigMapRef() ConfigMapEnvSourcePtrOutput {
 	return o.ApplyT(func(v EnvFromSource) *ConfigMapEnvSource { return v.ConfigMapRef }).(ConfigMapEnvSourcePtrOutput)
 }
 
-// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 func (o EnvFromSourceOutput) Prefix() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EnvFromSource) *string { return v.Prefix }).(pulumi.StringPtrOutput)
 }
@@ -15977,11 +16031,11 @@ func (o EnvFromSourceArrayOutput) Index(i pulumi.IntInput) EnvFromSourceOutput {
 	}).(EnvFromSourceOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatch struct {
 	// The ConfigMap to select from
 	ConfigMapRef *ConfigMapEnvSourcePatch `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix *string `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef *SecretEnvSourcePatch `pulumi:"secretRef"`
@@ -15998,11 +16052,11 @@ type EnvFromSourcePatchInput interface {
 	ToEnvFromSourcePatchOutputWithContext(context.Context) EnvFromSourcePatchOutput
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatchArgs struct {
 	// The ConfigMap to select from
 	ConfigMapRef ConfigMapEnvSourcePatchPtrInput `pulumi:"configMapRef"`
-	// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+	// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 	Prefix pulumi.StringPtrInput `pulumi:"prefix"`
 	// The Secret to select from
 	SecretRef SecretEnvSourcePatchPtrInput `pulumi:"secretRef"`
@@ -16045,7 +16099,7 @@ func (i EnvFromSourcePatchArray) ToEnvFromSourcePatchArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(EnvFromSourcePatchArrayOutput)
 }
 
-// EnvFromSource represents the source of a set of ConfigMaps
+// EnvFromSource represents the source of a set of ConfigMaps or Secrets
 type EnvFromSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (EnvFromSourcePatchOutput) ElementType() reflect.Type {
@@ -16065,7 +16119,7 @@ func (o EnvFromSourcePatchOutput) ConfigMapRef() ConfigMapEnvSourcePatchPtrOutpu
 	return o.ApplyT(func(v EnvFromSourcePatch) *ConfigMapEnvSourcePatch { return v.ConfigMapRef }).(ConfigMapEnvSourcePatchPtrOutput)
 }
 
-// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
 func (o EnvFromSourcePatchOutput) Prefix() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EnvFromSourcePatch) *string { return v.Prefix }).(pulumi.StringPtrOutput)
 }
@@ -21246,6 +21300,7 @@ func (o GCEPersistentDiskVolumeSourcePatchPtrOutput) ReadOnly() pulumi.BoolPtrOu
 	}).(pulumi.BoolPtrOutput)
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCAction struct {
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port int `pulumi:"port"`
@@ -21266,6 +21321,7 @@ type GRPCActionInput interface {
 	ToGRPCActionOutputWithContext(context.Context) GRPCActionOutput
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCActionArgs struct {
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port pulumi.IntInput `pulumi:"port"`
@@ -21328,6 +21384,7 @@ func (i *grpcactionPtrType) ToGRPCActionPtrOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(GRPCActionPtrOutput)
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCActionOutput struct{ *pulumi.OutputState }
 
 func (GRPCActionOutput) ElementType() reflect.Type {
@@ -21410,6 +21467,7 @@ func (o GRPCActionPtrOutput) Service() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCActionPatch struct {
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port *int `pulumi:"port"`
@@ -21430,6 +21488,7 @@ type GRPCActionPatchInput interface {
 	ToGRPCActionPatchOutputWithContext(context.Context) GRPCActionPatchOutput
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCActionPatchArgs struct {
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port pulumi.IntPtrInput `pulumi:"port"`
@@ -21492,6 +21551,7 @@ func (i *grpcactionPatchPtrType) ToGRPCActionPatchPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(GRPCActionPatchPtrOutput)
 }
 
+// GRPCAction specifies an action involving a GRPC service.
 type GRPCActionPatchOutput struct{ *pulumi.OutputState }
 
 func (GRPCActionPatchOutput) ElementType() reflect.Type {
@@ -26104,6 +26164,8 @@ type Lifecycle struct {
 	PostStart *LifecycleHandler `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop *LifecycleHandler `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal *string `pulumi:"stopSignal"`
 }
 
 // LifecycleInput is an input type that accepts LifecycleArgs and LifecycleOutput values.
@@ -26123,6 +26185,8 @@ type LifecycleArgs struct {
 	PostStart LifecycleHandlerPtrInput `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop LifecycleHandlerPtrInput `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 }
 
 func (LifecycleArgs) ElementType() reflect.Type {
@@ -26213,6 +26277,11 @@ func (o LifecycleOutput) PreStop() LifecycleHandlerPtrOutput {
 	return o.ApplyT(func(v Lifecycle) *LifecycleHandler { return v.PreStop }).(LifecycleHandlerPtrOutput)
 }
 
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecycleOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Lifecycle) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 type LifecyclePtrOutput struct{ *pulumi.OutputState }
 
 func (LifecyclePtrOutput) ElementType() reflect.Type {
@@ -26257,15 +26326,25 @@ func (o LifecyclePtrOutput) PreStop() LifecycleHandlerPtrOutput {
 	}).(LifecycleHandlerPtrOutput)
 }
 
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePtrOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Lifecycle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StopSignal
+	}).(pulumi.StringPtrOutput)
+}
+
 // LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 type LifecycleHandler struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec *ExecAction `pulumi:"exec"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
-	// Sleep represents the duration that the container should sleep before being terminated.
+	// Sleep represents a duration that the container should sleep.
 	Sleep *SleepAction `pulumi:"sleep"`
-	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
 }
 
@@ -26282,13 +26361,13 @@ type LifecycleHandlerInput interface {
 
 // LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 type LifecycleHandlerArgs struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec ExecActionPtrInput `pulumi:"exec"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
-	// Sleep represents the duration that the container should sleep before being terminated.
+	// Sleep represents a duration that the container should sleep.
 	Sleep SleepActionPtrInput `pulumi:"sleep"`
-	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
 }
 
@@ -26370,22 +26449,22 @@ func (o LifecycleHandlerOutput) ToLifecycleHandlerPtrOutputWithContext(ctx conte
 	}).(LifecycleHandlerPtrOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o LifecycleHandlerOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *ExecAction { return v.Exec }).(ExecActionPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o LifecycleHandlerOutput) HttpGet() HTTPGetActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *HTTPGetAction { return v.HttpGet }).(HTTPGetActionPtrOutput)
 }
 
-// Sleep represents the duration that the container should sleep before being terminated.
+// Sleep represents a duration that the container should sleep.
 func (o LifecycleHandlerOutput) Sleep() SleepActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *SleepAction { return v.Sleep }).(SleepActionPtrOutput)
 }
 
-// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 func (o LifecycleHandlerOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v LifecycleHandler) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
 }
@@ -26414,7 +26493,7 @@ func (o LifecycleHandlerPtrOutput) Elem() LifecycleHandlerOutput {
 	}).(LifecycleHandlerOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o LifecycleHandlerPtrOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandler) *ExecAction {
 		if v == nil {
@@ -26424,7 +26503,7 @@ func (o LifecycleHandlerPtrOutput) Exec() ExecActionPtrOutput {
 	}).(ExecActionPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o LifecycleHandlerPtrOutput) HttpGet() HTTPGetActionPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandler) *HTTPGetAction {
 		if v == nil {
@@ -26434,7 +26513,7 @@ func (o LifecycleHandlerPtrOutput) HttpGet() HTTPGetActionPtrOutput {
 	}).(HTTPGetActionPtrOutput)
 }
 
-// Sleep represents the duration that the container should sleep before being terminated.
+// Sleep represents a duration that the container should sleep.
 func (o LifecycleHandlerPtrOutput) Sleep() SleepActionPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandler) *SleepAction {
 		if v == nil {
@@ -26444,7 +26523,7 @@ func (o LifecycleHandlerPtrOutput) Sleep() SleepActionPtrOutput {
 	}).(SleepActionPtrOutput)
 }
 
-// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 func (o LifecycleHandlerPtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandler) *TCPSocketAction {
 		if v == nil {
@@ -26456,13 +26535,13 @@ func (o LifecycleHandlerPtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 
 // LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 type LifecycleHandlerPatch struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec *ExecActionPatch `pulumi:"exec"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet *HTTPGetActionPatch `pulumi:"httpGet"`
-	// Sleep represents the duration that the container should sleep before being terminated.
+	// Sleep represents a duration that the container should sleep.
 	Sleep *SleepActionPatch `pulumi:"sleep"`
-	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 	TcpSocket *TCPSocketActionPatch `pulumi:"tcpSocket"`
 }
 
@@ -26479,13 +26558,13 @@ type LifecycleHandlerPatchInput interface {
 
 // LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
 type LifecycleHandlerPatchArgs struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec ExecActionPatchPtrInput `pulumi:"exec"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet HTTPGetActionPatchPtrInput `pulumi:"httpGet"`
-	// Sleep represents the duration that the container should sleep before being terminated.
+	// Sleep represents a duration that the container should sleep.
 	Sleep SleepActionPatchPtrInput `pulumi:"sleep"`
-	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 	TcpSocket TCPSocketActionPatchPtrInput `pulumi:"tcpSocket"`
 }
 
@@ -26567,22 +26646,22 @@ func (o LifecycleHandlerPatchOutput) ToLifecycleHandlerPatchPtrOutputWithContext
 	}).(LifecycleHandlerPatchPtrOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o LifecycleHandlerPatchOutput) Exec() ExecActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *ExecActionPatch { return v.Exec }).(ExecActionPatchPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o LifecycleHandlerPatchOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *HTTPGetActionPatch { return v.HttpGet }).(HTTPGetActionPatchPtrOutput)
 }
 
-// Sleep represents the duration that the container should sleep before being terminated.
+// Sleep represents a duration that the container should sleep.
 func (o LifecycleHandlerPatchOutput) Sleep() SleepActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *SleepActionPatch { return v.Sleep }).(SleepActionPatchPtrOutput)
 }
 
-// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 func (o LifecycleHandlerPatchOutput) TcpSocket() TCPSocketActionPatchPtrOutput {
 	return o.ApplyT(func(v LifecycleHandlerPatch) *TCPSocketActionPatch { return v.TcpSocket }).(TCPSocketActionPatchPtrOutput)
 }
@@ -26611,7 +26690,7 @@ func (o LifecycleHandlerPatchPtrOutput) Elem() LifecycleHandlerPatchOutput {
 	}).(LifecycleHandlerPatchOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o LifecycleHandlerPatchPtrOutput) Exec() ExecActionPatchPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandlerPatch) *ExecActionPatch {
 		if v == nil {
@@ -26621,7 +26700,7 @@ func (o LifecycleHandlerPatchPtrOutput) Exec() ExecActionPatchPtrOutput {
 	}).(ExecActionPatchPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o LifecycleHandlerPatchPtrOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandlerPatch) *HTTPGetActionPatch {
 		if v == nil {
@@ -26631,7 +26710,7 @@ func (o LifecycleHandlerPatchPtrOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	}).(HTTPGetActionPatchPtrOutput)
 }
 
-// Sleep represents the duration that the container should sleep before being terminated.
+// Sleep represents a duration that the container should sleep.
 func (o LifecycleHandlerPatchPtrOutput) Sleep() SleepActionPatchPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandlerPatch) *SleepActionPatch {
 		if v == nil {
@@ -26641,7 +26720,7 @@ func (o LifecycleHandlerPatchPtrOutput) Sleep() SleepActionPatchPtrOutput {
 	}).(SleepActionPatchPtrOutput)
 }
 
-// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 func (o LifecycleHandlerPatchPtrOutput) TcpSocket() TCPSocketActionPatchPtrOutput {
 	return o.ApplyT(func(v *LifecycleHandlerPatch) *TCPSocketActionPatch {
 		if v == nil {
@@ -26657,6 +26736,8 @@ type LifecyclePatch struct {
 	PostStart *LifecycleHandlerPatch `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop *LifecycleHandlerPatch `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal *string `pulumi:"stopSignal"`
 }
 
 // LifecyclePatchInput is an input type that accepts LifecyclePatchArgs and LifecyclePatchOutput values.
@@ -26676,6 +26757,8 @@ type LifecyclePatchArgs struct {
 	PostStart LifecycleHandlerPatchPtrInput `pulumi:"postStart"`
 	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 	PreStop LifecycleHandlerPatchPtrInput `pulumi:"preStop"`
+	// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+	StopSignal pulumi.StringPtrInput `pulumi:"stopSignal"`
 }
 
 func (LifecyclePatchArgs) ElementType() reflect.Type {
@@ -26766,6 +26849,11 @@ func (o LifecyclePatchOutput) PreStop() LifecycleHandlerPatchPtrOutput {
 	return o.ApplyT(func(v LifecyclePatch) *LifecycleHandlerPatch { return v.PreStop }).(LifecycleHandlerPatchPtrOutput)
 }
 
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePatchOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LifecyclePatch) *string { return v.StopSignal }).(pulumi.StringPtrOutput)
+}
+
 type LifecyclePatchPtrOutput struct{ *pulumi.OutputState }
 
 func (LifecyclePatchPtrOutput) ElementType() reflect.Type {
@@ -26808,6 +26896,16 @@ func (o LifecyclePatchPtrOutput) PreStop() LifecycleHandlerPatchPtrOutput {
 		}
 		return v.PreStop
 	}).(LifecycleHandlerPatchPtrOutput)
+}
+
+// StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+func (o LifecyclePatchPtrOutput) StopSignal() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LifecyclePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StopSignal
+	}).(pulumi.StringPtrOutput)
 }
 
 // LimitRange sets resource usage limits for each kind of resource in a Namespace.
@@ -28931,7 +29029,7 @@ func (o LocalObjectReferencePatchArrayOutput) Index(i pulumi.IntInput) LocalObje
 	}).(LocalObjectReferencePatchOutput)
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSource struct {
 	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType *string `pulumi:"fsType"`
@@ -28950,7 +29048,7 @@ type LocalVolumeSourceInput interface {
 	ToLocalVolumeSourceOutputWithContext(context.Context) LocalVolumeSourceOutput
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSourceArgs struct {
 	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
@@ -29011,7 +29109,7 @@ func (i *localVolumeSourcePtrType) ToLocalVolumeSourcePtrOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(LocalVolumeSourcePtrOutput)
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSourceOutput struct{ *pulumi.OutputState }
 
 func (LocalVolumeSourceOutput) ElementType() reflect.Type {
@@ -29090,7 +29188,7 @@ func (o LocalVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSourcePatch struct {
 	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType *string `pulumi:"fsType"`
@@ -29109,7 +29207,7 @@ type LocalVolumeSourcePatchInput interface {
 	ToLocalVolumeSourcePatchOutputWithContext(context.Context) LocalVolumeSourcePatchOutput
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSourcePatchArgs struct {
 	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
@@ -29170,7 +29268,7 @@ func (i *localVolumeSourcePatchPtrType) ToLocalVolumeSourcePatchPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(LocalVolumeSourcePatchPtrOutput)
 }
 
-// Local represents directly-attached storage with node affinity (Beta feature)
+// Local represents directly-attached storage with node affinity
 type LocalVolumeSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (LocalVolumeSourcePatchOutput) ElementType() reflect.Type {
@@ -30133,9 +30231,12 @@ func (o NamespaceTypeArrayOutput) Index(i pulumi.IntInput) NamespaceTypeOutput {
 
 // NamespaceCondition contains details about state of namespace.
 type NamespaceCondition struct {
+	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
-	Message            *string `pulumi:"message"`
-	Reason             *string `pulumi:"reason"`
+	// Human-readable message indicating details about last transition.
+	Message *string `pulumi:"message"`
+	// Unique, one-word, CamelCase reason for the condition's last transition.
+	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of namespace controller condition.
@@ -30155,9 +30256,12 @@ type NamespaceConditionInput interface {
 
 // NamespaceCondition contains details about state of namespace.
 type NamespaceConditionArgs struct {
+	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
-	Message            pulumi.StringPtrInput `pulumi:"message"`
-	Reason             pulumi.StringPtrInput `pulumi:"reason"`
+	// Human-readable message indicating details about last transition.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// Unique, one-word, CamelCase reason for the condition's last transition.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of namespace controller condition.
@@ -30216,14 +30320,17 @@ func (o NamespaceConditionOutput) ToNamespaceConditionOutputWithContext(ctx cont
 	return o
 }
 
+// Last time the condition transitioned from one status to another.
 func (o NamespaceConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
+// Human-readable message indicating details about last transition.
 func (o NamespaceConditionOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// Unique, one-word, CamelCase reason for the condition's last transition.
 func (o NamespaceConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
@@ -30260,9 +30367,12 @@ func (o NamespaceConditionArrayOutput) Index(i pulumi.IntInput) NamespaceConditi
 
 // NamespaceCondition contains details about state of namespace.
 type NamespaceConditionPatch struct {
+	// Last time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
-	Message            *string `pulumi:"message"`
-	Reason             *string `pulumi:"reason"`
+	// Human-readable message indicating details about last transition.
+	Message *string `pulumi:"message"`
+	// Unique, one-word, CamelCase reason for the condition's last transition.
+	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
 	Status *string `pulumi:"status"`
 	// Type of namespace controller condition.
@@ -30282,9 +30392,12 @@ type NamespaceConditionPatchInput interface {
 
 // NamespaceCondition contains details about state of namespace.
 type NamespaceConditionPatchArgs struct {
+	// Last time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
-	Message            pulumi.StringPtrInput `pulumi:"message"`
-	Reason             pulumi.StringPtrInput `pulumi:"reason"`
+	// Human-readable message indicating details about last transition.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// Unique, one-word, CamelCase reason for the condition's last transition.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringPtrInput `pulumi:"status"`
 	// Type of namespace controller condition.
@@ -30343,14 +30456,17 @@ func (o NamespaceConditionPatchOutput) ToNamespaceConditionPatchOutputWithContex
 	return o
 }
 
+// Last time the condition transitioned from one status to another.
 func (o NamespaceConditionPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceConditionPatch) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
+// Human-readable message indicating details about last transition.
 func (o NamespaceConditionPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// Unique, one-word, CamelCase reason for the condition's last transition.
 func (o NamespaceConditionPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
@@ -35404,13 +35520,13 @@ func (o NodeSpecPatchPtrOutput) Unschedulable() pulumi.BoolPtrOutput {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatus struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses []NodeAddress `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable map[string]string `pulumi:"allocatable"`
 	// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
 	Capacity map[string]string `pulumi:"capacity"`
-	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 	Conditions []NodeCondition `pulumi:"conditions"`
 	// Status of the config assigned to the node via the dynamic Kubelet config feature.
 	Config *NodeConfigStatus `pulumi:"config"`
@@ -35420,7 +35536,7 @@ type NodeStatus struct {
 	Features *NodeFeatures `pulumi:"features"`
 	// List of container images on this node
 	Images []ContainerImage `pulumi:"images"`
-	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 	NodeInfo *NodeSystemInfo `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 	Phase *string `pulumi:"phase"`
@@ -35445,13 +35561,13 @@ type NodeStatusInput interface {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusArgs struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses NodeAddressArrayInput `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable pulumi.StringMapInput `pulumi:"allocatable"`
 	// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 	Conditions NodeConditionArrayInput `pulumi:"conditions"`
 	// Status of the config assigned to the node via the dynamic Kubelet config feature.
 	Config NodeConfigStatusPtrInput `pulumi:"config"`
@@ -35461,7 +35577,7 @@ type NodeStatusArgs struct {
 	Features NodeFeaturesPtrInput `pulumi:"features"`
 	// List of container images on this node
 	Images ContainerImageArrayInput `pulumi:"images"`
-	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 	NodeInfo NodeSystemInfoPtrInput `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
@@ -35551,7 +35667,7 @@ func (o NodeStatusOutput) ToNodeStatusPtrOutputWithContext(ctx context.Context) 
 	}).(NodeStatusPtrOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusOutput) Addresses() NodeAddressArrayOutput {
 	return o.ApplyT(func(v NodeStatus) []NodeAddress { return v.Addresses }).(NodeAddressArrayOutput)
 }
@@ -35566,7 +35682,7 @@ func (o NodeStatusOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v NodeStatus) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 func (o NodeStatusOutput) Conditions() NodeConditionArrayOutput {
 	return o.ApplyT(func(v NodeStatus) []NodeCondition { return v.Conditions }).(NodeConditionArrayOutput)
 }
@@ -35591,7 +35707,7 @@ func (o NodeStatusOutput) Images() ContainerImageArrayOutput {
 	return o.ApplyT(func(v NodeStatus) []ContainerImage { return v.Images }).(ContainerImageArrayOutput)
 }
 
-// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 func (o NodeStatusOutput) NodeInfo() NodeSystemInfoPtrOutput {
 	return o.ApplyT(func(v NodeStatus) *NodeSystemInfo { return v.NodeInfo }).(NodeSystemInfoPtrOutput)
 }
@@ -35640,7 +35756,7 @@ func (o NodeStatusPtrOutput) Elem() NodeStatusOutput {
 	}).(NodeStatusOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPtrOutput) Addresses() NodeAddressArrayOutput {
 	return o.ApplyT(func(v *NodeStatus) []NodeAddress {
 		if v == nil {
@@ -35670,7 +35786,7 @@ func (o NodeStatusPtrOutput) Capacity() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 func (o NodeStatusPtrOutput) Conditions() NodeConditionArrayOutput {
 	return o.ApplyT(func(v *NodeStatus) []NodeCondition {
 		if v == nil {
@@ -35720,7 +35836,7 @@ func (o NodeStatusPtrOutput) Images() ContainerImageArrayOutput {
 	}).(ContainerImageArrayOutput)
 }
 
-// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 func (o NodeStatusPtrOutput) NodeInfo() NodeSystemInfoPtrOutput {
 	return o.ApplyT(func(v *NodeStatus) *NodeSystemInfo {
 		if v == nil {
@@ -35772,13 +35888,13 @@ func (o NodeStatusPtrOutput) VolumesInUse() pulumi.StringArrayOutput {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusPatch struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses []NodeAddressPatch `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable map[string]string `pulumi:"allocatable"`
 	// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
 	Capacity map[string]string `pulumi:"capacity"`
-	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 	Conditions []NodeConditionPatch `pulumi:"conditions"`
 	// Status of the config assigned to the node via the dynamic Kubelet config feature.
 	Config *NodeConfigStatusPatch `pulumi:"config"`
@@ -35788,7 +35904,7 @@ type NodeStatusPatch struct {
 	Features *NodeFeaturesPatch `pulumi:"features"`
 	// List of container images on this node
 	Images []ContainerImagePatch `pulumi:"images"`
-	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 	NodeInfo *NodeSystemInfoPatch `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 	Phase *string `pulumi:"phase"`
@@ -35813,13 +35929,13 @@ type NodeStatusPatchInput interface {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusPatchArgs struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses NodeAddressPatchArrayInput `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable pulumi.StringMapInput `pulumi:"allocatable"`
 	// Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+	// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 	Conditions NodeConditionPatchArrayInput `pulumi:"conditions"`
 	// Status of the config assigned to the node via the dynamic Kubelet config feature.
 	Config NodeConfigStatusPatchPtrInput `pulumi:"config"`
@@ -35829,7 +35945,7 @@ type NodeStatusPatchArgs struct {
 	Features NodeFeaturesPatchPtrInput `pulumi:"features"`
 	// List of container images on this node
 	Images ContainerImagePatchArrayInput `pulumi:"images"`
-	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 	NodeInfo NodeSystemInfoPatchPtrInput `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
@@ -35919,7 +36035,7 @@ func (o NodeStatusPatchOutput) ToNodeStatusPatchPtrOutputWithContext(ctx context
 	}).(NodeStatusPatchPtrOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPatchOutput) Addresses() NodeAddressPatchArrayOutput {
 	return o.ApplyT(func(v NodeStatusPatch) []NodeAddressPatch { return v.Addresses }).(NodeAddressPatchArrayOutput)
 }
@@ -35934,7 +36050,7 @@ func (o NodeStatusPatchOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v NodeStatusPatch) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 func (o NodeStatusPatchOutput) Conditions() NodeConditionPatchArrayOutput {
 	return o.ApplyT(func(v NodeStatusPatch) []NodeConditionPatch { return v.Conditions }).(NodeConditionPatchArrayOutput)
 }
@@ -35959,7 +36075,7 @@ func (o NodeStatusPatchOutput) Images() ContainerImagePatchArrayOutput {
 	return o.ApplyT(func(v NodeStatusPatch) []ContainerImagePatch { return v.Images }).(ContainerImagePatchArrayOutput)
 }
 
-// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 func (o NodeStatusPatchOutput) NodeInfo() NodeSystemInfoPatchPtrOutput {
 	return o.ApplyT(func(v NodeStatusPatch) *NodeSystemInfoPatch { return v.NodeInfo }).(NodeSystemInfoPatchPtrOutput)
 }
@@ -36008,7 +36124,7 @@ func (o NodeStatusPatchPtrOutput) Elem() NodeStatusPatchOutput {
 	}).(NodeStatusPatchOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPatchPtrOutput) Addresses() NodeAddressPatchArrayOutput {
 	return o.ApplyT(func(v *NodeStatusPatch) []NodeAddressPatch {
 		if v == nil {
@@ -36038,7 +36154,7 @@ func (o NodeStatusPatchPtrOutput) Capacity() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+// Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
 func (o NodeStatusPatchPtrOutput) Conditions() NodeConditionPatchArrayOutput {
 	return o.ApplyT(func(v *NodeStatusPatch) []NodeConditionPatch {
 		if v == nil {
@@ -36088,7 +36204,7 @@ func (o NodeStatusPatchPtrOutput) Images() ContainerImagePatchArrayOutput {
 	}).(ContainerImagePatchArrayOutput)
 }
 
-// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
 func (o NodeStatusPatchPtrOutput) NodeInfo() NodeSystemInfoPatchPtrOutput {
 	return o.ApplyT(func(v *NodeStatusPatch) *NodeSystemInfoPatch {
 		if v == nil {
@@ -36138,6 +36254,286 @@ func (o NodeStatusPatchPtrOutput) VolumesInUse() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatus struct {
+	// Total amount of swap memory in bytes.
+	Capacity *int `pulumi:"capacity"`
+}
+
+// NodeSwapStatusInput is an input type that accepts NodeSwapStatusArgs and NodeSwapStatusOutput values.
+// You can construct a concrete instance of `NodeSwapStatusInput` via:
+//
+//	NodeSwapStatusArgs{...}
+type NodeSwapStatusInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusOutput() NodeSwapStatusOutput
+	ToNodeSwapStatusOutputWithContext(context.Context) NodeSwapStatusOutput
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusArgs struct {
+	// Total amount of swap memory in bytes.
+	Capacity pulumi.IntPtrInput `pulumi:"capacity"`
+}
+
+func (NodeSwapStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatus)(nil)).Elem()
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusOutput() NodeSwapStatusOutput {
+	return i.ToNodeSwapStatusOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusOutputWithContext(ctx context.Context) NodeSwapStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusOutput)
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return i.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusArgs) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusOutput).ToNodeSwapStatusPtrOutputWithContext(ctx)
+}
+
+// NodeSwapStatusPtrInput is an input type that accepts NodeSwapStatusArgs, NodeSwapStatusPtr and NodeSwapStatusPtrOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPtrInput` via:
+//
+//	        NodeSwapStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeSwapStatusPtrInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput
+	ToNodeSwapStatusPtrOutputWithContext(context.Context) NodeSwapStatusPtrOutput
+}
+
+type nodeSwapStatusPtrType NodeSwapStatusArgs
+
+func NodeSwapStatusPtr(v *NodeSwapStatusArgs) NodeSwapStatusPtrInput {
+	return (*nodeSwapStatusPtrType)(v)
+}
+
+func (*nodeSwapStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatus)(nil)).Elem()
+}
+
+func (i *nodeSwapStatusPtrType) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return i.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeSwapStatusPtrType) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatus)(nil)).Elem()
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusOutput() NodeSwapStatusOutput {
+	return o
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusOutputWithContext(ctx context.Context) NodeSwapStatusOutput {
+	return o
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return o.ToNodeSwapStatusPtrOutputWithContext(context.Background())
+}
+
+func (o NodeSwapStatusOutput) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSwapStatus) *NodeSwapStatus {
+		return &v
+	}).(NodeSwapStatusPtrOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeSwapStatus) *int { return v.Capacity }).(pulumi.IntPtrOutput)
+}
+
+type NodeSwapStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatus)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPtrOutput) ToNodeSwapStatusPtrOutput() NodeSwapStatusPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPtrOutput) ToNodeSwapStatusPtrOutputWithContext(ctx context.Context) NodeSwapStatusPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPtrOutput) Elem() NodeSwapStatusOutput {
+	return o.ApplyT(func(v *NodeSwapStatus) NodeSwapStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSwapStatus
+		return ret
+	}).(NodeSwapStatusOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPtrOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodeSwapStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(pulumi.IntPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatch struct {
+	// Total amount of swap memory in bytes.
+	Capacity *int `pulumi:"capacity"`
+}
+
+// NodeSwapStatusPatchInput is an input type that accepts NodeSwapStatusPatchArgs and NodeSwapStatusPatchOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPatchInput` via:
+//
+//	NodeSwapStatusPatchArgs{...}
+type NodeSwapStatusPatchInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput
+	ToNodeSwapStatusPatchOutputWithContext(context.Context) NodeSwapStatusPatchOutput
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatchArgs struct {
+	// Total amount of swap memory in bytes.
+	Capacity pulumi.IntPtrInput `pulumi:"capacity"`
+}
+
+func (NodeSwapStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput {
+	return i.ToNodeSwapStatusPatchOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchOutputWithContext(ctx context.Context) NodeSwapStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchOutput)
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return i.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NodeSwapStatusPatchArgs) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchOutput).ToNodeSwapStatusPatchPtrOutputWithContext(ctx)
+}
+
+// NodeSwapStatusPatchPtrInput is an input type that accepts NodeSwapStatusPatchArgs, NodeSwapStatusPatchPtr and NodeSwapStatusPatchPtrOutput values.
+// You can construct a concrete instance of `NodeSwapStatusPatchPtrInput` via:
+//
+//	        NodeSwapStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeSwapStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput
+	ToNodeSwapStatusPatchPtrOutputWithContext(context.Context) NodeSwapStatusPatchPtrOutput
+}
+
+type nodeSwapStatusPatchPtrType NodeSwapStatusPatchArgs
+
+func NodeSwapStatusPatchPtr(v *NodeSwapStatusPatchArgs) NodeSwapStatusPatchPtrInput {
+	return (*nodeSwapStatusPatchPtrType)(v)
+}
+
+func (*nodeSwapStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (i *nodeSwapStatusPatchPtrType) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return i.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeSwapStatusPatchPtrType) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeSwapStatusPatchPtrOutput)
+}
+
+// NodeSwapStatus represents swap memory information.
+type NodeSwapStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchOutput() NodeSwapStatusPatchOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchOutputWithContext(ctx context.Context) NodeSwapStatusPatchOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return o.ToNodeSwapStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NodeSwapStatusPatchOutput) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSwapStatusPatch) *NodeSwapStatusPatch {
+		return &v
+	}).(NodeSwapStatusPatchPtrOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPatchOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NodeSwapStatusPatch) *int { return v.Capacity }).(pulumi.IntPtrOutput)
+}
+
+type NodeSwapStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeSwapStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeSwapStatusPatch)(nil)).Elem()
+}
+
+func (o NodeSwapStatusPatchPtrOutput) ToNodeSwapStatusPatchPtrOutput() NodeSwapStatusPatchPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchPtrOutput) ToNodeSwapStatusPatchPtrOutputWithContext(ctx context.Context) NodeSwapStatusPatchPtrOutput {
+	return o
+}
+
+func (o NodeSwapStatusPatchPtrOutput) Elem() NodeSwapStatusPatchOutput {
+	return o.ApplyT(func(v *NodeSwapStatusPatch) NodeSwapStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSwapStatusPatch
+		return ret
+	}).(NodeSwapStatusPatchOutput)
+}
+
+// Total amount of swap memory in bytes.
+func (o NodeSwapStatusPatchPtrOutput) Capacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodeSwapStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(pulumi.IntPtrOutput)
+}
+
 // NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
 type NodeSystemInfo struct {
 	// The Architecture reported by the node
@@ -36158,6 +36554,8 @@ type NodeSystemInfo struct {
 	OperatingSystem string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage string `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap *NodeSwapStatus `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID string `pulumi:"systemUUID"`
 }
@@ -36193,6 +36591,8 @@ type NodeSystemInfoArgs struct {
 	OperatingSystem pulumi.StringInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringInput `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap NodeSwapStatusPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID pulumi.StringInput `pulumi:"systemUUID"`
 }
@@ -36320,6 +36720,11 @@ func (o NodeSystemInfoOutput) OsImage() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.OsImage }).(pulumi.StringOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoOutput) Swap() NodeSwapStatusPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfo) *NodeSwapStatus { return v.Swap }).(NodeSwapStatusPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoOutput) SystemUUID() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.SystemUUID }).(pulumi.StringOutput)
@@ -36439,6 +36844,16 @@ func (o NodeSystemInfoPtrOutput) OsImage() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoPtrOutput) Swap() NodeSwapStatusPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfo) *NodeSwapStatus {
+		if v == nil {
+			return nil
+		}
+		return v.Swap
+	}).(NodeSwapStatusPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoPtrOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeSystemInfo) *string {
@@ -36469,6 +36884,8 @@ type NodeSystemInfoPatch struct {
 	OperatingSystem *string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage *string `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap *NodeSwapStatusPatch `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID *string `pulumi:"systemUUID"`
 }
@@ -36504,6 +36921,8 @@ type NodeSystemInfoPatchArgs struct {
 	OperatingSystem pulumi.StringPtrInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringPtrInput `pulumi:"osImage"`
+	// Swap Info reported by the node.
+	Swap NodeSwapStatusPatchPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 	SystemUUID pulumi.StringPtrInput `pulumi:"systemUUID"`
 }
@@ -36631,6 +37050,11 @@ func (o NodeSystemInfoPatchOutput) OsImage() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *string { return v.OsImage }).(pulumi.StringPtrOutput)
 }
 
+// Swap Info reported by the node.
+func (o NodeSystemInfoPatchOutput) Swap() NodeSwapStatusPatchPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfoPatch) *NodeSwapStatusPatch { return v.Swap }).(NodeSwapStatusPatchPtrOutput)
+}
+
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
 func (o NodeSystemInfoPatchOutput) SystemUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *string { return v.SystemUUID }).(pulumi.StringPtrOutput)
@@ -36748,6 +37172,16 @@ func (o NodeSystemInfoPatchPtrOutput) OsImage() pulumi.StringPtrOutput {
 		}
 		return v.OsImage
 	}).(pulumi.StringPtrOutput)
+}
+
+// Swap Info reported by the node.
+func (o NodeSystemInfoPatchPtrOutput) Swap() NodeSwapStatusPatchPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfoPatch) *NodeSwapStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Swap
+	}).(NodeSwapStatusPatchPtrOutput)
 }
 
 // SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -37958,8 +38392,10 @@ type PersistentVolumeClaimCondition struct {
 	Message *string `pulumi:"message"`
 	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
 	Reason *string `pulumi:"reason"`
-	Status string  `pulumi:"status"`
-	Type   string  `pulumi:"type"`
+	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+	Status string `pulumi:"status"`
+	// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+	Type string `pulumi:"type"`
 }
 
 // PersistentVolumeClaimConditionInput is an input type that accepts PersistentVolumeClaimConditionArgs and PersistentVolumeClaimConditionOutput values.
@@ -37983,8 +38419,10 @@ type PersistentVolumeClaimConditionArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	Status pulumi.StringInput    `pulumi:"status"`
-	Type   pulumi.StringInput    `pulumi:"type"`
+	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+	Status pulumi.StringInput `pulumi:"status"`
+	// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (PersistentVolumeClaimConditionArgs) ElementType() reflect.Type {
@@ -38059,10 +38497,12 @@ func (o PersistentVolumeClaimConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
+// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 func (o PersistentVolumeClaimConditionOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
+// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
 func (o PersistentVolumeClaimConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -38097,8 +38537,10 @@ type PersistentVolumeClaimConditionPatch struct {
 	Message *string `pulumi:"message"`
 	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
 	Reason *string `pulumi:"reason"`
+	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 	Status *string `pulumi:"status"`
-	Type   *string `pulumi:"type"`
+	// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+	Type *string `pulumi:"type"`
 }
 
 // PersistentVolumeClaimConditionPatchInput is an input type that accepts PersistentVolumeClaimConditionPatchArgs and PersistentVolumeClaimConditionPatchOutput values.
@@ -38122,8 +38564,10 @@ type PersistentVolumeClaimConditionPatchArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 	Status pulumi.StringPtrInput `pulumi:"status"`
-	Type   pulumi.StringPtrInput `pulumi:"type"`
+	// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
 func (PersistentVolumeClaimConditionPatchArgs) ElementType() reflect.Type {
@@ -38198,10 +38642,12 @@ func (o PersistentVolumeClaimConditionPatchOutput) Reason() pulumi.StringPtrOutp
 	return o.ApplyT(func(v PersistentVolumeClaimConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
+// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
 func (o PersistentVolumeClaimConditionPatchOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimConditionPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
+// Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
 func (o PersistentVolumeClaimConditionPatchOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimConditionPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -40813,31 +41259,31 @@ func (o PersistentVolumePatchTypeOutput) Status() PersistentVolumeStatusPatchPtr
 type PersistentVolumeSpec struct {
 	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes []string `pulumi:"accessModes"`
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSource `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk *AzureDiskVolumeSource `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile *AzureFilePersistentVolumeSource `pulumi:"azureFile"`
 	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity map[string]string `pulumi:"capacity"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs *CephFSPersistentVolumeSource `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderPersistentVolumeSource `pulumi:"cinder"`
 	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef *ObjectReference `pulumi:"claimRef"`
-	// csi represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver.
 	Csi *CSIPersistentVolumeSource `pulumi:"csi"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume *FlexPersistentVolumeSource `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker *FlockerVolumeSource `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSource `pulumi:"gcePersistentDisk"`
-	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsPersistentVolumeSource `pulumi:"glusterfs"`
 	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSource `pulumi:"hostPath"`
@@ -40853,25 +41299,25 @@ type PersistentVolumeSpec struct {
 	NodeAffinity *VolumeNodeAffinity `pulumi:"nodeAffinity"`
 	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy *string `pulumi:"persistentVolumeReclaimPolicy"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSource `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume *PortworxVolumeSource `pulumi:"portworxVolume"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte *QuobyteVolumeSource `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDPersistentVolumeSource `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO *ScaleIOPersistentVolumeSource `pulumi:"scaleIO"`
 	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName *string `pulumi:"storageClassName"`
-	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSource `pulumi:"storageos"`
 	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume *VsphereVirtualDiskVolumeSource `pulumi:"vsphereVolume"`
 }
 
@@ -40890,31 +41336,31 @@ type PersistentVolumeSpecInput interface {
 type PersistentVolumeSpecArgs struct {
 	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePtrInput `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk AzureDiskVolumeSourcePtrInput `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile AzureFilePersistentVolumeSourcePtrInput `pulumi:"azureFile"`
 	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs CephFSPersistentVolumeSourcePtrInput `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderPersistentVolumeSourcePtrInput `pulumi:"cinder"`
 	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef ObjectReferencePtrInput `pulumi:"claimRef"`
-	// csi represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver.
 	Csi CSIPersistentVolumeSourcePtrInput `pulumi:"csi"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume FlexPersistentVolumeSourcePtrInput `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker FlockerVolumeSourcePtrInput `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePtrInput `pulumi:"gcePersistentDisk"`
-	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsPersistentVolumeSourcePtrInput `pulumi:"glusterfs"`
 	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePtrInput `pulumi:"hostPath"`
@@ -40930,25 +41376,25 @@ type PersistentVolumeSpecArgs struct {
 	NodeAffinity VolumeNodeAffinityPtrInput `pulumi:"nodeAffinity"`
 	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy pulumi.StringPtrInput `pulumi:"persistentVolumeReclaimPolicy"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePtrInput `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume PortworxVolumeSourcePtrInput `pulumi:"portworxVolume"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte QuobyteVolumeSourcePtrInput `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDPersistentVolumeSourcePtrInput `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO ScaleIOPersistentVolumeSourcePtrInput `pulumi:"scaleIO"`
 	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
-	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePtrInput `pulumi:"storageos"`
 	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume VsphereVirtualDiskVolumeSourcePtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -41035,17 +41481,17 @@ func (o PersistentVolumeSpecOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AWSElasticBlockStoreVolumeSource { return v.AwsElasticBlockStore }).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AzureDiskVolumeSource { return v.AzureDisk }).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecOutput) AzureFile() AzureFilePersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AzureFilePersistentVolumeSource { return v.AzureFile }).(AzureFilePersistentVolumeSourcePtrOutput)
 }
@@ -41055,12 +41501,12 @@ func (o PersistentVolumeSpecOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o PersistentVolumeSpecOutput) Cephfs() CephFSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CephFSPersistentVolumeSource { return v.Cephfs }).(CephFSPersistentVolumeSourcePtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecOutput) Cinder() CinderPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CinderPersistentVolumeSource { return v.Cinder }).(CinderPersistentVolumeSourcePtrOutput)
 }
@@ -41070,7 +41516,7 @@ func (o PersistentVolumeSpecOutput) ClaimRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *ObjectReference { return v.ClaimRef }).(ObjectReferencePtrOutput)
 }
 
-// csi represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver.
 func (o PersistentVolumeSpecOutput) Csi() CSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CSIPersistentVolumeSource { return v.Csi }).(CSIPersistentVolumeSourcePtrOutput)
 }
@@ -41080,22 +41526,22 @@ func (o PersistentVolumeSpecOutput) Fc() FCVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FCVolumeSource { return v.Fc }).(FCVolumeSourcePtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o PersistentVolumeSpecOutput) FlexVolume() FlexPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FlexPersistentVolumeSource { return v.FlexVolume }).(FlexPersistentVolumeSourcePtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o PersistentVolumeSpecOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FlockerVolumeSource { return v.Flocker }).(FlockerVolumeSourcePtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *GCEPersistentDiskVolumeSource { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecOutput) Glusterfs() GlusterfsPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *GlusterfsPersistentVolumeSource { return v.Glusterfs }).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
@@ -41135,27 +41581,27 @@ func (o PersistentVolumeSpecOutput) PersistentVolumeReclaimPolicy() pulumi.Strin
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.PersistentVolumeReclaimPolicy }).(pulumi.StringPtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o PersistentVolumeSpecOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *PhotonPersistentDiskVolumeSource { return v.PhotonPersistentDisk }).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o PersistentVolumeSpecOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *PortworxVolumeSource { return v.PortworxVolume }).(PortworxVolumeSourcePtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o PersistentVolumeSpecOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *QuobyteVolumeSource { return v.Quobyte }).(QuobyteVolumeSourcePtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecOutput) Rbd() RBDPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *RBDPersistentVolumeSource { return v.Rbd }).(RBDPersistentVolumeSourcePtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o PersistentVolumeSpecOutput) ScaleIO() ScaleIOPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *ScaleIOPersistentVolumeSource { return v.ScaleIO }).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
@@ -41165,7 +41611,7 @@ func (o PersistentVolumeSpecOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
 
-// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecOutput) Storageos() StorageOSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *StorageOSPersistentVolumeSource { return v.Storageos }).(StorageOSPersistentVolumeSourcePtrOutput)
 }
@@ -41180,7 +41626,7 @@ func (o PersistentVolumeSpecOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o PersistentVolumeSpecOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -41219,7 +41665,7 @@ func (o PersistentVolumeSpecPtrOutput) AccessModes() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecPtrOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AWSElasticBlockStoreVolumeSource {
 		if v == nil {
@@ -41229,7 +41675,7 @@ func (o PersistentVolumeSpecPtrOutput) AwsElasticBlockStore() AWSElasticBlockSto
 	}).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPtrOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AzureDiskVolumeSource {
 		if v == nil {
@@ -41239,7 +41685,7 @@ func (o PersistentVolumeSpecPtrOutput) AzureDisk() AzureDiskVolumeSourcePtrOutpu
 	}).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPtrOutput) AzureFile() AzureFilePersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AzureFilePersistentVolumeSource {
 		if v == nil {
@@ -41259,7 +41705,7 @@ func (o PersistentVolumeSpecPtrOutput) Capacity() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o PersistentVolumeSpecPtrOutput) Cephfs() CephFSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CephFSPersistentVolumeSource {
 		if v == nil {
@@ -41269,7 +41715,7 @@ func (o PersistentVolumeSpecPtrOutput) Cephfs() CephFSPersistentVolumeSourcePtrO
 	}).(CephFSPersistentVolumeSourcePtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecPtrOutput) Cinder() CinderPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CinderPersistentVolumeSource {
 		if v == nil {
@@ -41289,7 +41735,7 @@ func (o PersistentVolumeSpecPtrOutput) ClaimRef() ObjectReferencePtrOutput {
 	}).(ObjectReferencePtrOutput)
 }
 
-// csi represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver.
 func (o PersistentVolumeSpecPtrOutput) Csi() CSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CSIPersistentVolumeSource {
 		if v == nil {
@@ -41309,7 +41755,7 @@ func (o PersistentVolumeSpecPtrOutput) Fc() FCVolumeSourcePtrOutput {
 	}).(FCVolumeSourcePtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o PersistentVolumeSpecPtrOutput) FlexVolume() FlexPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *FlexPersistentVolumeSource {
 		if v == nil {
@@ -41319,7 +41765,7 @@ func (o PersistentVolumeSpecPtrOutput) FlexVolume() FlexPersistentVolumeSourcePt
 	}).(FlexPersistentVolumeSourcePtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o PersistentVolumeSpecPtrOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *FlockerVolumeSource {
 		if v == nil {
@@ -41329,7 +41775,7 @@ func (o PersistentVolumeSpecPtrOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	}).(FlockerVolumeSourcePtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecPtrOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *GCEPersistentDiskVolumeSource {
 		if v == nil {
@@ -41339,7 +41785,7 @@ func (o PersistentVolumeSpecPtrOutput) GcePersistentDisk() GCEPersistentDiskVolu
 	}).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecPtrOutput) Glusterfs() GlusterfsPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *GlusterfsPersistentVolumeSource {
 		if v == nil {
@@ -41419,7 +41865,7 @@ func (o PersistentVolumeSpecPtrOutput) PersistentVolumeReclaimPolicy() pulumi.St
 	}).(pulumi.StringPtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o PersistentVolumeSpecPtrOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *PhotonPersistentDiskVolumeSource {
 		if v == nil {
@@ -41429,7 +41875,7 @@ func (o PersistentVolumeSpecPtrOutput) PhotonPersistentDisk() PhotonPersistentDi
 	}).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o PersistentVolumeSpecPtrOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *PortworxVolumeSource {
 		if v == nil {
@@ -41439,7 +41885,7 @@ func (o PersistentVolumeSpecPtrOutput) PortworxVolume() PortworxVolumeSourcePtrO
 	}).(PortworxVolumeSourcePtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o PersistentVolumeSpecPtrOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *QuobyteVolumeSource {
 		if v == nil {
@@ -41449,7 +41895,7 @@ func (o PersistentVolumeSpecPtrOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	}).(QuobyteVolumeSourcePtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecPtrOutput) Rbd() RBDPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *RBDPersistentVolumeSource {
 		if v == nil {
@@ -41459,7 +41905,7 @@ func (o PersistentVolumeSpecPtrOutput) Rbd() RBDPersistentVolumeSourcePtrOutput 
 	}).(RBDPersistentVolumeSourcePtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o PersistentVolumeSpecPtrOutput) ScaleIO() ScaleIOPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *ScaleIOPersistentVolumeSource {
 		if v == nil {
@@ -41479,7 +41925,7 @@ func (o PersistentVolumeSpecPtrOutput) StorageClassName() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecPtrOutput) Storageos() StorageOSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *StorageOSPersistentVolumeSource {
 		if v == nil {
@@ -41509,7 +41955,7 @@ func (o PersistentVolumeSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o PersistentVolumeSpecPtrOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *VsphereVirtualDiskVolumeSource {
 		if v == nil {
@@ -41523,31 +41969,31 @@ func (o PersistentVolumeSpecPtrOutput) VsphereVolume() VsphereVirtualDiskVolumeS
 type PersistentVolumeSpecPatch struct {
 	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes []string `pulumi:"accessModes"`
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSourcePatch `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk *AzureDiskVolumeSourcePatch `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile *AzureFilePersistentVolumeSourcePatch `pulumi:"azureFile"`
 	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity map[string]string `pulumi:"capacity"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs *CephFSPersistentVolumeSourcePatch `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderPersistentVolumeSourcePatch `pulumi:"cinder"`
 	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef *ObjectReferencePatch `pulumi:"claimRef"`
-	// csi represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver.
 	Csi *CSIPersistentVolumeSourcePatch `pulumi:"csi"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSourcePatch `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume *FlexPersistentVolumeSourcePatch `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker *FlockerVolumeSourcePatch `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSourcePatch `pulumi:"gcePersistentDisk"`
-	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsPersistentVolumeSourcePatch `pulumi:"glusterfs"`
 	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSourcePatch `pulumi:"hostPath"`
@@ -41563,25 +42009,25 @@ type PersistentVolumeSpecPatch struct {
 	NodeAffinity *VolumeNodeAffinityPatch `pulumi:"nodeAffinity"`
 	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy *string `pulumi:"persistentVolumeReclaimPolicy"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSourcePatch `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume *PortworxVolumeSourcePatch `pulumi:"portworxVolume"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte *QuobyteVolumeSourcePatch `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDPersistentVolumeSourcePatch `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO *ScaleIOPersistentVolumeSourcePatch `pulumi:"scaleIO"`
 	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName *string `pulumi:"storageClassName"`
-	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSourcePatch `pulumi:"storageos"`
 	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 	VolumeAttributesClassName *string `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume *VsphereVirtualDiskVolumeSourcePatch `pulumi:"vsphereVolume"`
 }
 
@@ -41600,31 +42046,31 @@ type PersistentVolumeSpecPatchInput interface {
 type PersistentVolumeSpecPatchArgs struct {
 	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePatchPtrInput `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk AzureDiskVolumeSourcePatchPtrInput `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile AzureFilePersistentVolumeSourcePatchPtrInput `pulumi:"azureFile"`
 	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs CephFSPersistentVolumeSourcePatchPtrInput `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderPersistentVolumeSourcePatchPtrInput `pulumi:"cinder"`
 	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef ObjectReferencePatchPtrInput `pulumi:"claimRef"`
-	// csi represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver.
 	Csi CSIPersistentVolumeSourcePatchPtrInput `pulumi:"csi"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePatchPtrInput `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume FlexPersistentVolumeSourcePatchPtrInput `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker FlockerVolumeSourcePatchPtrInput `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePatchPtrInput `pulumi:"gcePersistentDisk"`
-	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsPersistentVolumeSourcePatchPtrInput `pulumi:"glusterfs"`
 	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePatchPtrInput `pulumi:"hostPath"`
@@ -41640,25 +42086,25 @@ type PersistentVolumeSpecPatchArgs struct {
 	NodeAffinity VolumeNodeAffinityPatchPtrInput `pulumi:"nodeAffinity"`
 	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy pulumi.StringPtrInput `pulumi:"persistentVolumeReclaimPolicy"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePatchPtrInput `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume PortworxVolumeSourcePatchPtrInput `pulumi:"portworxVolume"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte QuobyteVolumeSourcePatchPtrInput `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDPersistentVolumeSourcePatchPtrInput `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO ScaleIOPersistentVolumeSourcePatchPtrInput `pulumi:"scaleIO"`
 	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
-	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePatchPtrInput `pulumi:"storageos"`
 	// Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 	VolumeAttributesClassName pulumi.StringPtrInput `pulumi:"volumeAttributesClassName"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume VsphereVirtualDiskVolumeSourcePatchPtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -41745,19 +42191,19 @@ func (o PersistentVolumeSpecPatchOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecPatchOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *AWSElasticBlockStoreVolumeSourcePatch {
 		return v.AwsElasticBlockStore
 	}).(AWSElasticBlockStoreVolumeSourcePatchPtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPatchOutput) AzureDisk() AzureDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *AzureDiskVolumeSourcePatch { return v.AzureDisk }).(AzureDiskVolumeSourcePatchPtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPatchOutput) AzureFile() AzureFilePersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *AzureFilePersistentVolumeSourcePatch { return v.AzureFile }).(AzureFilePersistentVolumeSourcePatchPtrOutput)
 }
@@ -41767,12 +42213,12 @@ func (o PersistentVolumeSpecPatchOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o PersistentVolumeSpecPatchOutput) Cephfs() CephFSPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *CephFSPersistentVolumeSourcePatch { return v.Cephfs }).(CephFSPersistentVolumeSourcePatchPtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecPatchOutput) Cinder() CinderPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *CinderPersistentVolumeSourcePatch { return v.Cinder }).(CinderPersistentVolumeSourcePatchPtrOutput)
 }
@@ -41782,7 +42228,7 @@ func (o PersistentVolumeSpecPatchOutput) ClaimRef() ObjectReferencePatchPtrOutpu
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *ObjectReferencePatch { return v.ClaimRef }).(ObjectReferencePatchPtrOutput)
 }
 
-// csi represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver.
 func (o PersistentVolumeSpecPatchOutput) Csi() CSIPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *CSIPersistentVolumeSourcePatch { return v.Csi }).(CSIPersistentVolumeSourcePatchPtrOutput)
 }
@@ -41792,22 +42238,22 @@ func (o PersistentVolumeSpecPatchOutput) Fc() FCVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *FCVolumeSourcePatch { return v.Fc }).(FCVolumeSourcePatchPtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o PersistentVolumeSpecPatchOutput) FlexVolume() FlexPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *FlexPersistentVolumeSourcePatch { return v.FlexVolume }).(FlexPersistentVolumeSourcePatchPtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o PersistentVolumeSpecPatchOutput) Flocker() FlockerVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *FlockerVolumeSourcePatch { return v.Flocker }).(FlockerVolumeSourcePatchPtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecPatchOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *GCEPersistentDiskVolumeSourcePatch { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecPatchOutput) Glusterfs() GlusterfsPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *GlusterfsPersistentVolumeSourcePatch { return v.Glusterfs }).(GlusterfsPersistentVolumeSourcePatchPtrOutput)
 }
@@ -41847,29 +42293,29 @@ func (o PersistentVolumeSpecPatchOutput) PersistentVolumeReclaimPolicy() pulumi.
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *string { return v.PersistentVolumeReclaimPolicy }).(pulumi.StringPtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o PersistentVolumeSpecPatchOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *PhotonPersistentDiskVolumeSourcePatch {
 		return v.PhotonPersistentDisk
 	}).(PhotonPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o PersistentVolumeSpecPatchOutput) PortworxVolume() PortworxVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *PortworxVolumeSourcePatch { return v.PortworxVolume }).(PortworxVolumeSourcePatchPtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o PersistentVolumeSpecPatchOutput) Quobyte() QuobyteVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *QuobyteVolumeSourcePatch { return v.Quobyte }).(QuobyteVolumeSourcePatchPtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecPatchOutput) Rbd() RBDPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *RBDPersistentVolumeSourcePatch { return v.Rbd }).(RBDPersistentVolumeSourcePatchPtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o PersistentVolumeSpecPatchOutput) ScaleIO() ScaleIOPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *ScaleIOPersistentVolumeSourcePatch { return v.ScaleIO }).(ScaleIOPersistentVolumeSourcePatchPtrOutput)
 }
@@ -41879,7 +42325,7 @@ func (o PersistentVolumeSpecPatchOutput) StorageClassName() pulumi.StringPtrOutp
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
 
-// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecPatchOutput) Storageos() StorageOSPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *StorageOSPersistentVolumeSourcePatch { return v.Storageos }).(StorageOSPersistentVolumeSourcePatchPtrOutput)
 }
@@ -41894,7 +42340,7 @@ func (o PersistentVolumeSpecPatchOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o PersistentVolumeSpecPatchOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpecPatch) *VsphereVirtualDiskVolumeSourcePatch { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePatchPtrOutput)
 }
@@ -41933,7 +42379,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecPatchPtrOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *AWSElasticBlockStoreVolumeSourcePatch {
 		if v == nil {
@@ -41943,7 +42389,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) AwsElasticBlockStore() AWSElasticBlo
 	}).(AWSElasticBlockStoreVolumeSourcePatchPtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPatchPtrOutput) AzureDisk() AzureDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *AzureDiskVolumeSourcePatch {
 		if v == nil {
@@ -41953,7 +42399,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) AzureDisk() AzureDiskVolumeSourcePat
 	}).(AzureDiskVolumeSourcePatchPtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o PersistentVolumeSpecPatchPtrOutput) AzureFile() AzureFilePersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *AzureFilePersistentVolumeSourcePatch {
 		if v == nil {
@@ -41973,7 +42419,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Capacity() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o PersistentVolumeSpecPatchPtrOutput) Cephfs() CephFSPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *CephFSPersistentVolumeSourcePatch {
 		if v == nil {
@@ -41983,7 +42429,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Cephfs() CephFSPersistentVolumeSourc
 	}).(CephFSPersistentVolumeSourcePatchPtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecPatchPtrOutput) Cinder() CinderPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *CinderPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42003,7 +42449,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) ClaimRef() ObjectReferencePatchPtrOu
 	}).(ObjectReferencePatchPtrOutput)
 }
 
-// csi represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver.
 func (o PersistentVolumeSpecPatchPtrOutput) Csi() CSIPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *CSIPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42023,7 +42469,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Fc() FCVolumeSourcePatchPtrOutput {
 	}).(FCVolumeSourcePatchPtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o PersistentVolumeSpecPatchPtrOutput) FlexVolume() FlexPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *FlexPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42033,7 +42479,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) FlexVolume() FlexPersistentVolumeSou
 	}).(FlexPersistentVolumeSourcePatchPtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o PersistentVolumeSpecPatchPtrOutput) Flocker() FlockerVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *FlockerVolumeSourcePatch {
 		if v == nil {
@@ -42043,7 +42489,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Flocker() FlockerVolumeSourcePatchPt
 	}).(FlockerVolumeSourcePatchPtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecPatchPtrOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *GCEPersistentDiskVolumeSourcePatch {
 		if v == nil {
@@ -42053,7 +42499,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) GcePersistentDisk() GCEPersistentDis
 	}).(GCEPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecPatchPtrOutput) Glusterfs() GlusterfsPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *GlusterfsPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42133,7 +42579,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) PersistentVolumeReclaimPolicy() pulu
 	}).(pulumi.StringPtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o PersistentVolumeSpecPatchPtrOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *PhotonPersistentDiskVolumeSourcePatch {
 		if v == nil {
@@ -42143,7 +42589,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) PhotonPersistentDisk() PhotonPersist
 	}).(PhotonPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o PersistentVolumeSpecPatchPtrOutput) PortworxVolume() PortworxVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *PortworxVolumeSourcePatch {
 		if v == nil {
@@ -42153,7 +42599,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) PortworxVolume() PortworxVolumeSourc
 	}).(PortworxVolumeSourcePatchPtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o PersistentVolumeSpecPatchPtrOutput) Quobyte() QuobyteVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *QuobyteVolumeSourcePatch {
 		if v == nil {
@@ -42163,7 +42609,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Quobyte() QuobyteVolumeSourcePatchPt
 	}).(QuobyteVolumeSourcePatchPtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecPatchPtrOutput) Rbd() RBDPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *RBDPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42173,7 +42619,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) Rbd() RBDPersistentVolumeSourcePatch
 	}).(RBDPersistentVolumeSourcePatchPtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o PersistentVolumeSpecPatchPtrOutput) ScaleIO() ScaleIOPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *ScaleIOPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42193,7 +42639,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) StorageClassName() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
-// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecPatchPtrOutput) Storageos() StorageOSPersistentVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *StorageOSPersistentVolumeSourcePatch {
 		if v == nil {
@@ -42223,7 +42669,7 @@ func (o PersistentVolumeSpecPatchPtrOutput) VolumeMode() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o PersistentVolumeSpecPatchPtrOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpecPatch) *VsphereVirtualDiskVolumeSourcePatch {
 		if v == nil {
@@ -43454,9 +43900,9 @@ func (o PodAffinityPatchPtrOutput) RequiredDuringSchedulingIgnoredDuringExecutio
 type PodAffinityTerm struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
@@ -43481,9 +43927,9 @@ type PodAffinityTermInput interface {
 type PodAffinityTermArgs struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
@@ -43550,12 +43996,12 @@ func (o PodAffinityTermOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTerm) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -43599,9 +44045,9 @@ func (o PodAffinityTermArrayOutput) Index(i pulumi.IntInput) PodAffinityTermOutp
 type PodAffinityTermPatch struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector *metav1.LabelSelectorPatch `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys []string `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelectorPatch `pulumi:"namespaceSelector"`
@@ -43626,9 +44072,9 @@ type PodAffinityTermPatchInput interface {
 type PodAffinityTermPatchArgs struct {
 	// A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
 	LabelSelector metav1.LabelSelectorPatchPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
-	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+	// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 	MismatchLabelKeys pulumi.StringArrayInput `pulumi:"mismatchLabelKeys"`
 	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPatchPtrInput `pulumi:"namespaceSelector"`
@@ -43746,12 +44192,12 @@ func (o PodAffinityTermPatchOutput) LabelSelector() metav1.LabelSelectorPatchPtr
 	return o.ApplyT(func(v PodAffinityTermPatch) *metav1.LabelSelectorPatch { return v.LabelSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTermPatch) []string { return v.MismatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -43805,7 +44251,7 @@ func (o PodAffinityTermPatchPtrOutput) LabelSelector() metav1.LabelSelectorPatch
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchPtrOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
 		if v == nil {
@@ -43815,7 +44261,7 @@ func (o PodAffinityTermPatchPtrOutput) MatchLabelKeys() pulumi.StringArrayOutput
 	}).(pulumi.StringArrayOutput)
 }
 
-// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+// MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 func (o PodAffinityTermPatchPtrOutput) MismatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodAffinityTermPatch) []string {
 		if v == nil {
@@ -44207,6 +44653,8 @@ type PodCondition struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44234,6 +44682,8 @@ type PodConditionArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44309,6 +44759,11 @@ func (o PodConditionOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodConditionOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCondition) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // Unique, one-word, CamelCase reason for the condition's last transition.
 func (o PodConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -44352,6 +44807,8 @@ type PodConditionPatch struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44379,6 +44836,8 @@ type PodConditionPatchArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// Human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// Unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -44452,6 +44911,11 @@ func (o PodConditionPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
 // Human-readable message indicating details about last transition.
 func (o PodConditionPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodConditionPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodConditionPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // Unique, one-word, CamelCase reason for the condition's last transition.
@@ -44669,8 +45133,9 @@ func (o PodDNSConfigPtrOutput) Searches() pulumi.StringArrayOutput {
 
 // PodDNSConfigOption defines DNS resolver options of a pod.
 type PodDNSConfigOption struct {
-	// Required.
-	Name  *string `pulumi:"name"`
+	// Name is this DNS resolver option's name. Required.
+	Name *string `pulumi:"name"`
+	// Value is this DNS resolver option's value.
 	Value *string `pulumi:"value"`
 }
 
@@ -44687,8 +45152,9 @@ type PodDNSConfigOptionInput interface {
 
 // PodDNSConfigOption defines DNS resolver options of a pod.
 type PodDNSConfigOptionArgs struct {
-	// Required.
-	Name  pulumi.StringPtrInput `pulumi:"name"`
+	// Name is this DNS resolver option's name. Required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Value is this DNS resolver option's value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -44744,11 +45210,12 @@ func (o PodDNSConfigOptionOutput) ToPodDNSConfigOptionOutputWithContext(ctx cont
 	return o
 }
 
-// Required.
+// Name is this DNS resolver option's name. Required.
 func (o PodDNSConfigOptionOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDNSConfigOption) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Value is this DNS resolver option's value.
 func (o PodDNSConfigOptionOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDNSConfigOption) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -44775,8 +45242,9 @@ func (o PodDNSConfigOptionArrayOutput) Index(i pulumi.IntInput) PodDNSConfigOpti
 
 // PodDNSConfigOption defines DNS resolver options of a pod.
 type PodDNSConfigOptionPatch struct {
-	// Required.
-	Name  *string `pulumi:"name"`
+	// Name is this DNS resolver option's name. Required.
+	Name *string `pulumi:"name"`
+	// Value is this DNS resolver option's value.
 	Value *string `pulumi:"value"`
 }
 
@@ -44793,8 +45261,9 @@ type PodDNSConfigOptionPatchInput interface {
 
 // PodDNSConfigOption defines DNS resolver options of a pod.
 type PodDNSConfigOptionPatchArgs struct {
-	// Required.
-	Name  pulumi.StringPtrInput `pulumi:"name"`
+	// Name is this DNS resolver option's name. Required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Value is this DNS resolver option's value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -44850,11 +45319,12 @@ func (o PodDNSConfigOptionPatchOutput) ToPodDNSConfigOptionPatchOutputWithContex
 	return o
 }
 
-// Required.
+// Name is this DNS resolver option's name. Required.
 func (o PodDNSConfigOptionPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDNSConfigOptionPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Value is this DNS resolver option's value.
 func (o PodDNSConfigOptionPatchOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDNSConfigOptionPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -46705,6 +47175,18 @@ type PodSecurityContext struct {
 	RunAsNonRoot *bool `pulumi:"runAsNonRoot"`
 	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser *int `pulumi:"runAsUser"`
+	// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+	//
+	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+	//
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	//
+	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	//
+	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+	//
+	// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+	SeLinuxChangePolicy *string `pulumi:"seLinuxChangePolicy"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions *SELinuxOptions `pulumi:"seLinuxOptions"`
 	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
@@ -46748,6 +47230,18 @@ type PodSecurityContextArgs struct {
 	RunAsNonRoot pulumi.BoolPtrInput `pulumi:"runAsNonRoot"`
 	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
+	// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+	//
+	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+	//
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	//
+	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	//
+	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+	//
+	// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+	SeLinuxChangePolicy pulumi.StringPtrInput `pulumi:"seLinuxChangePolicy"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
 	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
@@ -46874,6 +47368,21 @@ func (o PodSecurityContextOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.RunAsUser }).(pulumi.IntPtrOutput)
 }
 
+// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+//
+// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+//
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+//
+// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+//
+// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+//
+// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+func (o PodSecurityContextOutput) SeLinuxChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityContext) *string { return v.SeLinuxChangePolicy }).(pulumi.StringPtrOutput)
+}
+
 // The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *SELinuxOptions { return v.SeLinuxOptions }).(SELinuxOptionsPtrOutput)
@@ -46992,6 +47501,26 @@ func (o PodSecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+//
+// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+//
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+//
+// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+//
+// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+//
+// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+func (o PodSecurityContextPtrOutput) SeLinuxChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityContext) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinuxChangePolicy
+	}).(pulumi.StringPtrOutput)
+}
+
 // The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *SELinuxOptions {
@@ -47070,6 +47599,18 @@ type PodSecurityContextPatch struct {
 	RunAsNonRoot *bool `pulumi:"runAsNonRoot"`
 	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser *int `pulumi:"runAsUser"`
+	// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+	//
+	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+	//
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	//
+	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	//
+	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+	//
+	// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+	SeLinuxChangePolicy *string `pulumi:"seLinuxChangePolicy"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions *SELinuxOptionsPatch `pulumi:"seLinuxOptions"`
 	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
@@ -47113,6 +47654,18 @@ type PodSecurityContextPatchArgs struct {
 	RunAsNonRoot pulumi.BoolPtrInput `pulumi:"runAsNonRoot"`
 	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
+	// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+	//
+	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+	//
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	//
+	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	//
+	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+	//
+	// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+	SeLinuxChangePolicy pulumi.StringPtrInput `pulumi:"seLinuxChangePolicy"`
 	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions SELinuxOptionsPatchPtrInput `pulumi:"seLinuxOptions"`
 	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
@@ -47239,6 +47792,21 @@ func (o PodSecurityContextPatchOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContextPatch) *int { return v.RunAsUser }).(pulumi.IntPtrOutput)
 }
 
+// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+//
+// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+//
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+//
+// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+//
+// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+//
+// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+func (o PodSecurityContextPatchOutput) SeLinuxChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityContextPatch) *string { return v.SeLinuxChangePolicy }).(pulumi.StringPtrOutput)
+}
+
 // The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPatchOutput) SeLinuxOptions() SELinuxOptionsPatchPtrOutput {
 	return o.ApplyT(func(v PodSecurityContextPatch) *SELinuxOptionsPatch { return v.SeLinuxOptions }).(SELinuxOptionsPatchPtrOutput)
@@ -47357,6 +47925,26 @@ func (o PodSecurityContextPatchPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+//
+// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+//
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+//
+// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+//
+// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+//
+// All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+func (o PodSecurityContextPatchPtrOutput) SeLinuxChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityContextPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SeLinuxChangePolicy
+	}).(pulumi.StringPtrOutput)
+}
+
 // The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPatchPtrOutput) SeLinuxOptions() SELinuxOptionsPatchPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContextPatch) *SELinuxOptionsPatch {
@@ -47449,7 +48037,7 @@ type PodSpec struct {
 	Hostname *string `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReference `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers []Container `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName *string `pulumi:"nodeName"`
@@ -47477,6 +48065,12 @@ type PodSpec struct {
 	//
 	// This field is immutable.
 	ResourceClaims []PodResourceClaim `pulumi:"resourceClaims"`
+	// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+	//
+	// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+	//
+	// This is an alpha field and requires enabling the PodLevelResources feature gate.
+	Resources *ResourceRequirements `pulumi:"resources"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy *string `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
@@ -47493,7 +48087,7 @@ type PodSpec struct {
 	ServiceAccount *string `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName *string `pulumi:"serviceAccountName"`
-	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 	SetHostnameAsFQDN *bool `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace *bool `pulumi:"shareProcessNamespace"`
@@ -47552,7 +48146,7 @@ type PodSpecArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferenceArrayInput `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers ContainerArrayInput `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -47580,6 +48174,12 @@ type PodSpecArgs struct {
 	//
 	// This field is immutable.
 	ResourceClaims PodResourceClaimArrayInput `pulumi:"resourceClaims"`
+	// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+	//
+	// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+	//
+	// This is an alpha field and requires enabling the PodLevelResources feature gate.
+	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
@@ -47596,7 +48196,7 @@ type PodSpecArgs struct {
 	ServiceAccount pulumi.StringPtrInput `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName pulumi.StringPtrInput `pulumi:"serviceAccountName"`
-	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 	SetHostnameAsFQDN pulumi.BoolPtrInput `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace pulumi.BoolPtrInput `pulumi:"shareProcessNamespace"`
@@ -47765,7 +48365,7 @@ func (o PodSpecOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	return o.ApplyT(func(v PodSpec) []LocalObjectReference { return v.ImagePullSecrets }).(LocalObjectReferenceArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecOutput) InitContainers() ContainerArrayOutput {
 	return o.ApplyT(func(v PodSpec) []Container { return v.InitContainers }).(ContainerArrayOutput)
 }
@@ -47823,6 +48423,15 @@ func (o PodSpecOutput) ResourceClaims() PodResourceClaimArrayOutput {
 	return o.ApplyT(func(v PodSpec) []PodResourceClaim { return v.ResourceClaims }).(PodResourceClaimArrayOutput)
 }
 
+// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+//
+// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+//
+// This is an alpha field and requires enabling the PodLevelResources feature gate.
+func (o PodSpecOutput) Resources() ResourceRequirementsPtrOutput {
+	return o.ApplyT(func(v PodSpec) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
+}
+
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
@@ -47860,7 +48469,7 @@ func (o PodSpecOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.ServiceAccountName }).(pulumi.StringPtrOutput)
 }
 
-// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 func (o PodSpecOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PodSpec) *bool { return v.SetHostnameAsFQDN }).(pulumi.BoolPtrOutput)
 }
@@ -48069,7 +48678,7 @@ func (o PodSpecPtrOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	}).(LocalObjectReferenceArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPtrOutput) InitContainers() ContainerArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []Container {
 		if v == nil {
@@ -48177,6 +48786,20 @@ func (o PodSpecPtrOutput) ResourceClaims() PodResourceClaimArrayOutput {
 	}).(PodResourceClaimArrayOutput)
 }
 
+// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+//
+// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+//
+// This is an alpha field and requires enabling the PodLevelResources feature gate.
+func (o PodSpecPtrOutput) Resources() ResourceRequirementsPtrOutput {
+	return o.ApplyT(func(v *PodSpec) *ResourceRequirements {
+		if v == nil {
+			return nil
+		}
+		return v.Resources
+	}).(ResourceRequirementsPtrOutput)
+}
+
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
@@ -48249,7 +48872,7 @@ func (o PodSpecPtrOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 func (o PodSpecPtrOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *bool {
 		if v == nil {
@@ -48351,7 +48974,7 @@ type PodSpecPatch struct {
 	Hostname *string `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReferencePatch `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers []ContainerPatch `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName *string `pulumi:"nodeName"`
@@ -48379,6 +49002,12 @@ type PodSpecPatch struct {
 	//
 	// This field is immutable.
 	ResourceClaims []PodResourceClaimPatch `pulumi:"resourceClaims"`
+	// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+	//
+	// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+	//
+	// This is an alpha field and requires enabling the PodLevelResources feature gate.
+	Resources *ResourceRequirementsPatch `pulumi:"resources"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy *string `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
@@ -48395,7 +49024,7 @@ type PodSpecPatch struct {
 	ServiceAccount *string `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName *string `pulumi:"serviceAccountName"`
-	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 	SetHostnameAsFQDN *bool `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace *bool `pulumi:"shareProcessNamespace"`
@@ -48454,7 +49083,7 @@ type PodSpecPatchArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferencePatchArrayInput `pulumi:"imagePullSecrets"`
-	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers ContainerPatchArrayInput `pulumi:"initContainers"`
 	// NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -48482,6 +49111,12 @@ type PodSpecPatchArgs struct {
 	//
 	// This field is immutable.
 	ResourceClaims PodResourceClaimPatchArrayInput `pulumi:"resourceClaims"`
+	// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+	//
+	// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+	//
+	// This is an alpha field and requires enabling the PodLevelResources feature gate.
+	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
@@ -48498,7 +49133,7 @@ type PodSpecPatchArgs struct {
 	ServiceAccount pulumi.StringPtrInput `pulumi:"serviceAccount"`
 	// ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	ServiceAccountName pulumi.StringPtrInput `pulumi:"serviceAccountName"`
-	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+	// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 	SetHostnameAsFQDN pulumi.BoolPtrInput `pulumi:"setHostnameAsFQDN"`
 	// Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
 	ShareProcessNamespace pulumi.BoolPtrInput `pulumi:"shareProcessNamespace"`
@@ -48667,7 +49302,7 @@ func (o PodSpecPatchOutput) ImagePullSecrets() LocalObjectReferencePatchArrayOut
 	return o.ApplyT(func(v PodSpecPatch) []LocalObjectReferencePatch { return v.ImagePullSecrets }).(LocalObjectReferencePatchArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPatchOutput) InitContainers() ContainerPatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []ContainerPatch { return v.InitContainers }).(ContainerPatchArrayOutput)
 }
@@ -48725,6 +49360,15 @@ func (o PodSpecPatchOutput) ResourceClaims() PodResourceClaimPatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []PodResourceClaimPatch { return v.ResourceClaims }).(PodResourceClaimPatchArrayOutput)
 }
 
+// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+//
+// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+//
+// This is an alpha field and requires enabling the PodLevelResources feature gate.
+func (o PodSpecPatchOutput) Resources() ResourceRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v PodSpecPatch) *ResourceRequirementsPatch { return v.Resources }).(ResourceRequirementsPatchPtrOutput)
+}
+
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPatchOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
@@ -48762,7 +49406,7 @@ func (o PodSpecPatchOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.ServiceAccountName }).(pulumi.StringPtrOutput)
 }
 
-// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 func (o PodSpecPatchOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *bool { return v.SetHostnameAsFQDN }).(pulumi.BoolPtrOutput)
 }
@@ -48971,7 +49615,7 @@ func (o PodSpecPatchPtrOutput) ImagePullSecrets() LocalObjectReferencePatchArray
 	}).(LocalObjectReferencePatchArrayOutput)
 }
 
-// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 func (o PodSpecPatchPtrOutput) InitContainers() ContainerPatchArrayOutput {
 	return o.ApplyT(func(v *PodSpecPatch) []ContainerPatch {
 		if v == nil {
@@ -49079,6 +49723,20 @@ func (o PodSpecPatchPtrOutput) ResourceClaims() PodResourceClaimPatchArrayOutput
 	}).(PodResourceClaimPatchArrayOutput)
 }
 
+// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+//
+// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+//
+// This is an alpha field and requires enabling the PodLevelResources feature gate.
+func (o PodSpecPatchPtrOutput) Resources() ResourceRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v *PodSpecPatch) *ResourceRequirementsPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Resources
+	}).(ResourceRequirementsPatchPtrOutput)
+}
+
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPatchPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpecPatch) *string {
@@ -49151,7 +49809,7 @@ func (o PodSpecPatchPtrOutput) ServiceAccountName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+// If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 func (o PodSpecPatchPtrOutput) SetHostnameAsFQDN() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PodSpecPatch) *bool {
 		if v == nil {
@@ -49225,20 +49883,22 @@ func (o PodSpecPatchPtrOutput) Volumes() VolumePatchArrayOutput {
 type PodStatus struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions []PodCondition `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses []ContainerStatus `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod.
+	// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	EphemeralContainerStatuses []ContainerStatus `pulumi:"ephemeralContainerStatuses"`
 	// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 	HostIP *string `pulumi:"hostIP"`
 	// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
 	HostIPs []HostIP `pulumi:"hostIPs"`
-	// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 	InitContainerStatuses []ContainerStatus `pulumi:"initContainerStatuses"`
 	// A human readable message indicating details about why the pod is in this condition.
 	Message *string `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName *string `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49253,7 +49913,7 @@ type PodStatus struct {
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize *string `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses []PodResourceClaimStatus `pulumi:"resourceClaimStatuses"`
@@ -49276,20 +49936,22 @@ type PodStatusInput interface {
 type PodStatusArgs struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions PodConditionArrayInput `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses ContainerStatusArrayInput `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod.
+	// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	EphemeralContainerStatuses ContainerStatusArrayInput `pulumi:"ephemeralContainerStatuses"`
 	// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 	HostIP pulumi.StringPtrInput `pulumi:"hostIP"`
 	// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
 	HostIPs HostIPArrayInput `pulumi:"hostIPs"`
-	// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 	InitContainerStatuses ContainerStatusArrayInput `pulumi:"initContainerStatuses"`
 	// A human readable message indicating details about why the pod is in this condition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName pulumi.StringPtrInput `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49304,7 +49966,7 @@ type PodStatusArgs struct {
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses PodResourceClaimStatusArrayInput `pulumi:"resourceClaimStatuses"`
@@ -49395,12 +50057,12 @@ func (o PodStatusOutput) Conditions() PodConditionArrayOutput {
 	return o.ApplyT(func(v PodStatus) []PodCondition { return v.Conditions }).(PodConditionArrayOutput)
 }
 
-// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.ContainerStatuses }).(ContainerStatusArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod.
+// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusOutput) EphemeralContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.EphemeralContainerStatuses }).(ContainerStatusArrayOutput)
 }
@@ -49415,7 +50077,7 @@ func (o PodStatusOutput) HostIPs() HostIPArrayOutput {
 	return o.ApplyT(func(v PodStatus) []HostIP { return v.HostIPs }).(HostIPArrayOutput)
 }
 
-// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 func (o PodStatusOutput) InitContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.InitContainerStatuses }).(ContainerStatusArrayOutput)
 }
@@ -49428,6 +50090,11 @@ func (o PodStatusOutput) Message() pulumi.StringPtrOutput {
 // nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 func (o PodStatusOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.NominatedNodeName }).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -49459,7 +50126,7 @@ func (o PodStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
@@ -49508,7 +50175,7 @@ func (o PodStatusPtrOutput) Conditions() PodConditionArrayOutput {
 	}).(PodConditionArrayOutput)
 }
 
-// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPtrOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v *PodStatus) []ContainerStatus {
 		if v == nil {
@@ -49518,7 +50185,7 @@ func (o PodStatusPtrOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	}).(ContainerStatusArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod.
+// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPtrOutput) EphemeralContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v *PodStatus) []ContainerStatus {
 		if v == nil {
@@ -49548,7 +50215,7 @@ func (o PodStatusPtrOutput) HostIPs() HostIPArrayOutput {
 	}).(HostIPArrayOutput)
 }
 
-// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 func (o PodStatusPtrOutput) InitContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v *PodStatus) []ContainerStatus {
 		if v == nil {
@@ -49576,6 +50243,16 @@ func (o PodStatusPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 		}
 		return v.NominatedNodeName
 	}).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -49632,7 +50309,7 @@ func (o PodStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPtrOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -49666,20 +50343,22 @@ func (o PodStatusPtrOutput) StartTime() pulumi.StringPtrOutput {
 type PodStatusPatch struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions []PodConditionPatch `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses []ContainerStatusPatch `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod.
+	// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	EphemeralContainerStatuses []ContainerStatusPatch `pulumi:"ephemeralContainerStatuses"`
 	// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 	HostIP *string `pulumi:"hostIP"`
 	// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
 	HostIPs []HostIPPatch `pulumi:"hostIPs"`
-	// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 	InitContainerStatuses []ContainerStatusPatch `pulumi:"initContainerStatuses"`
 	// A human readable message indicating details about why the pod is in this condition.
 	Message *string `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName *string `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49694,7 +50373,7 @@ type PodStatusPatch struct {
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize *string `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses []PodResourceClaimStatusPatch `pulumi:"resourceClaimStatuses"`
@@ -49717,20 +50396,22 @@ type PodStatusPatchInput interface {
 type PodStatusPatchArgs struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions PodConditionPatchArrayInput `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses ContainerStatusPatchArrayInput `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod.
+	// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	EphemeralContainerStatuses ContainerStatusPatchArrayInput `pulumi:"ephemeralContainerStatuses"`
 	// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
 	HostIP pulumi.StringPtrInput `pulumi:"hostIP"`
 	// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
 	HostIPs HostIPPatchArrayInput `pulumi:"hostIPs"`
-	// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 	InitContainerStatuses ContainerStatusPatchArrayInput `pulumi:"initContainerStatuses"`
 	// A human readable message indicating details about why the pod is in this condition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 	NominatedNodeName pulumi.StringPtrInput `pulumi:"nominatedNodeName"`
+	// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
 	//
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -49745,7 +50426,7 @@ type PodStatusPatchArgs struct {
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// Status of resource claims.
 	ResourceClaimStatuses PodResourceClaimStatusPatchArrayInput `pulumi:"resourceClaimStatuses"`
@@ -49836,12 +50517,12 @@ func (o PodStatusPatchOutput) Conditions() PodConditionPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []PodConditionPatch { return v.Conditions }).(PodConditionPatchArrayOutput)
 }
 
-// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPatchOutput) ContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []ContainerStatusPatch { return v.ContainerStatuses }).(ContainerStatusPatchArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod.
+// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPatchOutput) EphemeralContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []ContainerStatusPatch { return v.EphemeralContainerStatuses }).(ContainerStatusPatchArrayOutput)
 }
@@ -49856,7 +50537,7 @@ func (o PodStatusPatchOutput) HostIPs() HostIPPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []HostIPPatch { return v.HostIPs }).(HostIPPatchArrayOutput)
 }
 
-// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 func (o PodStatusPatchOutput) InitContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []ContainerStatusPatch { return v.InitContainerStatuses }).(ContainerStatusPatchArrayOutput)
 }
@@ -49869,6 +50550,11 @@ func (o PodStatusPatchOutput) Message() pulumi.StringPtrOutput {
 // nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
 func (o PodStatusPatchOutput) NominatedNodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.NominatedNodeName }).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -49900,7 +50586,7 @@ func (o PodStatusPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPatchOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
@@ -49949,7 +50635,7 @@ func (o PodStatusPatchPtrOutput) Conditions() PodConditionPatchArrayOutput {
 	}).(PodConditionPatchArrayOutput)
 }
 
-// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPatchPtrOutput) ContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v *PodStatusPatch) []ContainerStatusPatch {
 		if v == nil {
@@ -49959,7 +50645,7 @@ func (o PodStatusPatchPtrOutput) ContainerStatuses() ContainerStatusPatchArrayOu
 	}).(ContainerStatusPatchArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod.
+// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPatchPtrOutput) EphemeralContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v *PodStatusPatch) []ContainerStatusPatch {
 		if v == nil {
@@ -49989,7 +50675,7 @@ func (o PodStatusPatchPtrOutput) HostIPs() HostIPPatchArrayOutput {
 	}).(HostIPPatchArrayOutput)
 }
 
-// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 func (o PodStatusPatchPtrOutput) InitContainerStatuses() ContainerStatusPatchArrayOutput {
 	return o.ApplyT(func(v *PodStatusPatch) []ContainerStatusPatch {
 		if v == nil {
@@ -50017,6 +50703,16 @@ func (o PodStatusPatchPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 		}
 		return v.NominatedNodeName
 	}).(pulumi.StringPtrOutput)
+}
+
+// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+func (o PodStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -50073,7 +50769,7 @@ func (o PodStatusPatchPtrOutput) Reason() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
 func (o PodStatusPatchPtrOutput) Resize() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatusPatch) *string {
 		if v == nil {
@@ -50712,6 +51408,7 @@ func (o PodTemplateSpecPatchPtrOutput) Spec() PodSpecPatchPtrOutput {
 	}).(PodSpecPatchPtrOutput)
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatus struct {
 	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
@@ -50735,6 +51432,7 @@ type PortStatusInput interface {
 	ToPortStatusOutputWithContext(context.Context) PortStatusOutput
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatusArgs struct {
 	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
@@ -50784,6 +51482,7 @@ func (i PortStatusArray) ToPortStatusArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(PortStatusArrayOutput)
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatusOutput struct{ *pulumi.OutputState }
 
 func (PortStatusOutput) ElementType() reflect.Type {
@@ -50837,6 +51536,7 @@ func (o PortStatusArrayOutput) Index(i pulumi.IntInput) PortStatusOutput {
 	}).(PortStatusOutput)
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatusPatch struct {
 	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
@@ -50860,6 +51560,7 @@ type PortStatusPatchInput interface {
 	ToPortStatusPatchOutputWithContext(context.Context) PortStatusPatchOutput
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatusPatchArgs struct {
 	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
@@ -50909,6 +51610,7 @@ func (i PortStatusPatchArray) ToPortStatusPatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PortStatusPatchArrayOutput)
 }
 
+// PortStatus represents the error condition of a service port
 type PortStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (PortStatusPatchOutput) ElementType() reflect.Type {
@@ -51538,13 +52240,13 @@ func (o PreferredSchedulingTermPatchArrayOutput) Index(i pulumi.IntInput) Prefer
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type Probe struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec *ExecAction `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port.
+	// GRPC specifies a GRPC HealthCheckRequest.
 	Grpc *GRPCAction `pulumi:"grpc"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	InitialDelaySeconds *int `pulumi:"initialDelaySeconds"`
@@ -51552,7 +52254,7 @@ type Probe struct {
 	PeriodSeconds *int `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold *int `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port.
+	// TCPSocket specifies a connection to a TCP port.
 	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
@@ -51573,13 +52275,13 @@ type ProbeInput interface {
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type ProbeArgs struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec ExecActionPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port.
+	// GRPC specifies a GRPC HealthCheckRequest.
 	Grpc GRPCActionPtrInput `pulumi:"grpc"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	InitialDelaySeconds pulumi.IntPtrInput `pulumi:"initialDelaySeconds"`
@@ -51587,7 +52289,7 @@ type ProbeArgs struct {
 	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold pulumi.IntPtrInput `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port.
+	// TCPSocket specifies a connection to a TCP port.
 	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
@@ -51673,7 +52375,7 @@ func (o ProbeOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePtrOu
 	}).(ProbePtrOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o ProbeOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v Probe) *ExecAction { return v.Exec }).(ExecActionPtrOutput)
 }
@@ -51683,12 +52385,12 @@ func (o ProbeOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port.
+// GRPC specifies a GRPC HealthCheckRequest.
 func (o ProbeOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v Probe) *GRPCAction { return v.Grpc }).(GRPCActionPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o ProbeOutput) HttpGet() HTTPGetActionPtrOutput {
 	return o.ApplyT(func(v Probe) *HTTPGetAction { return v.HttpGet }).(HTTPGetActionPtrOutput)
 }
@@ -51708,7 +52410,7 @@ func (o ProbeOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.SuccessThreshold }).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port.
+// TCPSocket specifies a connection to a TCP port.
 func (o ProbeOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v Probe) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
 }
@@ -51747,7 +52449,7 @@ func (o ProbePtrOutput) Elem() ProbeOutput {
 	}).(ProbeOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o ProbePtrOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *ExecAction {
 		if v == nil {
@@ -51767,7 +52469,7 @@ func (o ProbePtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port.
+// GRPC specifies a GRPC HealthCheckRequest.
 func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *GRPCAction {
 		if v == nil {
@@ -51777,7 +52479,7 @@ func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
 	}).(GRPCActionPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o ProbePtrOutput) HttpGet() HTTPGetActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *HTTPGetAction {
 		if v == nil {
@@ -51817,7 +52519,7 @@ func (o ProbePtrOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port.
+// TCPSocket specifies a connection to a TCP port.
 func (o ProbePtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *TCPSocketAction {
 		if v == nil {
@@ -51849,13 +52551,13 @@ func (o ProbePtrOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type ProbePatch struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec *ExecActionPatch `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port.
+	// GRPC specifies a GRPC HealthCheckRequest.
 	Grpc *GRPCActionPatch `pulumi:"grpc"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet *HTTPGetActionPatch `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	InitialDelaySeconds *int `pulumi:"initialDelaySeconds"`
@@ -51863,7 +52565,7 @@ type ProbePatch struct {
 	PeriodSeconds *int `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold *int `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port.
+	// TCPSocket specifies a connection to a TCP port.
 	TcpSocket *TCPSocketActionPatch `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
@@ -51884,13 +52586,13 @@ type ProbePatchInput interface {
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type ProbePatchArgs struct {
-	// Exec specifies the action to take.
+	// Exec specifies a command to execute in the container.
 	Exec ExecActionPatchPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port.
+	// GRPC specifies a GRPC HealthCheckRequest.
 	Grpc GRPCActionPatchPtrInput `pulumi:"grpc"`
-	// HTTPGet specifies the http request to perform.
+	// HTTPGet specifies an HTTP GET request to perform.
 	HttpGet HTTPGetActionPatchPtrInput `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	InitialDelaySeconds pulumi.IntPtrInput `pulumi:"initialDelaySeconds"`
@@ -51898,7 +52600,7 @@ type ProbePatchArgs struct {
 	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold pulumi.IntPtrInput `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port.
+	// TCPSocket specifies a connection to a TCP port.
 	TcpSocket TCPSocketActionPatchPtrInput `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
@@ -51984,7 +52686,7 @@ func (o ProbePatchOutput) ToProbePatchPtrOutputWithContext(ctx context.Context) 
 	}).(ProbePatchPtrOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o ProbePatchOutput) Exec() ExecActionPatchPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *ExecActionPatch { return v.Exec }).(ExecActionPatchPtrOutput)
 }
@@ -51994,12 +52696,12 @@ func (o ProbePatchOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port.
+// GRPC specifies a GRPC HealthCheckRequest.
 func (o ProbePatchOutput) Grpc() GRPCActionPatchPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *GRPCActionPatch { return v.Grpc }).(GRPCActionPatchPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o ProbePatchOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *HTTPGetActionPatch { return v.HttpGet }).(HTTPGetActionPatchPtrOutput)
 }
@@ -52019,7 +52721,7 @@ func (o ProbePatchOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *int { return v.SuccessThreshold }).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port.
+// TCPSocket specifies a connection to a TCP port.
 func (o ProbePatchOutput) TcpSocket() TCPSocketActionPatchPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *TCPSocketActionPatch { return v.TcpSocket }).(TCPSocketActionPatchPtrOutput)
 }
@@ -52058,7 +52760,7 @@ func (o ProbePatchPtrOutput) Elem() ProbePatchOutput {
 	}).(ProbePatchOutput)
 }
 
-// Exec specifies the action to take.
+// Exec specifies a command to execute in the container.
 func (o ProbePatchPtrOutput) Exec() ExecActionPatchPtrOutput {
 	return o.ApplyT(func(v *ProbePatch) *ExecActionPatch {
 		if v == nil {
@@ -52078,7 +52780,7 @@ func (o ProbePatchPtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port.
+// GRPC specifies a GRPC HealthCheckRequest.
 func (o ProbePatchPtrOutput) Grpc() GRPCActionPatchPtrOutput {
 	return o.ApplyT(func(v *ProbePatch) *GRPCActionPatch {
 		if v == nil {
@@ -52088,7 +52790,7 @@ func (o ProbePatchPtrOutput) Grpc() GRPCActionPatchPtrOutput {
 	}).(GRPCActionPatchPtrOutput)
 }
 
-// HTTPGet specifies the http request to perform.
+// HTTPGet specifies an HTTP GET request to perform.
 func (o ProbePatchPtrOutput) HttpGet() HTTPGetActionPatchPtrOutput {
 	return o.ApplyT(func(v *ProbePatch) *HTTPGetActionPatch {
 		if v == nil {
@@ -52128,7 +52830,7 @@ func (o ProbePatchPtrOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port.
+// TCPSocket specifies a connection to a TCP port.
 func (o ProbePatchPtrOutput) TcpSocket() TCPSocketActionPatchPtrOutput {
 	return o.ApplyT(func(v *ProbePatch) *TCPSocketActionPatch {
 		if v == nil {
@@ -56057,7 +56759,7 @@ func (o ResourceFieldSelectorPatchPtrOutput) Resource() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealth struct {
 	// Health of the resource. can be one of:
 	//  - Healthy: operates as normal
@@ -56084,7 +56786,7 @@ type ResourceHealthInput interface {
 	ToResourceHealthOutputWithContext(context.Context) ResourceHealthOutput
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealthArgs struct {
 	// Health of the resource. can be one of:
 	//  - Healthy: operates as normal
@@ -56137,7 +56839,7 @@ func (i ResourceHealthArray) ToResourceHealthArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceHealthArrayOutput)
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealthOutput struct{ *pulumi.OutputState }
 
 func (ResourceHealthOutput) ElementType() reflect.Type {
@@ -56190,7 +56892,7 @@ func (o ResourceHealthArrayOutput) Index(i pulumi.IntInput) ResourceHealthOutput
 	}).(ResourceHealthOutput)
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealthPatch struct {
 	// Health of the resource. can be one of:
 	//  - Healthy: operates as normal
@@ -56217,7 +56919,7 @@ type ResourceHealthPatchInput interface {
 	ToResourceHealthPatchOutputWithContext(context.Context) ResourceHealthPatchOutput
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealthPatchArgs struct {
 	// Health of the resource. can be one of:
 	//  - Healthy: operates as normal
@@ -56270,7 +56972,7 @@ func (i ResourceHealthPatchArray) ToResourceHealthPatchArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceHealthPatchArrayOutput)
 }
 
-// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 type ResourceHealthPatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceHealthPatchOutput) ElementType() reflect.Type {
@@ -57694,10 +58396,11 @@ func (o ResourceRequirementsPatchPtrOutput) Requests() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatus struct {
-	// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name string `pulumi:"name"`
-	// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources []ResourceHealth `pulumi:"resources"`
 }
 
@@ -57712,10 +58415,11 @@ type ResourceStatusInput interface {
 	ToResourceStatusOutputWithContext(context.Context) ResourceStatusOutput
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusArgs struct {
-	// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name pulumi.StringInput `pulumi:"name"`
-	// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources ResourceHealthArrayInput `pulumi:"resources"`
 }
 
@@ -57756,6 +58460,7 @@ func (i ResourceStatusArray) ToResourceStatusArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceStatusArrayOutput)
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusOutput struct{ *pulumi.OutputState }
 
 func (ResourceStatusOutput) ElementType() reflect.Type {
@@ -57770,12 +58475,12 @@ func (o ResourceStatusOutput) ToResourceStatusOutputWithContext(ctx context.Cont
 	return o
 }
 
-// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 func (o ResourceStatusOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ResourceStatus) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 func (o ResourceStatusOutput) Resources() ResourceHealthArrayOutput {
 	return o.ApplyT(func(v ResourceStatus) []ResourceHealth { return v.Resources }).(ResourceHealthArrayOutput)
 }
@@ -57800,10 +58505,11 @@ func (o ResourceStatusArrayOutput) Index(i pulumi.IntInput) ResourceStatusOutput
 	}).(ResourceStatusOutput)
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusPatch struct {
-	// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name *string `pulumi:"name"`
-	// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources []ResourceHealthPatch `pulumi:"resources"`
 }
 
@@ -57818,10 +58524,11 @@ type ResourceStatusPatchInput interface {
 	ToResourceStatusPatchOutputWithContext(context.Context) ResourceStatusPatchOutput
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusPatchArgs struct {
-	// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources ResourceHealthPatchArrayInput `pulumi:"resources"`
 }
 
@@ -57862,6 +58569,7 @@ func (i ResourceStatusPatchArray) ToResourceStatusPatchArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceStatusPatchArrayOutput)
 }
 
+// ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceStatusPatchOutput) ElementType() reflect.Type {
@@ -57876,12 +58584,12 @@ func (o ResourceStatusPatchOutput) ToResourceStatusPatchOutputWithContext(ctx co
 	return o
 }
 
-// Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 func (o ResourceStatusPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 func (o ResourceStatusPatchOutput) Resources() ResourceHealthPatchArrayOutput {
 	return o.ApplyT(func(v ResourceStatusPatch) []ResourceHealthPatch { return v.Resources }).(ResourceHealthPatchArrayOutput)
 }
@@ -63474,7 +64182,7 @@ type ServiceAccountType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets []ObjectReference `pulumi:"secrets"`
 }
 
@@ -63501,7 +64209,7 @@ type ServiceAccountTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets ObjectReferenceArrayInput `pulumi:"secrets"`
 }
 
@@ -63582,7 +64290,7 @@ func (o ServiceAccountTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ServiceAccountType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 func (o ServiceAccountTypeOutput) Secrets() ObjectReferenceArrayOutput {
 	return o.ApplyT(func(v ServiceAccountType) []ObjectReference { return v.Secrets }).(ObjectReferenceArrayOutput)
 }
@@ -63701,7 +64409,7 @@ type ServiceAccountPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets []ObjectReferencePatch `pulumi:"secrets"`
 }
 
@@ -63728,7 +64436,7 @@ type ServiceAccountPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets ObjectReferencePatchArrayInput `pulumi:"secrets"`
 }
 
@@ -63784,7 +64492,7 @@ func (o ServiceAccountPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutpu
 	return o.ApplyT(func(v ServiceAccountPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
+// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 func (o ServiceAccountPatchTypeOutput) Secrets() ObjectReferencePatchArrayOutput {
 	return o.ApplyT(func(v ServiceAccountPatchType) []ObjectReferencePatch { return v.Secrets }).(ObjectReferencePatchArrayOutput)
 }
@@ -64759,7 +65467,7 @@ type ServiceSpec struct {
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution *string `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -64822,7 +65530,7 @@ type ServiceSpecArgs struct {
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution pulumi.StringPtrInput `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -65010,7 +65718,7 @@ func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.TrafficDistribution }).(pulumi.StringPtrOutput)
 }
@@ -65248,7 +65956,7 @@ func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPtrOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -65314,7 +66022,7 @@ type ServiceSpecPatch struct {
 	SessionAffinityConfig *SessionAffinityConfigPatch `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution *string `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -65377,7 +66085,7 @@ type ServiceSpecPatchArgs struct {
 	SessionAffinityConfig SessionAffinityConfigPatchPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
-	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+	// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 	TrafficDistribution pulumi.StringPtrInput `pulumi:"trafficDistribution"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -65565,7 +66273,7 @@ func (o ServiceSpecPatchOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpecPatch) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPatchOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpecPatch) *string { return v.TrafficDistribution }).(pulumi.StringPtrOutput)
 }
@@ -65803,7 +66511,7 @@ func (o ServiceSpecPatchPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.
+// TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 func (o ServiceSpecPatchPtrOutput) TrafficDistribution() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpecPatch) *string {
 		if v == nil {
@@ -69063,11 +69771,11 @@ type TopologySpreadConstraint struct {
 	MinDomains *int `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy *string `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy *string `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey string `pulumi:"topologyKey"`
@@ -69105,11 +69813,11 @@ type TopologySpreadConstraintArgs struct {
 	MinDomains pulumi.IntPtrInput `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy pulumi.StringPtrInput `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy pulumi.StringPtrInput `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey pulumi.StringInput `pulumi:"topologyKey"`
@@ -69198,14 +69906,14 @@ func (o TopologySpreadConstraintOutput) MinDomains() pulumi.IntPtrOutput {
 
 // NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 //
-// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Honor policy.
 func (o TopologySpreadConstraintOutput) NodeAffinityPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) *string { return v.NodeAffinityPolicy }).(pulumi.StringPtrOutput)
 }
 
 // NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 //
-// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Ignore policy.
 func (o TopologySpreadConstraintOutput) NodeTaintsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) *string { return v.NodeTaintsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -69261,11 +69969,11 @@ type TopologySpreadConstraintPatch struct {
 	MinDomains *int `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy *string `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy *string `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey *string `pulumi:"topologyKey"`
@@ -69303,11 +70011,11 @@ type TopologySpreadConstraintPatchArgs struct {
 	MinDomains pulumi.IntPtrInput `pulumi:"minDomains"`
 	// NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 	//
-	// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Honor policy.
 	NodeAffinityPolicy pulumi.StringPtrInput `pulumi:"nodeAffinityPolicy"`
 	// NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 	//
-	// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+	// If this value is nil, the behavior is equivalent to the Ignore policy.
 	NodeTaintsPolicy pulumi.StringPtrInput `pulumi:"nodeTaintsPolicy"`
 	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey pulumi.StringPtrInput `pulumi:"topologyKey"`
@@ -69396,14 +70104,14 @@ func (o TopologySpreadConstraintPatchOutput) MinDomains() pulumi.IntPtrOutput {
 
 // NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
 //
-// If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Honor policy.
 func (o TopologySpreadConstraintPatchOutput) NodeAffinityPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *string { return v.NodeAffinityPolicy }).(pulumi.StringPtrOutput)
 }
 
 // NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
 //
-// If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+// If this value is nil, the behavior is equivalent to the Ignore policy.
 func (o TopologySpreadConstraintPatchOutput) NodeTaintsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *string { return v.NodeTaintsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -69799,6 +70507,7 @@ func (o TypedLocalObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReference struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup *string `pulumi:"apiGroup"`
@@ -69821,6 +70530,7 @@ type TypedObjectReferenceInput interface {
 	ToTypedObjectReferenceOutputWithContext(context.Context) TypedObjectReferenceOutput
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReferenceArgs struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
@@ -69885,6 +70595,7 @@ func (i *typedObjectReferencePtrType) ToTypedObjectReferencePtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(TypedObjectReferencePtrOutput)
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReferenceOutput struct{ *pulumi.OutputState }
 
 func (TypedObjectReferenceOutput) ElementType() reflect.Type {
@@ -69993,6 +70704,7 @@ func (o TypedObjectReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReferencePatch struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup *string `pulumi:"apiGroup"`
@@ -70015,6 +70727,7 @@ type TypedObjectReferencePatchInput interface {
 	ToTypedObjectReferencePatchOutputWithContext(context.Context) TypedObjectReferencePatchOutput
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReferencePatchArgs struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
@@ -70079,6 +70792,7 @@ func (i *typedObjectReferencePatchPtrType) ToTypedObjectReferencePatchPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(TypedObjectReferencePatchPtrOutput)
 }
 
+// TypedObjectReference contains enough information to let you locate the typed referenced object
 type TypedObjectReferencePatchOutput struct{ *pulumi.OutputState }
 
 func (TypedObjectReferencePatchOutput) ElementType() reflect.Type {
@@ -70189,19 +70903,19 @@ func (o TypedObjectReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type Volume struct {
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSource `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk *AzureDiskVolumeSource `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile *AzureFileVolumeSource `pulumi:"azureFile"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs *CephFSVolumeSource `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderVolumeSource `pulumi:"cinder"`
 	// configMap represents a configMap that should populate this volume
 	ConfigMap *ConfigMapVolumeSource `pulumi:"configMap"`
-	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 	Csi *CSIVolumeSource `pulumi:"csi"`
 	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI *DownwardAPIVolumeSource `pulumi:"downwardAPI"`
@@ -70224,15 +70938,15 @@ type Volume struct {
 	Ephemeral *EphemeralVolumeSource `pulumi:"ephemeral"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume *FlexVolumeSource `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker *FlockerVolumeSource `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSource `pulumi:"gcePersistentDisk"`
-	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo *GitRepoVolumeSource `pulumi:"gitRepo"`
-	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsVolumeSource `pulumi:"glusterfs"`
 	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSource `pulumi:"hostPath"`
@@ -70240,7 +70954,7 @@ type Volume struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image *ImageVolumeSource `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi *ISCSIVolumeSource `pulumi:"iscsi"`
@@ -70250,23 +70964,23 @@ type Volume struct {
 	Nfs *NFSVolumeSource `pulumi:"nfs"`
 	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim *PersistentVolumeClaimVolumeSource `pulumi:"persistentVolumeClaim"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSource `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume *PortworxVolumeSource `pulumi:"portworxVolume"`
 	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected *ProjectedVolumeSource `pulumi:"projected"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte *QuobyteVolumeSource `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDVolumeSource `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO *ScaleIOVolumeSource `pulumi:"scaleIO"`
 	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret *SecretVolumeSource `pulumi:"secret"`
-	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 	Storageos *StorageOSVolumeSource `pulumi:"storageos"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume *VsphereVirtualDiskVolumeSource `pulumi:"vsphereVolume"`
 }
 
@@ -70283,19 +70997,19 @@ type VolumeInput interface {
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type VolumeArgs struct {
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePtrInput `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk AzureDiskVolumeSourcePtrInput `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile AzureFileVolumeSourcePtrInput `pulumi:"azureFile"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs CephFSVolumeSourcePtrInput `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderVolumeSourcePtrInput `pulumi:"cinder"`
 	// configMap represents a configMap that should populate this volume
 	ConfigMap ConfigMapVolumeSourcePtrInput `pulumi:"configMap"`
-	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 	Csi CSIVolumeSourcePtrInput `pulumi:"csi"`
 	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI DownwardAPIVolumeSourcePtrInput `pulumi:"downwardAPI"`
@@ -70318,15 +71032,15 @@ type VolumeArgs struct {
 	Ephemeral EphemeralVolumeSourcePtrInput `pulumi:"ephemeral"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume FlexVolumeSourcePtrInput `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker FlockerVolumeSourcePtrInput `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePtrInput `pulumi:"gcePersistentDisk"`
-	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo GitRepoVolumeSourcePtrInput `pulumi:"gitRepo"`
-	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsVolumeSourcePtrInput `pulumi:"glusterfs"`
 	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePtrInput `pulumi:"hostPath"`
@@ -70334,7 +71048,7 @@ type VolumeArgs struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image ImageVolumeSourcePtrInput `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi ISCSIVolumeSourcePtrInput `pulumi:"iscsi"`
@@ -70344,23 +71058,23 @@ type VolumeArgs struct {
 	Nfs NFSVolumeSourcePtrInput `pulumi:"nfs"`
 	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim PersistentVolumeClaimVolumeSourcePtrInput `pulumi:"persistentVolumeClaim"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePtrInput `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume PortworxVolumeSourcePtrInput `pulumi:"portworxVolume"`
 	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected ProjectedVolumeSourcePtrInput `pulumi:"projected"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte QuobyteVolumeSourcePtrInput `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDVolumeSourcePtrInput `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO ScaleIOVolumeSourcePtrInput `pulumi:"scaleIO"`
 	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret SecretVolumeSourcePtrInput `pulumi:"secret"`
-	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 	Storageos StorageOSVolumeSourcePtrInput `pulumi:"storageos"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume VsphereVirtualDiskVolumeSourcePtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -70416,27 +71130,27 @@ func (o VolumeOutput) ToVolumeOutputWithContext(ctx context.Context) VolumeOutpu
 	return o
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o VolumeOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AWSElasticBlockStoreVolumeSource { return v.AwsElasticBlockStore }).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o VolumeOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AzureDiskVolumeSource { return v.AzureDisk }).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o VolumeOutput) AzureFile() AzureFileVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AzureFileVolumeSource { return v.AzureFile }).(AzureFileVolumeSourcePtrOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o VolumeOutput) Cephfs() CephFSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CephFSVolumeSource { return v.Cephfs }).(CephFSVolumeSourcePtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o VolumeOutput) Cinder() CinderVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CinderVolumeSource { return v.Cinder }).(CinderVolumeSourcePtrOutput)
 }
@@ -70446,7 +71160,7 @@ func (o VolumeOutput) ConfigMap() ConfigMapVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ConfigMapVolumeSource { return v.ConfigMap }).(ConfigMapVolumeSourcePtrOutput)
 }
 
-// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 func (o VolumeOutput) Csi() CSIVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CSIVolumeSource { return v.Csi }).(CSIVolumeSourcePtrOutput)
 }
@@ -70487,27 +71201,27 @@ func (o VolumeOutput) Fc() FCVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FCVolumeSource { return v.Fc }).(FCVolumeSourcePtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o VolumeOutput) FlexVolume() FlexVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FlexVolumeSource { return v.FlexVolume }).(FlexVolumeSourcePtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o VolumeOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FlockerVolumeSource { return v.Flocker }).(FlockerVolumeSourcePtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o VolumeOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GCEPersistentDiskVolumeSource { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 func (o VolumeOutput) GitRepo() GitRepoVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GitRepoVolumeSource { return v.GitRepo }).(GitRepoVolumeSourcePtrOutput)
 }
 
-// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o VolumeOutput) Glusterfs() GlusterfsVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GlusterfsVolumeSource { return v.Glusterfs }).(GlusterfsVolumeSourcePtrOutput)
 }
@@ -70521,7 +71235,7 @@ func (o VolumeOutput) HostPath() HostPathVolumeSourcePtrOutput {
 //
 // - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 //
-// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 func (o VolumeOutput) Image() ImageVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ImageVolumeSource { return v.Image }).(ImageVolumeSourcePtrOutput)
 }
@@ -70546,12 +71260,12 @@ func (o VolumeOutput) PersistentVolumeClaim() PersistentVolumeClaimVolumeSourceP
 	return o.ApplyT(func(v Volume) *PersistentVolumeClaimVolumeSource { return v.PersistentVolumeClaim }).(PersistentVolumeClaimVolumeSourcePtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o VolumeOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *PhotonPersistentDiskVolumeSource { return v.PhotonPersistentDisk }).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o VolumeOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *PortworxVolumeSource { return v.PortworxVolume }).(PortworxVolumeSourcePtrOutput)
 }
@@ -70561,17 +71275,17 @@ func (o VolumeOutput) Projected() ProjectedVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ProjectedVolumeSource { return v.Projected }).(ProjectedVolumeSourcePtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o VolumeOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *QuobyteVolumeSource { return v.Quobyte }).(QuobyteVolumeSourcePtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o VolumeOutput) Rbd() RBDVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *RBDVolumeSource { return v.Rbd }).(RBDVolumeSourcePtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o VolumeOutput) ScaleIO() ScaleIOVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ScaleIOVolumeSource { return v.ScaleIO }).(ScaleIOVolumeSourcePtrOutput)
 }
@@ -70581,12 +71295,12 @@ func (o VolumeOutput) Secret() SecretVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *SecretVolumeSource { return v.Secret }).(SecretVolumeSourcePtrOutput)
 }
 
-// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 func (o VolumeOutput) Storageos() StorageOSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *StorageOSVolumeSource { return v.Storageos }).(StorageOSVolumeSourcePtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o VolumeOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -71721,19 +72435,19 @@ func (o VolumeNodeAffinityPatchPtrOutput) Required() NodeSelectorPatchPtrOutput 
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type VolumePatch struct {
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSourcePatch `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk *AzureDiskVolumeSourcePatch `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile *AzureFileVolumeSourcePatch `pulumi:"azureFile"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs *CephFSVolumeSourcePatch `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderVolumeSourcePatch `pulumi:"cinder"`
 	// configMap represents a configMap that should populate this volume
 	ConfigMap *ConfigMapVolumeSourcePatch `pulumi:"configMap"`
-	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 	Csi *CSIVolumeSourcePatch `pulumi:"csi"`
 	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI *DownwardAPIVolumeSourcePatch `pulumi:"downwardAPI"`
@@ -71756,15 +72470,15 @@ type VolumePatch struct {
 	Ephemeral *EphemeralVolumeSourcePatch `pulumi:"ephemeral"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSourcePatch `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume *FlexVolumeSourcePatch `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker *FlockerVolumeSourcePatch `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSourcePatch `pulumi:"gcePersistentDisk"`
-	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo *GitRepoVolumeSourcePatch `pulumi:"gitRepo"`
-	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsVolumeSourcePatch `pulumi:"glusterfs"`
 	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSourcePatch `pulumi:"hostPath"`
@@ -71772,7 +72486,7 @@ type VolumePatch struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image *ImageVolumeSourcePatch `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi *ISCSIVolumeSourcePatch `pulumi:"iscsi"`
@@ -71782,23 +72496,23 @@ type VolumePatch struct {
 	Nfs *NFSVolumeSourcePatch `pulumi:"nfs"`
 	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim *PersistentVolumeClaimVolumeSourcePatch `pulumi:"persistentVolumeClaim"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSourcePatch `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume *PortworxVolumeSourcePatch `pulumi:"portworxVolume"`
 	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected *ProjectedVolumeSourcePatch `pulumi:"projected"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte *QuobyteVolumeSourcePatch `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDVolumeSourcePatch `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO *ScaleIOVolumeSourcePatch `pulumi:"scaleIO"`
 	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret *SecretVolumeSourcePatch `pulumi:"secret"`
-	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 	Storageos *StorageOSVolumeSourcePatch `pulumi:"storageos"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume *VsphereVirtualDiskVolumeSourcePatch `pulumi:"vsphereVolume"`
 }
 
@@ -71815,19 +72529,19 @@ type VolumePatchInput interface {
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type VolumePatchArgs struct {
-	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePatchPtrInput `pulumi:"awsElasticBlockStore"`
-	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 	AzureDisk AzureDiskVolumeSourcePatchPtrInput `pulumi:"azureDisk"`
-	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 	AzureFile AzureFileVolumeSourcePatchPtrInput `pulumi:"azureFile"`
-	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 	Cephfs CephFSVolumeSourcePatchPtrInput `pulumi:"cephfs"`
-	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderVolumeSourcePatchPtrInput `pulumi:"cinder"`
 	// configMap represents a configMap that should populate this volume
 	ConfigMap ConfigMapVolumeSourcePatchPtrInput `pulumi:"configMap"`
-	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 	Csi CSIVolumeSourcePatchPtrInput `pulumi:"csi"`
 	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI DownwardAPIVolumeSourcePatchPtrInput `pulumi:"downwardAPI"`
@@ -71850,15 +72564,15 @@ type VolumePatchArgs struct {
 	Ephemeral EphemeralVolumeSourcePatchPtrInput `pulumi:"ephemeral"`
 	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePatchPtrInput `pulumi:"fc"`
-	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 	FlexVolume FlexVolumeSourcePatchPtrInput `pulumi:"flexVolume"`
-	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 	Flocker FlockerVolumeSourcePatchPtrInput `pulumi:"flocker"`
-	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePatchPtrInput `pulumi:"gcePersistentDisk"`
-	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo GitRepoVolumeSourcePatchPtrInput `pulumi:"gitRepo"`
-	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsVolumeSourcePatchPtrInput `pulumi:"glusterfs"`
 	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePatchPtrInput `pulumi:"hostPath"`
@@ -71866,7 +72580,7 @@ type VolumePatchArgs struct {
 	//
 	// - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 	//
-	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+	// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 	Image ImageVolumeSourcePatchPtrInput `pulumi:"image"`
 	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi ISCSIVolumeSourcePatchPtrInput `pulumi:"iscsi"`
@@ -71876,23 +72590,23 @@ type VolumePatchArgs struct {
 	Nfs NFSVolumeSourcePatchPtrInput `pulumi:"nfs"`
 	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim PersistentVolumeClaimVolumeSourcePatchPtrInput `pulumi:"persistentVolumeClaim"`
-	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePatchPtrInput `pulumi:"photonPersistentDisk"`
-	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 	PortworxVolume PortworxVolumeSourcePatchPtrInput `pulumi:"portworxVolume"`
 	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected ProjectedVolumeSourcePatchPtrInput `pulumi:"projected"`
-	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 	Quobyte QuobyteVolumeSourcePatchPtrInput `pulumi:"quobyte"`
-	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDVolumeSourcePatchPtrInput `pulumi:"rbd"`
-	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 	ScaleIO ScaleIOVolumeSourcePatchPtrInput `pulumi:"scaleIO"`
 	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret SecretVolumeSourcePatchPtrInput `pulumi:"secret"`
-	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 	Storageos StorageOSVolumeSourcePatchPtrInput `pulumi:"storageos"`
-	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 	VsphereVolume VsphereVirtualDiskVolumeSourcePatchPtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -71948,27 +72662,27 @@ func (o VolumePatchOutput) ToVolumePatchOutputWithContext(ctx context.Context) V
 	return o
 }
 
-// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o VolumePatchOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *AWSElasticBlockStoreVolumeSourcePatch { return v.AwsElasticBlockStore }).(AWSElasticBlockStoreVolumeSourcePatchPtrOutput)
 }
 
-// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 func (o VolumePatchOutput) AzureDisk() AzureDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *AzureDiskVolumeSourcePatch { return v.AzureDisk }).(AzureDiskVolumeSourcePatchPtrOutput)
 }
 
-// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 func (o VolumePatchOutput) AzureFile() AzureFileVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *AzureFileVolumeSourcePatch { return v.AzureFile }).(AzureFileVolumeSourcePatchPtrOutput)
 }
 
-// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 func (o VolumePatchOutput) Cephfs() CephFSVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *CephFSVolumeSourcePatch { return v.Cephfs }).(CephFSVolumeSourcePatchPtrOutput)
 }
 
-// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o VolumePatchOutput) Cinder() CinderVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *CinderVolumeSourcePatch { return v.Cinder }).(CinderVolumeSourcePatchPtrOutput)
 }
@@ -71978,7 +72692,7 @@ func (o VolumePatchOutput) ConfigMap() ConfigMapVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *ConfigMapVolumeSourcePatch { return v.ConfigMap }).(ConfigMapVolumeSourcePatchPtrOutput)
 }
 
-// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 func (o VolumePatchOutput) Csi() CSIVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *CSIVolumeSourcePatch { return v.Csi }).(CSIVolumeSourcePatchPtrOutput)
 }
@@ -72019,27 +72733,27 @@ func (o VolumePatchOutput) Fc() FCVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *FCVolumeSourcePatch { return v.Fc }).(FCVolumeSourcePatchPtrOutput)
 }
 
-// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 func (o VolumePatchOutput) FlexVolume() FlexVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *FlexVolumeSourcePatch { return v.FlexVolume }).(FlexVolumeSourcePatchPtrOutput)
 }
 
-// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 func (o VolumePatchOutput) Flocker() FlockerVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *FlockerVolumeSourcePatch { return v.Flocker }).(FlockerVolumeSourcePatchPtrOutput)
 }
 
-// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o VolumePatchOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *GCEPersistentDiskVolumeSourcePatch { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+// gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 func (o VolumePatchOutput) GitRepo() GitRepoVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *GitRepoVolumeSourcePatch { return v.GitRepo }).(GitRepoVolumeSourcePatchPtrOutput)
 }
 
-// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o VolumePatchOutput) Glusterfs() GlusterfsVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *GlusterfsVolumeSourcePatch { return v.Glusterfs }).(GlusterfsVolumeSourcePatchPtrOutput)
 }
@@ -72053,7 +72767,7 @@ func (o VolumePatchOutput) HostPath() HostPathVolumeSourcePatchPtrOutput {
 //
 // - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 //
-// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+// The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
 func (o VolumePatchOutput) Image() ImageVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *ImageVolumeSourcePatch { return v.Image }).(ImageVolumeSourcePatchPtrOutput)
 }
@@ -72078,12 +72792,12 @@ func (o VolumePatchOutput) PersistentVolumeClaim() PersistentVolumeClaimVolumeSo
 	return o.ApplyT(func(v VolumePatch) *PersistentVolumeClaimVolumeSourcePatch { return v.PersistentVolumeClaim }).(PersistentVolumeClaimVolumeSourcePatchPtrOutput)
 }
 
-// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 func (o VolumePatchOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *PhotonPersistentDiskVolumeSourcePatch { return v.PhotonPersistentDisk }).(PhotonPersistentDiskVolumeSourcePatchPtrOutput)
 }
 
-// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 func (o VolumePatchOutput) PortworxVolume() PortworxVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *PortworxVolumeSourcePatch { return v.PortworxVolume }).(PortworxVolumeSourcePatchPtrOutput)
 }
@@ -72093,17 +72807,17 @@ func (o VolumePatchOutput) Projected() ProjectedVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *ProjectedVolumeSourcePatch { return v.Projected }).(ProjectedVolumeSourcePatchPtrOutput)
 }
 
-// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 func (o VolumePatchOutput) Quobyte() QuobyteVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *QuobyteVolumeSourcePatch { return v.Quobyte }).(QuobyteVolumeSourcePatchPtrOutput)
 }
 
-// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o VolumePatchOutput) Rbd() RBDVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *RBDVolumeSourcePatch { return v.Rbd }).(RBDVolumeSourcePatchPtrOutput)
 }
 
-// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 func (o VolumePatchOutput) ScaleIO() ScaleIOVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *ScaleIOVolumeSourcePatch { return v.ScaleIO }).(ScaleIOVolumeSourcePatchPtrOutput)
 }
@@ -72113,12 +72827,12 @@ func (o VolumePatchOutput) Secret() SecretVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *SecretVolumeSourcePatch { return v.Secret }).(SecretVolumeSourcePatchPtrOutput)
 }
 
-// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 func (o VolumePatchOutput) Storageos() StorageOSVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *StorageOSVolumeSourcePatch { return v.Storageos }).(StorageOSVolumeSourcePatchPtrOutput)
 }
 
-// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 func (o VolumePatchOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePatchPtrOutput {
 	return o.ApplyT(func(v VolumePatch) *VsphereVirtualDiskVolumeSourcePatch { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePatchPtrOutput)
 }
@@ -74191,6 +74905,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPtrInput)(nil)).Elem(), NodeStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPatchInput)(nil)).Elem(), NodeStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPatchPtrInput)(nil)).Elem(), NodeStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusInput)(nil)).Elem(), NodeSwapStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPtrInput)(nil)).Elem(), NodeSwapStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPatchInput)(nil)).Elem(), NodeSwapStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSwapStatusPatchPtrInput)(nil)).Elem(), NodeSwapStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoInput)(nil)).Elem(), NodeSystemInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoPtrInput)(nil)).Elem(), NodeSystemInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoPatchInput)(nil)).Elem(), NodeSystemInfoPatchArgs{})
@@ -74982,6 +75700,10 @@ func init() {
 	pulumi.RegisterOutputType(NodeStatusPtrOutput{})
 	pulumi.RegisterOutputType(NodeStatusPatchOutput{})
 	pulumi.RegisterOutputType(NodeStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPtrOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPatchOutput{})
+	pulumi.RegisterOutputType(NodeSwapStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoPtrOutput{})
 	pulumi.RegisterOutputType(NodeSystemInfoPatchOutput{})

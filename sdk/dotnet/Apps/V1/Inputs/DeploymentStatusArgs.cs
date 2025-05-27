@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     public class DeploymentStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        /// Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         /// </summary>
         [Input("availableReplicas")]
         public Input<int>? AvailableReplicas { get; set; }
@@ -46,16 +46,24 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
-        /// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+        /// Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
         /// </summary>
         [Input("readyReplicas")]
         public Input<int>? ReadyReplicas { get; set; }
 
         /// <summary>
-        /// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        /// Total number of non-terminating pods targeted by this deployment (their labels match the selector).
         /// </summary>
         [Input("replicas")]
         public Input<int>? Replicas { get; set; }
+
+        /// <summary>
+        /// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+        /// 
+        /// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        /// </summary>
+        [Input("terminatingReplicas")]
+        public Input<int>? TerminatingReplicas { get; set; }
 
         /// <summary>
         /// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
@@ -64,7 +72,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? UnavailableReplicas { get; set; }
 
         /// <summary>
-        /// Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        /// Total number of non-terminating pods targeted by this deployment that have the desired template spec.
         /// </summary>
         [Input("updatedReplicas")]
         public Input<int>? UpdatedReplicas { get; set; }

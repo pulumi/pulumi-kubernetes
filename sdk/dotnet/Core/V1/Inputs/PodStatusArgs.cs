@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>? _containerStatuses;
 
         /// <summary>
-        /// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        /// Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs> ContainerStatuses
         {
@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>? _ephemeralContainerStatuses;
 
         /// <summary>
-        /// Status for any ephemeral containers that have run in this pod.
+        /// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs> EphemeralContainerStatuses
         {
@@ -73,7 +73,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>? _initContainerStatuses;
 
         /// <summary>
-        /// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        /// Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs> InitContainerStatuses
         {
@@ -92,6 +92,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("nominatedNodeName")]
         public Input<string>? NominatedNodeName { get; set; }
+
+        /// <summary>
+        /// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        /// </summary>
+        [Input("observedGeneration")]
+        public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
         /// The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -134,7 +140,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? Reason { get; set; }
 
         /// <summary>
-        /// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        /// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         /// </summary>
         [Input("resize")]
         public Input<string>? Resize { get; set; }

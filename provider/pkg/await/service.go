@@ -332,7 +332,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 		return
 	}
 
-	var endpoints corev1.Endpoints
+	var endpoints corev1.Endpoints //nolint:staticcheck // SA1019
 	err := runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, &endpoints)
 	if err != nil {
 		return

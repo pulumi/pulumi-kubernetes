@@ -67,6 +67,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch State;
         /// <summary>
+        /// StopSignal reports the effective stop signal for this container
+        /// </summary>
+        public readonly string StopSignal;
+        /// <summary>
         /// User represents user identity information initially attached to the first process of the container
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerUserPatch User;
@@ -101,6 +105,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatePatch state,
 
+            string stopSignal,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerUserPatch user,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeMountStatusPatch> volumeMounts)
@@ -117,6 +123,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             RestartCount = restartCount;
             Started = started;
             State = state;
+            StopSignal = stopSignal;
             User = user;
             VolumeMounts = volumeMounts;
         }

@@ -74,6 +74,11 @@ namespace Pulumi.Kubernetes.Coordination.V1Alpha1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidate" },
+                    new global::Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

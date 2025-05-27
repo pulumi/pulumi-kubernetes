@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.
+    /// ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
     /// </summary>
     public class ResourceHealthArgs : global::Pulumi.ResourceArgs
     {

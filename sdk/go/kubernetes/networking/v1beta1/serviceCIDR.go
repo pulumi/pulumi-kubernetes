@@ -39,6 +39,9 @@ func NewServiceCIDR(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("ServiceCIDR")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:networking.k8s.io/v1:ServiceCIDR"),
+		},
+		{
 			Type: pulumi.String("kubernetes:networking.k8s.io/v1alpha1:ServiceCIDR"),
 		},
 	})

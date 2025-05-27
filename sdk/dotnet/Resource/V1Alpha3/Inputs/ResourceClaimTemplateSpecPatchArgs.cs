@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
     public class ResourceClaimTemplateSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        /// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }

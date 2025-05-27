@@ -21,8 +21,8 @@ import (
 	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
 	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"

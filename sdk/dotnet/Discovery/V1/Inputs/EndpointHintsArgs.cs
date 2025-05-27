@@ -15,11 +15,23 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
     /// </summary>
     public class EndpointHintsArgs : global::Pulumi.ResourceArgs
     {
+        [Input("forNodes")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForNodeArgs>? _forNodes;
+
+        /// <summary>
+        /// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForNodeArgs> ForNodes
+        {
+            get => _forNodes ?? (_forNodes = new InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForNodeArgs>());
+            set => _forNodes = value;
+        }
+
         [Input("forZones")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForZoneArgs>? _forZones;
 
         /// <summary>
-        /// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+        /// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForZoneArgs> ForZones
         {

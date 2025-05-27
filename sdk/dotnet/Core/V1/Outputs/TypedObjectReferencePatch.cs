@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// TypedObjectReference contains enough information to let you locate the typed referenced object
+    /// </summary>
     [OutputType]
     public sealed class TypedObjectReferencePatch
     {

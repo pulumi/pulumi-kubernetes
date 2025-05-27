@@ -16,8 +16,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     [OutputType]
     public sealed class NamespaceCondition
     {
+        /// <summary>
+        /// Last time the condition transitioned from one status to another.
+        /// </summary>
         public readonly string LastTransitionTime;
+        /// <summary>
+        /// Human-readable message indicating details about last transition.
+        /// </summary>
         public readonly string Message;
+        /// <summary>
+        /// Unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
         public readonly string Reason;
         /// <summary>
         /// Status of the condition, one of True, False, Unknown.

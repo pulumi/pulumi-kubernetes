@@ -305,8 +305,20 @@ func register(
 
 	// Apply the skipAwait annotation if necessary.
 	if opts.SkipAwait {
+		// Note: when decoding YAML manifests into unstructured objects, a null value will be unmarshalled as an untyped nil value.
+		// This prevents us from successfully setting the annotation to "true" in the object, so we should ensure the field is set
+		// correctly.
+		annos, found, _ := unstructured.NestedFieldNoCopy(obj.Object, "metadata", "annotations")
+		if annos == nil || !found {
+			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait annotation.
+			err := unstructured.SetNestedField(obj.Object, map[string]any{}, "metadata", "annotations")
+			if err != nil {
+				return nil, fmt.Errorf("unable to set an empty map[string]any type for '.metadata.annotations' field: `%s`: %w", printUnstructured(obj), err)
+			}
+		}
+
 		if err := unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait"); err != nil {
-			return nil, fmt.Errorf("YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
+			return nil, fmt.Errorf("unable to set `pulumi.com/skipAwait` annotation; YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
 		}
 	}
 

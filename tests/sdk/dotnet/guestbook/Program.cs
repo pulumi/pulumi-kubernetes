@@ -73,10 +73,6 @@ class Program
 
             var redisMasterService = new Pulumi.Kubernetes.Core.V1.Service("redis-master", new ServiceArgs
             {
-                Metadata = new ObjectMetaArgs
-                {
-                    Labels = redisMasterDeployment.Metadata.Apply(metadata => metadata.Labels),
-                },
                 Spec = new ServiceSpecArgs
                 {
                     Ports =
@@ -152,10 +148,6 @@ class Program
 
             var redisReplicaService = new Pulumi.Kubernetes.Core.V1.Service("redis-replica", new ServiceArgs
             {
-                Metadata = new ObjectMetaArgs
-                {
-                    Labels = redisReplicaDeployment.Metadata.Apply(metadata => metadata.Labels),
-                },
                 Spec = new ServiceSpecArgs
                 {
                     Ports =
@@ -231,10 +223,6 @@ class Program
 
             var frontendService = new Pulumi.Kubernetes.Core.V1.Service("frontend", new ServiceArgs
             {
-                Metadata = new ObjectMetaArgs
-                {
-                    Labels = frontendDeployment.Metadata.Apply(metadata => metadata.Labels),
-                },
                 Spec = new ServiceSpecArgs
                 {
                     Type = isMiniKube ? "ClusterIP" : "LoadBalancer",

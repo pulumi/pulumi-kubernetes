@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Apps.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+        /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Apps.V1.ReplicaSet>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Apps.V1.ReplicaSetArgs>? _items;
 
         /// <summary>
-        /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+        /// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Apps.V1.ReplicaSetArgs> Items
         {

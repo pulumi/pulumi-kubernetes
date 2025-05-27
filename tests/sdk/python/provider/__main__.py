@@ -28,7 +28,7 @@ nginx = Pod(
     ),
     spec=PodSpecArgs(
         containers=[ContainerArgs(
-            image="nginx:1.7.9",
+            image="nginx:1.27.2",
             name="nginx",
             ports=[ContainerPortArgs(
                 container_port=80,

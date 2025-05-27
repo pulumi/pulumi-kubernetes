@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// EnvFromSource represents the source of a set of ConfigMaps
+    /// EnvFromSource represents the source of a set of ConfigMaps or Secrets
     /// </summary>
     public class EnvFromSourceArgs : global::Pulumi.ResourceArgs
     {
@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapEnvSourceArgs>? ConfigMapRef { get; set; }
 
         /// <summary>
-        /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        /// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
         /// </summary>
         [Input("prefix")]
         public Input<string>? Prefix { get; set; }

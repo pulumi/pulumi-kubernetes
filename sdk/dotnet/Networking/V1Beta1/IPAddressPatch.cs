@@ -82,6 +82,7 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:IPAddressPatch" },
                     new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch" },
                 },
             };

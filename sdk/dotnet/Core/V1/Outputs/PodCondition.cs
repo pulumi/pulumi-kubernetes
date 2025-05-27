@@ -29,6 +29,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Message;
         /// <summary>
+        /// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        /// </summary>
+        public readonly int ObservedGeneration;
+        /// <summary>
         /// Unique, one-word, CamelCase reason for the condition's last transition.
         /// </summary>
         public readonly string Reason;
@@ -49,6 +53,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string message,
 
+            int observedGeneration,
+
             string reason,
 
             string status,
@@ -58,6 +64,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             LastProbeTime = lastProbeTime;
             LastTransitionTime = lastTransitionTime;
             Message = message;
+            ObservedGeneration = observedGeneration;
             Reason = reason;
             Status = status;
             Type = type;

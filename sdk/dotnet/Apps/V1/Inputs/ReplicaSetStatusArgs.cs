@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     public class ReplicaSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        /// The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         /// </summary>
         [Input("availableReplicas")]
         public Input<int>? AvailableReplicas { get; set; }
@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         }
 
         /// <summary>
-        /// The number of pods that have labels matching the labels of the pod template of the replicaset.
+        /// The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
         /// </summary>
         [Input("fullyLabeledReplicas")]
         public Input<int>? FullyLabeledReplicas { get; set; }
@@ -46,16 +46,24 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
-        /// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+        /// The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
         /// </summary>
         [Input("readyReplicas")]
         public Input<int>? ReadyReplicas { get; set; }
 
         /// <summary>
-        /// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        /// Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         /// </summary>
         [Input("replicas", required: true)]
         public Input<int> Replicas { get; set; } = null!;
+
+        /// <summary>
+        /// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+        /// 
+        /// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        /// </summary>
+        [Input("terminatingReplicas")]
+        public Input<int>? TerminatingReplicas { get; set; }
 
         public ReplicaSetStatusArgs()
         {

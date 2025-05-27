@@ -140,6 +140,7 @@ func TestReadyCondition(t *testing.T) {
 		inputs         *unstructured.Unstructured
 		genericEnabled bool
 		want           any
+		wantCustom     bool
 		wantErr        string
 	}{
 		{
@@ -164,7 +165,8 @@ func TestReadyCondition(t *testing.T) {
 					},
 				},
 			},
-			want: condition.Immediate{},
+			want:       condition.Immediate{},
+			wantCustom: true,
 		},
 		{
 			name: "skipAwait=true, generic await enabled",
@@ -179,6 +181,7 @@ func TestReadyCondition(t *testing.T) {
 			},
 			genericEnabled: true,
 			want:           condition.Immediate{},
+			wantCustom:     true,
 		},
 		{
 			name: "skipAwait=true with custom ready condition",
@@ -190,7 +193,8 @@ func TestReadyCondition(t *testing.T) {
 					},
 				},
 			}},
-			want: condition.Immediate{},
+			want:       condition.Immediate{},
+			wantCustom: true,
 		},
 		{
 			name: "skipAwait=false with custom ready condition",
@@ -202,7 +206,8 @@ func TestReadyCondition(t *testing.T) {
 					},
 				},
 			}},
-			want: &condition.JSONPath{},
+			want:       &condition.JSONPath{},
+			wantCustom: true,
 		},
 		{
 			name: "parse JSON array",
@@ -213,7 +218,8 @@ func TestReadyCondition(t *testing.T) {
 					},
 				},
 			}},
-			want: &condition.All{},
+			want:       &condition.All{},
+			wantCustom: true,
 		},
 		{
 			name: "parse empty array",
@@ -235,7 +241,8 @@ func TestReadyCondition(t *testing.T) {
 					},
 				},
 			}},
-			want: &condition.JSONPath{},
+			want:       &condition.JSONPath{},
+			wantCustom: true,
 		},
 		{
 			name: "invalid expression",
@@ -259,12 +266,13 @@ func TestReadyCondition(t *testing.T) {
 			if obj == nil {
 				obj = tt.inputs
 			}
-			cond, err := ReadyCondition(context.Background(), nil, nil, nil, tt.inputs, obj)
+			cond, custom, err := ReadyCondition(context.Background(), nil, nil, nil, tt.inputs, obj)
 			if tt.wantErr != "" {
 				assert.ErrorContains(t, err, tt.wantErr)
 				return
 			}
 			assert.IsType(t, tt.want, cond)
+			assert.Equal(t, tt.wantCustom, custom)
 		})
 	}
 }

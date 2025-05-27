@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? MinReadySeconds { get; set; }
 
         /// <summary>
-        /// Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        /// Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         /// </summary>
         [Input("replicas")]
         public Input<int>? Replicas { get; set; }
@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs> Selector { get; set; } = null!;
 
         /// <summary>
-        /// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        /// Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
         /// </summary>
         [Input("template")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs>? Template { get; set; }

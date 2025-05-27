@@ -15,12 +15,21 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class NamespaceConditionArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Last time the condition transitioned from one status to another.
+        /// </summary>
         [Input("lastTransitionTime")]
         public Input<string>? LastTransitionTime { get; set; }
 
+        /// <summary>
+        /// Human-readable message indicating details about last transition.
+        /// </summary>
         [Input("message")]
         public Input<string>? Message { get; set; }
 
+        /// <summary>
+        /// Unique, one-word, CamelCase reason for the condition's last transition.
+        /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }
 

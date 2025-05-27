@@ -63,6 +63,8 @@ const (
 	DeploymentList                       Kind = "DeploymentList"
 	DeviceClass                          Kind = "DeviceClass"
 	DeviceClassList                      Kind = "DeviceClassList"
+	DeviceTaintRule                      Kind = "DeviceTaintRule"
+	DeviceTaintRuleList                  Kind = "DeviceTaintRuleList"
 	EndpointSlice                        Kind = "EndpointSlice"
 	EndpointSliceList                    Kind = "EndpointSliceList"
 	Endpoints                            Kind = "Endpoints"
@@ -87,6 +89,10 @@ const (
 	LeaseList                            Kind = "LeaseList"
 	LimitRange                           Kind = "LimitRange"
 	LimitRangeList                       Kind = "LimitRangeList"
+	MutatingAdmissionPolicy              Kind = "MutatingAdmissionPolicy"
+	MutatingAdmissionPolicyBinding       Kind = "MutatingAdmissionPolicyBinding"
+	MutatingAdmissionPolicyBindingList   Kind = "MutatingAdmissionPolicyBindingList"
+	MutatingAdmissionPolicyList          Kind = "MutatingAdmissionPolicyList"
 	MutatingWebhookConfiguration         Kind = "MutatingWebhookConfiguration"
 	MutatingWebhookConfigurationList     Kind = "MutatingWebhookConfigurationList"
 	Namespace                            Kind = "Namespace"
@@ -262,6 +268,7 @@ const (
 	CertificatesV1B1          groupVersion = "certificates.k8s.io/v1beta1"
 	CoordinationV1            groupVersion = "coordination.k8s.io/v1"
 	CoordinationV1A1          groupVersion = "coordination.k8s.io/v1alpha1"
+	CoordinationV1A2          groupVersion = "coordination.k8s.io/v1alpha2"
 	CoordinationV1B1          groupVersion = "coordination.k8s.io/v1beta1"
 	CoreV1                    groupVersion = "core/v1"
 	DiscoveryV1               groupVersion = "discovery.k8s.io/v1"
@@ -289,6 +296,8 @@ const (
 	ResourceV1A1              groupVersion = "resource.k8s.io/v1alpha1"
 	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
 	ResourceV1A3              groupVersion = "resource.k8s.io/v1alpha3"
+	ResourceV1B1              groupVersion = "resource.k8s.io/v1beta1"
+	ResourceV1B2              groupVersion = "resource.k8s.io/v1beta2"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
@@ -336,6 +345,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"certificates.k8s.io/v1beta1",
 	"coordination.k8s.io/v1",
 	"coordination.k8s.io/v1alpha1",
+	"coordination.k8s.io/v1alpha2",
 	"coordination.k8s.io/v1beta1",
 	"core/v1",
 	"discovery.k8s.io/v1",
@@ -363,6 +373,8 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"resource.k8s.io/v1alpha1",
 	"resource.k8s.io/v1alpha2",
 	"resource.k8s.io/v1alpha3",
+	"resource.k8s.io/v1beta1",
+	"resource.k8s.io/v1beta2",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
 	"scheduling.k8s.io/v1beta1",
@@ -381,6 +393,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList",
+	"kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingList",
+	"kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",
@@ -416,8 +430,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList",
 	"kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList",
 	"kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
+	"kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundleList",
 	"kubernetes:coordination.k8s.io/v1:LeaseList",
 	"kubernetes:coordination.k8s.io/v1alpha1:LeaseCandidateList",
+	"kubernetes:coordination.k8s.io/v1alpha2:LeaseCandidateList",
+	"kubernetes:coordination.k8s.io/v1beta1:LeaseCandidateList",
 	"kubernetes:coordination.k8s.io/v1beta1:LeaseList",
 	"kubernetes:core/v1:ConfigMapList",
 	"kubernetes:core/v1:EndpointsList",
@@ -454,9 +471,11 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationList",
+	"kubernetes:networking.k8s.io/v1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1:IngressList",
 	"kubernetes:networking.k8s.io/v1:NetworkPolicyList",
+	"kubernetes:networking.k8s.io/v1:ServiceCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList",
 	"kubernetes:networking.k8s.io/v1alpha1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1alpha1:ServiceCIDRList",
@@ -494,9 +513,19 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList",
 	"kubernetes:resource.k8s.io/v1alpha2:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1alpha3:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRuleList",
 	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList",
+	"kubernetes:resource.k8s.io/v1beta1:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1beta1:ResourceSliceList",
+	"kubernetes:resource.k8s.io/v1beta2:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1beta2:ResourceSliceList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",

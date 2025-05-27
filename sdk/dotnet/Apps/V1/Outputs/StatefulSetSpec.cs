@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Apps.V1.StatefulSetOrdinals Ordinals;
         /// <summary>
-        /// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
+        /// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Apps.V1.StatefulSetPersistentVolumeClaimRetentionPolicy PersistentVolumeClaimRetentionPolicy;
         /// <summary>

@@ -20,7 +20,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -33,9 +32,9 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
 	. "github.com/onsi/gomega/gstruct"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
@@ -77,7 +76,7 @@ func TestAliases(t *testing.T) {
 			tests.SortResourcesByURN(stackInfo)
 
 			deployment := stackInfo.Deployment.Resources[0]
-			assert.Equal(t, "alias-test", string(deployment.URN.Name()))
+			assert.Equal(t, "alias-test", deployment.URN.Name())
 			assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
 			containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
 			containerStatus := containers.([]any)[0].(map[string]any)
@@ -95,7 +94,7 @@ func TestAliases(t *testing.T) {
 					tests.SortResourcesByURN(stackInfo)
 
 					deployment := stackInfo.Deployment.Resources[0]
-					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
+					assert.Equal(t, "alias-test", deployment.URN.Name())
 					assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
 					containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
 					containerStatus := containers.([]any)[0].(map[string]any)
@@ -134,7 +133,7 @@ func TestAutonaming(t *testing.T) {
 			//
 
 			pod := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+			assert.Equal(t, "autonaming-test", pod.URN.Name())
 			step1Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(step1Name.(string), "autonaming-test-"))
 
@@ -162,7 +161,7 @@ func TestAutonaming(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[1]
-					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					assert.Equal(t, "autonaming-test", pod.URN.Name())
 					step2Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step2Name.(string), "autonaming-test-"))
 
@@ -192,7 +191,7 @@ func TestAutonaming(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[1]
-					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					assert.Equal(t, "autonaming-test", pod.URN.Name())
 					step3Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step3Name.(string), "autonaming-test-"))
 
@@ -222,7 +221,7 @@ func TestAutonaming(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[1]
-					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					assert.Equal(t, "autonaming-test", pod.URN.Name())
 					step4Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step4Name.(string), "autonaming-test-"))
 
@@ -253,7 +252,7 @@ func TestAutonaming(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[1]
-					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
+					assert.Equal(t, "autonaming-test", pod.URN.Name())
 					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, "autonaming-test", name.(string))
 
@@ -414,6 +413,7 @@ func TestCRDs(t *testing.T) {
 			ct1 := stackInfo.Deployment.Resources[2]
 			provRes := stackInfo.Deployment.Resources[3]
 			stackRes := stackInfo.Deployment.Resources[4]
+			outputs := stackInfo.Outputs
 
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
@@ -424,8 +424,17 @@ func TestCRDs(t *testing.T) {
 			// Assert that CRD and CR exist
 			//
 
-			assert.Equal(t, "foobar", string(crd.URN.Name()))
-			assert.Equal(t, "my-new-foobar-object", string(ct1.URN.Name()))
+			assert.Equal(t, "foobar", crd.URN.Name())
+			assert.Equal(t, "my-new-foobar-object", ct1.URN.Name())
+
+			// Assert that we can reference the x_kubernetes_preserve_unknown_fields field as we should correctly normalize the live object.
+			assert.NotNil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
+			assert.True(t, outputs["preserveUnknownFields"].(bool), "preserveUnknownFields should be true")
+
+			// Verify with kubectl that the CRD has `x-kubernetes-*` fields set correctly.
+			output, err := tests.Kubectl("get crd foobars.stable.example.com -o json")
+			require.NoError(t, err)
+			assert.Contains(t, string(output), `"x-kubernetes-preserve-unknown-fields": true`)
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -433,12 +442,21 @@ func TestCRDs(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
+					outputs := stackInfo.Outputs
 
 					//
 					// Assert that the CR was gotten.
 					//
 					ct1ref := tests.SearchResourcesByName(stackInfo, "", "kubernetes:stable.example.com/v1:FooBar", "my-new-foobar-object-ref")
 					assert.NotNil(t, ct1ref)
+
+					// Assert that the x_kubernetes_preserve_unknown_fields field is now nil, as we remove this in step 2.
+					assert.Nil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
+
+					// Verify with kubectl that the CRD does not have `x-kubernetes-*` fields.
+					output, err := tests.Kubectl("get crd foobars.stable.example.com -o json")
+					require.NoError(t, err)
+					assert.NotContains(t, string(output), `"x-kubernetes-preserve-unknown-fields": true`)
 				},
 			},
 			{
@@ -1049,78 +1067,22 @@ func TestProvider(t *testing.T) {
 
 			// Assert the first Pod was created in the provider default namespace.
 			pod1 := stackInfo.Deployment.Resources[4]
-			assert.Equal(t, "nginx1", string(pod1.URN.Name()))
+			assert.Equal(t, "nginx1", pod1.URN.Name())
 			podNamespace1, _ := openapi.Pluck(pod1.Outputs, "metadata", "namespace")
 			assert.Equal(t, providerNsName.(string), podNamespace1.(string))
 
 			// Assert the second Pod was created in the provider default namespace.
 			pod2 := stackInfo.Deployment.Resources[5]
-			assert.Equal(t, "nginx2", string(pod2.URN.Name()))
+			assert.Equal(t, "nginx2", pod2.URN.Name())
 			podNamespace2, _ := openapi.Pluck(pod2.Outputs, "metadata", "namespace")
 			assert.Equal(t, providerNsName.(string), podNamespace2.(string))
 
 			// Assert the Pod was created in the specified namespace rather than the provider default namespace.
 			namespacedPod := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, "namespaced-nginx", string(namespacedPod.URN.Name()))
+			assert.Equal(t, "namespaced-nginx", namespacedPod.URN.Name())
 			namespacedPodNamespace, _ := openapi.Pluck(namespacedPod.Outputs, "metadata", "namespace")
 			assert.NotEqual(t, providerNsName.(string), namespacedPodNamespace.(string))
 			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
-		},
-	})
-	integration.ProgramTest(t, &test)
-}
-
-func TestQuery(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:       filepath.Join("query", "step1"),
-		Quick:     true,
-		StackName: "query-test-c186bcc3-1572-44d8-b7d5-1028853682c3", // Chosen by fair dice roll. Guaranteed to be random.
-		CloudURL:  "file://~",                                        // Required; we hard-code the stack name
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
-
-			tests.SortResourcesByURN(stackInfo)
-
-			stackRes := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-			provRes := stackInfo.Deployment.Resources[2]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-			//
-			// Assert Pod is successfully given a unique name by Pulumi.
-			//
-
-			pod := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, "query-test", string(pod.URN.Name()))
-		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:       filepath.Join("query", "step2"),
-				Additive:  true,
-				QueryMode: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-					//
-					// Verify no resources were deleted.
-					//
-					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
-
-					tests.SortResourcesByURN(stackInfo)
-
-					stackRes := stackInfo.Deployment.Resources[3]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-					provRes := stackInfo.Deployment.Resources[2]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-					//
-					// If we pass this point, the query did NOT throw an error, and is therefore
-					// successful.
-					//
-				},
-			},
 		},
 	})
 	integration.ProgramTest(t, &test)
@@ -1168,17 +1130,17 @@ func TestRenderYAML(t *testing.T) {
 			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			// Verify that YAML directory was created.
-			files, err := ioutil.ReadDir(dir)
+			files, err := os.ReadDir(dir)
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 2)
 
 			// Verify that CRD manifest directory was created.
-			files, err = ioutil.ReadDir(filepath.Join(dir, "0-crd"))
+			files, err = os.ReadDir(filepath.Join(dir, "0-crd"))
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 0)
 
 			// Verify that manifest directory was created.
-			files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
+			files, err = os.ReadDir(filepath.Join(dir, "1-manifest"))
 			assert.NoError(t, err)
 			assert.Equal(t, len(files), 2)
 		},
@@ -1306,7 +1268,7 @@ func TestRetry(t *testing.T) {
 
 			// Assert the Pod was created
 			pod := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, "nginx", string(pod.URN.Name()))
+			assert.Equal(t, "nginx", pod.URN.Name())
 			step1Name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.Equal(t, "nginx", step1Name.(string))
 			step1PodNamespace, _ := openapi.Pluck(pod.Outputs, "metadata", "namespace")
@@ -2468,7 +2430,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2485,7 +2447,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2506,7 +2468,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2520,7 +2482,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2574,7 +2536,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2591,7 +2553,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2662,7 +2624,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2679,7 +2641,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),
@@ -2748,7 +2710,7 @@ func TestOptionPropagation(t *testing.T) {
 							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
 							Alias("chart-options-old"),
 							Alias("chart-options-chart-options-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
 						"Version":           Equal("1.2.3"),
@@ -2765,7 +2727,7 @@ func TestOptionPropagation(t *testing.T) {
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":           BeTrue(),
+						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
 						"Version":           Equal("1.2.3"),

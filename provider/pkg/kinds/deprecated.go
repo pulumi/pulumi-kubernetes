@@ -71,7 +71,11 @@ import (
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation-1
 //
 // storage/v1alpha1/CSIStorageCapacity / 1.24 / 1.24
-// TODO: Keep updating this list on every release.
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.24.md#deprecation-1
+//
+// core/v1/Endpoints / 1.33 / -
+// resource/v1beta1/* / 1.33 / 1.36
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.33.md#deprecation
 
 var v18 = cluster.ServerVersion{Major: 1, Minor: 8}
 var v19 = cluster.ServerVersion{Major: 1, Minor: 9}
@@ -89,8 +93,12 @@ var v121 = cluster.ServerVersion{Major: 1, Minor: 21}
 var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
 var v124 = cluster.ServerVersion{Major: 1, Minor: 24}
 var v125 = cluster.ServerVersion{Major: 1, Minor: 25}
+var v126 = cluster.ServerVersion{Major: 1, Minor: 26}
 var v127 = cluster.ServerVersion{Major: 1, Minor: 27}
+var v129 = cluster.ServerVersion{Major: 1, Minor: 29}
 var v131 = cluster.ServerVersion{Major: 1, Minor: 31}
+var v132 = cluster.ServerVersion{Major: 1, Minor: 32}
+var v133 = cluster.ServerVersion{Major: 1, Minor: 33}
 
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
@@ -205,6 +213,16 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case PodDisruptionBudget, PodDisruptionBudgetList:
 			return &v121
 		}
+	case ResourceV1B1:
+		switch k {
+		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+			return &v132
+		}
+	case ResourceV1B2:
+		switch k {
+		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+			return &v133
+		}
 	case SchedulingV1B1:
 		switch k {
 		case PriorityClass, PriorityClassList:
@@ -269,6 +287,11 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		return &v122
 	case BatchV2A1:
 		return &v121
+	case BatchV1B1:
+		if k == CronJob {
+			return &v125
+		}
+		return nil
 	case CoordinationV1B1:
 		return &v122
 	case DiscoveryV1B1:
@@ -298,9 +321,29 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 			return &v127
 		}
 		return nil
-	default:
+	case AutoscalingV2B2:
+		if k == HorizontalPodAutoscaler {
+			return &v126
+		}
 		return nil
+	case FlowcontrolV1B1:
+		switch k {
+		case FlowSchema, PriorityLevelConfiguration:
+			return &v126
+		}
+	case FlowcontrolV1B2:
+		switch k {
+		case FlowSchema, PriorityLevelConfiguration:
+			return &v129
+		}
+	case FlowcontrolV1B3:
+		switch k {
+		case FlowSchema, PriorityLevelConfiguration:
+			return &v132
+		}
 	}
+
+	return nil
 }
 
 // RemovedAPIVersion returns true if the given GVK has been removed in the given k8s version, and the corresponding
@@ -332,10 +375,19 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, AppsV1, k)
 	case AutoscalingV2B1:
 		return fmt.Sprintf(gvkFmt, AutoscalingV1, k)
-	case BatchV2A1:
-		return fmt.Sprintf(gvkFmt, BatchV1B1, k) // TODO: update this to batch/v1 at v1.25
+	case BatchV2A1, BatchV1B1:
+		return fmt.Sprintf(gvkFmt, BatchV1, k)
 	case CoordinationV1B1:
 		return fmt.Sprintf(gvkFmt, CoordinationV1, k)
+	case CoreV1:
+		switch k {
+		case Endpoints:
+			return fmt.Sprintf(gvkFmt, CoreV1, EndpointSlice)
+		case EndpointsList:
+			return fmt.Sprintf(gvkFmt, CoreV1, EndpointSliceList)
+		default:
+			return gvkStr(gvk)
+		}
 	case DiscoveryV1B1:
 		return fmt.Sprintf(gvkFmt, DiscoveryV1, k)
 	case ExtensionsV1B1:
@@ -351,15 +403,26 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		default:
 			return gvkStr(gvk)
 		}
+	case FlowcontrolV1B3, FlowcontrolV1B2:
+		return fmt.Sprintf(gvkFmt, FlowcontrolV1, k)
+	case NodeV1B1, NodeV1A1:
+		return fmt.Sprintf(gvkFmt, NodeV1, k)
+	case PolicyV1B1:
+		switch k {
+		case PodDisruptionBudget, PodDisruptionBudgetList:
+			return fmt.Sprintf(gvkFmt, PolicyV1, k)
+		}
 	case RbacV1A1, RbacV1B1:
 		return fmt.Sprintf(gvkFmt, RbacV1, k)
+	case ResourceV1A1, ResourceV1A2, ResourceV1A3, ResourceV1B1:
+		return fmt.Sprintf(gvkFmt, ResourceV1B2, k)
 	case SchedulingV1A1, SchedulingV1B1:
 		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
 	case StorageV1A1, StorageV1B1, "storage/v1alpha1", "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
 		return fmt.Sprintf(gvkFmt, StorageV1, k)
-	default:
-		return gvkStr(gvk)
 	}
+
+	return gvkStr(gvk)
 }
 
 // upstreamDocsLink returns a link to information about apiVersion deprecations for the given k8s version.
@@ -375,11 +438,11 @@ func upstreamDocsLink(version cluster.ServerVersion) string {
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.20.md#deprecation"
 	case v121:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation"
-		// TODO: 1.22
 	case v127:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.27.md#deprecation"
 	default:
-		return ""
+		// If we don't have a specific link for the version, we link to the general changelog deprecation header.
+		return fmt.Sprintf("https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-%d.%d.md#deprecation", version.Major, version.Minor)
 	}
 }
 

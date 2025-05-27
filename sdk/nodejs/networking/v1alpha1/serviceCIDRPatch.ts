@@ -88,7 +88,7 @@ export class ServiceCIDRPatch extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:ServiceCIDRPatch" }, { type: "kubernetes:networking.k8s.io/v1beta1:ServiceCIDRPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ServiceCIDRPatch.__pulumiType, name, resourceInputs, opts);
     }

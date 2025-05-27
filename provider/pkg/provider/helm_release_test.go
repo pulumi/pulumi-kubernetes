@@ -332,6 +332,25 @@ images: ["bitnami/nginx"]
 				},
 			},
 		},
+		{
+			name: "valueYamlFiles provided, but is nil",
+			given: resource.PropertyMap{
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"image": resource.NewObjectProperty(resource.PropertyMap{
+						"tag": resource.NewStringProperty("patched"),
+					}),
+				},
+				),
+				"valueYamlFiles": resource.NewPropertyValue(nil),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"image": map[string]any{
+						"tag": "patched",
+					},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {

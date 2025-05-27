@@ -15,7 +15,7 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -38,7 +38,7 @@ type SelfSubjectReviewInput interface {
 	ToSelfSubjectReviewOutputWithContext(context.Context) SelfSubjectReviewOutput
 }
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -62,7 +62,7 @@ func (i SelfSubjectReviewArgs) ToSelfSubjectReviewOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewOutput)
 }
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewOutput) ElementType() reflect.Type {
@@ -97,7 +97,7 @@ func (o SelfSubjectReviewOutput) Status() SelfSubjectReviewStatusPtrOutput {
 	return o.ApplyT(func(v SelfSubjectReview) *SelfSubjectReviewStatus { return v.Status }).(SelfSubjectReviewStatusPtrOutput)
 }
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -120,7 +120,7 @@ type SelfSubjectReviewPatchInput interface {
 	ToSelfSubjectReviewPatchOutputWithContext(context.Context) SelfSubjectReviewPatchOutput
 }
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -144,7 +144,7 @@ func (i SelfSubjectReviewPatchArgs) ToSelfSubjectReviewPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewPatchOutput)
 }
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
 type SelfSubjectReviewPatchOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectReviewPatchOutput) ElementType() reflect.Type {

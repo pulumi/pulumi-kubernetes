@@ -318,6 +318,12 @@ type CSIDriverSpec struct {
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
+	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+	//
+	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	//
+	// This field is mutable.
+	NodeAllocatableUpdatePeriodSeconds *int `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
 	// podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 	//
 	// The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -392,6 +398,12 @@ type CSIDriverSpecArgs struct {
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
+	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+	//
+	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	//
+	// This field is mutable.
+	NodeAllocatableUpdatePeriodSeconds pulumi.IntPtrInput `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
 	// podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 	//
 	// The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -486,6 +498,15 @@ func (o CSIDriverSpecOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *string { return v.FsGroupPolicy }).(pulumi.StringPtrOutput)
 }
 
+// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+//
+// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+//
+// This field is mutable.
+func (o CSIDriverSpecOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *int { return v.NodeAllocatableUpdatePeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
 // podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 //
 // The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -566,6 +587,12 @@ type CSIDriverSpecPatch struct {
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
+	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+	//
+	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	//
+	// This field is mutable.
+	NodeAllocatableUpdatePeriodSeconds *int `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
 	// podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 	//
 	// The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -640,6 +667,12 @@ type CSIDriverSpecPatchArgs struct {
 	//
 	// Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
+	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+	//
+	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	//
+	// This field is mutable.
+	NodeAllocatableUpdatePeriodSeconds pulumi.IntPtrInput `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
 	// podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 	//
 	// The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -785,6 +818,15 @@ func (o CSIDriverSpecPatchOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *string { return v.FsGroupPolicy }).(pulumi.StringPtrOutput)
 }
 
+// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+//
+// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+//
+// This field is mutable.
+func (o CSIDriverSpecPatchOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpecPatch) *int { return v.NodeAllocatableUpdatePeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
 // podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 //
 // The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -901,6 +943,20 @@ func (o CSIDriverSpecPatchPtrOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 		}
 		return v.FsGroupPolicy
 	}).(pulumi.StringPtrOutput)
+}
+
+// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+//
+// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+//
+// This field is mutable.
+func (o CSIDriverSpecPatchPtrOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CSIDriverSpecPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NodeAllocatableUpdatePeriodSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -3132,7 +3188,7 @@ func (o VolumeAttachmentPatchTypeOutput) Status() VolumeAttachmentStatusPatchPtr
 	return o.ApplyT(func(v VolumeAttachmentPatchType) *VolumeAttachmentStatusPatch { return v.Status }).(VolumeAttachmentStatusPatchPtrOutput)
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSource struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec *corev1.PersistentVolumeSpec `pulumi:"inlineVolumeSpec"`
@@ -3151,7 +3207,7 @@ type VolumeAttachmentSourceInput interface {
 	ToVolumeAttachmentSourceOutputWithContext(context.Context) VolumeAttachmentSourceOutput
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourceArgs struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec corev1.PersistentVolumeSpecPtrInput `pulumi:"inlineVolumeSpec"`
@@ -3171,7 +3227,7 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourceOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourceOutput)
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourceOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourceOutput) ElementType() reflect.Type {
@@ -3196,7 +3252,7 @@ func (o VolumeAttachmentSourceOutput) PersistentVolumeName() pulumi.StringPtrOut
 	return o.ApplyT(func(v VolumeAttachmentSource) *string { return v.PersistentVolumeName }).(pulumi.StringPtrOutput)
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourcePatch struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec *corev1.PersistentVolumeSpecPatch `pulumi:"inlineVolumeSpec"`
@@ -3215,7 +3271,7 @@ type VolumeAttachmentSourcePatchInput interface {
 	ToVolumeAttachmentSourcePatchOutputWithContext(context.Context) VolumeAttachmentSourcePatchOutput
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourcePatchArgs struct {
 	// inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
 	InlineVolumeSpec corev1.PersistentVolumeSpecPatchPtrInput `pulumi:"inlineVolumeSpec"`
@@ -3276,7 +3332,7 @@ func (i *volumeAttachmentSourcePatchPtrType) ToVolumeAttachmentSourcePatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourcePatchPtrOutput)
 }
 
-// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+// VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentSourcePatchOutput) ElementType() reflect.Type {
@@ -4002,6 +4058,10 @@ func (o VolumeAttachmentStatusPatchPtrOutput) DetachError() VolumeErrorPatchPtrO
 
 // VolumeError captures an error encountered during a volume operation.
 type VolumeError struct {
+	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+	//
+	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	ErrorCode *int `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
 	// time represents the time the error was encountered.
@@ -4021,6 +4081,10 @@ type VolumeErrorInput interface {
 
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorArgs struct {
+	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+	//
+	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	ErrorCode pulumi.IntPtrInput `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// time represents the time the error was encountered.
@@ -4105,6 +4169,13 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context
 	}).(VolumeErrorPtrOutput)
 }
 
+// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+//
+// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+func (o VolumeErrorOutput) ErrorCode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v VolumeError) *int { return v.ErrorCode }).(pulumi.IntPtrOutput)
+}
+
 // message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 func (o VolumeErrorOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
@@ -4139,6 +4210,18 @@ func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
 	}).(VolumeErrorOutput)
 }
 
+// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+//
+// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+func (o VolumeErrorPtrOutput) ErrorCode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VolumeError) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ErrorCode
+	}).(pulumi.IntPtrOutput)
+}
+
 // message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 func (o VolumeErrorPtrOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VolumeError) *string {
@@ -4161,6 +4244,10 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorPatch struct {
+	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+	//
+	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	ErrorCode *int `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
 	// time represents the time the error was encountered.
@@ -4180,6 +4267,10 @@ type VolumeErrorPatchInput interface {
 
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorPatchArgs struct {
+	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+	//
+	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	ErrorCode pulumi.IntPtrInput `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// time represents the time the error was encountered.
@@ -4264,6 +4355,13 @@ func (o VolumeErrorPatchOutput) ToVolumeErrorPatchPtrOutputWithContext(ctx conte
 	}).(VolumeErrorPatchPtrOutput)
 }
 
+// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+//
+// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+func (o VolumeErrorPatchOutput) ErrorCode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v VolumeErrorPatch) *int { return v.ErrorCode }).(pulumi.IntPtrOutput)
+}
+
 // message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 func (o VolumeErrorPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeErrorPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
@@ -4296,6 +4394,18 @@ func (o VolumeErrorPatchPtrOutput) Elem() VolumeErrorPatchOutput {
 		var ret VolumeErrorPatch
 		return ret
 	}).(VolumeErrorPatchOutput)
+}
+
+// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+//
+// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+func (o VolumeErrorPatchPtrOutput) ErrorCode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *VolumeErrorPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ErrorCode
+	}).(pulumi.IntPtrOutput)
 }
 
 // message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.

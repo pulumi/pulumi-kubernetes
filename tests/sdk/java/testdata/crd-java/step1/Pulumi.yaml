@@ -1,0 +1,3 @@
+name: crd_java
+description: A minimal Kubernetes Java Pulumi program to test the creation of CRDs
+runtime: java

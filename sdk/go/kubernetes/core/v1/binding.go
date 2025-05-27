@@ -13,7 +13,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
 type Binding struct {
 	pulumi.CustomResourceState
 

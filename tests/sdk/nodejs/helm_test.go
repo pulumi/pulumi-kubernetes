@@ -24,7 +24,7 @@ import (
 	. "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
-	. "github.com/pulumi/pulumi-kubernetes/tests/v4/gomega"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -46,7 +46,7 @@ func TestHelmUnknowns(t *testing.T) {
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"
 	test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/)
-	t.Logf("into %s", test.Source())
+	t.Logf("into %s", test.WorkingDir())
 
 	urn := func(baseType tokens.Type, name string) string {
 		return string(resource.NewURN("test", "helm-release-unknowns", "", baseType, name))
@@ -54,19 +54,19 @@ func TestHelmUnknowns(t *testing.T) {
 
 	previewF := func(opts ...optpreview.Option) auto.PreviewResult {
 		clearGrpcLog(t, test)
-		preview := test.Preview(opts...)
+		preview := test.Preview(t, opts...)
 		t.Log(preview.StdOut)
 		return preview
 	}
 	upF := func() auto.UpResult {
 		clearGrpcLog(t, test)
-		up := test.Up()
+		up := test.Up(t)
 		t.Log(up.StdOut)
 		return up
 	}
 
 	lookup := func() grpclog.TypedEntry[rpc.CreateRequest, rpc.CreateResponse] {
-		creates, err := test.GrpcLog().Creates()
+		creates, err := test.GrpcLog(t).Creates()
 		g.Expect(err).ToNot(HaveOccurred())
 		release := findByUrn(t, creates, urn("kubernetes:helm.sh/v3:Release", "release"))
 		g.Expect(release).ToNot(BeNil())
@@ -190,8 +190,8 @@ func TestPreviewWithUnreachableCluster(t *testing.T) {
 
 	test := pulumitest.NewPulumiTest(t, "helm-preview-unreachable")
 	t.Cleanup(func() {
-		test.Destroy()
+		test.Destroy(t)
 	})
 
-	test.Preview()
+	test.Preview(t)
 }

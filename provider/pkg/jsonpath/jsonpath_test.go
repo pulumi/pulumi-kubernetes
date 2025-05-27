@@ -109,6 +109,16 @@ func TestMatches(t *testing.T) {
 			want: MatchResult{Matched: true, Found: "<nil>"},
 		},
 		{
+			name: "object exists",
+			expr: "jsonpath={ .foo }",
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"foo": map[string]any{
+					"bar": "baz",
+				},
+			}},
+			want: MatchResult{Matched: true},
+		},
+		{
 			name: "key exists with non-primitive value",
 			expr: "jsonpath={.foo}",
 			uns: &unstructured.Unstructured{Object: map[string]any{
