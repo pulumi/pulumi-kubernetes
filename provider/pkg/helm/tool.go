@@ -349,7 +349,7 @@ func defaultKeyring() string {
 }
 
 // newRegistryClient returns a new registry client
-// https://github.com/helm/helm/blob/dc158f6208782b888fc5be6d23d8991042cf9f9c/cmd/helm/root.go#L263-L278
+// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L345-L360
 func newRegistryClient(settings *cli.EnvSettings,
 	certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool, username, password string,
 ) (*registry.Client, error) {
@@ -368,7 +368,7 @@ func newRegistryClient(settings *cli.EnvSettings,
 }
 
 // newDefaultRegistryClient returns a new registry client with default options
-// https://github.com/helm/helm/blob/dc158f6208782b888fc5be6d23d8991042cf9f9c/cmd/helm/root.go#L280-L298
+// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L362-L380
 func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool, username, password string) (*registry.Client, error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
@@ -390,25 +390,30 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool, usernam
 	return registryClient, nil
 }
 
-// newRegistryClientWithTLS returns a new registry client with the given TLS options
-// https://github.com/helm/helm/blob/dc158f6208782b888fc5be6d23d8991042cf9f9c/cmd/helm/root.go#L300-L325
+// newRegistryClientWithTLS
+// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L382C1-L413C2
 func newRegistryClientWithTLS(settings *cli.EnvSettings,
 	certFile, keyFile, caFile string, insecureSkipTLSverify bool, username, password string,
 ) (*registry.Client, error) {
-	tlsConf, err := NewClientTLS(certFile, keyFile, caFile, insecureSkipTLSverify)
+	tlsConf, err := NewTLSConfig(
+		WithInsecureSkipVerify(insecureSkipTLSverify),
+		WithCertKeyPairFiles(certFile, keyFile),
+		WithCAFile(caFile),
+	)
 	if err != nil {
 		return nil, fmt.Errorf("can't create TLS config for client: %w", err)
 	}
-	logStream := debugStream()
+
 	// Create a new registry client
 	registryClient, err := registry.NewClient(
 		registry.ClientOptDebug(settings.Debug),
 		registry.ClientOptEnableCache(true),
-		registry.ClientOptWriter(logStream),
+		registry.ClientOptWriter(os.Stderr),
 		registry.ClientOptCredentialsFile(settings.RegistryConfig),
 		registry.ClientOptHTTPClient(&http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: tlsConf,
+				Proxy:           http.ProxyFromEnvironment,
 			},
 		}),
 		registry.ClientOptBasicAuth(username, password),
