@@ -1,0 +1,23 @@
+name: oci
+runtime: yaml
+description: |
+  Tests Helm with a private OCI registry.
+config:
+  chart:
+    type: string
+  version:
+    type: string
+  username:
+    type: string
+  password:
+    type: string
+
+resources:
+  helm:
+    type: kubernetes:helm.sh/v4:Chart
+    properties:
+      chart: ${chart}
+      version: ${version}
+      repositoryOpts:
+        username: ${username}
+        password: ${password}
