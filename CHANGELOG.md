@@ -7,6 +7,12 @@
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)
 
+### Fixed
+
+- Helm resources all now use the correct `registry/config.json` file for
+  credentials. For backward-compatibility `registry.json` is preferred if
+  it exists. (https://github.com/pulumi/pulumi-kubernetes/issues/3606)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed

@@ -700,7 +700,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
 			return registryPath
 		}
-		return helmpath.ConfigPath("registry.json")
+		legacyPath := helmpath.ConfigPath("registry.json")
+		if _, err := os.Stat(legacyPath); err == nil {
+			return legacyPath
+		}
+		return helmpath.ConfigPath("registry/config.json")
 	}
 	k.helmRegistryConfigPath = helmRegistryConfigPath()
 	if helmReleaseSettings.RegistryConfigPath != nil {
