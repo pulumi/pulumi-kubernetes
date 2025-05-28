@@ -78,6 +78,14 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
 		},
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
+			c := i.GetRegistryClient()
+			err := c.Login(
+				"894850187425.dkr.ecr.us-west-2.amazonaws.com",
+				registry.LoginOptBasicAuth(i.Username, i.Password),
+			)
+			if err != nil {
+				return "", err
+			}
 			return i.LocateChart(name, settings)
 		},
 		execute: func(
@@ -226,6 +234,11 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	client.ClientOnly = !cmd.Validate
 	client.IncludeCRDs = cmd.IncludeCRDs
 	client.PlainHTTP = cmd.PlainHTTP
+	client.Username = cmd.Username
+	client.Password = cmd.Password
+	client.CaFile = cmd.CaFile
+	client.KeyFile = cmd.KeyFile
+	client.CertFile = cmd.CertFile
 
 	return cmd.runInstall(ctx)
 }
@@ -360,7 +373,6 @@ func newRegistryClient(settings *cli.EnvSettings,
 		registry.ClientOptEnableCache(true),
 		registry.ClientOptWriter(logStream),
 		registry.ClientOptCredentialsFile(settings.RegistryConfig),
-		registry.ClientOptBasicAuth(username, password),
 	}
 	if plainHTTP {
 		opts = append(opts, registry.ClientOptPlainHTTP())
@@ -380,7 +392,30 @@ func newRegistryClient(settings *cli.EnvSettings,
 		opts = append(opts, tlsOpt)
 	}
 
-	return registry.NewClient(opts...)
+	opts = append(opts, registry.ClientOptBasicAuth(username, password))
+	//	opts = append(opts, registry.LoginOptBasicAuth(username, password))
+
+	// registry.LoginOptBasicAuth()
+
+	/*
+		if username != "" && password != "" {
+			authorizer := func(_ context.Context, hostport string) (auth.Credential, error) {
+				return auth.Credential{
+					Username: username,
+					Password: password,
+				}, nil
+			}
+			opts = append(opts, registry.ClientOptAuthorizer(authorizer))
+
+		}
+	*/
+
+	registryClient, err := registry.NewClient(opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	return registryClient, nil
 }
 
 // checkIfInstallable validates if a chart can be installed
