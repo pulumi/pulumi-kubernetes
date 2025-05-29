@@ -42,9 +42,10 @@ func TestParse(t *testing.T) {
 			wantErr: "format should be {.path}=value or {.path}",
 		},
 		{
-			name:    "complex expressions are not supported",
-			expr:    "jsonpath={.status.conditions[?(@.type==\"Failed\"||@.type==\"Complete\")].status}=True",
-			wantErr: "unrecognized character",
+			name:      "complex expressions are supported",
+			expr:      `jsonpath={.status.conditions[?(@.type=="Failed"||@.type=="Complete")].status}=True`,
+			wantPath:  `{.status.conditions[?(@.type=="Failed"||@.type=="Complete")].status}`,
+			wantValue: "True",
 		},
 		{
 			name:     "key with any value",
@@ -58,6 +59,12 @@ func TestParse(t *testing.T) {
 			wantValue: "bar",
 		},
 		{
+			name:      "includes $",
+			expr:      "jsonpath={$.foo}=bar",
+			wantPath:  "{$.foo}",
+			wantValue: "bar",
+		},
+		{
 			name:      "preserve ==",
 			expr:      `jsonpath={.status.containerStatuses[?(@.name=="foobar")].ready}=True`,
 			wantPath:  `{.status.containerStatuses[?(@.name=="foobar")].ready}`,
@@ -65,8 +72,13 @@ func TestParse(t *testing.T) {
 		},
 		{
 			name:     "padded brackets",
-			expr:     "jsonpath={ .webhooks[].clientConfig.caBundle }",
-			wantPath: `{ .webhooks[].clientConfig.caBundle }`,
+			expr:     "jsonpath={ .webhooks[*].clientConfig.caBundle }",
+			wantPath: `{ .webhooks[*].clientConfig.caBundle }`,
+		},
+		{
+			name:    "invalid braces",
+			expr:    "jsonpath={ .webhooks[].clientConfig.caBundle }",
+			wantErr: "unexpected ']' at position 12",
 		},
 	}
 
@@ -98,7 +110,7 @@ func TestMatches(t *testing.T) {
 			name: "no match",
 			expr: "jsonpath={.foo}",
 			uns:  &unstructured.Unstructured{Object: map[string]any{}},
-			want: MatchResult{Matched: false, Message: "Missing {.foo}"},
+			want: MatchResult{Matched: false, Message: "{.foo} selected nothing"},
 		},
 		{
 			name: "key exists",
@@ -129,6 +141,14 @@ func TestMatches(t *testing.T) {
 		{
 			name: "value matches",
 			expr: "jsonpath={.foo}=bar",
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"foo": "bar",
+			}},
+			want: MatchResult{Matched: true, Found: "bar"},
+		},
+		{
+			name: "value matches with $",
+			expr: "jsonpath={$.foo}=bar",
 			uns: &unstructured.Unstructured{Object: map[string]any{
 				"foo": "bar",
 			}},
@@ -197,6 +217,52 @@ func TestMatches(t *testing.T) {
 				"foo": []any{"bar"},
 			}},
 			wantErr: "has a non-primitive value",
+		},
+		{
+			name: "complex selector match",
+			expr: `jsonpath={.conditions[?(@.type=="Failed"||@.type=="Complete")].status}=True`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Complete",
+						"status": "True",
+					},
+				},
+			}},
+			want: MatchResult{Matched: true, Found: "True"},
+		},
+		{
+			name: "complex selector non-match",
+			expr: `jsonpath={.conditions[?(@.type=="Failed"||@.type=="Complete")].status}=True`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Complete",
+						"status": "False",
+					},
+				},
+			}},
+			want: MatchResult{Matched: false, Found: "False"},
+		},
+		{
+			name: "complex OR match",
+			expr: `jsonpath={.status[?@ == "Running" || @ == 'Succeeded' ]}`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"status": map[string]any{
+					"phase": "Succeeded",
+				},
+			}},
+			want: MatchResult{Matched: true, Found: "Succeeded"},
+		},
+		{
+			name: "complex OR non-match",
+			expr: `jsonpath={.status[?@ == "Running" || @ == "Succeeded" ]}`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"status": map[string]any{
+					"phase": "Pending",
+				},
+			}},
+			want: MatchResult{Matched: false, Message: `{.status[?@ == "Running" || @ == "Succeeded" ]} selected nothing`},
 		},
 	}
 

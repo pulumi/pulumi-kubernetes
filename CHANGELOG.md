@@ -7,6 +7,30 @@
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)
 
+### Changed
+
+- The `pulumi.com/waitFor` annotation now uses an
+  [RFC9535](https://www.rfc-editor.org/rfc/rfc9535.html)-compliant JSONPath
+  parser. This makes it possible to wait for more complex scenarios.
+
+  For example:
+
+  - To wait for a Pod's `status.phase` to be "Running" or "Succeeded":
+
+    `pulumi.com/waitFor: "jsonpath={.status[?@ == 'Running' || @ == 'Succeeded' ]}"`
+
+  - To wait for for an object to have a "Failed" _or_ "Complete" condition with
+    a "True" value:
+
+    `pulumi.com/waitFor: "jsonpath={.conditions[?(@.type=='Failed'||@.type=='Complete')].status}=True`
+
+  (Tools like [jsonpath.com](https://jsonpath.com) are very helpful for
+  ensuring your JSONPath expression works as expected.)
+
+  Importantly, please note that `kubectl wait --for=jsonpath=...` supports only
+  a _subset_ of RFC9535. This means some complex `waitFor` annotations will not
+  be reproducible with `kubectl`.
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed

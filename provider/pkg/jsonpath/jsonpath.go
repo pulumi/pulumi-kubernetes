@@ -33,7 +33,7 @@ func (i *Parsed) String() string {
 func (i *Parsed) Matches(uns *unstructured.Unstructured) (MatchResult, error) {
 	results := slices.Collect(i.expr.Select(uns.Object).All())
 	if len(results) == 0 {
-		return MatchResult{Message: "Missing " + i.Path}, nil
+		return MatchResult{Message: i.Path + " selected nothing"}, nil
 	}
 	value := results[0]
 	switch v := value.(type) {
@@ -98,7 +98,7 @@ func Parse(raw string) (*Parsed, error) {
 		return nil, fmt.Errorf("%s should be wrapped in brackets { ... }", path)
 	}
 	pathWithoutBrackets := matches[1]
-	if !strings.HasPrefix("$", pathWithoutBrackets) {
+	if !strings.HasPrefix(pathWithoutBrackets, "$") {
 		pathWithoutBrackets = "$" + pathWithoutBrackets
 	}
 
