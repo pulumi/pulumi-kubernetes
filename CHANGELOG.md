@@ -31,6 +31,10 @@
   a _subset_ of RFC9535. This means some complex `waitFor` annotations will not
   be reproducible with `kubectl`.
 
+  Existing expressions should continue to work normally with one notable
+  exception: a selector like `.items[]` now requires an explicit wildcard, i.e.
+  `.items[*]`.
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
