@@ -78,13 +78,17 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
 		},
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
-			c := i.GetRegistryClient()
-			err := c.Login(
-				"894850187425.dkr.ecr.us-west-2.amazonaws.com",
-				registry.LoginOptBasicAuth(i.Username, i.Password),
-			)
-			if err != nil {
-				return "", err
+			// Perform a login against the registry if necessary.
+			if i.Username != "" && i.Password != "" {
+				u, err := url.Parse(name)
+				if err != nil {
+					return "", err
+				}
+				c := i.GetRegistryClient()
+				err = c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password))
+				if err != nil {
+					return "", err
+				}
 			}
 			return i.LocateChart(name, settings)
 		},
@@ -367,7 +371,6 @@ func newRegistryClient(settings *cli.EnvSettings,
 	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
 ) (*registry.Client, error) {
 	logStream := debugStream()
-
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
 		registry.ClientOptEnableCache(true),
@@ -393,22 +396,6 @@ func newRegistryClient(settings *cli.EnvSettings,
 	}
 
 	opts = append(opts, registry.ClientOptBasicAuth(username, password))
-	//	opts = append(opts, registry.LoginOptBasicAuth(username, password))
-
-	// registry.LoginOptBasicAuth()
-
-	/*
-		if username != "" && password != "" {
-			authorizer := func(_ context.Context, hostport string) (auth.Credential, error) {
-				return auth.Credential{
-					Username: username,
-					Password: password,
-				}, nil
-			}
-			opts = append(opts, registry.ClientOptAuthorizer(authorizer))
-
-		}
-	*/
 
 	registryClient, err := registry.NewClient(opts...)
 	if err != nil {
