@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"math/rand"
+	"os"
 	"strings"
 	"testing"
 
@@ -68,9 +69,9 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 		Username: username,
 		Password: password,
 	}
-	client := auth.DefaultClient
-	client.Credential = auth.StaticCredential(reg.Reference.Registry, creds)
-	reg.Client = client
+	reg.Client = &auth.Client{
+		Credential: auth.StaticCredential(reg.Reference.Registry, creds),
+	}
 	require.NoError(t, reg.Ping(t.Context()))
 
 	// Fetch a remote nginx chart into memory.
@@ -78,6 +79,18 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 	memStore := memory.New()
 	sourceRepo, err := remote.NewRepository("registry-1.docker.io/bitnamicharts/nginx")
 	require.NoError(t, err)
+
+	// Add DockerHub auth token for higher RPS limit
+	if dockerPassword := os.Getenv("DOCKER_HUB_PASSWORD"); dockerPassword != "" {
+		dockerCreds := auth.Credential{
+			Username: "pulumibot",
+			Password: dockerPassword,
+		}
+		sourceRepo.Client = &auth.Client{
+			Credential: auth.StaticCredential(sourceRepo.Reference.Registry, dockerCreds),
+		}
+	}
+
 	_, err = oras.Copy(t.Context(), sourceRepo, ref, memStore, ref, oras.DefaultCopyOptions)
 	require.NoError(t, err)
 
