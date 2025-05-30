@@ -7,6 +7,12 @@
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)
 
+### Fixed
+
+- Providing a username/password to `v4.Chart` will now login to private OCI
+  registries as expected.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2911)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
