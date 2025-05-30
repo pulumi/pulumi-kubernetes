@@ -13,7 +13,7 @@ config:
     type: string
 
 resources:
-  helm:
+  v4chart:
     type: kubernetes:helm.sh/v4:Chart
     properties:
       chart: ${chart}

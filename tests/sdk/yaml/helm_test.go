@@ -30,7 +30,7 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 	}
 
 	svc := ecr.New(sess)
-	name := strings.ToLower(t.Name()) + fmt.Sprint(rand.Intn(1000))
+	name := strings.ToLower(t.Name()) + fmt.Sprint(rand.Intn(1000)) //nolint:gosec // Doesn't need to be secure.
 
 	params := &ecr.CreateRepositoryInput{
 		RepositoryName: aws.String(name),
@@ -40,14 +40,14 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 
 	t.Cleanup(func() {
 		// Make sure we remove this repo afterwards.
-		svc.DeleteRepository(&ecr.DeleteRepositoryInput{
+		_, _ = svc.DeleteRepository(&ecr.DeleteRepositoryInput{
 			Force:          aws.Bool(true),
 			RegistryId:     resp.Repository.RegistryId,
 			RepositoryName: resp.Repository.RepositoryName,
 		})
 	})
 
-	// Grab authToken for the repo.
+	// Grab authToken for the registry.
 	authToken, err := svc.GetAuthorizationToken(&ecr.GetAuthorizationTokenInput{})
 	require.NoError(t, err)
 
@@ -59,8 +59,7 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 	username := parts[0]
 	password := parts[1]
 
-	// Setup an OCI client for the repo.
-	// repo, err := remote.NewRepository(*resp.Repository.RepositoryUri)
+	// Setup an OCI client for the registry.
 	reg, err := remote.NewRegistry(*resp.Repository.RegistryId + ".dkr.ecr.us-west-2.amazonaws.com")
 	require.NoError(t, err)
 
@@ -82,7 +81,7 @@ func TestHelmWithPrivateOCIRegistry(t *testing.T) {
 	_, err = oras.Copy(t.Context(), sourceRepo, ref, memStore, ref, oras.DefaultCopyOptions)
 	require.NoError(t, err)
 
-	// Push the chart to our private registry.
+	// Push the chart to our private registry/repo.
 	repo, err := reg.Repository(t.Context(), name)
 	require.NoError(t, err)
 	_, err = oras.Copy(t.Context(), memStore, ref, repo, ref, oras.DefaultCopyOptions)
