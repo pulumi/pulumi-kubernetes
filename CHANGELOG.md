@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+- Providing a username/password to `v4.Chart` will now login to private OCI
+  registries as expected.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2911)
+
 ## 4.26.0 (February 19, 2026)
 
 ### Fixed
