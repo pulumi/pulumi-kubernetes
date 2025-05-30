@@ -35,6 +35,10 @@
   exception: a selector like `.items[]` now requires an explicit wildcard, i.e.
   `.items[*]`.
 
+  As a reminder, the `pulumi.com/waitFor` annotation is experimental and
+  subject to change. Similarly, RFC9535 still only _proposed_ and may also
+  change in the future.
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
