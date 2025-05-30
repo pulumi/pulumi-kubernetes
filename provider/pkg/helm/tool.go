@@ -20,6 +20,7 @@ package helm
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -45,7 +46,7 @@ type InitActionConfigF func(actionConfig *action.Configuration, namespaceOverrid
 
 type LocateChartF func(i *action.Install, name string, settings *cli.EnvSettings) (string, error)
 
-type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error)
+type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]any) (*release.Release, error)
 
 // Tool for executing Helm commands via the Helm library.
 type Tool struct {
@@ -73,9 +74,22 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
 		},
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
-			return i.ChartPathOptions.LocateChart(name, settings)
+			// Perform a login against the registry if necessary.
+			if i.Username != "" && i.Password != "" {
+				u, err := url.Parse(name)
+				if err != nil {
+					return "", err
+				}
+				c := i.GetRegistryClient()
+				// Login can fail for harmless reasons like already being
+				// logged in. Optimistically ignore those errors.
+				if err := c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password)); err != nil {
+					logger.V(6).Infof("[helm] %s", fmt.Sprintf("login error: %s", err))
+				}
+			}
+			return i.LocateChart(name, settings)
 		},
-		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]any) (*release.Release, error) {
 			return i.RunWithContext(ctx, chrt, vals)
 		},
 	}
@@ -203,7 +217,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L76-L81
 	registryClient, err := newRegistryClient(cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
-		client.InsecureSkipTLSverify, client.PlainHTTP)
+		client.InsecureSkipTLSverify, client.PlainHTTP, client.Username, client.Password)
 	if err != nil {
 		return nil, fmt.Errorf("missing registry client: %w", err)
 	}
@@ -219,6 +233,11 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	client.ClientOnly = !cmd.Validate
 	client.IncludeCRDs = cmd.IncludeCRDs
 	client.PlainHTTP = cmd.PlainHTTP
+	client.Username = cmd.Username
+	client.Password = cmd.Password
+	client.CaFile = cmd.CaFile
+	client.KeyFile = cmd.KeyFile
+	client.CertFile = cmd.CertFile
 
 	return cmd.runInstall(ctx)
 }
@@ -337,26 +356,11 @@ func defaultKeyring() string {
 	return filepath.Join(homedir.HomeDir(), ".gnupg", "pubring.gpg")
 }
 
-// newRegistryClient retruns a new registry client
-// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L261-L274
-func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool) (*registry.Client, error) {
-	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipTLSverify {
-		registryClient, err := newRegistryClientWithTLS(settings, certFile, keyFile, caFile, insecureSkipTLSverify)
-		if err != nil {
-			return nil, err
-		}
-		return registryClient, nil
-	}
-	registryClient, err := newDefaultRegistryClient(settings, plainHTTP)
-	if err != nil {
-		return nil, err
-	}
-	return registryClient, nil
-}
-
-// newDefaultRegistryClient returns a new registry client with default options
-// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L276-L293
-func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*registry.Client, error) {
+// newRegistryClient returns a new registry client
+// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L345-L360
+func newRegistryClient(settings *cli.EnvSettings,
+	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
+) (*registry.Client, error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
@@ -368,25 +372,27 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*regis
 		opts = append(opts, registry.ClientOptPlainHTTP())
 	}
 
-	// Create a new registry client
+	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipVerify {
+		tlsConf, err := newTLSConfig(certFile, keyFile, caFile, insecureSkipVerify)
+		if err != nil {
+			return nil, err
+		}
+		tlsOpt := registry.ClientOptHTTPClient(&http.Client{
+			Transport: &http.Transport{
+				TLSClientConfig: tlsConf,
+				Proxy:           http.ProxyFromEnvironment,
+			},
+		})
+		opts = append(opts, tlsOpt)
+	}
+
+	opts = append(opts, registry.ClientOptBasicAuth(username, password))
+
 	registryClient, err := registry.NewClient(opts...)
 	if err != nil {
 		return nil, err
 	}
-	return registryClient, nil
-}
 
-// newRegistryClientWithTLS returns a new registry client with the given TLS options
-// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L295-L304
-func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify bool) (*registry.Client, error) {
-	logStream := debugStream()
-	// Create a new registry client
-	registryClient, err := registry.NewRegistryClientWithTLS(logStream, certFile, keyFile, caFile, insecureSkipTLSverify,
-		settings.RegistryConfig, settings.Debug,
-	)
-	if err != nil {
-		return nil, err
-	}
 	return registryClient, nil
 }
 
