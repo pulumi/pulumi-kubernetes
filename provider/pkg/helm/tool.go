@@ -85,9 +85,10 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 					return "", err
 				}
 				c := i.GetRegistryClient()
-				err = c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password))
-				if err != nil {
-					return "", err
+				// Login can fail for harmless reasons like already being
+				// logged in. Optimistically ignore those errors.
+				if err := c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password)); err != nil {
+					logger.V(6).Infof("[helm] %s", fmt.Sprintf("login error: %s", err))
 				}
 			}
 			return i.LocateChart(name, settings)

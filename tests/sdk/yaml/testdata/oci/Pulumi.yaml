@@ -21,3 +21,12 @@ resources:
       repositoryOpts:
         username: ${username}
         password: ${password}
+
+  v3release:
+    type: kubernetes:helm.sh/v3:Release
+    properties:
+      chart: ${chart}
+      version: ${version}
+      repositoryOpts:
+        username: ${username}
+        password: ${password}
