@@ -36,8 +36,14 @@
   `.items[*]`.
 
   As a reminder, the `pulumi.com/waitFor` annotation is experimental and
-  subject to change. Similarly, RFC9535 still only _proposed_ and may also
+  subject to change. Similarly, RFC9535 is still only _proposed_ and may also
   change in the future.
+
+### Fixed
+
+- Helm resources all now use the correct `registry/config.json` file for
+  credentials. For backward-compatibility `registry.json` is preferred if
+  it exists. (https://github.com/pulumi/pulumi-kubernetes/issues/3606)
 
 ## 4.23.0 (May 1, 2025)
 
