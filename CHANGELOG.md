@@ -45,6 +45,10 @@
   credentials. For backward-compatibility `registry.json` is preferred if
   it exists. (https://github.com/pulumi/pulumi-kubernetes/issues/3606)
 
+- Providing a username/password to `v3.Release` and `v4.Chart` will now login
+  to private OCI registries as expected.
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2911)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
