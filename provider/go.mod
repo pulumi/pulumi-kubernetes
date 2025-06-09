@@ -19,9 +19,10 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0
-	github.com/pulumi/pulumi/pkg/v3 v3.173.0
-	github.com/pulumi/pulumi/sdk/v3 v3.173.0
+	github.com/pulumi/pulumi/pkg/v3 v3.175.0
+	github.com/pulumi/pulumi/sdk/v3 v3.175.0
 	github.com/stretchr/testify v1.10.0
+	github.com/theory/jsonpath v0.9.0
 	golang.org/x/crypto v0.37.0
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
 	golang.org/x/tools v0.32.0
