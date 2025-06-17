@@ -48,7 +48,7 @@ jobs:
     - name: Create URL to the run output
       id: vars
       run: echo
-        run-url=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+        "run-url=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
         >> "$GITHUB_OUTPUT"
     - name: Update with Result
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
@@ -102,11 +102,13 @@ jobs:
     - if: github.event_name == 'pull_request'
       name: Check Schema is Valid
       run: >-
-        echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
+        {
+          echo 'SCHEMA_CHANGES<<EOF';
 
-        schema-tools compare -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
+          schema-tools compare -p ${{ env.PROVIDER }} -o ${{ github.event.repository.default_branch }} -n --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json;
 
-        echo 'EOF' >> $GITHUB_ENV
+          echo 'EOF';
+        } >> "$GITHUB_ENV"
       env:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     - if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
@@ -136,7 +138,7 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
-    - name: Commit ${{ matrix.language }} SDK changes for Renovate
+    - name: Commit SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
         'pull_request'
@@ -174,7 +176,7 @@ jobs:
             sdk/go/*/internal/pulumiUtilities.go \
             sdk/nodejs/package.json
 
-        git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
+        git commit -m 'Commit SDK for Renovate'
 
 
         # Push with pulumi-bot credentials to trigger a re-run of the
@@ -294,7 +296,7 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
-    - name: Commit ${{ matrix.language }} SDK changes for Renovate
+    - name: Commit SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
         'pull_request'
@@ -332,8 +334,7 @@ jobs:
             sdk/go/*/internal/pulumiUtilities.go \
             sdk/nodejs/package.json
 
-        git commit -m 'Commit ${{ matrix.language }} SDK for Renovate'
-
+        git commit -m 'Commit SDK for Renovate'
 
         # Push with pulumi-bot credentials to trigger a re-run of the
 
@@ -448,7 +449,7 @@ jobs:
       run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
         github.workspace}}/sdk/${{ matrix.language}}
     - name: Update path
-      run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
+      run: echo "${{ github.workspace }}/bin" >> "$GITHUB_PATH"
     - name: Install Node dependencies
       run: yarn global add typescript
     - run: dotnet nuget add source ${{ github.workspace }}/nuget
@@ -487,8 +488,8 @@ jobs:
     - name: Install Kubectl
       run: >
         curl -LO
-        https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl
+        "https://storage.googleapis.com/kubernetes-release/release/$(curl -s
+        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl"
 
         chmod +x ./kubectl
 
