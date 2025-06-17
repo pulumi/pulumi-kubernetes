@@ -78,7 +78,7 @@ jobs:
 
         git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
 
-        for MODFILE in $(find . -name go.mod); do pushd $(dirname $MODFILE); go get github.com/pulumi/pulumi/pkg/v3 github.com/pulumi/pulumi/sdk/v3; go mod tidy; popd; done
+        find . -name go.mod -execdir sh -c 'go get github.com/pulumi/pulumi/pkg/v3 github.com/pulumi/pulumi/sdk/v3; go mod tidy' \;
 
         gh repo view pulumi/pulumi --json latestRelease --jq .latestRelease.tagName | sed 's/^v//' > .pulumi.version
 
@@ -125,7 +125,7 @@ jobs:
 
         # See https://github.com/cli/cli/issues/6485#issuecomment-2560935183 for --head workaround
 
-        gh pr create -t "$msg" -b "$msg" --head $(git branch --show-current)
+        gh pr create -t "$msg" -b "$msg" --head "$(git branch --show-current)"
       env:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
     name: weekly-pulumi-update
