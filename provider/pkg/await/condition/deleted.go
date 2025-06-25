@@ -62,7 +62,15 @@ func NewDeleted(
 // exhausted, we attempt a final lookup on the cluster to be absolutely sure it
 // still exists.
 func (dc *Deleted) Range(yield func(watch.Event) bool) {
-	dc.observer.Range(yield)
+	// Observe events until we see a DELETED or until we time out.
+	dc.observer.Range(func(e watch.Event) bool {
+		cont := yield(e)
+		if dc.deleted.Load() {
+			// Stop if we see a DELETED event.
+			return false
+		}
+		return cont
+	})
 
 	if dc.deleted.Load() {
 		// Already deleted, nothing more to do. Our informer will get cleaned up

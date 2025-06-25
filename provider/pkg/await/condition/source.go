@@ -125,7 +125,7 @@ func (s Static) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Ev
 type DeletionSource struct {
 	obj    *unstructured.Unstructured
 	getter objectGetter
-	source *DynamicSource
+	source Source
 }
 
 // NewDeletionSource creates a new DeletionSource.
@@ -158,6 +158,8 @@ func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind
 		// If the object was already deleted, return a synthetic DELETED event.
 		e := make(chan watch.Event, 1)
 		e <- watch.Event{Type: watch.Deleted, Object: ds.obj}
+		close(e)
+
 		return e, nil
 	}
 
