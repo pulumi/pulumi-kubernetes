@@ -21,6 +21,9 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic/dynamicinformer"
@@ -76,11 +79,11 @@ type DynamicSource struct {
 }
 
 // Start establishes an Informer against the cluster for the given GVK.
-func (des *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
-	factory := des.factory()
+func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
+	factory := ds.factory()
 	events := make(chan watch.Event, 1)
 
-	gvr, err := clients.GVRForGVK(des.clientset.RESTMapper, gvk)
+	gvr, err := clients.GVRForGVK(ds.clientset.RESTMapper, gvk)
 	if err != nil {
 		return nil, fmt.Errorf("getting GVK: %w", err)
 	}
@@ -97,11 +100,11 @@ func (des *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) 
 
 	// Start the new informer by calling factory.Start (which is idempotent).
 	// This ensures that the informer is started exactly once and is cleaned up later.
-	factory.Start(des.stopper)
+	factory.Start(ds.stopper)
 
 	// Wait for the informer's cache to be synced, to ensure that
 	// we don't miss any events, especially deletes.
-	cache.WaitForCacheSync(des.stopper, i.HasSynced)
+	cache.WaitForCacheSync(ds.stopper, i.HasSynced)
 
 	return events, nil
 }
@@ -114,4 +117,49 @@ type Static chan watch.Event
 // Start returns a fixed event channel.
 func (s Static) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return s, nil
+}
+
+// DeletionSource is a dynamic source appropriate for situations where a
+// particular resource must be deleted. It reliably checks whether the resource
+// is already deleted after the informer is started.
+type DeletionSource struct {
+	obj    *unstructured.Unstructured
+	getter objectGetter
+	source *DynamicSource
+}
+
+// NewDeletionSource guarantees a DELETED event in the case where the informer
+// starts after the object has been deleted.
+func NewDeletionSource(
+	ctx context.Context,
+	clientset *clients.DynamicClientSet,
+	obj *unstructured.Unstructured,
+) (Source, error) {
+	getter, err := clientset.ResourceClientForObject(obj)
+	if err != nil {
+		return nil, err
+	}
+
+	ds := &DeletionSource{
+		obj:    obj,
+		getter: getter,
+		source: NewDynamicSource(ctx, clientset, obj.GetNamespace()),
+	}
+
+	return ds, nil
+}
+
+// Start starts the underlying dynamic informer and checks whether the object
+// has already been deleted.
+func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
+	events, err := ds.source.Start(ctx, gvk)
+
+	// ResourceVersion is omitted to ensure a quorum read of the latest object state.
+	if _, err := ds.getter.Get(ctx, ds.obj.GetName(), metav1.GetOptions{}); k8serrors.IsNotFound(err) {
+		e := make(chan watch.Event, 1)
+		e <- watch.Event{Type: watch.Deleted, Object: ds.obj}
+		return e, nil
+	}
+
+	return events, err
 }
