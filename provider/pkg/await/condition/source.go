@@ -120,16 +120,15 @@ func (s Static) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Ev
 }
 
 // DeletionSource is a dynamic source appropriate for situations where a
-// particular resource must be deleted. It reliably checks whether the resource
-// is already deleted after the informer is started.
+// particular object must be deleted. A DELETED event is guaranteed in the case
+// where the informer starts after the object has already been deleted.
 type DeletionSource struct {
 	obj    *unstructured.Unstructured
 	getter objectGetter
 	source *DynamicSource
 }
 
-// NewDeletionSource guarantees a DELETED event in the case where the informer
-// starts after the object has been deleted.
+// NewDeletionSource creates a new DeletionSource.
 func NewDeletionSource(
 	ctx context.Context,
 	clientset *clients.DynamicClientSet,
@@ -156,6 +155,7 @@ func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind
 
 	// ResourceVersion is omitted to ensure a quorum read of the latest object state.
 	if _, err := ds.getter.Get(ctx, ds.obj.GetName(), metav1.GetOptions{}); k8serrors.IsNotFound(err) {
+		// If the object was already deleted, return a synthetic DELETED event.
 		e := make(chan watch.Event, 1)
 		e <- watch.Event{Type: watch.Deleted, Object: ds.obj}
 		return e, nil
