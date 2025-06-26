@@ -158,8 +158,6 @@ func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind
 		// If the object was already deleted, return a synthetic DELETED event.
 		e := make(chan watch.Event, 1)
 		e <- watch.Event{Type: watch.Deleted, Object: ds.obj}
-		close(e)
-
 		return e, nil
 	}
 

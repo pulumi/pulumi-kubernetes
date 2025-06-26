@@ -94,14 +94,11 @@ func TestDeleted(t *testing.T) {
 		getter := get404{}
 
 		source := &DeletionSource{obj: pod, getter: getter, source: Static(nil)}
-
 		cond, err := NewDeleted(ctx, source, getter, stdout, pod)
 		assert.NoError(t, err)
 
-		cond.Range(func(e watch.Event) bool {
-			err := cond.Observe(e)
-			assert.NoError(t, err)
-			return true
+		cond.Range(func(_ watch.Event) bool {
+			return true // A DELETED event is expected.
 		})
 
 		done, err := cond.Satisfied()
@@ -220,10 +217,8 @@ func TestDeleted(t *testing.T) {
 	t.Run("times out with recovery", func(t *testing.T) {
 		getter := &getsequence{[]objectGetter{&get200{pod}, get404{}}, 0}
 
-		source := &DeletionSource{obj: pod, getter: getter, source: Static(nil)}
-
 		ctx, cancel := context.WithCancel(context.Background())
-		cond, err := NewDeleted(ctx, source, getter, stdout, pod)
+		cond, err := NewDeleted(ctx, Static(nil), getter, stdout, pod)
 		assert.NoError(t, err)
 
 		cancel()

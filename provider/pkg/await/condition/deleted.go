@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"sync"
 	"sync/atomic"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -62,19 +63,27 @@ func NewDeleted(
 // exhausted, we attempt a final lookup on the cluster to be absolutely sure it
 // still exists.
 func (dc *Deleted) Range(yield func(watch.Event) bool) {
-	// Observe events until we see a DELETED or until we time out.
-	dc.observer.Range(func(e watch.Event) bool {
-		cont := yield(e)
-		if dc.deleted.Load() {
-			// Stop if we see a DELETED event.
-			return false
-		}
-		return cont
-	})
+	// Start listening to events before we check if the resource has already
+	// been deleted. This avoids races where the object is deleted in-between
+	// the 404 check and this watch.
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		dc.observer.Range(yield)
+	}()
 
+	dc.refreshClusterState()
 	if dc.deleted.Load() {
 		// Already deleted, nothing more to do. Our informer will get cleaned up
 		// when its context is canceled.
+		return
+	}
+
+	wg.Wait()
+
+	if dc.deleted.Load() {
+		// Nothing more to do.
 		return
 	}
 
