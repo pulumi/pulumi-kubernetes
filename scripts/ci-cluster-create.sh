@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o nounset -o errexit -o pipefail
+set -x
 
 echo Creating ephemeral Kubernetes cluster for CI testing...
 
