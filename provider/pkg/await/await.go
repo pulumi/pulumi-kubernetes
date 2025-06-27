@@ -848,7 +848,10 @@ func Deletion(c DeleteConfig) error {
 	defer cancel()
 
 	// Setup our Informer factory.
-	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Outputs.GetNamespace())
+	source, err := condition.NewDeletionSource(ctx, c.ClientSet, c.Outputs)
+	if err != nil {
+		return err
+	}
 
 	// Determine the condition to wait for.
 	deleted, err := metadata.DeletedCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, c.Outputs)
