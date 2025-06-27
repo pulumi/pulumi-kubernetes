@@ -804,6 +804,7 @@ jobs:
       with:
         name: config
         path: ~/.kube/config
+        if-no-files-found: error
   destroy-test-cluster:
     runs-on: ubuntu-latest
     name: teardown-test-cluster
