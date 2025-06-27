@@ -54,7 +54,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const example = new k8s.yaml.v2.ConfigFile("example", {
-    file: ["./manifest.yaml"],
+    file: "./manifest.yaml",
 });
 ```
 ```python
