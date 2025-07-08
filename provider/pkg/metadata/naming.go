@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -31,7 +32,9 @@ func AssignNameIfAutonamable(randomSeed []byte, engineAutonaming *pulumirpc.Chec
 	if IsNamed(obj, propMap) || IsGenerateName(obj, propMap) {
 		return nil
 	}
-	prefix := urn.Name() + "-"
+	// Composite resources (helm charts) have composite names
+	urnName := urn.Name()
+	prefix := urnName[strings.LastIndex(urnName, "/")+1:] + "-"
 	autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 	contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
 	if engineAutonaming != nil {
