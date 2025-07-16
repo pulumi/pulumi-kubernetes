@@ -4,12 +4,11 @@
 
 ### Prerequisites
 
-1. Python: `python-setuptools`, `pip`
-1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
-1. JS: `npm`, `yarn`
-1. .NET: [.NET SDK 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-1. Java: JDK 11 & [Gradle ~>7.4](https://gradle.org/install/)
-1. [pulumictl](https://github.com/pulumi/pulumictl)
+* [Mise](https://mise.jdx.dev/)
+
+Dependencies required are modeled on `mise.toml`. Run `mise install` and `mise
+settings experimental=true` (required for Go binaries such as `golangci-lint`
+and `pulumictl`) to fetch and install them.
 
 ### Restore Vendor Dependencies
 
