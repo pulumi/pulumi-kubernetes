@@ -57,7 +57,7 @@ func getCwd(t *testing.T) string {
 var baseOptions = &integration.ProgramTestOptions{
 	Verbose: true,
 	Dependencies: []string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v4",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4=../../../sdk",
 	},
 	PostPrepareProject: func(p *engine.Projinfo) error {
 		return fsutil.CopyFile(filepath.Join(p.Root, "testdata"), filepath.Join("..", "..", "testdata"), nil)
