@@ -8,7 +8,8 @@
 
 Dependencies required are modeled on `mise.toml`. Run `mise install` and `mise
 settings experimental=true` (required for Go binaries such as `golangci-lint`
-and `pulumictl`) to fetch and install them.
+and `pulumictl`) to fetch and install them. Finally, run `mise env` to check if
+env variables are being set correctly.
 
 ### Restore Vendor Dependencies
 
