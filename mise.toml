@@ -1,0 +1,26 @@
+[tools]
+pulumi = '3.171'
+
+# See toolVersions at
+# https://github.com/pulumi/ci-mgmt/blob/master/provider-ci/internal/pkg/templates/defaults.config.yaml
+dotnet = '8'
+java = 'corretto-11.0.27'
+gradle = '7.6'
+nodejs = '20'
+python = '3.11'
+
+# See toolVersions at
+# https://github.com/pulumi/pulumi-kubernetes/blob/master/.ci-mgmt.yaml
+go = '1.24'
+
+# CONTRIBUTING.md depencies
+yarn = '1.22.22'
+golangci-lint = '2.2.2'
+"go:github.com/pulumi/pulumictl/cmd/pulumictl" = 'latest'
+
+[env]
+# Create a venv not to pollute the whole system with global Python dependencies
+_.python.venv = { path = ".venv", create = true, python = "3" }
+
+# Opt-out of dotnet telemetry
+DOTNET_CLI_TELEMETRY_OPTOUT = true
