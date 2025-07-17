@@ -1,5 +1,4 @@
 [tools]
-# Project overrides (formerly .pulumi.version)
 pulumi = '3.171'
 
 # See toolVersions at
@@ -15,8 +14,6 @@ python = '3.11'
 go = '1.24'
 
 # CONTRIBUTING.md depencies
-kubectl = '1.33.2'
-# TODO Find why we cannot just use npm and remove one extra dependency
 yarn = '1.22.22'
 golangci-lint = '2.2.2'
 "go:github.com/pulumi/pulumictl/cmd/pulumictl" = 'latest'
