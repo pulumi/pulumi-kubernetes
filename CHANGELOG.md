@@ -45,6 +45,8 @@
   credentials. For backward-compatibility `registry.json` is preferred if
   it exists. (https://github.com/pulumi/pulumi-kubernetes/issues/3606)
 
+- Fixed an issue where deletions could take longer than necessary. (https://github.com/pulumi/pulumi-kubernetes/issues/3317)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed

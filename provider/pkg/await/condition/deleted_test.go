@@ -93,10 +93,13 @@ func TestDeleted(t *testing.T) {
 		ctx := context.Background()
 		getter := get404{}
 
-		cond, err := NewDeleted(ctx, Static(nil), getter, stdout, pod)
+		source := &DeletionSource{obj: pod, getter: getter, source: Static(nil)}
+		cond, err := NewDeleted(ctx, source, getter, stdout, pod)
 		assert.NoError(t, err)
 
-		cond.Range(nil)
+		cond.Range(func(_ watch.Event) bool {
+			return true // A DELETED event is expected.
+		})
 
 		done, err := cond.Satisfied()
 		assert.NoError(t, err)
