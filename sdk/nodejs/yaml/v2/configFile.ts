@@ -49,7 +49,7 @@ import * as utilities from "../../utilities";
  * import * as k8s from "@pulumi/kubernetes";
  *
  * const example = new k8s.yaml.v2.ConfigFile("example", {
- *     files: ["./manifest.yaml"],
+ *     file: "./manifest.yaml",
  * });
  * ```
  * {% /examples %}}
