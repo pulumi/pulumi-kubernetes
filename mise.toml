@@ -1,5 +1,5 @@
 [tools]
-pulumi = '3.183.0'
+pulumi = 'latest'
 
 # See toolVersions at
 # https://github.com/pulumi/ci-mgmt/blob/master/provider-ci/internal/pkg/templates/defaults.config.yaml
@@ -17,6 +17,7 @@ go = '1.24'
 yarn = '1.22.22'
 golangci-lint = '2.2.2'
 "go:github.com/pulumi/pulumictl/cmd/pulumictl" = 'latest'
+
 
 [env]
 # Create a venv not to pollute the whole system with global Python dependencies

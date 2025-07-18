@@ -112,7 +112,7 @@ lint::
 	done
 
 install_provider:: k8sprovider
-	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
+	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin/
 
 install:: install_nodejs_sdk install_dotnet_sdk install_provider
 
