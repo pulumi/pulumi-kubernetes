@@ -15,8 +15,8 @@ require (
 	github.com/pulumi/providertest v0.3.1
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0
-	github.com/pulumi/pulumi/pkg/v3 v3.184.0
-	github.com/pulumi/pulumi/sdk/v3 v3.184.0
+	github.com/pulumi/pulumi/pkg/v3 v3.185.0
+	github.com/pulumi/pulumi/sdk/v3 v3.185.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
@@ -258,7 +258,7 @@ require (
 	golang.org/x/crypto v0.39.0 // indirect
 	golang.org/x/mod v0.25.0 // indirect
 	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/oauth2 v0.29.0 // indirect
+	golang.org/x/oauth2 v0.30.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/term v0.32.0 // indirect
