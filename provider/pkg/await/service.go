@@ -19,7 +19,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -133,23 +132,25 @@ func (sia *serviceInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
-		informers.WithNamespaceOrDefault(sia.config.currentOutputs.GetNamespace()))
-	informerFactory.Start(stopper)
-
 	serviceEvents := make(chan watch.Event)
-	serviceInformer, err := informers.New(informerFactory, informers.ForServices(), informers.WithEventChannel(serviceEvents))
+	serviceInformer, err := sia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("services"),
+		serviceEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go serviceInformer.Informer().Run(stopper)
+	defer serviceInformer.Close()
 
 	endpointsEvents := make(chan watch.Event)
-	endpointsInformer, err := informers.New(informerFactory, informers.ForEndpoints(), informers.WithEventChannel(endpointsEvents))
+	endpointsInformer, err := sia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("endpoints"),
+		endpointsEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go endpointsInformer.Informer().Run(stopper)
+	defer endpointsInformer.Close()
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 

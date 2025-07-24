@@ -17,7 +17,6 @@ package condition
 import (
 	"context"
 	"fmt"
-	"sync"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -26,8 +25,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic/dynamicinformer"
-	"k8s.io/client-go/tools/cache"
 )
 
 var (
@@ -39,6 +36,7 @@ var (
 // watch.Event channels.
 type Source interface {
 	Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error)
+	Stop()
 }
 
 // NewDynamicSource creates a new DynamicEventSource which will lazily
@@ -47,40 +45,23 @@ type Source interface {
 func NewDynamicSource(
 	ctx context.Context,
 	clientset *clients.DynamicClientSet,
-	namespace string,
+	factory informers.Factory,
 ) *DynamicSource {
-	stopper := make(chan struct{})
-	factoryF := sync.OnceValue(func() dynamicinformer.DynamicSharedInformerFactory {
-		factory := informers.NewInformerFactory(
-			clientset,
-			informers.WithNamespace(namespace),
-		)
-		// Stop the factory when our context closes.
-		go func() {
-			<-ctx.Done()
-			close(stopper)
-			factory.Shutdown()
-		}()
-		return factory
-	})
-
 	return &DynamicSource{
-		factory:   factoryF,
-		stopper:   stopper,
+		factory:   factory,
 		clientset: clientset,
 	}
 }
 
 // DynamicSource establishes Informers against the cluster.
 type DynamicSource struct {
-	factory   func() dynamicinformer.DynamicSharedInformerFactory
-	stopper   chan struct{}
+	factory   informers.Factory
+	informer  *informers.Informer
 	clientset *clients.DynamicClientSet
 }
 
 // Start establishes an Informer against the cluster for the given GVK.
 func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
-	factory := ds.factory()
 	events := make(chan watch.Event, 1)
 
 	gvr, err := clients.GVRForGVK(ds.clientset.RESTMapper, gvk)
@@ -88,25 +69,17 @@ func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (
 		return nil, fmt.Errorf("getting GVK: %w", err)
 	}
 
-	informer, err := informers.New(
-		factory,
-		informers.WithEventChannel(events),
-		informers.ForGVR(gvr),
-	)
+	informer, err := ds.factory.Subscribe(gvr, events)
 	if err != nil {
 		return nil, fmt.Errorf("creating informer: %w", err)
 	}
-	i := informer.Informer()
-
-	// Start the new informer by calling factory.Start (which is idempotent).
-	// This ensures that the informer is started exactly once and is cleaned up later.
-	factory.Start(ds.stopper)
-
-	// Wait for the informer's cache to be synced, to ensure that
-	// we don't miss any events, especially deletes.
-	cache.WaitForCacheSync(ds.stopper, i.HasSynced)
+	ds.informer = informer
 
 	return events, nil
+}
+
+func (ds *DynamicSource) Stop() {
+	ds.informer.Close()
 }
 
 // Static implements Source and allows a fixed event channel to be used as an
@@ -118,6 +91,9 @@ type Static chan watch.Event
 func (s Static) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return s, nil
 }
+
+// Stop is a no-op for Static.
+func (Static) Stop() {}
 
 // DeletionSource is a dynamic source appropriate for situations where a
 // particular object must be deleted. A DELETED event is guaranteed in the case
@@ -132,6 +108,7 @@ type DeletionSource struct {
 func NewDeletionSource(
 	ctx context.Context,
 	clientset *clients.DynamicClientSet,
+	factory informers.Factory,
 	obj *unstructured.Unstructured,
 ) (Source, error) {
 	getter, err := clientset.ResourceClientForObject(obj)
@@ -142,7 +119,7 @@ func NewDeletionSource(
 	ds := &DeletionSource{
 		obj:    obj,
 		getter: getter,
-		source: NewDynamicSource(ctx, clientset, obj.GetNamespace()),
+		source: NewDynamicSource(ctx, clientset, factory),
 	}
 
 	return ds, nil
@@ -162,4 +139,8 @@ func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind
 	}
 
 	return events, err
+}
+
+func (ds *DeletionSource) Stop() {
+	ds.source.Stop()
 }

@@ -22,6 +22,7 @@ import (
 
 	"github.com/jonboulle/clockwork"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
@@ -52,6 +53,7 @@ type awaitConfig struct {
 	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
 	timeout           *time.Duration
 	clusterVersion    *cluster.ServerVersion
+	factory           informers.Factory
 	clock             clockwork.Clock
 }
 
