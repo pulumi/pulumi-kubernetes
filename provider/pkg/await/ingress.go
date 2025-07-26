@@ -20,19 +20,18 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	corev1 "k8s.io/api/core/v1"
 	networkingv1 "k8s.io/api/networking/v1"
 	networkingv1beta1 "k8s.io/api/networking/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
@@ -109,34 +108,35 @@ func (iia *ingressInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	informerFactory := informers.NewInformerFactory(iia.config.clientSet,
-		informers.WithNamespaceOrDefault(iia.config.currentOutputs.GetNamespace()))
-	informerFactory.Start(stopper)
-
 	ingressEvents := make(chan watch.Event)
-	ingressInformer, err := informers.New(informerFactory, informers.ForGVR(schema.GroupVersionResource{
-		Group:    "networking.k8s.io",
-		Version:  "v1",
-		Resource: "ingresses",
-	}), informers.WithEventChannel(ingressEvents))
+	ingressInformer, err := iia.config.factory.Subscribe(
+		networkingv1.SchemeGroupVersion.WithResource("ingresses"),
+		ingressEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go ingressInformer.Informer().Run(stopper)
+	defer ingressInformer.Close()
 
 	endpointsEvents := make(chan watch.Event)
-	endpointsInformer, err := informers.New(informerFactory, informers.ForEndpoints(), informers.WithEventChannel(endpointsEvents))
+	endpointsInformer, err := iia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("endpoints"),
+		endpointsEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go endpointsInformer.Informer().Run(stopper)
+	defer endpointsInformer.Close()
 
 	serviceEvents := make(chan watch.Event)
-	serviceInformer, err := informers.New(informerFactory, informers.ForServices(), informers.WithEventChannel(serviceEvents))
+	serviceInformer, err := iia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("services"),
+		serviceEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go serviceInformer.Informer().Run(stopper)
+	defer serviceInformer.Close()
 
 	timeout := iia.config.getTimeout(DefaultIngressTimeoutMins * 60)
 	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))

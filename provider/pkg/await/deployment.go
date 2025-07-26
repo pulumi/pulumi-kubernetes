@@ -21,7 +21,6 @@ import (
 
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
@@ -33,7 +32,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
@@ -160,70 +158,45 @@ func (dia *deploymentInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	informerFactory := informers.NewInformerFactory(dia.config.clientSet,
-		informers.WithNamespaceOrDefault(dia.deployment.GetNamespace()))
-
-	// Limit the lifetime of this to each deployment await for now. We can reduce this sharing further later.
-	informerFactory.Start(stopper)
-
 	deploymentEvents := make(chan watch.Event)
-	deploymentV1Informer, err := informers.New(
-		informerFactory,
-		informers.ForGVR(
-			schema.GroupVersionResource{
-				Group:    "apps",
-				Version:  "v1",
-				Resource: "deployments",
-			},
-		),
-		informers.WithEventChannel(deploymentEvents))
+	deploymentV1Informer, err := dia.config.factory.Subscribe(
+		appsv1.SchemeGroupVersion.WithResource("deployments"),
+		deploymentEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go deploymentV1Informer.Informer().Run(stopper)
+	defer deploymentV1Informer.Close()
 
 	replicaSetEvents := make(chan watch.Event)
-	replicaSetV1Informer, err := informers.New(
-		informerFactory,
-		informers.ForGVR(
-			schema.GroupVersionResource{
-				Group:    "apps",
-				Version:  "v1",
-				Resource: "replicasets",
-			}),
-		informers.WithEventChannel(replicaSetEvents))
+	replicaSetV1Informer, err := dia.config.factory.Subscribe(
+		appsv1.SchemeGroupVersion.WithResource("replicasets"),
+		replicaSetEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go replicaSetV1Informer.Informer().Run(stopper)
+	defer replicaSetV1Informer.Close()
 
 	podEvents := make(chan watch.Event)
-	podV1Informer, err := informers.New(
-		informerFactory,
-		informers.ForPods(),
-		informers.WithEventChannel(podEvents))
+	podV1Informer, err := dia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("pods"),
+		podEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go podV1Informer.Informer().Run(stopper)
+	defer podV1Informer.Close()
 
 	pvcEvents := make(chan watch.Event)
-	pvcV1Informer, err := informers.New(
-		informerFactory,
-		informers.ForGVR(
-			schema.GroupVersionResource{
-				Group:    "",
-				Version:  "v1",
-				Resource: "persistentvolumeclaims",
-			}),
-		informers.WithEventChannel(pvcEvents))
+	pvcV1Informer, err := dia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("persistentvolumeclaims"),
+		pvcEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go pvcV1Informer.Informer().Run(stopper)
-
-	// Wait for the cache to sync
-	informerFactory.WaitForCacheSync(stopper)
+	defer pvcV1Informer.Close()
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()

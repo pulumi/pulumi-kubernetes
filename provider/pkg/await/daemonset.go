@@ -21,13 +21,13 @@ import (
 	"time"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	v1 "k8s.io/api/apps/v1"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -146,38 +146,27 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 		cancel(context.DeadlineExceeded)
 	}()
 
-	stopper := make(chan struct{})
-	defer close(stopper)
-
-	informerFactory := informers.NewInformerFactory(
-		dsa.config.clientSet,
-		informers.WithNamespaceOrDefault(dsa.config.currentOutputs.GetNamespace()),
-	)
-	informerFactory.Start(stopper)
-
 	dsEvents := make(chan watch.Event)
-	dsInformer, err := informers.New(
-		informerFactory,
-		informers.ForGVR(v1.SchemeGroupVersion.WithResource("daemonsets")),
-		informers.WithEventChannel(dsEvents),
+	dsInformer, err := dsa.config.factory.Subscribe(
+		appsv1.SchemeGroupVersion.WithResource("daemonsets"),
+		dsEvents,
 	)
 	if err != nil {
 		return err
 	}
-	go dsInformer.Informer().Run(stopper)
+	defer dsInformer.Close()
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := informers.New(
-		informerFactory,
-		informers.ForPods(),
-		informers.WithEventChannel(podEvents),
+	podInformer, err := dsa.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("pods"),
+		podEvents,
 	)
 	if err != nil {
 		return err
 	}
-	go podInformer.Informer().Run(stopper)
+	defer podInformer.Close()
 
-	podAggregator := NewPodAggregator(dsa.ds, podInformer.Lister())
+	podAggregator := NewPodAggregator(dsa.ds, podInformer)
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 

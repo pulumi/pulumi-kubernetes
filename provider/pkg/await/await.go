@@ -27,6 +27,7 @@ import (
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/jonboulle/clockwork"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -88,6 +89,9 @@ type ProviderConfig struct {
 
 	// explicit condition (for testing)
 	condition condition.Satisfier
+
+	// cache of dynamic informer Factories
+	Factories *informers.Factories
 
 	clock clockwork.Clock
 }
@@ -271,7 +275,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, outputs.GetNamespace())
+	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()))
+	defer source.Stop()
+
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
 	if err != nil {
 		return outputs, err
@@ -295,6 +301,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			timeout:           &timeout,
 			clusterVersion:    c.ClusterVersion,
 			clock:             c.clock,
+			factory:           c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()),
 		}
 		ready = spec.await(conf)
 	}
@@ -364,6 +371,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					logger:            c.DedupLogger,
 					clusterVersion:    c.ClusterVersion,
 					clock:             c.clock,
+					factory:           c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()),
 				}
 				waitErr := awaiter.awaitRead(conf)
 				if waitErr != nil {
@@ -433,7 +441,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, currentOutputs.GetNamespace())
+	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()))
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
 	if err != nil {
 		return currentOutputs, err
@@ -457,6 +465,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			timeout:           &timeout,
 			clusterVersion:    c.ClusterVersion,
 			clock:             c.clock,
+			factory:           c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()),
 		}
 		ready = spec.await(conf)
 	}
@@ -848,7 +857,7 @@ func Deletion(c DeleteConfig) error {
 	defer cancel()
 
 	// Setup our Informer factory.
-	source, err := condition.NewDeletionSource(ctx, c.ClientSet, c.Outputs)
+	source, err := condition.NewDeletionSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, c.Outputs.GetNamespace()), c.Outputs)
 	if err != nil {
 		return err
 	}
@@ -949,7 +958,7 @@ func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condi
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}
 
-	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.currentOutputs.GetNamespace())
+	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.factory)
 
 	return &legacyReadyCondition{
 		ObjectObserver: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
