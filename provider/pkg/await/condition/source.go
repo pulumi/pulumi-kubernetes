@@ -79,7 +79,7 @@ func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (
 }
 
 func (ds *DynamicSource) Stop() {
-	ds.informer.Close()
+	ds.informer.Unsubscribe()
 }
 
 // Static implements Source and allows a fixed event channel to be used as an
@@ -141,6 +141,7 @@ func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind
 	return events, err
 }
 
+// Stop stops the underlying Source.
 func (ds *DeletionSource) Stop() {
 	ds.source.Stop()
 }

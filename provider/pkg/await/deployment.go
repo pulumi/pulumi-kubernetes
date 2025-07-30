@@ -166,7 +166,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer deploymentV1Informer.Close()
+	defer deploymentV1Informer.Unsubscribe()
 
 	replicaSetEvents := make(chan watch.Event)
 	replicaSetV1Informer, err := dia.config.factory.Subscribe(
@@ -176,7 +176,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer replicaSetV1Informer.Close()
+	defer replicaSetV1Informer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
 	podV1Informer, err := dia.config.factory.Subscribe(
@@ -186,7 +186,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer podV1Informer.Close()
+	defer podV1Informer.Unsubscribe()
 
 	pvcEvents := make(chan watch.Event)
 	pvcV1Informer, err := dia.config.factory.Subscribe(
@@ -196,7 +196,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer pvcV1Informer.Close()
+	defer pvcV1Informer.Unsubscribe()
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()

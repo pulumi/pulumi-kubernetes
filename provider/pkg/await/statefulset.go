@@ -196,7 +196,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer statefulSetInformer.Close()
+	defer statefulSetInformer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
 	podInformer, err := sia.config.factory.Subscribe(
@@ -206,7 +206,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer podInformer.Close()
+	defer podInformer.Unsubscribe()
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()

@@ -140,7 +140,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer serviceInformer.Close()
+	defer serviceInformer.Unsubscribe()
 
 	endpointsEvents := make(chan watch.Event)
 	endpointsInformer, err := sia.config.factory.Subscribe(
@@ -150,7 +150,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer endpointsInformer.Close()
+	defer endpointsInformer.Unsubscribe()
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 

@@ -154,7 +154,7 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 	if err != nil {
 		return err
 	}
-	defer dsInformer.Close()
+	defer dsInformer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
 	podInformer, err := dsa.config.factory.Subscribe(
@@ -164,7 +164,7 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 	if err != nil {
 		return err
 	}
-	defer podInformer.Close()
+	defer podInformer.Unsubscribe()
 
 	podAggregator := NewPodAggregator(dsa.ds, podInformer)
 	podAggregator.Start(podEvents)

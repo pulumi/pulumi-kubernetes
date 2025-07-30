@@ -90,7 +90,9 @@ type ProviderConfig struct {
 	// explicit condition (for testing)
 	condition condition.Satisfier
 
-	// cache of dynamic informer Factories
+	// Factories contains a cache of dynamic informer Factories; each factory
+	// produces informers for a single namespace (the "" namespace represents
+	// non-namespaced).
 	Factories *informers.Factories
 
 	clock clockwork.Clock

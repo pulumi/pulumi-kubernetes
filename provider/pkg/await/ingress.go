@@ -116,7 +116,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer ingressInformer.Close()
+	defer ingressInformer.Unsubscribe()
 
 	endpointsEvents := make(chan watch.Event)
 	endpointsInformer, err := iia.config.factory.Subscribe(
@@ -126,7 +126,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer endpointsInformer.Close()
+	defer endpointsInformer.Unsubscribe()
 
 	serviceEvents := make(chan watch.Event)
 	serviceInformer, err := iia.config.factory.Subscribe(
@@ -136,7 +136,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer serviceInformer.Close()
+	defer serviceInformer.Unsubscribe()
 
 	timeout := iia.config.getTimeout(DefaultIngressTimeoutMins * 60)
 	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))

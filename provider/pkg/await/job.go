@@ -105,9 +105,10 @@ func (jia *jobInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer jobInformer.Close()
+	defer jobInformer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
+
 	podInformer, err := jia.config.factory.Subscribe(
 		corev1.SchemeGroupVersion.WithResource("pods"),
 		podEvents,
@@ -115,7 +116,7 @@ func (jia *jobInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer podInformer.Close()
+	defer podInformer.Unsubscribe()
 
 	podAggregator := NewPodAggregator(jia.job, podInformer)
 	podAggregator.Start(podEvents)

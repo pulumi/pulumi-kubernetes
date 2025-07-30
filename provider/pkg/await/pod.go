@@ -152,7 +152,7 @@ func (pia *podInitAwaiter) Await() error {
 	if err != nil {
 		return err
 	}
-	defer podInformer.Close()
+	defer podInformer.Unsubscribe()
 
 	timeout := pia.config.getTimeout(DefaultPodTimeoutMins * 60)
 	for {

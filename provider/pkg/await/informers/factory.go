@@ -1,7 +1,26 @@
 // Copyright 2021, Pulumi Corporation.  All rights reserved.
+
+// Package informers provides primitives for subscribing to events from the
+// cluster.
+//
+//  1. Factories provides a cache of Factory instances. It is intended to be
+//     a singleton shared by all resources and operations.
+//  2. Factory is scoped to a namespace and provides a cache of Informers for
+//     that namespace.
+//  3. Informers register event handlers for a given GVR within their namespace.
+//
+// Factory and Informer instances are created lazily.
+//
+// Informers subscribe to all events for the GVR and must be filtered
+// client-side.
+//
+// Each Factory instance shares the same lifecycle as the Factories cache
+// containing it. In practice all Factories and Informers run until the
+// top-level provider context is canceled.
 package informers
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -20,9 +39,15 @@ import (
 // expected that the provider will share this cache of factories for the
 // lifespan of the process.
 type Factories struct {
-	mu      sync.Mutex
-	cache   map[string]Factory
-	stopper chan struct{}
+	mu    sync.Mutex
+	cache map[string]Factory
+	ctx   context.Context
+}
+
+// NewFactories creates a new shared Factories cache. The factories will shut
+// down when the provided Context is closed.
+func NewFactories(ctx context.Context) Factories {
+	return Factories{ctx: ctx}
 }
 
 // ForNamespace returns a shared informer factory for the specified namespace.
@@ -46,8 +71,14 @@ func (f *Factories) ForNamespace(client dynamic.Interface, namespace string) Fac
 	}
 
 	dsif := dynamicinformer.NewFilteredDynamicSharedInformerFactory(client, resyncInterval, namespace, nil)
-	factory := Factory{dsif: dsif, stopper: f.stopper}
+	factory := Factory{dsif: dsif, ctx: f.ctx}
 	f.cache[namespace] = factory
+
+	// Shut down the informer when the parent context is done.
+	go func() {
+		<-f.ctx.Done()
+		dsif.Shutdown()
+	}()
 
 	return factory
 }
@@ -55,24 +86,32 @@ func (f *Factories) ForNamespace(client dynamic.Interface, namespace string) Fac
 // Factory is a wrapper around dynamicinformer.DynamicSharedInformerFactory
 // which provides and manages the lifecycle of dynamic informers.
 type Factory struct {
-	dsif    dynamicinformer.DynamicSharedInformerFactory
-	stopper chan struct{}
+	dsif dynamicinformer.DynamicSharedInformerFactory
+	ctx  context.Context
 }
 
+// Subscribe returns a new Informer, scoped to this factory's namespace,
+// subscribed to all events for the given GVR. It is the caller's
+// responsibility to filter those events to the relevant objects. Informers do
+// not know anything about an object UIDs.
+//
+// Calling Informer.Close() will unsubscribe the informer's event handlers, but
+// the underlying watch will remain open for other current or future
+// subscribers.
 func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.Event) (*Informer, error) {
 	if gvr.Empty() {
 		return nil, fmt.Errorf("must specify a GVR")
 	}
 
 	i := f.dsif.ForResource(gvr)
-	defer f.dsif.WaitForCacheSync(f.stopper)
 
 	if events == nil {
 		// Informer can be used without an event channel, only for listing.
 		return &Informer{sii: i.Informer(), l: i.Lister()}, nil
 	}
 
-	f.dsif.Start(f.stopper)
+	f.dsif.Start(f.ctx.Done())
+	defer f.dsif.WaitForCacheSync(f.ctx.Done())
 
 	informer := i.Informer()
 
@@ -109,19 +148,29 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 	return &Informer{sii: informer, l: i.Lister(), handle: registration}, nil
 }
 
+// Informer is a wrapper around cache.SharedIndexInformer that maintains its
+// event handler so we can unregister it later.
 type Informer struct {
 	sii    cache.SharedIndexInformer
 	l      cache.GenericLister
 	handle cache.ResourceEventHandlerRegistration
 }
 
-func (i *Informer) Close() {
-	if i == nil || i.handle == nil {
-		return
+// Unsubscribe removes this Informer's event handlers from the underlying watch.
+//
+// This does *not* stop the underlying informer, because the
+// DynamicSharedInformerFactory responsible for caching these informers doesn't
+// allow us to either (a) restart a cached informer that's been stopped, or (b)
+// remove a stopped informer from the cache.
+func (i *Informer) Unsubscribe() {
+	if i == nil || i.handle == nil || i.sii.IsStopped() {
+		return // Nothing to do.
 	}
 	_ = i.sii.RemoveEventHandler(i.handle)
 }
 
+// List performs a one-shot list of objects matching this Informers' GVR and
+// namespace. This is only used for Read operations.
 func (i *Informer) List(selector labels.Selector) (ret []runtime.Object, err error) {
 	return i.l.List(selector)
 }
