@@ -118,7 +118,12 @@ func (jia *jobInitAwaiter) Await() error {
 	}
 	defer podInformer.Unsubscribe()
 
-	podAggregator := NewPodAggregator(jia.job, podInformer)
+	podClient, err := clients.ResourceClient(
+		kinds.Pod, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
+	if err != nil {
+		return fmt.Errorf("getting pod client: %w", err)
+	}
+	podAggregator := NewPodAggregator(jia.job, podClient)
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
@@ -171,17 +176,13 @@ func (jia *jobInitAwaiter) Read() error {
 		return nil
 	}
 
-	podInformer, err := jia.config.factory.Subscribe(
-		corev1.SchemeGroupVersion.WithResource("pods"),
-		nil, // Informer is only used for listing.
-	)
+	podClient, err := clients.ResourceClient(
+		kinds.Pod, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
-		return err
+		return fmt.Errorf("getting pod client: %w", err)
 	}
-	defer podInformer.Close()
-
-	podAggregator := NewPodAggregator(jia.job, podInformer)
-	messages := podAggregator.Read()
+	podAggregator := NewPodAggregator(jia.job, podClient)
+	messages := podAggregator.Read(jia.config.ctx)
 	for _, message := range messages {
 		jia.errors.Add(message)
 		jia.config.logger.LogStatus(message.Severity, message.S)

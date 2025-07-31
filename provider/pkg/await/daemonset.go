@@ -103,18 +103,8 @@ func (dsa *dsAwaiter) Read() error {
 	// Update the awaiter's state to reflect the live object.
 	dsa.processDaemonSetEvent(watchAddedEvent(ds))
 
-	// Grab any error messages from pods for more helpful debugging.
-	pods, err := podClient.List(dsa.config.ctx, metav1.ListOptions{})
-	if err != nil {
-		logger.V(3).Infof(
-			"Error retrieving Pod list for DaemonSet %q: %v",
-			ds.GetName(),
-			err,
-		)
-		pods = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
-	}
-	pa := NewPodAggregator(ds, &staticLister{pods})
-	messages := pa.Read()
+	pa := NewPodAggregator(ds, podClient)
+	messages := pa.Read(dsa.config.ctx)
 	dsa.processPodMessages(messages)
 
 	suberrors := []string{}
@@ -166,7 +156,11 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 	}
 	defer podInformer.Unsubscribe()
 
-	podAggregator := NewPodAggregator(dsa.ds, podInformer)
+	_, podClient, err := dsa.clients()
+	if err != nil {
+		return fmt.Errorf("getting pod client: %w", err)
+	}
+	podAggregator := NewPodAggregator(dsa.ds, podClient)
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 

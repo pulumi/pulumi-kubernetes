@@ -26,8 +26,6 @@ import (
 	"time"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
@@ -102,17 +100,11 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 	if gvr.Empty() {
 		return nil, fmt.Errorf("must specify a GVR")
 	}
-
-	i := f.dsif.ForResource(gvr)
-
 	if events == nil {
-		// Informer can be used without an event channel, only for listing.
-		return &Informer{sii: i.Informer(), l: i.Lister()}, nil
+		return nil, fmt.Errorf("must provide an event channel to subscribe to events")
 	}
 
-	f.dsif.Start(f.ctx.Done())
-	defer f.dsif.WaitForCacheSync(f.ctx.Done())
-
+	i := f.dsif.ForResource(gvr)
 	informer := i.Informer()
 
 	registration, err := informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
@@ -145,14 +137,17 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 	if err != nil {
 		return nil, err
 	}
-	return &Informer{sii: informer, l: i.Lister(), handle: registration}, nil
+
+	f.dsif.Start(f.ctx.Done())
+	f.dsif.WaitForCacheSync(f.ctx.Done())
+
+	return &Informer{sii: informer, handle: registration}, nil
 }
 
 // Informer is a wrapper around cache.SharedIndexInformer that maintains its
 // event handler so we can unregister it later.
 type Informer struct {
 	sii    cache.SharedIndexInformer
-	l      cache.GenericLister
 	handle cache.ResourceEventHandlerRegistration
 }
 
@@ -167,10 +162,4 @@ func (i *Informer) Unsubscribe() {
 		return // Nothing to do.
 	}
 	_ = i.sii.RemoveEventHandler(i.handle)
-}
-
-// List performs a one-shot list of objects matching this Informers' GVR and
-// namespace. This is only used for Read operations.
-func (i *Informer) List(selector labels.Selector) (ret []runtime.Object, err error) {
-	return i.l.List(selector)
 }
