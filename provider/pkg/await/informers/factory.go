@@ -44,8 +44,8 @@ type Factories struct {
 
 // NewFactories creates a new shared Factories cache. The factories will shut
 // down when the provided Context is closed.
-func NewFactories(ctx context.Context) Factories {
-	return Factories{ctx: ctx}
+func NewFactories(ctx context.Context) *Factories {
+	return &Factories{ctx: ctx}
 }
 
 // ForNamespace returns a shared informer factory for the specified namespace.

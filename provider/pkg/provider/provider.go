@@ -163,7 +163,7 @@ type kubeProvider struct {
 
 	crdSchemas parameterizedPackageMap // In memory cache of CRD types from Parameterize calls.
 
-	factories informers.Factories
+	factories *informers.Factories
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -1636,7 +1636,7 @@ func (k *kubeProvider) Create(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
-			Factories:         &k.factories,
+			Factories:         k.factories,
 		},
 		Inputs:  newInputs,
 		Timeout: req.Timeout,
@@ -1886,7 +1886,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
-			Factories:         &k.factories,
+			Factories:         k.factories,
 		},
 		Inputs:          oldInputs,
 		ReadFromCluster: readFromCluster,
@@ -2136,7 +2136,7 @@ func (k *kubeProvider) Update(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
-			Factories:         &k.factories,
+			Factories:         k.factories,
 		},
 		OldInputs:     oldLivePruned,
 		OldOutputs:    oldLive,
@@ -2298,7 +2298,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
-			Factories:         &k.factories,
+			Factories:         k.factories,
 		},
 		Inputs:  oldInputs,
 		Outputs: current,
