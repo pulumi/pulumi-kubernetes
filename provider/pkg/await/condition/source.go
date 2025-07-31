@@ -56,7 +56,7 @@ func NewDynamicSource(
 // DynamicSource establishes Informers against the cluster.
 type DynamicSource struct {
 	factory   informers.Factory
-	informer  *informers.Informer
+	informer  informers.Informer
 	clientset *clients.DynamicClientSet
 }
 

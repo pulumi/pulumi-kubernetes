@@ -96,12 +96,12 @@ type Factory struct {
 // Calling Informer.Close() will unsubscribe the informer's event handlers, but
 // the underlying watch will remain open for other current or future
 // subscribers.
-func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.Event) (*Informer, error) {
+func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.Event) (Informer, error) {
 	if gvr.Empty() {
-		return nil, fmt.Errorf("must specify a GVR")
+		return Informer{}, fmt.Errorf("must specify a GVR")
 	}
 	if events == nil {
-		return nil, fmt.Errorf("must provide an event channel to subscribe to events")
+		return Informer{}, fmt.Errorf("must provide an event channel to subscribe to events")
 	}
 
 	i := f.dsif.ForResource(gvr)
@@ -135,13 +135,13 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 		},
 	})
 	if err != nil {
-		return nil, err
+		return Informer{}, err
 	}
 
 	f.dsif.Start(f.ctx.Done())
 	f.dsif.WaitForCacheSync(f.ctx.Done())
 
-	return &Informer{sii: informer, handle: registration}, nil
+	return Informer{sii: informer, handle: registration}, nil
 }
 
 // Informer is a wrapper around cache.SharedIndexInformer that maintains its
@@ -157,8 +157,8 @@ type Informer struct {
 // DynamicSharedInformerFactory responsible for caching these informers doesn't
 // allow us to either (a) restart a cached informer that's been stopped, or (b)
 // remove a stopped informer from the cache.
-func (i *Informer) Unsubscribe() {
-	if i == nil || i.handle == nil || i.sii.IsStopped() {
+func (i Informer) Unsubscribe() {
+	if i.handle == nil || i.sii.IsStopped() {
 		return // Nothing to do.
 	}
 	_ = i.sii.RemoveEventHandler(i.handle)
