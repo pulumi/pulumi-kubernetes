@@ -1,13 +1,13 @@
 module github.com/pulumi/pulumi-kubernetes/sdk/v4
 
-go 1.23.0
+go 1.23.11
 
-toolchain go1.24.3
+toolchain go1.24.5
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/sdk/v3 v3.183.0
+	github.com/pulumi/pulumi/sdk/v3 v3.186.0
 )
 
 require (
