@@ -1,12 +1,12 @@
 module patch-resources
 
-go 1.23.0
+go 1.23.11
 
-toolchain go1.24.3
+toolchain go1.24.5
 
 require (
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.15.0
-	github.com/pulumi/pulumi/sdk/v3 v3.183.0
+	github.com/pulumi/pulumi/sdk/v3 v3.186.0
 )
 
 require (
