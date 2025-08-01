@@ -28,8 +28,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 )
@@ -58,7 +58,7 @@ type PodAggregator struct {
 
 // lister lists resources matching a label selector.
 type lister interface {
-	List(selector labels.Selector) (ret []runtime.Object, err error)
+	List(context.Context, metav1.ListOptions) (*unstructured.UnstructuredList, error)
 }
 
 // NewPodAggregator returns an initialized PodAggregator.
@@ -110,29 +110,28 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 }
 
 // Read lists existing Pods and returns any related warning/error messages.
-func (pa *PodAggregator) Read() checkerlog.Messages {
+func (pa *PodAggregator) Read(ctx context.Context) checkerlog.Messages {
 	var messages checkerlog.Messages
-	checkPod := func(object runtime.Object) {
+	checkPod := func(object runtime.Object) error {
 		obj := object.(*unstructured.Unstructured)
 		pod, err := clients.PodFromUnstructured(obj)
 		if err != nil {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
-			return
+			return nil
 		}
 		if isOwnedBy(obj, pa.owner) {
 			_, results := pa.checker.ReadyDetails(pod)
 			messages = results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 		}
+		return nil
 	}
 
 	// Get existing Pods.
-	pods, err := pa.lister.List(labels.Everything())
+	pods, err := pa.lister.List(ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {
-		for _, pod := range pods {
-			checkPod(pod)
-		}
+		_ = pods.EachListItem(checkPod)
 	}
 
 	return messages
@@ -158,21 +157,6 @@ func (pa *PodAggregator) stopping() bool {
 // communicate warning/error messages to a resource awaiter.
 func (pa *PodAggregator) ResultChan() <-chan checkerlog.Messages {
 	return pa.messages
-}
-
-// staticLister can be used as a lister in situations where results are already
-// known and only need to be aggregated.
-type staticLister struct {
-	list *unstructured.UnstructuredList
-}
-
-// List returns the staticLister's static contents.
-func (s *staticLister) List(_ labels.Selector) (ret []runtime.Object, err error) {
-	objects := []runtime.Object{}
-	for _, l := range s.list.Items {
-		objects = append(objects, l.DeepCopyObject())
-	}
-	return objects, nil
 }
 
 // Aggregator is a generic, stateless condition.Observer intended for reporting

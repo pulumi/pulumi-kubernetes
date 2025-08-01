@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
@@ -393,6 +394,7 @@ func TestCreation(t *testing.T) {
 					Resources:         resources,
 					ServerSideApply:   tt.args.serverSideApply,
 					awaiters:          map[string]awaitSpec{},
+					Factories:         informers.NewFactories(t.Context()),
 				},
 				Inputs:  tt.args.inputs,
 				Preview: tt.args.preview,
@@ -686,6 +688,7 @@ func TestUpdate(t *testing.T) {
 					Resources:         resources,
 					ServerSideApply:   tt.args.serverSideApply,
 					awaiters:          map[string]awaitSpec{},
+					Factories:         informers.NewFactories(t.Context()),
 				},
 				OldInputs:  oldInputs,
 				OldOutputs: oldOutputs,
@@ -945,6 +948,7 @@ func TestDeletion(t *testing.T) {
 					Resources:         resources,
 					ServerSideApply:   tt.args.serverSideApply,
 					awaiters:          map[string]awaitSpec{},
+					Factories:         informers.NewFactories(t.Context()),
 				},
 				Inputs:  tt.args.inputs,
 				Outputs: tt.args.outputs,
@@ -995,6 +999,7 @@ func TestAwaitSSAConflict(t *testing.T) {
 		FieldManager:    "test",
 		ClientSet:       client,
 		ServerSideApply: true,
+		Factories:       informers.NewFactories(t.Context()),
 	}
 	config := CreateConfig{
 		ProviderConfig: pconfig,
@@ -1290,6 +1295,7 @@ func TestSSAWithOldObjects(t *testing.T) {
 			URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
 			FieldManager:    "pulumi-kubernetes",
 			ServerSideApply: true,
+			Factories:       informers.NewFactories(t.Context()),
 		},
 	}
 	_, err = ssaUpdate(cfg, obj, fieldManagerPatcher{fm})
@@ -1418,6 +1424,7 @@ status:
 					URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
 					FieldManager:    "pulumi-kubernetes",
 					ServerSideApply: true,
+					Factories:       informers.NewFactories(t.Context()),
 				},
 			}
 			live, err := ssaUpdate(cfg, &obj, untypedPatcher[*corev1.Namespace]{wrapped: c})

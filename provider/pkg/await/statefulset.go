@@ -21,7 +21,6 @@ import (
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
@@ -29,10 +28,10 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
@@ -189,27 +188,25 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
-		informers.WithNamespaceOrDefault(sia.config.currentOutputs.GetNamespace()))
-	informerFactory.Start(stopper)
-
 	statefulSetEvents := make(chan watch.Event)
-	statefulSetInformer, err := informers.New(informerFactory, informers.ForGVR(schema.GroupVersionResource{
-		Group:    "apps",
-		Version:  "v1",
-		Resource: "statefulsets",
-	}), informers.WithEventChannel(statefulSetEvents))
+	statefulSetInformer, err := sia.config.factory.Subscribe(
+		appsv1.SchemeGroupVersion.WithResource("statefulsets"),
+		statefulSetEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go statefulSetInformer.Informer().Run(stopper)
+	defer statefulSetInformer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
+	podInformer, err := sia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("pods"),
+		podEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go podInformer.Informer().Run(stopper)
+	defer podInformer.Unsubscribe()
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()

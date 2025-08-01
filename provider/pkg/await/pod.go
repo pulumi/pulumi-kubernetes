@@ -21,11 +21,11 @@ import (
 	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -144,16 +144,15 @@ func (pia *podInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	informerFactory := informers.NewInformerFactory(pia.config.clientSet,
-		informers.WithNamespaceOrDefault(pia.config.currentOutputs.GetNamespace()))
-	informerFactory.Start(stopper)
-
 	podEvents := make(chan watch.Event)
-	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
+	podInformer, err := pia.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("pods"),
+		podEvents,
+	)
 	if err != nil {
 		return err
 	}
-	go podInformer.Informer().Run(stopper)
+	defer podInformer.Unsubscribe()
 
 	timeout := pia.config.getTimeout(DefaultPodTimeoutMins * 60)
 	for {
