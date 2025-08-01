@@ -25,7 +25,6 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
-	"runtime/pprof"
 	"slices"
 	"strconv"
 	"strings"
@@ -2363,41 +2362,7 @@ func (k *kubeProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirp
 // to the host to decide how long to wait after Cancel is called before (e.g.)
 // hard-closing any gRPC connection.
 func (k *kubeProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty.Empty, error) {
-	heap, err := os.Create("heap.pprof")
-	if err != nil {
-		panic(err)
-	}
-	pprof.WriteHeapProfile(heap)
-
-	alloc, err := os.Create("allocs.pprof")
-	if err != nil {
-		panic(err)
-	}
-	pprof.Lookup("allocs").WriteTo(alloc, 0)
-
 	k.canceler.cancel()
-
-	go func() {
-		time.Sleep(5 * time.Second)
-		goroutine, err := os.Create("goroutine.pprof")
-		if err != nil {
-			panic(err)
-		}
-		pprof.Lookup("goroutine").WriteTo(goroutine, 0)
-
-		block, err := os.Create("block.pprof")
-		if err != nil {
-			panic(err)
-		}
-		pprof.Lookup("block").WriteTo(block, 0)
-
-		mutex, err := os.Create("mutex.pprof")
-		if err != nil {
-			panic(err)
-		}
-		pprof.Lookup("mutex").WriteTo(mutex, 0)
-	}()
-
 	return &pbempty.Empty{}, nil
 }
 
