@@ -139,7 +139,7 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 	}
 
 	f.dsif.Start(f.ctx.Done())
-	f.dsif.WaitForCacheSync(f.ctx.Done())
+	cache.WaitForCacheSync(f.ctx.Done(), informer.HasSynced)
 
 	return Informer{sii: informer, handle: registration}, nil
 }
