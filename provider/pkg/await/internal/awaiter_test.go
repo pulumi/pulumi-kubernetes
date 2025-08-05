@@ -202,3 +202,5 @@ type staticEventSource struct {
 func (ses *staticEventSource) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return ses.events, nil
 }
+
+func (staticEventSource) Stop() {}
