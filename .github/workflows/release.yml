@@ -17,10 +17,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  PYPI_USERNAME: __token__
-  PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
   TRAVIS_OS_NAME: linux
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   GOVERSION: "1.24.x"
@@ -636,6 +632,8 @@ jobs:
         NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         PYPI_PUBLISH_ARTIFACTS: all
+        PYPI_USERNAME: __token__
+        PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@1750b5085f3ec60384090fb7c52965ef822e869e # v3.18.0
