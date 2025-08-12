@@ -13,10 +13,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  PYPI_USERNAME: __token__
-  PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
   TRAVIS_OS_NAME: linux
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   GOVERSION: "1.24.x"
