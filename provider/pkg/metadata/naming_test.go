@@ -117,6 +117,17 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	assert.False(t, IsAutonamed(o7))
 	assert.Equal(t, "", o7.GetGenerateName())
 	assert.Equal(t, "", o7.GetName())
+
+	// o8 has no name, so autonaming succeeds, the short name is extracted from the composite resource name.
+	o8 := &unstructured.Unstructured{}
+	pm8 := resource.NewPropertyMap(struct{}{})
+	urn8 := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("kubernetes:helm.sh/v4:Chart$kubernetes:apps/v1:StatefulSet"), "chartn:nsn/stsn")
+	err = AssignNameIfAutonamable(nil, nil, o8, pm8, urn8)
+	assert.NoError(t, err)
+	assert.True(t, IsAutonamed(o8))
+	assert.True(t, strings.HasPrefix(o8.GetName(), "stsn-"))
+	assert.Len(t, o8.GetName(), 13)
 }
 
 func TestAdoptName(t *testing.T) {
