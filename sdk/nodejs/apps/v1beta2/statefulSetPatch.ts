@@ -93,8 +93,8 @@ export class StatefulSetPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "apps/v1beta2";
             resourceInputs["kind"] = "StatefulSet";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

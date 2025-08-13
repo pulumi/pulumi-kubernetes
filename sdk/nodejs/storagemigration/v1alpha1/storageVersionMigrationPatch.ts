@@ -77,8 +77,8 @@ export class StorageVersionMigrationPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "storagemigration.k8s.io/v1alpha1";
             resourceInputs["kind"] = "StorageVersionMigration";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

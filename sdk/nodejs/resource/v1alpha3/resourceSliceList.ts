@@ -69,14 +69,14 @@ export class ResourceSliceList extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.items === undefined) && !opts.urn) {
+            if (args?.items === undefined && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha3";
-            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["items"] = args?.items;
             resourceInputs["kind"] = "ResourceSliceList";
-            resourceInputs["listMeta"] = args ? args.listMeta : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["listMeta"] = args?.listMeta;
+            resourceInputs["metadata"] = args?.metadata;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["items"] = undefined /*out*/;

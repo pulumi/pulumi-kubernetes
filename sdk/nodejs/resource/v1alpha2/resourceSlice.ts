@@ -75,15 +75,15 @@ export class ResourceSlice extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.driverName === undefined) && !opts.urn) {
+            if (args?.driverName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'driverName'");
             }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceSlice";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["namedResources"] = args ? args.namedResources : undefined;
-            resourceInputs["nodeName"] = args ? args.nodeName : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["namedResources"] = args?.namedResources;
+            resourceInputs["nodeName"] = args?.nodeName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

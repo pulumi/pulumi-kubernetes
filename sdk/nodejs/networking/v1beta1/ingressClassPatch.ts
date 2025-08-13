@@ -73,8 +73,8 @@ export class IngressClassPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "networking.k8s.io/v1beta1";
             resourceInputs["kind"] = "IngressClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

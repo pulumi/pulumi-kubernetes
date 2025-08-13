@@ -69,13 +69,13 @@ export class ClusterTrustBundle extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.spec === undefined) && !opts.urn) {
+            if (args?.spec === undefined && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
             resourceInputs["apiVersion"] = "certificates.k8s.io/v1beta1";
             resourceInputs["kind"] = "ClusterTrustBundle";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

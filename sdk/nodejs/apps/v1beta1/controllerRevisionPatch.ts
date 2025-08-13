@@ -79,10 +79,10 @@ export class ControllerRevisionPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "apps/v1beta1";
-            resourceInputs["data"] = args ? args.data : undefined;
+            resourceInputs["data"] = args?.data;
             resourceInputs["kind"] = "ControllerRevision";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["revision"] = args ? args.revision : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["revision"] = args?.revision;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;

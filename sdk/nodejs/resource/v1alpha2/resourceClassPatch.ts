@@ -90,12 +90,12 @@ export class ResourceClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["parametersRef"] = args ? args.parametersRef : undefined;
-            resourceInputs["structuredParameters"] = args ? args.structuredParameters : undefined;
-            resourceInputs["suitableNodes"] = args ? args.suitableNodes : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["parametersRef"] = args?.parametersRef;
+            resourceInputs["structuredParameters"] = args?.structuredParameters;
+            resourceInputs["suitableNodes"] = args?.suitableNodes;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

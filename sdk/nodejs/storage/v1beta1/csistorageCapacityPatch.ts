@@ -100,12 +100,12 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            resourceInputs["capacity"] = args ? args.capacity : undefined;
+            resourceInputs["capacity"] = args?.capacity;
             resourceInputs["kind"] = "CSIStorageCapacity";
-            resourceInputs["maximumVolumeSize"] = args ? args.maximumVolumeSize : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["nodeTopology"] = args ? args.nodeTopology : undefined;
-            resourceInputs["storageClassName"] = args ? args.storageClassName : undefined;
+            resourceInputs["maximumVolumeSize"] = args?.maximumVolumeSize;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["nodeTopology"] = args?.nodeTopology;
+            resourceInputs["storageClassName"] = args?.storageClassName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["capacity"] = undefined /*out*/;

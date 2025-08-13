@@ -88,12 +88,12 @@ export class StatusPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
-            resourceInputs["code"] = args ? args.code : undefined;
-            resourceInputs["details"] = args ? args.details : undefined;
+            resourceInputs["code"] = args?.code;
+            resourceInputs["details"] = args?.details;
             resourceInputs["kind"] = "Status";
-            resourceInputs["message"] = args ? args.message : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["reason"] = args ? args.reason : undefined;
+            resourceInputs["message"] = args?.message;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["reason"] = args?.reason;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

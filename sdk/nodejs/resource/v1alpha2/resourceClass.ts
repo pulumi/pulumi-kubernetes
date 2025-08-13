@@ -83,16 +83,16 @@ export class ResourceClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.driverName === undefined) && !opts.urn) {
+            if (args?.driverName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'driverName'");
             }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["parametersRef"] = args ? args.parametersRef : undefined;
-            resourceInputs["structuredParameters"] = args ? args.structuredParameters : undefined;
-            resourceInputs["suitableNodes"] = args ? args.suitableNodes : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["parametersRef"] = args?.parametersRef;
+            resourceInputs["structuredParameters"] = args?.structuredParameters;
+            resourceInputs["suitableNodes"] = args?.suitableNodes;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

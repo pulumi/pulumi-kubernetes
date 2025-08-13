@@ -76,11 +76,11 @@ export class ResourceClaimParameters extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverRequests"] = args ? args.driverRequests : undefined;
-            resourceInputs["generatedFrom"] = args ? args.generatedFrom : undefined;
+            resourceInputs["driverRequests"] = args?.driverRequests;
+            resourceInputs["generatedFrom"] = args?.generatedFrom;
             resourceInputs["kind"] = "ResourceClaimParameters";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["shareable"] = args ? args.shareable : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["shareable"] = args?.shareable;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverRequests"] = undefined /*out*/;

@@ -77,8 +77,8 @@ export class HorizontalPodAutoscalerPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "autoscaling/v2beta1";
             resourceInputs["kind"] = "HorizontalPodAutoscaler";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

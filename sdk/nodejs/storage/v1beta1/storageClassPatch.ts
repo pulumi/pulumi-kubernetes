@@ -97,16 +97,16 @@ export class StorageClassPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-            resourceInputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
+            resourceInputs["allowVolumeExpansion"] = args?.allowVolumeExpansion;
+            resourceInputs["allowedTopologies"] = args?.allowedTopologies;
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
             resourceInputs["kind"] = "StorageClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["mountOptions"] = args ? args.mountOptions : undefined;
-            resourceInputs["parameters"] = args ? args.parameters : undefined;
-            resourceInputs["provisioner"] = args ? args.provisioner : undefined;
-            resourceInputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-            resourceInputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["mountOptions"] = args?.mountOptions;
+            resourceInputs["parameters"] = args?.parameters;
+            resourceInputs["provisioner"] = args?.provisioner;
+            resourceInputs["reclaimPolicy"] = args?.reclaimPolicy;
+            resourceInputs["volumeBindingMode"] = args?.volumeBindingMode;
         } else {
             resourceInputs["allowVolumeExpansion"] = undefined /*out*/;
             resourceInputs["allowedTopologies"] = undefined /*out*/;

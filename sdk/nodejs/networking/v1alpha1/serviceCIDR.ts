@@ -71,8 +71,8 @@ export class ServiceCIDR extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "networking.k8s.io/v1alpha1";
             resourceInputs["kind"] = "ServiceCIDR";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

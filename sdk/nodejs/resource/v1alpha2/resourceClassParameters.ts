@@ -74,11 +74,11 @@ export class ResourceClassParameters extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["filters"] = args ? args.filters : undefined;
-            resourceInputs["generatedFrom"] = args ? args.generatedFrom : undefined;
+            resourceInputs["filters"] = args?.filters;
+            resourceInputs["generatedFrom"] = args?.generatedFrom;
             resourceInputs["kind"] = "ResourceClassParameters";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["vendorParameters"] = args ? args.vendorParameters : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["vendorParameters"] = args?.vendorParameters;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["filters"] = undefined /*out*/;

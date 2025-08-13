@@ -80,11 +80,11 @@ export class ServiceAccountPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
-            resourceInputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
-            resourceInputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
+            resourceInputs["automountServiceAccountToken"] = args?.automountServiceAccountToken;
+            resourceInputs["imagePullSecrets"] = args?.imagePullSecrets;
             resourceInputs["kind"] = "ServiceAccount";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["secrets"] = args ? args.secrets : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["secrets"] = args?.secrets;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["automountServiceAccountToken"] = undefined /*out*/;

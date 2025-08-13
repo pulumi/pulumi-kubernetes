@@ -77,8 +77,8 @@ export class FlowSchemaPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1beta2";
             resourceInputs["kind"] = "FlowSchema";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

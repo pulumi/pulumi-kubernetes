@@ -67,8 +67,8 @@ export class PodTemplate extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["kind"] = "PodTemplate";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["template"] = args ? args.template : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["template"] = args?.template;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

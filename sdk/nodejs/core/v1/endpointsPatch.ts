@@ -89,8 +89,8 @@ export class EndpointsPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["kind"] = "Endpoints";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["subsets"] = args ? args.subsets : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["subsets"] = args?.subsets;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

@@ -75,11 +75,11 @@ export class ClusterRolePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+            resourceInputs["aggregationRule"] = args?.aggregationRule;
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
             resourceInputs["kind"] = "ClusterRole";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["rules"] = args ? args.rules : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["rules"] = args?.rules;
         } else {
             resourceInputs["aggregationRule"] = undefined /*out*/;
             resourceInputs["apiVersion"] = undefined /*out*/;

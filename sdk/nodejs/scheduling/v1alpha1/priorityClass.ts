@@ -77,16 +77,16 @@ export class PriorityClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.value === undefined) && !opts.urn) {
+            if (args?.value === undefined && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
             resourceInputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
-            resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["globalDefault"] = args ? args.globalDefault : undefined;
+            resourceInputs["description"] = args?.description;
+            resourceInputs["globalDefault"] = args?.globalDefault;
             resourceInputs["kind"] = "PriorityClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
-            resourceInputs["value"] = args ? args.value : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["preemptionPolicy"] = args?.preemptionPolicy;
+            resourceInputs["value"] = args?.value;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["description"] = undefined /*out*/;

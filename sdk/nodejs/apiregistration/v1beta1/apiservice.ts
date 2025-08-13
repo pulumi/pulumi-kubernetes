@@ -68,8 +68,8 @@ export class APIService extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
             resourceInputs["kind"] = "APIService";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

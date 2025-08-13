@@ -93,16 +93,16 @@ export class CSIStorageCapacity extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.storageClassName === undefined) && !opts.urn) {
+            if (args?.storageClassName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'storageClassName'");
             }
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            resourceInputs["capacity"] = args ? args.capacity : undefined;
+            resourceInputs["capacity"] = args?.capacity;
             resourceInputs["kind"] = "CSIStorageCapacity";
-            resourceInputs["maximumVolumeSize"] = args ? args.maximumVolumeSize : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["nodeTopology"] = args ? args.nodeTopology : undefined;
-            resourceInputs["storageClassName"] = args ? args.storageClassName : undefined;
+            resourceInputs["maximumVolumeSize"] = args?.maximumVolumeSize;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["nodeTopology"] = args?.nodeTopology;
+            resourceInputs["storageClassName"] = args?.storageClassName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["capacity"] = undefined /*out*/;

@@ -80,11 +80,11 @@ export class RuntimeClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "node.k8s.io/v1beta1";
-            resourceInputs["handler"] = args ? args.handler : undefined;
+            resourceInputs["handler"] = args?.handler;
             resourceInputs["kind"] = "RuntimeClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["overhead"] = args ? args.overhead : undefined;
-            resourceInputs["scheduling"] = args ? args.scheduling : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["overhead"] = args?.overhead;
+            resourceInputs["scheduling"] = args?.scheduling;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["handler"] = undefined /*out*/;

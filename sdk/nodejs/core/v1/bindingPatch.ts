@@ -73,8 +73,8 @@ export class BindingPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["kind"] = "Binding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["target"] = args ? args.target : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["target"] = args?.target;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

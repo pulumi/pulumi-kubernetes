@@ -75,8 +75,8 @@ export class DeviceTaintRulePatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha3";
             resourceInputs["kind"] = "DeviceTaintRule";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

@@ -79,12 +79,12 @@ export class EndpointSlicePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["addressType"] = args ? args.addressType : undefined;
+            resourceInputs["addressType"] = args?.addressType;
             resourceInputs["apiVersion"] = "discovery.k8s.io/v1beta1";
-            resourceInputs["endpoints"] = args ? args.endpoints : undefined;
+            resourceInputs["endpoints"] = args?.endpoints;
             resourceInputs["kind"] = "EndpointSlice";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["ports"] = args ? args.ports : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["ports"] = args?.ports;
         } else {
             resourceInputs["addressType"] = undefined /*out*/;
             resourceInputs["apiVersion"] = undefined /*out*/;
