@@ -14,7 +14,6 @@ env:
   SKIP_SIGNING: ${{ secrets.AZURE_SIGNING_CLIENT_ID == '' &&
     secrets.AZURE_SIGNING_CLIENT_SECRET == '' && secrets.AZURE_SIGNING_TENANT_ID
     == '' && secrets.AZURE_SIGNING_KEY_VAULT_URI == '' }}
-  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   TRAVIS_OS_NAME: linux
