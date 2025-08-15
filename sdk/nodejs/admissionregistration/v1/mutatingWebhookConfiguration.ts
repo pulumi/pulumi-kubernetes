@@ -67,8 +67,8 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1";
             resourceInputs["kind"] = "MutatingWebhookConfiguration";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["webhooks"] = args ? args.webhooks : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["webhooks"] = args?.webhooks;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

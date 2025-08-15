@@ -84,12 +84,12 @@ export class PriorityClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "scheduling.k8s.io/v1beta1";
-            resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["globalDefault"] = args ? args.globalDefault : undefined;
+            resourceInputs["description"] = args?.description;
+            resourceInputs["globalDefault"] = args?.globalDefault;
             resourceInputs["kind"] = "PriorityClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
-            resourceInputs["value"] = args ? args.value : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["preemptionPolicy"] = args?.preemptionPolicy;
+            resourceInputs["value"] = args?.value;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["description"] = undefined /*out*/;

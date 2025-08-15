@@ -65,13 +65,13 @@ export class Binding extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.target === undefined) && !opts.urn) {
+            if (args?.target === undefined && !opts.urn) {
                 throw new Error("Missing required property 'target'");
             }
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["kind"] = "Binding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["target"] = args ? args.target : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["target"] = args?.target;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

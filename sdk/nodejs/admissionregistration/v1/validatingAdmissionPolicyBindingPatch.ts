@@ -77,8 +77,8 @@ export class ValidatingAdmissionPolicyBindingPatch extends pulumi.CustomResource
         if (!opts.id) {
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1";
             resourceInputs["kind"] = "ValidatingAdmissionPolicyBinding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

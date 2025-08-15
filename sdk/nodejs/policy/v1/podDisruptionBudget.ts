@@ -71,8 +71,8 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "policy/v1";
             resourceInputs["kind"] = "PodDisruptionBudget";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

@@ -71,14 +71,14 @@ export class VolumeAttributesClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.driverName === undefined) && !opts.urn) {
+            if (args?.driverName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'driverName'");
             }
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "VolumeAttributesClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["parameters"] = args ? args.parameters : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["parameters"] = args?.parameters;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

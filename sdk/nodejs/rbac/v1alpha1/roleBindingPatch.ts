@@ -77,9 +77,9 @@ export class RoleBindingPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
             resourceInputs["kind"] = "RoleBinding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["roleRef"] = args ? args.roleRef : undefined;
-            resourceInputs["subjects"] = args ? args.subjects : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["roleRef"] = args?.roleRef;
+            resourceInputs["subjects"] = args?.subjects;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

@@ -78,10 +78,10 @@ export class VolumeAttributesClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "VolumeAttributesClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["parameters"] = args ? args.parameters : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["parameters"] = args?.parameters;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

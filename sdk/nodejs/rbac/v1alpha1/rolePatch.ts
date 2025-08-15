@@ -73,8 +73,8 @@ export class RolePatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
             resourceInputs["kind"] = "Role";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["rules"] = args ? args.rules : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["rules"] = args?.rules;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

@@ -151,8 +151,8 @@ export class Job extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "batch/v1";
             resourceInputs["kind"] = "Job";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

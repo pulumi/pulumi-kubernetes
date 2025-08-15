@@ -69,14 +69,14 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.roleRef === undefined) && !opts.urn) {
+            if (args?.roleRef === undefined && !opts.urn) {
                 throw new Error("Missing required property 'roleRef'");
             }
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
             resourceInputs["kind"] = "ClusterRoleBinding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["roleRef"] = args ? args.roleRef : undefined;
-            resourceInputs["subjects"] = args ? args.subjects : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["roleRef"] = args?.roleRef;
+            resourceInputs["subjects"] = args?.subjects;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

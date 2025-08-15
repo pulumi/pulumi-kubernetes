@@ -4,6 +4,7 @@ name: pull-request
 on:
   pull_request_target: {}
 env:
+  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}

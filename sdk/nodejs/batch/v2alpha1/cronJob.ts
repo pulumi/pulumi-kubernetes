@@ -71,8 +71,8 @@ export class CronJob extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "batch/v2alpha1";
             resourceInputs["kind"] = "CronJob";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

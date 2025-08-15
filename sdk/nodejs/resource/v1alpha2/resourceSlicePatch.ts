@@ -82,11 +82,11 @@ export class ResourceSlicePatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceSlice";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["namedResources"] = args ? args.namedResources : undefined;
-            resourceInputs["nodeName"] = args ? args.nodeName : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["namedResources"] = args?.namedResources;
+            resourceInputs["nodeName"] = args?.nodeName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

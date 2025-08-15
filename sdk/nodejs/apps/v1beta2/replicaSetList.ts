@@ -65,13 +65,13 @@ export class ReplicaSetList extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.items === undefined) && !opts.urn) {
+            if (args?.items === undefined && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             resourceInputs["apiVersion"] = "apps/v1beta2";
-            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["items"] = args?.items;
             resourceInputs["kind"] = "ReplicaSetList";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["metadata"] = args?.metadata;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["items"] = undefined /*out*/;

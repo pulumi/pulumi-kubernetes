@@ -89,11 +89,11 @@ export class Secret extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["data"] = args?.data ? pulumi.secret(args.data) : undefined;
-            resourceInputs["immutable"] = args ? args.immutable : undefined;
+            resourceInputs["immutable"] = args?.immutable;
             resourceInputs["kind"] = "Secret";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["metadata"] = args?.metadata;
             resourceInputs["stringData"] = args?.stringData ? pulumi.secret(args.stringData) : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["type"] = args?.type;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;

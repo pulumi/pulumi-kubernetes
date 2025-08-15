@@ -94,12 +94,12 @@ export class SecretPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
-            resourceInputs["data"] = args ? args.data : undefined;
-            resourceInputs["immutable"] = args ? args.immutable : undefined;
+            resourceInputs["data"] = args?.data;
+            resourceInputs["immutable"] = args?.immutable;
             resourceInputs["kind"] = "Secret";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["stringData"] = args ? args.stringData : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["stringData"] = args?.stringData;
+            resourceInputs["type"] = args?.type;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;
