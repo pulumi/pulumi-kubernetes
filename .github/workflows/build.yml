@@ -22,7 +22,6 @@ env:
   SKIP_SIGNING: ${{ secrets.AZURE_SIGNING_CLIENT_ID == '' &&
     secrets.AZURE_SIGNING_CLIENT_SECRET == '' && secrets.AZURE_SIGNING_TENANT_ID
     == '' && secrets.AZURE_SIGNING_KEY_VAULT_URI == '' }}
-  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   TRAVIS_OS_NAME: linux
@@ -572,6 +571,7 @@ jobs:
       uses: goreleaser/goreleaser-action@5742e2a039330cbb23ebf35f046f814d4c6ff811 # v5.1.0
       env:
         GORELEASER_CURRENT_TAG: v${{ steps.version.outputs.version }}
+        GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
       with:
         args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
