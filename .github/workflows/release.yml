@@ -29,7 +29,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
-  PULUMI_API: app.pulumi-staging.io
+  PULUMI_API: https://api.pulumi-staging.io
   PULUMI_TEST_OWNER: moolumi
 jobs:
   prerequisites:
@@ -804,13 +804,14 @@ jobs:
       id: stackname
       run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
         github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
-    - name: Generate Pulumi Access Token
+    - name: Generate Pulumi access token for k8s infra
       id: generate_pulumi_token
       uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
       with:
-        organization: pulumi
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
       env:
@@ -873,13 +874,14 @@ jobs:
         sudo mv kubectl /usr/local/bin
     - name: Login to Google Cloud Registry
       run: gcloud --quiet auth configure-docker gcr.io,us-central1-docker.pkg.dev # Ensure that all test artifact registry locations are supplied here.
-    - name: Generate Pulumi Access Token
+    - name: Generate Pulumi access token for k8s infra
       id: generate_pulumi_token
       uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
       with:
-        organization: pulumi
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Destroy test infra
       run: ./scripts/ci-cluster-destroy.sh ${{
         needs.build-test-cluster.outputs.stack-name }}
