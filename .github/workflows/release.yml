@@ -439,9 +439,10 @@ jobs:
       id: generate_pulumi_token
       uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
       with:
-        organization: pulumi
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Export AWS Credentials
       uses: pulumi/esc-action@efb0bc8946938f0dfbfa00e829196ec95f0d0ea7 # v1.4.0
       env:
@@ -807,9 +808,10 @@ jobs:
       id: generate_pulumi_token
       uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
       with:
-        organization: pulumi
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
       env:
@@ -876,9 +878,10 @@ jobs:
       id: generate_pulumi_token
       uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
       with:
-        organization: pulumi
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Destroy test infra
       run: ./scripts/ci-cluster-destroy.sh ${{
         needs.build-test-cluster.outputs.stack-name }}
