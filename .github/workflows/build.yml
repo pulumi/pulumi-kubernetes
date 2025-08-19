@@ -38,7 +38,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
-  PULUMI_API: api.pulumi-staging.io
+  PULUMI_API: https://api.pulumi-staging.io
   PULUMI_TEST_OWNER: moolumi
 jobs:
   prerequisites:
