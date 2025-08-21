@@ -54,23 +54,23 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1beta1">;
     /**
      * Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      *
      * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
      */
-    public readonly capacity!: pulumi.Output<string>;
+    declare public readonly capacity: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"CSIStorageCapacity">;
+    declare public readonly kind: pulumi.Output<"CSIStorageCapacity">;
     /**
      * MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      *
      * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
      */
-    public readonly maximumVolumeSize!: pulumi.Output<string>;
+    declare public readonly maximumVolumeSize: pulumi.Output<string>;
     /**
      * Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
      *
@@ -78,15 +78,15 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
      *
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      */
-    public readonly nodeTopology!: pulumi.Output<outputs.meta.v1.LabelSelectorPatch>;
+    declare public readonly nodeTopology: pulumi.Output<outputs.meta.v1.LabelSelectorPatch>;
     /**
      * The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
      */
-    public readonly storageClassName!: pulumi.Output<string>;
+    declare public readonly storageClassName: pulumi.Output<string>;
 
     /**
      * Create a CSIStorageCapacityPatch resource with the given unique name, arguments, and options.
@@ -100,12 +100,12 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            resourceInputs["capacity"] = args ? args.capacity : undefined;
+            resourceInputs["capacity"] = args?.capacity;
             resourceInputs["kind"] = "CSIStorageCapacity";
-            resourceInputs["maximumVolumeSize"] = args ? args.maximumVolumeSize : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["nodeTopology"] = args ? args.nodeTopology : undefined;
-            resourceInputs["storageClassName"] = args ? args.storageClassName : undefined;
+            resourceInputs["maximumVolumeSize"] = args?.maximumVolumeSize;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["nodeTopology"] = args?.nodeTopology;
+            resourceInputs["storageClassName"] = args?.storageClassName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["capacity"] = undefined /*out*/;

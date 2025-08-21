@@ -46,23 +46,23 @@ export class ValidatingAdmissionPolicyPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    declare public readonly apiVersion: pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ValidatingAdmissionPolicy">;
+    declare public readonly kind: pulumi.Output<"ValidatingAdmissionPolicy">;
     /**
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Specification of the desired behavior of the ValidatingAdmissionPolicy.
      */
-    public readonly spec!: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpecPatch>;
     /**
      * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyStatusPatch>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyStatusPatch>;
 
     /**
      * Create a ValidatingAdmissionPolicyPatch resource with the given unique name, arguments, and options.
@@ -77,8 +77,8 @@ export class ValidatingAdmissionPolicyPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
             resourceInputs["kind"] = "ValidatingAdmissionPolicy";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

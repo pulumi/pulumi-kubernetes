@@ -50,19 +50,19 @@ export class MutatingAdmissionPolicyBindingPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    declare public readonly apiVersion: pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"MutatingAdmissionPolicyBinding">;
+    declare public readonly kind: pulumi.Output<"MutatingAdmissionPolicyBinding">;
     /**
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
      */
-    public readonly spec!: pulumi.Output<outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicyBindingSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicyBindingSpecPatch>;
 
     /**
      * Create a MutatingAdmissionPolicyBindingPatch resource with the given unique name, arguments, and options.
@@ -77,8 +77,8 @@ export class MutatingAdmissionPolicyBindingPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
             resourceInputs["kind"] = "MutatingAdmissionPolicyBinding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

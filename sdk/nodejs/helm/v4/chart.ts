@@ -189,7 +189,7 @@ export class Chart extends pulumi.ComponentResource {
     /**
      * Resources created by the Chart.
      */
-    public /*out*/ readonly resources!: pulumi.Output<any[]>;
+    declare public /*out*/ readonly resources: pulumi.Output<any[]>;
 
     /**
      * Create a Chart resource with the given unique name, arguments, and options.
@@ -202,25 +202,25 @@ export class Chart extends pulumi.ComponentResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.chart === undefined) && !opts.urn) {
+            if (args?.chart === undefined && !opts.urn) {
                 throw new Error("Missing required property 'chart'");
             }
-            resourceInputs["chart"] = args ? args.chart : undefined;
-            resourceInputs["dependencyUpdate"] = args ? args.dependencyUpdate : undefined;
-            resourceInputs["devel"] = args ? args.devel : undefined;
-            resourceInputs["keyring"] = args ? args.keyring : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["namespace"] = args ? args.namespace : undefined;
-            resourceInputs["plainHttp"] = args ? args.plainHttp : undefined;
-            resourceInputs["postRenderer"] = args ? args.postRenderer : undefined;
-            resourceInputs["repositoryOpts"] = args ? args.repositoryOpts : undefined;
-            resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
-            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
-            resourceInputs["skipCrds"] = args ? args.skipCrds : undefined;
-            resourceInputs["valueYamlFiles"] = args ? args.valueYamlFiles : undefined;
-            resourceInputs["values"] = args ? args.values : undefined;
-            resourceInputs["verify"] = args ? args.verify : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
+            resourceInputs["chart"] = args?.chart;
+            resourceInputs["dependencyUpdate"] = args?.dependencyUpdate;
+            resourceInputs["devel"] = args?.devel;
+            resourceInputs["keyring"] = args?.keyring;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["namespace"] = args?.namespace;
+            resourceInputs["plainHttp"] = args?.plainHttp;
+            resourceInputs["postRenderer"] = args?.postRenderer;
+            resourceInputs["repositoryOpts"] = args?.repositoryOpts;
+            resourceInputs["resourcePrefix"] = args?.resourcePrefix;
+            resourceInputs["skipAwait"] = args?.skipAwait;
+            resourceInputs["skipCrds"] = args?.skipCrds;
+            resourceInputs["valueYamlFiles"] = args?.valueYamlFiles;
+            resourceInputs["values"] = args?.values;
+            resourceInputs["verify"] = args?.verify;
+            resourceInputs["version"] = args?.version;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
             resourceInputs["resources"] = undefined /*out*/;

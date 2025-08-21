@@ -40,29 +40,29 @@ export class ResourceClaimParameters extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1alpha2">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1alpha2">;
     /**
      * DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
      *
      * May be empty, in which case the claim can always be allocated.
      */
-    public readonly driverRequests!: pulumi.Output<outputs.resource.v1alpha2.DriverRequests[]>;
+    declare public readonly driverRequests: pulumi.Output<outputs.resource.v1alpha2.DriverRequests[]>;
     /**
      * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
      */
-    public readonly generatedFrom!: pulumi.Output<outputs.resource.v1alpha2.ResourceClaimParametersReference>;
+    declare public readonly generatedFrom: pulumi.Output<outputs.resource.v1alpha2.ResourceClaimParametersReference>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceClaimParameters">;
+    declare public readonly kind: pulumi.Output<"ResourceClaimParameters">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
      */
-    public readonly shareable!: pulumi.Output<boolean>;
+    declare public readonly shareable: pulumi.Output<boolean>;
 
     /**
      * Create a ResourceClaimParameters resource with the given unique name, arguments, and options.
@@ -76,11 +76,11 @@ export class ResourceClaimParameters extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverRequests"] = args ? args.driverRequests : undefined;
-            resourceInputs["generatedFrom"] = args ? args.generatedFrom : undefined;
+            resourceInputs["driverRequests"] = args?.driverRequests;
+            resourceInputs["generatedFrom"] = args?.generatedFrom;
             resourceInputs["kind"] = "ResourceClaimParameters";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["shareable"] = args ? args.shareable : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["shareable"] = args?.shareable;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverRequests"] = undefined /*out*/;

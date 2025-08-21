@@ -46,19 +46,19 @@ export class MutatingWebhookConfigurationPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"admissionregistration.k8s.io/v1">;
+    declare public readonly apiVersion: pulumi.Output<"admissionregistration.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"MutatingWebhookConfiguration">;
+    declare public readonly kind: pulumi.Output<"MutatingWebhookConfiguration">;
     /**
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      */
-    public readonly webhooks!: pulumi.Output<outputs.admissionregistration.v1.MutatingWebhookPatch[]>;
+    declare public readonly webhooks: pulumi.Output<outputs.admissionregistration.v1.MutatingWebhookPatch[]>;
 
     /**
      * Create a MutatingWebhookConfigurationPatch resource with the given unique name, arguments, and options.
@@ -73,8 +73,8 @@ export class MutatingWebhookConfigurationPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1";
             resourceInputs["kind"] = "MutatingWebhookConfiguration";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["webhooks"] = args ? args.webhooks : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["webhooks"] = args?.webhooks;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

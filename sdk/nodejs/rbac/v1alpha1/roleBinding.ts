@@ -40,23 +40,23 @@ export class RoleBinding extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"rbac.authorization.k8s.io/v1alpha1">;
+    declare public readonly apiVersion: pulumi.Output<"rbac.authorization.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"RoleBinding">;
+    declare public readonly kind: pulumi.Output<"RoleBinding">;
     /**
      * Standard object's metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */
-    public readonly roleRef!: pulumi.Output<outputs.rbac.v1alpha1.RoleRef>;
+    declare public readonly roleRef: pulumi.Output<outputs.rbac.v1alpha1.RoleRef>;
     /**
      * Subjects holds references to the objects the role applies to.
      */
-    public readonly subjects!: pulumi.Output<outputs.rbac.v1alpha1.Subject[]>;
+    declare public readonly subjects: pulumi.Output<outputs.rbac.v1alpha1.Subject[]>;
 
     /**
      * Create a RoleBinding resource with the given unique name, arguments, and options.
@@ -69,14 +69,14 @@ export class RoleBinding extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.roleRef === undefined) && !opts.urn) {
+            if (args?.roleRef === undefined && !opts.urn) {
                 throw new Error("Missing required property 'roleRef'");
             }
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
             resourceInputs["kind"] = "RoleBinding";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["roleRef"] = args ? args.roleRef : undefined;
-            resourceInputs["subjects"] = args ? args.subjects : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["roleRef"] = args?.roleRef;
+            resourceInputs["subjects"] = args?.subjects;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

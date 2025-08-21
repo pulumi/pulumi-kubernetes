@@ -40,23 +40,23 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"policy/v1">;
+    declare public readonly apiVersion: pulumi.Output<"policy/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"PodDisruptionBudget">;
+    declare public readonly kind: pulumi.Output<"PodDisruptionBudget">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Specification of the desired behavior of the PodDisruptionBudget.
      */
-    public readonly spec!: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetSpec>;
+    declare public readonly spec: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetSpec>;
     /**
      * Most recently observed status of the PodDisruptionBudget.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetStatus>;
 
     /**
      * Create a PodDisruptionBudget resource with the given unique name, arguments, and options.
@@ -71,8 +71,8 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "policy/v1";
             resourceInputs["kind"] = "PodDisruptionBudget";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

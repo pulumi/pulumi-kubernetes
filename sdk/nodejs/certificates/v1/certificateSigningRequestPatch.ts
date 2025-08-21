@@ -52,20 +52,20 @@ export class CertificateSigningRequestPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"certificates.k8s.io/v1">;
+    declare public readonly apiVersion: pulumi.Output<"certificates.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"CertificateSigningRequest">;
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly kind: pulumi.Output<"CertificateSigningRequest">;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
      */
-    public readonly spec!: pulumi.Output<outputs.certificates.v1.CertificateSigningRequestSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.certificates.v1.CertificateSigningRequestSpecPatch>;
     /**
      * status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.certificates.v1.CertificateSigningRequestStatusPatch>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.certificates.v1.CertificateSigningRequestStatusPatch>;
 
     /**
      * Create a CertificateSigningRequestPatch resource with the given unique name, arguments, and options.
@@ -80,8 +80,8 @@ export class CertificateSigningRequestPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "certificates.k8s.io/v1";
             resourceInputs["kind"] = "CertificateSigningRequest";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

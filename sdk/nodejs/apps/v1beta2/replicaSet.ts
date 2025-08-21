@@ -42,23 +42,23 @@ export class ReplicaSet extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"apps/v1beta2">;
+    declare public readonly apiVersion: pulumi.Output<"apps/v1beta2">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ReplicaSet">;
+    declare public readonly kind: pulumi.Output<"ReplicaSet">;
     /**
      * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.apps.v1beta2.ReplicaSetSpec>;
+    declare public readonly spec: pulumi.Output<outputs.apps.v1beta2.ReplicaSetSpec>;
     /**
      * Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.apps.v1beta2.ReplicaSetStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.apps.v1beta2.ReplicaSetStatus>;
 
     /**
      * Create a ReplicaSet resource with the given unique name, arguments, and options.
@@ -74,8 +74,8 @@ export class ReplicaSet extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "apps/v1beta2";
             resourceInputs["kind"] = "ReplicaSet";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
