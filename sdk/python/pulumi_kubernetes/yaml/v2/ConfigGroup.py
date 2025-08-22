@@ -376,7 +376,7 @@ class ConfigGroup(pulumi.ComponentResource):
 
     @_builtins.property
     @pulumi.getter
-    def resources(self) -> pulumi.Output[Optional[Sequence[Any]]]:
+    def resources(self) -> pulumi.Output[Optional[Sequence[pulumi.Resource]]]:
         """
         Resources created by the ConfigGroup.
         """
