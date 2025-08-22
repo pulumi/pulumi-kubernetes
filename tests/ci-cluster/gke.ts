@@ -55,6 +55,7 @@ export class GkeCluster extends pulumi.ComponentResource {
               enabled: true,
               provider: "CALICO",
             },
+            deletionProtection: false,
         }, {parent: this});
         this.cluster = k8sCluster;
 
