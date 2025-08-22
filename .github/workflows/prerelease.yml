@@ -13,23 +13,10 @@ env:
   SKIP_SIGNING: ${{ secrets.AZURE_SIGNING_CLIENT_ID == '' &&
     secrets.AZURE_SIGNING_CLIENT_SECRET == '' && secrets.AZURE_SIGNING_TENANT_ID
     == '' && secrets.AZURE_SIGNING_KEY_VAULT_URI == '' }}
-  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
-  PYPI_USERNAME: __token__
-  PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
   TRAVIS_OS_NAME: linux
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
-  PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-  PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-  SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
-  SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
-  SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
   GOVERSION: "1.24.x"
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
@@ -41,6 +28,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
+  PULUMI_API: https://api.pulumi-staging.io
   PULUMI_TEST_OWNER: moolumi
   IS_PRERELEASE: true
 jobs:
@@ -193,6 +181,8 @@ jobs:
         author_name: Failure in building provider prerequisites
         fields: repo,commit,author,action
         status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   build_sdks:
     needs: prerequisites
     runs-on: pulumi-ubuntu-8core
@@ -249,7 +239,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
+      uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
       with:
         gradle-version: "7.6"
     - name: Download provider
@@ -339,6 +329,8 @@ jobs:
         author_name: Failure while building SDKs
         fields: repo,commit,author,action
         status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   test:
     runs-on: pulumi-ubuntu-8core
     needs:
@@ -401,7 +393,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
+      uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
       with:
         gradle-version: "7.6"
     - name: Download provider
@@ -458,7 +450,7 @@ jobs:
       with:
         environment: logins/pulumi-ci
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193 # v2.1.10
+      uses: google-github-actions/auth@b7593ed2efd1c1617e1b0254da33b86225adb2a5 # v2.1.12
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -500,6 +492,8 @@ jobs:
         author_name: Failure in SDK tests
         fields: repo,commit,author,action
         status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   publish:
     runs-on: ubuntu-latest
     needs: test
@@ -550,6 +544,7 @@ jobs:
       uses: goreleaser/goreleaser-action@5742e2a039330cbb23ebf35f046f814d4c6ff811 # v5.1.0
       env:
         GORELEASER_CURRENT_TAG: v${{ steps.version.outputs.version }}
+        GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
       with:
         args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
@@ -560,6 +555,8 @@ jobs:
         author_name: Failure in publishing binaries
         fields: repo,commit,author,action
         status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   publish_sdk:
     runs-on: ubuntu-latest
     needs: publish
@@ -633,8 +630,11 @@ jobs:
     - name: Publish SDKs
       run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
       env:
+        NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         PYPI_PUBLISH_ARTIFACTS: all
+        PYPI_USERNAME: __token__
+        PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@1750b5085f3ec60384090fb7c52965ef822e869e # v3.18.0
@@ -642,6 +642,8 @@ jobs:
         author_name: Failure in publishing SDK
         fields: repo,commit,author,action
         status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   publish_java_sdk:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -675,7 +677,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
+      uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
       with:
         gradle-version: "7.6"
     - name: Download java SDK
@@ -686,14 +688,19 @@ jobs:
     - name: Uncompress java SDK
       run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
         ${{github.workspace}}/sdk/java
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4.4.2
+      with:
+        gradle-version: "7.6"
     - name: Publish Java SDK
-      uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3.5.0
+      run: gradle -p ./sdk/java publishToSonatype closeAndReleaseSonatypeStagingRepository
       env:
         PACKAGE_VERSION: ${{ env.PROVIDER_VERSION }}
-      with:
-        arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
-        build-root-directory: ./sdk/java
-        gradle-version: 7.4.1
+        SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
+        SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
+        SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
+        PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   publish_go_sdk:
     runs-on: ubuntu-latest
     name: publish-go-sdk
@@ -757,7 +764,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193 # v2.1.10
+      uses: google-github-actions/auth@b7593ed2efd1c1617e1b0254da33b86225adb2a5 # v2.1.12
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -783,8 +790,18 @@ jobs:
       id: stackname
       run: echo 'stack-name=${{ env.PULUMI_TEST_OWNER }}/${{ github.sha }}-${{
         github.run_id }}-${{ github.run_attempt }}' >> "$GITHUB_OUTPUT"
+    - name: Generate Pulumi access token for k8s infra
+      id: generate_pulumi_token
+      uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
+      with:
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
+        requested-token-type: urn:pulumi:token-type:access_token:organization
+        export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Create test infrastructure
       run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
     - name: Upload Kubernetes Artifacts
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
@@ -821,7 +838,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193 # v2.1.10
+      uses: google-github-actions/auth@b7593ed2efd1c1617e1b0254da33b86225adb2a5 # v2.1.12
       with:
         workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
           }}/locations/global/workloadIdentityPools/${{
@@ -843,9 +860,19 @@ jobs:
         sudo mv kubectl /usr/local/bin
     - name: Login to Google Cloud Registry
       run: gcloud --quiet auth configure-docker gcr.io,us-central1-docker.pkg.dev # Ensure that all test artifact registry locations are supplied here.
+    - name: Generate Pulumi access token for k8s infra
+      id: generate_pulumi_token
+      uses: pulumi/auth-actions@1c89817aab0c66407723cdef72b05266e7376640 # v1.0.1
+      with:
+        organization: ${{ env.PULUMI_TEST_OWNER || 'pulumi' }}
+        requested-token-type: urn:pulumi:token-type:access_token:organization
+        export-environment-variables: false
+        cloud-url: ${{ env.PULUMI_API }}
     - name: Destroy test infra
       run: ./scripts/ci-cluster-destroy.sh ${{
         needs.build-test-cluster.outputs.stack-name }}
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
     - uses: geekyeggo/delete-artifact@f275313e70c08f6120db482d7a6b98377786765b # v5.1.0
       with:
         name: config
