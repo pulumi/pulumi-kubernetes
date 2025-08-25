@@ -21,13 +21,13 @@ import (
 	"time"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	v1 "k8s.io/api/apps/v1"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -103,18 +103,8 @@ func (dsa *dsAwaiter) Read() error {
 	// Update the awaiter's state to reflect the live object.
 	dsa.processDaemonSetEvent(watchAddedEvent(ds))
 
-	// Grab any error messages from pods for more helpful debugging.
-	pods, err := podClient.List(dsa.config.ctx, metav1.ListOptions{})
-	if err != nil {
-		logger.V(3).Infof(
-			"Error retrieving Pod list for DaemonSet %q: %v",
-			ds.GetName(),
-			err,
-		)
-		pods = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
-	}
-	pa := NewPodAggregator(ds, &staticLister{pods})
-	messages := pa.Read()
+	pa := NewPodAggregator(ds, podClient)
+	messages := pa.Read(dsa.config.ctx)
 	dsa.processPodMessages(messages)
 
 	suberrors := []string{}
@@ -146,38 +136,31 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 		cancel(context.DeadlineExceeded)
 	}()
 
-	stopper := make(chan struct{})
-	defer close(stopper)
-
-	informerFactory := informers.NewInformerFactory(
-		dsa.config.clientSet,
-		informers.WithNamespaceOrDefault(dsa.config.currentOutputs.GetNamespace()),
-	)
-	informerFactory.Start(stopper)
-
 	dsEvents := make(chan watch.Event)
-	dsInformer, err := informers.New(
-		informerFactory,
-		informers.ForGVR(v1.SchemeGroupVersion.WithResource("daemonsets")),
-		informers.WithEventChannel(dsEvents),
+	dsInformer, err := dsa.config.factory.Subscribe(
+		appsv1.SchemeGroupVersion.WithResource("daemonsets"),
+		dsEvents,
 	)
 	if err != nil {
 		return err
 	}
-	go dsInformer.Informer().Run(stopper)
+	defer dsInformer.Unsubscribe()
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := informers.New(
-		informerFactory,
-		informers.ForPods(),
-		informers.WithEventChannel(podEvents),
+	podInformer, err := dsa.config.factory.Subscribe(
+		corev1.SchemeGroupVersion.WithResource("pods"),
+		podEvents,
 	)
 	if err != nil {
 		return err
 	}
-	go podInformer.Informer().Run(stopper)
+	defer podInformer.Unsubscribe()
 
-	podAggregator := NewPodAggregator(dsa.ds, podInformer.Lister())
+	_, podClient, err := dsa.clients()
+	if err != nil {
+		return fmt.Errorf("getting pod client: %w", err)
+	}
+	podAggregator := NewPodAggregator(dsa.ds, podClient)
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
