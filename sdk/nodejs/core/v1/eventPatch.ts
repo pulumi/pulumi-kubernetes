@@ -46,71 +46,71 @@ export class EventPatch extends pulumi.CustomResource {
     /**
      * What action was taken/failed regarding to the Regarding object.
      */
-    public readonly action!: pulumi.Output<string>;
+    declare public readonly action: pulumi.Output<string>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"v1">;
+    declare public readonly apiVersion: pulumi.Output<"v1">;
     /**
      * The number of times this event has occurred.
      */
-    public readonly count!: pulumi.Output<number>;
+    declare public readonly count: pulumi.Output<number>;
     /**
      * Time when this Event was first observed.
      */
-    public readonly eventTime!: pulumi.Output<string>;
+    declare public readonly eventTime: pulumi.Output<string>;
     /**
      * The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
      */
-    public readonly firstTimestamp!: pulumi.Output<string>;
+    declare public readonly firstTimestamp: pulumi.Output<string>;
     /**
      * The object that this event is about.
      */
-    public readonly involvedObject!: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
+    declare public readonly involvedObject: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"Event">;
+    declare public readonly kind: pulumi.Output<"Event">;
     /**
      * The time at which the most recent occurrence of this event was recorded.
      */
-    public readonly lastTimestamp!: pulumi.Output<string>;
+    declare public readonly lastTimestamp: pulumi.Output<string>;
     /**
      * A human-readable description of the status of this operation.
      */
-    public readonly message!: pulumi.Output<string>;
+    declare public readonly message: pulumi.Output<string>;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
      */
-    public readonly reason!: pulumi.Output<string>;
+    declare public readonly reason: pulumi.Output<string>;
     /**
      * Optional secondary object for more complex actions.
      */
-    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
+    declare public readonly related: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
-    public readonly reportingComponent!: pulumi.Output<string>;
+    declare public readonly reportingComponent: pulumi.Output<string>;
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
-    public readonly reportingInstance!: pulumi.Output<string>;
+    declare public readonly reportingInstance: pulumi.Output<string>;
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    public readonly series!: pulumi.Output<outputs.core.v1.EventSeriesPatch>;
+    declare public readonly series: pulumi.Output<outputs.core.v1.EventSeriesPatch>;
     /**
      * The component reporting this event. Should be a short machine understandable string.
      */
-    public readonly source!: pulumi.Output<outputs.core.v1.EventSourcePatch>;
+    declare public readonly source: pulumi.Output<outputs.core.v1.EventSourcePatch>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future
      */
-    public readonly type!: pulumi.Output<string>;
+    declare public readonly type: pulumi.Output<string>;
 
     /**
      * Create a EventPatch resource with the given unique name, arguments, and options.
@@ -123,23 +123,23 @@ export class EventPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["action"] = args ? args.action : undefined;
+            resourceInputs["action"] = args?.action;
             resourceInputs["apiVersion"] = "v1";
-            resourceInputs["count"] = args ? args.count : undefined;
-            resourceInputs["eventTime"] = args ? args.eventTime : undefined;
-            resourceInputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
-            resourceInputs["involvedObject"] = args ? args.involvedObject : undefined;
+            resourceInputs["count"] = args?.count;
+            resourceInputs["eventTime"] = args?.eventTime;
+            resourceInputs["firstTimestamp"] = args?.firstTimestamp;
+            resourceInputs["involvedObject"] = args?.involvedObject;
             resourceInputs["kind"] = "Event";
-            resourceInputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
-            resourceInputs["message"] = args ? args.message : undefined;
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["reason"] = args ? args.reason : undefined;
-            resourceInputs["related"] = args ? args.related : undefined;
-            resourceInputs["reportingComponent"] = args ? args.reportingComponent : undefined;
-            resourceInputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-            resourceInputs["series"] = args ? args.series : undefined;
-            resourceInputs["source"] = args ? args.source : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["lastTimestamp"] = args?.lastTimestamp;
+            resourceInputs["message"] = args?.message;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["reason"] = args?.reason;
+            resourceInputs["related"] = args?.related;
+            resourceInputs["reportingComponent"] = args?.reportingComponent;
+            resourceInputs["reportingInstance"] = args?.reportingInstance;
+            resourceInputs["series"] = args?.series;
+            resourceInputs["source"] = args?.source;
+            resourceInputs["type"] = args?.type;
         } else {
             resourceInputs["action"] = undefined /*out*/;
             resourceInputs["apiVersion"] = undefined /*out*/;

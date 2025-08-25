@@ -46,27 +46,27 @@ export class ResourceClassParametersPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1alpha2">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1alpha2">;
     /**
      * Filters describes additional contraints that must be met when using the class.
      */
-    public readonly filters!: pulumi.Output<outputs.resource.v1alpha2.ResourceFilterPatch[]>;
+    declare public readonly filters: pulumi.Output<outputs.resource.v1alpha2.ResourceFilterPatch[]>;
     /**
      * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
      */
-    public readonly generatedFrom!: pulumi.Output<outputs.resource.v1alpha2.ResourceClassParametersReferencePatch>;
+    declare public readonly generatedFrom: pulumi.Output<outputs.resource.v1alpha2.ResourceClassParametersReferencePatch>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceClassParameters">;
+    declare public readonly kind: pulumi.Output<"ResourceClassParameters">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
      */
-    public readonly vendorParameters!: pulumi.Output<outputs.resource.v1alpha2.VendorParametersPatch[]>;
+    declare public readonly vendorParameters: pulumi.Output<outputs.resource.v1alpha2.VendorParametersPatch[]>;
 
     /**
      * Create a ResourceClassParametersPatch resource with the given unique name, arguments, and options.
@@ -80,11 +80,11 @@ export class ResourceClassParametersPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["filters"] = args ? args.filters : undefined;
-            resourceInputs["generatedFrom"] = args ? args.generatedFrom : undefined;
+            resourceInputs["filters"] = args?.filters;
+            resourceInputs["generatedFrom"] = args?.generatedFrom;
             resourceInputs["kind"] = "ResourceClassParameters";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["vendorParameters"] = args ? args.vendorParameters : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["vendorParameters"] = args?.vendorParameters;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["filters"] = undefined /*out*/;

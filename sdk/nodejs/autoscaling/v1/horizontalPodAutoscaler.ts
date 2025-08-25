@@ -40,23 +40,23 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"autoscaling/v1">;
+    declare public readonly apiVersion: pulumi.Output<"autoscaling/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"HorizontalPodAutoscaler">;
+    declare public readonly kind: pulumi.Output<"HorizontalPodAutoscaler">;
     /**
      * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      */
-    public readonly spec!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerSpec>;
+    declare public readonly spec: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerSpec>;
     /**
      * status is the current information about the autoscaler.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
     /**
      * Create a HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
@@ -71,8 +71,8 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "autoscaling/v1";
             resourceInputs["kind"] = "HorizontalPodAutoscaler";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

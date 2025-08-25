@@ -46,23 +46,23 @@ export class FlowSchemaPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"FlowSchema">;
+    declare public readonly kind: pulumi.Output<"FlowSchema">;
     /**
      * `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.flowcontrol.v1beta1.FlowSchemaSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.flowcontrol.v1beta1.FlowSchemaSpecPatch>;
     /**
      * `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.flowcontrol.v1beta1.FlowSchemaStatusPatch>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.flowcontrol.v1beta1.FlowSchemaStatusPatch>;
 
     /**
      * Create a FlowSchemaPatch resource with the given unique name, arguments, and options.
@@ -77,8 +77,8 @@ export class FlowSchemaPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1beta1";
             resourceInputs["kind"] = "FlowSchema";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

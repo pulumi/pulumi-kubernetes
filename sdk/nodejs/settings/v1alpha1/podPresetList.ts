@@ -40,19 +40,19 @@ export class PodPresetList extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"settings.k8s.io/v1alpha1">;
+    declare public readonly apiVersion: pulumi.Output<"settings.k8s.io/v1alpha1">;
     /**
      * Items is a list of schema objects.
      */
-    public readonly items!: pulumi.Output<outputs.settings.v1alpha1.PodPreset[]>;
+    declare public readonly items: pulumi.Output<outputs.settings.v1alpha1.PodPreset[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"PodPresetList">;
+    declare public readonly kind: pulumi.Output<"PodPresetList">;
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
     /**
      * Create a PodPresetList resource with the given unique name, arguments, and options.
@@ -65,13 +65,13 @@ export class PodPresetList extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.items === undefined) && !opts.urn) {
+            if (args?.items === undefined && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
             resourceInputs["apiVersion"] = "settings.k8s.io/v1alpha1";
-            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["items"] = args?.items;
             resourceInputs["kind"] = "PodPresetList";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["metadata"] = args?.metadata;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["items"] = undefined /*out*/;

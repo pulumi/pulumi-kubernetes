@@ -48,31 +48,31 @@ export class ResourceClassPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1alpha1">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1alpha1">;
     /**
      * DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
      *
      * Resource drivers have a unique name in forward domain order (acme.example.com).
      */
-    public readonly driverName!: pulumi.Output<string>;
+    declare public readonly driverName: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceClass">;
+    declare public readonly kind: pulumi.Output<"ResourceClass">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      */
-    public readonly parametersRef!: pulumi.Output<outputs.resource.v1alpha1.ResourceClassParametersReferencePatch>;
+    declare public readonly parametersRef: pulumi.Output<outputs.resource.v1alpha1.ResourceClassParametersReferencePatch>;
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      *
      * Setting this field is optional. If null, all nodes are candidates.
      */
-    public readonly suitableNodes!: pulumi.Output<outputs.core.v1.NodeSelectorPatch>;
+    declare public readonly suitableNodes: pulumi.Output<outputs.core.v1.NodeSelectorPatch>;
 
     /**
      * Create a ResourceClassPatch resource with the given unique name, arguments, and options.
@@ -86,11 +86,11 @@ export class ResourceClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha1";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["parametersRef"] = args ? args.parametersRef : undefined;
-            resourceInputs["suitableNodes"] = args ? args.suitableNodes : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["parametersRef"] = args?.parametersRef;
+            resourceInputs["suitableNodes"] = args?.suitableNodes;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

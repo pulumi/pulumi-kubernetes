@@ -46,71 +46,71 @@ export class EventPatch extends pulumi.CustomResource {
     /**
      * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
-    public readonly action!: pulumi.Output<string>;
+    declare public readonly action: pulumi.Output<string>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"events.k8s.io/v1">;
+    declare public readonly apiVersion: pulumi.Output<"events.k8s.io/v1">;
     /**
      * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
      */
-    public readonly deprecatedCount!: pulumi.Output<number>;
+    declare public readonly deprecatedCount: pulumi.Output<number>;
     /**
      * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
      */
-    public readonly deprecatedFirstTimestamp!: pulumi.Output<string>;
+    declare public readonly deprecatedFirstTimestamp: pulumi.Output<string>;
     /**
      * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
      */
-    public readonly deprecatedLastTimestamp!: pulumi.Output<string>;
+    declare public readonly deprecatedLastTimestamp: pulumi.Output<string>;
     /**
      * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
      */
-    public readonly deprecatedSource!: pulumi.Output<outputs.core.v1.EventSourcePatch>;
+    declare public readonly deprecatedSource: pulumi.Output<outputs.core.v1.EventSourcePatch>;
     /**
      * eventTime is the time when this Event was first observed. It is required.
      */
-    public readonly eventTime!: pulumi.Output<string>;
+    declare public readonly eventTime: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"Event">;
+    declare public readonly kind: pulumi.Output<"Event">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
-    public readonly note!: pulumi.Output<string>;
+    declare public readonly note: pulumi.Output<string>;
     /**
      * reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      */
-    public readonly reason!: pulumi.Output<string>;
+    declare public readonly reason: pulumi.Output<string>;
     /**
      * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      */
-    public readonly regarding!: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
+    declare public readonly regarding: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
     /**
      * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      */
-    public readonly related!: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
+    declare public readonly related: pulumi.Output<outputs.core.v1.ObjectReferencePatch>;
     /**
      * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
      */
-    public readonly reportingController!: pulumi.Output<string>;
+    declare public readonly reportingController: pulumi.Output<string>;
     /**
      * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
      */
-    public readonly reportingInstance!: pulumi.Output<string>;
+    declare public readonly reportingInstance: pulumi.Output<string>;
     /**
      * series is data about the Event series this event represents or nil if it's a singleton Event.
      */
-    public readonly series!: pulumi.Output<outputs.events.v1.EventSeriesPatch>;
+    declare public readonly series: pulumi.Output<outputs.events.v1.EventSeriesPatch>;
     /**
      * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
      */
-    public readonly type!: pulumi.Output<string>;
+    declare public readonly type: pulumi.Output<string>;
 
     /**
      * Create a EventPatch resource with the given unique name, arguments, and options.
@@ -123,23 +123,23 @@ export class EventPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["action"] = args ? args.action : undefined;
+            resourceInputs["action"] = args?.action;
             resourceInputs["apiVersion"] = "events.k8s.io/v1";
-            resourceInputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
-            resourceInputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
-            resourceInputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
-            resourceInputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
-            resourceInputs["eventTime"] = args ? args.eventTime : undefined;
+            resourceInputs["deprecatedCount"] = args?.deprecatedCount;
+            resourceInputs["deprecatedFirstTimestamp"] = args?.deprecatedFirstTimestamp;
+            resourceInputs["deprecatedLastTimestamp"] = args?.deprecatedLastTimestamp;
+            resourceInputs["deprecatedSource"] = args?.deprecatedSource;
+            resourceInputs["eventTime"] = args?.eventTime;
             resourceInputs["kind"] = "Event";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["note"] = args ? args.note : undefined;
-            resourceInputs["reason"] = args ? args.reason : undefined;
-            resourceInputs["regarding"] = args ? args.regarding : undefined;
-            resourceInputs["related"] = args ? args.related : undefined;
-            resourceInputs["reportingController"] = args ? args.reportingController : undefined;
-            resourceInputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-            resourceInputs["series"] = args ? args.series : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["note"] = args?.note;
+            resourceInputs["reason"] = args?.reason;
+            resourceInputs["regarding"] = args?.regarding;
+            resourceInputs["related"] = args?.related;
+            resourceInputs["reportingController"] = args?.reportingController;
+            resourceInputs["reportingInstance"] = args?.reportingInstance;
+            resourceInputs["series"] = args?.series;
+            resourceInputs["type"] = args?.type;
         } else {
             resourceInputs["action"] = undefined /*out*/;
             resourceInputs["apiVersion"] = undefined /*out*/;

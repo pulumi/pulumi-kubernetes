@@ -48,23 +48,23 @@ export class PodSchedulingContextPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1alpha2">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1alpha2">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"PodSchedulingContext">;
+    declare public readonly kind: pulumi.Output<"PodSchedulingContext">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Spec describes where resources for the Pod are needed.
      */
-    public readonly spec!: pulumi.Output<outputs.resource.v1alpha2.PodSchedulingContextSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.resource.v1alpha2.PodSchedulingContextSpecPatch>;
     /**
      * Status describes where resources for the Pod can be allocated.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.resource.v1alpha2.PodSchedulingContextStatusPatch>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.resource.v1alpha2.PodSchedulingContextStatusPatch>;
 
     /**
      * Create a PodSchedulingContextPatch resource with the given unique name, arguments, and options.
@@ -79,8 +79,8 @@ export class PodSchedulingContextPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
             resourceInputs["kind"] = "PodSchedulingContext";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

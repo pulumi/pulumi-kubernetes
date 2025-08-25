@@ -48,23 +48,23 @@ export class ResourceClaimPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceClaim">;
+    declare public readonly kind: pulumi.Output<"ResourceClaim">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Spec describes what is being requested and how to configure it. The spec is immutable.
      */
-    public readonly spec!: pulumi.Output<outputs.resource.v1beta1.ResourceClaimSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.resource.v1beta1.ResourceClaimSpecPatch>;
     /**
      * Status describes whether the claim is ready to use and what has been allocated.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.resource.v1beta1.ResourceClaimStatusPatch>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.resource.v1beta1.ResourceClaimStatusPatch>;
 
     /**
      * Create a ResourceClaimPatch resource with the given unique name, arguments, and options.
@@ -79,8 +79,8 @@ export class ResourceClaimPatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1beta1";
             resourceInputs["kind"] = "ResourceClaim";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

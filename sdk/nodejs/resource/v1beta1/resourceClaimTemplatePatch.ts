@@ -48,21 +48,21 @@ export class ResourceClaimTemplatePatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceClaimTemplate">;
+    declare public readonly kind: pulumi.Output<"ResourceClaimTemplate">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Describes the ResourceClaim that is to be generated.
      *
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      */
-    public readonly spec!: pulumi.Output<outputs.resource.v1beta1.ResourceClaimTemplateSpecPatch>;
+    declare public readonly spec: pulumi.Output<outputs.resource.v1beta1.ResourceClaimTemplateSpecPatch>;
 
     /**
      * Create a ResourceClaimTemplatePatch resource with the given unique name, arguments, and options.
@@ -77,8 +77,8 @@ export class ResourceClaimTemplatePatch extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "resource.k8s.io/v1beta1";
             resourceInputs["kind"] = "ResourceClaimTemplate";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;

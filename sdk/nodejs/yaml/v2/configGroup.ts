@@ -118,7 +118,7 @@ export class ConfigGroup extends pulumi.ComponentResource {
     /**
      * Resources created by the ConfigGroup.
      */
-    public /*out*/ readonly resources!: pulumi.Output<any[]>;
+    declare public /*out*/ readonly resources: pulumi.Output<any[]>;
 
     /**
      * Create a ConfigGroup resource with the given unique name, arguments, and options.
@@ -131,11 +131,11 @@ export class ConfigGroup extends pulumi.ComponentResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            resourceInputs["files"] = args ? args.files : undefined;
-            resourceInputs["objs"] = args ? args.objs : undefined;
-            resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
-            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
-            resourceInputs["yaml"] = args ? args.yaml : undefined;
+            resourceInputs["files"] = args?.files;
+            resourceInputs["objs"] = args?.objs;
+            resourceInputs["resourcePrefix"] = args?.resourcePrefix;
+            resourceInputs["skipAwait"] = args?.skipAwait;
+            resourceInputs["yaml"] = args?.yaml;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
             resourceInputs["resources"] = undefined /*out*/;

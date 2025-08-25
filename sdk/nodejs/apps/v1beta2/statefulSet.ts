@@ -58,20 +58,20 @@ export class StatefulSet extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"apps/v1beta2">;
+    declare public readonly apiVersion: pulumi.Output<"apps/v1beta2">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"StatefulSet">;
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly kind: pulumi.Output<"StatefulSet">;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Spec defines the desired identities of pods in this set.
      */
-    public readonly spec!: pulumi.Output<outputs.apps.v1beta2.StatefulSetSpec>;
+    declare public readonly spec: pulumi.Output<outputs.apps.v1beta2.StatefulSetSpec>;
     /**
      * Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.apps.v1beta2.StatefulSetStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.apps.v1beta2.StatefulSetStatus>;
 
     /**
      * Create a StatefulSet resource with the given unique name, arguments, and options.
@@ -87,8 +87,8 @@ export class StatefulSet extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "apps/v1beta2";
             resourceInputs["kind"] = "StatefulSet";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
