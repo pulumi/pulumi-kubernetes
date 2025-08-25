@@ -40,20 +40,20 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"apiextensions.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"CustomResourceDefinition">;
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly kind: pulumi.Output<"CustomResourceDefinition">;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * spec describes how the user wants the resources to appear
      */
-    public readonly spec!: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
+    declare public readonly spec: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
     /**
      * status indicates the actual state of the CustomResourceDefinition
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 
     /**
      * Create a CustomResourceDefinition resource with the given unique name, arguments, and options.
@@ -66,13 +66,13 @@ export class CustomResourceDefinition extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.spec === undefined) && !opts.urn) {
+            if (args?.spec === undefined && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
             resourceInputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
             resourceInputs["kind"] = "CustomResourceDefinition";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

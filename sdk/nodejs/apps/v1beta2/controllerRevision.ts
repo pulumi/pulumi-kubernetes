@@ -42,23 +42,23 @@ export class ControllerRevision extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"apps/v1beta2">;
+    declare public readonly apiVersion: pulumi.Output<"apps/v1beta2">;
     /**
      * Data is the serialized representation of the state.
      */
-    public readonly data!: pulumi.Output<any>;
+    declare public readonly data: pulumi.Output<any>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ControllerRevision">;
+    declare public readonly kind: pulumi.Output<"ControllerRevision">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Revision indicates the revision of the state represented by Data.
      */
-    public readonly revision!: pulumi.Output<number>;
+    declare public readonly revision: pulumi.Output<number>;
 
     /**
      * Create a ControllerRevision resource with the given unique name, arguments, and options.
@@ -72,14 +72,14 @@ export class ControllerRevision extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.revision === undefined) && !opts.urn) {
+            if (args?.revision === undefined && !opts.urn) {
                 throw new Error("Missing required property 'revision'");
             }
             resourceInputs["apiVersion"] = "apps/v1beta2";
-            resourceInputs["data"] = args ? args.data : undefined;
+            resourceInputs["data"] = args?.data;
             resourceInputs["kind"] = "ControllerRevision";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["revision"] = args ? args.revision : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["revision"] = args?.revision;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;

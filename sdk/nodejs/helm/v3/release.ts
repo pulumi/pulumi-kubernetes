@@ -190,143 +190,143 @@ export class Release extends pulumi.CustomResource {
     /**
      * Whether to allow Null values in helm chart configs.
      */
-    public readonly allowNullValues!: pulumi.Output<boolean>;
+    declare public readonly allowNullValues: pulumi.Output<boolean>;
     /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
-    public readonly atomic!: pulumi.Output<boolean>;
+    declare public readonly atomic: pulumi.Output<boolean>;
     /**
      * Chart name to be installed. A path may be used.
      */
-    public readonly chart!: pulumi.Output<string>;
+    declare public readonly chart: pulumi.Output<string>;
     /**
      * Allow deletion of new resources created in this upgrade when upgrade fails.
      */
-    public readonly cleanupOnFail!: pulumi.Output<boolean>;
+    declare public readonly cleanupOnFail: pulumi.Output<boolean>;
     /**
      * Create the namespace if it does not exist.
      */
-    public readonly createNamespace!: pulumi.Output<boolean>;
+    declare public readonly createNamespace: pulumi.Output<boolean>;
     /**
      * Run helm dependency update before installing the chart.
      */
-    public readonly dependencyUpdate!: pulumi.Output<boolean>;
+    declare public readonly dependencyUpdate: pulumi.Output<boolean>;
     /**
      * Add a custom description
      */
-    public readonly description!: pulumi.Output<string>;
+    declare public readonly description: pulumi.Output<string>;
     /**
      * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
      */
-    public readonly devel!: pulumi.Output<boolean>;
+    declare public readonly devel: pulumi.Output<boolean>;
     /**
      * Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
      */
-    public readonly disableCRDHooks!: pulumi.Output<boolean>;
+    declare public readonly disableCRDHooks: pulumi.Output<boolean>;
     /**
      * If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
      */
-    public readonly disableOpenapiValidation!: pulumi.Output<boolean>;
+    declare public readonly disableOpenapiValidation: pulumi.Output<boolean>;
     /**
      * Prevent hooks from running.
      */
-    public readonly disableWebhooks!: pulumi.Output<boolean>;
+    declare public readonly disableWebhooks: pulumi.Output<boolean>;
     /**
      * Force resource update through delete/recreate if needed.
      */
-    public readonly forceUpdate!: pulumi.Output<boolean>;
+    declare public readonly forceUpdate: pulumi.Output<boolean>;
     /**
      * Location of public keys used for verification. Used only if `verify` is true
      */
-    public readonly keyring!: pulumi.Output<string>;
+    declare public readonly keyring: pulumi.Output<string>;
     /**
      * Run helm lint when planning.
      */
-    public readonly lint!: pulumi.Output<boolean>;
+    declare public readonly lint: pulumi.Output<boolean>;
     /**
      * The rendered manifests as JSON. Not yet supported.
      */
-    public readonly manifest!: pulumi.Output<{[key: string]: any}>;
+    declare public readonly manifest: pulumi.Output<{[key: string]: any}>;
     /**
      * Limit the maximum number of revisions saved per release. Use 0 for no limit.
      */
-    public readonly maxHistory!: pulumi.Output<number>;
+    declare public readonly maxHistory: pulumi.Output<number>;
     /**
      * Release name.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
      * Namespace to install the release into.
      */
-    public readonly namespace!: pulumi.Output<string>;
+    declare public readonly namespace: pulumi.Output<string>;
     /**
      * Postrender command to run.
      */
-    public readonly postrender!: pulumi.Output<string>;
+    declare public readonly postrender: pulumi.Output<string>;
     /**
      * Perform pods restart during upgrade/rollback.
      */
-    public readonly recreatePods!: pulumi.Output<boolean>;
+    declare public readonly recreatePods: pulumi.Output<boolean>;
     /**
      * If set, render subchart notes along with the parent.
      */
-    public readonly renderSubchartNotes!: pulumi.Output<boolean>;
+    declare public readonly renderSubchartNotes: pulumi.Output<boolean>;
     /**
      * Re-use the given name, even if that name is already used. This is unsafe in production
      */
-    public readonly replace!: pulumi.Output<boolean>;
+    declare public readonly replace: pulumi.Output<boolean>;
     /**
      * Specification defining the Helm chart repository to use.
      */
-    public readonly repositoryOpts!: pulumi.Output<outputs.helm.v3.RepositoryOpts>;
+    declare public readonly repositoryOpts: pulumi.Output<outputs.helm.v3.RepositoryOpts>;
     /**
      * When upgrading, reset the values to the ones built into the chart.
      */
-    public readonly resetValues!: pulumi.Output<boolean>;
+    declare public readonly resetValues: pulumi.Output<boolean>;
     /**
      * Names of resources created by the release grouped by "kind/version".
      */
-    public readonly resourceNames!: pulumi.Output<{[key: string]: string[]}>;
+    declare public readonly resourceNames: pulumi.Output<{[key: string]: string[]}>;
     /**
      * When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
      */
-    public readonly reuseValues!: pulumi.Output<boolean>;
+    declare public readonly reuseValues: pulumi.Output<boolean>;
     /**
      * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
      */
-    public readonly skipAwait!: pulumi.Output<boolean>;
+    declare public readonly skipAwait: pulumi.Output<boolean>;
     /**
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
-    public readonly skipCrds!: pulumi.Output<boolean>;
+    declare public readonly skipCrds: pulumi.Output<boolean>;
     /**
      * Status of the deployed release.
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.helm.v3.ReleaseStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.helm.v3.ReleaseStatus>;
     /**
      * Time in seconds to wait for any individual kubernetes operation.
      */
-    public readonly timeout!: pulumi.Output<number>;
+    declare public readonly timeout: pulumi.Output<number>;
     /**
      * List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
      */
-    public readonly valueYamlFiles!: pulumi.Output<(pulumi.asset.Asset | pulumi.asset.Archive)[]>;
+    declare public readonly valueYamlFiles: pulumi.Output<(pulumi.asset.Asset | pulumi.asset.Archive)[]>;
     /**
      * Custom values set for the release.
      */
-    public readonly values!: pulumi.Output<{[key: string]: any}>;
+    declare public readonly values: pulumi.Output<{[key: string]: any}>;
     /**
      * Verify the package before installing it.
      */
-    public readonly verify!: pulumi.Output<boolean>;
+    declare public readonly verify: pulumi.Output<boolean>;
     /**
      * Specify the exact chart version to install. If this is not specified, the latest version is installed.
      */
-    public readonly version!: pulumi.Output<string>;
+    declare public readonly version: pulumi.Output<string>;
     /**
      * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
      */
-    public readonly waitForJobs!: pulumi.Output<boolean>;
+    declare public readonly waitForJobs: pulumi.Output<boolean>;
 
     /**
      * Create a Release resource with the given unique name, arguments, and options.
@@ -339,44 +339,44 @@ export class Release extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.chart === undefined) && !opts.urn) {
+            if (args?.chart === undefined && !opts.urn) {
                 throw new Error("Missing required property 'chart'");
             }
-            resourceInputs["allowNullValues"] = args ? args.allowNullValues : undefined;
-            resourceInputs["atomic"] = args ? args.atomic : undefined;
-            resourceInputs["chart"] = args ? args.chart : undefined;
-            resourceInputs["cleanupOnFail"] = args ? args.cleanupOnFail : undefined;
+            resourceInputs["allowNullValues"] = args?.allowNullValues;
+            resourceInputs["atomic"] = args?.atomic;
+            resourceInputs["chart"] = args?.chart;
+            resourceInputs["cleanupOnFail"] = args?.cleanupOnFail;
             resourceInputs["compat"] = "true";
-            resourceInputs["createNamespace"] = args ? args.createNamespace : undefined;
-            resourceInputs["dependencyUpdate"] = args ? args.dependencyUpdate : undefined;
-            resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["devel"] = args ? args.devel : undefined;
-            resourceInputs["disableCRDHooks"] = args ? args.disableCRDHooks : undefined;
-            resourceInputs["disableOpenapiValidation"] = args ? args.disableOpenapiValidation : undefined;
-            resourceInputs["disableWebhooks"] = args ? args.disableWebhooks : undefined;
-            resourceInputs["forceUpdate"] = args ? args.forceUpdate : undefined;
-            resourceInputs["keyring"] = args ? args.keyring : undefined;
-            resourceInputs["lint"] = args ? args.lint : undefined;
-            resourceInputs["manifest"] = args ? args.manifest : undefined;
-            resourceInputs["maxHistory"] = args ? args.maxHistory : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["namespace"] = args ? args.namespace : undefined;
-            resourceInputs["postrender"] = args ? args.postrender : undefined;
-            resourceInputs["recreatePods"] = args ? args.recreatePods : undefined;
-            resourceInputs["renderSubchartNotes"] = args ? args.renderSubchartNotes : undefined;
-            resourceInputs["replace"] = args ? args.replace : undefined;
-            resourceInputs["repositoryOpts"] = args ? args.repositoryOpts : undefined;
-            resourceInputs["resetValues"] = args ? args.resetValues : undefined;
-            resourceInputs["resourceNames"] = args ? args.resourceNames : undefined;
-            resourceInputs["reuseValues"] = args ? args.reuseValues : undefined;
-            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
-            resourceInputs["skipCrds"] = args ? args.skipCrds : undefined;
-            resourceInputs["timeout"] = args ? args.timeout : undefined;
-            resourceInputs["valueYamlFiles"] = args ? args.valueYamlFiles : undefined;
-            resourceInputs["values"] = args ? args.values : undefined;
-            resourceInputs["verify"] = args ? args.verify : undefined;
-            resourceInputs["version"] = args ? args.version : undefined;
-            resourceInputs["waitForJobs"] = args ? args.waitForJobs : undefined;
+            resourceInputs["createNamespace"] = args?.createNamespace;
+            resourceInputs["dependencyUpdate"] = args?.dependencyUpdate;
+            resourceInputs["description"] = args?.description;
+            resourceInputs["devel"] = args?.devel;
+            resourceInputs["disableCRDHooks"] = args?.disableCRDHooks;
+            resourceInputs["disableOpenapiValidation"] = args?.disableOpenapiValidation;
+            resourceInputs["disableWebhooks"] = args?.disableWebhooks;
+            resourceInputs["forceUpdate"] = args?.forceUpdate;
+            resourceInputs["keyring"] = args?.keyring;
+            resourceInputs["lint"] = args?.lint;
+            resourceInputs["manifest"] = args?.manifest;
+            resourceInputs["maxHistory"] = args?.maxHistory;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["namespace"] = args?.namespace;
+            resourceInputs["postrender"] = args?.postrender;
+            resourceInputs["recreatePods"] = args?.recreatePods;
+            resourceInputs["renderSubchartNotes"] = args?.renderSubchartNotes;
+            resourceInputs["replace"] = args?.replace;
+            resourceInputs["repositoryOpts"] = args?.repositoryOpts;
+            resourceInputs["resetValues"] = args?.resetValues;
+            resourceInputs["resourceNames"] = args?.resourceNames;
+            resourceInputs["reuseValues"] = args?.reuseValues;
+            resourceInputs["skipAwait"] = args?.skipAwait;
+            resourceInputs["skipCrds"] = args?.skipCrds;
+            resourceInputs["timeout"] = args?.timeout;
+            resourceInputs["valueYamlFiles"] = args?.valueYamlFiles;
+            resourceInputs["values"] = args?.values;
+            resourceInputs["verify"] = args?.verify;
+            resourceInputs["version"] = args?.version;
+            resourceInputs["waitForJobs"] = args?.waitForJobs;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["allowNullValues"] = undefined /*out*/;

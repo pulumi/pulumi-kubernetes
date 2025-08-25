@@ -40,31 +40,31 @@ export class PriorityClass extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"scheduling.k8s.io/v1">;
+    declare public readonly apiVersion: pulumi.Output<"scheduling.k8s.io/v1">;
     /**
      * description is an arbitrary string that usually provides guidelines on when this priority class should be used.
      */
-    public readonly description!: pulumi.Output<string>;
+    declare public readonly description: pulumi.Output<string>;
     /**
      * globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
      */
-    public readonly globalDefault!: pulumi.Output<boolean>;
+    declare public readonly globalDefault: pulumi.Output<boolean>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"PriorityClass">;
+    declare public readonly kind: pulumi.Output<"PriorityClass">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      */
-    public readonly preemptionPolicy!: pulumi.Output<string>;
+    declare public readonly preemptionPolicy: pulumi.Output<string>;
     /**
      * value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      */
-    public readonly value!: pulumi.Output<number>;
+    declare public readonly value: pulumi.Output<number>;
 
     /**
      * Create a PriorityClass resource with the given unique name, arguments, and options.
@@ -77,16 +77,16 @@ export class PriorityClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.value === undefined) && !opts.urn) {
+            if (args?.value === undefined && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
             resourceInputs["apiVersion"] = "scheduling.k8s.io/v1";
-            resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["globalDefault"] = args ? args.globalDefault : undefined;
+            resourceInputs["description"] = args?.description;
+            resourceInputs["globalDefault"] = args?.globalDefault;
             resourceInputs["kind"] = "PriorityClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
-            resourceInputs["value"] = args ? args.value : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["preemptionPolicy"] = args?.preemptionPolicy;
+            resourceInputs["value"] = args?.value;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["description"] = undefined /*out*/;

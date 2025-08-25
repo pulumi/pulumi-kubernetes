@@ -43,7 +43,7 @@ export class Directory extends pulumi.ComponentResource {
     /**
      * Resources created by the Directory resource.
      */
-    public /*out*/ readonly resources!: pulumi.Output<string>;
+    declare public /*out*/ readonly resources: pulumi.Output<string>;
 
     /**
      * Create a Directory resource with the given unique name, arguments, and options.
@@ -56,13 +56,13 @@ export class Directory extends pulumi.ComponentResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.directory === undefined) && !opts.urn) {
+            if (args?.directory === undefined && !opts.urn) {
                 throw new Error("Missing required property 'directory'");
             }
-            resourceInputs["directory"] = args ? args.directory : undefined;
-            resourceInputs["namespace"] = args ? args.namespace : undefined;
-            resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
-            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
+            resourceInputs["directory"] = args?.directory;
+            resourceInputs["namespace"] = args?.namespace;
+            resourceInputs["resourcePrefix"] = args?.resourcePrefix;
+            resourceInputs["skipAwait"] = args?.skipAwait;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
             resourceInputs["resources"] = undefined /*out*/;

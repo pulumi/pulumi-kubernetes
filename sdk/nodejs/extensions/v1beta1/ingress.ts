@@ -56,23 +56,23 @@ export class Ingress extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"extensions/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"extensions/v1beta1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"Ingress">;
+    declare public readonly kind: pulumi.Output<"Ingress">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public readonly spec!: pulumi.Output<outputs.extensions.v1beta1.IngressSpec>;
+    declare public readonly spec: pulumi.Output<outputs.extensions.v1beta1.IngressSpec>;
     /**
      * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    public /*out*/ readonly status!: pulumi.Output<outputs.extensions.v1beta1.IngressStatus>;
+    declare public /*out*/ readonly status: pulumi.Output<outputs.extensions.v1beta1.IngressStatus>;
 
     /**
      * Create a Ingress resource with the given unique name, arguments, and options.
@@ -88,8 +88,8 @@ export class Ingress extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["apiVersion"] = "extensions/v1beta1";
             resourceInputs["kind"] = "Ingress";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["spec"] = args?.spec;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;

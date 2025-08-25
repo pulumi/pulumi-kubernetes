@@ -46,27 +46,27 @@ export class RuntimeClassPatch extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"node.k8s.io/v1beta1">;
+    declare public readonly apiVersion: pulumi.Output<"node.k8s.io/v1beta1">;
     /**
      * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.
      */
-    public readonly handler!: pulumi.Output<string>;
+    declare public readonly handler: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"RuntimeClass">;
+    declare public readonly kind: pulumi.Output<"RuntimeClass">;
     /**
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
      */
-    public readonly overhead!: pulumi.Output<outputs.node.v1beta1.OverheadPatch>;
+    declare public readonly overhead: pulumi.Output<outputs.node.v1beta1.OverheadPatch>;
     /**
      * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      */
-    public readonly scheduling!: pulumi.Output<outputs.node.v1beta1.SchedulingPatch>;
+    declare public readonly scheduling: pulumi.Output<outputs.node.v1beta1.SchedulingPatch>;
 
     /**
      * Create a RuntimeClassPatch resource with the given unique name, arguments, and options.
@@ -80,11 +80,11 @@ export class RuntimeClassPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "node.k8s.io/v1beta1";
-            resourceInputs["handler"] = args ? args.handler : undefined;
+            resourceInputs["handler"] = args?.handler;
             resourceInputs["kind"] = "RuntimeClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["overhead"] = args ? args.overhead : undefined;
-            resourceInputs["scheduling"] = args ? args.scheduling : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["overhead"] = args?.overhead;
+            resourceInputs["scheduling"] = args?.scheduling;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["handler"] = undefined /*out*/;
