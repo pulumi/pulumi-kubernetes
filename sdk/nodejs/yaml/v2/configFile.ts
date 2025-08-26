@@ -72,7 +72,7 @@ export class ConfigFile extends pulumi.ComponentResource {
     /**
      * Resources created by the ConfigFile.
      */
-    public /*out*/ readonly resources!: pulumi.Output<any[]>;
+    declare public /*out*/ readonly resources: pulumi.Output<any[]>;
 
     /**
      * Create a ConfigFile resource with the given unique name, arguments, and options.
@@ -85,12 +85,12 @@ export class ConfigFile extends pulumi.ComponentResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.file === undefined) && !opts.urn) {
+            if (args?.file === undefined && !opts.urn) {
                 throw new Error("Missing required property 'file'");
             }
-            resourceInputs["file"] = args ? args.file : undefined;
-            resourceInputs["resourcePrefix"] = args ? args.resourcePrefix : undefined;
-            resourceInputs["skipAwait"] = args ? args.skipAwait : undefined;
+            resourceInputs["file"] = args?.file;
+            resourceInputs["resourcePrefix"] = args?.resourcePrefix;
+            resourceInputs["skipAwait"] = args?.skipAwait;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
             resourceInputs["resources"] = undefined /*out*/;

@@ -40,29 +40,29 @@ export class ResourceSlice extends pulumi.CustomResource {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"resource.k8s.io/v1alpha2">;
+    declare public readonly apiVersion: pulumi.Output<"resource.k8s.io/v1alpha2">;
     /**
      * DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      */
-    public readonly driverName!: pulumi.Output<string>;
+    declare public readonly driverName: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"ResourceSlice">;
+    declare public readonly kind: pulumi.Output<"ResourceSlice">;
     /**
      * Standard object metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * NamedResources describes available resources using the named resources model.
      */
-    public readonly namedResources!: pulumi.Output<outputs.resource.v1alpha2.NamedResourcesResources>;
+    declare public readonly namedResources: pulumi.Output<outputs.resource.v1alpha2.NamedResourcesResources>;
     /**
      * NodeName identifies the node which provides the resources if they are local to a node.
      *
      * A field selector can be used to list only ResourceSlice objects with a certain node name.
      */
-    public readonly nodeName!: pulumi.Output<string>;
+    declare public readonly nodeName: pulumi.Output<string>;
 
     /**
      * Create a ResourceSlice resource with the given unique name, arguments, and options.
@@ -75,15 +75,15 @@ export class ResourceSlice extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.driverName === undefined) && !opts.urn) {
+            if (args?.driverName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'driverName'");
             }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1alpha2";
-            resourceInputs["driverName"] = args ? args.driverName : undefined;
+            resourceInputs["driverName"] = args?.driverName;
             resourceInputs["kind"] = "ResourceSlice";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["namedResources"] = args ? args.namedResources : undefined;
-            resourceInputs["nodeName"] = args ? args.nodeName : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["namedResources"] = args?.namedResources;
+            resourceInputs["nodeName"] = args?.nodeName;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["driverName"] = undefined /*out*/;

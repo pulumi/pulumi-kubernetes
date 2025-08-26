@@ -42,43 +42,43 @@ export class StorageClass extends pulumi.CustomResource {
     /**
      * allowVolumeExpansion shows whether the storage class allow volume expand.
      */
-    public readonly allowVolumeExpansion!: pulumi.Output<boolean>;
+    declare public readonly allowVolumeExpansion: pulumi.Output<boolean>;
     /**
      * allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      */
-    public readonly allowedTopologies!: pulumi.Output<outputs.core.v1.TopologySelectorTerm[]>;
+    declare public readonly allowedTopologies: pulumi.Output<outputs.core.v1.TopologySelectorTerm[]>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1">;
+    declare public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<"StorageClass">;
+    declare public readonly kind: pulumi.Output<"StorageClass">;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
      */
-    public readonly mountOptions!: pulumi.Output<string[]>;
+    declare public readonly mountOptions: pulumi.Output<string[]>;
     /**
      * parameters holds the parameters for the provisioner that should create volumes of this storage class.
      */
-    public readonly parameters!: pulumi.Output<{[key: string]: string}>;
+    declare public readonly parameters: pulumi.Output<{[key: string]: string}>;
     /**
      * provisioner indicates the type of the provisioner.
      */
-    public readonly provisioner!: pulumi.Output<string>;
+    declare public readonly provisioner: pulumi.Output<string>;
     /**
      * reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      */
-    public readonly reclaimPolicy!: pulumi.Output<string>;
+    declare public readonly reclaimPolicy: pulumi.Output<string>;
     /**
      * volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      */
-    public readonly volumeBindingMode!: pulumi.Output<string>;
+    declare public readonly volumeBindingMode: pulumi.Output<string>;
 
     /**
      * Create a StorageClass resource with the given unique name, arguments, and options.
@@ -91,19 +91,19 @@ export class StorageClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.provisioner === undefined) && !opts.urn) {
+            if (args?.provisioner === undefined && !opts.urn) {
                 throw new Error("Missing required property 'provisioner'");
             }
-            resourceInputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-            resourceInputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
+            resourceInputs["allowVolumeExpansion"] = args?.allowVolumeExpansion;
+            resourceInputs["allowedTopologies"] = args?.allowedTopologies;
             resourceInputs["apiVersion"] = "storage.k8s.io/v1";
             resourceInputs["kind"] = "StorageClass";
-            resourceInputs["metadata"] = args ? args.metadata : undefined;
-            resourceInputs["mountOptions"] = args ? args.mountOptions : undefined;
-            resourceInputs["parameters"] = args ? args.parameters : undefined;
-            resourceInputs["provisioner"] = args ? args.provisioner : undefined;
-            resourceInputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-            resourceInputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
+            resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["mountOptions"] = args?.mountOptions;
+            resourceInputs["parameters"] = args?.parameters;
+            resourceInputs["provisioner"] = args?.provisioner;
+            resourceInputs["reclaimPolicy"] = args?.reclaimPolicy;
+            resourceInputs["volumeBindingMode"] = args?.volumeBindingMode;
         } else {
             resourceInputs["allowVolumeExpansion"] = undefined /*out*/;
             resourceInputs["allowedTopologies"] = undefined /*out*/;
