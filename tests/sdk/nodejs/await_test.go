@@ -190,7 +190,11 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Create
-		up := test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up := test.Up(t,
+			optup.EventStreams(ch),
+			optup.ProgressStreams(os.Stdout),
+			optup.ErrorProgressStreams(os.Stderr),
+		)
 		assertAllResourcesReady(t, up.Outputs)
 
 		// Touch our resources and refresh in order to trigger an update later.
