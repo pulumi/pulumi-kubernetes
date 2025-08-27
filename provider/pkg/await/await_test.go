@@ -1058,7 +1058,7 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	require.NoError(t, err)
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }
