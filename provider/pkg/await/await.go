@@ -320,17 +320,12 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return outputs, err
 	}
 
-	err = awaiter.Await(ctx)
+	live, err := awaiter.Await(ctx)
 	if err != nil {
 		return outputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	// TODO: We should be able to use the last-seen object from the await's watch.
-	live, err := client.Get(c.Context, outputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return outputs, nil
-	}
 	return live, nil
 }
 
@@ -484,16 +479,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, err
 	}
 
-	err = awaiter.Await(ctx)
+	live, err := awaiter.Await(ctx)
 	if err != nil {
 		return currentOutputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
-
-	live, err := client.Get(c.Context, currentOutputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return currentOutputs, nil
-	}
 
 	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
 
@@ -886,7 +876,7 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Wait until the delete condition resolves.
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 	if err != nil {
 		return err
 	}
