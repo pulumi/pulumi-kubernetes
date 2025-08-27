@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
@@ -393,6 +394,7 @@ func fakeProviderConfig(
 		DedupLogger:       logging.NewLogger(ctx, host, urn),
 		Resources:         resources,
 		clock:             clock,
+		Factories:         informers.NewFactories(t.Context()),
 	}
 
 	return config, clientset, clock

@@ -37,6 +37,7 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
@@ -161,6 +162,8 @@ type kubeProvider struct {
 	resourceProviders map[string]providerresource.ResourceProviderFactory
 
 	crdSchemas parameterizedPackageMap // In memory cache of CRD types from Parameterize calls.
+
+	factories *informers.Factories
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -168,9 +171,10 @@ var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 func makeKubeProvider(
 	host host.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
 ) (*kubeProvider, error) {
+	cancelCtx := makeCancellationContext()
 	return &kubeProvider{
 		host:                        host,
-		canceler:                    makeCancellationContext(),
+		canceler:                    cancelCtx,
 		name:                        name,
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
@@ -182,6 +186,7 @@ func makeKubeProvider(
 		skipUpdateUnreachable:       false,
 		makeClient:                  makeClient,
 		resourceProviders:           resourceProviders,
+		factories:                   informers.NewFactories(cancelCtx.context),
 	}, nil
 }
 
@@ -1631,6 +1636,7 @@ func (k *kubeProvider) Create(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			Factories:         k.factories,
 		},
 		Inputs:  newInputs,
 		Timeout: req.Timeout,
@@ -1880,6 +1886,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			Factories:         k.factories,
 		},
 		Inputs:          oldInputs,
 		ReadFromCluster: readFromCluster,
@@ -2129,6 +2136,7 @@ func (k *kubeProvider) Update(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			Factories:         k.factories,
 		},
 		OldInputs:     oldLivePruned,
 		OldOutputs:    oldLive,
@@ -2290,6 +2298,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			Factories:         k.factories,
 		},
 		Inputs:  oldInputs,
 		Outputs: current,
