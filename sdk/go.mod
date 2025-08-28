@@ -1,13 +1,13 @@
 module github.com/pulumi/pulumi-kubernetes/sdk/v4
 
-go 1.23.0
+go 1.23.11
 
-toolchain go1.24.3
+toolchain go1.24.6
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/sdk/v3 v3.183.0
+	github.com/pulumi/pulumi/sdk/v3 v3.191.0
 )
 
 require (
@@ -62,7 +62,7 @@ require (
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/esc v0.14.3 // indirect
+	github.com/pulumi/esc v0.17.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
