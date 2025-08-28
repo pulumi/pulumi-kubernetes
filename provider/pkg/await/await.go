@@ -22,6 +22,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
@@ -930,19 +931,36 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 // condition Satisfiers. It implements Satisfier by simply invoking the old
 // awaiter.
 type legacyReadyCondition struct {
-	*condition.ObjectObserver
-	await func() error
+	observer *condition.ObjectObserver
+	await    func() error
+	done     atomic.Pointer[error]
 }
 
 // Range invokes the legacy await condition.
-func (l *legacyReadyCondition) Range(func(watch.Event) bool) {
-	_ = l.await()
+func (l *legacyReadyCondition) Range(f func(watch.Event) bool) {
+	go func() {
+		err := l.await()
+		l.done.Store(&err)
+	}()
+
+	l.observer.Range(f)
 }
 
 // Satisfied returns the result of our legacy await.
 func (l *legacyReadyCondition) Satisfied() (bool, error) {
-	err := l.await()
-	return err == nil, err
+	errPtr := l.done.Load()
+	if errPtr == nil {
+		return false, nil
+	}
+	return true, *errPtr
+}
+
+func (l *legacyReadyCondition) Object() *unstructured.Unstructured {
+	return l.observer.Object()
+}
+
+func (l *legacyReadyCondition) Observe(e watch.Event) error {
+	return l.observer.Observe(e)
 }
 
 func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
@@ -953,8 +971,8 @@ func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condi
 	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.factory)
 
 	return &legacyReadyCondition{
-		ObjectObserver: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
-		await:          sync.OnceValue(func() error { return await(c) }),
+		observer: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
+		await:    sync.OnceValue(func() error { return await(c) }),
 	}
 }
 

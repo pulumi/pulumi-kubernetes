@@ -78,7 +78,7 @@ func (aw *Awaiter) Await(ctx context.Context) (*unstructured.Unstructured, error
 	// Re-evaluate our condition since its state might have changed during the
 	// iterator's teardown.
 	done, err := aw.condition.Satisfied()
-	if done {
+	if done && err == nil {
 		return aw.condition.Object(), nil
 	}
 
