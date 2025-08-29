@@ -27,13 +27,13 @@ class HelmStack : Stack
         };
         var nginx = new Chart("nginx", new ChartArgs
         {
-            Chart = "nginx",
-            Version = "6.0.4",
+            Chart = "ingress-nginx",
+            Version = "4.13.2",
             Namespace = namespaceName,
             Values = values,
             FetchOptions = new ChartFetchArgs
             {
-                Repo = "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
+                Repo = "https://kubernetes.github.io/ingress-nginx",
             },
             Transformations =
             {

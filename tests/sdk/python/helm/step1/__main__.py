@@ -26,14 +26,14 @@ values = {"service": {"type": "ClusterIP"}, "random-string": rs}
 Chart(
     "remote-chart",
     ChartOpts(
-        chart="nginx",
+        chart="ingress-nginx",
         fetch_opts=FetchOpts(
             home=expanduser("~"),
-            repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
+            repo="https://kubernetes.github.io/ingress-nginx"
         ),
         namespace=namespace.metadata["name"],
         values={"service": {"type": "ClusterIP"}},
-        version="6.0.4",
+        version="4.13.2",
     ))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
@@ -41,13 +41,13 @@ Chart(
 Chart(
     "remote-chart",
     ChartOpts(
-        chart="nginx",
+        chart="ingress-nginx",
         resource_prefix="dup",
         fetch_opts=FetchOpts(
             home=expanduser("~"),
-            repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
+            repo="https://kubernetes.github.io/ingress-nginx"
         ),
         namespace=namespace.metadata["name"],
         values={"service": {"type": "ClusterIP"}},
-        version="6.0.4",
+        version="4.13.2",
     ))

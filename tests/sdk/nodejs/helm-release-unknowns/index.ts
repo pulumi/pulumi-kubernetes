@@ -13,11 +13,11 @@ const releaseName = new random.RandomString("name", {length: 8, special: false, 
 
 const release = new k8s.helm.v3.Release("release", {
     allowNullValues: true,
-    chart: "redis",
+    chart: "ingress-nginx",
     repositoryOpts: {
-        repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
+        repo: "https://kubernetes.github.io/ingress-nginx",
     },
-    version: "13.0.0",
+    version: "4.13.2",
     namespace: namespace.metadata.name,
     name: releaseName.result,
     valueYamlFiles: [new FileAsset("./metrics.yml")],

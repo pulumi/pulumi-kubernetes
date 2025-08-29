@@ -12,25 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import * as k8s from '@pulumi/kubernetes'
+import * as k8s from "@pulumi/kubernetes";
 
-const k8sProvider = new k8s.Provider(`k8s-provider`, {})
+const k8sProvider = new k8s.Provider(`k8s-provider`, {});
 
 const namespace = new k8s.core.v1.Namespace("release-ns");
 
 new k8s.helm.v3.Chart(
-    'wordpress',
-    {
-        fetchOpts: {
-            repo: 'https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami',
-        },
-        namespace: namespace.metadata.name,
-        chart: 'wordpress',
-        values: {
-            "service": {"type": "ClusterIP"},
-        },
+  "wordpress",
+  {
+    fetchOpts: {
+      repo: "https://kubernetes.github.io/ingress-nginx",
     },
-    {
-        provider: k8sProvider,
-    }
-)
+    namespace: namespace.metadata.name,
+    chart: "ingress-nginx",
+    version: "4.13.2",
+    values: {
+      service: { type: "ClusterIP" },
+    },
+  },
+  {
+    provider: k8sProvider,
+  },
+);
