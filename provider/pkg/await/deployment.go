@@ -164,7 +164,7 @@ func (dia *deploymentInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		deploymentEvents,
 	)
 	if err != nil {
-		return nil, err
+		return dia.deployment, err
 	}
 	defer deploymentV1Informer.Unsubscribe()
 
@@ -174,7 +174,7 @@ func (dia *deploymentInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		replicaSetEvents,
 	)
 	if err != nil {
-		return nil, err
+		return dia.deployment, err
 	}
 	defer replicaSetV1Informer.Unsubscribe()
 
@@ -184,7 +184,7 @@ func (dia *deploymentInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		podEvents,
 	)
 	if err != nil {
-		return nil, err
+		return dia.deployment, err
 	}
 	defer podV1Informer.Unsubscribe()
 
@@ -194,7 +194,7 @@ func (dia *deploymentInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		pvcEvents,
 	)
 	if err != nil {
-		return nil, err
+		return dia.deployment, err
 	}
 	defer pvcV1Informer.Unsubscribe()
 
@@ -312,7 +312,7 @@ func (dia *deploymentInitAwaiter) await(
 	// Before we start processing any ReplicaSet, PVC or Pod events, we need to wait until the Deployment controller
 	// has seen and updated the status of the Deployment object.
 	if err := dia.waitUntilDeploymentControllerReconciles(deploymentEvents, timeout); err != nil {
-		return nil, err
+		return dia.deployment, err
 	}
 
 	for {
@@ -323,12 +323,12 @@ func (dia *deploymentInitAwaiter) await(
 		// Else, wait for updates.
 		select {
 		case <-dia.config.ctx.Done():
-			return nil, &cancellationError{
+			return dia.deployment, &cancellationError{
 				object:    dia.deployment,
 				subErrors: dia.errorMessages(),
 			}
 		case <-timeout:
-			return nil, &timeoutError{
+			return dia.deployment, &timeoutError{
 				object:    dia.deployment,
 				subErrors: dia.errorMessages(),
 			}

@@ -136,12 +136,12 @@ func (jia *jobInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		// Else, wait for updates.
 		select {
 		case <-jia.config.ctx.Done():
-			return nil, &cancellationError{
+			return jia.job, &cancellationError{
 				object:    jia.job,
 				subErrors: jia.errorMessages(),
 			}
 		case <-time.After(timeout):
-			return nil, &timeoutError{
+			return jia.job, &timeoutError{
 				object:    jia.job,
 				subErrors: jia.errorMessages(),
 			}

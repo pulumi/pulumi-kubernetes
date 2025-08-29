@@ -164,12 +164,12 @@ func (pia *podInitAwaiter) Await() (*unstructured.Unstructured, error) {
 		select {
 		// TODO: If Pod is added and not making progress on initialization after ~30 seconds, report that.
 		case <-pia.config.ctx.Done():
-			return nil, &cancellationError{
+			return pia.pod, &cancellationError{
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}
 		case <-time.After(timeout):
-			return nil, &timeoutError{
+			return pia.pod, &timeoutError{
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}

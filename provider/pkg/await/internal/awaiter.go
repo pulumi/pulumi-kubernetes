@@ -83,7 +83,7 @@ func (aw *Awaiter) Await(ctx context.Context) (*unstructured.Unstructured, error
 	obj := aw.condition.Object()
 
 	if err != nil {
-		return nil, errObject{error: err, object: obj}
+		return obj, errObject{error: err, object: obj}
 	}
 
 	err = ctx.Err()
@@ -91,7 +91,7 @@ func (aw *Awaiter) Await(ctx context.Context) (*unstructured.Unstructured, error
 		// Preserve the default k8s "timed out waiting for the condition" error.
 		err = nil
 	}
-	return nil, errObject{error: wait.ErrorInterrupted(err), object: obj}
+	return obj, errObject{error: wait.ErrorInterrupted(err), object: obj}
 }
 
 type awaiterOption interface {

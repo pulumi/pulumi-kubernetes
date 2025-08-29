@@ -247,7 +247,7 @@ func (sia *serviceInitAwaiter) await(
 			if sia.serviceReady && !sia.endpointsPending {
 				return sia.service, nil
 			}
-			return nil, &cancellationError{
+			return sia.service, &cancellationError{
 				object:    sia.service,
 				subErrors: sia.errorMessages(),
 			}
@@ -256,7 +256,7 @@ func (sia *serviceInitAwaiter) await(
 			if sia.serviceReady && !sia.endpointsPending {
 				return sia.service, nil
 			}
-			return nil, &timeoutError{
+			return sia.service, &timeoutError{
 				object:    sia.service,
 				subErrors: sia.errorMessages(),
 			}

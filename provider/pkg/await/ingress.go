@@ -229,7 +229,7 @@ func (iia *ingressInitAwaiter) await(
 			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
 				return iia.ingress, nil
 			}
-			return nil, &cancellationError{
+			return iia.ingress, &cancellationError{
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
 			}
@@ -238,7 +238,7 @@ func (iia *ingressInitAwaiter) await(
 			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
 				return iia.ingress, nil
 			}
-			return nil, &timeoutError{
+			return iia.ingress, &timeoutError{
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
 			}

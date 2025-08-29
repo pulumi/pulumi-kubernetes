@@ -124,9 +124,9 @@ func (ow *ObjectWatcher) watch(
 		go poll()
 		select {
 		case <-timeoutCh:
-			return nil, timeoutErr(ow.objName, obj)
+			return obj, timeoutErr(ow.objName, obj)
 		case <-ow.ctx.Done():
-			return nil, cancellationErr(ow.objName, obj)
+			return obj, cancellationErr(ow.objName, obj)
 		case res := <-results:
 			obj = res.Obj
 			if stop, err := until(res.Obj, res.Err); err != nil {

@@ -286,12 +286,12 @@ func (sia *statefulsetInitAwaiter) await(
 		// Else, wait for updates.
 		select {
 		case <-sia.config.ctx.Done():
-			return nil, &cancellationError{
+			return sia.statefulset, &cancellationError{
 				object:    sia.statefulset,
 				subErrors: sia.errorMessages(),
 			}
 		case <-timeout:
-			return nil, &timeoutError{
+			return sia.statefulset, &timeoutError{
 				object:    sia.statefulset,
 				subErrors: sia.errorMessages(),
 			}
