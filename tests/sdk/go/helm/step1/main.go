@@ -9,10 +9,10 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		chart, err := helm.NewChart(ctx, "test", helm.ChartArgs{
-			Chart:   pulumi.String("nginx"),
-			Version: pulumi.String("6.0.4"),
+			Chart:   pulumi.String("ingress-nginx"),
+			Version: pulumi.String("4.13.2"),
 			FetchArgs: &helm.FetchArgs{
-				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
+				Repo: pulumi.String("https://kubernetes.github.io/ingress-nginx"),
 			},
 			Values: pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 		})
