@@ -610,7 +610,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, timeout)
 
-		err := awaiter.await(
+		_, err := awaiter.await(
 			deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
@@ -668,7 +668,7 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, pvcs, timeout)
 
-		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
+		_, err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -720,7 +720,7 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, pvcs, timeout)
 
-		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
+		_, err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -790,7 +790,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		period := make(chan time.Time)
 		go test.firstUpdate(deployments, replicaSets, pods, timeout)
 
-		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
+		_, err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Nil(t, err, test.description)
 
 		deployments = make(chan watch.Event)
@@ -802,7 +802,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		period = make(chan time.Time)
 		go test.secondUpdate(deployments, replicaSets, pods, timeout)
 
-		err = awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
+		_, err = awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }

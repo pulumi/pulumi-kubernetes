@@ -42,7 +42,7 @@ func TestCancel(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 
 	assert.Error(t, err)
 	assert.True(t, wait.Interrupted(err))
@@ -67,7 +67,7 @@ func TestCancelWithRecovery(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 
 	assert.NoError(t, err)
 }
@@ -86,7 +86,7 @@ func TestTimeout(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 
 	assert.Error(t, err)
 	assert.True(t, wait.Interrupted(err))
@@ -111,7 +111,7 @@ func TestImmediateSuccess(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 
 	assert.NoError(t, err)
 }
@@ -125,7 +125,7 @@ func TestObserverFailure(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	err = awaiter.Await(context.Background())
+	_, err = awaiter.Await(context.Background())
 
 	assert.NoError(t, err)
 }
@@ -139,7 +139,7 @@ func TestConditionFailure(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	err = awaiter.Await(context.Background())
+	_, err = awaiter.Await(context.Background())
 
 	assert.ErrorContains(t, err, "expected")
 	assert.ErrorAs(t, err, &errObject{})
@@ -174,7 +174,8 @@ func TestEventualSuccess(t *testing.T) {
 
 	done := make(chan error)
 	go func() {
-		done <- awaiter.Await(context.Background())
+		_, err := awaiter.Await(context.Background())
+		done <- err
 	}()
 
 	events <- watch.Event{Type: watch.Added, Object: obj}

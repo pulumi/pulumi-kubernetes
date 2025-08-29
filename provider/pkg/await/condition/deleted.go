@@ -70,7 +70,14 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		dc.observer.Range(yield)
+		for e := range dc.observer.Range {
+			if dc.deleted.Load() {
+				return
+			}
+			if !yield(e) {
+				return
+			}
+		}
 	}()
 
 	dc.refreshClusterState()

@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
-	"k8s.io/apimachinery/pkg/watch"
 )
 
 // Awaiter orchestrates a condition Satisfier and optional Observers.
@@ -46,47 +45,45 @@ func NewAwaiter(options ...awaiterOption) (*Awaiter, error) {
 
 // Await blocks until the Condition is met or until the context is canceled.
 // The operation's timeout should be applied to the provided Context.
-func (aw *Awaiter) Await(ctx context.Context) error {
+func (aw *Awaiter) Await(ctx context.Context) (*unstructured.Unstructured, error) {
 	if aw.condition == nil {
-		return fmt.Errorf("missing condition")
+		return nil, fmt.Errorf("missing condition")
 	}
 
 	// Start all of our observers. They'll continue until they're canceled.
 	for _, o := range aw.observers {
 		go func(o condition.Observer) {
-			o.Range(func(e watch.Event) bool {
+			for e := range o.Range {
 				if err := o.Observe(e); err != nil {
 					aw.logger.LogStatus(diag.Warning, "observe error: "+err.Error())
 				}
-				return true
-			})
+			}
 		}(o)
 	}
 
 	// Block until our condition is satisfied, or until our Context is canceled.
-	aw.condition.Range(func(e watch.Event) bool {
+	for e := range aw.condition.Range {
 		err := aw.condition.Observe(e)
 		if err != nil {
-			return false
+			break
 		}
 		if done, _ := aw.condition.Satisfied(); done {
-			return false
+			break
 		}
-		return true
-	})
+	}
 
 	// Re-evaluate our condition since its state might have changed during the
 	// iterator's teardown.
 	done, err := aw.condition.Satisfied()
 	if done {
-		return nil
+		return aw.condition.Object(), nil
 	}
 
 	// Make sure the error we return includes the object's partial state.
 	obj := aw.condition.Object()
 
 	if err != nil {
-		return errObject{error: err, object: obj}
+		return obj, errObject{error: err, object: obj}
 	}
 
 	err = ctx.Err()
@@ -94,7 +91,7 @@ func (aw *Awaiter) Await(ctx context.Context) error {
 		// Preserve the default k8s "timed out waiting for the condition" error.
 		err = nil
 	}
-	return errObject{error: wait.ErrorInterrupted(err), object: obj}
+	return obj, errObject{error: wait.ErrorInterrupted(err), object: obj}
 }
 
 type awaiterOption interface {
@@ -174,6 +171,7 @@ type stdout struct{}
 func (stdout) Log(sev diag.Severity, msg string) {
 	_, _ = os.Stdout.WriteString(fmt.Sprintf("%s: %s\n", sev, msg))
 }
+
 func (s stdout) LogStatus(sev diag.Severity, msg string) {
 	s.Log(sev, msg)
 }

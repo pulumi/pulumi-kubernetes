@@ -17,6 +17,7 @@ package condition
 import (
 	"context"
 	"fmt"
+	"sync"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -55,8 +56,9 @@ func NewDynamicSource(
 
 // DynamicSource establishes Informers against the cluster.
 type DynamicSource struct {
+	mu        sync.Mutex
 	factory   informers.Factory
-	informer  informers.Informer
+	informers []informers.Informer
 	clientset *clients.DynamicClientSet
 }
 
@@ -73,13 +75,22 @@ func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (
 	if err != nil {
 		return nil, fmt.Errorf("creating informer: %w", err)
 	}
-	ds.informer = informer
+
+	ds.mu.Lock()
+	defer ds.mu.Unlock()
+	ds.informers = append(ds.informers, informer)
 
 	return events, nil
 }
 
+// Stop unsubscribes all informers currently listening to this source.
 func (ds *DynamicSource) Stop() {
-	ds.informer.Unsubscribe()
+	ds.mu.Lock()
+	defer ds.mu.Unlock()
+	for _, i := range ds.informers {
+		i.Unsubscribe()
+	}
+	ds.informers = nil
 }
 
 // Static implements Source and allows a fixed event channel to be used as an
