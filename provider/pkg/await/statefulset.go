@@ -184,7 +184,7 @@ func makeStatefulSetInitAwaiter(c awaitConfig) *statefulsetInitAwaiter {
 //  1. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
 //     and `.status.readyReplicas`.
 //  2. The value of `.status.updateRevision` matches `.status.currentRevision`.
-func (sia *statefulsetInitAwaiter) Await() error {
+func (sia *statefulsetInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
@@ -194,7 +194,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 		statefulSetEvents,
 	)
 	if err != nil {
-		return err
+		return sia.statefulset, err
 	}
 	defer statefulSetInformer.Unsubscribe()
 
@@ -204,7 +204,7 @@ func (sia *statefulsetInitAwaiter) Await() error {
 		podEvents,
 	)
 	if err != nil {
-		return err
+		return sia.statefulset, err
 	}
 	defer podInformer.Unsubscribe()
 
@@ -277,21 +277,21 @@ func (sia *statefulsetInitAwaiter) read(
 func (sia *statefulsetInitAwaiter) await(
 	statefulsetEvents, podEvents <-chan watch.Event,
 	timeout, aggregateErrorTicker <-chan time.Time,
-) error {
+) (*unstructured.Unstructured, error) {
 	for {
 		if sia.checkAndLogStatus() {
-			return nil
+			return sia.statefulset, nil
 		}
 
 		// Else, wait for updates.
 		select {
 		case <-sia.config.ctx.Done():
-			return &cancellationError{
+			return nil, &cancellationError{
 				object:    sia.statefulset,
 				subErrors: sia.errorMessages(),
 			}
 		case <-timeout:
-			return &timeoutError{
+			return nil, &timeoutError{
 				object:    sia.statefulset,
 				subErrors: sia.errorMessages(),
 			}

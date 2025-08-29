@@ -96,14 +96,14 @@ func makeJobInitAwaiter(c awaitConfig) *jobInitAwaiter {
 	}
 }
 
-func (jia *jobInitAwaiter) Await() error {
+func (jia *jobInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	jobEvents := make(chan watch.Event)
 	jobInformer, err := jia.config.factory.Subscribe(
 		batchv1.SchemeGroupVersion.WithResource("jobs"),
 		jobEvents,
 	)
 	if err != nil {
-		return err
+		return jia.job, err
 	}
 	defer jobInformer.Unsubscribe()
 
@@ -114,14 +114,14 @@ func (jia *jobInitAwaiter) Await() error {
 		podEvents,
 	)
 	if err != nil {
-		return err
+		return jia.job, err
 	}
 	defer podInformer.Unsubscribe()
 
 	podClient, err := clients.ResourceClient(
 		kinds.Pod, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
-		return fmt.Errorf("getting pod client: %w", err)
+		return jia.job, fmt.Errorf("getting pod client: %w", err)
 	}
 	podAggregator := NewPodAggregator(jia.job, podClient)
 	podAggregator.Start(podEvents)
@@ -130,25 +130,25 @@ func (jia *jobInitAwaiter) Await() error {
 	timeout := jia.config.getTimeout(DefaultJobTimeoutMins * 60)
 	for {
 		if jia.ready {
-			return nil
+			return jia.job, nil
 		}
 
 		// Else, wait for updates.
 		select {
 		case <-jia.config.ctx.Done():
-			return &cancellationError{
+			return nil, &cancellationError{
 				object:    jia.job,
 				subErrors: jia.errorMessages(),
 			}
 		case <-time.After(timeout):
-			return &timeoutError{
+			return nil, &timeoutError{
 				object:    jia.job,
 				subErrors: jia.errorMessages(),
 			}
 		case event := <-jobEvents:
 			err := jia.processJobEvent(event)
 			if err != nil {
-				return err
+				return jia.job, err
 			}
 		case messages := <-podAggregator.ResultChan():
 			jia.processPodMessages(messages)

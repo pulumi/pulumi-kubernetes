@@ -261,7 +261,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(statefulsets, pods, timeout)
 
-		err := awaiter.await(statefulsets, pods, timeout, period)
+		_, err := awaiter.await(statefulsets, pods, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -313,7 +313,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 		period := make(chan time.Time)
 		go test.firstUpdate(statefulsets, pods, timeout)
 
-		err := awaiter.await(statefulsets, pods, timeout, period)
+		_, err := awaiter.await(statefulsets, pods, timeout, period)
 		assert.Equal(t, test.firstExpectedError, err, test.description)
 
 		statefulsets = make(chan watch.Event)
@@ -323,7 +323,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 		period = make(chan time.Time)
 		go test.secondUpdate(statefulsets, pods, timeout)
 
-		err = awaiter.await(statefulsets, pods, timeout, period)
+		_, err = awaiter.await(statefulsets, pods, timeout, period)
 		assert.Equal(t, test.secondExpectedError, err, test.description)
 	}
 }

@@ -74,7 +74,7 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 	for _, test := range timeoutTests {
 		go func(test timeoutTest) {
 			pollFuncCalls, watchFuncCalls := atomic.Int32{}, atomic.Int32{}
-			err := testObjWatcher(
+			_, err := testObjWatcher(
 				context.Background(),
 				func() (*unstructured.Unstructured, error) {
 					pollFuncCalls.Add(1)
@@ -110,7 +110,7 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 
 func Test_WatchUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	err := testObjWatcher(
+	_, err := testObjWatcher(
 		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
@@ -127,7 +127,7 @@ func Test_WatchUntil_Success(t *testing.T) {
 
 func Test_RetryUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	err := testObjWatcher(
+	_, err := testObjWatcher(
 		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
@@ -147,7 +147,7 @@ func Test_RetryUntil_Cancel(t *testing.T) {
 	cancel()
 
 	// Timeout because the `WatchUntil` predicate always returns false.
-	err := testObjWatcher(
+	_, err := testObjWatcher(
 		cancelCtx,
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil

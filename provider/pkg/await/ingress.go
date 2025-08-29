@@ -87,7 +87,7 @@ func makeIngressInitAwaiter(c awaitConfig) *ingressInitAwaiter {
 	}
 }
 
-func awaitIngressInit(c awaitConfig) error {
+func awaitIngressInit(c awaitConfig) (*unstructured.Unstructured, error) {
 	return makeIngressInitAwaiter(c).Await()
 }
 
@@ -95,7 +95,7 @@ func awaitIngressRead(c awaitConfig) error {
 	return makeIngressInitAwaiter(c).Read()
 }
 
-func (iia *ingressInitAwaiter) Await() error {
+func (iia *ingressInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	//
 	// We succeed only when all of the following are true:
 	//
@@ -114,7 +114,7 @@ func (iia *ingressInitAwaiter) Await() error {
 		ingressEvents,
 	)
 	if err != nil {
-		return err
+		return iia.ingress, err
 	}
 	defer ingressInformer.Unsubscribe()
 
@@ -124,7 +124,7 @@ func (iia *ingressInitAwaiter) Await() error {
 		endpointsEvents,
 	)
 	if err != nil {
-		return err
+		return iia.ingress, err
 	}
 	defer endpointsInformer.Unsubscribe()
 
@@ -134,7 +134,7 @@ func (iia *ingressInitAwaiter) Await() error {
 		serviceEvents,
 	)
 	if err != nil {
-		return err
+		return iia.ingress, err
 	}
 	defer serviceInformer.Unsubscribe()
 
@@ -213,13 +213,13 @@ func (iia *ingressInitAwaiter) await(
 	settled chan struct{},
 	settlementGracePeriodExpired <-chan time.Time,
 	timeout <-chan time.Time,
-) error {
+) (*unstructured.Unstructured, error) {
 	iia.config.logger.LogStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
 	for {
 		// Check whether we've succeeded.
 		if iia.checkAndLogStatus() {
-			return nil
+			return iia.ingress, nil
 		}
 
 		// Else, wait for updates.
@@ -227,18 +227,18 @@ func (iia *ingressInitAwaiter) await(
 		case <-iia.config.ctx.Done():
 			// On cancel, check one last time if the ingress is ready.
 			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
-				return nil
+				return iia.ingress, nil
 			}
-			return &cancellationError{
+			return nil, &cancellationError{
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
 			}
 		case <-timeout:
 			// On timeout, check one last time if the ingress is ready.
 			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
-				return nil
+				return iia.ingress, nil
 			}
-			return &timeoutError{
+			return nil, &timeoutError{
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
 			}

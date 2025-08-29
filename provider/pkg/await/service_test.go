@@ -251,7 +251,7 @@ func Test_Core_Service(t *testing.T) {
 		timeout := make(chan time.Time)
 		go test.do(services, endpoints, settled, timeout)
 
-		err := awaiter.await(services, endpoints, timeout, settled, test.version)
+		_, err := awaiter.await(services, endpoints, timeout, settled, test.version)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }

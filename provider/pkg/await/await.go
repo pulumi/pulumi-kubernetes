@@ -22,7 +22,6 @@ import (
 	"os"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
@@ -931,52 +930,43 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 // condition Satisfiers. It implements Satisfier by simply invoking the old
 // awaiter.
 type legacyReadyCondition struct {
-	observer *condition.ObjectObserver
-	await    func() error
-	done     atomic.Pointer[error]
+	obj   *unstructured.Unstructured
+	await func() (*unstructured.Unstructured, error)
 }
 
-// Range invokes the legacy await condition.
-func (l *legacyReadyCondition) Range(f func(watch.Event) bool) {
-	go func() {
-		err := l.await()
-		l.done.Store(&err)
-	}()
+// Range is a no-op because the legacy await condition is responsible for
+// consuming events.
+func (l *legacyReadyCondition) Range(func(watch.Event) bool) {}
 
-	l.observer.Range(f)
-}
-
-// Satisfied returns the result of our legacy await.
+// Satisfied blocks and returns the result of our legacy await.
 func (l *legacyReadyCondition) Satisfied() (bool, error) {
-	errPtr := l.done.Load()
-	if errPtr == nil {
-		return false, nil
-	}
-	return true, *errPtr
+	obj, err := l.await()
+	l.obj = obj
+	return err == nil, err
 }
 
+// Object returns the last observed object from the legacy awaiter.
 func (l *legacyReadyCondition) Object() *unstructured.Unstructured {
-	return l.observer.Object()
+	return l.obj
 }
 
-func (l *legacyReadyCondition) Observe(e watch.Event) error {
-	return l.observer.Observe(e)
+// Observe is a no-op because the legacy await condition is responsible for
+// consuming events.
+func (l *legacyReadyCondition) Observe(watch.Event) error {
+	return nil
 }
 
-func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
+func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) (*unstructured.Unstructured, error)) condition.Satisfier {
 	if metadata.SkipAwaitLogic(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}
 
-	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.factory)
-
 	return &legacyReadyCondition{
-		observer: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
-		await:    sync.OnceValue(func() error { return await(c) }),
+		await: sync.OnceValues(func() (*unstructured.Unstructured, error) { return await(c) }),
 	}
 }
 
-func wrap(f func(awaitConfig) error) func(awaitConfig) condition.Satisfier {
+func wrap(f func(awaitConfig) (*unstructured.Unstructured, error)) func(awaitConfig) condition.Satisfier {
 	return func(c awaitConfig) condition.Satisfier {
 		return newLegacyReadyCondition(c, f)
 	}

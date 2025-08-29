@@ -24,7 +24,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
-	"k8s.io/apimachinery/pkg/watch"
 )
 
 // Awaiter orchestrates a condition Satisfier and optional Observers.
@@ -54,31 +53,29 @@ func (aw *Awaiter) Await(ctx context.Context) (*unstructured.Unstructured, error
 	// Start all of our observers. They'll continue until they're canceled.
 	for _, o := range aw.observers {
 		go func(o condition.Observer) {
-			o.Range(func(e watch.Event) bool {
+			for e := range o.Range {
 				if err := o.Observe(e); err != nil {
 					aw.logger.LogStatus(diag.Warning, "observe error: "+err.Error())
 				}
-				return true
-			})
+			}
 		}(o)
 	}
 
 	// Block until our condition is satisfied, or until our Context is canceled.
-	aw.condition.Range(func(e watch.Event) bool {
+	for e := range aw.condition.Range {
 		err := aw.condition.Observe(e)
 		if err != nil {
-			return false
+			break
 		}
 		if done, _ := aw.condition.Satisfied(); done {
-			return false
+			break
 		}
-		return true
-	})
+	}
 
 	// Re-evaluate our condition since its state might have changed during the
 	// iterator's teardown.
 	done, err := aw.condition.Satisfied()
-	if done && err == nil {
+	if done {
 		return aw.condition.Object(), nil
 	}
 
