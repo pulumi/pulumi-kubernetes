@@ -32,7 +32,13 @@ Chart(
             repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
         ),
         namespace=namespace.metadata["name"],
-        values={"service": {"type": "ClusterIP"}},
+        values={
+            "service": {"type": "ClusterIP"},
+            "image": {
+                "repository": "bitnamisecure/nginx",
+                "tag": "latest",
+            },
+        },
         version="6.0.4",
     ))
 
@@ -48,6 +54,12 @@ Chart(
             repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
         ),
         namespace=namespace.metadata["name"],
-        values={"service": {"type": "ClusterIP"}},
+        values={
+            "service": {"type": "ClusterIP"},
+            "image": {
+                "repository": "bitnamisecure/nginx",
+                "tag": "latest",
+            },
+        },
         version="6.0.4",
     ))

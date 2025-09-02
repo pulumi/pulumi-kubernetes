@@ -17,7 +17,7 @@ Release("release1",
                 values={
                     "service": {"type": "ClusterIP"},
                     "image": {
-                        "repository": "bitnamisecure",
+                        "repository": "bitnamisecure/nginx",
                         "tag": "latest",
                     },
                 },
@@ -36,7 +36,7 @@ Release("release2",
                 values={
                     "service": {"type": "ClusterIP"},
                     "image": {
-                        "repository": "bitnamisecure",
+                        "repository": "bitnamisecure/nginx",
                         "tag": "latest",
                     },
                 },
