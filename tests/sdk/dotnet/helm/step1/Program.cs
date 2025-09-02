@@ -24,6 +24,11 @@ class HelmStack : Stack
             {
                 ["type"] = "ClusterIP"
             },
+            ["image"] = new Dictionary<string, object>
+            {
+                ["repository"] = "bitnamisecure/nginx",
+                ["tag"] = "latest",
+            },
         };
         var nginx = new Chart("nginx", new ChartArgs
         {

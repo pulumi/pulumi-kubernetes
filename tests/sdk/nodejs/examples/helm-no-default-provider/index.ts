@@ -22,13 +22,16 @@ new k8s.helm.v3.Chart(
     'wordpress',
     {
         fetchOpts: {
-            repo: "https://kubernetes.github.io/ingress-nginx",
+            repo: 'https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami',
         },
         namespace: namespace.metadata.name,
-        chart: "ingress-nginx",
-        version: "4.13.2",
+        chart: 'wordpress',
         values: {
             "service": {"type": "ClusterIP"},
+            image: {
+                repository: "bitnamisecure/wordpress",
+                tag: "latest",
+            }
         },
     },
     {
