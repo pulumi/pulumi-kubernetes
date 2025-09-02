@@ -12,8 +12,8 @@
 ##
 image:
   registry: docker.io
-  repository: bitnami/nginx
-  tag: 1.19.1-debian-10-r23
+  repository: bitnamisecure/nginx
+  tag: latest
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
