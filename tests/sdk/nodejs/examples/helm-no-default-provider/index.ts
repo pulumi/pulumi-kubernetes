@@ -31,7 +31,13 @@ new k8s.helm.v3.Chart(
             image: {
                 repository: "bitnamisecure/wordpress",
                 tag: "latest",
-            }
+            },
+            mariadb: {
+                image:{
+                    repository: "bitnamisecure/mariadb",
+                    tag: "latest",
+                },
+            },
         },
     },
     {
