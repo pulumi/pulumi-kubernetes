@@ -363,7 +363,6 @@ func TestHelmReleaseImportTool(t *testing.T) {
 				"chart":   chart.Name,           // nginx
 				"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
 				"version": chartVersion.Version, // 15.3.4
-				"values":  `{"image": {"repository": "bitnamisecure/nginx", "tag": "latest"}}`,
 			},
 		})
 		run(t, options, runOptions{
