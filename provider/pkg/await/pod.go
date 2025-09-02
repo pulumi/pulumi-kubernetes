@@ -228,4 +228,6 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	for _, result := range results {
 		pia.config.logger.LogStatus(diag.Info, result.Description)
 	}
+
+	pia.pod = event.Object.(*unstructured.Unstructured)
 }

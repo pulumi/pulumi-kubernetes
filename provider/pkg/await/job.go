@@ -227,6 +227,8 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 		}
 	}
 
+	jia.job = event.Object.(*unstructured.Unstructured)
+
 	return nil
 }
 
