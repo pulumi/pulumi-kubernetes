@@ -75,7 +75,7 @@ export const appConfig: AppConfig = {
         innodb_buffer_pool_size=2G`
     },
 
-    image: config.get("image") || "bitnami/mariadb:10.1.26-r2",
+    image: config.get("image") || "bitnamisecure/mariadb:latest",
     imagePullPolicy: config.get("imagePullPolicy") || "IfNotPresent",
     serviceType: config.get("serviceType") || "ClusterIP",
     persistence: {
