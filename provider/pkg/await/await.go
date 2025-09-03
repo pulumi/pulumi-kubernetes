@@ -325,6 +325,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return outputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
+	if live == nil {
+		// This shouldn't happen, but if it does, return the last known outputs
+		// rather than panicking.
+		live = outputs
+	}
 
 	return live, nil
 }
@@ -484,6 +489,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
+	if live == nil {
+		// This shouldn't happen, but if it does, return the last known outputs
+		// rather than panicking.
+		live = currentOutputs
+	}
 
 	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
 

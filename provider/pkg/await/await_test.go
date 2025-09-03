@@ -1035,8 +1035,9 @@ func Test_Watcher_Interface_Cancel(t *testing.T) {
 	cancel()
 
 	// Cancel should occur before `WatchUntil` because predicate always returns false.
-	_, err := watcher.ForObject(cancelCtx, &mockResourceInterface{}, "").
+	obj, err := watcher.ForObject(cancelCtx, &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Minute)
+	assert.Nil(t, obj) // Canceled before events seen for the object.
 
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Cancelled watcher should emit `await.PartialError`")
@@ -1045,8 +1046,9 @@ func Test_Watcher_Interface_Cancel(t *testing.T) {
 
 func Test_Watcher_Interface_Timeout(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	_, err := watcher.ForObject(context.Background(), &mockResourceInterface{}, "").
+	obj, err := watcher.ForObject(context.Background(), &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Second)
+	assert.NotNil(t, obj)
 
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
@@ -1058,7 +1060,9 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	require.NoError(t, err)
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
-	_, err = awaiter.Await(ctx)
+	obj, err := awaiter.Await(ctx)
+	assert.Nil(t, obj) // Canceled before events seen for the object.
+
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }

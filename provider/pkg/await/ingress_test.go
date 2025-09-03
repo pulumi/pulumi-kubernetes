@@ -175,7 +175,8 @@ func Test_Extensions_Ingress(t *testing.T) {
 			timeout := make(chan time.Time)
 			go test.do(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
 
-			_, err := awaiter.await(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
+			obj, err := awaiter.await(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
+			assert.NotNil(t, obj)
 			assert.Equal(t, test.expectedError, err, test.description)
 		})
 	}

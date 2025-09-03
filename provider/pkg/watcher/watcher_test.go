@@ -21,6 +21,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -110,7 +111,7 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 
 func Test_WatchUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	_, err := testObjWatcher(
+	obj, err := testObjWatcher(
 		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
@@ -120,6 +121,7 @@ func Test_WatchUntil_Success(t *testing.T) {
 				return true // Always true.
 			},
 			1*time.Second)
+	assert.NotNil(t, obj)
 	if err != nil {
 		t.Error("Expected watch to terminate without error")
 	}
@@ -127,7 +129,7 @@ func Test_WatchUntil_Success(t *testing.T) {
 
 func Test_RetryUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	_, err := testObjWatcher(
+	obj, err := testObjWatcher(
 		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
@@ -137,6 +139,7 @@ func Test_RetryUntil_Success(t *testing.T) {
 				return nil // Always succeeds.
 			},
 			1*time.Second)
+	assert.NotNil(t, obj)
 	if err != nil {
 		t.Error("Expected watch to terminate without error")
 	}
@@ -147,7 +150,7 @@ func Test_RetryUntil_Cancel(t *testing.T) {
 	cancel()
 
 	// Timeout because the `WatchUntil` predicate always returns false.
-	_, err := testObjWatcher(
+	obj, err := testObjWatcher(
 		cancelCtx,
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
@@ -157,6 +160,7 @@ func Test_RetryUntil_Cancel(t *testing.T) {
 				return nil // Always succeeds.
 			},
 			1*time.Second)
+	assert.Nil(t, obj) // No events seen for the object.
 
 	if err == nil {
 		t.Error("Expected watch to terminate with an initialization error")
