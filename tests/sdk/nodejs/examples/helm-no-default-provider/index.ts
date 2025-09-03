@@ -28,6 +28,16 @@ new k8s.helm.v3.Chart(
         chart: 'wordpress',
         values: {
             "service": {"type": "ClusterIP"},
+            image: {
+                repository: "bitnamisecure/wordpress",
+                tag: "latest",
+            },
+            mariadb: {
+                image:{
+                    repository: "bitnamisecure/mariadb",
+                    tag: "latest",
+                },
+            },
         },
     },
     {

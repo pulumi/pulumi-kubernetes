@@ -110,7 +110,7 @@ func makeServiceInitAwaiter(c awaitConfig) *serviceInitAwaiter {
 	}
 }
 
-func awaitServiceInit(c awaitConfig) error {
+func awaitServiceInit(c awaitConfig) (*unstructured.Unstructured, error) {
 	return makeServiceInitAwaiter(c).Await()
 }
 
@@ -118,7 +118,7 @@ func awaitServiceRead(c awaitConfig) error {
 	return makeServiceInitAwaiter(c).Read()
 }
 
-func (sia *serviceInitAwaiter) Await() error {
+func (sia *serviceInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	//
 	// We succeed only when all of the following are true:
 	//
@@ -138,7 +138,7 @@ func (sia *serviceInitAwaiter) Await() error {
 		serviceEvents,
 	)
 	if err != nil {
-		return err
+		return sia.service, err
 	}
 	defer serviceInformer.Unsubscribe()
 
@@ -148,7 +148,7 @@ func (sia *serviceInitAwaiter) Await() error {
 		endpointsEvents,
 	)
 	if err != nil {
-		return err
+		return sia.service, err
 	}
 	defer endpointsInformer.Unsubscribe()
 
@@ -231,13 +231,13 @@ func (sia *serviceInitAwaiter) await(
 	timeout <-chan time.Time,
 	settled chan struct{},
 	version cluster.ServerVersion,
-) error {
+) (*unstructured.Unstructured, error) {
 	sia.config.logger.LogStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 
 	for {
 		// Check whether we've succeeded.
 		if sia.checkAndLogStatus() {
-			return nil
+			return sia.service, nil
 		}
 
 		// Else, wait for updates.
@@ -245,18 +245,18 @@ func (sia *serviceInitAwaiter) await(
 		case <-sia.config.ctx.Done():
 			// On cancel, check one last time if the service is ready.
 			if sia.serviceReady && !sia.endpointsPending {
-				return nil
+				return sia.service, nil
 			}
-			return &cancellationError{
+			return sia.service, &cancellationError{
 				object:    sia.service,
 				subErrors: sia.errorMessages(),
 			}
 		case <-timeout:
 			// On timeout, check one last time if the service is ready.
 			if sia.serviceReady && !sia.endpointsPending {
-				return nil
+				return sia.service, nil
 			}
-			return &timeoutError{
+			return sia.service, &timeoutError{
 				object:    sia.service,
 				subErrors: sia.errorMessages(),
 			}

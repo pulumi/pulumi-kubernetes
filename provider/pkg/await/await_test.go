@@ -149,7 +149,7 @@ func TestCreation(t *testing.T) {
 	// awaiters
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
 			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
 
 			// get the live object from the fake API Server
@@ -167,20 +167,20 @@ func TestCreation(t *testing.T) {
 			require.NoError(t, err)
 			err = ctx.client.Tracker().Update(gvr, live, cac.currentOutputs.GetNamespace())
 			require.NoError(t, err)
-			return nil
+			return pod, nil
 		}
 	}
 
 	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
-			return serviceUnavailableErr
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+			return nil, serviceUnavailableErr
 		}
 	}
 
 	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
-			return nil
+			return nil, nil
 		}
 	}
 
@@ -446,7 +446,7 @@ func TestUpdate(t *testing.T) {
 	// awaiters
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
 			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
 
 			// get the live object from the fake API Server
@@ -464,20 +464,20 @@ func TestUpdate(t *testing.T) {
 			require.NoError(t, err)
 			err = ctx.client.Tracker().Update(gvr, live, cac.currentOutputs.GetNamespace())
 			require.NoError(t, err)
-			return nil
+			return pod, nil
 		}
 	}
 
 	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
-			return serviceUnavailableErr
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+			return nil, serviceUnavailableErr
 		}
 	}
 
 	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) error {
+		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
-			return nil
+			return nil, nil
 		}
 	}
 
@@ -1035,8 +1035,9 @@ func Test_Watcher_Interface_Cancel(t *testing.T) {
 	cancel()
 
 	// Cancel should occur before `WatchUntil` because predicate always returns false.
-	err := watcher.ForObject(cancelCtx, &mockResourceInterface{}, "").
+	obj, err := watcher.ForObject(cancelCtx, &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Minute)
+	assert.Nil(t, obj) // Canceled before events seen for the object.
 
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Cancelled watcher should emit `await.PartialError`")
@@ -1045,8 +1046,9 @@ func Test_Watcher_Interface_Cancel(t *testing.T) {
 
 func Test_Watcher_Interface_Timeout(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
-	err := watcher.ForObject(context.Background(), &mockResourceInterface{}, "").
+	obj, err := watcher.ForObject(context.Background(), &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Second)
+	assert.NotNil(t, obj)
 
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
@@ -1058,7 +1060,9 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	require.NoError(t, err)
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
-	err = awaiter.Await(ctx)
+	obj, err := awaiter.Await(ctx)
+	assert.Nil(t, obj) // Canceled before events seen for the object.
+
 	_, isPartialErr := err.(PartialError)
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }

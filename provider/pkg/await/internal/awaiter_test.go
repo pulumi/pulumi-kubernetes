@@ -42,7 +42,8 @@ func TestCancel(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	err = awaiter.Await(ctx)
+	obj, err = awaiter.Await(ctx)
+	assert.NotNil(t, obj)
 
 	assert.Error(t, err)
 	assert.True(t, wait.Interrupted(err))
@@ -59,7 +60,7 @@ func TestCancelWithRecovery(t *testing.T) {
 	t.Parallel()
 
 	awaiter, err := NewAwaiter(
-		WithCondition(condition.NewStopped(nil, nil)),
+		WithCondition(condition.NewStopped(nil, &unstructured.Unstructured{})),
 		WithObservers(condition.NewNever(nil)),
 	)
 	require.NoError(t, err)
@@ -67,7 +68,8 @@ func TestCancelWithRecovery(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 
-	err = awaiter.Await(ctx)
+	obj, err := awaiter.Await(ctx)
+	assert.NotNil(t, obj)
 
 	assert.NoError(t, err)
 }
@@ -86,7 +88,8 @@ func TestTimeout(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	err = awaiter.Await(ctx)
+	obj, err = awaiter.Await(ctx)
+	assert.NotNil(t, obj)
 
 	assert.Error(t, err)
 	assert.True(t, wait.Interrupted(err))
@@ -103,7 +106,7 @@ func TestImmediateSuccess(t *testing.T) {
 	t.Parallel()
 
 	awaiter, err := NewAwaiter(
-		WithCondition(condition.NewImmediate(nil, nil)),
+		WithCondition(condition.NewImmediate(nil, &unstructured.Unstructured{})),
 		WithObservers(condition.NewNever(nil)),
 	)
 	require.NoError(t, err)
@@ -111,7 +114,8 @@ func TestImmediateSuccess(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	err = awaiter.Await(ctx)
+	obj, err := awaiter.Await(ctx)
+	assert.NotNil(t, obj)
 
 	assert.NoError(t, err)
 }
@@ -120,12 +124,13 @@ func TestObserverFailure(t *testing.T) {
 	t.Parallel()
 
 	awaiter, err := NewAwaiter(
-		WithCondition(condition.NewImmediate(nil, nil)),
+		WithCondition(condition.NewImmediate(nil, &unstructured.Unstructured{})),
 		WithObservers(condition.NewFailure(fmt.Errorf("condition should still succeed"))),
 	)
 	require.NoError(t, err)
 
-	err = awaiter.Await(context.Background())
+	obj, err := awaiter.Await(context.Background())
+	assert.NotNil(t, obj)
 
 	assert.NoError(t, err)
 }
@@ -139,7 +144,8 @@ func TestConditionFailure(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	err = awaiter.Await(context.Background())
+	obj, err := awaiter.Await(context.Background())
+	assert.Nil(t, obj)
 
 	assert.ErrorContains(t, err, "expected")
 	assert.ErrorAs(t, err, &errObject{})
@@ -174,7 +180,12 @@ func TestEventualSuccess(t *testing.T) {
 
 	done := make(chan error)
 	go func() {
-		done <- awaiter.Await(context.Background())
+		obj, err := awaiter.Await(context.Background())
+		if obj == nil {
+			// assert doesn't work in goroutines.
+			panic("obj should be non-nil")
+		}
+		done <- err
 	}()
 
 	events <- watch.Event{Type: watch.Added, Object: obj}
@@ -199,7 +210,7 @@ type staticEventSource struct {
 	events chan watch.Event
 }
 
-func (ses *staticEventSource) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
+func (ses *staticEventSource) Watch(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return ses.events, nil
 }
 

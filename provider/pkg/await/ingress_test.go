@@ -97,7 +97,8 @@ func Test_Extensions_Ingress(t *testing.T) {
 					"Ingress has at least one rule with an unavailable target endpoint.",
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
 						"\n    for more information about this error, see https://pulumi.io/xdv72s",
-				}},
+				},
+			},
 		},
 		{
 			description:  "Should succeed even if not all Ingress paths match existing Endpoints",
@@ -156,7 +157,8 @@ func Test_Extensions_Ingress(t *testing.T) {
 				subErrors: []string{
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
 						"\n    for more information about this error, see https://pulumi.io/xdv72s",
-				}},
+				},
+			},
 		},
 	}
 
@@ -173,7 +175,8 @@ func Test_Extensions_Ingress(t *testing.T) {
 			timeout := make(chan time.Time)
 			go test.do(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
 
-			err := awaiter.await(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
+			obj, err := awaiter.await(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
+			assert.NotNil(t, obj)
 			assert.Equal(t, test.expectedError, err, test.description)
 		})
 	}
@@ -257,7 +260,6 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			}
 		})
 	}
-
 }
 
 // --------------------------------------------------------------------------

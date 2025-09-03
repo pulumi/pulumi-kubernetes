@@ -138,7 +138,7 @@ func NewObserver(
 // Range is an iterator over events visible to the Observer. Yielded events are
 // guaranteed to have the type *unstructured.Unstructured.
 func (o *observer) Range(yield func(watch.Event) bool) {
-	events, err := o.source.Start(o.ctx, o.gvk)
+	events, err := o.source.Watch(o.ctx, o.gvk)
 	if err != nil {
 		return
 	}

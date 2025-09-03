@@ -132,7 +132,7 @@ func (pia *podInitAwaiter) errorMessages() []string {
 	return messages
 }
 
-func awaitPodInit(c awaitConfig) error {
+func awaitPodInit(c awaitConfig) (*unstructured.Unstructured, error) {
 	return makePodInitAwaiter(c).Await()
 }
 
@@ -140,7 +140,7 @@ func awaitPodRead(c awaitConfig) error {
 	return makePodInitAwaiter(c).Read()
 }
 
-func (pia *podInitAwaiter) Await() error {
+func (pia *podInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
@@ -150,26 +150,26 @@ func (pia *podInitAwaiter) Await() error {
 		podEvents,
 	)
 	if err != nil {
-		return err
+		return pia.pod, err
 	}
 	defer podInformer.Unsubscribe()
 
 	timeout := pia.config.getTimeout(DefaultPodTimeoutMins * 60)
 	for {
 		if pia.ready {
-			return nil
+			return pia.pod, nil
 		}
 
 		// Else, wait for updates.
 		select {
 		// TODO: If Pod is added and not making progress on initialization after ~30 seconds, report that.
 		case <-pia.config.ctx.Done():
-			return &cancellationError{
+			return pia.pod, &cancellationError{
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}
 		case <-time.After(timeout):
-			return &timeoutError{
+			return pia.pod, &timeoutError{
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}
@@ -228,4 +228,6 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	for _, result := range results {
 		pia.config.logger.LogStatus(diag.Info, result.Description)
 	}
+
+	pia.pod = event.Object.(*unstructured.Unstructured)
 }

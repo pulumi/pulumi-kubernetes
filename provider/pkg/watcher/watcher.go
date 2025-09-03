@@ -63,7 +63,7 @@ func ForObject(
 }
 
 // WatchUntil will block and watch an object until some predicate is true, or a timeout occurs.
-func (ow *ObjectWatcher) WatchUntil(pred Predicate, timeout time.Duration) error {
+func (ow *ObjectWatcher) WatchUntil(pred Predicate, timeout time.Duration) (*unstructured.Unstructured, error) {
 	untilTrue := func(obj *unstructured.Unstructured, err error) (bool, error) {
 		if err != nil {
 			// Error. Return error and true to stop watching.
@@ -81,7 +81,7 @@ func (ow *ObjectWatcher) WatchUntil(pred Predicate, timeout time.Duration) error
 
 // RetryUntil will block and retry getting an object until the `Retry` operation succeeds (i.e.,
 // does not return an error).
-func (ow *ObjectWatcher) RetryUntil(r Retry, timeout time.Duration) error {
+func (ow *ObjectWatcher) RetryUntil(r Retry, timeout time.Duration) (*unstructured.Unstructured, error) {
 	untilNoError := func(obj *unstructured.Unstructured, err error) (bool, error) {
 		if retryErr := r(obj, err); retryErr != nil {
 			rerr, isRetryable := retryErr.(*RetryError)
@@ -104,7 +104,7 @@ func (ow *ObjectWatcher) RetryUntil(r Retry, timeout time.Duration) error {
 
 func (ow *ObjectWatcher) watch(
 	until func(*unstructured.Unstructured, error) (bool, error), timeout time.Duration,
-) error {
+) (*unstructured.Unstructured, error) {
 	timeoutCh := make(chan struct{})
 	go func() {
 		time.Sleep(timeout)
@@ -124,15 +124,15 @@ func (ow *ObjectWatcher) watch(
 		go poll()
 		select {
 		case <-timeoutCh:
-			return timeoutErr(ow.objName, obj)
+			return obj, timeoutErr(ow.objName, obj)
 		case <-ow.ctx.Done():
-			return cancellationErr(ow.objName, obj)
+			return obj, cancellationErr(ow.objName, obj)
 		case res := <-results:
 			obj = res.Obj
 			if stop, err := until(res.Obj, res.Err); err != nil {
-				return err
+				return res.Obj, err
 			} else if stop {
-				return nil
+				return res.Obj, nil
 			}
 			// nolint:gosec
 			time.Sleep(wait + time.Duration(rand.Intn(int(float64(wait)*0.2))))

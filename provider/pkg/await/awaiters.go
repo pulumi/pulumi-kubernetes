@@ -66,7 +66,7 @@ func (cac *awaitConfig) Clock() clockwork.Clock {
 }
 
 type (
-	awaiter     func(awaitConfig) error
+	awaiter     func(awaitConfig) (*unstructured.Unstructured, error)
 	readAwaiter func(awaitConfig) error
 )
 
@@ -135,7 +135,7 @@ type awaitSpec struct {
 }
 
 var deploymentAwaiter = awaitSpec{
-	await: wrap(func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) (*unstructured.Unstructured, error) {
 		return makeDeploymentInitAwaiter(c).Await()
 	}),
 	awaitRead: func(c awaitConfig) error {
@@ -149,7 +149,7 @@ var ingressAwaiter = awaitSpec{
 }
 
 var jobAwaiter = awaitSpec{
-	await: wrap(func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) (*unstructured.Unstructured, error) {
 		return makeJobInitAwaiter(c).Await()
 	}),
 	awaitRead: func(c awaitConfig) error {
@@ -158,7 +158,7 @@ var jobAwaiter = awaitSpec{
 }
 
 var statefulsetAwaiter = awaitSpec{
-	await: wrap(func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) (*unstructured.Unstructured, error) {
 		return makeStatefulSetInitAwaiter(c).Await()
 	}),
 	awaitRead: func(c awaitConfig) error {
@@ -167,7 +167,7 @@ var statefulsetAwaiter = awaitSpec{
 }
 
 var daemonsetAwaiter = awaitSpec{
-	await: wrap(func(c awaitConfig) error {
+	await: wrap(func(c awaitConfig) (*unstructured.Unstructured, error) {
 		return newDaemonSetAwaiter(c).Await()
 	}),
 	awaitRead: func(c awaitConfig) error {
@@ -253,7 +253,7 @@ var awaiters = map[string]awaitSpec{
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeInitialized(c awaitConfig) error {
+func untilCoreV1PersistentVolumeInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	available := string(corev1.VolumeAvailable)
 	bound := string(corev1.VolumeBound)
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
@@ -269,7 +269,7 @@ func untilCoreV1PersistentVolumeInitialized(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(pvAvailableOrBound, 5*time.Minute)
@@ -281,7 +281,7 @@ func untilCoreV1PersistentVolumeInitialized(c awaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeClaimReady(c awaitConfig) error {
+func untilCoreV1PersistentVolumeClaimReady(c awaitConfig) (*unstructured.Unstructured, error) {
 	var bindMode string
 	pvcReady := func(pvc *unstructured.Unstructured) bool {
 		// Lookup the PVC's storage class once it's available.
@@ -304,7 +304,7 @@ func untilCoreV1PersistentVolumeClaimReady(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(pvcReady, 5*time.Minute)
@@ -347,7 +347,7 @@ func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (any, bool
 	return openapi.Pluck(rc.Object, "spec", "replicas")
 }
 
-func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
+func untilCoreV1ReplicationControllerInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	availableReplicas := func(rc *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(rc.Object, "status", "availableReplicas")
 	}
@@ -360,15 +360,15 @@ func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err = watcher.ForObject(c.ctx, client, name).
+	obj, err := watcher.ForObject(c.ctx, client, name).
 		WatchUntil(
 			waitForDesiredReplicasFunc(replicationControllerSpecReplicas, availableReplicas),
 			10*time.Minute)
 	if err != nil {
-		return err
+		return obj, err
 	}
 	// We could wait for all pods to actually reach Ready state
 	// but that means checking each pod status separately (which can be expensive at scale)
@@ -377,7 +377,7 @@ func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
 	logger.V(3).Infof("Replication controller %q initialized: %#v", name,
 		c.currentOutputs)
 
-	return nil
+	return obj, nil
 }
 
 // --------------------------------------------------------------------------
@@ -386,7 +386,7 @@ func untilCoreV1ReplicationControllerInitialized(c awaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ResourceQuotaInitialized(c awaitConfig) error {
+func untilCoreV1ResourceQuotaInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	rqInitialized := func(quota *unstructured.Unstructured) bool {
 		hardRaw, _ := openapi.Pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := openapi.Pluck(quota.Object, "status", "hard")
@@ -405,7 +405,7 @@ func untilCoreV1ResourceQuotaInitialized(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(rqInitialized, 1*time.Minute)
@@ -417,7 +417,7 @@ func untilCoreV1ResourceQuotaInitialized(c awaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1SecretInitialized(c awaitConfig) error {
+func untilCoreV1SecretInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	//
 	// Some types secrets do not have data available immediately and therefore are not considered initialized where data map is empty.
 	// For example service-account-token as described in the docs: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
@@ -427,7 +427,7 @@ func untilCoreV1SecretInitialized(c awaitConfig) error {
 	// Other secret types are not generated by controller therefore we do not need to create a watcher for them.
 	// nolint:gosec
 	if secretType != "kubernetes.io/service-account-token" {
-		return nil
+		return c.currentOutputs, nil
 	}
 
 	secretDataAllocated := func(secret *unstructured.Unstructured) bool {
@@ -442,7 +442,7 @@ func untilCoreV1SecretInitialized(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
 
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
@@ -455,13 +455,13 @@ func untilCoreV1SecretInitialized(c awaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ServiceAccountInitialized(c awaitConfig) error {
+func untilCoreV1ServiceAccountInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	// k8s v1.24 changed the default secret provisioning behavior for ServiceAccount resources, so don't wait for
 	// clusters >= v1.24 to provision a secret before marking the resource as ready.
 	// https://github.com/kubernetes/kubernetes/blob/v1.24.3/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes
 	contract.Assertf(c.clusterVersion != nil, "clusterVersion must be set")
 	if c.clusterVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 24}) >= 0 {
-		return nil
+		return c.currentOutputs, nil
 	}
 
 	//
@@ -491,8 +491,9 @@ func untilCoreV1ServiceAccountInitialized(c awaitConfig) error {
 
 	client, err := c.clientSet.ResourceClientForObject(c.currentOutputs)
 	if err != nil {
-		return err
+		return c.currentOutputs, err
 	}
+
 	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(defaultSecretAllocated, 5*time.Minute)
 }

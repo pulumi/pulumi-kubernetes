@@ -73,8 +73,8 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/nginx
-  tag: 1.25.2-debian-11-r47
+  repository: bitnamisecure/nginx
+  tag: latest
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

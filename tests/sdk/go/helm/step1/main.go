@@ -14,7 +14,19 @@ func main() {
 			FetchArgs: &helm.FetchArgs{
 				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
 			},
-			Values: pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
+			Values: pulumi.Map{
+				"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")},
+				"image": pulumi.StringMap{
+					"repository": pulumi.String("bitnamisecure/nginx"),
+					"tag":        pulumi.String("latest"),
+				},
+				"mariadb": pulumi.Map{
+					"image": pulumi.StringMap{
+						"repository": pulumi.String("bitnamisecure/mariadb"),
+						"tag":        pulumi.String("latest"),
+					},
+				},
+			},
 		})
 		if err != nil {
 			return err

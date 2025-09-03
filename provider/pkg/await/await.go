@@ -320,17 +320,17 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		return outputs, err
 	}
 
-	err = awaiter.Await(ctx)
+	live, err := awaiter.Await(ctx)
 	if err != nil {
 		return outputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
-
-	// TODO: We should be able to use the last-seen object from the await's watch.
-	live, err := client.Get(c.Context, outputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return outputs, nil
+	if live == nil {
+		// This shouldn't happen, but if it does, return the last known outputs
+		// rather than panicking.
+		live = outputs
 	}
+
 	return live, nil
 }
 
@@ -484,15 +484,15 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, err
 	}
 
-	err = awaiter.Await(ctx)
+	live, err := awaiter.Await(ctx)
 	if err != nil {
 		return currentOutputs, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
-
-	live, err := client.Get(c.Context, currentOutputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return currentOutputs, nil
+	if live == nil {
+		// This shouldn't happen, but if it does, return the last known outputs
+		// rather than panicking.
+		live = currentOutputs
 	}
 
 	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
@@ -886,7 +886,7 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Wait until the delete condition resolves.
-	err = awaiter.Await(ctx)
+	_, err = awaiter.Await(ctx)
 	if err != nil {
 		return err
 	}
@@ -940,35 +940,43 @@ func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
 // condition Satisfiers. It implements Satisfier by simply invoking the old
 // awaiter.
 type legacyReadyCondition struct {
-	*condition.ObjectObserver
-	await func() error
+	obj   *unstructured.Unstructured
+	await func() (*unstructured.Unstructured, error)
 }
 
-// Range invokes the legacy await condition.
-func (l *legacyReadyCondition) Range(func(watch.Event) bool) {
-	_ = l.await()
-}
+// Range is a no-op because the legacy await condition is responsible for
+// consuming events.
+func (l *legacyReadyCondition) Range(func(watch.Event) bool) {}
 
-// Satisfied returns the result of our legacy await.
+// Satisfied blocks and returns the result of our legacy await.
 func (l *legacyReadyCondition) Satisfied() (bool, error) {
-	err := l.await()
+	obj, err := l.await()
+	l.obj = obj
 	return err == nil, err
 }
 
-func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) error) condition.Satisfier {
+// Object returns the last observed object from the legacy awaiter.
+func (l *legacyReadyCondition) Object() *unstructured.Unstructured {
+	return l.obj
+}
+
+// Observe is a no-op because the legacy await condition is responsible for
+// consuming events.
+func (l *legacyReadyCondition) Observe(watch.Event) error {
+	return nil
+}
+
+func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) (*unstructured.Unstructured, error)) condition.Satisfier {
 	if metadata.SkipAwaitLogic(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}
 
-	source := condition.NewDynamicSource(c.ctx, c.clientSet, c.factory)
-
 	return &legacyReadyCondition{
-		ObjectObserver: condition.NewObjectObserver(c.ctx, source, c.currentOutputs),
-		await:          sync.OnceValue(func() error { return await(c) }),
+		await: sync.OnceValues(func() (*unstructured.Unstructured, error) { return await(c) }),
 	}
 }
 
-func wrap(f func(awaitConfig) error) func(awaitConfig) condition.Satisfier {
+func wrap(f func(awaitConfig) (*unstructured.Unstructured, error)) func(awaitConfig) condition.Satisfier {
 	return func(c awaitConfig) condition.Satisfier {
 		return newLegacyReadyCondition(c, f)
 	}

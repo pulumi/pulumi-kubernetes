@@ -79,7 +79,7 @@ func newDaemonSetAwaiter(c awaitConfig) *dsAwaiter {
 }
 
 // Await blocks until a DaemonSet is ready or encounters an error.
-func (dsa *dsAwaiter) Await() error {
+func (dsa *dsAwaiter) Await() (*unstructured.Unstructured, error) {
 	return dsa.await(dsa.rolloutComplete)
 }
 
@@ -124,7 +124,7 @@ func (dsa *dsAwaiter) Read() error {
 
 // await watches the DaemonSet and its Pods until the `done` condition is met
 // or until a timeout (or other error) occurs.
-func (dsa *dsAwaiter) await(done func() bool) error {
+func (dsa *dsAwaiter) await(done func() bool) (*unstructured.Unstructured, error) {
 	timeout := _defaultDaemonSetTimeout
 	if dsa.config.timeout != nil {
 		timeout = *dsa.config.timeout
@@ -142,7 +142,7 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 		dsEvents,
 	)
 	if err != nil {
-		return err
+		return dsa.ds, err
 	}
 	defer dsInformer.Unsubscribe()
 
@@ -152,13 +152,13 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 		podEvents,
 	)
 	if err != nil {
-		return err
+		return dsa.ds, err
 	}
 	defer podInformer.Unsubscribe()
 
 	_, podClient, err := dsa.clients()
 	if err != nil {
-		return fmt.Errorf("getting pod client: %w", err)
+		return dsa.ds, fmt.Errorf("getting pod client: %w", err)
 	}
 	podAggregator := NewPodAggregator(dsa.ds, podClient)
 	podAggregator.Start(podEvents)
@@ -166,11 +166,11 @@ func (dsa *dsAwaiter) await(done func() bool) error {
 
 	for {
 		if done() {
-			return nil
+			return dsa.ds, nil
 		}
 		select {
 		case <-ctx.Done():
-			return wait.ErrorInterrupted(nil)
+			return dsa.ds, wait.ErrorInterrupted(nil)
 		case event := <-dsEvents:
 			dsa.processDaemonSetEvent(event)
 		case messages := <-podAggregator.ResultChan():
