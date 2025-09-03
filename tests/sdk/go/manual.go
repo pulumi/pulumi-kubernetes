@@ -84,10 +84,6 @@ var (
 				"service": map[string]interface{}{
 					"type": "ClusterIP",
 				},
-				"image": map[string]any{
-					"repository": "bitnamisecure/nginx",
-					"tag":        "latest",
-				},
 			},
 		}},
 	}
