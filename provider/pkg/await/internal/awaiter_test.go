@@ -210,7 +210,7 @@ type staticEventSource struct {
 	events chan watch.Event
 }
 
-func (ses *staticEventSource) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
+func (ses *staticEventSource) Watch(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return ses.events, nil
 }
 

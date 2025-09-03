@@ -36,7 +36,7 @@ var (
 // Source encapsulates logic responsible for establishing
 // watch.Event channels.
 type Source interface {
-	Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error)
+	Watch(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error)
 	Stop()
 }
 
@@ -62,8 +62,8 @@ type DynamicSource struct {
 	clientset *clients.DynamicClientSet
 }
 
-// Start establishes an Informer against the cluster for the given GVK.
-func (ds *DynamicSource) Start(_ context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
+// Watch establishes an Informer against the cluster for the given GVK.
+func (ds *DynamicSource) Watch(_ context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
 	events := make(chan watch.Event, 1)
 
 	gvr, err := clients.GVRForGVK(ds.clientset.RESTMapper, gvk)
@@ -98,8 +98,8 @@ func (ds *DynamicSource) Stop() {
 // instead give each Observer their own channel.
 type Static chan watch.Event
 
-// Start returns a fixed event channel.
-func (s Static) Start(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
+// Watch returns a fixed event channel.
+func (s Static) Watch(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
 	return s, nil
 }
 
@@ -136,10 +136,10 @@ func NewDeletionSource(
 	return ds, nil
 }
 
-// Start starts the underlying dynamic informer and checks whether the object
+// Watch starts the underlying dynamic informer and checks whether the object
 // has already been deleted.
-func (ds *DeletionSource) Start(ctx context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
-	events, err := ds.source.Start(ctx, gvk)
+func (ds *DeletionSource) Watch(ctx context.Context, gvk schema.GroupVersionKind) (<-chan watch.Event, error) {
+	events, err := ds.source.Watch(ctx, gvk)
 
 	// ResourceVersion is omitted to ensure a quorum read of the latest object state.
 	if _, err := ds.getter.Get(ctx, ds.obj.GetName(), metav1.GetOptions{}); k8serrors.IsNotFound(err) {
