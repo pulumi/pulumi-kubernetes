@@ -28,7 +28,11 @@ const nginx = new k8s.helm.v3.Chart("test", {
         repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
     },
     values: {
-        service: { type: "ClusterIP" }
+        service: { type: "ClusterIP" },
+        image: {
+            repository: "bitnamilegacy/nginx",
+            tag: "1.29.1",
+        }
     },
     transformations: [
         (obj: any, opts: pulumi.CustomResourceOptions) => {
