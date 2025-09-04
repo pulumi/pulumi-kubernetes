@@ -34,7 +34,7 @@ new k8s.helm.v3.Chart(
             },
             mariadb: {
                 image:{
-                    repository: "bitnamisecure/mariadb",
+                    repository: "bitnamilegacy/mariadb",
                     tag: "12.0.2",
                 },
             },
