@@ -18,6 +18,10 @@ function values(password: pulumi.Output<string>): pulumi.Input<{ [key: string]: 
             enabled: true,
             slaveCount: 1,
         },
+        image: {
+            repository: "bitnamilegacy/redis",
+            tag: "8.2.1",
+        },
         global: {
             redis: {
                 password: password,

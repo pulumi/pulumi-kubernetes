@@ -17,13 +17,13 @@ func main() {
 			Values: pulumi.Map{
 				"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")},
 				"image": pulumi.StringMap{
-					"repository": pulumi.String("bitnamisecure/nginx"),
-					"tag":        pulumi.String("latest"),
+					"repository": pulumi.String("bitnamilegacy/nginx"),
+					"tag":        pulumi.String("1.29.1"),
 				},
 				"mariadb": pulumi.Map{
 					"image": pulumi.StringMap{
-						"repository": pulumi.String("bitnamisecure/mariadb"),
-						"tag":        pulumi.String("latest"),
+						"repository": pulumi.String("bitnamilegacy/mariadb"),
+						"tag":        pulumi.String("12.0.2"),
 					},
 				},
 			},

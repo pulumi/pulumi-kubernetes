@@ -29,13 +29,13 @@ new k8s.helm.v3.Chart(
         values: {
             "service": {"type": "ClusterIP"},
             image: {
-                repository: "bitnamisecure/wordpress",
-                tag: "latest",
+                repository: "bitnamilegacy/wordpress",
+                tag: "6.8.2-debian-12-r5",
             },
             mariadb: {
                 image:{
-                    repository: "bitnamisecure/mariadb",
-                    tag: "latest",
+                    repository: "bitnamilegacy/mariadb",
+                    tag: "12.0.2",
                 },
             },
         },
