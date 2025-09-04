@@ -26,6 +26,10 @@ const release = new k8s.helm.v3.Release("release", {
             enabled: true,
             slaveCount: 2,
         },
+        image: {
+            repository: "bitnamilegacy/redis",
+            tag: "8.2.1",
+        },
         global: {
             redis: {
                 password: password.result,
