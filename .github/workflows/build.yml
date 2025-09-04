@@ -2,6 +2,7 @@
 
 name: main # For consistency with bridged providers.
 on:
+  pull_request: {}
   push:
     branches:
     - master
