@@ -42,7 +42,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
+      uses: pulumi/actions@df5a93ad715135263c732ba288301bd044c383c0 # v6.3.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup DotNet
@@ -59,7 +59,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
-      uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+      uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
       with:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
