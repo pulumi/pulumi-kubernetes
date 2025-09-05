@@ -237,6 +237,8 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		switch k {
 		case CSIStorageCapacity, CSIStorageCapacityList:
 			return &v121
+		case VolumeAttributesClass, VolumeAttributesClassList:
+			return &v129
 		}
 	case StorageV1B1:
 		switch k {
@@ -246,6 +248,8 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 			return &v114
 		case CSIStorageCapacity, CSIStorageCapacityList:
 			return &v121
+		case VolumeAttributesClass, VolumeAttributesClassList:
+			return &v131
 		}
 	case StorageV1:
 		switch k {
@@ -419,6 +423,10 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 	case SchedulingV1A1, SchedulingV1B1:
 		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
 	case StorageV1A1, StorageV1B1, "storage/v1alpha1", "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
+		switch k {
+		case VolumeAttributesClass, VolumeAttributesClassList:
+			return fmt.Sprintf(gvkFmt, StorageV1B1, k)
+		}
 		return fmt.Sprintf(gvkFmt, StorageV1, k)
 	}
 

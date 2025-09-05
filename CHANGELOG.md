@@ -49,6 +49,8 @@
 
 - Significantly reduced memory usage. (https://github.com/pulumi/pulumi-kubernetes/issues/3713)
 
+- Fixed incorrect deprecation warnings for VolumeAttributesClass. (https://github.com/pulumi/pulumi-kubernetes/issues/3772)
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
