@@ -38,6 +38,10 @@ func TestAPIVersionComment(t *testing.T) {
 			expected: "batch/v1beta1/CronJob is deprecated by batch/v1/CronJob and not supported by Kubernetes v1.25+ clusters.",
 		},
 		{
+			gvk:      schema.GroupVersionKind{Group: "storage.k8s.io", Version: "v1alpha1", Kind: "VolumeAttributesClass"},
+			expected: "storage.k8s.io/v1alpha1/VolumeAttributesClass is deprecated by storage.k8s.io/v1beta1/VolumeAttributesClass.",
+		},
+		{
 			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.core", Version: "v1", Kind: "Pod"},
 			expected: "core/v1/Pod is deprecated by core/v1/Pod.",
 		},

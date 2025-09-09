@@ -169,13 +169,15 @@ func APIVersionComment(gvk schema.GroupVersionKind) string {
 	const deprecatedTemplate = `%s is deprecated by %s`
 	const notSupportedTemplate = ` and not supported by Kubernetes v%v+ clusters.`
 
-	// Get only the last segment of the group.
+	// Get only the last segment of the group as long as it's not a "k8s.io" group.
 	t := strings.Split(gvk.Group, ".")
 	groupBackwardsCompatible := t[len(t)-1]
-	gvk = schema.GroupVersionKind{
-		Group:   groupBackwardsCompatible,
-		Version: gvk.Version,
-		Kind:    gvk.Kind,
+	if groupBackwardsCompatible != "io" {
+		gvk = schema.GroupVersionKind{
+			Group:   groupBackwardsCompatible,
+			Version: gvk.Version,
+			Kind:    gvk.Kind,
+		}
 	}
 
 	gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
