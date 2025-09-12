@@ -8,6 +8,8 @@ major-version: 4
 parallel: 3
 toolVersions:
   go: 1.24.x
+esc:
+  enabled: true
 envOverride:
   PULUMI_API: https://api.pulumi-staging.io
   AWS_REGION: us-west-2
