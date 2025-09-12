@@ -36,6 +36,7 @@ env:
 jobs:
   weekly-pulumi-update:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
     - name: Checkout Repo
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0

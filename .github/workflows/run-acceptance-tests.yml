@@ -38,6 +38,7 @@ env:
   PR_COMMIT_SHA: ${{ github.event.client_payload.pull_request.head.sha }}
 jobs:
   comment-notification:
+    if: github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
     name: comment-notification
     steps:
@@ -46,10 +47,7 @@ jobs:
       with:
         lfs: true
         persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}    
-    - id: esc-secrets
-      name: Map environment to ESC outputs
-      uses: ./.github/actions/esc-action
+        ref: ${{ env.PR_COMMIT_SHA }}
     - name: Create URL to the run output
       id: vars
       run: echo
@@ -58,14 +56,16 @@ jobs:
     - name: Update with Result
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
       with:
-        token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
         issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
         body: "Please view the PR build: ${{ steps.vars.outputs.run-url }}"
-    if: github.event_name == 'repository_dispatch'
   prerequisites:
     runs-on: ubuntu-latest
     name: prerequisites
+    permissions:
+      id-token: write # For ESC secrets.
+      pull-requests: write # For schema check comment.
     steps:
     - name: Checkout Repo
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -211,7 +211,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@fdcc8476540edceab3de004e990f80d881c6cc00 # v5.5.0
+      uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
       env:
         CODECOV_TOKEN: ${{ steps.esc-secrets.outputs.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -238,6 +238,9 @@ jobs:
         - go
         - java
     name: build_sdks
+    permissions:
+      contents: read
+      id-token: write # For ESC secrets.
     steps:
     - name: Checkout Repo
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -576,6 +579,7 @@ jobs:
         sha: ${{ github.event.pull_request.head.sha || github.sha }}
     permissions:
       statuses: write
+      id-token: write # For ESC secrets.
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     needs:
