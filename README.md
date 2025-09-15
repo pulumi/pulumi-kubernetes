@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/pulumi/pulumi-kubernetes.svg?token=eHg7Zp5zdDDJfTjY8ejq&branch=master)](https://travis-ci.com/pulumi/pulumi-kubernetes)
+[![Actions Status](https://github.com/pulumi/pulumi-kubernetes/workflows/main/badge.svg)](https://github.com/pulumi/pulumi-kubernetes/actions)
 [![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com)
 [![NPM version](https://badge.fury.io/js/%40pulumi%2Fkubernetes.svg)](https://www.npmjs.com/package/@pulumi/kubernetes)
 [![Python version](https://badge.fury.io/py/pulumi-kubernetes.svg)](https://pypi.org/project/pulumi-kubernetes/)
