@@ -86,7 +86,7 @@ var _ = Describe("Construct", func() {
 
 		// initialize the input PropertyMap to be serialized into the request in JustBeforeEach
 		inputs = make(resource.PropertyMap)
-		inputs["directory"] = resource.NewStringProperty("reference")
+		inputs["directory"] = resource.NewStringProperty(".")
 
 		// configure the fake Kustomize tool
 		tool = &fakeKustomizer{
@@ -190,6 +190,16 @@ var _ = Describe("Construct", func() {
 						)),
 					}))
 				})
+			})
+		})
+
+		Context("given a missing directory", func() {
+			BeforeEach(func() {
+				inputs["directory"] = resource.NewStringProperty("missingdir")
+			})
+			It("should fail", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).Should(HaveOccurred())
 			})
 		})
 	})
