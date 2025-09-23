@@ -17,9 +17,12 @@ package v2
 import (
 	"context"
 	"fmt"
+	"os"
 
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
@@ -119,10 +122,30 @@ func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inp
 		directoryArgs.ResourcePrefix = &name
 	}
 
+	// Resolve the directory path - handle git URLs if needed
+	path := directoryArgs.Directory
+
+	// If provided directory doesn't exist locally, assume it's a git repo link.
+	if _, err := os.Stat(directoryArgs.Directory); os.IsNotExist(err) {
+		var err error
+
+		// Create a temp dir.
+		var temp string
+		if temp, err = os.MkdirTemp("", "kustomize-"); err != nil {
+			return nil, fmt.Errorf("failed to create temp directory for remote kustomize directory: %w", err)
+		}
+		defer contract.IgnoreError(os.RemoveAll(temp))
+
+		path, err = workspace.RetrieveGitFolder(ctx.Context(), directoryArgs.Directory, temp)
+		if err != nil {
+			return nil, fmt.Errorf("failed to retrieve specified kustomize directory: %q: %w", directoryArgs.Directory, err)
+		}
+	}
+
 	// Execute the kustomize command to generate the Kubernetes manifest.
 	k := r.makeKustomizer(directoryArgs)
 	fSys := kfilesys.MakeFsOnDisk()
-	rm, err := k.Run(fSys, directoryArgs.Directory)
+	rm, err := k.Run(fSys, path)
 	if err != nil {
 		return nil, fmt.Errorf("kustomize build error: %w", err)
 	}

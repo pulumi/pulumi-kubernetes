@@ -237,4 +237,34 @@ var _ = Describe("Construct", func() {
 			})
 		})
 	})
+
+	Describe("Git URL Handling", func() {
+		Context("when directory is a git URL", func() {
+			BeforeEach(func() {
+				// Use a public kustomize example from GitHub
+				inputs["directory"] = resource.NewStringProperty("https://github.com/kubernetes-sigs/kustomize.git//examples/helloWorld?ref=v3.0.0")
+			})
+
+			It("should handle git URLs with paths and refs", func(ctx context.Context) {
+				// Note: This test verifies that the code path for git URLs is exercised.
+				// The actual git clone will happen but our fake kustomizer returns predefined results.
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				// The fake kustomizer will still return our mock configmap
+				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test"))
+			})
+		})
+
+		Context("when directory is a git URL with subpath", func() {
+			BeforeEach(func() {
+				inputs["directory"] = resource.NewStringProperty("https://github.com/kubeflow/training-operator.git//manifests/overlays/standalone?ref=v1.8.1")
+			})
+
+			It("should handle git URLs with double-slash path separator", func(ctx context.Context) {
+				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+				Expect(err).ShouldNot(HaveOccurred())
+				Expect(tc.monitor.Resources()).To(HaveKey("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test"))
+			})
+		})
+	})
 })
