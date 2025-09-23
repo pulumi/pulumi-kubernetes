@@ -16,17 +16,19 @@ package v2
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"net/url"
 	"os"
+	"path/filepath"
 
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"sigs.k8s.io/kustomize/api/krusty"
+	"sigs.k8s.io/kustomize/api/krusty/localizer"
 	kresmap "sigs.k8s.io/kustomize/api/resmap"
 	ktypes "sigs.k8s.io/kustomize/api/types"
 	kfilesys "sigs.k8s.io/kustomize/kyaml/filesys"
@@ -122,30 +124,31 @@ func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inp
 		directoryArgs.ResourcePrefix = &name
 	}
 
-	// Resolve the directory path - handle git URLs if needed
-	path := directoryArgs.Directory
+	fs := kfilesys.MakeFsOnDisk()
 
-	// If provided directory doesn't exist locally, assume it's a git repo link.
-	if _, err := os.Stat(directoryArgs.Directory); os.IsNotExist(err) {
-		var err error
+	source := directoryArgs.Directory
 
-		// Create a temp dir.
-		var temp string
-		if temp, err = os.MkdirTemp("", "kustomize-"); err != nil {
-			return nil, fmt.Errorf("failed to create temp directory for remote kustomize directory: %w", err)
-		}
-		defer contract.IgnoreError(os.RemoveAll(temp))
-
-		path, err = workspace.RetrieveGitFolder(ctx.Context(), directoryArgs.Directory, temp)
+	// If the directory is remote, localize it and then kustomize the local copy.
+	if url, err := url.Parse(source); err == nil && url.Scheme != "" {
+		target, err := os.MkdirTemp("", "pulumi-kustomize")
 		if err != nil {
-			return nil, fmt.Errorf("failed to retrieve specified kustomize directory: %q: %w", directoryArgs.Directory, err)
+			return nil, fmt.Errorf("failed to create temp directory: %w", err)
 		}
+		defer func() { _ = (os.RemoveAll(target)) }()
+
+		source, err = localizer.Run(fs, source, "", filepath.Join(target, "local"))
+		if err != nil {
+			return nil, fmt.Errorf("kustomize localization failed: %w", err)
+		}
+	}
+
+	if _, err := os.Stat(source); errors.Is(err, os.ErrNotExist) {
+		return nil, fmt.Errorf("%q: %w", source, err)
 	}
 
 	// Execute the kustomize command to generate the Kubernetes manifest.
 	k := r.makeKustomizer(directoryArgs)
-	fSys := kfilesys.MakeFsOnDisk()
-	rm, err := k.Run(fSys, path)
+	rm, err := k.Run(fs, source)
 	if err != nil {
 		return nil, fmt.Errorf("kustomize build error: %w", err)
 	}
