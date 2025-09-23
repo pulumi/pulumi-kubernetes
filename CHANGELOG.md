@@ -51,6 +51,9 @@
 
 - Fixed incorrect deprecation warnings for VolumeAttributesClass. (https://github.com/pulumi/pulumi-kubernetes/issues/3772)
 
+- `kustomize.v2.Directory` resources now correctly handle [remote
+  references](https://github.com/kubernetes-sigs/kustomize/blob/1a988bbed5e08b8b3fba3ef067d46db620a1ea4a/examples/remoteBuild.md).
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed
