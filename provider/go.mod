@@ -2,7 +2,7 @@ module github.com/pulumi/pulumi-kubernetes/provider/v4
 
 go 1.24.0
 
-toolchain go1.24.1
+toolchain go1.24.6
 
 replace github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
 
