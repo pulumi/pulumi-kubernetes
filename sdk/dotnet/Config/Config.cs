@@ -79,7 +79,7 @@ namespace Pulumi.Kubernetes
         private static readonly __Value<bool?> _enableConfigMapMutable = new __Value<bool?>(() => __config.GetBoolean("enableConfigMapMutable"));
         /// <summary>
         /// If present and set to true, allow ConfigMaps to be mutated.
-        /// This feature is in developer preview, and is disabled by default.
+        /// Disabled by default for backward-compatibility.
         /// 
         /// This config can be specified in the following ways using this precedence:
         /// 1. This `enableConfigMapMutable` parameter.
@@ -104,7 +104,7 @@ namespace Pulumi.Kubernetes
         private static readonly __Value<bool?> _enableSecretMutable = new __Value<bool?>(() => __config.GetBoolean("enableSecretMutable"));
         /// <summary>
         /// If present and set to true, allow Secrets to be mutated.
-        /// This feature is in developer preview, and is disabled by default.
+        /// Disabled by default for backward compatibility.
         /// 
         /// This config can be specified in the following ways using this precedence:
         /// 1. This `enableSecretMutable` parameter.
