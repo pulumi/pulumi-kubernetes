@@ -173,7 +173,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					DeprecationMessage: "This option is deprecated, and will be removed in a future release.",
 				},
 				"enableConfigMapMutable": {
-					Description: "If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
+					Description: "If present and set to true, allow ConfigMaps to be mutated.\nDisabled by default for backward-compatibility.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableSecretMutable": {
