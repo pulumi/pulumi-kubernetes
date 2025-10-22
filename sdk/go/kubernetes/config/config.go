@@ -35,7 +35,7 @@ func GetDeleteUnreachable(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:deleteUnreachable")
 }
 
-// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
+// If present and set to true, allow ConfigMaps to be mutated.
 // This feature is in developer preview, and is disabled by default.
 //
 // This config can be specified in the following ways using this precedence:
@@ -52,7 +52,7 @@ func GetEnableReplaceCRD(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableReplaceCRD")
 }
 
-// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
+// If present and set to true, allow Secrets to be mutated.
 // This feature is in developer preview, and is disabled by default.
 //
 // This config can be specified in the following ways using this precedence:
