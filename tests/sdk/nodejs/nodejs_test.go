@@ -1278,7 +1278,7 @@ func TestRetry(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestSecrets(t *testing.T) {
+func TestSecretFieldsMarkedAsSecrets(t *testing.T) {
 	secretMessage := "secret message for testing"
 
 	test := baseOptions.With(integration.ProgramTestOptions{
@@ -1305,8 +1305,12 @@ func TestSecrets(t *testing.T) {
 			ssStringDataStringData, ok := stackInfo.Outputs["ssStringDataStringData"]
 			assert.Truef(t, ok, "missing expected output \"ssStringDataStringData\"")
 
+			cgSecretStringData, ok := stackInfo.Outputs["cgSecretStringData"]
+			assert.Truef(t, ok, "missing expected output \"cgSecretStringData\"")
+
 			assert.NotEmptyf(t, ssStringDataData, "data field is empty")
 			assert.NotEmptyf(t, ssStringDataStringData, "stringData field is empty")
+			assert.NotEmptyf(t, cgSecretStringData, "cgSecretStringData field is empty")
 
 			assert.NotContains(t, string(state), secretMessage)
 
@@ -1331,8 +1335,12 @@ func TestSecrets(t *testing.T) {
 					ssStringDataStringData, ok := stackInfo.Outputs["ssStringDataStringData"]
 					assert.Truef(t, ok, "missing expected output \"ssStringDataStringData\"")
 
+					cgSecretStringData, ok := stackInfo.Outputs["cgSecretStringData"]
+					assert.Truef(t, ok, "missing expected output \"cgSecretStringData\"")
+
 					assert.NotEmptyf(t, ssStringDataData, "data field is empty")
 					assert.NotEmptyf(t, ssStringDataStringData, "stringData field is empty")
+					assert.NotEmptyf(t, cgSecretStringData, "cgSecretStringData field is empty")
 
 					assert.NotContains(t, string(state), secretMessage)
 
