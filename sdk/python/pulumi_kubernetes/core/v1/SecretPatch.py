@@ -237,12 +237,14 @@ class SecretPatch(pulumi.CustomResource):
             __props__ = SecretPatchArgs.__new__(SecretPatchArgs)
 
             __props__.__dict__["api_version"] = 'v1'
-            __props__.__dict__["data"] = data
+            __props__.__dict__["data"] = None if data is None else pulumi.Output.secret(data)
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'Secret'
             __props__.__dict__["metadata"] = metadata
-            __props__.__dict__["string_data"] = string_data
+            __props__.__dict__["string_data"] = None if string_data is None else pulumi.Output.secret(string_data)
             __props__.__dict__["type"] = type
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["data", "stringData"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(SecretPatch, __self__).__init__(
             'kubernetes:core/v1:SecretPatch',
             resource_name,
