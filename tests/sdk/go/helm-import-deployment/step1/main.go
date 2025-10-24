@@ -63,7 +63,7 @@ func main() {
 						Spec: &corev1.PodSpecArgs{
 							Containers: corev1.ContainerArray{
 								&corev1.ContainerArgs{
-									Image:           pulumi.String("docker.io/bitnamisecure/nginx:latest"),
+									Image:           pulumi.String("docker.io/bitnamilegacy/nginx:latest"),
 									ImagePullPolicy: pulumi.String("IfNotPresent"),
 									LivenessProbe: &corev1.ProbeArgs{
 										FailureThreshold:    pulumi.Int(6),
