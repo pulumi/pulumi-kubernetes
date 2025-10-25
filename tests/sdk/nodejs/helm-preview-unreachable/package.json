@@ -4,8 +4,8 @@
     "@types/node": "^10.0.0"
   },
   "dependencies": {
-    "@pulumi/pulumi": "3.196.0",
+    "@pulumi/pulumi": "3.204.0",
     "@pulumi/kubernetes": "latest",
-    "@pulumi/random": "4.18.3"
+    "@pulumi/random": "4.18.4"
   }
 }
