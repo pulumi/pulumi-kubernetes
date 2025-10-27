@@ -84,6 +84,25 @@ var (
 				"service": map[string]interface{}{
 					"type": "ClusterIP",
 				},
+				"image": map[string]interface{}{
+					"registry":   "docker.io",
+					"repository": "bitnamilegacy/nginx",
+					"tag":        "1.25.2-debian-11-r47",
+				},
+				"cloneStaticSiteFromGit": map[string]interface{}{
+					"image": map[string]interface{}{
+						"registry":   "docker.io",
+						"repository": "bitnamilegacy/git",
+						"tag":        "2.42.0-debian-11-r45",
+					},
+				},
+				"metrics": map[string]interface{}{
+					"image": map[string]interface{}{
+						"registry":   "docker.io",
+						"repository": "bitnamilegacy/nginx-exporter",
+						"tag":        "0.11.0-debian-11-r369",
+					},
+				},
 			},
 		}},
 	}
@@ -162,7 +181,29 @@ func createRelease(releaseName, releaseNamespace, chartPath string, createNamesp
 	// we might end up with mysterious test failures (initErrors during updates might trigger an update).
 	install.Wait = true
 	install.Timeout = 5 * time.Minute
-	rel, err := install.Run(chart, map[string]any{"service": map[string]any{"type": "ClusterIP"}})
+	values := map[string]any{
+		"service": map[string]any{"type": "ClusterIP"},
+		"image": map[string]any{
+			"registry":   "docker.io",
+			"repository": "bitnamilegacy/nginx",
+			"tag":        "1.25.2-debian-11-r47",
+		},
+		"cloneStaticSiteFromGit": map[string]any{
+			"image": map[string]any{
+				"registry":   "docker.io",
+				"repository": "bitnamilegacy/git",
+				"tag":        "2.42.0-debian-11-r45",
+			},
+		},
+		"metrics": map[string]any{
+			"image": map[string]any{
+				"registry":   "docker.io",
+				"repository": "bitnamilegacy/nginx-exporter",
+				"tag":        "0.11.0-debian-11-r369",
+			},
+		},
+	}
+	rel, err := install.Run(chart, values)
 	if err != nil {
 		return err
 	}

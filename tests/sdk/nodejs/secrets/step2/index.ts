@@ -49,16 +49,14 @@ const ssData = new k8s.core.v1.Secret("ssdata", {
 const randSuffix = Math.random().toString(36).substring(7);
 const name = `test-${randSuffix}`;
 
-const secretYaml = `
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ${name}
-stringData:
-  password: ${rawPW}
-`
-const cg = new k8s.yaml.ConfigGroup("example", {
-    yaml: secretYaml,
+// Create a Secret resource
+const cgSecret = new k8s.core.v1.Secret("cgSecret", {
+    metadata: {
+        name: name,
+    },
+    stringData: {
+        password: rawPW,
+    }
 }, {provider});
 
 export const cmDataData = cmData.data;
@@ -66,4 +64,4 @@ export const cmBinaryDataData = cmBinaryData.binaryData;
 export const ssStringDataData = ssStringData.data;
 export const ssStringDataStringData = ssStringData.stringData;
 export const ssDataData = ssData.data;
-export const cgSecret = cg.getResource("v1/Secret", name).stringData;
+export const cgSecretStringData = cgSecret.stringData;

@@ -1,5 +1,8 @@
 metrics:
   enabled: true
+  image:
+    repository: bitnamilegacy/redis-exporter
+    tag: 1.76.0
   service:
     annotations:
       "prometheus.io/port": "9127"
