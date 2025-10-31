@@ -94,11 +94,11 @@ export class SecretPatch extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["apiVersion"] = "v1";
-            resourceInputs["data"] = args?.data;
+            resourceInputs["data"] = args?.data ? pulumi.secret(args.data) : undefined;
             resourceInputs["immutable"] = args?.immutable;
             resourceInputs["kind"] = "Secret";
             resourceInputs["metadata"] = args?.metadata;
-            resourceInputs["stringData"] = args?.stringData;
+            resourceInputs["stringData"] = args?.stringData ? pulumi.secret(args.stringData) : undefined;
             resourceInputs["type"] = args?.type;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
@@ -110,6 +110,8 @@ export class SecretPatch extends pulumi.CustomResource {
             resourceInputs["type"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(SecretPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

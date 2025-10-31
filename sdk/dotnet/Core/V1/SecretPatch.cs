@@ -108,6 +108,11 @@ namespace Pulumi.Kubernetes.Core.V1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                AdditionalSecretOutputs =
+                {
+                    "data",
+                    "stringData",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -148,7 +153,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public InputMap<string> Data
         {
             get => _data ?? (_data = new InputMap<string>());
-            set => _data = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _data = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>
@@ -178,7 +187,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public InputMap<string> StringData
         {
             get => _stringData ?? (_stringData = new InputMap<string>());
-            set => _stringData = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _stringData = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>

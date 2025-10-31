@@ -51,6 +51,8 @@
 
 - Fixed incorrect deprecation warnings for VolumeAttributesClass. (https://github.com/pulumi/pulumi-kubernetes/issues/3772)
 
+- SecretPatch inputs are now automatically marked as secret.
+
 ## 4.23.0 (May 1, 2025)
 
 ### Changed

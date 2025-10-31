@@ -742,7 +742,7 @@ func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 			}),
 		}
 	}
-	if resourceKind == "Secret" {
+	if resourceKind == "Secret" || resourceKind == "SecretPatch" {
 		switch p.Name() {
 		case "data", "stringData":
 			propertySpec.Secret = true
