@@ -8,9 +8,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
-  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   TRAVIS_OS_NAME: linux
-  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   GOVERSION: "1.24.x"
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
@@ -53,7 +51,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup DotNet
@@ -61,7 +59,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -76,7 +74,7 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4.4.3
+      uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
       with:
         gradle-version: "7.6"
     - name: Update Pulumi/Pulumi
