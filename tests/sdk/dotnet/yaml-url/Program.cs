@@ -36,7 +36,7 @@ class YamlStack : Stack
     {
         return new ConfigFile(name, new ConfigFileArgs
         {
-            File = "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml",
+            File = "https://raw.githubusercontent.com/kubernetes/website/a7c0537de79165b4c33eebe2af8f263426e8408e/content/en/examples/application/guestbook/redis-leader-deployment.yaml",
             ResourcePrefix = resourcePrefix,
             Transformations =
             {
