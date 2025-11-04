@@ -16,9 +16,7 @@ on:
   workflow_dispatch: {}
 env:
   PROVIDER: kubernetes
-  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   TRAVIS_OS_NAME: linux
-  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   GOVERSION: "1.24.x"
   NODEVERSION: "20.x"
   PYTHONVERSION: "3.11.8"
@@ -71,7 +69,7 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - if: github.event_name == 'pull_request'
@@ -126,6 +124,7 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+          sdk/java/build.gradle
     - name: Commit SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
@@ -180,7 +179,7 @@ jobs:
         github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
         pulumi-gen-${{ env.PROVIDER}}
     - name: Upload artifacts
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
@@ -248,11 +247,11 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -271,11 +270,11 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4.4.3
+      uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
       with:
         gradle-version: "7.6"
     - name: Download provider
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -298,6 +297,7 @@ jobs:
           sdk/go/**/pulumiUtilities.go
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
+          sdk/java/build.gradle
     - name: Commit SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
@@ -350,7 +350,7 @@ jobs:
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
     - name: Upload artifacts
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
       with:
         name: ${{ matrix.language  }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
@@ -449,11 +449,11 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -472,11 +472,11 @@ jobs:
         distribution: temurin
         cache: gradle
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4.4.3
+      uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
       with:
         gradle-version: "7.6"
     - name: Download provider
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -488,7 +488,7 @@ jobs:
         -exec chmod +x {} \;
     - name: Download SDK
       if: ${{ matrix.language != 'yaml' }}
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: ${{ matrix.language }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -511,7 +511,7 @@ jobs:
     - name: Make Kube Directory
       run: mkdir -p "$HOME/.kube/"
     - name: Download Kubeconfig
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: config
         path: ~/.kube/
@@ -523,7 +523,7 @@ jobs:
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
     - name: Export AWS Credentials
-      uses: pulumi/esc-action@6cf9520e68354d86f81c455e8d43eabd58f5c9f5 # v1.5.0
+      uses: pulumi/esc-action@efb0bc8946938f0dfbfa00e829196ec95f0d0ea7 # v1.4.0
       env:
         PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
       with:
@@ -622,11 +622,11 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
+      uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
       with:
         aws-access-key-id: ${{ steps.esc-secrets.outputs.AWS_ACCESS_KEY_ID }}
         aws-region: us-east-2
@@ -701,9 +701,9 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -716,7 +716,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Download python SDK
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: python-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -724,7 +724,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/python.tar.gz -C
         ${{github.workspace}}/sdk/python
     - name: Download dotnet SDK
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: dotnet-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -732,7 +732,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/dotnet.tar.gz -C
         ${{github.workspace}}/sdk/dotnet
     - name: Download nodejs SDK
-      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
       with:
         name: nodejs-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -784,7 +784,6 @@ jobs:
       uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6.5.2
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
-        args: -c ../.golangci.yml
         working-directory: provider
     name: lint
     if: github.event_name == 'repository_dispatch' ||
@@ -808,11 +807,11 @@ jobs:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
@@ -856,7 +855,7 @@ jobs:
       env:
         PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
     - name: Upload Kubernetes Artifacts
-      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
       with:
         name: config
         path: ~/.kube/config
@@ -882,11 +881,11 @@ jobs:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: "**/*.sum"
     - name: Install Pulumi CLI
-      uses: pulumi/actions@d7ceb0215da5a14ec84f50b703365ddf0194a9c8 # v6.6.0
+      uses: pulumi/actions@cc7494be991dba0978f7ffafaf995b0449a0998e # v6.5.0
       with:
         pulumi-version-file: .pulumi.version
     - name: Setup Node
-      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
