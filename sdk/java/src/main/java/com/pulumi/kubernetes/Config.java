@@ -44,8 +44,8 @@ public final class Config {
         return Codegen.booleanProp("deleteUnreachable").config(config).get();
     }
 /**
- * BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
- * This feature is in developer preview, and is disabled by default.
+ * If present and set to true, allow ConfigMaps to be mutated.
+ * Disabled by default for backward-compatibility.
  * 
  * This config can be specified in the following ways using this precedence:
  * 1. This `enableConfigMapMutable` parameter.
@@ -63,8 +63,8 @@ public final class Config {
         return Codegen.booleanProp("enableReplaceCRD").config(config).get();
     }
 /**
- * BETA FEATURE - If present and set to true, allow Secrets to be mutated.
- * This feature is in developer preview, and is disabled by default.
+ * If present and set to true, allow Secrets to be mutated.
+ * Disabled by default for backward compatibility.
  * 
  * This config can be specified in the following ways using this precedence:
  * 1. This `enableSecretMutable` parameter.

@@ -39,6 +39,9 @@
   subject to change. Similarly, RFC9535 is still only _proposed_ and may also
   change in the future.
 
+- `enableConfigMapMutable` and `enableSecretMutable` are now stable.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/3886)
+
 ### Fixed
 
 - Helm resources all now use the correct `registry/config.json` file for
