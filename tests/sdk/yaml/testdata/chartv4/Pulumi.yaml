@@ -16,3 +16,17 @@ resources:
       namespace: ${ns.metadata.name}
       chart: oci://registry-1.docker.io/bitnamicharts/cert-manager
       version: "1.3.1"
+      values:
+        installCRDs: true
+        controller:
+          image:
+            repository: "bitnamilegacy/cert-manager"
+            tag: "1.14.5-debian-12-r4"
+        cainjector:
+          image:
+            repository: "bitnamilegacy/cainjector"
+            tag: "1.14.5-debian-12-r4"
+        webhook:
+          image:
+            repository: "bitnamilegacy/cert-manager-webhook"
+            tag: "1.14.5-debian-12-r4"

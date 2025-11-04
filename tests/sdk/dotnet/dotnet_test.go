@@ -89,7 +89,7 @@ func TestDotnet_YamlUrl(t *testing.T) {
 			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 		) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
 		},
 	})
 	integration.ProgramTest(t, &test)
