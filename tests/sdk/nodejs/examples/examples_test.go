@@ -388,6 +388,10 @@ func TestHelmRelease(t *testing.T) {
 				assert.Contains(t, values, "metrics")
 				assert.Equal(t, valMap["metrics"], map[string]any{
 					"enabled": true,
+					"image": map[string]any{
+						"repository": "bitnamilegacy/redis-exporter",
+						"tag":        "1.76.0",
+					},
 					"service": map[string]any{
 						"annotations": map[string]any{
 							"prometheus.io/port": "9127",
