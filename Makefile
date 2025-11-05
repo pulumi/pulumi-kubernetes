@@ -143,9 +143,11 @@ test_all::
 generate_schema:: schema
 
 install_dotnet_sdk::
-	rm -rf $(WORKING_DIR)/nuget/$(NUGET_PKG_NAME).*.nupkg
-	mkdir -p $(WORKING_DIR)/nuget
-	find . -name '*.nupkg' -print -exec cp -p {} ${WORKING_DIR}/nuget \;
+	mkdir -p nuget
+	find sdk/dotnet/bin -name '*.nupkg' -print -exec cp -p "{}" ${WORKING_DIR}/nuget \;
+	if ! dotnet nuget list source | grep "${WORKING_DIR}/nuget"; then \
+		dotnet nuget add source "${WORKING_DIR}/nuget" --name "${WORKING_DIR}/nuget" \
+	; fi
 
 install_python_sdk::
 	#target intentionally blank
