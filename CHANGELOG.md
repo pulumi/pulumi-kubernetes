@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 4.24.0 (November 5, 2025)
+
 ### Added
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)
