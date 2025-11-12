@@ -33,9 +33,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
-	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -361,7 +361,6 @@ func TestGuestbook(t *testing.T) {
 			integration.ProgramTest(t, &options)
 		})
 	}
-
 }
 
 // Smoke test for first-class Kubernetes providers.
@@ -645,7 +644,6 @@ func TestOptionPropagation(t *testing.T) {
 		Quick:                true,
 		ExpectRefreshChanges: false,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-
 			// lookup some resources for later use
 			providerA := tests.SearchResourcesByName(stackInfo, "", "pulumi:providers:kubernetes", "a")
 			require.NotNil(t, providerA)
