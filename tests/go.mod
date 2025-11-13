@@ -14,9 +14,9 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/providertest v0.3.1
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.23.0
-	github.com/pulumi/pulumi/pkg/v3 v3.205.0
-	github.com/pulumi/pulumi/sdk/v3 v3.205.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
+	github.com/pulumi/pulumi/pkg/v3 v3.206.0
+	github.com/pulumi/pulumi/sdk/v3 v3.206.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
@@ -118,7 +118,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/jsonreference v0.21.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
-	github.com/go-test/deep v1.0.3 // indirect
+	github.com/go-test/deep v1.1.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect

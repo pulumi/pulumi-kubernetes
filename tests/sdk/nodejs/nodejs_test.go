@@ -37,9 +37,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 	"github.com/pulumi/pulumi/pkg/v3/engine"
-	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -1090,7 +1090,6 @@ func TestProvider(t *testing.T) {
 
 // TestReadonlyMetadata tests the behavior of read-only metadata fields.
 func TestReadonlyMetadata(t *testing.T) {
-
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("metadata", "step1"),
 		Quick: true,
@@ -1379,7 +1378,6 @@ func TestSecretDataNewLine(t *testing.T) {
 
 			assert.NotEmptyf(t, data, "data field is empty")
 			assert.Emptyf(t, stringData, "stringData field is not empty")
-
 		},
 		EditDirs: []integration.EditDir{{
 			Dir:             "secrets-new-line",
@@ -2390,7 +2388,6 @@ func TestOptionPropagation(t *testing.T) {
 		Quick:                true,
 		ExpectRefreshChanges: false,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-
 			// lookup some resources for later use
 			providerA := tests.SearchResourcesByName(stackInfo, "", "pulumi:providers:kubernetes", "a")
 			require.NotNil(t, providerA)
