@@ -1,0 +1,19 @@
+name: Download Provider Binary
+description: Downloads the provider binary artifact and restores executable permissions
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download provider
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      with:
+        name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
+        path: ${{ github.workspace }}/bin
+
+    - name: UnTar provider binaries
+      shell: bash
+      run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace}}/bin
+
+    - name: Restore Binary Permissions
+      shell: bash
+      run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print -exec chmod +x {} \;
