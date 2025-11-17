@@ -180,8 +180,11 @@ func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
 		t.Log("can't clear gRPC log: PULUMI_DEBUG_GRPC env var not set")
 		return
 	}
-	if err := os.RemoveAll(env["PULUMI_DEBUG_GRPC"]); err != nil {
-		t.Fatalf("failed to clear gRPC log: %s", err)
+	logPath := env["PULUMI_DEBUG_GRPC"]
+	if _, err := os.Stat(logPath); err == nil {
+		if err := os.Truncate(logPath, 0); err != nil {
+			t.Fatalf("failed to clear gRPC log: %s", err)
+		}
 	}
 }
 
