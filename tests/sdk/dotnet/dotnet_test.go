@@ -42,6 +42,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func getLocalNuGetPath() string {
+	if path := os.Getenv("PULUMI_LOCAL_NUGET"); path != "" {
+		return path
+	}
+	cwd, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+	nugetPath := filepath.Join(cwd, "..", "..", "..", "nuget")
+	if absPath, err := filepath.Abs(nugetPath); err == nil {
+		return absPath
+	}
+	return nugetPath
+}
+
 var baseOptions = &integration.ProgramTestOptions{
 	Verbose: true,
 	Dependencies: []string{
@@ -53,6 +68,7 @@ var baseOptions = &integration.ProgramTestOptions{
 	Env: []string{
 		"PULUMI_K8S_CLIENT_BURST=200",
 		"PULUMI_K8S_CLIENT_QPS=100",
+		"PULUMI_LOCAL_NUGET=" + getLocalNuGetPath(),
 	},
 }
 
