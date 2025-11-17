@@ -1,0 +1,30 @@
+name: Download SDK
+description: Downloads and extracts SDK artifacts for a specific language
+
+env:
+  AWS_REGION: us-west-2
+  GOLANGCI_LINT_VERSION: v1.64.8
+  GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
+  GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
+  GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
+  GOOGLE_PROJECT_NUMBER: "637339343727"
+  PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_TEST_OWNER: moolumi
+
+inputs:
+  language:
+    description: "The SDK language to download (nodejs, python, dotnet, java)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download SDK
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      with:
+        name: ${{ inputs.language }}-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/
+
+    - name: UnTar SDK folder
+      shell: bash
+      run: tar -zxf ${{ github.workspace }}/sdk/${{ inputs.language }}.tar.gz -C ${{ github.workspace }}/sdk/${{ inputs.language }}

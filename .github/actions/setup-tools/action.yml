@@ -1,0 +1,51 @@
+name: Setup Tools
+description: Installs all tools (Go, Node, Python, .NET, Java, Pulumi, etc.) using mise
+
+env:
+  AWS_REGION: us-west-2
+  GOLANGCI_LINT_VERSION: v1.64.8
+  GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
+  GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
+  GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
+  GOOGLE_PROJECT_NUMBER: "637339343727"
+  PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_TEST_OWNER: moolumi
+
+inputs:
+  cache:
+    description: Enable caching
+    required: false
+    default: "false"
+  github_token:
+    description: GitHub token
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@9dc7d5dd454262207dea3ab5a06a3df6afc8ff26 # v3
+      with:
+        # Latest working version. See https://github.com/jdx/mise/discussions/6781
+        version: 2025.10.16
+        cache_key: "mise-{{platform}}-{{file_hash}}"
+        cache_save: ${{ inputs.cache }}
+        github_token: ${{ inputs.github_token }}
+
+    - name: Setup Go Cache
+      uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+      with:
+        cache: ${{ inputs.cache }}
+        cache-dependency-path: |
+          provider/*.sum
+          upstream/*.sum
+          sdk/go/*.sum
+          sdk/*.sum
+          *.sum
+
+    - name: Setup Node
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
+      with:
+        # we don't set node-version because we install with mise.
+        # this step is needed to setup npm auth
+        registry-url: https://registry.npmjs.org
