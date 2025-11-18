@@ -17,7 +17,6 @@
 package test
 
 import (
-	"os"
 	"testing"
 
 	. "github.com/onsi/gomega"
@@ -69,8 +68,6 @@ func TestHelmUnknowns(t *testing.T) {
 		release := findByUrn(t, creates, urn("kubernetes:helm.sh/v3:Release", "release"))
 		g.Expect(release).ToNot(BeNil())
 		logEntry(t, *release)
-		// Clear the log after reading it to prepare for the next operation
-		clearGrpcLog(t, test)
 		return *release
 	}
 
@@ -150,15 +147,17 @@ func unmarshalProperties(t *testing.T, props *structpb.Struct) resource.Property
 
 func findByUrn[TRequest any, TResponse any](t *testing.T, entries []grpclog.TypedEntry[TRequest, TResponse],
 	urn string) *grpclog.TypedEntry[TRequest, TResponse] {
-	for _, e := range entries {
-		var eI any = &e.Request
+	// Return the last matching entry (most recent)
+	var result *grpclog.TypedEntry[TRequest, TResponse]
+	for i := range entries {
+		var eI any = &entries[i].Request
 		if hasUrn, ok := eI.(hasURN); ok {
 			if hasUrn.GetUrn() == urn {
-				return &e
+				result = &entries[i]
 			}
 		}
 	}
-	return nil
+	return result
 }
 
 func logEntry[TRequest any, TResponse any](t *testing.T, entries ...grpclog.TypedEntry[TRequest, TResponse]) {
@@ -173,21 +172,6 @@ func logEntry[TRequest any, TResponse any](t *testing.T, entries ...grpclog.Type
 		}
 	}
 }
-
-func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
-	env := pt.CurrentStack().Workspace().GetEnvVars()
-	if env == nil || env["PULUMI_DEBUG_GRPC"] == "" {
-		t.Log("can't clear gRPC log: PULUMI_DEBUG_GRPC env var not set")
-		return
-	}
-	logPath := env["PULUMI_DEBUG_GRPC"]
-	if _, err := os.Stat(logPath); err == nil {
-		if err := os.Truncate(logPath, 0); err != nil {
-			t.Fatalf("failed to clear gRPC log: %s", err)
-		}
-	}
-}
-
 func TestPreviewWithUnreachableCluster(t *testing.T) {
 	t.Parallel()
 
