@@ -53,13 +53,11 @@ func TestHelmUnknowns(t *testing.T) {
 	}
 
 	previewF := func(opts ...optpreview.Option) auto.PreviewResult {
-		clearGrpcLog(t, test)
 		preview := test.Preview(t, opts...)
 		t.Log(preview.StdOut)
 		return preview
 	}
 	upF := func() auto.UpResult {
-		clearGrpcLog(t, test)
 		up := test.Up(t)
 		t.Log(up.StdOut)
 		return up
@@ -71,6 +69,8 @@ func TestHelmUnknowns(t *testing.T) {
 		release := findByUrn(t, creates, urn("kubernetes:helm.sh/v3:Release", "release"))
 		g.Expect(release).ToNot(BeNil())
 		logEntry(t, *release)
+		// Clear the log after reading it to prepare for the next operation
+		clearGrpcLog(t, test)
 		return *release
 	}
 
