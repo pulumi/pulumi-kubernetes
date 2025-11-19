@@ -463,6 +463,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			clientSet:         c.ClientSet,
 			inputs:            c.Inputs,
 			currentOutputs:    currentOutputs,
+			lastOutputs:       liveOldObj,
 			logger:            c.DedupLogger,
 			timeout:           &timeout,
 			clusterVersion:    c.ClusterVersion,

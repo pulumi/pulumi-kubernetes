@@ -3,6 +3,14 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fixed a regression of
+  [#2943](https://github.com/pulumi/pulumi-kubernetes/pull/2943) which could
+  cause Deployments to erroneously report diffs.
+
+## 4.24.0 (November 5, 2025)
+
 ### Added
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)

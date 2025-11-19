@@ -1490,3 +1490,210 @@ func (p fieldManagerPatcher) Patch(_ context.Context, _ string, pt types.PatchTy
 	live := p.fm.Live()
 	return live.(*unstructured.Unstructured), err
 }
+
+func TestUpdateIgnoresStaleEvents(t *testing.T) {
+	// This test verifies that updates correctly discard stale watch events
+	// with generation < currentOutputs.generation.
+
+	// Old deployment (generation 1, revision "1", ready)
+	oldDeployment := &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "apps/v1",
+			"kind":       "Deployment",
+			"metadata": map[string]any{
+				"namespace":  "default",
+				"name":       "test-deployment",
+				"uid":        "test-uid",
+				"generation": int64(1),
+				"annotations": map[string]any{
+					"deployment.kubernetes.io/revision": "1",
+				},
+			},
+			"spec": map[string]any{
+				"replicas": int64(1),
+				"selector": map[string]any{
+					"matchLabels": map[string]any{
+						"app": "test",
+					},
+				},
+				"template": map[string]any{
+					"metadata": map[string]any{
+						"labels": map[string]any{
+							"app": "test",
+						},
+					},
+					"spec": map[string]any{
+						"containers": []any{
+							map[string]any{
+								"name":  "nginx",
+								"image": "nginx:1.0",
+							},
+						},
+					},
+				},
+			},
+			"status": map[string]any{
+				"observedGeneration": int64(1),
+				"replicas":           int64(1),
+				"updatedReplicas":    int64(1),
+				"readyReplicas":      int64(1),
+				"availableReplicas":  int64(1),
+				"conditions": []any{
+					map[string]any{
+						"type":   "Available",
+						"status": "True",
+					},
+				},
+			},
+		},
+	}
+
+	// Set up fake client with oldDeployment pre-loaded
+	client, disco, _, clientset := fake.NewSimpleDynamicClient(fake.WithObjects(oldDeployment))
+
+	// Get OpenAPI resources for patch generation
+	resources, err := openapi.GetResourceSchemasForClient(disco)
+	require.NoError(t, err)
+
+	// New inputs increment generation
+	newInputs := oldDeployment.DeepCopy()
+	containers, _, _ := unstructured.NestedSlice(newInputs.Object, "spec", "template", "spec", "containers")
+	containers[0].(map[string]any)["image"] = "nginx:2.0"
+	require.NoError(t, unstructured.SetNestedSlice(newInputs.Object, containers, "spec", "template", "spec", "containers"))
+
+	// Set up reactor to handle patch/update and return the patched deployment
+	clientset.PrependReactor("patch", "deployments", func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+		// Return the newInputs with generation incremented
+		patched := newInputs.DeepCopy()
+		patched.SetGeneration(2)
+		return true, patched, nil
+	})
+
+	// Set up watch reactor to simulate the race condition where stale events are received
+	var watcherStarted bool
+	clientset.PrependWatchReactor("deployments", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+		if watcherStarted {
+			return false, nil, nil
+		}
+		watcherStarted = true
+
+		fw := watch.NewFake()
+		go func() {
+			// Event 1: Cached event with OLD generation (gen 1, rev "1",
+			// obsGen 1). Should be discarded.
+			staleEvent := oldDeployment.DeepCopy()
+			staleEvent.SetGeneration(1) // OLD generation - should be discarded
+			require.NoError(t, unstructured.SetNestedField(staleEvent.Object, []any{
+				map[string]any{
+					"type":   "Available",
+					"status": "True",
+				},
+			}, "status", "conditions"))
+			fw.Add(staleEvent)
+
+			time.Sleep(10 * time.Millisecond)
+
+			// Event 2: Current/ready deployment (gen 2, rev "2", obsGen 2).
+			// Should not be discarded.
+			readyEvent := oldDeployment.DeepCopy()
+			readyEvent.SetGeneration(2)
+			readyEvent.SetAnnotations(map[string]string{
+				"deployment.kubernetes.io/revision": "2",
+			})
+			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, int64(2), "status", "observedGeneration"))
+			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, []any{
+				map[string]any{
+					"type":   "Progressing",
+					"status": "True",
+					"reason": "NewReplicaSetAvailable",
+				},
+				map[string]any{
+					"type":   "Available",
+					"status": "True",
+				},
+			}, "status", "conditions"))
+			fw.Add(readyEvent)
+		}()
+		return true, fw, nil
+	})
+
+	// Set up watch reactor for ReplicaSets
+	clientset.PrependWatchReactor("replicasets", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+		fw := watch.NewFake()
+		go func() {
+			time.Sleep(15 * time.Millisecond)
+
+			// Old ReplicaSet (revision "1"). If the stale event (gen 1, rev "1") is NOT discarded,
+			// then the awaiter will see this old RS as ready and complete prematurely.
+			oldRS := &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "apps/v1",
+					"kind":       "ReplicaSet",
+					"metadata": map[string]any{
+						"namespace": "default",
+						"name":      "test-deployment-old",
+						"uid":       "rs-old-uid",
+						"annotations": map[string]any{
+							"deployment.kubernetes.io/revision": "1",
+						},
+						"ownerReferences": []any{
+							map[string]any{
+								"apiVersion": "apps/v1",
+								"kind":       "Deployment",
+								"name":       "test-deployment",
+								"uid":        "test-uid",
+								"controller": true,
+							},
+						},
+					},
+					"spec": map[string]any{
+						"replicas": int64(1),
+					},
+					"status": map[string]any{
+						"replicas":          int64(1),
+						"readyReplicas":     int64(1),
+						"availableReplicas": int64(1),
+					},
+				},
+			}
+			fw.Add(oldRS)
+
+			// New ReplicaSet (revision "2").
+			newRS := oldRS.DeepCopy()
+			newRS.SetName("test-deployment-new")
+			newRS.SetUID("rs-new-uid")
+			newRS.SetAnnotations(map[string]string{
+				"deployment.kubernetes.io/revision": "2",
+			})
+			fw.Add(newRS)
+		}()
+		return true, fw, nil
+	})
+
+	ctx := context.Background()
+	host := &fakehost.HostClient{}
+	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type("kubernetes:apps/v1:Deployment"), "testresource")
+	result, err := Update(UpdateConfig{
+		ProviderConfig: ProviderConfig{
+			Context:           ctx,
+			Host:              host,
+			URN:               urn,
+			InitialAPIVersion: "apps/v1",
+			FieldManager:      "pulumi-kubernetes",
+			ClientSet:         client,
+			Factories:         informers.NewFactories(ctx),
+			DedupLogger:       logging.NewLogger(ctx, host, urn),
+			Resources:         resources,
+			ServerSideApply:   true,
+		},
+		OldOutputs: oldDeployment,
+		Inputs:     newInputs,
+	})
+
+	require.NoError(t, err)
+	require.NotNil(t, result)
+
+	// Confirm that we discarded the stale (revision 1) event.
+	actualRevision := result.GetAnnotations()["deployment.kubernetes.io/revision"]
+	assert.Equal(t, "2", actualRevision)
+}

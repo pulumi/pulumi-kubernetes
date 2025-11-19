@@ -16,6 +16,7 @@ package condition
 
 import (
 	"context"
+	"io"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -37,10 +38,10 @@ func TestObserver(t *testing.T) {
 		})
 
 		go func() {
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(1)}}}
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(2)}}}
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(3)}}}
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(5)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(1)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(2)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(3)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(5)}}}
 			close(source)
 		}()
 
@@ -62,8 +63,8 @@ func TestObserver(t *testing.T) {
 		})
 
 		go func() {
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(1)}}}
-			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]interface{}{"n": int64(2)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(1)}}}
+			source <- watch.Event{Object: &unstructured.Unstructured{Object: map[string]any{"n": int64(2)}}}
 		}()
 
 		// We should only see the first object and then terminate early.
@@ -142,5 +143,89 @@ func TestObserver(t *testing.T) {
 			assert.Equal(t, "expected-uid", uid)
 			return true
 		})
+	})
+
+	t.Run("ignores stale generation", func(t *testing.T) {
+		ctx := context.Background()
+		source := Static(make(chan watch.Event))
+		logger := logbuf{io.Discard}
+
+		// The object we care about is generation 2 / unready.
+		initialObj := &unstructured.Unstructured{
+			Object: map[string]any{
+				"apiVersion": "example.com/v1",
+				"kind":       "MyResource",
+				"metadata": map[string]any{
+					"name":       "test-resource",
+					"generation": int64(2),
+				},
+				"status": map[string]any{
+					"observedGeneration": int64(1), // Not yet reconciled
+				},
+			},
+		}
+
+		ready := NewReady(ctx, source, logger, initialObj)
+
+		go func() {
+			// Event 1: Stale event with generation 1 / ready.
+			gen1Event := &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "example.com/v1",
+					"kind":       "MyResource",
+					"metadata": map[string]any{
+						"name":       "test-resource",
+						"generation": int64(1),
+					},
+					"status": map[string]any{
+						"observedGeneration": int64(1),
+						"conditions": []any{
+							map[string]any{
+								"type":   "Ready",
+								"status": "True",
+							},
+						},
+					},
+				},
+			}
+			source <- watch.Event{Type: watch.Modified, Object: gen1Event}
+
+			// Event 2: Current event with generation 2 (ready)
+			gen2Event := &unstructured.Unstructured{
+				Object: map[string]any{
+					"apiVersion": "example.com/v1",
+					"kind":       "MyResource",
+					"metadata": map[string]any{
+						"name":       "test-resource",
+						"generation": int64(2),
+					},
+					"status": map[string]any{
+						"observedGeneration": int64(2),
+						"conditions": []any{
+							map[string]any{
+								"type":   "Ready",
+								"status": "True",
+							},
+						},
+					},
+				},
+			}
+			source <- watch.Event{Type: watch.Modified, Object: gen2Event}
+
+			close(source)
+		}()
+
+		// Process events until the Ready condition is satisfied.
+		ready.Range(func(e watch.Event) bool {
+			_ = ready.Observe(e)
+			satisfied, _ := ready.Satisfied()
+			return !satisfied
+		})
+
+		// The final observed/ready object should be generation 2.
+		obj := ready.Object()
+		observedGeneration := obj.GetGeneration()
+
+		assert.Equal(t, int64(2), observedGeneration)
 	})
 }
