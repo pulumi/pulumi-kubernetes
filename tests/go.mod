@@ -12,7 +12,7 @@ replace (
 require (
 	github.com/onsi/gomega v1.37.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/providertest v0.4.0
+	github.com/pulumi/providertest v0.4.1
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
 	github.com/pulumi/pulumi/pkg/v3 v3.207.0
