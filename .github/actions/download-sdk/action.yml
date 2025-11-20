@@ -1,0 +1,20 @@
+name: Download SDK
+description: Downloads and extracts SDK artifacts for a specific language
+
+inputs:
+  language:
+    description: 'The SDK language to download (nodejs, python, dotnet, java)'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download SDK
+      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      with:
+        name: ${{ inputs.language }}-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/
+
+    - name: UnTar SDK folder
+      shell: bash
+      run: tar -zxf ${{ github.workspace }}/sdk/${{ inputs.language }}.tar.gz -C ${{ github.workspace }}/sdk/${{ inputs.language }}
