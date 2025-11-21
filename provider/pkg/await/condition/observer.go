@@ -16,8 +16,10 @@ package condition
 
 import (
 	"context"
+	"strconv"
 	"sync"
 
+	logging "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
@@ -85,9 +87,26 @@ func (oo *ObjectObserver) Observe(e watch.Event) error {
 	defer oo.mu.Unlock()
 	obj, _ := e.Object.(*unstructured.Unstructured)
 
-	// Do nothing if this is a stale object.
+	// Do nothing if this is a stale object with an older generation.
 	if obj.GetGeneration() < oo.obj.GetGeneration() {
 		return nil
+	}
+
+	// For events with the same generation, check resourceVersion to prevent
+	// state regression from out-of-order events within the same generation.
+	if obj.GetGeneration() == oo.obj.GetGeneration() {
+		currentRV, err1 := strconv.ParseInt(oo.obj.GetResourceVersion(), 10, 64)
+		newRV, err2 := strconv.ParseInt(obj.GetResourceVersion(), 10, 64)
+
+		// If both parse successfully and the new event is older, filter it.
+		if err1 == nil && err2 == nil && newRV < currentRV {
+			logging.V(3).Infof(
+				"Filtered stale event with same generation but older resourceVersion: "+
+					"gen=%d, currentRV=%d, eventRV=%d",
+				obj.GetGeneration(), currentRV, newRV,
+			)
+			return nil
+		}
 	}
 
 	oo.obj = obj

@@ -16,6 +16,7 @@ package await
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -450,9 +451,26 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		return
 	}
 
-	// Do nothing if this is a stale object.
+	// Do nothing if this is a stale object with an older generation.
 	if deployment.GetGeneration() < dia.config.currentOutputs.GetGeneration() {
 		return
+	}
+
+	// For events with the same generation, check resourceVersion to prevent
+	// state regression from out-of-order events within the same generation.
+	if deployment.GetGeneration() == dia.config.currentOutputs.GetGeneration() {
+		currentRV, err1 := strconv.ParseInt(dia.deployment.GetResourceVersion(), 10, 64)
+		newRV, err2 := strconv.ParseInt(deployment.GetResourceVersion(), 10, 64)
+
+		// If both parse successfully and the new event is older, filter it.
+		if err1 == nil && err2 == nil && newRV < currentRV {
+			logger.V(3).Infof(
+				"Filtered stale Deployment event with same generation but older resourceVersion: "+
+					"gen=%d, currentRV=%d, eventRV=%d",
+				deployment.GetGeneration(), currentRV, newRV,
+			)
+			return
+		}
 	}
 
 	// Mark the rollout as incomplete if it's deleted.

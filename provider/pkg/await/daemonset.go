@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
@@ -217,9 +218,26 @@ func (dsa *dsAwaiter) processDaemonSetEvent(event watch.Event) {
 		return
 	}
 
-	// Do nothing if this is a stale object.
+	// Do nothing if this is a stale object with an older generation.
 	if ds.GetGeneration() < dsa.config.currentOutputs.GetGeneration() {
 		return
+	}
+
+	// For events with the same generation, check resourceVersion to prevent
+	// state regression from out-of-order events within the same generation.
+	if ds.GetGeneration() == dsa.config.currentOutputs.GetGeneration() {
+		currentRV, err1 := strconv.ParseInt(dsa.ds.GetResourceVersion(), 10, 64)
+		newRV, err2 := strconv.ParseInt(ds.GetResourceVersion(), 10, 64)
+
+		// If both parse successfully and the new event is older, filter it.
+		if err1 == nil && err2 == nil && newRV < currentRV {
+			logger.V(3).Infof(
+				"Filtered stale DaemonSet event with same generation but older resourceVersion: "+
+					"gen=%d, currentRV=%d, eventRV=%d",
+				ds.GetGeneration(), currentRV, newRV,
+			)
+			return
+		}
 	}
 
 	if event.Type == watch.Deleted {
