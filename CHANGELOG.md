@@ -3,6 +3,12 @@
 
 ## Unreleased
 
+### Changed
+
+- Upgraded `helm.sh/helm` to v3.19.2. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
+
+## 4.24.0 (November 5, 2025)
+
 ### Added
 
 - Added a `plainHttp` option to the `v4.Chart` resource. (https://github.com/pulumi/pulumi-kubernetes/issues/3250)

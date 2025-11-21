@@ -365,7 +365,7 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 func fakeProviderConfig(
 	ctx context.Context,
 	t *testing.T,
-) (ProviderConfig, *fake.SimpleDynamicClient, clockwork.FakeClock) {
+) (ProviderConfig, *fake.SimpleDynamicClient, *clockwork.FakeClock) {
 	clock := clockwork.NewFakeClock()
 
 	host := &fakehost.HostClient{}
@@ -417,7 +417,7 @@ func assertDaemonSetStatus(
 // dsCreateEventsWithoutTimeout simulates a brand new DaemonSet which is
 // created without pods and then rolled out within 2 minutes.
 func dsCreateEventsWithoutTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -434,7 +434,7 @@ func dsCreateEventsWithoutTimeout(
 // dsCreateEventsWithTimeout simulates a brand new DaemonSet which is
 // created without pods and then takes an hour to roll out.
 func dsCreateEventsWithTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -451,7 +451,7 @@ func dsCreateEventsWithTimeout(
 // dsUpdateEventsWithoutTimeout simulates a DaemonSet rollout which takes one
 // minute to complete.
 func dsUpdateEventsWithoutTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -469,7 +469,7 @@ func dsUpdateEventsWithoutTimeout(
 // dsUpdateEventsWithTimeout simulates a DaemonSet rollout which takes one hour
 // to complete.
 func dsUpdateEventsWithTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
