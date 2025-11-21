@@ -5,7 +5,7 @@
 
 ### Changed
 
-- Upgraded `helm.sh/helm` to v3.19.2. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
+- Upgraded `helm.sh/helm` to v3.18.6. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
 
 ## 4.24.0 (November 5, 2025)
 
