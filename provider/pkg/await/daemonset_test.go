@@ -47,7 +47,7 @@ func TestAwaitDaemonSetCreation(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
@@ -119,7 +119,7 @@ func TestAwaitDaemonSetUpdate(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
@@ -193,7 +193,7 @@ func TestAwaitDaemonSetRead(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
