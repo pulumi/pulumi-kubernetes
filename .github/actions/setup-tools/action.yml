@@ -16,9 +16,7 @@ runs:
     - name: Setup mise
       uses: jdx/mise-action@9dc7d5dd454262207dea3ab5a06a3df6afc8ff26 # v3
       with:
-        # Latest working version. See https://github.com/jdx/mise/discussions/6781
-        version: 2025.10.16
-        cache_key: "mise-{{platform}}-{{file_hash}}"
+        version: 2025.11.6
         cache_save: ${{ inputs.cache }}
         github_token: ${{ inputs.github_token }}
 
