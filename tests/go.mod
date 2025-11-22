@@ -21,7 +21,7 @@ require (
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792
 	google.golang.org/protobuf v1.36.6
-	helm.sh/helm/v3 v3.18.5
+	helm.sh/helm/v3 v3.18.6
 	k8s.io/apimachinery v0.33.3
 	k8s.io/client-go v0.33.3
 )
