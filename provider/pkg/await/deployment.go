@@ -450,6 +450,11 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		return
 	}
 
+	// Do nothing if this is a stale object.
+	if deployment.GetGeneration() < dia.config.currentOutputs.GetGeneration() {
+		return
+	}
+
 	// Mark the rollout as incomplete if it's deleted.
 	if event.Type == watch.Deleted {
 		return

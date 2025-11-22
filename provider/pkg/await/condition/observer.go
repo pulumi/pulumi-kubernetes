@@ -84,6 +84,12 @@ func (oo *ObjectObserver) Observe(e watch.Event) error {
 	oo.mu.Lock()
 	defer oo.mu.Unlock()
 	obj, _ := e.Object.(*unstructured.Unstructured)
+
+	// Do nothing if this is a stale object.
+	if obj.GetGeneration() < oo.obj.GetGeneration() {
+		return nil
+	}
+
 	oo.obj = obj
 	return nil
 }
