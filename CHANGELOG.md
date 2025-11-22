@@ -9,6 +9,10 @@
   [#2943](https://github.com/pulumi/pulumi-kubernetes/pull/2943) which could
   cause Deployments to erroneously report diffs.
 
+### Changed
+
+- Upgraded `helm.sh/helm` to v3.18.6. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
+
 ## 4.24.0 (November 5, 2025)
 
 ### Added
