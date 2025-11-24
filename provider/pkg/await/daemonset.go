@@ -217,6 +217,11 @@ func (dsa *dsAwaiter) processDaemonSetEvent(event watch.Event) {
 		return
 	}
 
+	// Do nothing if this is a stale object.
+	if ds.GetGeneration() < dsa.config.currentOutputs.GetGeneration() {
+		return
+	}
+
 	if event.Type == watch.Deleted {
 		dsa.deleted = true
 		return
