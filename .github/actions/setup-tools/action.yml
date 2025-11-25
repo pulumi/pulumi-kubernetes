@@ -14,7 +14,9 @@ runs:
   using: "composite"
   steps:
     - name: Setup mise
-      uses: jdx/mise-action@d16887ba50704baed7de72bd1e82e04391e4457a # v3
+      uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3
+      env:
+        MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
         version: 2025.11.6
         cache_save: ${{ inputs.cache }}
