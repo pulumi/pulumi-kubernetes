@@ -5,7 +5,7 @@
     },
     "dependencies": {
         "@pulumi/gcp": "9.5.0",
-        "@pulumi/kubernetes": "4.24.0",
+        "@pulumi/kubernetes": "4.24.1",
         "@pulumi/pulumi": "3.208.0"
     }
 }
