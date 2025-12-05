@@ -26,6 +26,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
   PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_PULUMI_ENABLE_JOURNALING: "true"
   PULUMI_TEST_OWNER: moolumi
   PR_COMMIT_SHA: ${{ github.event.client_payload.pull_request.head.sha }}
 jobs:

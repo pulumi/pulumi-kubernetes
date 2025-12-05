@@ -8,6 +8,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
   PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_PULUMI_ENABLE_JOURNALING: "true"
   PULUMI_TEST_OWNER: moolumi
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
       id: esc-secrets
       name: Fetch secrets from ESC
       uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
-    - uses: peter-evans/slash-command-dispatch@e1b4e266bc781656359bb7e462e228daf68c04f6 # v5
+    - uses: peter-evans/slash-command-dispatch@5c11dc7efead556e3bdabf664302212f79eb26fa # v5
       with:
         commands: |
           run-acceptance-tests
