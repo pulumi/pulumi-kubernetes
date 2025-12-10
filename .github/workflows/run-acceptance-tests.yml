@@ -140,6 +140,10 @@ jobs:
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
           sdk/java/build.gradle
+      # This worktree check is a safeguard against someone forgetting to
+      # re-build and commit locally, but we handle that commit automatically in
+      # the case of dependency bumps.
+      continue-on-error: ${{ contains(github.actor, 'renovate') }}
     - name: Commit SDK changes for Renovate
       if: failure() && steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
