@@ -145,7 +145,7 @@ jobs:
       # the case of dependency bumps.
       continue-on-error: ${{ contains(github.actor, 'renovate') }}
     - name: Commit SDK changes for Renovate
-      if: failure() && steps.worktreeClean.outcome == 'failure' &&
+      if: steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
         'pull_request'
       shell: bash
@@ -289,8 +289,9 @@ jobs:
           sdk/nodejs/package.json
           sdk/python/pyproject.toml
           sdk/java/build.gradle
+      continue-on-error: ${{ contains(github.actor, 'renovate') }}
     - name: Commit SDK changes for Renovate
-      if: failure() && steps.worktreeClean.outcome == 'failure' &&
+      if: steps.worktreeClean.outcome == 'failure' &&
         contains(github.actor, 'renovate') && github.event_name ==
         'pull_request'
       shell: bash
