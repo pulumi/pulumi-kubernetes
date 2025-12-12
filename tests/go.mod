@@ -15,8 +15,8 @@ require (
 	github.com/pulumi/providertest v0.4.1
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
-	github.com/pulumi/pulumi/pkg/v3 v3.207.0
-	github.com/pulumi/pulumi/sdk/v3 v3.207.0
+	github.com/pulumi/pulumi/pkg/v3 v3.212.0
+	github.com/pulumi/pulumi/sdk/v3 v3.212.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792
@@ -231,7 +231,7 @@ require (
 	github.com/skeema/knownhosts v1.3.0 // indirect
 	github.com/spf13/cast v1.7.0 // indirect
 	github.com/spf13/cobra v1.10.1 // indirect
-	github.com/spf13/pflag v1.0.9 // indirect
+	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	github.com/texttheater/golang-levenshtein v1.0.1 // indirect
 	github.com/theory/jsonpath v0.9.0 // indirect
