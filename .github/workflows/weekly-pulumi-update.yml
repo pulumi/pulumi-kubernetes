@@ -63,9 +63,9 @@ jobs:
 
         git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
 
-        find . -name go.mod -execdir sh -c 'go get github.com/pulumi/pulumi/pkg/v3 github.com/pulumi/pulumi/sdk/v3; go mod tidy' \;
-
         gh repo view pulumi/pulumi --json latestRelease --jq .latestRelease.tagName | sed 's/^v//' > .pulumi.version
+
+        VERSION=$(cat .pulumi.version) find . -name go.mod -execdir sh -c 'go get github.com/pulumi/pulumi/pkg/v3@v${VERSION} github.com/pulumi/pulumi/sdk/v3@v${VERSION}; go mod tidy' \;
 
         git update-index -q --refresh
 
