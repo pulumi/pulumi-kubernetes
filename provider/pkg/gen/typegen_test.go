@@ -19,8 +19,10 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"slices"
 	"testing"
 
+	fxs "github.com/pgavlin/fx/v2/slices"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -790,6 +792,95 @@ func TestGVKFromRef(t *testing.T) {
 		t.Run(tt.ref, func(t *testing.T) {
 			actual := GVKFromRef(tt.ref)
 			assert.Equal(t, tt.expected, actual)
+		})
+	}
+}
+
+func TestReservedPropertyNames(t *testing.T) {
+	tests := []struct {
+		name               string
+		definition         definition
+		expectedProperties []string
+	}{
+		{
+			name: "pulumi property",
+			definition: definition{
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
+				data: map[string]any{
+					"properties": map[string]any{
+						"pulumi": map[string]any{
+							"type": "string",
+						},
+					},
+				},
+			},
+			expectedProperties: []string{"pulumi_"},
+		},
+		{
+			name: "pulumi + pulumi_ properties",
+			definition: definition{
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
+				data: map[string]any{
+					"properties": map[string]any{
+						"pulumi": map[string]any{
+							"type": "string",
+						},
+						"pulumi_": map[string]any{
+							"type": "string",
+						},
+					},
+				},
+			},
+			expectedProperties: []string{"pulumi_", "pulumi__"},
+		},
+		{
+			name: "hyphens",
+			definition: definition{
+				gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1", Kind: "Deployment"},
+				data: map[string]any{
+					"properties": map[string]any{
+						"x-kubernetes-embedded-resource": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-int-or-string": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-list-map-keys": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-list-type": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-map-type": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-preserve-unknown-fields": map[string]any{
+							"type": "string",
+						},
+						"x-kubernetes-validations": map[string]any{
+							"type": "string",
+						},
+					},
+				},
+			},
+			expectedProperties: []string{
+				"x_kubernetes_embedded_resource",
+				"x_kubernetes_int_or_string",
+				"x_kubernetes_list_map_keys",
+				"x_kubernetes_list_type",
+				"x_kubernetes_map_type",
+				"x_kubernetes_preserve_unknown_fields",
+				"x_kubernetes_validations",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			kinds := createKinds([]definition{tt.definition}, map[string]string{}, map[string][]any{}, false)
+			require.Len(t, kinds, 1)
+			properties := slices.Sorted(fxs.Map(kinds[0].Properties(), func(p Property) string { return p.Name() }))
+			assert.Equal(t, tt.expectedProperties, properties)
 		})
 	}
 }

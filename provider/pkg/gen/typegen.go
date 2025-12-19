@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 
@@ -629,6 +630,14 @@ func createKinds(definitions []definition, canonicalGroups map[string]string, al
 				propName = "x_kubernetes_preserve_unknown_fields"
 			case "x-kubernetes-validations":
 				propName = "x_kubernetes_validations" //nolint:gosec
+			}
+
+			// 'pulumi' is treated as a reserved work by the schema binder, so replace it with 'pulumi_' until it's unique.
+			if propName == "pulumi" {
+				propName = "pulumi_"
+				for slices.Contains(propNames, propName) {
+					propName += "_"
+				}
 			}
 
 			if !allowHyphens {
