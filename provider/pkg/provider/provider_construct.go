@@ -42,9 +42,16 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 		return nil, false
 	}
 
+	// In yamlRenderMode, defaultNamespace might not be set if the cluster is unreachable.
+	// Provide a default value in this case.
+	defaultNamespace := k.defaultNamespace
+	if defaultNamespace == "" && k.yamlRenderMode {
+		defaultNamespace = "default"
+	}
+
 	options := &providerresource.ResourceProviderOptions{
 		ClientSet:        k.clientSet,
-		DefaultNamespace: k.defaultNamespace,
+		DefaultNamespace: defaultNamespace,
 		HelmOptions: &providerresource.HelmOptions{
 			SuppressHelmHookWarnings: k.suppressHelmHookWarnings,
 			HelmDriver:               k.helmDriver,
@@ -57,10 +64,14 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
 
-	if k.clusterUnreachable {
+	if k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
 	}
-	contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
+	// In yamlRenderMode we provide a default value for the default namespace.
+	// In all other cases we need to assert a default namespace is set.
+	if !k.yamlRenderMode {
+		contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
+	}
 	contract.Assertf(k.helmDriver != "", "expected helmDriver")
 	contract.Assertf(k.helmSettings != nil, "expected helmSettings")
 
