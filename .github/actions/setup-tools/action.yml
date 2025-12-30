@@ -14,13 +14,14 @@ runs:
   using: "composite"
   steps:
     - name: Setup mise
-      uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3
+      uses: blampe/mise-action@blampe/plugins
       env:
         MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
         version: 2025.11.6
         cache_save: ${{ inputs.cache }}
         github_token: ${{ inputs.github_token }}
+        plugin_install: https://github.com/pulumi/vfox-pulumi
 
     - name: Setup Go Cache
       uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
