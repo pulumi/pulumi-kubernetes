@@ -46,7 +46,7 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 	// Provide a default value in this case.
 	defaultNamespace := k.defaultNamespace
 	if defaultNamespace == "" && k.yamlRenderMode {
-		defaultNamespace = "default"
+		defaultNamespace = canonicalNamespace(defaultNamespace)
 	}
 
 	options := &providerresource.ResourceProviderOptions{
@@ -70,7 +70,7 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 	// In yamlRenderMode we provide a default value for the default namespace.
 	// In all other cases we need to assert a default namespace is set.
 	if !k.yamlRenderMode {
-		contract.Assertf(k.defaultNamespace != "", "expected defaultNamespace")
+		contract.Assertf(k.defaultNamespace != "" || k.yamlRenderMode, "expected defaultNamespace outside of render mode")
 	}
 	contract.Assertf(k.helmDriver != "", "expected helmDriver")
 	contract.Assertf(k.helmSettings != nil, "expected helmSettings")
