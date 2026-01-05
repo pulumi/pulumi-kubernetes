@@ -1,0 +1,4 @@
+name: helm-chart-v4-render-yaml
+description: Test Helm Chart v4 with yamlRenderMode (renderYamlToDirectory)
+runtime: nodejs
+

@@ -17,7 +17,9 @@
 package test
 
 import (
+	"context"
 	"os"
+	"path/filepath"
 	"testing"
 
 	. "github.com/onsi/gomega"
@@ -197,4 +199,44 @@ func TestPreviewWithUnreachableCluster(t *testing.T) {
 	})
 
 	test.Preview(t)
+}
+
+func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing.T) {
+	t.Parallel()
+	g := NewWithT(t)
+
+	// Create a temporary directory to hold rendered YAML manifests.
+	dir, err := os.MkdirTemp("", "helm-chart-v4-render-yaml-test")
+	g.Expect(err).ToNot(HaveOccurred())
+	defer os.RemoveAll(dir)
+
+	test := pulumitest.NewPulumiTest(t, "helm-chart-v4-render-yaml")
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	// Set the config value for renderDir
+	err = test.CurrentStack().SetConfig(context.Background(), "renderDir", auto.ConfigValue{
+		Value:  dir,
+		Secret: false,
+	})
+	g.Expect(err).ToNot(HaveOccurred())
+
+	preview := test.Preview(t)
+	t.Log(preview.StdOut)
+
+	up := test.Up(t)
+	t.Log(up.StdOut)
+
+	// Verify that YAML directory was created and contains files
+	files, err := os.ReadDir(dir)
+	g.Expect(err).ToNot(HaveOccurred())
+	g.Expect(len(files)).To(BeNumerically(">", 0), "YAML directory should contain rendered files")
+
+	manifestDir := filepath.Join(dir, "1-manifest")
+	if _, err := os.Stat(manifestDir); err == nil {
+		manifestFiles, err := os.ReadDir(manifestDir)
+		g.Expect(err).ToNot(HaveOccurred())
+		g.Expect(len(manifestFiles)).To(BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
+	}
 }

@@ -883,7 +883,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 	}
 
-	if !k.clusterUnreachable {
+	// In yamlRenderMode, we still want to template charts, even without a cluster connection.
+	if !k.clusterUnreachable || k.yamlRenderMode {
 		k.helmSettings = helmSettings
 	}
 
