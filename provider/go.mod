@@ -20,8 +20,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
-	github.com/pulumi/pulumi/pkg/v3 v3.214.0
-	github.com/pulumi/pulumi/sdk/v3 v3.214.0
+	github.com/pulumi/pulumi/pkg/v3 v3.214.1
+	github.com/pulumi/pulumi/sdk/v3 v3.214.1
 	github.com/stretchr/testify v1.10.0
 	github.com/theory/jsonpath v0.9.0
 	golang.org/x/crypto v0.45.0
