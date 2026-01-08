@@ -401,17 +401,16 @@ jobs:
     - name: Clear GitHub Actions Ubuntu runner disk space
       uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
       with:
-        tool-cache: true
+        tool-cache: false
         dotnet: false
         android: true
         haskell: true
         swap-storage: true
         large-packages: true
-    - name: Clean Go build cache
-      run: |
-        go clean -cache -modcache -testcache || true
-        rm -rf ~/.cache/go-build || true
-        rm -rf /tmp/go-build* || true
+    - name: Clean Go temp build files
+      run: rm -rf /tmp/go-build* || true
+    - name: Setup Go cache directory
+      run: mkdir -p ${{ runner.temp }}/go-build-cache
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
       with:
@@ -433,7 +432,6 @@ jobs:
         SKIP_SIGNING: ${{ steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_SECRET == '' && steps.esc-secrets.outputs.AZURE_SIGNING_TENANT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_KEY_VAULT_URI == '' }}
         GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
         GOCACHE: ${{ runner.temp }}/go-build-cache
-        GOTMPDIR: ${{ runner.temp }}/go-tmp
       with:
         args: -p 3 release --clean --timeout 60m0s
         version: latest
