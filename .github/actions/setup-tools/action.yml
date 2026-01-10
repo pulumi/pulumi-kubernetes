@@ -18,7 +18,7 @@ runs:
       env:
         MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
-        version: 2025.11.6
+        version: 2026.1.1
         cache_save: ${{ inputs.cache }}
         github_token: ${{ inputs.github_token }}
         plugin_install: https://github.com/pulumi/vfox-pulumi
