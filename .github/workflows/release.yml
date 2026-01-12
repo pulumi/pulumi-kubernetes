@@ -398,6 +398,12 @@ jobs:
       uses: ./.github/actions/setup-tools
       with:
         github_token: ${{ steps.app-auth.outputs.token }}
+    - name: Print runner information
+      run: |
+        echo "Runner name: ${{ runner.name }}"
+        echo "Runner OS: ${{ runner.os }}"
+        echo "Runner arch: ${{ runner.arch }}"
+        df -h
     - name: Clear GitHub Actions Ubuntu runner disk space
       uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
       with:
