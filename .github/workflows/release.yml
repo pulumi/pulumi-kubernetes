@@ -361,7 +361,7 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ steps.esc-secrets.outputs.SLACK_WEBHOOK_URL }}
   publish:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     needs: test
     name: publish
     permissions:
