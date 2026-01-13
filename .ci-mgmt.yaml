@@ -18,4 +18,4 @@ envOverride:
     GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
     GOOGLE_PROJECT_NUMBER: 637339343727
 runner:
-    publish: pulumi-ubuntu-8core
+    publish: pulumi-service-ubuntu-24.04-16core
