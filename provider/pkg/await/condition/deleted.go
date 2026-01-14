@@ -34,8 +34,9 @@ var _ Satisfier = (*Deleted)(nil)
 // Deleted condition succeeds when GET on a resource 404s or when a Deleted
 // event is received for the resource.
 type Deleted struct {
-	observer *ObjectObserver
 	ctx      context.Context
+	cancel   func()
+	observer *ObjectObserver
 	logger   logger
 	deleted  atomic.Bool
 	getter   objectGetter
@@ -49,8 +50,10 @@ func NewDeleted(
 	logger logger,
 	obj *unstructured.Unstructured,
 ) (*Deleted, error) {
+	ctx, cancel := context.WithCancel(ctx)
 	dc := &Deleted{
 		ctx:      ctx,
+		cancel:   cancel,
 		observer: NewObjectObserver(ctx, source, obj),
 		logger:   logger,
 		getter:   getter,
@@ -84,6 +87,8 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	if dc.deleted.Load() {
 		// Already deleted, nothing more to do. Our informer will get cleaned up
 		// when its context is canceled.
+		dc.cancel()
+		wg.Wait()
 		return
 	}
 
