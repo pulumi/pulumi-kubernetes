@@ -5,7 +5,7 @@ aws: true # need AWS credentials to test in EKS
 gcp: true # need GCP credentials to test in GKE
 pulumiVersionFile: .pulumi.version
 major-version: 4
-parallel: 3
+parallel: 1
 esc:
     enabled: true
 envOverride:
@@ -18,4 +18,5 @@ envOverride:
     GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
     GOOGLE_PROJECT_NUMBER: 637339343727
 runner:
-    publish: pulumi-service-ubuntu-24.04-16core
+    publish: pulumi-ubuntu-8core
+    prerequisites: pulumi-ubuntu-8core

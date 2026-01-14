@@ -29,9 +29,6 @@ jobs:
   prerequisites:
     runs-on: pulumi-ubuntu-8core
     name: prerequisites
-    permissions:
-      id-token: write # For ESC secrets.
-      pull-requests: write # For schema check comment.
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -64,12 +61,6 @@ jobs:
       with:
         cache: 'true'
         github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Print runner information
-      run: |
-        echo "Runner name: ${{ runner.name }}"
-        echo "Runner OS: ${{ runner.os }}"
-        echo "Runner arch: ${{ runner.arch }}"
-        df -h
     - if: github.event_name == 'pull_request'
       name: Install Schema Tools
       uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2 # v2.1.0
@@ -404,16 +395,6 @@ jobs:
       uses: ./.github/actions/setup-tools
       with:
         github_token: ${{ steps.app-auth.outputs.token }}
-    - name: Print runner information
-      run: |
-        echo "Configured runs-on label: pulumi-ubuntu-8core"
-        echo "Runner name: ${{ runner.name }}"
-        echo "Runner OS: ${{ runner.os }}"
-        echo "Runner arch: ${{ runner.arch }}"
-        echo "CPU count: $(nproc)"
-        echo "Total memory: $(free -h | grep Mem | awk '{print $2}')"
-        echo "Disk space:"
-        df -h
     - name: Clear GitHub Actions Ubuntu runner disk space
       uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
       with:

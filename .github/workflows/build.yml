@@ -472,7 +472,7 @@ jobs:
         SKIP_SIGNING: ${{ steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_SECRET == '' && steps.esc-secrets.outputs.AZURE_SIGNING_TENANT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_KEY_VAULT_URI == '' }}
         GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
       with:
-        args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
+        args: -p 1 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
