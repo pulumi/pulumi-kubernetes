@@ -27,7 +27,7 @@ env:
 
 jobs:
   prerequisites:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     name: prerequisites
     permissions:
       id-token: write # For ESC secrets.
