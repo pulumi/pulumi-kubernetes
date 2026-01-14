@@ -35,7 +35,7 @@ env:
 
 jobs:
   prerequisites:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     name: prerequisites
     permissions:
       id-token: write # For ESC secrets.
@@ -405,7 +405,7 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ steps.esc-secrets.outputs.SLACK_WEBHOOK_URL }}
   publish:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     needs: test
     name: publish
     permissions:
