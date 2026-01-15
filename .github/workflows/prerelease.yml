@@ -27,8 +27,11 @@ env:
 
 jobs:
   prerequisites:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     name: prerequisites
+    permissions:
+      id-token: write # For ESC secrets.
+      pull-requests: write # For schema check comment.
     steps:
     - name: Checkout Repo
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -358,7 +361,7 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ steps.esc-secrets.outputs.SLACK_WEBHOOK_URL }}
   publish:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     needs: test
     name: publish
     permissions:
@@ -425,7 +428,7 @@ jobs:
         SKIP_SIGNING: ${{ steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_CLIENT_SECRET == '' && steps.esc-secrets.outputs.AZURE_SIGNING_TENANT_ID == '' && steps.esc-secrets.outputs.AZURE_SIGNING_KEY_VAULT_URI == '' }}
         GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
       with:
-        args: -p 3 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
+        args: -p 1 -f .goreleaser.prerelease.yml --clean --skip=validate --timeout 60m0s
         version: latest
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
