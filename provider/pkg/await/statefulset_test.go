@@ -93,6 +93,55 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			},
 		},
 		{
+			description: "Should not succeed when observedGeneration lags behind generation (race condition)",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// This simulates the race condition where:
+				// 1. User updates the StatefulSet spec (generation becomes 2)
+				// 2. Pulumi gets the object before the controller has processed it
+				// 3. Status fields still show "ready" state from before the update
+				// 4. observedGeneration is still 1 (controller hasn't seen generation 2 yet)
+				//
+				// Without the fix, this would incorrectly succeed because:
+				// - currentRevision == updateRevision (both still old values)
+				// - All replica counts match
+				//
+				// With the fix, we check observedGeneration < generation and wait.
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdateStaleStatus(inputNamespace, inputName, targetService, ""))
+
+				// Timeout. Should fail because we're waiting for controller to catch up.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetUpdateStaleStatus(inputNamespace, inputName, targetService, ""),
+				subErrors: []string{
+					// When observedGeneration < generation, we return early without processing
+					// status fields, so targetReplicas is 0 (not set yet)
+					"0 out of 0 replicas succeeded readiness checks",
+					"StatefulSet controller failed to advance from revision \"\" to revision \"\"",
+				},
+			},
+		},
+		{
+			description: "Should succeed after observedGeneration catches up",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// First event: stale status (observedGeneration=1, generation=2)
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdateStaleStatus(inputNamespace, inputName, targetService, ""))
+
+				// Second event: controller has caught up and is processing
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdating(inputNamespace, inputName, targetService, ""))
+
+				// Third event: rollout complete
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdateSuccess(inputNamespace, inputName, targetService, ""))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description: "Should succeed after updating StatefulSet with OnDelete strategy",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
@@ -346,7 +395,9 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 			description: "Read should fail if StatefulSet status empty",
 			statefulset: statefulsetAdded,
 			expectedSubErrors: []string{
-				"0 out of 2 replicas succeeded readiness checks",
+				// When observedGeneration is not set, we return early before reading status fields,
+				// so targetReplicas remains 0 and revisions are empty strings
+				"0 out of 0 replicas succeeded readiness checks",
 				"StatefulSet controller failed to advance from revision \"\" to revision \"\"",
 			},
 		},
@@ -857,6 +908,93 @@ func statefulsetUpdate(namespace, name, targetService, updateStrategy string) *u
 				}
 			}
 		]
+	}
+}`, namespace, name, name, targetService, updateStrategy))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetUpdateStaleStatus simulates the race condition where the API server has accepted
+// an update (generation=2) but the StatefulSet controller hasn't processed it yet (observedGeneration=1).
+// The status fields still reflect the old "ready" state, which could cause Pulumi to incorrectly
+// think the rollout is complete if it doesn't check observedGeneration.
+func statefulsetUpdateStaleStatus(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+	"kind": "StatefulSet",
+	"apiVersion": "apps/v1beta1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+		"uid": "%s-statefulset-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		}
+	},
+	"spec": {
+		"replicas": 2,
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"serviceName": "%s",
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+					}
+				],
+				"terminationGracePeriodSeconds": 10
+			}
+		},
+		"updateStrategy": {
+			"type": "%s"
+		},
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+	},
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentReplicas": 2,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 1,
+		"updateRevision": "foo-7b5cf87b78",
+		"readyReplicas": 2
 	}
 }`, namespace, name, name, targetService, updateStrategy))
 	if err != nil {
