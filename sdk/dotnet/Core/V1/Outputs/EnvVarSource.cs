@@ -25,6 +25,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectFieldSelector FieldRef;
         /// <summary>
+        /// FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.FileKeySelector FileKeyRef;
+        /// <summary>
         /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceFieldSelector ResourceFieldRef;
@@ -39,12 +43,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectFieldSelector fieldRef,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.FileKeySelector fileKeyRef,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceFieldSelector resourceFieldRef,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretKeySelector secretKeyRef)
         {
             ConfigMapKeyRef = configMapKeyRef;
             FieldRef = fieldRef;
+            FileKeyRef = fileKeyRef;
             ResourceFieldRef = resourceFieldRef;
             SecretKeyRef = secretKeyRef;
         }

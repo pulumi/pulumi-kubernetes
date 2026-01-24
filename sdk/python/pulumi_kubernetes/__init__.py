@@ -140,6 +140,12 @@ _utilities.register(
   "mod": "admissionregistration.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.admissionregistration.v1beta1",
   "classes": {
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicy": "MutatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBinding": "MutatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingList": "MutatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingPatch": "MutatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyList": "MutatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyPatch": "MutatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration": "MutatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList": "MutatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch": "MutatingWebhookConfigurationPatch",
@@ -354,7 +360,10 @@ _utilities.register(
   "classes": {
    "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundle": "ClusterTrustBundle",
    "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList": "ClusterTrustBundleList",
-   "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch": "ClusterTrustBundlePatch"
+   "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch": "ClusterTrustBundlePatch",
+   "kubernetes:certificates.k8s.io/v1alpha1:PodCertificateRequest": "PodCertificateRequest",
+   "kubernetes:certificates.k8s.io/v1alpha1:PodCertificateRequestList": "PodCertificateRequestList",
+   "kubernetes:certificates.k8s.io/v1alpha1:PodCertificateRequestPatch": "PodCertificateRequestPatch"
   }
  },
  {
@@ -799,6 +808,25 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1",
+  "fqn": "pulumi_kubernetes.resource.v1",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1:DeviceClass": "DeviceClass",
+   "kubernetes:resource.k8s.io/v1:DeviceClassList": "DeviceClassList",
+   "kubernetes:resource.k8s.io/v1:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1:ResourceSlice": "ResourceSlice",
+   "kubernetes:resource.k8s.io/v1:ResourceSliceList": "ResourceSliceList",
+   "kubernetes:resource.k8s.io/v1:ResourceSlicePatch": "ResourceSlicePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "resource.k8s.io/v1alpha1",
   "fqn": "pulumi_kubernetes.resource.v1alpha1",
   "classes": {
@@ -865,7 +893,6 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList": "ResourceClaimTemplateList",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice": "ResourceSlice",
-   "kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList": "ResourceSliceList",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch": "ResourceSlicePatch"
   }
  },
@@ -966,7 +993,10 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1:StorageClassPatch": "StorageClassPatch",
    "kubernetes:storage.k8s.io/v1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1:VolumeAttachmentList": "VolumeAttachmentList",
-   "kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
+   "kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch": "VolumeAttachmentPatch",
+   "kubernetes:storage.k8s.io/v1:VolumeAttributesClass": "VolumeAttributesClass",
+   "kubernetes:storage.k8s.io/v1:VolumeAttributesClassList": "VolumeAttributesClassList",
+   "kubernetes:storage.k8s.io/v1:VolumeAttributesClassPatch": "VolumeAttributesClassPatch"
   }
  },
  {

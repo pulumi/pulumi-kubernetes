@@ -13,6 +13,17 @@ import javax.annotation.Nullable;
 @CustomType
 public final class DeviceConstraintPatch {
     /**
+     * @return DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+     * 
+     * This acts as the inverse of MatchAttribute.
+     * 
+     * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+     * 
+     * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+     * 
+     */
+    private @Nullable String distinctAttribute;
+    /**
      * @return MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
      * 
      * For example, if you specified &#34;dra.example.com/numa&#34; (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn&#39;t, then it also will not be chosen.
@@ -30,6 +41,19 @@ public final class DeviceConstraintPatch {
     private @Nullable List<String> requests;
 
     private DeviceConstraintPatch() {}
+    /**
+     * @return DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+     * 
+     * This acts as the inverse of MatchAttribute.
+     * 
+     * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+     * 
+     * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+     * 
+     */
+    public Optional<String> distinctAttribute() {
+        return Optional.ofNullable(this.distinctAttribute);
+    }
     /**
      * @return MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
      * 
@@ -60,15 +84,23 @@ public final class DeviceConstraintPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String distinctAttribute;
         private @Nullable String matchAttribute;
         private @Nullable List<String> requests;
         public Builder() {}
         public Builder(DeviceConstraintPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.distinctAttribute = defaults.distinctAttribute;
     	      this.matchAttribute = defaults.matchAttribute;
     	      this.requests = defaults.requests;
         }
 
+        @CustomType.Setter
+        public Builder distinctAttribute(@Nullable String distinctAttribute) {
+
+            this.distinctAttribute = distinctAttribute;
+            return this;
+        }
         @CustomType.Setter
         public Builder matchAttribute(@Nullable String matchAttribute) {
 
@@ -86,6 +118,7 @@ public final class DeviceConstraintPatch {
         }
         public DeviceConstraintPatch build() {
             final var _resultValue = new DeviceConstraintPatch();
+            _resultValue.distinctAttribute = distinctAttribute;
             _resultValue.matchAttribute = matchAttribute;
             _resultValue.requests = requests;
             return _resultValue;

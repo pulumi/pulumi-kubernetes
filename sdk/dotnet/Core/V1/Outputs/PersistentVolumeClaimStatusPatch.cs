@@ -76,11 +76,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeClaimConditionPatch> Conditions;
         /// <summary>
-        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
         /// </summary>
         public readonly string CurrentVolumeAttributesClassName;
         /// <summary>
-        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ModifyVolumeStatusPatch ModifyVolumeStatus;
         /// <summary>

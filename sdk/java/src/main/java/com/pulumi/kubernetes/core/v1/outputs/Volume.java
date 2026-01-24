@@ -131,7 +131,7 @@ public final class Volume {
      */
     private @Nullable GitRepoVolumeSource gitRepo;
     /**
-     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
      * 
      */
     private @Nullable GlusterfsVolumeSource glusterfs;
@@ -150,7 +150,7 @@ public final class Volume {
      */
     private @Nullable ImageVolumeSource image;
     /**
-     * @return iscsi represents an ISCSI Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+     * @return iscsi represents an ISCSI Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
      * 
      */
     private @Nullable ISCSIVolumeSource iscsi;
@@ -190,7 +190,7 @@ public final class Volume {
      */
     private @Nullable QuobyteVolumeSource quobyte;
     /**
-     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
      * 
      */
     private @Nullable RBDVolumeSource rbd;
@@ -335,7 +335,7 @@ public final class Volume {
         return Optional.ofNullable(this.gitRepo);
     }
     /**
-     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+     * @return glusterfs represents a Glusterfs mount on the host that shares a pod&#39;s lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
      * 
      */
     public Optional<GlusterfsVolumeSource> glusterfs() {
@@ -360,7 +360,7 @@ public final class Volume {
         return Optional.ofNullable(this.image);
     }
     /**
-     * @return iscsi represents an ISCSI Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+     * @return iscsi represents an ISCSI Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
      * 
      */
     public Optional<ISCSIVolumeSource> iscsi() {
@@ -416,7 +416,7 @@ public final class Volume {
         return Optional.ofNullable(this.quobyte);
     }
     /**
-     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+     * @return rbd represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
      * 
      */
     public Optional<RBDVolumeSource> rbd() {

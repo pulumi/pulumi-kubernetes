@@ -57,6 +57,8 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(RbacV1B1, Role), nil, true},
 		{toGVK(RbacV1B1, RoleBinding), nil, true},
 		{toGVK(ResourceV1B1, DeviceClass), nil, true},
+		{toGVK(ResourceV1B2, DeviceClass), nil, true},
+		{toGVK(ResourceV1, DeviceClass), nil, false},
 		{toGVK(SchedulingV1A1, PriorityClass), nil, true},
 		{toGVK(SchedulingV1B1, PriorityClass), nil, true},
 		{toGVK(StorageV1A1, CSIStorageCapacity), nil, true},
@@ -102,6 +104,8 @@ func TestExistsInVersion(t *testing.T) {
 		{toGVK(ResourceV1B1, DeviceClass), &v132, true},
 		{toGVK(ResourceV1B2, DeviceClass), &v132, false},
 		{toGVK(ResourceV1B2, DeviceClass), &v133, true},
+		{toGVK(ResourceV1, DeviceClass), &v133, false},
+		{toGVK(ResourceV1, DeviceClass), &v134, true},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -182,8 +186,14 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(StorageV1B1, CSINode), wantStr(StorageV1, CSINode)},
 		{toGVK(StorageV1B1, StorageClass), wantStr(StorageV1, StorageClass)},
 		{toGVK(StorageV1B1, VolumeAttachment), wantStr(StorageV1, VolumeAttachment)},
+		{toGVK(ResourceV1A1, DeviceClass), wantStr(ResourceV1, DeviceClass)},
+		{toGVK(ResourceV1A2, DeviceClass), wantStr(ResourceV1, DeviceClass)},
+		{toGVK(ResourceV1A3, DeviceClass), wantStr(ResourceV1, DeviceClass)},
+		{toGVK(ResourceV1B1, DeviceClass), wantStr(ResourceV1, DeviceClass)},
+		{toGVK(ResourceV1B2, DeviceClass), wantStr(ResourceV1, DeviceClass)},
 		// Current ApiVersions return the same version string.
 		{toGVK(AppsV1, Deployment), wantStr(AppsV1, Deployment)},
+		{toGVK(ResourceV1, DeviceClass), wantStr(ResourceV1, DeviceClass)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {

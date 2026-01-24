@@ -37,14 +37,14 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+     * Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     @Import(name="prefix")
     private @Nullable Output<String> prefix;
 
     /**
-     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     public Optional<Output<String>> prefix() {
@@ -114,7 +114,7 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param prefix Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+         * @param prefix Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class EnvFromSourceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param prefix Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+         * @param prefix Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 

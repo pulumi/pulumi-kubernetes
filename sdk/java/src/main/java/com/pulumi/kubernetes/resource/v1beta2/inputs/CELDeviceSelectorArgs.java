@@ -27,6 +27,8 @@ public final class CELDeviceSelectorArgs extends com.pulumi.resources.ResourceAr
      *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
      *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
      *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
+     *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+     *    (v1.34+ with the DRAConsumableCapacity feature enabled).
      * 
      * Example: Consider a device with driver=&#34;dra.example.com&#34;, which exposes two attributes named &#34;model&#34; and &#34;ext.example.com/family&#34; and which exposes one capacity named &#34;modules&#34;. This input to this expression would have the following fields:
      * 
@@ -62,6 +64,8 @@ public final class CELDeviceSelectorArgs extends com.pulumi.resources.ResourceAr
      *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
      *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
      *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
+     *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+     *    (v1.34+ with the DRAConsumableCapacity feature enabled).
      * 
      * Example: Consider a device with driver=&#34;dra.example.com&#34;, which exposes two attributes named &#34;model&#34; and &#34;ext.example.com/family&#34; and which exposes one capacity named &#34;modules&#34;. This input to this expression would have the following fields:
      * 
@@ -122,6 +126,8 @@ public final class CELDeviceSelectorArgs extends com.pulumi.resources.ResourceAr
          *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
          *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
          *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
+         *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+         *    (v1.34+ with the DRAConsumableCapacity feature enabled).
          * 
          * Example: Consider a device with driver=&#34;dra.example.com&#34;, which exposes two attributes named &#34;model&#34; and &#34;ext.example.com/family&#34; and which exposes one capacity named &#34;modules&#34;. This input to this expression would have the following fields:
          * 
@@ -161,6 +167,8 @@ public final class CELDeviceSelectorArgs extends com.pulumi.resources.ResourceAr
          *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
          *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
          *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
+         *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+         *    (v1.34+ with the DRAConsumableCapacity feature enabled).
          * 
          * Example: Consider a device with driver=&#34;dra.example.com&#34;, which exposes two attributes named &#34;model&#34; and &#34;ext.example.com/family&#34; and which exposes one capacity named &#34;modules&#34;. This input to this expression would have the following fields:
          * 

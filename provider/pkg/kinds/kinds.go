@@ -106,6 +106,8 @@ const (
 	PersistentVolumeClaimList            Kind = "PersistentVolumeClaimList"
 	PersistentVolumeList                 Kind = "PersistentVolumeList"
 	Pod                                  Kind = "Pod"
+	PodCertificateRequest                Kind = "PodCertificateRequest"
+	PodCertificateRequestList            Kind = "PodCertificateRequestList"
 	PodDisruptionBudget                  Kind = "PodDisruptionBudget"
 	PodDisruptionBudgetList              Kind = "PodDisruptionBudgetList"
 	PodList                              Kind = "PodList"
@@ -293,6 +295,7 @@ const (
 	RbacV1                    groupVersion = "rbac.authorization.k8s.io/v1"
 	RbacV1A1                  groupVersion = "rbac.authorization.k8s.io/v1alpha1"
 	RbacV1B1                  groupVersion = "rbac.authorization.k8s.io/v1beta1"
+	ResourceV1                groupVersion = "resource.k8s.io/v1"
 	ResourceV1A1              groupVersion = "resource.k8s.io/v1alpha1"
 	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
 	ResourceV1A3              groupVersion = "resource.k8s.io/v1alpha3"
@@ -370,6 +373,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"rbac.authorization.k8s.io/v1",
 	"rbac.authorization.k8s.io/v1alpha1",
 	"rbac.authorization.k8s.io/v1beta1",
+	"resource.k8s.io/v1",
 	"resource.k8s.io/v1alpha1",
 	"resource.k8s.io/v1alpha2",
 	"resource.k8s.io/v1alpha3",
@@ -397,6 +401,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingList",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyList",
@@ -429,6 +435,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:batch/v2alpha1:CronJobList",
 	"kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList",
 	"kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList",
+	"kubernetes:certificates.k8s.io/v1alpha1:PodCertificateRequestList",
 	"kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
 	"kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundleList",
 	"kubernetes:coordination.k8s.io/v1:LeaseList",
@@ -501,6 +508,10 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList",
 	"kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList",
 	"kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList",
+	"kubernetes:resource.k8s.io/v1:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1:ResourceClaimList",
+	"kubernetes:resource.k8s.io/v1:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList",
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplateList",
@@ -517,7 +528,6 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList",
-	"kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1beta1:DeviceClassList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplateList",
@@ -535,6 +545,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1:CSIStorageCapacityList",
 	"kubernetes:storage.k8s.io/v1:StorageClassList",
 	"kubernetes:storage.k8s.io/v1:VolumeAttachmentList",
+	"kubernetes:storage.k8s.io/v1:VolumeAttributesClassList",
 	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList",
 	"kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassList",
 	"kubernetes:storage.k8s.io/v1beta1:CSIDriverList",

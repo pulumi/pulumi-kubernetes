@@ -27,12 +27,48 @@ public final class DevicePatch {
      */
     private @Nullable Boolean allNodes;
     /**
+     * @return AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+     * 
+     * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+     * 
+     */
+    private @Nullable Boolean allowMultipleAllocations;
+    /**
      * @return Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
      * 
      * The maximum number of attributes and capacities combined is 32.
      * 
      */
     private @Nullable Map<String,DeviceAttribute> attributes;
+    /**
+     * @return BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+     * 
+     * The maximum number of binding conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    private @Nullable List<String> bindingConditions;
+    /**
+     * @return BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to &#34;True&#34;, a binding failure occurred.
+     * 
+     * The maximum number of binding failure conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    private @Nullable List<String> bindingFailureConditions;
+    /**
+     * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    private @Nullable Boolean bindsToNode;
     /**
      * @return Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
      * 
@@ -91,6 +127,15 @@ public final class DevicePatch {
         return Optional.ofNullable(this.allNodes);
     }
     /**
+     * @return AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+     * 
+     * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+     * 
+     */
+    public Optional<Boolean> allowMultipleAllocations() {
+        return Optional.ofNullable(this.allowMultipleAllocations);
+    }
+    /**
      * @return Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
      * 
      * The maximum number of attributes and capacities combined is 32.
@@ -98,6 +143,41 @@ public final class DevicePatch {
      */
     public Map<String,DeviceAttribute> attributes() {
         return this.attributes == null ? Map.of() : this.attributes;
+    }
+    /**
+     * @return BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+     * 
+     * The maximum number of binding conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public List<String> bindingConditions() {
+        return this.bindingConditions == null ? List.of() : this.bindingConditions;
+    }
+    /**
+     * @return BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to &#34;True&#34;, a binding failure occurred.
+     * 
+     * The maximum number of binding failure conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public List<String> bindingFailureConditions() {
+        return this.bindingFailureConditions == null ? List.of() : this.bindingFailureConditions;
+    }
+    /**
+     * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Boolean> bindsToNode() {
+        return Optional.ofNullable(this.bindsToNode);
     }
     /**
      * @return Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
@@ -168,7 +248,11 @@ public final class DevicePatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Boolean allNodes;
+        private @Nullable Boolean allowMultipleAllocations;
         private @Nullable Map<String,DeviceAttribute> attributes;
+        private @Nullable List<String> bindingConditions;
+        private @Nullable List<String> bindingFailureConditions;
+        private @Nullable Boolean bindsToNode;
         private @Nullable Map<String,DeviceCapacity> capacity;
         private @Nullable List<DeviceCounterConsumptionPatch> consumesCounters;
         private @Nullable String name;
@@ -179,7 +263,11 @@ public final class DevicePatch {
         public Builder(DevicePatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.allNodes = defaults.allNodes;
+    	      this.allowMultipleAllocations = defaults.allowMultipleAllocations;
     	      this.attributes = defaults.attributes;
+    	      this.bindingConditions = defaults.bindingConditions;
+    	      this.bindingFailureConditions = defaults.bindingFailureConditions;
+    	      this.bindsToNode = defaults.bindsToNode;
     	      this.capacity = defaults.capacity;
     	      this.consumesCounters = defaults.consumesCounters;
     	      this.name = defaults.name;
@@ -195,9 +283,39 @@ public final class DevicePatch {
             return this;
         }
         @CustomType.Setter
+        public Builder allowMultipleAllocations(@Nullable Boolean allowMultipleAllocations) {
+
+            this.allowMultipleAllocations = allowMultipleAllocations;
+            return this;
+        }
+        @CustomType.Setter
         public Builder attributes(@Nullable Map<String,DeviceAttribute> attributes) {
 
             this.attributes = attributes;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder bindingConditions(@Nullable List<String> bindingConditions) {
+
+            this.bindingConditions = bindingConditions;
+            return this;
+        }
+        public Builder bindingConditions(String... bindingConditions) {
+            return bindingConditions(List.of(bindingConditions));
+        }
+        @CustomType.Setter
+        public Builder bindingFailureConditions(@Nullable List<String> bindingFailureConditions) {
+
+            this.bindingFailureConditions = bindingFailureConditions;
+            return this;
+        }
+        public Builder bindingFailureConditions(String... bindingFailureConditions) {
+            return bindingFailureConditions(List.of(bindingFailureConditions));
+        }
+        @CustomType.Setter
+        public Builder bindsToNode(@Nullable Boolean bindsToNode) {
+
+            this.bindsToNode = bindsToNode;
             return this;
         }
         @CustomType.Setter
@@ -245,7 +363,11 @@ public final class DevicePatch {
         public DevicePatch build() {
             final var _resultValue = new DevicePatch();
             _resultValue.allNodes = allNodes;
+            _resultValue.allowMultipleAllocations = allowMultipleAllocations;
             _resultValue.attributes = attributes;
+            _resultValue.bindingConditions = bindingConditions;
+            _resultValue.bindingFailureConditions = bindingFailureConditions;
+            _resultValue.bindsToNode = bindsToNode;
             _resultValue.capacity = capacity;
             _resultValue.consumesCounters = consumesCounters;
             _resultValue.name = name;

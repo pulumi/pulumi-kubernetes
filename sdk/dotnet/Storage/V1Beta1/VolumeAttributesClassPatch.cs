@@ -90,6 +90,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:VolumeAttributesClassPatch" },
                     new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch" },
                 },
             };

@@ -636,6 +636,1466 @@ func (o ClusterTrustBundleSpecPatchPtrOutput) TrustBundle() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata contains the object metadata.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec contains the details about the certificate being requested.
+	Spec PodCertificateRequestSpec `pulumi:"spec"`
+	// status contains the issued certificate, and a standard set of conditions.
+	Status *PodCertificateRequestStatus `pulumi:"status"`
+}
+
+// PodCertificateRequestTypeInput is an input type that accepts PodCertificateRequestTypeArgs and PodCertificateRequestTypeOutput values.
+// You can construct a concrete instance of `PodCertificateRequestTypeInput` via:
+//
+//	PodCertificateRequestTypeArgs{...}
+type PodCertificateRequestTypeInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestTypeOutput() PodCertificateRequestTypeOutput
+	ToPodCertificateRequestTypeOutputWithContext(context.Context) PodCertificateRequestTypeOutput
+}
+
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata contains the object metadata.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec contains the details about the certificate being requested.
+	Spec PodCertificateRequestSpecInput `pulumi:"spec"`
+	// status contains the issued certificate, and a standard set of conditions.
+	Status PodCertificateRequestStatusPtrInput `pulumi:"status"`
+}
+
+func (PodCertificateRequestTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestType)(nil)).Elem()
+}
+
+func (i PodCertificateRequestTypeArgs) ToPodCertificateRequestTypeOutput() PodCertificateRequestTypeOutput {
+	return i.ToPodCertificateRequestTypeOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestTypeArgs) ToPodCertificateRequestTypeOutputWithContext(ctx context.Context) PodCertificateRequestTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestTypeOutput)
+}
+
+// PodCertificateRequestTypeArrayInput is an input type that accepts PodCertificateRequestTypeArray and PodCertificateRequestTypeArrayOutput values.
+// You can construct a concrete instance of `PodCertificateRequestTypeArrayInput` via:
+//
+//	PodCertificateRequestTypeArray{ PodCertificateRequestTypeArgs{...} }
+type PodCertificateRequestTypeArrayInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestTypeArrayOutput() PodCertificateRequestTypeArrayOutput
+	ToPodCertificateRequestTypeArrayOutputWithContext(context.Context) PodCertificateRequestTypeArrayOutput
+}
+
+type PodCertificateRequestTypeArray []PodCertificateRequestTypeInput
+
+func (PodCertificateRequestTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodCertificateRequestType)(nil)).Elem()
+}
+
+func (i PodCertificateRequestTypeArray) ToPodCertificateRequestTypeArrayOutput() PodCertificateRequestTypeArrayOutput {
+	return i.ToPodCertificateRequestTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestTypeArray) ToPodCertificateRequestTypeArrayOutputWithContext(ctx context.Context) PodCertificateRequestTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestTypeArrayOutput)
+}
+
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestTypeOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestType)(nil)).Elem()
+}
+
+func (o PodCertificateRequestTypeOutput) ToPodCertificateRequestTypeOutput() PodCertificateRequestTypeOutput {
+	return o
+}
+
+func (o PodCertificateRequestTypeOutput) ToPodCertificateRequestTypeOutputWithContext(ctx context.Context) PodCertificateRequestTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodCertificateRequestTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodCertificateRequestTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata contains the object metadata.
+func (o PodCertificateRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec contains the details about the certificate being requested.
+func (o PodCertificateRequestTypeOutput) Spec() PodCertificateRequestSpecOutput {
+	return o.ApplyT(func(v PodCertificateRequestType) PodCertificateRequestSpec { return v.Spec }).(PodCertificateRequestSpecOutput)
+}
+
+// status contains the issued certificate, and a standard set of conditions.
+func (o PodCertificateRequestTypeOutput) Status() PodCertificateRequestStatusPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestType) *PodCertificateRequestStatus { return v.Status }).(PodCertificateRequestStatusPtrOutput)
+}
+
+type PodCertificateRequestTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodCertificateRequestType)(nil)).Elem()
+}
+
+func (o PodCertificateRequestTypeArrayOutput) ToPodCertificateRequestTypeArrayOutput() PodCertificateRequestTypeArrayOutput {
+	return o
+}
+
+func (o PodCertificateRequestTypeArrayOutput) ToPodCertificateRequestTypeArrayOutputWithContext(ctx context.Context) PodCertificateRequestTypeArrayOutput {
+	return o
+}
+
+func (o PodCertificateRequestTypeArrayOutput) Index(i pulumi.IntInput) PodCertificateRequestTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodCertificateRequestType {
+		return vs[0].([]PodCertificateRequestType)[vs[1].(int)]
+	}).(PodCertificateRequestTypeOutput)
+}
+
+// PodCertificateRequestList is a collection of PodCertificateRequest objects
+type PodCertificateRequestListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is a collection of PodCertificateRequest objects
+	Items []PodCertificateRequestType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata contains the list metadata.
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// PodCertificateRequestListTypeInput is an input type that accepts PodCertificateRequestListTypeArgs and PodCertificateRequestListTypeOutput values.
+// You can construct a concrete instance of `PodCertificateRequestListTypeInput` via:
+//
+//	PodCertificateRequestListTypeArgs{...}
+type PodCertificateRequestListTypeInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestListTypeOutput() PodCertificateRequestListTypeOutput
+	ToPodCertificateRequestListTypeOutputWithContext(context.Context) PodCertificateRequestListTypeOutput
+}
+
+// PodCertificateRequestList is a collection of PodCertificateRequest objects
+type PodCertificateRequestListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is a collection of PodCertificateRequest objects
+	Items PodCertificateRequestTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata contains the list metadata.
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PodCertificateRequestListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestListType)(nil)).Elem()
+}
+
+func (i PodCertificateRequestListTypeArgs) ToPodCertificateRequestListTypeOutput() PodCertificateRequestListTypeOutput {
+	return i.ToPodCertificateRequestListTypeOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestListTypeArgs) ToPodCertificateRequestListTypeOutputWithContext(ctx context.Context) PodCertificateRequestListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestListTypeOutput)
+}
+
+// PodCertificateRequestList is a collection of PodCertificateRequest objects
+type PodCertificateRequestListTypeOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestListType)(nil)).Elem()
+}
+
+func (o PodCertificateRequestListTypeOutput) ToPodCertificateRequestListTypeOutput() PodCertificateRequestListTypeOutput {
+	return o
+}
+
+func (o PodCertificateRequestListTypeOutput) ToPodCertificateRequestListTypeOutputWithContext(ctx context.Context) PodCertificateRequestListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodCertificateRequestListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is a collection of PodCertificateRequest objects
+func (o PodCertificateRequestListTypeOutput) Items() PodCertificateRequestTypeArrayOutput {
+	return o.ApplyT(func(v PodCertificateRequestListType) []PodCertificateRequestType { return v.Items }).(PodCertificateRequestTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodCertificateRequestListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata contains the list metadata.
+func (o PodCertificateRequestListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata contains the object metadata.
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec contains the details about the certificate being requested.
+	Spec *PodCertificateRequestSpecPatch `pulumi:"spec"`
+	// status contains the issued certificate, and a standard set of conditions.
+	Status *PodCertificateRequestStatusPatch `pulumi:"status"`
+}
+
+// PodCertificateRequestPatchTypeInput is an input type that accepts PodCertificateRequestPatchTypeArgs and PodCertificateRequestPatchTypeOutput values.
+// You can construct a concrete instance of `PodCertificateRequestPatchTypeInput` via:
+//
+//	PodCertificateRequestPatchTypeArgs{...}
+type PodCertificateRequestPatchTypeInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestPatchTypeOutput() PodCertificateRequestPatchTypeOutput
+	ToPodCertificateRequestPatchTypeOutputWithContext(context.Context) PodCertificateRequestPatchTypeOutput
+}
+
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata contains the object metadata.
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec contains the details about the certificate being requested.
+	Spec PodCertificateRequestSpecPatchPtrInput `pulumi:"spec"`
+	// status contains the issued certificate, and a standard set of conditions.
+	Status PodCertificateRequestStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (PodCertificateRequestPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestPatchType)(nil)).Elem()
+}
+
+func (i PodCertificateRequestPatchTypeArgs) ToPodCertificateRequestPatchTypeOutput() PodCertificateRequestPatchTypeOutput {
+	return i.ToPodCertificateRequestPatchTypeOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestPatchTypeArgs) ToPodCertificateRequestPatchTypeOutputWithContext(ctx context.Context) PodCertificateRequestPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestPatchTypeOutput)
+}
+
+// PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+//
+// Kubelets use this API to implement podCertificate projected volumes
+type PodCertificateRequestPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestPatchType)(nil)).Elem()
+}
+
+func (o PodCertificateRequestPatchTypeOutput) ToPodCertificateRequestPatchTypeOutput() PodCertificateRequestPatchTypeOutput {
+	return o
+}
+
+func (o PodCertificateRequestPatchTypeOutput) ToPodCertificateRequestPatchTypeOutputWithContext(ctx context.Context) PodCertificateRequestPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodCertificateRequestPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodCertificateRequestPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata contains the object metadata.
+func (o PodCertificateRequestPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec contains the details about the certificate being requested.
+func (o PodCertificateRequestPatchTypeOutput) Spec() PodCertificateRequestSpecPatchPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestPatchType) *PodCertificateRequestSpecPatch { return v.Spec }).(PodCertificateRequestSpecPatchPtrOutput)
+}
+
+// status contains the issued certificate, and a standard set of conditions.
+func (o PodCertificateRequestPatchTypeOutput) Status() PodCertificateRequestStatusPatchPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestPatchType) *PodCertificateRequestStatusPatch { return v.Status }).(PodCertificateRequestStatusPatchPtrOutput)
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpec struct {
+	// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+	//
+	// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+	//
+	// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+	MaxExpirationSeconds *int `pulumi:"maxExpirationSeconds"`
+	// nodeName is the name of the node the pod is assigned to.
+	NodeName string `pulumi:"nodeName"`
+	// nodeUID is the UID of the node the pod is assigned to.
+	NodeUID string `pulumi:"nodeUID"`
+	// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+	//
+	// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+	//
+	// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+	PkixPublicKey string `pulumi:"pkixPublicKey"`
+	// podName is the name of the pod into which the certificate will be mounted.
+	PodName string `pulumi:"podName"`
+	// podUID is the UID of the pod into which the certificate will be mounted.
+	PodUID string `pulumi:"podUID"`
+	// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+	//
+	// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+	//
+	// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+	//
+	// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+	//
+	// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+	//
+	// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+	ProofOfPossession string `pulumi:"proofOfPossession"`
+	// serviceAccountName is the name of the service account the pod is running as.
+	ServiceAccountName string `pulumi:"serviceAccountName"`
+	// serviceAccountUID is the UID of the service account the pod is running as.
+	ServiceAccountUID string `pulumi:"serviceAccountUID"`
+	// signerName indicates the requested signer.
+	//
+	// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+	SignerName string `pulumi:"signerName"`
+}
+
+// PodCertificateRequestSpecInput is an input type that accepts PodCertificateRequestSpecArgs and PodCertificateRequestSpecOutput values.
+// You can construct a concrete instance of `PodCertificateRequestSpecInput` via:
+//
+//	PodCertificateRequestSpecArgs{...}
+type PodCertificateRequestSpecInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestSpecOutput() PodCertificateRequestSpecOutput
+	ToPodCertificateRequestSpecOutputWithContext(context.Context) PodCertificateRequestSpecOutput
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpecArgs struct {
+	// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+	//
+	// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+	//
+	// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+	MaxExpirationSeconds pulumi.IntPtrInput `pulumi:"maxExpirationSeconds"`
+	// nodeName is the name of the node the pod is assigned to.
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
+	// nodeUID is the UID of the node the pod is assigned to.
+	NodeUID pulumi.StringInput `pulumi:"nodeUID"`
+	// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+	//
+	// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+	//
+	// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+	PkixPublicKey pulumi.StringInput `pulumi:"pkixPublicKey"`
+	// podName is the name of the pod into which the certificate will be mounted.
+	PodName pulumi.StringInput `pulumi:"podName"`
+	// podUID is the UID of the pod into which the certificate will be mounted.
+	PodUID pulumi.StringInput `pulumi:"podUID"`
+	// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+	//
+	// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+	//
+	// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+	//
+	// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+	//
+	// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+	//
+	// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+	ProofOfPossession pulumi.StringInput `pulumi:"proofOfPossession"`
+	// serviceAccountName is the name of the service account the pod is running as.
+	ServiceAccountName pulumi.StringInput `pulumi:"serviceAccountName"`
+	// serviceAccountUID is the UID of the service account the pod is running as.
+	ServiceAccountUID pulumi.StringInput `pulumi:"serviceAccountUID"`
+	// signerName indicates the requested signer.
+	//
+	// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+	SignerName pulumi.StringInput `pulumi:"signerName"`
+}
+
+func (PodCertificateRequestSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestSpec)(nil)).Elem()
+}
+
+func (i PodCertificateRequestSpecArgs) ToPodCertificateRequestSpecOutput() PodCertificateRequestSpecOutput {
+	return i.ToPodCertificateRequestSpecOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestSpecArgs) ToPodCertificateRequestSpecOutputWithContext(ctx context.Context) PodCertificateRequestSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestSpecOutput)
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpecOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestSpec)(nil)).Elem()
+}
+
+func (o PodCertificateRequestSpecOutput) ToPodCertificateRequestSpecOutput() PodCertificateRequestSpecOutput {
+	return o
+}
+
+func (o PodCertificateRequestSpecOutput) ToPodCertificateRequestSpecOutputWithContext(ctx context.Context) PodCertificateRequestSpecOutput {
+	return o
+}
+
+// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+//
+// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+//
+// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+func (o PodCertificateRequestSpecOutput) MaxExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) *int { return v.MaxExpirationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// nodeName is the name of the node the pod is assigned to.
+func (o PodCertificateRequestSpecOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.NodeName }).(pulumi.StringOutput)
+}
+
+// nodeUID is the UID of the node the pod is assigned to.
+func (o PodCertificateRequestSpecOutput) NodeUID() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.NodeUID }).(pulumi.StringOutput)
+}
+
+// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+//
+// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+//
+// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+func (o PodCertificateRequestSpecOutput) PkixPublicKey() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.PkixPublicKey }).(pulumi.StringOutput)
+}
+
+// podName is the name of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecOutput) PodName() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.PodName }).(pulumi.StringOutput)
+}
+
+// podUID is the UID of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecOutput) PodUID() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.PodUID }).(pulumi.StringOutput)
+}
+
+// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+//
+// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+//
+// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+//
+// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+//
+// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+//
+// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+func (o PodCertificateRequestSpecOutput) ProofOfPossession() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.ProofOfPossession }).(pulumi.StringOutput)
+}
+
+// serviceAccountName is the name of the service account the pod is running as.
+func (o PodCertificateRequestSpecOutput) ServiceAccountName() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.ServiceAccountName }).(pulumi.StringOutput)
+}
+
+// serviceAccountUID is the UID of the service account the pod is running as.
+func (o PodCertificateRequestSpecOutput) ServiceAccountUID() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.ServiceAccountUID }).(pulumi.StringOutput)
+}
+
+// signerName indicates the requested signer.
+//
+// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+func (o PodCertificateRequestSpecOutput) SignerName() pulumi.StringOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpec) string { return v.SignerName }).(pulumi.StringOutput)
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpecPatch struct {
+	// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+	//
+	// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+	//
+	// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+	MaxExpirationSeconds *int `pulumi:"maxExpirationSeconds"`
+	// nodeName is the name of the node the pod is assigned to.
+	NodeName *string `pulumi:"nodeName"`
+	// nodeUID is the UID of the node the pod is assigned to.
+	NodeUID *string `pulumi:"nodeUID"`
+	// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+	//
+	// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+	//
+	// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+	PkixPublicKey *string `pulumi:"pkixPublicKey"`
+	// podName is the name of the pod into which the certificate will be mounted.
+	PodName *string `pulumi:"podName"`
+	// podUID is the UID of the pod into which the certificate will be mounted.
+	PodUID *string `pulumi:"podUID"`
+	// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+	//
+	// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+	//
+	// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+	//
+	// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+	//
+	// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+	//
+	// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+	ProofOfPossession *string `pulumi:"proofOfPossession"`
+	// serviceAccountName is the name of the service account the pod is running as.
+	ServiceAccountName *string `pulumi:"serviceAccountName"`
+	// serviceAccountUID is the UID of the service account the pod is running as.
+	ServiceAccountUID *string `pulumi:"serviceAccountUID"`
+	// signerName indicates the requested signer.
+	//
+	// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+	SignerName *string `pulumi:"signerName"`
+}
+
+// PodCertificateRequestSpecPatchInput is an input type that accepts PodCertificateRequestSpecPatchArgs and PodCertificateRequestSpecPatchOutput values.
+// You can construct a concrete instance of `PodCertificateRequestSpecPatchInput` via:
+//
+//	PodCertificateRequestSpecPatchArgs{...}
+type PodCertificateRequestSpecPatchInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestSpecPatchOutput() PodCertificateRequestSpecPatchOutput
+	ToPodCertificateRequestSpecPatchOutputWithContext(context.Context) PodCertificateRequestSpecPatchOutput
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpecPatchArgs struct {
+	// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+	//
+	// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+	//
+	// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+	MaxExpirationSeconds pulumi.IntPtrInput `pulumi:"maxExpirationSeconds"`
+	// nodeName is the name of the node the pod is assigned to.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// nodeUID is the UID of the node the pod is assigned to.
+	NodeUID pulumi.StringPtrInput `pulumi:"nodeUID"`
+	// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+	//
+	// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+	//
+	// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+	PkixPublicKey pulumi.StringPtrInput `pulumi:"pkixPublicKey"`
+	// podName is the name of the pod into which the certificate will be mounted.
+	PodName pulumi.StringPtrInput `pulumi:"podName"`
+	// podUID is the UID of the pod into which the certificate will be mounted.
+	PodUID pulumi.StringPtrInput `pulumi:"podUID"`
+	// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+	//
+	// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+	//
+	// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+	//
+	// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+	//
+	// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+	//
+	// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+	ProofOfPossession pulumi.StringPtrInput `pulumi:"proofOfPossession"`
+	// serviceAccountName is the name of the service account the pod is running as.
+	ServiceAccountName pulumi.StringPtrInput `pulumi:"serviceAccountName"`
+	// serviceAccountUID is the UID of the service account the pod is running as.
+	ServiceAccountUID pulumi.StringPtrInput `pulumi:"serviceAccountUID"`
+	// signerName indicates the requested signer.
+	//
+	// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+}
+
+func (PodCertificateRequestSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestSpecPatch)(nil)).Elem()
+}
+
+func (i PodCertificateRequestSpecPatchArgs) ToPodCertificateRequestSpecPatchOutput() PodCertificateRequestSpecPatchOutput {
+	return i.ToPodCertificateRequestSpecPatchOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestSpecPatchArgs) ToPodCertificateRequestSpecPatchOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestSpecPatchOutput)
+}
+
+func (i PodCertificateRequestSpecPatchArgs) ToPodCertificateRequestSpecPatchPtrOutput() PodCertificateRequestSpecPatchPtrOutput {
+	return i.ToPodCertificateRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestSpecPatchArgs) ToPodCertificateRequestSpecPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestSpecPatchOutput).ToPodCertificateRequestSpecPatchPtrOutputWithContext(ctx)
+}
+
+// PodCertificateRequestSpecPatchPtrInput is an input type that accepts PodCertificateRequestSpecPatchArgs, PodCertificateRequestSpecPatchPtr and PodCertificateRequestSpecPatchPtrOutput values.
+// You can construct a concrete instance of `PodCertificateRequestSpecPatchPtrInput` via:
+//
+//	        PodCertificateRequestSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodCertificateRequestSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestSpecPatchPtrOutput() PodCertificateRequestSpecPatchPtrOutput
+	ToPodCertificateRequestSpecPatchPtrOutputWithContext(context.Context) PodCertificateRequestSpecPatchPtrOutput
+}
+
+type podCertificateRequestSpecPatchPtrType PodCertificateRequestSpecPatchArgs
+
+func PodCertificateRequestSpecPatchPtr(v *PodCertificateRequestSpecPatchArgs) PodCertificateRequestSpecPatchPtrInput {
+	return (*podCertificateRequestSpecPatchPtrType)(v)
+}
+
+func (*podCertificateRequestSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestSpecPatch)(nil)).Elem()
+}
+
+func (i *podCertificateRequestSpecPatchPtrType) ToPodCertificateRequestSpecPatchPtrOutput() PodCertificateRequestSpecPatchPtrOutput {
+	return i.ToPodCertificateRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podCertificateRequestSpecPatchPtrType) ToPodCertificateRequestSpecPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestSpecPatchPtrOutput)
+}
+
+// PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+type PodCertificateRequestSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestSpecPatch)(nil)).Elem()
+}
+
+func (o PodCertificateRequestSpecPatchOutput) ToPodCertificateRequestSpecPatchOutput() PodCertificateRequestSpecPatchOutput {
+	return o
+}
+
+func (o PodCertificateRequestSpecPatchOutput) ToPodCertificateRequestSpecPatchOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchOutput {
+	return o
+}
+
+func (o PodCertificateRequestSpecPatchOutput) ToPodCertificateRequestSpecPatchPtrOutput() PodCertificateRequestSpecPatchPtrOutput {
+	return o.ToPodCertificateRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodCertificateRequestSpecPatchOutput) ToPodCertificateRequestSpecPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodCertificateRequestSpecPatch) *PodCertificateRequestSpecPatch {
+		return &v
+	}).(PodCertificateRequestSpecPatchPtrOutput)
+}
+
+// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+//
+// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+//
+// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+func (o PodCertificateRequestSpecPatchOutput) MaxExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *int { return v.MaxExpirationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// nodeName is the name of the node the pod is assigned to.
+func (o PodCertificateRequestSpecPatchOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// nodeUID is the UID of the node the pod is assigned to.
+func (o PodCertificateRequestSpecPatchOutput) NodeUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.NodeUID }).(pulumi.StringPtrOutput)
+}
+
+// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+//
+// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+//
+// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+func (o PodCertificateRequestSpecPatchOutput) PkixPublicKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.PkixPublicKey }).(pulumi.StringPtrOutput)
+}
+
+// podName is the name of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecPatchOutput) PodName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.PodName }).(pulumi.StringPtrOutput)
+}
+
+// podUID is the UID of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecPatchOutput) PodUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.PodUID }).(pulumi.StringPtrOutput)
+}
+
+// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+//
+// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+//
+// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+//
+// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+//
+// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+//
+// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+func (o PodCertificateRequestSpecPatchOutput) ProofOfPossession() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.ProofOfPossession }).(pulumi.StringPtrOutput)
+}
+
+// serviceAccountName is the name of the service account the pod is running as.
+func (o PodCertificateRequestSpecPatchOutput) ServiceAccountName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.ServiceAccountName }).(pulumi.StringPtrOutput)
+}
+
+// serviceAccountUID is the UID of the service account the pod is running as.
+func (o PodCertificateRequestSpecPatchOutput) ServiceAccountUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.ServiceAccountUID }).(pulumi.StringPtrOutput)
+}
+
+// signerName indicates the requested signer.
+//
+// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+func (o PodCertificateRequestSpecPatchOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestSpecPatch) *string { return v.SignerName }).(pulumi.StringPtrOutput)
+}
+
+type PodCertificateRequestSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestSpecPatch)(nil)).Elem()
+}
+
+func (o PodCertificateRequestSpecPatchPtrOutput) ToPodCertificateRequestSpecPatchPtrOutput() PodCertificateRequestSpecPatchPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestSpecPatchPtrOutput) ToPodCertificateRequestSpecPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestSpecPatchPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestSpecPatchPtrOutput) Elem() PodCertificateRequestSpecPatchOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) PodCertificateRequestSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodCertificateRequestSpecPatch
+		return ret
+	}).(PodCertificateRequestSpecPatchOutput)
+}
+
+// maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+//
+// If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+//
+// The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+func (o PodCertificateRequestSpecPatchPtrOutput) MaxExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxExpirationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// nodeName is the name of the node the pod is assigned to.
+func (o PodCertificateRequestSpecPatchPtrOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeName
+	}).(pulumi.StringPtrOutput)
+}
+
+// nodeUID is the UID of the node the pod is assigned to.
+func (o PodCertificateRequestSpecPatchPtrOutput) NodeUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NodeUID
+	}).(pulumi.StringPtrOutput)
+}
+
+// pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+//
+// The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+//
+// Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+func (o PodCertificateRequestSpecPatchPtrOutput) PkixPublicKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PkixPublicKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// podName is the name of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecPatchPtrOutput) PodName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PodName
+	}).(pulumi.StringPtrOutput)
+}
+
+// podUID is the UID of the pod into which the certificate will be mounted.
+func (o PodCertificateRequestSpecPatchPtrOutput) PodUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PodUID
+	}).(pulumi.StringPtrOutput)
+}
+
+// proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+//
+// It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+//
+// kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+//
+// If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+//
+// If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+//
+// If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+func (o PodCertificateRequestSpecPatchPtrOutput) ProofOfPossession() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ProofOfPossession
+	}).(pulumi.StringPtrOutput)
+}
+
+// serviceAccountName is the name of the service account the pod is running as.
+func (o PodCertificateRequestSpecPatchPtrOutput) ServiceAccountName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceAccountName
+	}).(pulumi.StringPtrOutput)
+}
+
+// serviceAccountUID is the UID of the service account the pod is running as.
+func (o PodCertificateRequestSpecPatchPtrOutput) ServiceAccountUID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceAccountUID
+	}).(pulumi.StringPtrOutput)
+}
+
+// signerName indicates the requested signer.
+//
+// All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+func (o PodCertificateRequestSpecPatchPtrOutput) SignerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SignerName
+	}).(pulumi.StringPtrOutput)
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatus struct {
+	// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+	//
+	// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+	BeginRefreshAt *string `pulumi:"beginRefreshAt"`
+	// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+	//
+	// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+	//
+	// Validation requirements:
+	//  1. certificateChain must consist of one or more PEM-formatted certificates.
+	//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+	//     described in section 4 of RFC5280.
+	//
+	// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+	CertificateChain *string `pulumi:"certificateChain"`
+	// conditions applied to the request.
+	//
+	// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+	//
+	// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+	Conditions []metav1.Condition `pulumi:"conditions"`
+	// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+	NotAfter *string `pulumi:"notAfter"`
+	// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+	NotBefore *string `pulumi:"notBefore"`
+}
+
+// PodCertificateRequestStatusInput is an input type that accepts PodCertificateRequestStatusArgs and PodCertificateRequestStatusOutput values.
+// You can construct a concrete instance of `PodCertificateRequestStatusInput` via:
+//
+//	PodCertificateRequestStatusArgs{...}
+type PodCertificateRequestStatusInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestStatusOutput() PodCertificateRequestStatusOutput
+	ToPodCertificateRequestStatusOutputWithContext(context.Context) PodCertificateRequestStatusOutput
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatusArgs struct {
+	// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+	//
+	// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+	BeginRefreshAt pulumi.StringPtrInput `pulumi:"beginRefreshAt"`
+	// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+	//
+	// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+	//
+	// Validation requirements:
+	//  1. certificateChain must consist of one or more PEM-formatted certificates.
+	//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+	//     described in section 4 of RFC5280.
+	//
+	// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+	CertificateChain pulumi.StringPtrInput `pulumi:"certificateChain"`
+	// conditions applied to the request.
+	//
+	// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+	//
+	// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+	// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+	NotAfter pulumi.StringPtrInput `pulumi:"notAfter"`
+	// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+	NotBefore pulumi.StringPtrInput `pulumi:"notBefore"`
+}
+
+func (PodCertificateRequestStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestStatus)(nil)).Elem()
+}
+
+func (i PodCertificateRequestStatusArgs) ToPodCertificateRequestStatusOutput() PodCertificateRequestStatusOutput {
+	return i.ToPodCertificateRequestStatusOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestStatusArgs) ToPodCertificateRequestStatusOutputWithContext(ctx context.Context) PodCertificateRequestStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusOutput)
+}
+
+func (i PodCertificateRequestStatusArgs) ToPodCertificateRequestStatusPtrOutput() PodCertificateRequestStatusPtrOutput {
+	return i.ToPodCertificateRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestStatusArgs) ToPodCertificateRequestStatusPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusOutput).ToPodCertificateRequestStatusPtrOutputWithContext(ctx)
+}
+
+// PodCertificateRequestStatusPtrInput is an input type that accepts PodCertificateRequestStatusArgs, PodCertificateRequestStatusPtr and PodCertificateRequestStatusPtrOutput values.
+// You can construct a concrete instance of `PodCertificateRequestStatusPtrInput` via:
+//
+//	        PodCertificateRequestStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodCertificateRequestStatusPtrInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestStatusPtrOutput() PodCertificateRequestStatusPtrOutput
+	ToPodCertificateRequestStatusPtrOutputWithContext(context.Context) PodCertificateRequestStatusPtrOutput
+}
+
+type podCertificateRequestStatusPtrType PodCertificateRequestStatusArgs
+
+func PodCertificateRequestStatusPtr(v *PodCertificateRequestStatusArgs) PodCertificateRequestStatusPtrInput {
+	return (*podCertificateRequestStatusPtrType)(v)
+}
+
+func (*podCertificateRequestStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestStatus)(nil)).Elem()
+}
+
+func (i *podCertificateRequestStatusPtrType) ToPodCertificateRequestStatusPtrOutput() PodCertificateRequestStatusPtrOutput {
+	return i.ToPodCertificateRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *podCertificateRequestStatusPtrType) ToPodCertificateRequestStatusPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusPtrOutput)
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatusOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestStatus)(nil)).Elem()
+}
+
+func (o PodCertificateRequestStatusOutput) ToPodCertificateRequestStatusOutput() PodCertificateRequestStatusOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusOutput) ToPodCertificateRequestStatusOutputWithContext(ctx context.Context) PodCertificateRequestStatusOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusOutput) ToPodCertificateRequestStatusPtrOutput() PodCertificateRequestStatusPtrOutput {
+	return o.ToPodCertificateRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (o PodCertificateRequestStatusOutput) ToPodCertificateRequestStatusPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodCertificateRequestStatus) *PodCertificateRequestStatus {
+		return &v
+	}).(PodCertificateRequestStatusPtrOutput)
+}
+
+// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+//
+// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+func (o PodCertificateRequestStatusOutput) BeginRefreshAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatus) *string { return v.BeginRefreshAt }).(pulumi.StringPtrOutput)
+}
+
+// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+//
+// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+//
+// Validation requirements:
+//  1. certificateChain must consist of one or more PEM-formatted certificates.
+//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+//     described in section 4 of RFC5280.
+//
+// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+func (o PodCertificateRequestStatusOutput) CertificateChain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatus) *string { return v.CertificateChain }).(pulumi.StringPtrOutput)
+}
+
+// conditions applied to the request.
+//
+// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+//
+// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+func (o PodCertificateRequestStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusOutput) NotAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatus) *string { return v.NotAfter }).(pulumi.StringPtrOutput)
+}
+
+// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusOutput) NotBefore() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatus) *string { return v.NotBefore }).(pulumi.StringPtrOutput)
+}
+
+type PodCertificateRequestStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestStatus)(nil)).Elem()
+}
+
+func (o PodCertificateRequestStatusPtrOutput) ToPodCertificateRequestStatusPtrOutput() PodCertificateRequestStatusPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPtrOutput) ToPodCertificateRequestStatusPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPtrOutput) Elem() PodCertificateRequestStatusOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) PodCertificateRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodCertificateRequestStatus
+		return ret
+	}).(PodCertificateRequestStatusOutput)
+}
+
+// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+//
+// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+func (o PodCertificateRequestStatusPtrOutput) BeginRefreshAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BeginRefreshAt
+	}).(pulumi.StringPtrOutput)
+}
+
+// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+//
+// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+//
+// Validation requirements:
+//  1. certificateChain must consist of one or more PEM-formatted certificates.
+//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+//     described in section 4 of RFC5280.
+//
+// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+func (o PodCertificateRequestStatusPtrOutput) CertificateChain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CertificateChain
+	}).(pulumi.StringPtrOutput)
+}
+
+// conditions applied to the request.
+//
+// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+//
+// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+func (o PodCertificateRequestStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPtrOutput) NotAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NotAfter
+	}).(pulumi.StringPtrOutput)
+}
+
+// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPtrOutput) NotBefore() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NotBefore
+	}).(pulumi.StringPtrOutput)
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatusPatch struct {
+	// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+	//
+	// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+	BeginRefreshAt *string `pulumi:"beginRefreshAt"`
+	// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+	//
+	// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+	//
+	// Validation requirements:
+	//  1. certificateChain must consist of one or more PEM-formatted certificates.
+	//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+	//     described in section 4 of RFC5280.
+	//
+	// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+	CertificateChain *string `pulumi:"certificateChain"`
+	// conditions applied to the request.
+	//
+	// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+	//
+	// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+	// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+	NotAfter *string `pulumi:"notAfter"`
+	// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+	NotBefore *string `pulumi:"notBefore"`
+}
+
+// PodCertificateRequestStatusPatchInput is an input type that accepts PodCertificateRequestStatusPatchArgs and PodCertificateRequestStatusPatchOutput values.
+// You can construct a concrete instance of `PodCertificateRequestStatusPatchInput` via:
+//
+//	PodCertificateRequestStatusPatchArgs{...}
+type PodCertificateRequestStatusPatchInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestStatusPatchOutput() PodCertificateRequestStatusPatchOutput
+	ToPodCertificateRequestStatusPatchOutputWithContext(context.Context) PodCertificateRequestStatusPatchOutput
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatusPatchArgs struct {
+	// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+	//
+	// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+	BeginRefreshAt pulumi.StringPtrInput `pulumi:"beginRefreshAt"`
+	// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+	//
+	// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+	//
+	// Validation requirements:
+	//  1. certificateChain must consist of one or more PEM-formatted certificates.
+	//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+	//     described in section 4 of RFC5280.
+	//
+	// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+	CertificateChain pulumi.StringPtrInput `pulumi:"certificateChain"`
+	// conditions applied to the request.
+	//
+	// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+	//
+	// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+	// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+	NotAfter pulumi.StringPtrInput `pulumi:"notAfter"`
+	// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+	NotBefore pulumi.StringPtrInput `pulumi:"notBefore"`
+}
+
+func (PodCertificateRequestStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestStatusPatch)(nil)).Elem()
+}
+
+func (i PodCertificateRequestStatusPatchArgs) ToPodCertificateRequestStatusPatchOutput() PodCertificateRequestStatusPatchOutput {
+	return i.ToPodCertificateRequestStatusPatchOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestStatusPatchArgs) ToPodCertificateRequestStatusPatchOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusPatchOutput)
+}
+
+func (i PodCertificateRequestStatusPatchArgs) ToPodCertificateRequestStatusPatchPtrOutput() PodCertificateRequestStatusPatchPtrOutput {
+	return i.ToPodCertificateRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodCertificateRequestStatusPatchArgs) ToPodCertificateRequestStatusPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusPatchOutput).ToPodCertificateRequestStatusPatchPtrOutputWithContext(ctx)
+}
+
+// PodCertificateRequestStatusPatchPtrInput is an input type that accepts PodCertificateRequestStatusPatchArgs, PodCertificateRequestStatusPatchPtr and PodCertificateRequestStatusPatchPtrOutput values.
+// You can construct a concrete instance of `PodCertificateRequestStatusPatchPtrInput` via:
+//
+//	        PodCertificateRequestStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodCertificateRequestStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodCertificateRequestStatusPatchPtrOutput() PodCertificateRequestStatusPatchPtrOutput
+	ToPodCertificateRequestStatusPatchPtrOutputWithContext(context.Context) PodCertificateRequestStatusPatchPtrOutput
+}
+
+type podCertificateRequestStatusPatchPtrType PodCertificateRequestStatusPatchArgs
+
+func PodCertificateRequestStatusPatchPtr(v *PodCertificateRequestStatusPatchArgs) PodCertificateRequestStatusPatchPtrInput {
+	return (*podCertificateRequestStatusPatchPtrType)(v)
+}
+
+func (*podCertificateRequestStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestStatusPatch)(nil)).Elem()
+}
+
+func (i *podCertificateRequestStatusPatchPtrType) ToPodCertificateRequestStatusPatchPtrOutput() PodCertificateRequestStatusPatchPtrOutput {
+	return i.ToPodCertificateRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podCertificateRequestStatusPatchPtrType) ToPodCertificateRequestStatusPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodCertificateRequestStatusPatchPtrOutput)
+}
+
+// PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+type PodCertificateRequestStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodCertificateRequestStatusPatch)(nil)).Elem()
+}
+
+func (o PodCertificateRequestStatusPatchOutput) ToPodCertificateRequestStatusPatchOutput() PodCertificateRequestStatusPatchOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPatchOutput) ToPodCertificateRequestStatusPatchOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPatchOutput) ToPodCertificateRequestStatusPatchPtrOutput() PodCertificateRequestStatusPatchPtrOutput {
+	return o.ToPodCertificateRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodCertificateRequestStatusPatchOutput) ToPodCertificateRequestStatusPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodCertificateRequestStatusPatch) *PodCertificateRequestStatusPatch {
+		return &v
+	}).(PodCertificateRequestStatusPatchPtrOutput)
+}
+
+// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+//
+// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+func (o PodCertificateRequestStatusPatchOutput) BeginRefreshAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatusPatch) *string { return v.BeginRefreshAt }).(pulumi.StringPtrOutput)
+}
+
+// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+//
+// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+//
+// Validation requirements:
+//  1. certificateChain must consist of one or more PEM-formatted certificates.
+//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+//     described in section 4 of RFC5280.
+//
+// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+func (o PodCertificateRequestStatusPatchOutput) CertificateChain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatusPatch) *string { return v.CertificateChain }).(pulumi.StringPtrOutput)
+}
+
+// conditions applied to the request.
+//
+// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+//
+// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+func (o PodCertificateRequestStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPatchOutput) NotAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatusPatch) *string { return v.NotAfter }).(pulumi.StringPtrOutput)
+}
+
+// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPatchOutput) NotBefore() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodCertificateRequestStatusPatch) *string { return v.NotBefore }).(pulumi.StringPtrOutput)
+}
+
+type PodCertificateRequestStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodCertificateRequestStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodCertificateRequestStatusPatch)(nil)).Elem()
+}
+
+func (o PodCertificateRequestStatusPatchPtrOutput) ToPodCertificateRequestStatusPatchPtrOutput() PodCertificateRequestStatusPatchPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPatchPtrOutput) ToPodCertificateRequestStatusPatchPtrOutputWithContext(ctx context.Context) PodCertificateRequestStatusPatchPtrOutput {
+	return o
+}
+
+func (o PodCertificateRequestStatusPatchPtrOutput) Elem() PodCertificateRequestStatusPatchOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) PodCertificateRequestStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodCertificateRequestStatusPatch
+		return ret
+	}).(PodCertificateRequestStatusPatchOutput)
+}
+
+// beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+//
+// This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+func (o PodCertificateRequestStatusPatchPtrOutput) BeginRefreshAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BeginRefreshAt
+	}).(pulumi.StringPtrOutput)
+}
+
+// certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+//
+// If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+//
+// Validation requirements:
+//  1. certificateChain must consist of one or more PEM-formatted certificates.
+//  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+//     described in section 4 of RFC5280.
+//
+// If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+func (o PodCertificateRequestStatusPatchPtrOutput) CertificateChain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CertificateChain
+	}).(pulumi.StringPtrOutput)
+}
+
+// conditions applied to the request.
+//
+// The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+//
+// If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+func (o PodCertificateRequestStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
+// notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPatchPtrOutput) NotAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NotAfter
+	}).(pulumi.StringPtrOutput)
+}
+
+// notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+func (o PodCertificateRequestStatusPatchPtrOutput) NotBefore() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodCertificateRequestStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.NotBefore
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleTypeInput)(nil)).Elem(), ClusterTrustBundleTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleTypeArrayInput)(nil)).Elem(), ClusterTrustBundleTypeArray{})
@@ -644,6 +2104,17 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleSpecInput)(nil)).Elem(), ClusterTrustBundleSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleSpecPatchInput)(nil)).Elem(), ClusterTrustBundleSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterTrustBundleSpecPatchPtrInput)(nil)).Elem(), ClusterTrustBundleSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestTypeInput)(nil)).Elem(), PodCertificateRequestTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestTypeArrayInput)(nil)).Elem(), PodCertificateRequestTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestListTypeInput)(nil)).Elem(), PodCertificateRequestListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestPatchTypeInput)(nil)).Elem(), PodCertificateRequestPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestSpecInput)(nil)).Elem(), PodCertificateRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestSpecPatchInput)(nil)).Elem(), PodCertificateRequestSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestSpecPatchPtrInput)(nil)).Elem(), PodCertificateRequestSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestStatusInput)(nil)).Elem(), PodCertificateRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestStatusPtrInput)(nil)).Elem(), PodCertificateRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestStatusPatchInput)(nil)).Elem(), PodCertificateRequestStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodCertificateRequestStatusPatchPtrInput)(nil)).Elem(), PodCertificateRequestStatusPatchArgs{})
 	pulumi.RegisterOutputType(ClusterTrustBundleTypeOutput{})
 	pulumi.RegisterOutputType(ClusterTrustBundleTypeArrayOutput{})
 	pulumi.RegisterOutputType(ClusterTrustBundleListTypeOutput{})
@@ -651,4 +2122,15 @@ func init() {
 	pulumi.RegisterOutputType(ClusterTrustBundleSpecOutput{})
 	pulumi.RegisterOutputType(ClusterTrustBundleSpecPatchOutput{})
 	pulumi.RegisterOutputType(ClusterTrustBundleSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestTypeOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestTypeArrayOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestListTypeOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestPatchTypeOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestSpecOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestSpecPatchOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestStatusOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestStatusPtrOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestStatusPatchOutput{})
+	pulumi.RegisterOutputType(PodCertificateRequestStatusPatchPtrOutput{})
 }

@@ -23,7 +23,7 @@ public final class Taint {
      */
     private String key;
     /**
-     * @return TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * @return TimeAdded represents the time at which the taint was added.
      * 
      */
     private @Nullable String timeAdded;
@@ -49,7 +49,7 @@ public final class Taint {
         return this.key;
     }
     /**
-     * @return TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * @return TimeAdded represents the time at which the taint was added.
      * 
      */
     public Optional<String> timeAdded() {

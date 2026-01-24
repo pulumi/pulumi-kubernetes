@@ -87,7 +87,7 @@ export class ResourceClaim extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1alpha3:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1beta2:ResourceClaim" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1alpha3:ResourceClaim" }, { type: "kubernetes:resource.k8s.io/v1beta2:ResourceClaim" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ResourceClaim.__pulumiType, name, resourceInputs, opts);
     }

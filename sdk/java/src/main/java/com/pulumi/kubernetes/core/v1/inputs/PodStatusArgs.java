@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.HostIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodExtendedResourceClaimStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimStatusArgs;
 import java.lang.Integer;
@@ -69,6 +70,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<List<ContainerStatusArgs>>> ephemeralContainerStatuses() {
         return Optional.ofNullable(this.ephemeralContainerStatuses);
+    }
+
+    /**
+     * Status of extended resource claim backed by DRA.
+     * 
+     */
+    @Import(name="extendedResourceClaimStatus")
+    private @Nullable Output<PodExtendedResourceClaimStatusArgs> extendedResourceClaimStatus;
+
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    public Optional<Output<PodExtendedResourceClaimStatusArgs>> extendedResourceClaimStatus() {
+        return Optional.ofNullable(this.extendedResourceClaimStatus);
     }
 
     /**
@@ -295,6 +311,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.conditions = $.conditions;
         this.containerStatuses = $.containerStatuses;
         this.ephemeralContainerStatuses = $.ephemeralContainerStatuses;
+        this.extendedResourceClaimStatus = $.extendedResourceClaimStatus;
         this.hostIP = $.hostIP;
         this.hostIPs = $.hostIPs;
         this.initContainerStatuses = $.initContainerStatuses;
@@ -420,6 +437,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ephemeralContainerStatuses(ContainerStatusArgs... ephemeralContainerStatuses) {
             return ephemeralContainerStatuses(List.of(ephemeralContainerStatuses));
+        }
+
+        /**
+         * @param extendedResourceClaimStatus Status of extended resource claim backed by DRA.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceClaimStatus(@Nullable Output<PodExtendedResourceClaimStatusArgs> extendedResourceClaimStatus) {
+            $.extendedResourceClaimStatus = extendedResourceClaimStatus;
+            return this;
+        }
+
+        /**
+         * @param extendedResourceClaimStatus Status of extended resource claim backed by DRA.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceClaimStatus(PodExtendedResourceClaimStatusArgs extendedResourceClaimStatus) {
+            return extendedResourceClaimStatus(Output.of(extendedResourceClaimStatus));
         }
 
         /**

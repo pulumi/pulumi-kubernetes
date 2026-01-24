@@ -16,7 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
     public class DeviceCapacityArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Value defines how much of a certain device capacity is available.
+        /// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+        /// 
+        /// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+        /// 
+        /// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+        /// </summary>
+        [Input("requestPolicy")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.CapacityRequestPolicyArgs>? RequestPolicy { get; set; }
+
+        /// <summary>
+        /// Value defines how much of a certain capacity that device has.
+        /// 
+        /// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
         /// </summary>
         [Input("value", required: true)]
         public Input<string> Value { get; set; } = null!;

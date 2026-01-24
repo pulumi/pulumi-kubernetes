@@ -12,6 +12,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
 
     /// <summary>
     /// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    /// 
+    /// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     /// </summary>
     public class AllocatedDeviceStatusArgs : global::Pulumi.ResourceArgs
     {
@@ -64,6 +66,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         /// </summary>
         [Input("pool", required: true)]
         public Input<string> Pool { get; set; } = null!;
+
+        /// <summary>
+        /// ShareID uniquely identifies an individual allocation share of the device.
+        /// </summary>
+        [Input("shareID")]
+        public Input<string>? ShareID { get; set; }
 
         public AllocatedDeviceStatusArgs()
         {

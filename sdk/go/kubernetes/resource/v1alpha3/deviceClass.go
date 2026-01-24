@@ -47,6 +47,9 @@ func NewDeviceClass(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("DeviceClass")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1:DeviceClass"),
+		},
+		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta1:DeviceClass"),
 		},
 		{
