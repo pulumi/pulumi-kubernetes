@@ -468,6 +468,22 @@ jobs:
       uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
       with:
         install_components: gke-gcloud-auth-plugin
+    - name: Install Kubectl
+      run: >
+        curl -LO
+        "https://storage.googleapis.com/kubernetes-release/release/$(curl -s
+        https://storage.googleapis.com/kubernetes-release/release/stable-1.28.txt)/bin/linux/amd64/kubectl"
+
+        chmod +x ./kubectl
+
+        sudo mv kubectl /usr/local/bin
+    - name: Install and configure Helm
+      run: |
+        curl -LO  https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
+        tar -xvf helm-v3.8.0-linux-amd64.tar.gz
+        sudo mv linux-amd64/helm /usr/local/bin
+        helm repo add stable https://charts.helm.sh/stable
+        helm repo update
     - name: Install gotestfmt
       uses: GoTestTools/gotestfmt-action@v2
       with:
