@@ -377,6 +377,15 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 		return
 	}
 
+	// Check that the controller has observed this generation before trusting status fields.
+	// This prevents a race condition where Pulumi checks status before the controller has
+	// processed the spec change, seeing stale "ready" values.
+	rawObservedGeneration, _ := openapi.Pluck(statefulset.Object, "status", "observedGeneration")
+	if rawObservedGeneration == nil || rawObservedGeneration.(int64) < sia.currentGeneration {
+		// Controller hasn't processed this generation yet, status fields are stale
+		return
+	}
+
 	var updateStrategyType string
 	if rawUpdateStrategyType, ok := openapi.Pluck(statefulset.Object, "spec", "updateStrategy", "type"); ok {
 		updateStrategyType = rawUpdateStrategyType.(string)
