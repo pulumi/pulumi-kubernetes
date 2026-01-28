@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ResourceClaimTemplateSpec {
     /**
-     * @return ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+     * @return ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -26,7 +26,7 @@ public final class ResourceClaimTemplateSpec {
 
     private ResourceClaimTemplateSpec() {}
     /**
-     * @return ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+     * @return ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     public Optional<ObjectMeta> metadata() {

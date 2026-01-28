@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ConfigMapKeySelectorArgs;
+import com.pulumi.kubernetes.core.v1.inputs.FileKeySelectorArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectFieldSelectorArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceFieldSelectorArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SecretKeySelectorArgs;
@@ -53,6 +54,21 @@ public final class EnvVarSourceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+     * 
+     */
+    @Import(name="fileKeyRef")
+    private @Nullable Output<FileKeySelectorArgs> fileKeyRef;
+
+    /**
+     * @return FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<FileKeySelectorArgs>> fileKeyRef() {
+        return Optional.ofNullable(this.fileKeyRef);
+    }
+
+    /**
      * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
      * 
      */
@@ -87,6 +103,7 @@ public final class EnvVarSourceArgs extends com.pulumi.resources.ResourceArgs {
     private EnvVarSourceArgs(EnvVarSourceArgs $) {
         this.configMapKeyRef = $.configMapKeyRef;
         this.fieldRef = $.fieldRef;
+        this.fileKeyRef = $.fileKeyRef;
         this.resourceFieldRef = $.resourceFieldRef;
         this.secretKeyRef = $.secretKeyRef;
     }
@@ -149,6 +166,27 @@ public final class EnvVarSourceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder fieldRef(ObjectFieldSelectorArgs fieldRef) {
             return fieldRef(Output.of(fieldRef));
+        }
+
+        /**
+         * @param fileKeyRef FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder fileKeyRef(@Nullable Output<FileKeySelectorArgs> fileKeyRef) {
+            $.fileKeyRef = fileKeyRef;
+            return this;
+        }
+
+        /**
+         * @param fileKeyRef FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder fileKeyRef(FileKeySelectorArgs fileKeyRef) {
+            return fileKeyRef(Output.of(fileKeyRef));
         }
 
         /**

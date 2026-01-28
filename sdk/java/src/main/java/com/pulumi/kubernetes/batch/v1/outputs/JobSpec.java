@@ -24,7 +24,7 @@ public final class JobSpec {
      */
     private @Nullable Integer activeDeadlineSeconds;
     /**
-     * @return Specifies the number of retries before marking this job failed. Defaults to 6
+     * @return Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     private @Nullable Integer backoffLimit;
@@ -82,7 +82,7 @@ public final class JobSpec {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     private @Nullable String podReplacementPolicy;
@@ -121,7 +121,7 @@ public final class JobSpec {
         return Optional.ofNullable(this.activeDeadlineSeconds);
     }
     /**
-     * @return Specifies the number of retries before marking this job failed. Defaults to 6
+     * @return Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     public Optional<Integer> backoffLimit() {
@@ -197,7 +197,7 @@ public final class JobSpec {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     public Optional<String> podReplacementPolicy() {

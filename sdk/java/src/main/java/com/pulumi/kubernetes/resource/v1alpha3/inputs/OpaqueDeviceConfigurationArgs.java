@@ -45,16 +45,12 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
     /**
      * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version (&#34;kind&#34; + &#34;apiVersion&#34; for Kubernetes types), with conversion between different versions.
      * 
-     * The length of the raw data must be smaller or equal to 10 Ki.
-     * 
      */
     @Import(name="parameters", required=true)
     private Output<JsonElement> parameters;
 
     /**
      * @return Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version (&#34;kind&#34; + &#34;apiVersion&#34; for Kubernetes types), with conversion between different versions.
-     * 
-     * The length of the raw data must be smaller or equal to 10 Ki.
      * 
      */
     public Output<JsonElement> parameters() {
@@ -118,8 +114,6 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
         /**
          * @param parameters Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version (&#34;kind&#34; + &#34;apiVersion&#34; for Kubernetes types), with conversion between different versions.
          * 
-         * The length of the raw data must be smaller or equal to 10 Ki.
-         * 
          * @return builder
          * 
          */
@@ -130,8 +124,6 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
 
         /**
          * @param parameters Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version (&#34;kind&#34; + &#34;apiVersion&#34; for Kubernetes types), with conversion between different versions.
-         * 
-         * The length of the raw data must be smaller or equal to 10 Ki.
          * 
          * @return builder
          * 

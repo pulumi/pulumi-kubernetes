@@ -88,7 +88,7 @@ export class DeviceClassPatch extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch" }, { type: "kubernetes:resource.k8s.io/v1beta1:DeviceClassPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1:DeviceClassPatch" }, { type: "kubernetes:resource.k8s.io/v1alpha3:DeviceClassPatch" }, { type: "kubernetes:resource.k8s.io/v1beta1:DeviceClassPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(DeviceClassPatch.__pulumiType, name, resourceInputs, opts);
     }

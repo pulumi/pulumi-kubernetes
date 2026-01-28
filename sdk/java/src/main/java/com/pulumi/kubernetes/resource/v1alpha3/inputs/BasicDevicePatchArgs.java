@@ -5,13 +5,8 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorPatchArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceAttributeArgs;
-import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceCounterConsumptionPatchArgs;
-import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceTaintPatchArgs;
-import java.lang.Boolean;
 import java.lang.String;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,25 +20,6 @@ import javax.annotation.Nullable;
 public final class BasicDevicePatchArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final BasicDevicePatchArgs Empty = new BasicDevicePatchArgs();
-
-    /**
-     * AllNodes indicates that all nodes have access to the device.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    @Import(name="allNodes")
-    private @Nullable Output<Boolean> allNodes;
-
-    /**
-     * @return AllNodes indicates that all nodes have access to the device.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<Output<Boolean>> allNodes() {
-        return Optional.ofNullable(this.allNodes);
-    }
 
     /**
      * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
@@ -83,100 +59,11 @@ public final class BasicDevicePatchArgs extends com.pulumi.resources.ResourceArg
         return Optional.ofNullable(this.capacity);
     }
 
-    /**
-     * ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-     * 
-     * There can only be a single entry per counterSet.
-     * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-     * 
-     */
-    @Import(name="consumesCounters")
-    private @Nullable Output<List<DeviceCounterConsumptionPatchArgs>> consumesCounters;
-
-    /**
-     * @return ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-     * 
-     * There can only be a single entry per counterSet.
-     * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-     * 
-     */
-    public Optional<Output<List<DeviceCounterConsumptionPatchArgs>>> consumesCounters() {
-        return Optional.ofNullable(this.consumesCounters);
-    }
-
-    /**
-     * NodeName identifies the node where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    @Import(name="nodeName")
-    private @Nullable Output<String> nodeName;
-
-    /**
-     * @return NodeName identifies the node where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<Output<String>> nodeName() {
-        return Optional.ofNullable(this.nodeName);
-    }
-
-    /**
-     * NodeSelector defines the nodes where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    @Import(name="nodeSelector")
-    private @Nullable Output<NodeSelectorPatchArgs> nodeSelector;
-
-    /**
-     * @return NodeSelector defines the nodes where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<Output<NodeSelectorPatchArgs>> nodeSelector() {
-        return Optional.ofNullable(this.nodeSelector);
-    }
-
-    /**
-     * If specified, these are the driver-defined taints.
-     * 
-     * The maximum number of taints is 4.
-     * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-     * 
-     */
-    @Import(name="taints")
-    private @Nullable Output<List<DeviceTaintPatchArgs>> taints;
-
-    /**
-     * @return If specified, these are the driver-defined taints.
-     * 
-     * The maximum number of taints is 4.
-     * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-     * 
-     */
-    public Optional<Output<List<DeviceTaintPatchArgs>>> taints() {
-        return Optional.ofNullable(this.taints);
-    }
-
     private BasicDevicePatchArgs() {}
 
     private BasicDevicePatchArgs(BasicDevicePatchArgs $) {
-        this.allNodes = $.allNodes;
         this.attributes = $.attributes;
         this.capacity = $.capacity;
-        this.consumesCounters = $.consumesCounters;
-        this.nodeName = $.nodeName;
-        this.nodeSelector = $.nodeSelector;
-        this.taints = $.taints;
     }
 
     public static Builder builder() {
@@ -195,31 +82,6 @@ public final class BasicDevicePatchArgs extends com.pulumi.resources.ResourceArg
 
         public Builder(BasicDevicePatchArgs defaults) {
             $ = new BasicDevicePatchArgs(Objects.requireNonNull(defaults));
-        }
-
-        /**
-         * @param allNodes AllNodes indicates that all nodes have access to the device.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder allNodes(@Nullable Output<Boolean> allNodes) {
-            $.allNodes = allNodes;
-            return this;
-        }
-
-        /**
-         * @param allNodes AllNodes indicates that all nodes have access to the device.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder allNodes(Boolean allNodes) {
-            return allNodes(Output.of(allNodes));
         }
 
         /**
@@ -270,142 +132,6 @@ public final class BasicDevicePatchArgs extends com.pulumi.resources.ResourceArg
          */
         public Builder capacity(Map<String,String> capacity) {
             return capacity(Output.of(capacity));
-        }
-
-        /**
-         * @param consumesCounters ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-         * 
-         * There can only be a single entry per counterSet.
-         * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-         * 
-         * @return builder
-         * 
-         */
-        public Builder consumesCounters(@Nullable Output<List<DeviceCounterConsumptionPatchArgs>> consumesCounters) {
-            $.consumesCounters = consumesCounters;
-            return this;
-        }
-
-        /**
-         * @param consumesCounters ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-         * 
-         * There can only be a single entry per counterSet.
-         * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-         * 
-         * @return builder
-         * 
-         */
-        public Builder consumesCounters(List<DeviceCounterConsumptionPatchArgs> consumesCounters) {
-            return consumesCounters(Output.of(consumesCounters));
-        }
-
-        /**
-         * @param consumesCounters ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-         * 
-         * There can only be a single entry per counterSet.
-         * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-         * 
-         * @return builder
-         * 
-         */
-        public Builder consumesCounters(DeviceCounterConsumptionPatchArgs... consumesCounters) {
-            return consumesCounters(List.of(consumesCounters));
-        }
-
-        /**
-         * @param nodeName NodeName identifies the node where the device is available.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder nodeName(@Nullable Output<String> nodeName) {
-            $.nodeName = nodeName;
-            return this;
-        }
-
-        /**
-         * @param nodeName NodeName identifies the node where the device is available.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder nodeName(String nodeName) {
-            return nodeName(Output.of(nodeName));
-        }
-
-        /**
-         * @param nodeSelector NodeSelector defines the nodes where the device is available.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder nodeSelector(@Nullable Output<NodeSelectorPatchArgs> nodeSelector) {
-            $.nodeSelector = nodeSelector;
-            return this;
-        }
-
-        /**
-         * @param nodeSelector NodeSelector defines the nodes where the device is available.
-         * 
-         * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder nodeSelector(NodeSelectorPatchArgs nodeSelector) {
-            return nodeSelector(Output.of(nodeSelector));
-        }
-
-        /**
-         * @param taints If specified, these are the driver-defined taints.
-         * 
-         * The maximum number of taints is 4.
-         * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder taints(@Nullable Output<List<DeviceTaintPatchArgs>> taints) {
-            $.taints = taints;
-            return this;
-        }
-
-        /**
-         * @param taints If specified, these are the driver-defined taints.
-         * 
-         * The maximum number of taints is 4.
-         * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder taints(List<DeviceTaintPatchArgs> taints) {
-            return taints(Output.of(taints));
-        }
-
-        /**
-         * @param taints If specified, these are the driver-defined taints.
-         * 
-         * The maximum number of taints is 4.
-         * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder taints(DeviceTaintPatchArgs... taints) {
-            return taints(List.of(taints));
         }
 
         public BasicDevicePatchArgs build() {

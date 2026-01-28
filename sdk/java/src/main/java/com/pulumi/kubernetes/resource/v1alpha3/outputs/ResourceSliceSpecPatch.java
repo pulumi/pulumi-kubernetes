@@ -5,7 +5,6 @@ package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelectorPatch;
-import com.pulumi.kubernetes.resource.v1alpha3.outputs.CounterSetPatch;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.DevicePatch;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.ResourcePoolPatch;
 import java.lang.Boolean;
@@ -20,7 +19,7 @@ public final class ResourceSliceSpecPatch {
     /**
      * @return AllNodes indicates that all nodes have access to the resources in the pool.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
      * 
      */
     private @Nullable Boolean allNodes;
@@ -43,7 +42,7 @@ public final class ResourceSliceSpecPatch {
      * 
      * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
      * 
      */
     private @Nullable String nodeName;
@@ -52,37 +51,21 @@ public final class ResourceSliceSpecPatch {
      * 
      * Must use exactly one term.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
      * 
      */
     private @Nullable NodeSelectorPatch nodeSelector;
-    /**
-     * @return PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
-     * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
-     * 
-     */
-    private @Nullable Boolean perDeviceNodeSelection;
     /**
      * @return Pool describes the pool that this ResourceSlice belongs to.
      * 
      */
     private @Nullable ResourcePoolPatch pool;
-    /**
-     * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
-     * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
-     * 
-     * The maximum number of SharedCounters is 32.
-     * 
-     */
-    private @Nullable List<CounterSetPatch> sharedCounters;
 
     private ResourceSliceSpecPatch() {}
     /**
      * @return AllNodes indicates that all nodes have access to the resources in the pool.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
      * 
      */
     public Optional<Boolean> allNodes() {
@@ -111,7 +94,7 @@ public final class ResourceSliceSpecPatch {
      * 
      * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
      * 
      */
     public Optional<String> nodeName() {
@@ -122,20 +105,11 @@ public final class ResourceSliceSpecPatch {
      * 
      * Must use exactly one term.
      * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+     * Exactly one of NodeName, NodeSelector and AllNodes must be set.
      * 
      */
     public Optional<NodeSelectorPatch> nodeSelector() {
         return Optional.ofNullable(this.nodeSelector);
-    }
-    /**
-     * @return PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
-     * 
-     * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
-     * 
-     */
-    public Optional<Boolean> perDeviceNodeSelection() {
-        return Optional.ofNullable(this.perDeviceNodeSelection);
     }
     /**
      * @return Pool describes the pool that this ResourceSlice belongs to.
@@ -143,17 +117,6 @@ public final class ResourceSliceSpecPatch {
      */
     public Optional<ResourcePoolPatch> pool() {
         return Optional.ofNullable(this.pool);
-    }
-    /**
-     * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
-     * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
-     * 
-     * The maximum number of SharedCounters is 32.
-     * 
-     */
-    public List<CounterSetPatch> sharedCounters() {
-        return this.sharedCounters == null ? List.of() : this.sharedCounters;
     }
 
     public static Builder builder() {
@@ -170,9 +133,7 @@ public final class ResourceSliceSpecPatch {
         private @Nullable String driver;
         private @Nullable String nodeName;
         private @Nullable NodeSelectorPatch nodeSelector;
-        private @Nullable Boolean perDeviceNodeSelection;
         private @Nullable ResourcePoolPatch pool;
-        private @Nullable List<CounterSetPatch> sharedCounters;
         public Builder() {}
         public Builder(ResourceSliceSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -181,9 +142,7 @@ public final class ResourceSliceSpecPatch {
     	      this.driver = defaults.driver;
     	      this.nodeName = defaults.nodeName;
     	      this.nodeSelector = defaults.nodeSelector;
-    	      this.perDeviceNodeSelection = defaults.perDeviceNodeSelection;
     	      this.pool = defaults.pool;
-    	      this.sharedCounters = defaults.sharedCounters;
         }
 
         @CustomType.Setter
@@ -220,25 +179,10 @@ public final class ResourceSliceSpecPatch {
             return this;
         }
         @CustomType.Setter
-        public Builder perDeviceNodeSelection(@Nullable Boolean perDeviceNodeSelection) {
-
-            this.perDeviceNodeSelection = perDeviceNodeSelection;
-            return this;
-        }
-        @CustomType.Setter
         public Builder pool(@Nullable ResourcePoolPatch pool) {
 
             this.pool = pool;
             return this;
-        }
-        @CustomType.Setter
-        public Builder sharedCounters(@Nullable List<CounterSetPatch> sharedCounters) {
-
-            this.sharedCounters = sharedCounters;
-            return this;
-        }
-        public Builder sharedCounters(CounterSetPatch... sharedCounters) {
-            return sharedCounters(List.of(sharedCounters));
         }
         public ResourceSliceSpecPatch build() {
             final var _resultValue = new ResourceSliceSpecPatch();
@@ -247,9 +191,7 @@ public final class ResourceSliceSpecPatch {
             _resultValue.driver = driver;
             _resultValue.nodeName = nodeName;
             _resultValue.nodeSelector = nodeSelector;
-            _resultValue.perDeviceNodeSelection = perDeviceNodeSelection;
             _resultValue.pool = pool;
-            _resultValue.sharedCounters = sharedCounters;
             return _resultValue;
         }
     }

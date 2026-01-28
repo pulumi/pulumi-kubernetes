@@ -22,14 +22,14 @@ public final class EnvVarArgs extends com.pulumi.resources.ResourceArgs {
     public static final EnvVarArgs Empty = new EnvVarArgs();
 
     /**
-     * Name of the environment variable. Must be a C_IDENTIFIER.
+     * Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name of the environment variable. Must be a C_IDENTIFIER.
+     * @return Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     public Output<String> name() {
@@ -93,7 +93,7 @@ public final class EnvVarArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the environment variable. Must be a C_IDENTIFIER.
+         * @param name Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 
@@ -104,7 +104,7 @@ public final class EnvVarArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the environment variable. Must be a C_IDENTIFIER.
+         * @param name Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 

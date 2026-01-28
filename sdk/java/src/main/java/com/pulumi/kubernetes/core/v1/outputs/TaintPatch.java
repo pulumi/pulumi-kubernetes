@@ -22,7 +22,7 @@ public final class TaintPatch {
      */
     private @Nullable String key;
     /**
-     * @return TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * @return TimeAdded represents the time at which the taint was added.
      * 
      */
     private @Nullable String timeAdded;
@@ -48,7 +48,7 @@ public final class TaintPatch {
         return Optional.ofNullable(this.key);
     }
     /**
-     * @return TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * @return TimeAdded represents the time at which the taint was added.
      * 
      */
     public Optional<String> timeAdded() {

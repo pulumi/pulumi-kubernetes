@@ -19,6 +19,8 @@ import javax.annotation.Nullable;
 /**
  * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
  * 
+ * The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
+ * 
  */
 public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.ResourceArgs {
 
@@ -130,6 +132,21 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         return this.pool;
     }
 
+    /**
+     * ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    @Import(name="shareID")
+    private @Nullable Output<String> shareID;
+
+    /**
+     * @return ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    public Optional<Output<String>> shareID() {
+        return Optional.ofNullable(this.shareID);
+    }
+
     private AllocatedDeviceStatusArgs() {}
 
     private AllocatedDeviceStatusArgs(AllocatedDeviceStatusArgs $) {
@@ -139,6 +156,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         this.driver = $.driver;
         this.networkData = $.networkData;
         this.pool = $.pool;
+        this.shareID = $.shareID;
     }
 
     public static Builder builder() {
@@ -311,6 +329,27 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
          */
         public Builder pool(String pool) {
             return pool(Output.of(pool));
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(@Nullable Output<String> shareID) {
+            $.shareID = shareID;
+            return this;
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(String shareID) {
+            return shareID(Output.of(shareID));
         }
 
         public AllocatedDeviceStatusArgs build() {

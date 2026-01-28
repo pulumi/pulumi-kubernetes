@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        /// TimeAdded represents the time at which the taint was added.
         /// </summary>
         [Input("timeAdded")]
         public Input<string>? TimeAdded { get; set; }

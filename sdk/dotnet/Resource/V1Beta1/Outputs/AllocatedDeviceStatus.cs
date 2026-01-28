@@ -12,6 +12,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
     /// <summary>
     /// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    /// 
+    /// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     /// </summary>
     [OutputType]
     public sealed class AllocatedDeviceStatus
@@ -48,6 +50,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         /// </summary>
         public readonly string Pool;
+        /// <summary>
+        /// ShareID uniquely identifies an individual allocation share of the device.
+        /// </summary>
+        public readonly string ShareID;
 
         [OutputConstructor]
         private AllocatedDeviceStatus(
@@ -61,7 +67,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
             Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.NetworkDeviceData networkData,
 
-            string pool)
+            string pool,
+
+            string shareID)
         {
             Conditions = conditions;
             Data = data;
@@ -69,6 +77,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
             Driver = driver;
             NetworkData = networkData;
             Pool = pool;
+            ShareID = shareID;
         }
     }
 }

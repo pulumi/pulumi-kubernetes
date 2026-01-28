@@ -20,14 +20,14 @@ public final class SuccessPolicyArgs extends com.pulumi.resources.ResourceArgs {
     public static final SuccessPolicyArgs Empty = new SuccessPolicyArgs();
 
     /**
-     * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+     * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
      * 
      */
     @Import(name="rules", required=true)
     private Output<List<SuccessPolicyRuleArgs>> rules;
 
     /**
-     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
      * 
      */
     public Output<List<SuccessPolicyRuleArgs>> rules() {
@@ -59,7 +59,7 @@ public final class SuccessPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
          * 
          * @return builder
          * 
@@ -70,7 +70,7 @@ public final class SuccessPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
          * 
          * @return builder
          * 
@@ -80,7 +80,7 @@ public final class SuccessPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+         * @param rules rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
          * 
          * @return builder
          * 

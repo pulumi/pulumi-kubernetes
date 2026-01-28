@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<int>? ActiveDeadlineSeconds { get; set; }
 
         /// <summary>
-        /// Specifies the number of retries before marking this job failed. Defaults to 6
+        /// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         /// </summary>
         [Input("backoffLimit")]
         public Input<int>? BackoffLimit { get; set; }
@@ -89,7 +89,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// - Failed means to wait until a previously created Pod is fully terminated (has phase
         ///   Failed or Succeeded) before creating a replacement Pod.
         /// 
-        /// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+        /// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
         /// </summary>
         [Input("podReplacementPolicy")]
         public Input<string>? PodReplacementPolicy { get; set; }

@@ -21,14 +21,14 @@ public final class EnvVarPatchArgs extends com.pulumi.resources.ResourceArgs {
     public static final EnvVarPatchArgs Empty = new EnvVarPatchArgs();
 
     /**
-     * Name of the environment variable. Must be a C_IDENTIFIER.
+     * Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name of the environment variable. Must be a C_IDENTIFIER.
+     * @return Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     public Optional<Output<String>> name() {
@@ -92,7 +92,7 @@ public final class EnvVarPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the environment variable. Must be a C_IDENTIFIER.
+         * @param name Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class EnvVarPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the environment variable. Must be a C_IDENTIFIER.
+         * @param name Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
          * 
          * @return builder
          * 

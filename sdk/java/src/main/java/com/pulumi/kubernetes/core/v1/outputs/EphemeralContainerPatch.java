@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerPortPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerResizePolicyPatch;
+import com.pulumi.kubernetes.core.v1.outputs.ContainerRestartRulePatch;
 import com.pulumi.kubernetes.core.v1.outputs.EnvFromSourcePatch;
 import com.pulumi.kubernetes.core.v1.outputs.EnvVarPatch;
 import com.pulumi.kubernetes.core.v1.outputs.LifecyclePatch;
@@ -39,7 +40,7 @@ public final class EphemeralContainerPatch {
      */
     private @Nullable List<EnvVarPatch> env;
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     private @Nullable List<EnvFromSourcePatch> envFrom;
@@ -89,10 +90,15 @@ public final class EphemeralContainerPatch {
      */
     private @Nullable ResourceRequirementsPatch resources;
     /**
-     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     private @Nullable String restartPolicy;
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    private @Nullable List<ContainerRestartRulePatch> restartPolicyRules;
     /**
      * @return Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
      * 
@@ -174,7 +180,7 @@ public final class EphemeralContainerPatch {
         return this.env == null ? List.of() : this.env;
     }
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     public List<EnvFromSourcePatch> envFrom() {
@@ -244,11 +250,18 @@ public final class EphemeralContainerPatch {
         return Optional.ofNullable(this.resources);
     }
     /**
-     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     public Optional<String> restartPolicy() {
         return Optional.ofNullable(this.restartPolicy);
+    }
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    public List<ContainerRestartRulePatch> restartPolicyRules() {
+        return this.restartPolicyRules == null ? List.of() : this.restartPolicyRules;
     }
     /**
      * @return Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
@@ -353,6 +366,7 @@ public final class EphemeralContainerPatch {
         private @Nullable List<ContainerResizePolicyPatch> resizePolicy;
         private @Nullable ResourceRequirementsPatch resources;
         private @Nullable String restartPolicy;
+        private @Nullable List<ContainerRestartRulePatch> restartPolicyRules;
         private @Nullable SecurityContextPatch securityContext;
         private @Nullable ProbePatch startupProbe;
         private @Nullable Boolean stdin;
@@ -381,6 +395,7 @@ public final class EphemeralContainerPatch {
     	      this.resizePolicy = defaults.resizePolicy;
     	      this.resources = defaults.resources;
     	      this.restartPolicy = defaults.restartPolicy;
+    	      this.restartPolicyRules = defaults.restartPolicyRules;
     	      this.securityContext = defaults.securityContext;
     	      this.startupProbe = defaults.startupProbe;
     	      this.stdin = defaults.stdin;
@@ -497,6 +512,15 @@ public final class EphemeralContainerPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder restartPolicyRules(@Nullable List<ContainerRestartRulePatch> restartPolicyRules) {
+
+            this.restartPolicyRules = restartPolicyRules;
+            return this;
+        }
+        public Builder restartPolicyRules(ContainerRestartRulePatch... restartPolicyRules) {
+            return restartPolicyRules(List.of(restartPolicyRules));
+        }
+        @CustomType.Setter
         public Builder securityContext(@Nullable SecurityContextPatch securityContext) {
 
             this.securityContext = securityContext;
@@ -584,6 +608,7 @@ public final class EphemeralContainerPatch {
             _resultValue.resizePolicy = resizePolicy;
             _resultValue.resources = resources;
             _resultValue.restartPolicy = restartPolicy;
+            _resultValue.restartPolicyRules = restartPolicyRules;
             _resultValue.securityContext = securityContext;
             _resultValue.startupProbe = startupProbe;
             _resultValue.stdin = stdin;

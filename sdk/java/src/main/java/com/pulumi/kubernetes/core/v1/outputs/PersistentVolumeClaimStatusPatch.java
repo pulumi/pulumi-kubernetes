@@ -80,12 +80,12 @@ public final class PersistentVolumeClaimStatusPatch {
      */
     private @Nullable List<PersistentVolumeClaimConditionPatch> conditions;
     /**
-     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
      * 
      */
     private @Nullable String currentVolumeAttributesClassName;
     /**
-     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
      * 
      */
     private @Nullable ModifyVolumeStatusPatch modifyVolumeStatus;
@@ -176,14 +176,14 @@ public final class PersistentVolumeClaimStatusPatch {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
-     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+     * @return currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
      * 
      */
     public Optional<String> currentVolumeAttributesClassName() {
         return Optional.ofNullable(this.currentVolumeAttributesClassName);
     }
     /**
-     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+     * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
      * 
      */
     public Optional<ModifyVolumeStatusPatch> modifyVolumeStatus() {

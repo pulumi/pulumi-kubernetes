@@ -23,7 +23,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
      * 
-     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
      * 
      */
     @Import(name="errorCode")
@@ -32,7 +32,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
      * 
-     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
      * 
      */
     public Optional<Output<Integer>> errorCode() {
@@ -98,7 +98,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param errorCode errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
          * 
-         * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+         * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
          * 
          * @return builder
          * 
@@ -111,7 +111,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param errorCode errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
          * 
-         * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+         * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
          * 
          * @return builder
          * 

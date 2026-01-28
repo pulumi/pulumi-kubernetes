@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ClusterTrustBundleProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ConfigMapProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.DownwardAPIProjectionPatch;
+import com.pulumi.kubernetes.core.v1.outputs.PodCertificateProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.SecretProjectionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ServiceAccountTokenProjectionPatch;
 import java.util.Objects;
@@ -36,6 +37,23 @@ public final class VolumeProjectionPatch {
      * 
      */
     private @Nullable DownwardAPIProjectionPatch downwardAPI;
+    /**
+     * @return Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+     * 
+     * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+     * 
+     * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+     * 
+     * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+     * 
+     * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+     * 
+     * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+     * 
+     * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+     * 
+     */
+    private @Nullable PodCertificateProjectionPatch podCertificate;
     /**
      * @return secret information about the secret data to project
      * 
@@ -76,6 +94,25 @@ public final class VolumeProjectionPatch {
         return Optional.ofNullable(this.downwardAPI);
     }
     /**
+     * @return Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+     * 
+     * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+     * 
+     * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+     * 
+     * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+     * 
+     * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+     * 
+     * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+     * 
+     * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+     * 
+     */
+    public Optional<PodCertificateProjectionPatch> podCertificate() {
+        return Optional.ofNullable(this.podCertificate);
+    }
+    /**
      * @return secret information about the secret data to project
      * 
      */
@@ -102,6 +139,7 @@ public final class VolumeProjectionPatch {
         private @Nullable ClusterTrustBundleProjectionPatch clusterTrustBundle;
         private @Nullable ConfigMapProjectionPatch configMap;
         private @Nullable DownwardAPIProjectionPatch downwardAPI;
+        private @Nullable PodCertificateProjectionPatch podCertificate;
         private @Nullable SecretProjectionPatch secret;
         private @Nullable ServiceAccountTokenProjectionPatch serviceAccountToken;
         public Builder() {}
@@ -110,6 +148,7 @@ public final class VolumeProjectionPatch {
     	      this.clusterTrustBundle = defaults.clusterTrustBundle;
     	      this.configMap = defaults.configMap;
     	      this.downwardAPI = defaults.downwardAPI;
+    	      this.podCertificate = defaults.podCertificate;
     	      this.secret = defaults.secret;
     	      this.serviceAccountToken = defaults.serviceAccountToken;
         }
@@ -133,6 +172,12 @@ public final class VolumeProjectionPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder podCertificate(@Nullable PodCertificateProjectionPatch podCertificate) {
+
+            this.podCertificate = podCertificate;
+            return this;
+        }
+        @CustomType.Setter
         public Builder secret(@Nullable SecretProjectionPatch secret) {
 
             this.secret = secret;
@@ -149,6 +194,7 @@ public final class VolumeProjectionPatch {
             _resultValue.clusterTrustBundle = clusterTrustBundle;
             _resultValue.configMap = configMap;
             _resultValue.downwardAPI = downwardAPI;
+            _resultValue.podCertificate = podCertificate;
             _resultValue.secret = secret;
             _resultValue.serviceAccountToken = serviceAccountToken;
             return _resultValue;

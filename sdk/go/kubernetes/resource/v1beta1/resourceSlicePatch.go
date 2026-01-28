@@ -55,6 +55,9 @@ func NewResourceSlicePatch(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("ResourceSlice")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1:ResourceSlicePatch"),
+		},
+		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha2:ResourceSlicePatch"),
 		},
 		{

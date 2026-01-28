@@ -24,6 +24,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         ///    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
         ///    of the attributes which were prefixed by "dra.example.com".
         ///  - capacity (map[string]object): the device's capacities, grouped by prefix.
+        ///  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+        ///    (v1.34+ with the DRAConsumableCapacity feature enabled).
         /// 
         /// Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
         /// 

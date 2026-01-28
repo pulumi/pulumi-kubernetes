@@ -19,7 +19,7 @@ public final class EnvFromSource {
      */
     private @Nullable ConfigMapEnvSource configMapRef;
     /**
-     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     private @Nullable String prefix;
@@ -38,7 +38,7 @@ public final class EnvFromSource {
         return Optional.ofNullable(this.configMapRef);
     }
     /**
-     * @return Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+     * @return Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     public Optional<String> prefix() {

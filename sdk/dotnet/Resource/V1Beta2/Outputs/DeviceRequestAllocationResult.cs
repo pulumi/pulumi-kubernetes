@@ -23,6 +23,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// </summary>
         public readonly bool AdminAccess;
         /// <summary>
+        /// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public readonly ImmutableArray<string> BindingConditions;
+        /// <summary>
+        /// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public readonly ImmutableArray<string> BindingFailureConditions;
+        /// <summary>
+        /// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+        /// 
+        /// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+        /// 
+        /// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+        /// </summary>
+        public readonly ImmutableDictionary<string, string> ConsumedCapacity;
+        /// <summary>
         /// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         /// </summary>
         public readonly string Device;
@@ -45,6 +65,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// </summary>
         public readonly string Request;
         /// <summary>
+        /// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+        /// </summary>
+        public readonly string ShareID;
+        /// <summary>
         /// A copy of all tolerations specified in the request at the time when the device got allocated.
         /// 
         /// The maximum number of tolerations is 16.
@@ -57,6 +81,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         private DeviceRequestAllocationResult(
             bool adminAccess,
 
+            ImmutableArray<string> bindingConditions,
+
+            ImmutableArray<string> bindingFailureConditions,
+
+            ImmutableDictionary<string, string> consumedCapacity,
+
             string device,
 
             string driver,
@@ -65,13 +95,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
 
             string request,
 
+            string shareID,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.DeviceToleration> tolerations)
         {
             AdminAccess = adminAccess;
+            BindingConditions = bindingConditions;
+            BindingFailureConditions = bindingFailureConditions;
+            ConsumedCapacity = consumedCapacity;
             Device = device;
             Driver = driver;
             Pool = pool;
             Request = request;
+            ShareID = shareID;
             Tolerations = tolerations;
         }
     }

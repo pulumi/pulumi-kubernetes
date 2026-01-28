@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class EnvVarArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name of the environment variable. Must be a C_IDENTIFIER.
+        /// Name of the environment variable. May consist of any printable ASCII characters except '='.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

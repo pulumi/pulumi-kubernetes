@@ -3,13 +3,17 @@
 
 ## Unreleased
 
+### Changed
+
+- Updated Kubernetes schemas and libraries to v1.34.0. This adds support for
+  `resource.k8s.io/v1` (DRA GA) resources: DeviceClass, ResourceClaim,
+  ResourceClaimTemplate, ResourceSlice.
+
 ### Fixed
 
 - Fixed a regression of
   [#2943](https://github.com/pulumi/pulumi-kubernetes/pull/2943) which could
   cause Deployments to erroneously report diffs.
-
-### Changed
 
 - Upgraded `helm.sh/helm` to v3.18.6. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
 

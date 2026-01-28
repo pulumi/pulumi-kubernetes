@@ -6,12 +6,20 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSelector;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceAllocationResult;
+import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
 public final class AllocationResult {
+    /**
+     * @return AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * 
+     */
+    private @Nullable String allocationTimestamp;
     /**
      * @return Devices is the result of allocating devices.
      * 
@@ -24,6 +32,15 @@ public final class AllocationResult {
     private @Nullable NodeSelector nodeSelector;
 
     private AllocationResult() {}
+    /**
+     * @return AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * 
+     */
+    public Optional<String> allocationTimestamp() {
+        return Optional.ofNullable(this.allocationTimestamp);
+    }
     /**
      * @return Devices is the result of allocating devices.
      * 
@@ -48,15 +65,23 @@ public final class AllocationResult {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String allocationTimestamp;
         private @Nullable DeviceAllocationResult devices;
         private @Nullable NodeSelector nodeSelector;
         public Builder() {}
         public Builder(AllocationResult defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.allocationTimestamp = defaults.allocationTimestamp;
     	      this.devices = defaults.devices;
     	      this.nodeSelector = defaults.nodeSelector;
         }
 
+        @CustomType.Setter
+        public Builder allocationTimestamp(@Nullable String allocationTimestamp) {
+
+            this.allocationTimestamp = allocationTimestamp;
+            return this;
+        }
         @CustomType.Setter
         public Builder devices(@Nullable DeviceAllocationResult devices) {
 
@@ -71,6 +96,7 @@ public final class AllocationResult {
         }
         public AllocationResult build() {
             final var _resultValue = new AllocationResult();
+            _resultValue.allocationTimestamp = allocationTimestamp;
             _resultValue.devices = devices;
             _resultValue.nodeSelector = nodeSelector;
             return _resultValue;

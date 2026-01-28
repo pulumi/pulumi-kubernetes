@@ -20,6 +20,11 @@ __all__ = [
     'ClusterTrustBundle',
     'ClusterTrustBundleSpec',
     'ClusterTrustBundleSpecPatch',
+    'PodCertificateRequest',
+    'PodCertificateRequestSpec',
+    'PodCertificateRequestSpecPatch',
+    'PodCertificateRequestStatus',
+    'PodCertificateRequestStatusPatch',
 ]
 
 @pulumi.output_type
@@ -258,5 +263,747 @@ class ClusterTrustBundleSpecPatch(dict):
         Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
         """
         return pulumi.get(self, "trust_bundle")
+
+
+@pulumi.output_type
+class PodCertificateRequest(dict):
+    """
+    PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+
+    Kubelets use this API to implement podCertificate projected volumes
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCertificateRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCertificateRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCertificateRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 spec: 'outputs.PodCertificateRequestSpec',
+                 api_version: Optional[_builtins.str] = None,
+                 kind: Optional[_builtins.str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 status: Optional['outputs.PodCertificateRequestStatus'] = None):
+        """
+        PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+
+        Kubelets use this API to implement podCertificate projected volumes
+        :param 'PodCertificateRequestSpecArgs' spec: spec contains the details about the certificate being requested.
+        :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata contains the object metadata.
+        :param 'PodCertificateRequestStatusArgs' status: status contains the issued certificate, and a standard set of conditions.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PodCertificateRequest')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.PodCertificateRequestSpec':
+        """
+        spec contains the details about the certificate being requested.
+        """
+        return pulumi.get(self, "spec")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> Optional[_builtins.str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        metadata contains the object metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.PodCertificateRequestStatus']:
+        """
+        status contains the issued certificate, and a standard set of conditions.
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class PodCertificateRequestSpec(dict):
+    """
+    PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "nodeUID":
+            suggest = "node_uid"
+        elif key == "pkixPublicKey":
+            suggest = "pkix_public_key"
+        elif key == "podName":
+            suggest = "pod_name"
+        elif key == "podUID":
+            suggest = "pod_uid"
+        elif key == "proofOfPossession":
+            suggest = "proof_of_possession"
+        elif key == "serviceAccountName":
+            suggest = "service_account_name"
+        elif key == "serviceAccountUID":
+            suggest = "service_account_uid"
+        elif key == "signerName":
+            suggest = "signer_name"
+        elif key == "maxExpirationSeconds":
+            suggest = "max_expiration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCertificateRequestSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCertificateRequestSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCertificateRequestSpec.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_name: _builtins.str,
+                 node_uid: _builtins.str,
+                 pkix_public_key: _builtins.str,
+                 pod_name: _builtins.str,
+                 pod_uid: _builtins.str,
+                 proof_of_possession: _builtins.str,
+                 service_account_name: _builtins.str,
+                 service_account_uid: _builtins.str,
+                 signer_name: _builtins.str,
+                 max_expiration_seconds: Optional[_builtins.int] = None):
+        """
+        PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+        :param _builtins.str node_name: nodeName is the name of the node the pod is assigned to.
+        :param _builtins.str node_uid: nodeUID is the UID of the node the pod is assigned to.
+        :param _builtins.str pkix_public_key: pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+               
+               The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+               
+               Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+        :param _builtins.str pod_name: podName is the name of the pod into which the certificate will be mounted.
+        :param _builtins.str pod_uid: podUID is the UID of the pod into which the certificate will be mounted.
+        :param _builtins.str proof_of_possession: proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+               
+               It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+               
+               kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+               
+               If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+               
+               If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+               
+               If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+        :param _builtins.str service_account_name: serviceAccountName is the name of the service account the pod is running as.
+        :param _builtins.str service_account_uid: serviceAccountUID is the UID of the service account the pod is running as.
+        :param _builtins.str signer_name: signerName indicates the requested signer.
+               
+               All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+        :param _builtins.int max_expiration_seconds: maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+               
+               If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+               
+               The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        """
+        pulumi.set(__self__, "node_name", node_name)
+        pulumi.set(__self__, "node_uid", node_uid)
+        pulumi.set(__self__, "pkix_public_key", pkix_public_key)
+        pulumi.set(__self__, "pod_name", pod_name)
+        pulumi.set(__self__, "pod_uid", pod_uid)
+        pulumi.set(__self__, "proof_of_possession", proof_of_possession)
+        pulumi.set(__self__, "service_account_name", service_account_name)
+        pulumi.set(__self__, "service_account_uid", service_account_uid)
+        pulumi.set(__self__, "signer_name", signer_name)
+        if max_expiration_seconds is not None:
+            pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> _builtins.str:
+        """
+        nodeName is the name of the node the pod is assigned to.
+        """
+        return pulumi.get(self, "node_name")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeUID")
+    def node_uid(self) -> _builtins.str:
+        """
+        nodeUID is the UID of the node the pod is assigned to.
+        """
+        return pulumi.get(self, "node_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="pkixPublicKey")
+    def pkix_public_key(self) -> _builtins.str:
+        """
+        pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+
+        The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+
+        Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+        """
+        return pulumi.get(self, "pkix_public_key")
+
+    @_builtins.property
+    @pulumi.getter(name="podName")
+    def pod_name(self) -> _builtins.str:
+        """
+        podName is the name of the pod into which the certificate will be mounted.
+        """
+        return pulumi.get(self, "pod_name")
+
+    @_builtins.property
+    @pulumi.getter(name="podUID")
+    def pod_uid(self) -> _builtins.str:
+        """
+        podUID is the UID of the pod into which the certificate will be mounted.
+        """
+        return pulumi.get(self, "pod_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="proofOfPossession")
+    def proof_of_possession(self) -> _builtins.str:
+        """
+        proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+
+        It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+
+        kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+
+        If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+
+        If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+
+        If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+        """
+        return pulumi.get(self, "proof_of_possession")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccountName")
+    def service_account_name(self) -> _builtins.str:
+        """
+        serviceAccountName is the name of the service account the pod is running as.
+        """
+        return pulumi.get(self, "service_account_name")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccountUID")
+    def service_account_uid(self) -> _builtins.str:
+        """
+        serviceAccountUID is the UID of the service account the pod is running as.
+        """
+        return pulumi.get(self, "service_account_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> _builtins.str:
+        """
+        signerName indicates the requested signer.
+
+        All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @_builtins.property
+    @pulumi.getter(name="maxExpirationSeconds")
+    def max_expiration_seconds(self) -> Optional[_builtins.int]:
+        """
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        """
+        return pulumi.get(self, "max_expiration_seconds")
+
+
+@pulumi.output_type
+class PodCertificateRequestSpecPatch(dict):
+    """
+    PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxExpirationSeconds":
+            suggest = "max_expiration_seconds"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "nodeUID":
+            suggest = "node_uid"
+        elif key == "pkixPublicKey":
+            suggest = "pkix_public_key"
+        elif key == "podName":
+            suggest = "pod_name"
+        elif key == "podUID":
+            suggest = "pod_uid"
+        elif key == "proofOfPossession":
+            suggest = "proof_of_possession"
+        elif key == "serviceAccountName":
+            suggest = "service_account_name"
+        elif key == "serviceAccountUID":
+            suggest = "service_account_uid"
+        elif key == "signerName":
+            suggest = "signer_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCertificateRequestSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCertificateRequestSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCertificateRequestSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_expiration_seconds: Optional[_builtins.int] = None,
+                 node_name: Optional[_builtins.str] = None,
+                 node_uid: Optional[_builtins.str] = None,
+                 pkix_public_key: Optional[_builtins.str] = None,
+                 pod_name: Optional[_builtins.str] = None,
+                 pod_uid: Optional[_builtins.str] = None,
+                 proof_of_possession: Optional[_builtins.str] = None,
+                 service_account_name: Optional[_builtins.str] = None,
+                 service_account_uid: Optional[_builtins.str] = None,
+                 signer_name: Optional[_builtins.str] = None):
+        """
+        PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+        :param _builtins.int max_expiration_seconds: maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+               
+               If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+               
+               The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        :param _builtins.str node_name: nodeName is the name of the node the pod is assigned to.
+        :param _builtins.str node_uid: nodeUID is the UID of the node the pod is assigned to.
+        :param _builtins.str pkix_public_key: pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+               
+               The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+               
+               Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+        :param _builtins.str pod_name: podName is the name of the pod into which the certificate will be mounted.
+        :param _builtins.str pod_uid: podUID is the UID of the pod into which the certificate will be mounted.
+        :param _builtins.str proof_of_possession: proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+               
+               It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+               
+               kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+               
+               If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+               
+               If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+               
+               If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+        :param _builtins.str service_account_name: serviceAccountName is the name of the service account the pod is running as.
+        :param _builtins.str service_account_uid: serviceAccountUID is the UID of the service account the pod is running as.
+        :param _builtins.str signer_name: signerName indicates the requested signer.
+               
+               All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+        """
+        if max_expiration_seconds is not None:
+            pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if node_uid is not None:
+            pulumi.set(__self__, "node_uid", node_uid)
+        if pkix_public_key is not None:
+            pulumi.set(__self__, "pkix_public_key", pkix_public_key)
+        if pod_name is not None:
+            pulumi.set(__self__, "pod_name", pod_name)
+        if pod_uid is not None:
+            pulumi.set(__self__, "pod_uid", pod_uid)
+        if proof_of_possession is not None:
+            pulumi.set(__self__, "proof_of_possession", proof_of_possession)
+        if service_account_name is not None:
+            pulumi.set(__self__, "service_account_name", service_account_name)
+        if service_account_uid is not None:
+            pulumi.set(__self__, "service_account_uid", service_account_uid)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+
+    @_builtins.property
+    @pulumi.getter(name="maxExpirationSeconds")
+    def max_expiration_seconds(self) -> Optional[_builtins.int]:
+        """
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        """
+        return pulumi.get(self, "max_expiration_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[_builtins.str]:
+        """
+        nodeName is the name of the node the pod is assigned to.
+        """
+        return pulumi.get(self, "node_name")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeUID")
+    def node_uid(self) -> Optional[_builtins.str]:
+        """
+        nodeUID is the UID of the node the pod is assigned to.
+        """
+        return pulumi.get(self, "node_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="pkixPublicKey")
+    def pkix_public_key(self) -> Optional[_builtins.str]:
+        """
+        pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+
+        The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+
+        Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+        """
+        return pulumi.get(self, "pkix_public_key")
+
+    @_builtins.property
+    @pulumi.getter(name="podName")
+    def pod_name(self) -> Optional[_builtins.str]:
+        """
+        podName is the name of the pod into which the certificate will be mounted.
+        """
+        return pulumi.get(self, "pod_name")
+
+    @_builtins.property
+    @pulumi.getter(name="podUID")
+    def pod_uid(self) -> Optional[_builtins.str]:
+        """
+        podUID is the UID of the pod into which the certificate will be mounted.
+        """
+        return pulumi.get(self, "pod_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="proofOfPossession")
+    def proof_of_possession(self) -> Optional[_builtins.str]:
+        """
+        proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+
+        It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+
+        kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+
+        If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+
+        If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+
+        If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+        """
+        return pulumi.get(self, "proof_of_possession")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccountName")
+    def service_account_name(self) -> Optional[_builtins.str]:
+        """
+        serviceAccountName is the name of the service account the pod is running as.
+        """
+        return pulumi.get(self, "service_account_name")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccountUID")
+    def service_account_uid(self) -> Optional[_builtins.str]:
+        """
+        serviceAccountUID is the UID of the service account the pod is running as.
+        """
+        return pulumi.get(self, "service_account_uid")
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> Optional[_builtins.str]:
+        """
+        signerName indicates the requested signer.
+
+        All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+        """
+        return pulumi.get(self, "signer_name")
+
+
+@pulumi.output_type
+class PodCertificateRequestStatus(dict):
+    """
+    PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "beginRefreshAt":
+            suggest = "begin_refresh_at"
+        elif key == "certificateChain":
+            suggest = "certificate_chain"
+        elif key == "notAfter":
+            suggest = "not_after"
+        elif key == "notBefore":
+            suggest = "not_before"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCertificateRequestStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCertificateRequestStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCertificateRequestStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 begin_refresh_at: Optional[_builtins.str] = None,
+                 certificate_chain: Optional[_builtins.str] = None,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+                 not_after: Optional[_builtins.str] = None,
+                 not_before: Optional[_builtins.str] = None):
+        """
+        PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+        :param _builtins.str begin_refresh_at: beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+               
+               This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+        :param _builtins.str certificate_chain: certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+               
+               If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+               
+               Validation requirements:
+                1. certificateChain must consist of one or more PEM-formatted certificates.
+                2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+                   described in section 4 of RFC5280.
+               
+               If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: conditions applied to the request.
+               
+               The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+               
+               If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+        :param _builtins.str not_after: notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+        :param _builtins.str not_before: notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+        """
+        if begin_refresh_at is not None:
+            pulumi.set(__self__, "begin_refresh_at", begin_refresh_at)
+        if certificate_chain is not None:
+            pulumi.set(__self__, "certificate_chain", certificate_chain)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if not_after is not None:
+            pulumi.set(__self__, "not_after", not_after)
+        if not_before is not None:
+            pulumi.set(__self__, "not_before", not_before)
+
+    @_builtins.property
+    @pulumi.getter(name="beginRefreshAt")
+    def begin_refresh_at(self) -> Optional[_builtins.str]:
+        """
+        beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+
+        This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+        """
+        return pulumi.get(self, "begin_refresh_at")
+
+    @_builtins.property
+    @pulumi.getter(name="certificateChain")
+    def certificate_chain(self) -> Optional[_builtins.str]:
+        """
+        certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+
+        If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+
+        Validation requirements:
+         1. certificateChain must consist of one or more PEM-formatted certificates.
+         2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+            described in section 4 of RFC5280.
+
+        If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+        """
+        return pulumi.get(self, "certificate_chain")
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        conditions applied to the request.
+
+        The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+
+        If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+        """
+        return pulumi.get(self, "conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="notAfter")
+    def not_after(self) -> Optional[_builtins.str]:
+        """
+        notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+        """
+        return pulumi.get(self, "not_after")
+
+    @_builtins.property
+    @pulumi.getter(name="notBefore")
+    def not_before(self) -> Optional[_builtins.str]:
+        """
+        notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+        """
+        return pulumi.get(self, "not_before")
+
+
+@pulumi.output_type
+class PodCertificateRequestStatusPatch(dict):
+    """
+    PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "beginRefreshAt":
+            suggest = "begin_refresh_at"
+        elif key == "certificateChain":
+            suggest = "certificate_chain"
+        elif key == "notAfter":
+            suggest = "not_after"
+        elif key == "notBefore":
+            suggest = "not_before"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCertificateRequestStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCertificateRequestStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCertificateRequestStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 begin_refresh_at: Optional[_builtins.str] = None,
+                 certificate_chain: Optional[_builtins.str] = None,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 not_after: Optional[_builtins.str] = None,
+                 not_before: Optional[_builtins.str] = None):
+        """
+        PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+        :param _builtins.str begin_refresh_at: beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+               
+               This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+        :param _builtins.str certificate_chain: certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+               
+               If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+               
+               Validation requirements:
+                1. certificateChain must consist of one or more PEM-formatted certificates.
+                2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+                   described in section 4 of RFC5280.
+               
+               If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: conditions applied to the request.
+               
+               The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+               
+               If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+        :param _builtins.str not_after: notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+        :param _builtins.str not_before: notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+        """
+        if begin_refresh_at is not None:
+            pulumi.set(__self__, "begin_refresh_at", begin_refresh_at)
+        if certificate_chain is not None:
+            pulumi.set(__self__, "certificate_chain", certificate_chain)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if not_after is not None:
+            pulumi.set(__self__, "not_after", not_after)
+        if not_before is not None:
+            pulumi.set(__self__, "not_before", not_before)
+
+    @_builtins.property
+    @pulumi.getter(name="beginRefreshAt")
+    def begin_refresh_at(self) -> Optional[_builtins.str]:
+        """
+        beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+
+        This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+        """
+        return pulumi.get(self, "begin_refresh_at")
+
+    @_builtins.property
+    @pulumi.getter(name="certificateChain")
+    def certificate_chain(self) -> Optional[_builtins.str]:
+        """
+        certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+
+        If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+
+        Validation requirements:
+         1. certificateChain must consist of one or more PEM-formatted certificates.
+         2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+            described in section 4 of RFC5280.
+
+        If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+        """
+        return pulumi.get(self, "certificate_chain")
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        conditions applied to the request.
+
+        The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+
+        If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+        """
+        return pulumi.get(self, "conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="notAfter")
+    def not_after(self) -> Optional[_builtins.str]:
+        """
+        notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+        """
+        return pulumi.get(self, "not_after")
+
+    @_builtins.property
+    @pulumi.getter(name="notBefore")
+    def not_before(self) -> Optional[_builtins.str]:
+        """
+        notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+        """
+        return pulumi.get(self, "not_before")
 
 

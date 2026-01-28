@@ -1965,7 +1965,7 @@ func (o JobPatchTypeOutput) Status() JobStatusPatchPtrOutput {
 type JobSpec struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
-	// Specifies the number of retries before marking this job failed. Defaults to 6
+	// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 	BackoffLimit *int `pulumi:"backoffLimit"`
 	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex *int `pulumi:"backoffLimitPerIndex"`
@@ -1996,7 +1996,7 @@ type JobSpec struct {
 	// - Failed means to wait until a previously created Pod is fully terminated (has phase
 	//   Failed or Succeeded) before creating a replacement Pod.
 	//
-	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy *string `pulumi:"podReplacementPolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
@@ -2025,7 +2025,7 @@ type JobSpecInput interface {
 type JobSpecArgs struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
-	// Specifies the number of retries before marking this job failed. Defaults to 6
+	// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
 	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex pulumi.IntPtrInput `pulumi:"backoffLimitPerIndex"`
@@ -2056,7 +2056,7 @@ type JobSpecArgs struct {
 	// - Failed means to wait until a previously created Pod is fully terminated (has phase
 	//   Failed or Succeeded) before creating a replacement Pod.
 	//
-	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy pulumi.StringPtrInput `pulumi:"podReplacementPolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
@@ -2153,7 +2153,7 @@ func (o JobSpecOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
-// Specifies the number of retries before marking this job failed. Defaults to 6
+// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 func (o JobSpecOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
@@ -2212,7 +2212,7 @@ func (o JobSpecOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
 //   - Failed means to wait until a previously created Pod is fully terminated (has phase
 //     Failed or Succeeded) before creating a replacement Pod.
 //
-// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.PodReplacementPolicy }).(pulumi.StringPtrOutput)
 }
@@ -2276,7 +2276,7 @@ func (o JobSpecPtrOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Specifies the number of retries before marking this job failed. Defaults to 6
+// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 func (o JobSpecPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *int {
 		if v == nil {
@@ -2380,7 +2380,7 @@ func (o JobSpecPtrOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
 //   - Failed means to wait until a previously created Pod is fully terminated (has phase
 //     Failed or Succeeded) before creating a replacement Pod.
 //
-// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecPtrOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *string {
 		if v == nil {
@@ -2444,7 +2444,7 @@ func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 type JobSpecPatch struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
-	// Specifies the number of retries before marking this job failed. Defaults to 6
+	// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 	BackoffLimit *int `pulumi:"backoffLimit"`
 	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex *int `pulumi:"backoffLimitPerIndex"`
@@ -2475,7 +2475,7 @@ type JobSpecPatch struct {
 	// - Failed means to wait until a previously created Pod is fully terminated (has phase
 	//   Failed or Succeeded) before creating a replacement Pod.
 	//
-	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy *string `pulumi:"podReplacementPolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
@@ -2504,7 +2504,7 @@ type JobSpecPatchInput interface {
 type JobSpecPatchArgs struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
-	// Specifies the number of retries before marking this job failed. Defaults to 6
+	// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
 	// Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
 	BackoffLimitPerIndex pulumi.IntPtrInput `pulumi:"backoffLimitPerIndex"`
@@ -2535,7 +2535,7 @@ type JobSpecPatchArgs struct {
 	// - Failed means to wait until a previously created Pod is fully terminated (has phase
 	//   Failed or Succeeded) before creating a replacement Pod.
 	//
-	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy pulumi.StringPtrInput `pulumi:"podReplacementPolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
@@ -2632,7 +2632,7 @@ func (o JobSpecPatchOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.ActiveDeadlineSeconds }).(pulumi.IntPtrOutput)
 }
 
-// Specifies the number of retries before marking this job failed. Defaults to 6
+// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 func (o JobSpecPatchOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
@@ -2691,7 +2691,7 @@ func (o JobSpecPatchOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
 //   - Failed means to wait until a previously created Pod is fully terminated (has phase
 //     Failed or Succeeded) before creating a replacement Pod.
 //
-// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecPatchOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *string { return v.PodReplacementPolicy }).(pulumi.StringPtrOutput)
 }
@@ -2755,7 +2755,7 @@ func (o JobSpecPatchPtrOutput) ActiveDeadlineSeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Specifies the number of retries before marking this job failed. Defaults to 6
+// Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 func (o JobSpecPatchPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *int {
 		if v == nil {
@@ -2859,7 +2859,7 @@ func (o JobSpecPatchPtrOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput
 //   - Failed means to wait until a previously created Pod is fully terminated (has phase
 //     Failed or Succeeded) before creating a replacement Pod.
 //
-// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecPatchPtrOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *string {
 		if v == nil {
@@ -5235,7 +5235,7 @@ func (o PodFailurePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PodFailur
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
 type SuccessPolicy struct {
-	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules []SuccessPolicyRule `pulumi:"rules"`
 }
 
@@ -5252,7 +5252,7 @@ type SuccessPolicyInput interface {
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
 type SuccessPolicyArgs struct {
-	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules SuccessPolicyRuleArrayInput `pulumi:"rules"`
 }
 
@@ -5334,7 +5334,7 @@ func (o SuccessPolicyOutput) ToSuccessPolicyPtrOutputWithContext(ctx context.Con
 	}).(SuccessPolicyPtrOutput)
 }
 
-// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 func (o SuccessPolicyOutput) Rules() SuccessPolicyRuleArrayOutput {
 	return o.ApplyT(func(v SuccessPolicy) []SuccessPolicyRule { return v.Rules }).(SuccessPolicyRuleArrayOutput)
 }
@@ -5363,7 +5363,7 @@ func (o SuccessPolicyPtrOutput) Elem() SuccessPolicyOutput {
 	}).(SuccessPolicyOutput)
 }
 
-// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 func (o SuccessPolicyPtrOutput) Rules() SuccessPolicyRuleArrayOutput {
 	return o.ApplyT(func(v *SuccessPolicy) []SuccessPolicyRule {
 		if v == nil {
@@ -5375,7 +5375,7 @@ func (o SuccessPolicyPtrOutput) Rules() SuccessPolicyRuleArrayOutput {
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
 type SuccessPolicyPatch struct {
-	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules []SuccessPolicyRulePatch `pulumi:"rules"`
 }
 
@@ -5392,7 +5392,7 @@ type SuccessPolicyPatchInput interface {
 
 // SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
 type SuccessPolicyPatchArgs struct {
-	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+	// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 	Rules SuccessPolicyRulePatchArrayInput `pulumi:"rules"`
 }
 
@@ -5474,7 +5474,7 @@ func (o SuccessPolicyPatchOutput) ToSuccessPolicyPatchPtrOutputWithContext(ctx c
 	}).(SuccessPolicyPatchPtrOutput)
 }
 
-// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 func (o SuccessPolicyPatchOutput) Rules() SuccessPolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v SuccessPolicyPatch) []SuccessPolicyRulePatch { return v.Rules }).(SuccessPolicyRulePatchArrayOutput)
 }
@@ -5503,7 +5503,7 @@ func (o SuccessPolicyPatchPtrOutput) Elem() SuccessPolicyPatchOutput {
 	}).(SuccessPolicyPatchOutput)
 }
 
-// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+// rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 func (o SuccessPolicyPatchPtrOutput) Rules() SuccessPolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v *SuccessPolicyPatch) []SuccessPolicyRulePatch {
 		if v == nil {

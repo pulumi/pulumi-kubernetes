@@ -43,6 +43,9 @@ func NewResourceClaimTemplate(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("ResourceClaimTemplate")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1:ResourceClaimTemplate"),
+		},
+		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate"),
 		},
 		{

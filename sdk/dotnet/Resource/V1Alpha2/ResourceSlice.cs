@@ -90,6 +90,7 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha2
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1:ResourceSlice" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta1:ResourceSlice" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta2:ResourceSlice" },

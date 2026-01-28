@@ -5,6 +5,36 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
+export { MutatingAdmissionPolicyArgs } from "./mutatingAdmissionPolicy";
+export type MutatingAdmissionPolicy = import("./mutatingAdmissionPolicy").MutatingAdmissionPolicy;
+export const MutatingAdmissionPolicy: typeof import("./mutatingAdmissionPolicy").MutatingAdmissionPolicy = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicy"], () => require("./mutatingAdmissionPolicy"));
+
+export { MutatingAdmissionPolicyBindingArgs } from "./mutatingAdmissionPolicyBinding";
+export type MutatingAdmissionPolicyBinding = import("./mutatingAdmissionPolicyBinding").MutatingAdmissionPolicyBinding;
+export const MutatingAdmissionPolicyBinding: typeof import("./mutatingAdmissionPolicyBinding").MutatingAdmissionPolicyBinding = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicyBinding"], () => require("./mutatingAdmissionPolicyBinding"));
+
+export { MutatingAdmissionPolicyBindingListArgs } from "./mutatingAdmissionPolicyBindingList";
+export type MutatingAdmissionPolicyBindingList = import("./mutatingAdmissionPolicyBindingList").MutatingAdmissionPolicyBindingList;
+export const MutatingAdmissionPolicyBindingList: typeof import("./mutatingAdmissionPolicyBindingList").MutatingAdmissionPolicyBindingList = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicyBindingList"], () => require("./mutatingAdmissionPolicyBindingList"));
+
+export { MutatingAdmissionPolicyBindingPatchArgs } from "./mutatingAdmissionPolicyBindingPatch";
+export type MutatingAdmissionPolicyBindingPatch = import("./mutatingAdmissionPolicyBindingPatch").MutatingAdmissionPolicyBindingPatch;
+export const MutatingAdmissionPolicyBindingPatch: typeof import("./mutatingAdmissionPolicyBindingPatch").MutatingAdmissionPolicyBindingPatch = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicyBindingPatch"], () => require("./mutatingAdmissionPolicyBindingPatch"));
+
+export { MutatingAdmissionPolicyListArgs } from "./mutatingAdmissionPolicyList";
+export type MutatingAdmissionPolicyList = import("./mutatingAdmissionPolicyList").MutatingAdmissionPolicyList;
+export const MutatingAdmissionPolicyList: typeof import("./mutatingAdmissionPolicyList").MutatingAdmissionPolicyList = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicyList"], () => require("./mutatingAdmissionPolicyList"));
+
+export { MutatingAdmissionPolicyPatchArgs } from "./mutatingAdmissionPolicyPatch";
+export type MutatingAdmissionPolicyPatch = import("./mutatingAdmissionPolicyPatch").MutatingAdmissionPolicyPatch;
+export const MutatingAdmissionPolicyPatch: typeof import("./mutatingAdmissionPolicyPatch").MutatingAdmissionPolicyPatch = null as any;
+utilities.lazyLoad(exports, ["MutatingAdmissionPolicyPatch"], () => require("./mutatingAdmissionPolicyPatch"));
+
 export { MutatingWebhookConfigurationArgs } from "./mutatingWebhookConfiguration";
 export type MutatingWebhookConfiguration = import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration;
 export const MutatingWebhookConfiguration: typeof import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration = null as any;
@@ -70,6 +100,18 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicy":
+                return new MutatingAdmissionPolicy(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBinding":
+                return new MutatingAdmissionPolicyBinding(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingList":
+                return new MutatingAdmissionPolicyBindingList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingPatch":
+                return new MutatingAdmissionPolicyBindingPatch(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyList":
+                return new MutatingAdmissionPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyPatch":
+                return new MutatingAdmissionPolicyPatch(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration":
                 return new MutatingWebhookConfiguration(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList":

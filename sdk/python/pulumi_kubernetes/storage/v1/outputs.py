@@ -37,6 +37,7 @@ __all__ = [
     'VolumeAttachmentSpecPatch',
     'VolumeAttachmentStatus',
     'VolumeAttachmentStatusPatch',
+    'VolumeAttributesClass',
     'VolumeError',
     'VolumeErrorPatch',
     'VolumeNodeResources',
@@ -168,7 +169,7 @@ class CSIDriverSpec(dict):
                  volume_lifecycle_modes: Optional[Sequence[_builtins.str]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
-        :param _builtins.bool attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+        :param _builtins.bool attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
                
                This field is immutable.
         :param _builtins.str fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
@@ -178,7 +179,7 @@ class CSIDriverSpec(dict):
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param _builtins.int node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
                
-               This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
                
                This field is mutable.
         :param _builtins.bool pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -248,7 +249,7 @@ class CSIDriverSpec(dict):
     @pulumi.getter(name="attachRequired")
     def attach_required(self) -> Optional[_builtins.bool]:
         """
-        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 
         This field is immutable.
         """
@@ -272,7 +273,7 @@ class CSIDriverSpec(dict):
         """
         nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
         This field is mutable.
         """
@@ -414,7 +415,7 @@ class CSIDriverSpecPatch(dict):
                  volume_lifecycle_modes: Optional[Sequence[_builtins.str]] = None):
         """
         CSIDriverSpec is the specification of a CSIDriver.
-        :param _builtins.bool attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+        :param _builtins.bool attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
                
                This field is immutable.
         :param _builtins.str fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
@@ -424,7 +425,7 @@ class CSIDriverSpecPatch(dict):
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param _builtins.int node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
                
-               This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
                
                This field is mutable.
         :param _builtins.bool pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -494,7 +495,7 @@ class CSIDriverSpecPatch(dict):
     @pulumi.getter(name="attachRequired")
     def attach_required(self) -> Optional[_builtins.bool]:
         """
-        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 
         This field is immutable.
         """
@@ -518,7 +519,7 @@ class CSIDriverSpecPatch(dict):
         """
         nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-        This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
         This field is mutable.
         """
@@ -1781,6 +1782,99 @@ class VolumeAttachmentStatusPatch(dict):
 
 
 @pulumi.output_type
+class VolumeAttributesClass(dict):
+    """
+    VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "driverName":
+            suggest = "driver_name"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttributesClass. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttributesClass.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttributesClass.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver_name: _builtins.str,
+                 api_version: Optional[_builtins.str] = None,
+                 kind: Optional[_builtins.str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 parameters: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+        :param _builtins.str driver_name: Name of the CSI driver This field is immutable.
+        :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param Mapping[str, _builtins.str] parameters: parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+               
+               This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+        """
+        pulumi.set(__self__, "driver_name", driver_name)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'VolumeAttributesClass')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if parameters is not None:
+            pulumi.set(__self__, "parameters", parameters)
+
+    @_builtins.property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> _builtins.str:
+        """
+        Name of the CSI driver This field is immutable.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> Optional[_builtins.str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @_builtins.property
+    @pulumi.getter
+    def parameters(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+
+        This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+        """
+        return pulumi.get(self, "parameters")
+
+
+@pulumi.output_type
 class VolumeError(dict):
     """
     VolumeError captures an error encountered during a volume operation.
@@ -1810,7 +1904,7 @@ class VolumeError(dict):
         VolumeError captures an error encountered during a volume operation.
         :param _builtins.int error_code: errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
                
-               This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+               This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         :param _builtins.str message: message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param _builtins.str time: time represents the time the error was encountered.
         """
@@ -1827,7 +1921,7 @@ class VolumeError(dict):
         """
         errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 
-        This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         """
         return pulumi.get(self, "error_code")
 
@@ -1878,7 +1972,7 @@ class VolumeErrorPatch(dict):
         VolumeError captures an error encountered during a volume operation.
         :param _builtins.int error_code: errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
                
-               This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+               This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         :param _builtins.str message: message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param _builtins.str time: time represents the time the error was encountered.
         """
@@ -1895,7 +1989,7 @@ class VolumeErrorPatch(dict):
         """
         errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 
-        This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         """
         return pulumi.get(self, "error_code")
 

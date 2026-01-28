@@ -1371,14 +1371,10 @@ func (o NonResourceRulePatchArrayOutput) Index(i pulumi.IntInput) NonResourceRul
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributes struct {
 	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	FieldSelector *FieldSelectorAttributes `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
 	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	LabelSelector *LabelSelectorAttributes `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name *string `pulumi:"name"`
@@ -1408,14 +1404,10 @@ type ResourceAttributesInput interface {
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesArgs struct {
 	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	FieldSelector FieldSelectorAttributesPtrInput `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
 	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	LabelSelector LabelSelectorAttributesPtrInput `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -1510,8 +1502,6 @@ func (o ResourceAttributesOutput) ToResourceAttributesPtrOutputWithContext(ctx c
 }
 
 // fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesOutput) FieldSelector() FieldSelectorAttributesPtrOutput {
 	return o.ApplyT(func(v ResourceAttributes) *FieldSelectorAttributes { return v.FieldSelector }).(FieldSelectorAttributesPtrOutput)
 }
@@ -1522,8 +1512,6 @@ func (o ResourceAttributesOutput) Group() pulumi.StringPtrOutput {
 }
 
 // labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesOutput) LabelSelector() LabelSelectorAttributesPtrOutput {
 	return o.ApplyT(func(v ResourceAttributes) *LabelSelectorAttributes { return v.LabelSelector }).(LabelSelectorAttributesPtrOutput)
 }
@@ -1583,8 +1571,6 @@ func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
 }
 
 // fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPtrOutput) FieldSelector() FieldSelectorAttributesPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributes) *FieldSelectorAttributes {
 		if v == nil {
@@ -1605,8 +1591,6 @@ func (o ResourceAttributesPtrOutput) Group() pulumi.StringPtrOutput {
 }
 
 // labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPtrOutput) LabelSelector() LabelSelectorAttributesPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributes) *LabelSelectorAttributes {
 		if v == nil {
@@ -1679,14 +1663,10 @@ func (o ResourceAttributesPtrOutput) Version() pulumi.StringPtrOutput {
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesPatch struct {
 	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	FieldSelector *FieldSelectorAttributesPatch `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group *string `pulumi:"group"`
 	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	LabelSelector *LabelSelectorAttributesPatch `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name *string `pulumi:"name"`
@@ -1716,14 +1696,10 @@ type ResourceAttributesPatchInput interface {
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesPatchArgs struct {
 	// fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	FieldSelector FieldSelectorAttributesPatchPtrInput `pulumi:"fieldSelector"`
 	// Group is the API Group of the Resource.  "*" means all.
 	Group pulumi.StringPtrInput `pulumi:"group"`
 	// labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-	//
-	// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 	LabelSelector LabelSelectorAttributesPatchPtrInput `pulumi:"labelSelector"`
 	// Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -1818,8 +1794,6 @@ func (o ResourceAttributesPatchOutput) ToResourceAttributesPatchPtrOutputWithCon
 }
 
 // fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPatchOutput) FieldSelector() FieldSelectorAttributesPatchPtrOutput {
 	return o.ApplyT(func(v ResourceAttributesPatch) *FieldSelectorAttributesPatch { return v.FieldSelector }).(FieldSelectorAttributesPatchPtrOutput)
 }
@@ -1830,8 +1804,6 @@ func (o ResourceAttributesPatchOutput) Group() pulumi.StringPtrOutput {
 }
 
 // labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPatchOutput) LabelSelector() LabelSelectorAttributesPatchPtrOutput {
 	return o.ApplyT(func(v ResourceAttributesPatch) *LabelSelectorAttributesPatch { return v.LabelSelector }).(LabelSelectorAttributesPatchPtrOutput)
 }
@@ -1891,8 +1863,6 @@ func (o ResourceAttributesPatchPtrOutput) Elem() ResourceAttributesPatchOutput {
 }
 
 // fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPatchPtrOutput) FieldSelector() FieldSelectorAttributesPatchPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributesPatch) *FieldSelectorAttributesPatch {
 		if v == nil {
@@ -1913,8 +1883,6 @@ func (o ResourceAttributesPatchPtrOutput) Group() pulumi.StringPtrOutput {
 }
 
 // labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.
-//
-// This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
 func (o ResourceAttributesPatchPtrOutput) LabelSelector() LabelSelectorAttributesPatchPtrOutput {
 	return o.ApplyT(func(v *ResourceAttributesPatch) *LabelSelectorAttributesPatch {
 		if v == nil {

@@ -2676,6 +2676,80 @@ export namespace admissionregistration {
 
     export namespace v1beta1 {
         /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfiguration {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression?: pulumi.Input<string>;
+        }
+
+        /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfigurationPatch {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression?: pulumi.Input<string>;
+        }
+
+        /**
          * AuditAnnotation describes how to produce an audit annotation for an API request.
          */
         export interface AuditAnnotation {
@@ -2735,6 +2809,132 @@ export namespace admissionregistration {
              * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
              */
             warning: pulumi.Input<string>;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression?: pulumi.Input<string>;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatchPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression?: pulumi.Input<string>;
         }
 
         /**
@@ -2907,6 +3107,200 @@ export namespace admissionregistration {
              * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.NamedRuleWithOperationsPatch>[]>;
+        }
+
+        /**
+         * MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+         */
+        export interface MutatingAdmissionPolicy {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"MutatingAdmissionPolicy">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the MutatingAdmissionPolicy.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1beta1.MutatingAdmissionPolicySpec>;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+         *
+         * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+         *
+         * Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+         */
+        export interface MutatingAdmissionPolicyBinding {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"MutatingAdmissionPolicyBinding">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1beta1.MutatingAdmissionPolicyBindingSpec>;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpec {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1beta1.MatchResources>;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1beta1.ParamRef>;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpecPatch {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1beta1.MatchResourcesPatch>;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1beta1.ParamRefPatch>;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpec {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.MatchCondition>[]>;
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1beta1.MatchResources>;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.Mutation>[]>;
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1beta1.ParamKind>;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy?: pulumi.Input<string>;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.Variable>[]>;
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpecPatch {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.MatchConditionPatch>[]>;
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1beta1.MatchResourcesPatch>;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.MutationPatch>[]>;
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1beta1.ParamKindPatch>;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy?: pulumi.Input<string>;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1beta1.VariablePatch>[]>;
         }
 
         /**
@@ -3113,6 +3507,42 @@ export namespace admissionregistration {
              * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
              */
             timeoutSeconds?: pulumi.Input<number>;
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface Mutation {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration?: pulumi.Input<inputs.admissionregistration.v1beta1.ApplyConfiguration>;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch?: pulumi.Input<inputs.admissionregistration.v1beta1.JSONPatch>;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType: pulumi.Input<string>;
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface MutationPatch {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration?: pulumi.Input<inputs.admissionregistration.v1beta1.ApplyConfigurationPatch>;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch?: pulumi.Input<inputs.admissionregistration.v1beta1.JSONPatchPatch>;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType?: pulumi.Input<string>;
         }
 
         /**
@@ -3494,7 +3924,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -3534,7 +3964,7 @@ export namespace admissionregistration {
              *
              * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
              *
-             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{\"message\": \"Invalid value\", {\"policy\": \"policy.example.com\", {\"binding\": \"policybinding.example.com\", {\"expressionIndex\": \"1\", {\"validationActions\": [\"Audit\"]}]"`
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
              *
              * Clients should expect to handle additional values by ignoring any values not recognized.
              *
@@ -6734,7 +7164,7 @@ export namespace apps {
          */
         export interface RollingUpdateDaemonSet {
             /**
-             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
              */
             maxSurge?: pulumi.Input<number | string>;
             /**
@@ -6748,7 +7178,7 @@ export namespace apps {
          */
         export interface RollingUpdateDaemonSetPatch {
             /**
-             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
              */
             maxSurge?: pulumi.Input<number | string>;
             /**
@@ -11058,7 +11488,7 @@ export namespace batch {
              */
             activeDeadlineSeconds?: pulumi.Input<number>;
             /**
-             * Specifies the number of retries before marking this job failed. Defaults to 6
+             * Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
              */
             backoffLimit?: pulumi.Input<number>;
             /**
@@ -11107,7 +11537,7 @@ export namespace batch {
              * - Failed means to wait until a previously created Pod is fully terminated (has phase
              *   Failed or Succeeded) before creating a replacement Pod.
              *
-             * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+             * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
              */
             podReplacementPolicy?: pulumi.Input<string>;
             /**
@@ -11141,7 +11571,7 @@ export namespace batch {
              */
             activeDeadlineSeconds?: pulumi.Input<number>;
             /**
-             * Specifies the number of retries before marking this job failed. Defaults to 6
+             * Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
              */
             backoffLimit?: pulumi.Input<number>;
             /**
@@ -11190,7 +11620,7 @@ export namespace batch {
              * - Failed means to wait until a previously created Pod is fully terminated (has phase
              *   Failed or Succeeded) before creating a replacement Pod.
              *
-             * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+             * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
              */
             podReplacementPolicy?: pulumi.Input<string>;
             /**
@@ -11469,7 +11899,7 @@ export namespace batch {
          */
         export interface SuccessPolicy {
             /**
-             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
              */
             rules: pulumi.Input<pulumi.Input<inputs.batch.v1.SuccessPolicyRule>[]>;
         }
@@ -11479,7 +11909,7 @@ export namespace batch {
          */
         export interface SuccessPolicyPatch {
             /**
-             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+             * rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
              */
             rules?: pulumi.Input<pulumi.Input<inputs.batch.v1.SuccessPolicyRulePatch>[]>;
         }
@@ -12155,6 +12585,208 @@ export namespace certificates {
              */
             trustBundle?: pulumi.Input<string>;
         }
+
+        /**
+         * PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+         *
+         * Kubelets use this API to implement podCertificate projected volumes
+         */
+        export interface PodCertificateRequest {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"certificates.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"PodCertificateRequest">;
+            /**
+             * metadata contains the object metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * spec contains the details about the certificate being requested.
+             */
+            spec: pulumi.Input<inputs.certificates.v1alpha1.PodCertificateRequestSpec>;
+            /**
+             * status contains the issued certificate, and a standard set of conditions.
+             */
+            status?: pulumi.Input<inputs.certificates.v1alpha1.PodCertificateRequestStatus>;
+        }
+
+        /**
+         * PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+         */
+        export interface PodCertificateRequestSpec {
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds?: pulumi.Input<number>;
+            /**
+             * nodeName is the name of the node the pod is assigned to.
+             */
+            nodeName: pulumi.Input<string>;
+            /**
+             * nodeUID is the UID of the node the pod is assigned to.
+             */
+            nodeUID: pulumi.Input<string>;
+            /**
+             * pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+             *
+             * The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            pkixPublicKey: pulumi.Input<string>;
+            /**
+             * podName is the name of the pod into which the certificate will be mounted.
+             */
+            podName: pulumi.Input<string>;
+            /**
+             * podUID is the UID of the pod into which the certificate will be mounted.
+             */
+            podUID: pulumi.Input<string>;
+            /**
+             * proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+             *
+             * It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+             *
+             * kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+             *
+             * If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+             *
+             * If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+             *
+             * If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+             */
+            proofOfPossession: pulumi.Input<string>;
+            /**
+             * serviceAccountName is the name of the service account the pod is running as.
+             */
+            serviceAccountName: pulumi.Input<string>;
+            /**
+             * serviceAccountUID is the UID of the service account the pod is running as.
+             */
+            serviceAccountUID: pulumi.Input<string>;
+            /**
+             * signerName indicates the requested signer.
+             *
+             * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+             */
+            signerName: pulumi.Input<string>;
+        }
+
+        /**
+         * PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+         */
+        export interface PodCertificateRequestSpecPatch {
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds?: pulumi.Input<number>;
+            /**
+             * nodeName is the name of the node the pod is assigned to.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * nodeUID is the UID of the node the pod is assigned to.
+             */
+            nodeUID?: pulumi.Input<string>;
+            /**
+             * pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+             *
+             * The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            pkixPublicKey?: pulumi.Input<string>;
+            /**
+             * podName is the name of the pod into which the certificate will be mounted.
+             */
+            podName?: pulumi.Input<string>;
+            /**
+             * podUID is the UID of the pod into which the certificate will be mounted.
+             */
+            podUID?: pulumi.Input<string>;
+            /**
+             * proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+             *
+             * It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
+             *
+             * kube-apiserver validates the proof of possession during creation of the PodCertificateRequest.
+             *
+             * If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID, using RSASSA-PSS from RFC 8017 (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+             *
+             * If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
+             *
+             * If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+             */
+            proofOfPossession?: pulumi.Input<string>;
+            /**
+             * serviceAccountName is the name of the service account the pod is running as.
+             */
+            serviceAccountName?: pulumi.Input<string>;
+            /**
+             * serviceAccountUID is the UID of the service account the pod is running as.
+             */
+            serviceAccountUID?: pulumi.Input<string>;
+            /**
+             * signerName indicates the requested signer.
+             *
+             * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+             */
+            signerName?: pulumi.Input<string>;
+        }
+
+        /**
+         * PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+         */
+        export interface PodCertificateRequestStatus {
+            /**
+             * beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+             *
+             * This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+             */
+            beginRefreshAt?: pulumi.Input<string>;
+            /**
+             * certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+             *
+             * If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+             *
+             * Validation requirements:
+             *  1. certificateChain must consist of one or more PEM-formatted certificates.
+             *  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+             *     described in section 4 of RFC5280.
+             *
+             * If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+             */
+            certificateChain?: pulumi.Input<string>;
+            /**
+             * conditions applied to the request.
+             *
+             * The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+             *
+             * If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
+            /**
+             * notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+             */
+            notAfter?: pulumi.Input<string>;
+            /**
+             * notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+             */
+            notBefore?: pulumi.Input<string>;
+        }
+
     }
 
     export namespace v1beta1 {
@@ -13834,7 +14466,7 @@ export namespace core {
              */
             env?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvVar>[]>;
             /**
-             * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+             * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
              */
             envFrom?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvFromSource>[]>;
             /**
@@ -13874,9 +14506,13 @@ export namespace core {
              */
             resources?: pulumi.Input<inputs.core.v1.ResourceRequirements>;
             /**
-             * RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+             * RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
              */
             restartPolicy?: pulumi.Input<string>;
+            /**
+             * Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
+             */
+            restartPolicyRules?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerRestartRule>[]>;
             /**
              * SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
              */
@@ -13920,6 +14556,24 @@ export namespace core {
         }
 
         /**
+         * ContainerExtendedResourceRequest has the mapping of container name, extended resource name to the device request name.
+         */
+        export interface ContainerExtendedResourceRequest {
+            /**
+             * The name of the container requesting resources.
+             */
+            containerName: pulumi.Input<string>;
+            /**
+             * The name of the request in the special ResourceClaim which corresponds to the extended resource.
+             */
+            requestName: pulumi.Input<string>;
+            /**
+             * The name of the extended resource in that container which gets backed by DRA.
+             */
+            resourceName: pulumi.Input<string>;
+        }
+
+        /**
          * Describe a container image
          */
         export interface ContainerImage {
@@ -13950,7 +14604,7 @@ export namespace core {
              */
             env?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvVarPatch>[]>;
             /**
-             * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+             * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
              */
             envFrom?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvFromSourcePatch>[]>;
             /**
@@ -13990,9 +14644,13 @@ export namespace core {
              */
             resources?: pulumi.Input<inputs.core.v1.ResourceRequirementsPatch>;
             /**
-             * RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+             * RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
              */
             restartPolicy?: pulumi.Input<string>;
+            /**
+             * Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
+             */
+            restartPolicyRules?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerRestartRulePatch>[]>;
             /**
              * SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
              */
@@ -14113,6 +14771,68 @@ export namespace core {
              * Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
              */
             restartPolicy?: pulumi.Input<string>;
+        }
+
+        /**
+         * ContainerRestartRule describes how a container exit is handled.
+         */
+        export interface ContainerRestartRule {
+            /**
+             * Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+             */
+            action: pulumi.Input<string>;
+            /**
+             * Represents the exit codes to check on container exits.
+             */
+            exitCodes?: pulumi.Input<inputs.core.v1.ContainerRestartRuleOnExitCodes>;
+        }
+
+        /**
+         * ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+         */
+        export interface ContainerRestartRuleOnExitCodes {
+            /**
+             * Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+             *   set of specified values.
+             * - NotIn: the requirement is satisfied if the container exit code is
+             *   not in the set of specified values.
+             */
+            operator: pulumi.Input<string>;
+            /**
+             * Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+             */
+            values?: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+         */
+        export interface ContainerRestartRuleOnExitCodesPatch {
+            /**
+             * Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+             *   set of specified values.
+             * - NotIn: the requirement is satisfied if the container exit code is
+             *   not in the set of specified values.
+             */
+            operator?: pulumi.Input<string>;
+            /**
+             * Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+             */
+            values?: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * ContainerRestartRule describes how a container exit is handled.
+         */
+        export interface ContainerRestartRulePatch {
+            /**
+             * Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+             */
+            action?: pulumi.Input<string>;
+            /**
+             * Represents the exit codes to check on container exits.
+             */
+            exitCodes?: pulumi.Input<inputs.core.v1.ContainerRestartRuleOnExitCodesPatch>;
         }
 
         /**
@@ -14612,7 +15332,7 @@ export namespace core {
              */
             configMapRef?: pulumi.Input<inputs.core.v1.ConfigMapEnvSource>;
             /**
-             * Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+             * Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
              */
             prefix?: pulumi.Input<string>;
             /**
@@ -14630,7 +15350,7 @@ export namespace core {
              */
             configMapRef?: pulumi.Input<inputs.core.v1.ConfigMapEnvSourcePatch>;
             /**
-             * Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+             * Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
              */
             prefix?: pulumi.Input<string>;
             /**
@@ -14644,7 +15364,7 @@ export namespace core {
          */
         export interface EnvVar {
             /**
-             * Name of the environment variable. Must be a C_IDENTIFIER.
+             * Name of the environment variable. May consist of any printable ASCII characters except '='.
              */
             name: pulumi.Input<string>;
             /**
@@ -14662,7 +15382,7 @@ export namespace core {
          */
         export interface EnvVarPatch {
             /**
-             * Name of the environment variable. Must be a C_IDENTIFIER.
+             * Name of the environment variable. May consist of any printable ASCII characters except '='.
              */
             name?: pulumi.Input<string>;
             /**
@@ -14688,6 +15408,10 @@ export namespace core {
              */
             fieldRef?: pulumi.Input<inputs.core.v1.ObjectFieldSelector>;
             /**
+             * FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+             */
+            fileKeyRef?: pulumi.Input<inputs.core.v1.FileKeySelector>;
+            /**
              * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
              */
             resourceFieldRef?: pulumi.Input<inputs.core.v1.ResourceFieldSelector>;
@@ -14709,6 +15433,10 @@ export namespace core {
              * Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
              */
             fieldRef?: pulumi.Input<inputs.core.v1.ObjectFieldSelectorPatch>;
+            /**
+             * FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+             */
+            fileKeyRef?: pulumi.Input<inputs.core.v1.FileKeySelectorPatch>;
             /**
              * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
              */
@@ -14738,7 +15466,7 @@ export namespace core {
              */
             env?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvVar>[]>;
             /**
-             * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+             * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
              */
             envFrom?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvFromSource>[]>;
             /**
@@ -14778,9 +15506,13 @@ export namespace core {
              */
             resources?: pulumi.Input<inputs.core.v1.ResourceRequirements>;
             /**
-             * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+             * Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
              */
             restartPolicy?: pulumi.Input<string>;
+            /**
+             * Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+             */
+            restartPolicyRules?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerRestartRule>[]>;
             /**
              * Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
              */
@@ -14848,7 +15580,7 @@ export namespace core {
              */
             env?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvVarPatch>[]>;
             /**
-             * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+             * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
              */
             envFrom?: pulumi.Input<pulumi.Input<inputs.core.v1.EnvFromSourcePatch>[]>;
             /**
@@ -14888,9 +15620,13 @@ export namespace core {
              */
             resources?: pulumi.Input<inputs.core.v1.ResourceRequirementsPatch>;
             /**
-             * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+             * Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
              */
             restartPolicy?: pulumi.Input<string>;
+            /**
+             * Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+             */
+            restartPolicyRules?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerRestartRulePatch>[]>;
             /**
              * Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
              */
@@ -15187,6 +15923,54 @@ export namespace core {
              * wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
              */
             wwids?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * FileKeySelector selects a key of the env file.
+         */
+        export interface FileKeySelector {
+            /**
+             * The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+             */
+            key: pulumi.Input<string>;
+            /**
+             * Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+             *
+             * If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+             */
+            optional?: pulumi.Input<boolean>;
+            /**
+             * The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+             */
+            path: pulumi.Input<string>;
+            /**
+             * The name of the volume mount containing the env file.
+             */
+            volumeName: pulumi.Input<string>;
+        }
+
+        /**
+         * FileKeySelector selects a key of the env file.
+         */
+        export interface FileKeySelectorPatch {
+            /**
+             * The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+             */
+            key?: pulumi.Input<string>;
+            /**
+             * Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+             *
+             * If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+             */
+            optional?: pulumi.Input<boolean>;
+            /**
+             * The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+             */
+            path?: pulumi.Input<string>;
+            /**
+             * The name of the volume mount containing the env file.
+             */
+            volumeName?: pulumi.Input<string>;
         }
 
         /**
@@ -15490,7 +16274,7 @@ export namespace core {
          */
         export interface GlusterfsVolumeSource {
             /**
-             * endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+             * endpoints is the endpoint name that details Glusterfs topology.
              */
             endpoints: pulumi.Input<string>;
             /**
@@ -15508,7 +16292,7 @@ export namespace core {
          */
         export interface GlusterfsVolumeSourcePatch {
             /**
-             * endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+             * endpoints is the endpoint name that details Glusterfs topology.
              */
             endpoints?: pulumi.Input<string>;
             /**
@@ -17107,7 +17891,7 @@ export namespace core {
              */
             storageClassName?: pulumi.Input<string>;
             /**
-             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -17156,7 +17940,7 @@ export namespace core {
              */
             storageClassName?: pulumi.Input<string>;
             /**
-             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+             * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -17233,11 +18017,11 @@ export namespace core {
              */
             conditions?: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaimCondition>[]>;
             /**
-             * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
              */
             currentVolumeAttributesClassName?: pulumi.Input<string>;
             /**
-             * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
              */
             modifyVolumeStatus?: pulumi.Input<inputs.core.v1.ModifyVolumeStatus>;
             /**
@@ -17314,11 +18098,11 @@ export namespace core {
              */
             conditions?: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaimConditionPatch>[]>;
             /**
-             * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
              */
             currentVolumeAttributesClassName?: pulumi.Input<string>;
             /**
-             * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
              */
             modifyVolumeStatus?: pulumi.Input<inputs.core.v1.ModifyVolumeStatusPatch>;
             /**
@@ -17504,7 +18288,7 @@ export namespace core {
              */
             storageos?: pulumi.Input<inputs.core.v1.StorageOSPersistentVolumeSource>;
             /**
-             * Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -17634,7 +18418,7 @@ export namespace core {
              */
             storageos?: pulumi.Input<inputs.core.v1.StorageOSPersistentVolumeSourcePatch>;
             /**
-             * Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+             * Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
              */
             volumeAttributesClassName?: pulumi.Input<string>;
             /**
@@ -17831,7 +18615,7 @@ export namespace core {
          */
         export interface PodAntiAffinity {
             /**
-             * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+             * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
              */
             preferredDuringSchedulingIgnoredDuringExecution?: pulumi.Input<pulumi.Input<inputs.core.v1.WeightedPodAffinityTerm>[]>;
             /**
@@ -17845,13 +18629,109 @@ export namespace core {
          */
         export interface PodAntiAffinityPatch {
             /**
-             * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+             * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
              */
             preferredDuringSchedulingIgnoredDuringExecution?: pulumi.Input<pulumi.Input<inputs.core.v1.WeightedPodAffinityTermPatch>[]>;
             /**
              * If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
              */
             requiredDuringSchedulingIgnoredDuringExecution?: pulumi.Input<pulumi.Input<inputs.core.v1.PodAffinityTermPatch>[]>;
+        }
+
+        /**
+         * PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+         */
+        export interface PodCertificateProjection {
+            /**
+             * Write the certificate chain at this path in the projected volume.
+             *
+             * Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+             */
+            certificateChainPath?: pulumi.Input<string>;
+            /**
+             * Write the credential bundle at this path in the projected volume.
+             *
+             * The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+             *
+             * The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+             *
+             * Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+             */
+            credentialBundlePath?: pulumi.Input<string>;
+            /**
+             * Write the key at this path in the projected volume.
+             *
+             * Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+             */
+            keyPath?: pulumi.Input<string>;
+            /**
+             * The type of keypair Kubelet will generate for the pod.
+             *
+             * Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+             */
+            keyType: pulumi.Input<string>;
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds?: pulumi.Input<number>;
+            /**
+             * Kubelet's generated CSRs will be addressed to this signer.
+             */
+            signerName: pulumi.Input<string>;
+        }
+
+        /**
+         * PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+         */
+        export interface PodCertificateProjectionPatch {
+            /**
+             * Write the certificate chain at this path in the projected volume.
+             *
+             * Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+             */
+            certificateChainPath?: pulumi.Input<string>;
+            /**
+             * Write the credential bundle at this path in the projected volume.
+             *
+             * The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+             *
+             * The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+             *
+             * Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+             */
+            credentialBundlePath?: pulumi.Input<string>;
+            /**
+             * Write the key at this path in the projected volume.
+             *
+             * Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+             */
+            keyPath?: pulumi.Input<string>;
+            /**
+             * The type of keypair Kubelet will generate for the pod.
+             *
+             * Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+             */
+            keyType?: pulumi.Input<string>;
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds?: pulumi.Input<number>;
+            /**
+             * Kubelet's generated CSRs will be addressed to this signer.
+             */
+            signerName?: pulumi.Input<string>;
         }
 
         /**
@@ -17950,6 +18830,20 @@ export namespace core {
              * A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
              */
             searches?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.
+         */
+        export interface PodExtendedResourceClaimStatus {
+            /**
+             * RequestMappings identifies the mapping of <container, extended resource backed by DRA> to  device request in the generated ResourceClaim.
+             */
+            requestMappings: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerExtendedResourceRequest>[]>;
+            /**
+             * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+             */
+            resourceClaimName: pulumi.Input<string>;
         }
 
         /**
@@ -18289,7 +19183,7 @@ export namespace core {
              */
             hostIPC?: pulumi.Input<boolean>;
             /**
-             * Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+             * Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
              */
             hostNetwork?: pulumi.Input<boolean>;
             /**
@@ -18304,6 +19198,12 @@ export namespace core {
              * Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
              */
             hostname?: pulumi.Input<string>;
+            /**
+             * HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+             *
+             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+             */
+            hostnameOverride?: pulumi.Input<string>;
             /**
              * ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
              */
@@ -18325,7 +19225,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOS>;
             /**
@@ -18357,7 +19257,7 @@ export namespace core {
              */
             resourceClaims?: pulumi.Input<pulumi.Input<inputs.core.v1.PodResourceClaim>[]>;
             /**
-             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
              *
              * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
              *
@@ -18469,7 +19369,7 @@ export namespace core {
              */
             hostIPC?: pulumi.Input<boolean>;
             /**
-             * Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+             * Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
              */
             hostNetwork?: pulumi.Input<boolean>;
             /**
@@ -18484,6 +19384,12 @@ export namespace core {
              * Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
              */
             hostname?: pulumi.Input<string>;
+            /**
+             * HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+             *
+             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+             */
+            hostnameOverride?: pulumi.Input<string>;
             /**
              * ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
              */
@@ -18505,7 +19411,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOSPatch>;
             /**
@@ -18537,7 +19443,7 @@ export namespace core {
              */
             resourceClaims?: pulumi.Input<pulumi.Input<inputs.core.v1.PodResourceClaimPatch>[]>;
             /**
-             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+             * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
              *
              * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
              *
@@ -18620,6 +19526,10 @@ export namespace core {
              * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
              */
             ephemeralContainerStatuses?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerStatus>[]>;
+            /**
+             * Status of extended resource claim backed by DRA.
+             */
+            extendedResourceClaimStatus?: pulumi.Input<inputs.core.v1.PodExtendedResourceClaimStatus>;
             /**
              * hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
              */
@@ -19444,7 +20354,7 @@ export namespace core {
             /**
              * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
              *
-             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             * This field depends on the DynamicResourceAllocation feature gate.
              *
              * This field is immutable. It can only be set for containers.
              */
@@ -19466,7 +20376,7 @@ export namespace core {
             /**
              * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
              *
-             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             * This field depends on the DynamicResourceAllocation feature gate.
              *
              * This field is immutable. It can only be set for containers.
              */
@@ -20757,7 +21667,7 @@ export namespace core {
              */
             key: pulumi.Input<string>;
             /**
-             * TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+             * TimeAdded represents the time at which the taint was added.
              */
             timeAdded?: pulumi.Input<string>;
             /**
@@ -20779,7 +21689,7 @@ export namespace core {
              */
             key?: pulumi.Input<string>;
             /**
-             * TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+             * TimeAdded represents the time at which the taint was added.
              */
             timeAdded?: pulumi.Input<string>;
             /**
@@ -21144,7 +22054,7 @@ export namespace core {
              */
             gitRepo?: pulumi.Input<inputs.core.v1.GitRepoVolumeSource>;
             /**
-             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
              */
             glusterfs?: pulumi.Input<inputs.core.v1.GlusterfsVolumeSource>;
             /**
@@ -21160,7 +22070,7 @@ export namespace core {
              */
             image?: pulumi.Input<inputs.core.v1.ImageVolumeSource>;
             /**
-             * iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+             * iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
              */
             iscsi?: pulumi.Input<inputs.core.v1.ISCSIVolumeSource>;
             /**
@@ -21192,7 +22102,7 @@ export namespace core {
              */
             quobyte?: pulumi.Input<inputs.core.v1.QuobyteVolumeSource>;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
              */
             rbd?: pulumi.Input<inputs.core.v1.RBDVolumeSource>;
             /**
@@ -21445,7 +22355,7 @@ export namespace core {
              */
             gitRepo?: pulumi.Input<inputs.core.v1.GitRepoVolumeSourcePatch>;
             /**
-             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+             * glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
              */
             glusterfs?: pulumi.Input<inputs.core.v1.GlusterfsVolumeSourcePatch>;
             /**
@@ -21461,7 +22371,7 @@ export namespace core {
              */
             image?: pulumi.Input<inputs.core.v1.ImageVolumeSourcePatch>;
             /**
-             * iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+             * iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
              */
             iscsi?: pulumi.Input<inputs.core.v1.ISCSIVolumeSourcePatch>;
             /**
@@ -21493,7 +22403,7 @@ export namespace core {
              */
             quobyte?: pulumi.Input<inputs.core.v1.QuobyteVolumeSourcePatch>;
             /**
-             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+             * rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
              */
             rbd?: pulumi.Input<inputs.core.v1.RBDVolumeSourcePatch>;
             /**
@@ -21537,6 +22447,22 @@ export namespace core {
              */
             downwardAPI?: pulumi.Input<inputs.core.v1.DownwardAPIProjection>;
             /**
+             * Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+             *
+             * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+             *
+             * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+             *
+             * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+             *
+             * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+             *
+             * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+             *
+             * The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+             */
+            podCertificate?: pulumi.Input<inputs.core.v1.PodCertificateProjection>;
+            /**
              * secret information about the secret data to project
              */
             secret?: pulumi.Input<inputs.core.v1.SecretProjection>;
@@ -21568,6 +22494,22 @@ export namespace core {
              * downwardAPI information about the downwardAPI data to project
              */
             downwardAPI?: pulumi.Input<inputs.core.v1.DownwardAPIProjectionPatch>;
+            /**
+             * Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+             *
+             * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+             *
+             * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+             *
+             * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+             *
+             * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+             *
+             * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+             *
+             * The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+             */
+            podCertificate?: pulumi.Input<inputs.core.v1.PodCertificateProjectionPatch>;
             /**
              * secret information about the secret data to project
              */
@@ -28447,7 +29389,7 @@ export namespace networking {
              */
             ingress?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyIngressRule>[]>;
             /**
-             * podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+             * podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
              */
             podSelector: pulumi.Input<inputs.meta.v1.LabelSelector>;
             /**
@@ -28469,7 +29411,7 @@ export namespace networking {
              */
             ingress?: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicyIngressRulePatch>[]>;
             /**
-             * podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+             * podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
              */
             podSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
             /**
@@ -31094,6 +32036,1717 @@ export namespace rbac {
 }
 
 export namespace resource {
+    export namespace v1 {
+        /**
+         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         *
+         * The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
+         */
+        export interface AllocatedDeviceStatus {
+            /**
+             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
+             *
+             * Must not contain more than 8 entries.
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
+            /**
+             * Data contains arbitrary driver-specific data.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            data?: any;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: pulumi.Input<string>;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: pulumi.Input<string>;
+            /**
+             * NetworkData contains network-related information specific to the device.
+             */
+            networkData?: pulumi.Input<inputs.resource.v1.NetworkDeviceData>;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device.
+             */
+            shareID?: pulumi.Input<string>;
+        }
+
+        /**
+         * AllocationResult contains attributes of an allocated resource.
+         */
+        export interface AllocationResult {
+            /**
+             * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             */
+            allocationTimestamp?: pulumi.Input<string>;
+            /**
+             * Devices is the result of allocating devices.
+             */
+            devices?: pulumi.Input<inputs.resource.v1.DeviceAllocationResult>;
+            /**
+             * NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
+        }
+
+        /**
+         * CELDeviceSelector contains a CEL expression for selecting a device.
+         */
+        export interface CELDeviceSelector {
+            /**
+             * Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+             *
+             * The expression's input is an object named "device", which carries the following properties:
+             *  - driver (string): the name of the driver which defines this device.
+             *  - attributes (map[string]object): the device's attributes, grouped by prefix
+             *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+             *    of the attributes which were prefixed by "dra.example.com".
+             *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
+             *
+             * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+             *
+             *     device.driver
+             *     device.attributes["dra.example.com"].model
+             *     device.attributes["ext.example.com"].family
+             *     device.capacity["dra.example.com"].modules
+             *
+             * The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+             *
+             * The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+             *
+             * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+             *
+             * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+             *
+             *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+             */
+            expression: pulumi.Input<string>;
+        }
+
+        /**
+         * CELDeviceSelector contains a CEL expression for selecting a device.
+         */
+        export interface CELDeviceSelectorPatch {
+            /**
+             * Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
+             *
+             * The expression's input is an object named "device", which carries the following properties:
+             *  - driver (string): the name of the driver which defines this device.
+             *  - attributes (map[string]object): the device's attributes, grouped by prefix
+             *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
+             *    of the attributes which were prefixed by "dra.example.com".
+             *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
+             *
+             * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
+             *
+             *     device.driver
+             *     device.attributes["dra.example.com"].model
+             *     device.attributes["ext.example.com"].family
+             *     device.capacity["dra.example.com"].modules
+             *
+             * The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
+             *
+             * The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
+             *
+             * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
+             *
+             * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
+             *
+             *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
+             */
+            expression?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequestPolicy defines how requests consume device capacity.
+         *
+         * Must not set more than one ValidRequestValues.
+         */
+        export interface CapacityRequestPolicy {
+            /**
+             * Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+             */
+            default?: pulumi.Input<string>;
+            /**
+             * ValidRange defines an acceptable quantity value range in consuming requests.
+             *
+             * If this field is set, Default must be defined and it must fall within the defined ValidRange.
+             *
+             * If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+             *
+             * If the request doesn't contain this capacity entry, Default value is used.
+             */
+            validRange?: pulumi.Input<inputs.resource.v1.CapacityRequestPolicyRange>;
+            /**
+             * ValidValues defines a set of acceptable quantity values in consuming requests.
+             *
+             * Must not contain more than 10 entries. Must be sorted in ascending order.
+             *
+             * If this field is set, Default must be defined and it must be included in ValidValues list.
+             *
+             * If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+             *
+             * If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+             */
+            validValues?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         *   - If the requested amount is less than Min, it is rounded up to the Min value.
+         *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+         *     it will be rounded up to the next value equal to Min + (n * Step).
+         *   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+         *   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+         *     and the device cannot be allocated.
+         */
+        export interface CapacityRequestPolicyRange {
+            /**
+             * Max defines the upper limit for capacity that can be requested.
+             *
+             * Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+             */
+            max?: pulumi.Input<string>;
+            /**
+             * Min specifies the minimum capacity allowed for a consumption request.
+             *
+             * Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+             */
+            min: pulumi.Input<string>;
+            /**
+             * Step defines the step size between valid capacity amounts within the range.
+             *
+             * Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+             */
+            step?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirements {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirementsPatch {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+        }
+
+        /**
+         * Counter describes a quantity associated with a device.
+         */
+        export interface Counter {
+            /**
+             * Value defines how much of a certain device counter is available.
+             */
+            value: pulumi.Input<string>;
+        }
+
+        /**
+         * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+         *
+         * The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+         */
+        export interface CounterSet {
+            /**
+             * Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+             *
+             * The maximum number of counters in all sets is 32.
+             */
+            counters: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.Counter>}>;
+            /**
+             * Name defines the name of the counter set. It must be a DNS label.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+         *
+         * The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+         */
+        export interface CounterSetPatch {
+            /**
+             * Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
+             *
+             * The maximum number of counters in all sets is 32.
+             */
+            counters?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.Counter>}>;
+            /**
+             * Name defines the name of the counter set. It must be a DNS label.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+         */
+        export interface Device {
+            /**
+             * AllNodes indicates that all nodes have access to the device.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            allNodes?: pulumi.Input<boolean>;
+            /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
+             * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
+            /**
+             * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            capacity?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.DeviceCapacity>}>;
+            /**
+             * ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+             *
+             * There can only be a single entry per counterSet.
+             *
+             * The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+             */
+            consumesCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceCounterConsumption>[]>;
+            /**
+             * Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * NodeName identifies the node where the device is available.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines the nodes where the device is available.
+             *
+             * Must use exactly one term.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
+            /**
+             * If specified, these are the driver-defined taints.
+             *
+             * The maximum number of taints is 4.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            taints?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceTaint>[]>;
+        }
+
+        /**
+         * DeviceAllocationConfiguration gets embedded in an AllocationResult.
+         */
+        export interface DeviceAllocationConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque?: pulumi.Input<inputs.resource.v1.OpaqueDeviceConfiguration>;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
+             *
+             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
+             */
+            requests?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
+             */
+            source: pulumi.Input<string>;
+        }
+
+        /**
+         * DeviceAllocationResult is the result of allocating devices.
+         */
+        export interface DeviceAllocationResult {
+            /**
+             * This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
+             *
+             * This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
+             */
+            config?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceAllocationConfiguration>[]>;
+            /**
+             * Results lists all allocated devices.
+             */
+            results?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceRequestAllocationResult>[]>;
+        }
+
+        /**
+         * DeviceAttribute must have exactly one field set.
+         */
+        export interface DeviceAttribute {
+            /**
+             * BoolValue is a true/false value.
+             */
+            bool?: pulumi.Input<boolean>;
+            /**
+             * IntValue is a number.
+             */
+            int?: pulumi.Input<number>;
+            /**
+             * StringValue is a string. Must not be longer than 64 characters.
+             */
+            string?: pulumi.Input<string>;
+            /**
+             * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+             */
+            version?: pulumi.Input<string>;
+        }
+
+        /**
+         * DeviceCapacity describes a quantity associated with a device.
+         */
+        export interface DeviceCapacity {
+            /**
+             * RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+             *
+             * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+             *
+             * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+             */
+            requestPolicy?: pulumi.Input<inputs.resource.v1.CapacityRequestPolicy>;
+            /**
+             * Value defines how much of a certain capacity that device has.
+             *
+             * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
+             */
+            value: pulumi.Input<string>;
+        }
+
+        /**
+         * DeviceClaim defines how to request devices with a ResourceClaim.
+         */
+        export interface DeviceClaim {
+            /**
+             * This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
+             */
+            config?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceClaimConfiguration>[]>;
+            /**
+             * These constraints must be satisfied by the set of devices that get allocated for the claim.
+             */
+            constraints?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceConstraint>[]>;
+            /**
+             * Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceRequest>[]>;
+        }
+
+        /**
+         * DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+         */
+        export interface DeviceClaimConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque?: pulumi.Input<inputs.resource.v1.OpaqueDeviceConfiguration>;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+             *
+             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
+             */
+            requests?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+         */
+        export interface DeviceClaimConfigurationPatch {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque?: pulumi.Input<inputs.resource.v1.OpaqueDeviceConfigurationPatch>;
+            /**
+             * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
+             *
+             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
+             */
+            requests?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * DeviceClaim defines how to request devices with a ResourceClaim.
+         */
+        export interface DeviceClaimPatch {
+            /**
+             * This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
+             */
+            config?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceClaimConfigurationPatch>[]>;
+            /**
+             * These constraints must be satisfied by the set of devices that get allocated for the claim.
+             */
+            constraints?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceConstraintPatch>[]>;
+            /**
+             * Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
+             */
+            requests?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceRequestPatch>[]>;
+        }
+
+        /**
+         * DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface DeviceClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"DeviceClass">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec defines what can be allocated and how to configure it.
+             *
+             * This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: pulumi.Input<inputs.resource.v1.DeviceClassSpec>;
+        }
+
+        /**
+         * DeviceClassConfiguration is used in DeviceClass.
+         */
+        export interface DeviceClassConfiguration {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque?: pulumi.Input<inputs.resource.v1.OpaqueDeviceConfiguration>;
+        }
+
+        /**
+         * DeviceClassConfiguration is used in DeviceClass.
+         */
+        export interface DeviceClassConfigurationPatch {
+            /**
+             * Opaque provides driver-specific configuration parameters.
+             */
+            opaque?: pulumi.Input<inputs.resource.v1.OpaqueDeviceConfigurationPatch>;
+        }
+
+        /**
+         * DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+         */
+        export interface DeviceClassSpec {
+            /**
+             * Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+             *
+             * They are passed to the driver, but are not considered while allocating the claim.
+             */
+            config?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceClassConfiguration>[]>;
+            /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
+             * Each selector must be satisfied by a device which is claimed via this class.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelector>[]>;
+        }
+
+        /**
+         * DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+         */
+        export interface DeviceClassSpecPatch {
+            /**
+             * Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
+             *
+             * They are passed to the driver, but are not considered while allocating the claim.
+             */
+            config?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceClassConfigurationPatch>[]>;
+            /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
+             * Each selector must be satisfied by a device which is claimed via this class.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelectorPatch>[]>;
+        }
+
+        /**
+         * DeviceConstraint must have exactly one field set besides Requests.
+         */
+        export interface DeviceConstraint {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
+            /**
+             * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
+             *
+             * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * Must include the domain qualifier.
+             */
+            matchAttribute?: pulumi.Input<string>;
+            /**
+             * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+             *
+             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
+             */
+            requests?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * DeviceConstraint must have exactly one field set besides Requests.
+         */
+        export interface DeviceConstraintPatch {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
+            /**
+             * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
+             *
+             * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * Must include the domain qualifier.
+             */
+            matchAttribute?: pulumi.Input<string>;
+            /**
+             * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
+             *
+             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
+             */
+            requests?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+         */
+        export interface DeviceCounterConsumption {
+            /**
+             * CounterSet is the name of the set from which the counters defined will be consumed.
+             */
+            counterSet: pulumi.Input<string>;
+            /**
+             * Counters defines the counters that will be consumed by the device.
+             *
+             * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+             */
+            counters: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.Counter>}>;
+        }
+
+        /**
+         * DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+         */
+        export interface DeviceCounterConsumptionPatch {
+            /**
+             * CounterSet is the name of the set from which the counters defined will be consumed.
+             */
+            counterSet?: pulumi.Input<string>;
+            /**
+             * Counters defines the counters that will be consumed by the device.
+             *
+             * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+             */
+            counters?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.Counter>}>;
+        }
+
+        /**
+         * Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+         */
+        export interface DevicePatch {
+            /**
+             * AllNodes indicates that all nodes have access to the device.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            allNodes?: pulumi.Input<boolean>;
+            /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
+             * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
+            /**
+             * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
+             *
+             * The maximum number of attributes and capacities combined is 32.
+             */
+            capacity?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1.DeviceCapacity>}>;
+            /**
+             * ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
+             *
+             * There can only be a single entry per counterSet.
+             *
+             * The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+             */
+            consumesCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceCounterConsumptionPatch>[]>;
+            /**
+             * Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * NodeName identifies the node where the device is available.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines the nodes where the device is available.
+             *
+             * Must use exactly one term.
+             *
+             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelectorPatch>;
+            /**
+             * If specified, these are the driver-defined taints.
+             *
+             * The maximum number of taints is 4.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            taints?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceTaintPatch>[]>;
+        }
+
+        /**
+         * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices. With FirstAvailable it is also possible to provide a prioritized list of requests.
+         */
+        export interface DeviceRequest {
+            /**
+             * Exactly specifies the details for a single request that must be met exactly for the request to be satisfied.
+             *
+             * One of Exactly or FirstAvailable must be set.
+             */
+            exactly?: pulumi.Input<inputs.resource.v1.ExactDeviceRequest>;
+            /**
+             * FirstAvailable contains subrequests, of which exactly one will be selected by the scheduler. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one can not be used.
+             *
+             * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+             */
+            firstAvailable?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSubRequest>[]>;
+            /**
+             * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
+             *
+             * References using the name in the DeviceRequest will uniquely identify a request when the Exactly field is set. When the FirstAvailable field is set, a reference to the name of the DeviceRequest will match whatever subrequest is chosen by the scheduler.
+             *
+             * Must be a DNS label.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * DeviceRequestAllocationResult contains the allocation result for one request.
+         */
+        export interface DeviceRequestAllocationResult {
+            /**
+             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess?: pulumi.Input<boolean>;
+            /**
+             * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+             *
+             * The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+             *
+             * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+             */
+            consumedCapacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+            /**
+             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
+             */
+            device: pulumi.Input<string>;
+            /**
+             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: pulumi.Input<string>;
+            /**
+             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
+             *
+             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+             */
+            pool: pulumi.Input<string>;
+            /**
+             * Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
+             *
+             * Multiple devices may have been allocated per request.
+             */
+            request: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+             */
+            shareID?: pulumi.Input<string>;
+            /**
+             * A copy of all tolerations specified in the request at the time when the device got allocated.
+             *
+             * The maximum number of tolerations is 16.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceToleration>[]>;
+        }
+
+        /**
+         * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices. With FirstAvailable it is also possible to provide a prioritized list of requests.
+         */
+        export interface DeviceRequestPatch {
+            /**
+             * Exactly specifies the details for a single request that must be met exactly for the request to be satisfied.
+             *
+             * One of Exactly or FirstAvailable must be set.
+             */
+            exactly?: pulumi.Input<inputs.resource.v1.ExactDeviceRequestPatch>;
+            /**
+             * FirstAvailable contains subrequests, of which exactly one will be selected by the scheduler. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one can not be used.
+             *
+             * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
+             */
+            firstAvailable?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSubRequestPatch>[]>;
+            /**
+             * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
+             *
+             * References using the name in the DeviceRequest will uniquely identify a request when the Exactly field is set. When the FirstAvailable field is set, a reference to the name of the DeviceRequest will match whatever subrequest is chosen by the scheduler.
+             *
+             * Must be a DNS label.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * DeviceSelector must have exactly one field set.
+         */
+        export interface DeviceSelector {
+            /**
+             * CEL contains a CEL expression for selecting a device.
+             */
+            cel?: pulumi.Input<inputs.resource.v1.CELDeviceSelector>;
+        }
+
+        /**
+         * DeviceSelector must have exactly one field set.
+         */
+        export interface DeviceSelectorPatch {
+            /**
+             * CEL contains a CEL expression for selecting a device.
+             */
+            cel?: pulumi.Input<inputs.resource.v1.CELDeviceSelectorPatch>;
+        }
+
+        /**
+         * DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * DeviceSubRequest is similar to ExactDeviceRequest, but doesn't expose the AdminAccess field as that one is only supported when requesting a specific device.
+         */
+        export interface DeviceSubRequest {
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This subrequest is for all of the matching devices in a pool.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1.CapacityRequirements>;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count?: pulumi.Input<number>;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+             *
+             * A class is required. Which classes are available depends on the cluster.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName: pulumi.Input<string>;
+            /**
+             * Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+             *
+             * Must be a DNS label.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelector>[]>;
+            /**
+             * If specified, the request's tolerations.
+             *
+             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+             *
+             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+             *
+             * The maximum number of tolerations is 16.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceToleration>[]>;
+        }
+
+        /**
+         * DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * DeviceSubRequest is similar to ExactDeviceRequest, but doesn't expose the AdminAccess field as that one is only supported when requesting a specific device.
+         */
+        export interface DeviceSubRequestPatch {
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This subrequest is for all of the matching devices in a pool.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1.CapacityRequirementsPatch>;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count?: pulumi.Input<number>;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
+             *
+             * A class is required. Which classes are available depends on the cluster.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName?: pulumi.Input<string>;
+            /**
+             * Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
+             *
+             * Must be a DNS label.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelectorPatch>[]>;
+            /**
+             * If specified, the request's tolerations.
+             *
+             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+             *
+             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+             *
+             * The maximum number of tolerations is 16.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceTolerationPatch>[]>;
+        }
+
+        /**
+         * The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+         */
+        export interface DeviceTaint {
+            /**
+             * The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+             */
+            effect: pulumi.Input<string>;
+            /**
+             * The taint key to be applied to a device. Must be a label name.
+             */
+            key: pulumi.Input<string>;
+            /**
+             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             */
+            timeAdded?: pulumi.Input<string>;
+            /**
+             * The taint value corresponding to the taint key. Must be a label value.
+             */
+            value?: pulumi.Input<string>;
+        }
+
+        /**
+         * The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+         */
+        export interface DeviceTaintPatch {
+            /**
+             * The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+             */
+            effect?: pulumi.Input<string>;
+            /**
+             * The taint key to be applied to a device. Must be a label name.
+             */
+            key?: pulumi.Input<string>;
+            /**
+             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             */
+            timeAdded?: pulumi.Input<string>;
+            /**
+             * The taint value corresponding to the taint key. Must be a label value.
+             */
+            value?: pulumi.Input<string>;
+        }
+
+        /**
+         * The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+         */
+        export interface DeviceToleration {
+            /**
+             * Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+             */
+            effect?: pulumi.Input<string>;
+            /**
+             * Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+             */
+            key?: pulumi.Input<string>;
+            /**
+             * Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+             */
+            operator?: pulumi.Input<string>;
+            /**
+             * TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+             */
+            tolerationSeconds?: pulumi.Input<number>;
+            /**
+             * Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+             */
+            value?: pulumi.Input<string>;
+        }
+
+        /**
+         * The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+         */
+        export interface DeviceTolerationPatch {
+            /**
+             * Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+             */
+            effect?: pulumi.Input<string>;
+            /**
+             * Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
+             */
+            key?: pulumi.Input<string>;
+            /**
+             * Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+             */
+            operator?: pulumi.Input<string>;
+            /**
+             * TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
+             */
+            tolerationSeconds?: pulumi.Input<number>;
+            /**
+             * Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
+             */
+            value?: pulumi.Input<string>;
+        }
+
+        /**
+         * ExactDeviceRequest is a request for one or more identical devices.
+         */
+        export interface ExactDeviceRequest {
+            /**
+             * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess?: pulumi.Input<boolean>;
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This request is for all of the matching devices in a pool.
+             *   At least one device must exist on the node for the allocation to succeed.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1.CapacityRequirements>;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count?: pulumi.Input<number>;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+             *
+             * A DeviceClassName is required.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName: pulumi.Input<string>;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelector>[]>;
+            /**
+             * If specified, the request's tolerations.
+             *
+             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+             *
+             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+             *
+             * The maximum number of tolerations is 16.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceToleration>[]>;
+        }
+
+        /**
+         * ExactDeviceRequest is a request for one or more identical devices.
+         */
+        export interface ExactDeviceRequestPatch {
+            /**
+             * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+             *
+             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             */
+            adminAccess?: pulumi.Input<boolean>;
+            /**
+             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
+             *
+             * - ExactCount: This request is for a specific number of devices.
+             *   This is the default. The exact number is provided in the
+             *   count field.
+             *
+             * - All: This request is for all of the matching devices in a pool.
+             *   At least one device must exist on the node for the allocation to succeed.
+             *   Allocation will fail if some devices are already allocated,
+             *   unless adminAccess is requested.
+             *
+             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
+             *
+             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1.CapacityRequirementsPatch>;
+            /**
+             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+             */
+            count?: pulumi.Input<number>;
+            /**
+             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+             *
+             * A DeviceClassName is required.
+             *
+             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+             */
+            deviceClassName?: pulumi.Input<string>;
+            /**
+             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
+             */
+            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceSelectorPatch>[]>;
+            /**
+             * If specified, the request's tolerations.
+             *
+             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
+             *
+             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
+             *
+             * The maximum number of tolerations is 16.
+             *
+             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             */
+            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1.DeviceTolerationPatch>[]>;
+        }
+
+        /**
+         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+         */
+        export interface NetworkDeviceData {
+            /**
+             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
+             *
+             * Must not be longer than 128 characters.
+             */
+            hardwareAddress?: pulumi.Input<string>;
+            /**
+             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
+             *
+             * Must not be longer than 256 characters.
+             */
+            interfaceName?: pulumi.Input<string>;
+            /**
+             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
+             */
+            ips?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+         */
+        export interface OpaqueDeviceConfiguration {
+            /**
+             * Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
+             *
+             * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver: pulumi.Input<string>;
+            /**
+             * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            parameters: any;
+        }
+
+        /**
+         * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+         */
+        export interface OpaqueDeviceConfigurationPatch {
+            /**
+             * Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
+             *
+             * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+             */
+            driver?: pulumi.Input<string>;
+            /**
+             * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
+             *
+             * The length of the raw data must be smaller or equal to 10 Ki.
+             */
+            parameters?: any;
+        }
+
+        /**
+         * ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClaim {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaim">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec describes what is being requested and how to configure it. The spec is immutable.
+             */
+            spec: pulumi.Input<inputs.resource.v1.ResourceClaimSpec>;
+            /**
+             * Status describes whether the claim is ready to use and what has been allocated.
+             */
+            status?: pulumi.Input<inputs.resource.v1.ResourceClaimStatus>;
+        }
+
+        /**
+         * ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimConsumerReference {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Resource is the type of resource being referenced, for example "pods".
+             */
+            resource: pulumi.Input<string>;
+            /**
+             * UID identifies exactly one incarnation of the resource.
+             */
+            uid: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+         */
+        export interface ResourceClaimSpec {
+            /**
+             * Devices defines how to request devices.
+             */
+            devices?: pulumi.Input<inputs.resource.v1.DeviceClaim>;
+        }
+
+        /**
+         * ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+         */
+        export interface ResourceClaimSpecPatch {
+            /**
+             * Devices defines how to request devices.
+             */
+            devices?: pulumi.Input<inputs.resource.v1.DeviceClaimPatch>;
+        }
+
+        /**
+         * ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+         */
+        export interface ResourceClaimStatus {
+            /**
+             * Allocation is set once the claim has been allocated successfully.
+             */
+            allocation?: pulumi.Input<inputs.resource.v1.AllocationResult>;
+            /**
+             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
+             */
+            devices?: pulumi.Input<pulumi.Input<inputs.resource.v1.AllocatedDeviceStatus>[]>;
+            /**
+             * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
+             *
+             * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
+             *
+             * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
+             *
+             * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
+             */
+            reservedFor?: pulumi.Input<pulumi.Input<inputs.resource.v1.ResourceClaimConsumerReference>[]>;
+        }
+
+        /**
+         * ResourceClaimTemplate is used to produce ResourceClaim objects.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClaimTemplate {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaimTemplate">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Describes the ResourceClaim that is to be generated.
+             *
+             * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+             */
+            spec: pulumi.Input<inputs.resource.v1.ResourceClaimTemplateSpec>;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpec {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec: pulumi.Input<inputs.resource.v1.ResourceClaimSpec>;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpecPatch {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec?: pulumi.Input<inputs.resource.v1.ResourceClaimSpecPatch>;
+        }
+
+        /**
+         * ResourcePool describes the pool that ResourceSlices belong to.
+         */
+        export interface ResourcePool {
+            /**
+             * Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
+             *
+             * Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
+             */
+            generation: pulumi.Input<number>;
+            /**
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             *
+             * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
+             *
+             * Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
+             */
+            resourceSliceCount: pulumi.Input<number>;
+        }
+
+        /**
+         * ResourcePool describes the pool that ResourceSlices belong to.
+         */
+        export interface ResourcePoolPatch {
+            /**
+             * Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
+             *
+             * Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
+             */
+            generation?: pulumi.Input<number>;
+            /**
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             *
+             * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
+             *
+             * Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
+             */
+            resourceSliceCount?: pulumi.Input<number>;
+        }
+
+        /**
+         * ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
+         *
+         * At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
+         *
+         * Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
+         *
+         * When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
+         *
+         * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceSlice {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceSlice">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Contains the information published by the driver.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: pulumi.Input<inputs.resource.v1.ResourceSliceSpec>;
+        }
+
+        /**
+         * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+         */
+        export interface ResourceSliceSpec {
+            /**
+             * AllNodes indicates that all nodes have access to the resources in the pool.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            allNodes?: pulumi.Input<boolean>;
+            /**
+             * Devices lists some or all of the devices in this pool.
+             *
+             * Must not have more than 128 entries.
+             */
+            devices?: pulumi.Input<pulumi.Input<inputs.resource.v1.Device>[]>;
+            /**
+             * Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+             */
+            driver: pulumi.Input<string>;
+            /**
+             * NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+             *
+             * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+             *
+             * Must use exactly one term.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
+            /**
+             * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            perDeviceNodeSelection?: pulumi.Input<boolean>;
+            /**
+             * Pool describes the pool that this ResourceSlice belongs to.
+             */
+            pool: pulumi.Input<inputs.resource.v1.ResourcePool>;
+            /**
+             * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+             *
+             * The names of the SharedCounters must be unique in the ResourceSlice.
+             *
+             * The maximum number of counters in all sets is 32.
+             */
+            sharedCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1.CounterSet>[]>;
+        }
+
+        /**
+         * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+         */
+        export interface ResourceSliceSpecPatch {
+            /**
+             * AllNodes indicates that all nodes have access to the resources in the pool.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            allNodes?: pulumi.Input<boolean>;
+            /**
+             * Devices lists some or all of the devices in this pool.
+             *
+             * Must not have more than 128 entries.
+             */
+            devices?: pulumi.Input<pulumi.Input<inputs.resource.v1.DevicePatch>[]>;
+            /**
+             * Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
+             *
+             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+             */
+            driver?: pulumi.Input<string>;
+            /**
+             * NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+             *
+             * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+             */
+            nodeName?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+             *
+             * Must use exactly one term.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelectorPatch>;
+            /**
+             * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
+             *
+             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             */
+            perDeviceNodeSelection?: pulumi.Input<boolean>;
+            /**
+             * Pool describes the pool that this ResourceSlice belongs to.
+             */
+            pool?: pulumi.Input<inputs.resource.v1.ResourcePoolPatch>;
+            /**
+             * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
+             *
+             * The names of the SharedCounters must be unique in the ResourceSlice.
+             *
+             * The maximum number of counters in all sets is 32.
+             */
+            sharedCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1.CounterSetPatch>[]>;
+        }
+    }
+
     export namespace v1alpha1 {
         /**
          * AllocationResult contains attributed of an allocated resource.
@@ -32397,44 +35050,6 @@ export namespace resource {
 
     export namespace v1alpha3 {
         /**
-         * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
-         */
-        export interface AllocatedDeviceStatus {
-            /**
-             * Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
-             *
-             * Must not contain more than 8 entries.
-             */
-            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
-            /**
-             * Data contains arbitrary driver-specific data.
-             *
-             * The length of the raw data must be smaller or equal to 10 Ki.
-             */
-            data?: any;
-            /**
-             * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
-             */
-            device: pulumi.Input<string>;
-            /**
-             * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
-             *
-             * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
-             */
-            driver: pulumi.Input<string>;
-            /**
-             * NetworkData contains network-related information specific to the device.
-             */
-            networkData?: pulumi.Input<inputs.resource.v1alpha3.NetworkDeviceData>;
-            /**
-             * This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
-             *
-             * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
-             */
-            pool: pulumi.Input<string>;
-        }
-
-        /**
          * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResult {
@@ -32461,12 +35076,6 @@ export namespace resource {
          */
         export interface BasicDevice {
             /**
-             * AllNodes indicates that all nodes have access to the device.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            allNodes?: pulumi.Input<boolean>;
-            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
@@ -32478,34 +35087,6 @@ export namespace resource {
              * The maximum number of attributes and capacities combined is 32.
              */
             capacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-            /**
-             * ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-             *
-             * There can only be a single entry per counterSet.
-             *
-             * The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
-             */
-            consumesCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceCounterConsumption>[]>;
-            /**
-             * NodeName identifies the node where the device is available.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            nodeName?: pulumi.Input<string>;
-            /**
-             * NodeSelector defines the nodes where the device is available.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
-            /**
-             * If specified, these are the driver-defined taints.
-             *
-             * The maximum number of taints is 4.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            taints?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceTaint>[]>;
         }
 
         /**
@@ -32513,12 +35094,6 @@ export namespace resource {
          */
         export interface BasicDevicePatch {
             /**
-             * AllNodes indicates that all nodes have access to the device.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            allNodes?: pulumi.Input<boolean>;
-            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
@@ -32530,34 +35105,6 @@ export namespace resource {
              * The maximum number of attributes and capacities combined is 32.
              */
             capacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
-            /**
-             * ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-             *
-             * There can only be a single entry per counterSet.
-             *
-             * The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
-             */
-            consumesCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceCounterConsumptionPatch>[]>;
-            /**
-             * NodeName identifies the node where the device is available.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            nodeName?: pulumi.Input<string>;
-            /**
-             * NodeSelector defines the nodes where the device is available.
-             *
-             * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-             */
-            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelectorPatch>;
-            /**
-             * If specified, these are the driver-defined taints.
-             *
-             * The maximum number of taints is 4.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            taints?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceTaintPatch>[]>;
         }
 
         /**
@@ -32637,56 +35184,6 @@ export namespace resource {
         }
 
         /**
-         * Counter describes a quantity associated with a device.
-         */
-        export interface Counter {
-            /**
-             * Value defines how much of a certain device counter is available.
-             */
-            value: pulumi.Input<string>;
-        }
-
-        /**
-         * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
-         *
-         * The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
-         */
-        export interface CounterSet {
-            /**
-             * Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
-             *
-             * To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
-             *
-             * The maximum number of counters is 32.
-             */
-            counters: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1alpha3.Counter>}>;
-            /**
-             * CounterSet is the name of the set from which the counters defined will be consumed.
-             */
-            name: pulumi.Input<string>;
-        }
-
-        /**
-         * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
-         *
-         * The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
-         */
-        export interface CounterSetPatch {
-            /**
-             * Counters defines the counters that will be consumed by the device. The name of each counter must be unique in that set and must be a DNS label.
-             *
-             * To ensure this uniqueness, capacities defined by the vendor must be listed without the driver name as domain prefix in their name. All others must be listed with their domain prefix.
-             *
-             * The maximum number of counters is 32.
-             */
-            counters?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1alpha3.Counter>}>;
-            /**
-             * CounterSet is the name of the set from which the counters defined will be consumed.
-             */
-            name?: pulumi.Input<string>;
-        }
-
-        /**
          * Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
          */
         export interface Device {
@@ -32710,8 +35207,6 @@ export namespace resource {
             opaque?: pulumi.Input<inputs.resource.v1alpha3.OpaqueDeviceConfiguration>;
             /**
              * Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
-             *
-             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
              */
             requests?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -32786,8 +35281,6 @@ export namespace resource {
             opaque?: pulumi.Input<inputs.resource.v1alpha3.OpaqueDeviceConfiguration>;
             /**
              * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
-             *
-             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
              */
             requests?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -32802,8 +35295,6 @@ export namespace resource {
             opaque?: pulumi.Input<inputs.resource.v1alpha3.OpaqueDeviceConfigurationPatch>;
             /**
              * Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
-             *
-             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.
              */
             requests?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -32936,8 +35427,6 @@ export namespace resource {
             matchAttribute?: pulumi.Input<string>;
             /**
              * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
-             *
-             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
              */
             requests?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -32956,42 +35445,8 @@ export namespace resource {
             matchAttribute?: pulumi.Input<string>;
             /**
              * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
-             *
-             * References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
              */
             requests?: pulumi.Input<pulumi.Input<string>[]>;
-        }
-
-        /**
-         * DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
-         */
-        export interface DeviceCounterConsumption {
-            /**
-             * CounterSet defines the set from which the counters defined will be consumed.
-             */
-            counterSet: pulumi.Input<string>;
-            /**
-             * Counters defines the Counter that will be consumed by the device.
-             *
-             * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
-             */
-            counters: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1alpha3.Counter>}>;
-        }
-
-        /**
-         * DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
-         */
-        export interface DeviceCounterConsumptionPatch {
-            /**
-             * CounterSet defines the set from which the counters defined will be consumed.
-             */
-            counterSet?: pulumi.Input<string>;
-            /**
-             * Counters defines the Counter that will be consumed by the device.
-             *
-             * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
-             */
-            counters?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1alpha3.Counter>}>;
         }
 
         /**
@@ -33010,14 +35465,12 @@ export namespace resource {
 
         /**
          * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
          */
         export interface DeviceRequest {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
-             *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess?: pulumi.Input<boolean>;
             /**
@@ -33028,39 +35481,26 @@ export namespace resource {
              *   count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
              *   Allocation will fail if some devices are already allocated,
              *   unless adminAccess is requested.
              *
-             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+             * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             count?: pulumi.Input<number>;
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
-             * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
+             * A class is required. Which classes are available depends on the cluster.
              *
              * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
              */
-            deviceClassName?: pulumi.Input<string>;
-            /**
-             * FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
-             *
-             * This field may only be set in the entries of DeviceClaim.Requests.
-             *
-             * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
-             */
-            firstAvailable?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSubRequest>[]>;
+            deviceClassName: pulumi.Input<string>;
             /**
              * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
              *
@@ -33069,36 +35509,14 @@ export namespace resource {
             name: pulumi.Input<string>;
             /**
              * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSelector>[]>;
-            /**
-             * If specified, the request's tolerations.
-             *
-             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
-             *
-             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
-             *
-             * The maximum number of tolerations is 16.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceToleration>[]>;
         }
 
         /**
          * DeviceRequestAllocationResult contains the allocation result for one request.
          */
         export interface DeviceRequestAllocationResult {
-            /**
-             * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
-             *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
-             */
-            adminAccess?: pulumi.Input<boolean>;
             /**
              * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
              */
@@ -33116,31 +35534,19 @@ export namespace resource {
              */
             pool: pulumi.Input<string>;
             /**
-             * Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
-             *
-             * Multiple devices may have been allocated per request.
+             * Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.
              */
             request: pulumi.Input<string>;
-            /**
-             * A copy of all tolerations specified in the request at the time when the device got allocated.
-             *
-             * The maximum number of tolerations is 16.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceToleration>[]>;
         }
 
         /**
          * DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
+         *
+         * A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
          */
         export interface DeviceRequestPatch {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
-             *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess?: pulumi.Input<boolean>;
             /**
@@ -33151,39 +35557,26 @@ export namespace resource {
              *   count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
              *   Allocation will fail if some devices are already allocated,
              *   unless adminAccess is requested.
              *
-             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
+             * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             count?: pulumi.Input<number>;
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
-             * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
+             * A class is required. Which classes are available depends on the cluster.
              *
              * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
              */
             deviceClassName?: pulumi.Input<string>;
-            /**
-             * FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.
-             *
-             * This field may only be set in the entries of DeviceClaim.Requests.
-             *
-             * DRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.
-             */
-            firstAvailable?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSubRequestPatch>[]>;
             /**
              * Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
              *
@@ -33192,24 +35585,8 @@ export namespace resource {
             name?: pulumi.Input<string>;
             /**
              * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSelectorPatch>[]>;
-            /**
-             * If specified, the request's tolerations.
-             *
-             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
-             *
-             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
-             *
-             * The maximum number of tolerations is 16.
-             *
-             * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceTolerationPatch>[]>;
         }
 
         /**
@@ -33230,122 +35607,6 @@ export namespace resource {
              * CEL contains a CEL expression for selecting a device.
              */
             cel?: pulumi.Input<inputs.resource.v1alpha3.CELDeviceSelectorPatch>;
-        }
-
-        /**
-         * DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
-         *
-         * DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
-         */
-        export interface DeviceSubRequest {
-            /**
-             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
-             *
-             * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
-             *
-             * - All: This request is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
-             *
-             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
-             *
-             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
-             */
-            allocationMode?: pulumi.Input<string>;
-            /**
-             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
-             */
-            count?: pulumi.Input<number>;
-            /**
-             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
-             *
-             * A class is required. Which classes are available depends on the cluster.
-             *
-             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-             */
-            deviceClassName: pulumi.Input<string>;
-            /**
-             * Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
-             *
-             * Must be a DNS label.
-             */
-            name: pulumi.Input<string>;
-            /**
-             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
-             */
-            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSelector>[]>;
-            /**
-             * If specified, the request's tolerations.
-             *
-             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
-             *
-             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
-             *
-             * The maximum number of tolerations is 16.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceToleration>[]>;
-        }
-
-        /**
-         * DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
-         *
-         * DeviceSubRequest is similar to Request, but doesn't expose the AdminAccess or FirstAvailable fields, as those can only be set on the top-level request. AdminAccess is not supported for requests with a prioritized list, and recursive FirstAvailable fields are not supported.
-         */
-        export interface DeviceSubRequestPatch {
-            /**
-             * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
-             *
-             * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
-             *
-             * - All: This request is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
-             *
-             * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
-             *
-             * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
-             */
-            allocationMode?: pulumi.Input<string>;
-            /**
-             * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
-             */
-            count?: pulumi.Input<number>;
-            /**
-             * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
-             *
-             * A class is required. Which classes are available depends on the cluster.
-             *
-             * Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
-             */
-            deviceClassName?: pulumi.Input<string>;
-            /**
-             * Name can be used to reference this subrequest in the list of constraints or the list of configurations for the claim. References must use the format <main request>/<subrequest>.
-             *
-             * Must be a DNS label.
-             */
-            name?: pulumi.Input<string>;
-            /**
-             * Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
-             */
-            selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceSelectorPatch>[]>;
-            /**
-             * If specified, the request's tolerations.
-             *
-             * Tolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.
-             *
-             * In addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.
-             *
-             * The maximum number of tolerations is 16.
-             *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-             */
-            tolerations?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.DeviceTolerationPatch>[]>;
         }
 
         /**
@@ -33505,82 +35766,6 @@ export namespace resource {
         }
 
         /**
-         * The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-         */
-        export interface DeviceToleration {
-            /**
-             * Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
-             */
-            effect?: pulumi.Input<string>;
-            /**
-             * Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
-             */
-            key?: pulumi.Input<string>;
-            /**
-             * Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
-             */
-            operator?: pulumi.Input<string>;
-            /**
-             * TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
-             */
-            tolerationSeconds?: pulumi.Input<number>;
-            /**
-             * Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
-             */
-            value?: pulumi.Input<string>;
-        }
-
-        /**
-         * The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-         */
-        export interface DeviceTolerationPatch {
-            /**
-             * Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
-             */
-            effect?: pulumi.Input<string>;
-            /**
-             * Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
-             */
-            key?: pulumi.Input<string>;
-            /**
-             * Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
-             */
-            operator?: pulumi.Input<string>;
-            /**
-             * TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as <time when taint was adedd> + <toleration seconds>.
-             */
-            tolerationSeconds?: pulumi.Input<number>;
-            /**
-             * Value is the taint value the toleration matches to. If the operator is Exists, the value must be empty, otherwise just a regular string. Must be a label value.
-             */
-            value?: pulumi.Input<string>;
-        }
-
-        /**
-         * NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
-         */
-        export interface NetworkDeviceData {
-            /**
-             * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
-             *
-             * Must not be longer than 128 characters.
-             */
-            hardwareAddress?: pulumi.Input<string>;
-            /**
-             * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
-             *
-             * Must not be longer than 256 characters.
-             */
-            interfaceName?: pulumi.Input<string>;
-            /**
-             * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
-             *
-             * Must not contain more than 16 entries.
-             */
-            ips?: pulumi.Input<pulumi.Input<string>[]>;
-        }
-
-        /**
          * OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
          */
         export interface OpaqueDeviceConfiguration {
@@ -33594,8 +35779,6 @@ export namespace resource {
             driver: pulumi.Input<string>;
             /**
              * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
-             *
-             * The length of the raw data must be smaller or equal to 10 Ki.
              */
             parameters: any;
         }
@@ -33614,8 +35797,6 @@ export namespace resource {
             driver?: pulumi.Input<string>;
             /**
              * Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
-             *
-             * The length of the raw data must be smaller or equal to 10 Ki.
              */
             parameters?: any;
         }
@@ -33809,17 +35990,13 @@ export namespace resource {
              */
             deallocationRequested?: pulumi.Input<boolean>;
             /**
-             * Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
-             */
-            devices?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.AllocatedDeviceStatus>[]>;
-            /**
              * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
              *
              * In a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.
              *
              * Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
              *
-             * There can be at most 256 such reservations. This may get increased in the future, but not reduced.
+             * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
              */
             reservedFor?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.ResourceClaimConsumerReference>[]>;
         }
@@ -33855,7 +36032,7 @@ export namespace resource {
          */
         export interface ResourceClaimTemplateSpec {
             /**
-             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
              */
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
             /**
@@ -33869,7 +36046,7 @@ export namespace resource {
          */
         export interface ResourceClaimTemplateSpecPatch {
             /**
-             * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
              */
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
             /**
@@ -33927,47 +36104,13 @@ export namespace resource {
         }
 
         /**
-         * ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
-         *
-         * At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
-         *
-         * Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.
-         *
-         * When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
-         *
-         * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
-         *
-         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
-         */
-        export interface ResourceSlice {
-            /**
-             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-             */
-            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha3">;
-            /**
-             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-             */
-            kind?: pulumi.Input<"ResourceSlice">;
-            /**
-             * Standard object metadata
-             */
-            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-            /**
-             * Contains the information published by the driver.
-             *
-             * Changing the spec automatically increments the metadata.generation number.
-             */
-            spec: pulumi.Input<inputs.resource.v1alpha3.ResourceSliceSpec>;
-        }
-
-        /**
          * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
          */
         export interface ResourceSliceSpec {
             /**
              * AllNodes indicates that all nodes have access to the resources in the pool.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
              */
             allNodes?: pulumi.Input<boolean>;
             /**
@@ -33987,7 +36130,7 @@ export namespace resource {
              *
              * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
              */
             nodeName?: pulumi.Input<string>;
             /**
@@ -33995,27 +36138,13 @@ export namespace resource {
              *
              * Must use exactly one term.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
              */
             nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
-            /**
-             * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
-             *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
-             */
-            perDeviceNodeSelection?: pulumi.Input<boolean>;
             /**
              * Pool describes the pool that this ResourceSlice belongs to.
              */
             pool: pulumi.Input<inputs.resource.v1alpha3.ResourcePool>;
-            /**
-             * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
-             *
-             * The names of the SharedCounters must be unique in the ResourceSlice.
-             *
-             * The maximum number of SharedCounters is 32.
-             */
-            sharedCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.CounterSet>[]>;
         }
 
         /**
@@ -34025,7 +36154,7 @@ export namespace resource {
             /**
              * AllNodes indicates that all nodes have access to the resources in the pool.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
              */
             allNodes?: pulumi.Input<boolean>;
             /**
@@ -34045,7 +36174,7 @@ export namespace resource {
              *
              * This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
              */
             nodeName?: pulumi.Input<string>;
             /**
@@ -34053,33 +36182,21 @@ export namespace resource {
              *
              * Must use exactly one term.
              *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+             * Exactly one of NodeName, NodeSelector and AllNodes must be set.
              */
             nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelectorPatch>;
-            /**
-             * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
-             *
-             * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
-             */
-            perDeviceNodeSelection?: pulumi.Input<boolean>;
             /**
              * Pool describes the pool that this ResourceSlice belongs to.
              */
             pool?: pulumi.Input<inputs.resource.v1alpha3.ResourcePoolPatch>;
-            /**
-             * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
-             *
-             * The names of the SharedCounters must be unique in the ResourceSlice.
-             *
-             * The maximum number of SharedCounters is 32.
-             */
-            sharedCounters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha3.CounterSetPatch>[]>;
         }
     }
 
     export namespace v1beta1 {
         /**
          * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         *
+         * The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
          */
         export interface AllocatedDeviceStatus {
             /**
@@ -34114,12 +36231,22 @@ export namespace resource {
              * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
              */
             pool: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device.
+             */
+            shareID?: pulumi.Input<string>;
         }
 
         /**
          * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResult {
+            /**
+             * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             */
+            allocationTimestamp?: pulumi.Input<string>;
             /**
              * Devices is the result of allocating devices.
              */
@@ -34141,11 +36268,43 @@ export namespace resource {
              */
             allNodes?: pulumi.Input<boolean>;
             /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
              */
             attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1beta1.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
             /**
              * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
              *
@@ -34195,11 +36354,43 @@ export namespace resource {
              */
             allNodes?: pulumi.Input<boolean>;
             /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
              */
             attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1beta1.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
             /**
              * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
              *
@@ -34251,6 +36442,8 @@ export namespace resource {
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
              *    of the attributes which were prefixed by "dra.example.com".
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
              *
              * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
              *
@@ -34289,6 +36482,8 @@ export namespace resource {
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
              *    of the attributes which were prefixed by "dra.example.com".
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
              *
              * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
              *
@@ -34312,6 +36507,111 @@ export namespace resource {
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequestPolicy defines how requests consume device capacity.
+         *
+         * Must not set more than one ValidRequestValues.
+         */
+        export interface CapacityRequestPolicy {
+            /**
+             * Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+             */
+            default?: pulumi.Input<string>;
+            /**
+             * ValidRange defines an acceptable quantity value range in consuming requests.
+             *
+             * If this field is set, Default must be defined and it must fall within the defined ValidRange.
+             *
+             * If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+             *
+             * If the request doesn't contain this capacity entry, Default value is used.
+             */
+            validRange?: pulumi.Input<inputs.resource.v1beta1.CapacityRequestPolicyRange>;
+            /**
+             * ValidValues defines a set of acceptable quantity values in consuming requests.
+             *
+             * Must not contain more than 10 entries. Must be sorted in ascending order.
+             *
+             * If this field is set, Default must be defined and it must be included in ValidValues list.
+             *
+             * If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+             *
+             * If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+             */
+            validValues?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         *   - If the requested amount is less than Min, it is rounded up to the Min value.
+         *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+         *     it will be rounded up to the next value equal to Min + (n * Step).
+         *   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+         *   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+         *     and the device cannot be allocated.
+         */
+        export interface CapacityRequestPolicyRange {
+            /**
+             * Max defines the upper limit for capacity that can be requested.
+             *
+             * Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+             */
+            max?: pulumi.Input<string>;
+            /**
+             * Min specifies the minimum capacity allowed for a consumption request.
+             *
+             * Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+             */
+            min: pulumi.Input<string>;
+            /**
+             * Step defines the step size between valid capacity amounts within the range.
+             *
+             * Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+             */
+            step?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirements {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirementsPatch {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
         }
 
         /**
@@ -34437,7 +36737,17 @@ export namespace resource {
          */
         export interface DeviceCapacity {
             /**
-             * Value defines how much of a certain device capacity is available.
+             * RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+             *
+             * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+             *
+             * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+             */
+            requestPolicy?: pulumi.Input<inputs.resource.v1beta1.CapacityRequestPolicy>;
+            /**
+             * Value defines how much of a certain capacity that device has.
+             *
+             * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
              */
             value: pulumi.Input<string>;
         }
@@ -34569,6 +36879,12 @@ export namespace resource {
              */
             config?: pulumi.Input<pulumi.Input<inputs.resource.v1beta1.DeviceClassConfiguration>[]>;
             /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
              * Each selector must be satisfied by a device which is claimed via this class.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1beta1.DeviceSelector>[]>;
@@ -34585,6 +36901,12 @@ export namespace resource {
              */
             config?: pulumi.Input<pulumi.Input<inputs.resource.v1beta1.DeviceClassConfigurationPatch>[]>;
             /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
              * Each selector must be satisfied by a device which is claimed via this class.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1beta1.DeviceSelectorPatch>[]>;
@@ -34594,6 +36916,16 @@ export namespace resource {
          * DeviceConstraint must have exactly one field set besides Requests.
          */
         export interface DeviceConstraint {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
             /**
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
@@ -34614,6 +36946,16 @@ export namespace resource {
          * DeviceConstraint must have exactly one field set besides Requests.
          */
         export interface DeviceConstraintPatch {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
             /**
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
@@ -34708,6 +37050,14 @@ export namespace resource {
              */
             allocationMode?: pulumi.Input<string>;
             /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta1.CapacityRequirements>;
+            /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              *
              * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
@@ -34768,6 +37118,26 @@ export namespace resource {
              */
             adminAccess?: pulumi.Input<boolean>;
             /**
+             * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+             *
+             * The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+             *
+             * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+             */
+            consumedCapacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+            /**
              * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
              */
             device: pulumi.Input<string>;
@@ -34789,6 +37159,10 @@ export namespace resource {
              * Multiple devices may have been allocated per request.
              */
             request: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+             */
+            shareID?: pulumi.Input<string>;
             /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
@@ -34830,6 +37204,14 @@ export namespace resource {
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta1.CapacityRequirementsPatch>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              *
@@ -34923,6 +37305,14 @@ export namespace resource {
              */
             allocationMode?: pulumi.Input<string>;
             /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta1.CapacityRequirements>;
+            /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count?: pulumi.Input<number>;
@@ -34980,6 +37370,14 @@ export namespace resource {
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta1.CapacityRequirementsPatch>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
@@ -35526,6 +37924,8 @@ export namespace resource {
     export namespace v1beta2 {
         /**
          * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+         *
+         * The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
          */
         export interface AllocatedDeviceStatus {
             /**
@@ -35560,12 +37960,22 @@ export namespace resource {
              * Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
              */
             pool: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device.
+             */
+            shareID?: pulumi.Input<string>;
         }
 
         /**
          * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResult {
+            /**
+             * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             */
+            allocationTimestamp?: pulumi.Input<string>;
             /**
              * Devices is the result of allocating devices.
              */
@@ -35589,6 +37999,8 @@ export namespace resource {
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
              *    of the attributes which were prefixed by "dra.example.com".
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
              *
              * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
              *
@@ -35627,6 +38039,8 @@ export namespace resource {
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
              *    of the attributes which were prefixed by "dra.example.com".
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
+             *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+             *    (v1.34+ with the DRAConsumableCapacity feature enabled).
              *
              * Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
              *
@@ -35650,6 +38064,111 @@ export namespace resource {
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequestPolicy defines how requests consume device capacity.
+         *
+         * Must not set more than one ValidRequestValues.
+         */
+        export interface CapacityRequestPolicy {
+            /**
+             * Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+             */
+            default?: pulumi.Input<string>;
+            /**
+             * ValidRange defines an acceptable quantity value range in consuming requests.
+             *
+             * If this field is set, Default must be defined and it must fall within the defined ValidRange.
+             *
+             * If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+             *
+             * If the request doesn't contain this capacity entry, Default value is used.
+             */
+            validRange?: pulumi.Input<inputs.resource.v1beta2.CapacityRequestPolicyRange>;
+            /**
+             * ValidValues defines a set of acceptable quantity values in consuming requests.
+             *
+             * Must not contain more than 10 entries. Must be sorted in ascending order.
+             *
+             * If this field is set, Default must be defined and it must be included in ValidValues list.
+             *
+             * If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+             *
+             * If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+             */
+            validValues?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         *   - If the requested amount is less than Min, it is rounded up to the Min value.
+         *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+         *     it will be rounded up to the next value equal to Min + (n * Step).
+         *   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+         *   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+         *     and the device cannot be allocated.
+         */
+        export interface CapacityRequestPolicyRange {
+            /**
+             * Max defines the upper limit for capacity that can be requested.
+             *
+             * Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+             */
+            max?: pulumi.Input<string>;
+            /**
+             * Min specifies the minimum capacity allowed for a consumption request.
+             *
+             * Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+             */
+            min: pulumi.Input<string>;
+            /**
+             * Step defines the step size between valid capacity amounts within the range.
+             *
+             * Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+             */
+            step?: pulumi.Input<string>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirements {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+        }
+
+        /**
+         * CapacityRequirements defines the capacity requirements for a specific device request.
+         */
+        export interface CapacityRequirementsPatch {
+            /**
+             * Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+             *
+             * This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+             *
+             * When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+             *
+             * For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+             *   (i.e., the whole device is claimed).
+             * - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+             *
+             * If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+             */
+            requests?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
         }
 
         /**
@@ -35709,11 +38228,43 @@ export namespace resource {
              */
             allNodes?: pulumi.Input<boolean>;
             /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
              */
             attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1beta2.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
             /**
              * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
              *
@@ -35819,7 +38370,17 @@ export namespace resource {
          */
         export interface DeviceCapacity {
             /**
-             * Value defines how much of a certain device capacity is available.
+             * RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+             *
+             * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+             *
+             * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+             */
+            requestPolicy?: pulumi.Input<inputs.resource.v1beta2.CapacityRequestPolicy>;
+            /**
+             * Value defines how much of a certain capacity that device has.
+             *
+             * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
              */
             value: pulumi.Input<string>;
         }
@@ -35951,6 +38512,12 @@ export namespace resource {
              */
             config?: pulumi.Input<pulumi.Input<inputs.resource.v1beta2.DeviceClassConfiguration>[]>;
             /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
              * Each selector must be satisfied by a device which is claimed via this class.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1beta2.DeviceSelector>[]>;
@@ -35967,6 +38534,12 @@ export namespace resource {
              */
             config?: pulumi.Input<pulumi.Input<inputs.resource.v1beta2.DeviceClassConfigurationPatch>[]>;
             /**
+             * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+             *
+             * This is an alpha field.
+             */
+            extendedResourceName?: pulumi.Input<string>;
+            /**
              * Each selector must be satisfied by a device which is claimed via this class.
              */
             selectors?: pulumi.Input<pulumi.Input<inputs.resource.v1beta2.DeviceSelectorPatch>[]>;
@@ -35976,6 +38549,16 @@ export namespace resource {
          * DeviceConstraint must have exactly one field set besides Requests.
          */
         export interface DeviceConstraint {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
             /**
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
@@ -35996,6 +38579,16 @@ export namespace resource {
          * DeviceConstraint must have exactly one field set besides Requests.
          */
         export interface DeviceConstraintPatch {
+            /**
+             * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+             *
+             * This acts as the inverse of MatchAttribute.
+             *
+             * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+             *
+             * This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+             */
+            distinctAttribute?: pulumi.Input<string>;
             /**
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
@@ -36055,11 +38648,43 @@ export namespace resource {
              */
             allNodes?: pulumi.Input<boolean>;
             /**
+             * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+             *
+             * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+             */
+            allowMultipleAllocations?: pulumi.Input<boolean>;
+            /**
              * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
              *
              * The maximum number of attributes and capacities combined is 32.
              */
             attributes?: pulumi.Input<{[key: string]: pulumi.Input<inputs.resource.v1beta2.DeviceAttribute>}>;
+            /**
+             * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+             *
+             * The maximum number of binding conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+             *
+             * The maximum number of binding failure conditions is 4.
+             *
+             * The conditions must be a valid condition type string.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindsToNode?: pulumi.Input<boolean>;
             /**
              * Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
              *
@@ -36139,6 +38764,26 @@ export namespace resource {
              */
             adminAccess?: pulumi.Input<boolean>;
             /**
+             * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+             *
+             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             */
+            bindingFailureConditions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+             *
+             * The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+             *
+             * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+             */
+            consumedCapacity?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+            /**
              * Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
              */
             device: pulumi.Input<string>;
@@ -36160,6 +38805,10 @@ export namespace resource {
              * Multiple devices may have been allocated per request.
              */
             request: pulumi.Input<string>;
+            /**
+             * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+             */
+            shareID?: pulumi.Input<string>;
             /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
@@ -36239,6 +38888,14 @@ export namespace resource {
              */
             allocationMode?: pulumi.Input<string>;
             /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta2.CapacityRequirements>;
+            /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count?: pulumi.Input<number>;
@@ -36296,6 +38953,14 @@ export namespace resource {
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta2.CapacityRequirementsPatch>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
@@ -36456,6 +39121,14 @@ export namespace resource {
              */
             allocationMode?: pulumi.Input<string>;
             /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta2.CapacityRequirements>;
+            /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count?: pulumi.Input<number>;
@@ -36512,6 +39185,14 @@ export namespace resource {
              * More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
              */
             allocationMode?: pulumi.Input<string>;
+            /**
+             * Capacity define resource requirements against each capacity.
+             *
+             * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+             *
+             * Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+             */
+            capacity?: pulumi.Input<inputs.resource.v1beta2.CapacityRequirementsPatch>;
             /**
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
@@ -37166,7 +39847,7 @@ export namespace storage {
          */
         export interface CSIDriverSpec {
             /**
-             * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+             * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
              *
              * This field is immutable.
              */
@@ -37182,7 +39863,7 @@ export namespace storage {
             /**
              * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
              *
-             * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+             * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
              *
              * This field is mutable.
              */
@@ -37255,7 +39936,7 @@ export namespace storage {
          */
         export interface CSIDriverSpecPatch {
             /**
-             * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+             * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
              *
              * This field is immutable.
              */
@@ -37271,7 +39952,7 @@ export namespace storage {
             /**
              * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
              *
-             * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+             * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
              *
              * This field is mutable.
              */
@@ -37666,13 +40347,41 @@ export namespace storage {
         }
 
         /**
+         * VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+         */
+        export interface VolumeAttributesClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
+            /**
+             * Name of the CSI driver This field is immutable.
+             */
+            driverName: pulumi.Input<string>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"VolumeAttributesClass">;
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+             *
+             * This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+             */
+            parameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+        }
+
+        /**
          * VolumeError captures an error encountered during a volume operation.
          */
         export interface VolumeError {
             /**
              * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
              *
-             * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+             * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
              */
             errorCode?: pulumi.Input<number>;
             /**

@@ -6,8 +6,11 @@ package com.pulumi.kubernetes.resource.v1beta1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1beta1.inputs.CapacityRequestPolicyArgs;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -19,14 +22,41 @@ public final class DeviceCapacityArgs extends com.pulumi.resources.ResourceArgs 
     public static final DeviceCapacityArgs Empty = new DeviceCapacityArgs();
 
     /**
-     * Value defines how much of a certain device capacity is available.
+     * RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+     * 
+     * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+     * 
+     * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+     * 
+     */
+    @Import(name="requestPolicy")
+    private @Nullable Output<CapacityRequestPolicyArgs> requestPolicy;
+
+    /**
+     * @return RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+     * 
+     * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+     * 
+     * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+     * 
+     */
+    public Optional<Output<CapacityRequestPolicyArgs>> requestPolicy() {
+        return Optional.ofNullable(this.requestPolicy);
+    }
+
+    /**
+     * Value defines how much of a certain capacity that device has.
+     * 
+     * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
      * 
      */
     @Import(name="value", required=true)
     private Output<String> value;
 
     /**
-     * @return Value defines how much of a certain device capacity is available.
+     * @return Value defines how much of a certain capacity that device has.
+     * 
+     * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
      * 
      */
     public Output<String> value() {
@@ -36,6 +66,7 @@ public final class DeviceCapacityArgs extends com.pulumi.resources.ResourceArgs 
     private DeviceCapacityArgs() {}
 
     private DeviceCapacityArgs(DeviceCapacityArgs $) {
+        this.requestPolicy = $.requestPolicy;
         this.value = $.value;
     }
 
@@ -58,7 +89,38 @@ public final class DeviceCapacityArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param value Value defines how much of a certain device capacity is available.
+         * @param requestPolicy RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+         * 
+         * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+         * 
+         * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder requestPolicy(@Nullable Output<CapacityRequestPolicyArgs> requestPolicy) {
+            $.requestPolicy = requestPolicy;
+            return this;
+        }
+
+        /**
+         * @param requestPolicy RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+         * 
+         * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+         * 
+         * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder requestPolicy(CapacityRequestPolicyArgs requestPolicy) {
+            return requestPolicy(Output.of(requestPolicy));
+        }
+
+        /**
+         * @param value Value defines how much of a certain capacity that device has.
+         * 
+         * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
          * 
          * @return builder
          * 
@@ -69,7 +131,9 @@ public final class DeviceCapacityArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param value Value defines how much of a certain device capacity is available.
+         * @param value Value defines how much of a certain capacity that device has.
+         * 
+         * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
          * 
          * @return builder
          * 

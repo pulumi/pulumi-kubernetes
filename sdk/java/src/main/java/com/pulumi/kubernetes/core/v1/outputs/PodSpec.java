@@ -82,7 +82,7 @@ public final class PodSpec {
      */
     private @Nullable Boolean hostIPC;
     /**
-     * @return Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * @return Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     private @Nullable Boolean hostNetwork;
@@ -101,6 +101,13 @@ public final class PodSpec {
      * 
      */
     private @Nullable String hostname;
+    /**
+     * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    private @Nullable String hostnameOverride;
     /**
      * @return ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
      * 
@@ -126,7 +133,7 @@ public final class PodSpec {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     private @Nullable PodOS os;
@@ -165,7 +172,7 @@ public final class PodSpec {
      */
     private @Nullable List<PodResourceClaim> resourceClaims;
     /**
-     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -318,7 +325,7 @@ public final class PodSpec {
         return Optional.ofNullable(this.hostIPC);
     }
     /**
-     * @return Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * @return Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     public Optional<Boolean> hostNetwork() {
@@ -344,6 +351,15 @@ public final class PodSpec {
      */
     public Optional<String> hostname() {
         return Optional.ofNullable(this.hostname);
+    }
+    /**
+     * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    public Optional<String> hostnameOverride() {
+        return Optional.ofNullable(this.hostnameOverride);
     }
     /**
      * @return ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
@@ -378,7 +394,7 @@ public final class PodSpec {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     public Optional<PodOS> os() {
@@ -431,7 +447,7 @@ public final class PodSpec {
         return this.resourceClaims == null ? List.of() : this.resourceClaims;
     }
     /**
-     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -565,6 +581,7 @@ public final class PodSpec {
         private @Nullable Boolean hostPID;
         private @Nullable Boolean hostUsers;
         private @Nullable String hostname;
+        private @Nullable String hostnameOverride;
         private @Nullable List<LocalObjectReference> imagePullSecrets;
         private @Nullable List<Container> initContainers;
         private @Nullable String nodeName;
@@ -608,6 +625,7 @@ public final class PodSpec {
     	      this.hostPID = defaults.hostPID;
     	      this.hostUsers = defaults.hostUsers;
     	      this.hostname = defaults.hostname;
+    	      this.hostnameOverride = defaults.hostnameOverride;
     	      this.imagePullSecrets = defaults.imagePullSecrets;
     	      this.initContainers = defaults.initContainers;
     	      this.nodeName = defaults.nodeName;
@@ -729,6 +747,12 @@ public final class PodSpec {
         public Builder hostname(@Nullable String hostname) {
 
             this.hostname = hostname;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder hostnameOverride(@Nullable String hostnameOverride) {
+
+            this.hostnameOverride = hostnameOverride;
             return this;
         }
         @CustomType.Setter
@@ -927,6 +951,7 @@ public final class PodSpec {
             _resultValue.hostPID = hostPID;
             _resultValue.hostUsers = hostUsers;
             _resultValue.hostname = hostname;
+            _resultValue.hostnameOverride = hostnameOverride;
             _resultValue.imagePullSecrets = imagePullSecrets;
             _resultValue.initContainers = initContainers;
             _resultValue.nodeName = nodeName;

@@ -51,6 +51,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &VolumeAttachmentList{}
 	case "kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch":
 		r = &VolumeAttachmentPatch{}
+	case "kubernetes:storage.k8s.io/v1:VolumeAttributesClass":
+		r = &VolumeAttributesClass{}
+	case "kubernetes:storage.k8s.io/v1:VolumeAttributesClassList":
+		r = &VolumeAttributesClassList{}
+	case "kubernetes:storage.k8s.io/v1:VolumeAttributesClassPatch":
+		r = &VolumeAttributesClassPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

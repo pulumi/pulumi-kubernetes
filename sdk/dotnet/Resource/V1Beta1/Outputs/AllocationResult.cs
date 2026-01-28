@@ -17,6 +17,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
     public sealed class AllocationResult
     {
         /// <summary>
+        /// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+        /// </summary>
+        public readonly string AllocationTimestamp;
+        /// <summary>
         /// Devices is the result of allocating devices.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceAllocationResult Devices;
@@ -27,10 +33,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
         [OutputConstructor]
         private AllocationResult(
+            string allocationTimestamp,
+
             Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceAllocationResult devices,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector nodeSelector)
         {
+            AllocationTimestamp = allocationTimestamp;
             Devices = devices;
             NodeSelector = nodeSelector;
         }

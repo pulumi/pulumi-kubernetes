@@ -4,27 +4,14 @@
 package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.kubernetes.core.v1.outputs.NodeSelectorPatch;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceAttribute;
-import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceCounterConsumptionPatch;
-import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTaintPatch;
-import java.lang.Boolean;
 import java.lang.String;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
 public final class BasicDevicePatch {
-    /**
-     * @return AllNodes indicates that all nodes have access to the device.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    private @Nullable Boolean allNodes;
     /**
      * @return Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
      * 
@@ -39,49 +26,8 @@ public final class BasicDevicePatch {
      * 
      */
     private @Nullable Map<String,String> capacity;
-    /**
-     * @return ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-     * 
-     * There can only be a single entry per counterSet.
-     * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-     * 
-     */
-    private @Nullable List<DeviceCounterConsumptionPatch> consumesCounters;
-    /**
-     * @return NodeName identifies the node where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    private @Nullable String nodeName;
-    /**
-     * @return NodeSelector defines the nodes where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    private @Nullable NodeSelectorPatch nodeSelector;
-    /**
-     * @return If specified, these are the driver-defined taints.
-     * 
-     * The maximum number of taints is 4.
-     * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-     * 
-     */
-    private @Nullable List<DeviceTaintPatch> taints;
 
     private BasicDevicePatch() {}
-    /**
-     * @return AllNodes indicates that all nodes have access to the device.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<Boolean> allNodes() {
-        return Optional.ofNullable(this.allNodes);
-    }
     /**
      * @return Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
      * 
@@ -100,46 +46,6 @@ public final class BasicDevicePatch {
     public Map<String,String> capacity() {
         return this.capacity == null ? Map.of() : this.capacity;
     }
-    /**
-     * @return ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-     * 
-     * There can only be a single entry per counterSet.
-     * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-     * 
-     */
-    public List<DeviceCounterConsumptionPatch> consumesCounters() {
-        return this.consumesCounters == null ? List.of() : this.consumesCounters;
-    }
-    /**
-     * @return NodeName identifies the node where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<String> nodeName() {
-        return Optional.ofNullable(this.nodeName);
-    }
-    /**
-     * @return NodeSelector defines the nodes where the device is available.
-     * 
-     * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-     * 
-     */
-    public Optional<NodeSelectorPatch> nodeSelector() {
-        return Optional.ofNullable(this.nodeSelector);
-    }
-    /**
-     * @return If specified, these are the driver-defined taints.
-     * 
-     * The maximum number of taints is 4.
-     * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-     * 
-     */
-    public List<DeviceTaintPatch> taints() {
-        return this.taints == null ? List.of() : this.taints;
-    }
 
     public static Builder builder() {
         return new Builder();
@@ -150,31 +56,15 @@ public final class BasicDevicePatch {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable Boolean allNodes;
         private @Nullable Map<String,DeviceAttribute> attributes;
         private @Nullable Map<String,String> capacity;
-        private @Nullable List<DeviceCounterConsumptionPatch> consumesCounters;
-        private @Nullable String nodeName;
-        private @Nullable NodeSelectorPatch nodeSelector;
-        private @Nullable List<DeviceTaintPatch> taints;
         public Builder() {}
         public Builder(BasicDevicePatch defaults) {
     	      Objects.requireNonNull(defaults);
-    	      this.allNodes = defaults.allNodes;
     	      this.attributes = defaults.attributes;
     	      this.capacity = defaults.capacity;
-    	      this.consumesCounters = defaults.consumesCounters;
-    	      this.nodeName = defaults.nodeName;
-    	      this.nodeSelector = defaults.nodeSelector;
-    	      this.taints = defaults.taints;
         }
 
-        @CustomType.Setter
-        public Builder allNodes(@Nullable Boolean allNodes) {
-
-            this.allNodes = allNodes;
-            return this;
-        }
         @CustomType.Setter
         public Builder attributes(@Nullable Map<String,DeviceAttribute> attributes) {
 
@@ -187,45 +77,10 @@ public final class BasicDevicePatch {
             this.capacity = capacity;
             return this;
         }
-        @CustomType.Setter
-        public Builder consumesCounters(@Nullable List<DeviceCounterConsumptionPatch> consumesCounters) {
-
-            this.consumesCounters = consumesCounters;
-            return this;
-        }
-        public Builder consumesCounters(DeviceCounterConsumptionPatch... consumesCounters) {
-            return consumesCounters(List.of(consumesCounters));
-        }
-        @CustomType.Setter
-        public Builder nodeName(@Nullable String nodeName) {
-
-            this.nodeName = nodeName;
-            return this;
-        }
-        @CustomType.Setter
-        public Builder nodeSelector(@Nullable NodeSelectorPatch nodeSelector) {
-
-            this.nodeSelector = nodeSelector;
-            return this;
-        }
-        @CustomType.Setter
-        public Builder taints(@Nullable List<DeviceTaintPatch> taints) {
-
-            this.taints = taints;
-            return this;
-        }
-        public Builder taints(DeviceTaintPatch... taints) {
-            return taints(List.of(taints));
-        }
         public BasicDevicePatch build() {
             final var _resultValue = new BasicDevicePatch();
-            _resultValue.allNodes = allNodes;
             _resultValue.attributes = attributes;
             _resultValue.capacity = capacity;
-            _resultValue.consumesCounters = consumesCounters;
-            _resultValue.nodeName = nodeName;
-            _resultValue.nodeSelector = nodeSelector;
-            _resultValue.taints = taints;
             return _resultValue;
         }
     }

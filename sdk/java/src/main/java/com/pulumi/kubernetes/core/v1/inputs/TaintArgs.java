@@ -51,14 +51,14 @@ public final class TaintArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * TimeAdded represents the time at which the taint was added.
      * 
      */
     @Import(name="timeAdded")
     private @Nullable Output<String> timeAdded;
 
     /**
-     * @return TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+     * @return TimeAdded represents the time at which the taint was added.
      * 
      */
     public Optional<Output<String>> timeAdded() {
@@ -150,7 +150,7 @@ public final class TaintArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param timeAdded TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+         * @param timeAdded TimeAdded represents the time at which the taint was added.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class TaintArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param timeAdded TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+         * @param timeAdded TimeAdded represents the time at which the taint was added.
          * 
          * @return builder
          * 

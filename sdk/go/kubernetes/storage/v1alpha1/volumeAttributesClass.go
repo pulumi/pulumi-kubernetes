@@ -45,6 +45,9 @@ func NewVolumeAttributesClass(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("VolumeAttributesClass")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1:VolumeAttributesClass"),
+		},
+		{
 			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass"),
 		},
 	})

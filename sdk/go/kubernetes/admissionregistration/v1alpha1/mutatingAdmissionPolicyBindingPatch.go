@@ -45,6 +45,12 @@ func NewMutatingAdmissionPolicyBindingPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("MutatingAdmissionPolicyBinding")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBindingPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource MutatingAdmissionPolicyBindingPatch
 	err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingPatch", name, args, &resource, opts...)

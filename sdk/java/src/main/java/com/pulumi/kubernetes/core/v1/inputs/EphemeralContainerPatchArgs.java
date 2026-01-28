@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerRestartRulePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourcePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LifecyclePatchArgs;
@@ -79,14 +80,14 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     @Import(name="envFrom")
     private @Nullable Output<List<EnvFromSourcePatchArgs>> envFrom;
 
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     public Optional<Output<List<EnvFromSourcePatchArgs>>> envFrom() {
@@ -229,18 +230,33 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     @Import(name="restartPolicy")
     private @Nullable Output<String> restartPolicy;
 
     /**
-     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     public Optional<Output<String>> restartPolicy() {
         return Optional.ofNullable(this.restartPolicy);
+    }
+
+    /**
+     * Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    @Import(name="restartPolicyRules")
+    private @Nullable Output<List<ContainerRestartRulePatchArgs>> restartPolicyRules;
+
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    public Optional<Output<List<ContainerRestartRulePatchArgs>>> restartPolicyRules() {
+        return Optional.ofNullable(this.restartPolicyRules);
     }
 
     /**
@@ -429,6 +445,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
         this.restartPolicy = $.restartPolicy;
+        this.restartPolicyRules = $.restartPolicyRules;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
         this.stdin = $.stdin;
@@ -554,7 +571,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -565,7 +582,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -575,7 +592,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -794,7 +811,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
          * 
          * @return builder
          * 
@@ -805,13 +822,44 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
          * 
          * @return builder
          * 
          */
         public Builder restartPolicy(String restartPolicy) {
             return restartPolicy(Output.of(restartPolicy));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(@Nullable Output<List<ContainerRestartRulePatchArgs>> restartPolicyRules) {
+            $.restartPolicyRules = restartPolicyRules;
+            return this;
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(List<ContainerRestartRulePatchArgs> restartPolicyRules) {
+            return restartPolicyRules(Output.of(restartPolicyRules));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(ContainerRestartRulePatchArgs... restartPolicyRules) {
+            return restartPolicyRules(List.of(restartPolicyRules));
         }
 
         /**

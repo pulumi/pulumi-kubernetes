@@ -29,6 +29,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> EphemeralContainerStatuses;
         /// <summary>
+        /// Status of extended resource claim backed by DRA.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PodExtendedResourceClaimStatus ExtendedResourceClaimStatus;
+        /// <summary>
         /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         /// </summary>
         public readonly string HostIP;
@@ -97,6 +101,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> ephemeralContainerStatuses,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.PodExtendedResourceClaimStatus extendedResourceClaimStatus,
+
             string hostIP,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.HostIP> hostIPs,
@@ -128,6 +134,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Conditions = conditions;
             ContainerStatuses = containerStatuses;
             EphemeralContainerStatuses = ephemeralContainerStatuses;
+            ExtendedResourceClaimStatus = extendedResourceClaimStatus;
             HostIP = hostIP;
             HostIPs = hostIPs;
             InitContainerStatuses = initContainerStatuses;

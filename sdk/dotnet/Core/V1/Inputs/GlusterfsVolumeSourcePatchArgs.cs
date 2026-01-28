@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class GlusterfsVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        /// endpoints is the endpoint name that details Glusterfs topology.
         /// </summary>
         [Input("endpoints")]
         public Input<string>? Endpoints { get; set; }

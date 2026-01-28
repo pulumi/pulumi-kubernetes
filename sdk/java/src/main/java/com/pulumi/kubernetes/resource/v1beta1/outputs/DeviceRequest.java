@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.CapacityRequirements;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSelector;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSubRequest;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceToleration;
@@ -47,6 +48,15 @@ public final class DeviceRequest {
      * 
      */
     private @Nullable String allocationMode;
+    /**
+     * @return Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    private @Nullable CapacityRequirements capacity;
     /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
@@ -137,6 +147,17 @@ public final class DeviceRequest {
         return Optional.ofNullable(this.allocationMode);
     }
     /**
+     * @return Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    public Optional<CapacityRequirements> capacity() {
+        return Optional.ofNullable(this.capacity);
+    }
+    /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
      * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
@@ -214,6 +235,7 @@ public final class DeviceRequest {
     public static final class Builder {
         private @Nullable Boolean adminAccess;
         private @Nullable String allocationMode;
+        private @Nullable CapacityRequirements capacity;
         private @Nullable Integer count;
         private @Nullable String deviceClassName;
         private @Nullable List<DeviceSubRequest> firstAvailable;
@@ -225,6 +247,7 @@ public final class DeviceRequest {
     	      Objects.requireNonNull(defaults);
     	      this.adminAccess = defaults.adminAccess;
     	      this.allocationMode = defaults.allocationMode;
+    	      this.capacity = defaults.capacity;
     	      this.count = defaults.count;
     	      this.deviceClassName = defaults.deviceClassName;
     	      this.firstAvailable = defaults.firstAvailable;
@@ -243,6 +266,12 @@ public final class DeviceRequest {
         public Builder allocationMode(@Nullable String allocationMode) {
 
             this.allocationMode = allocationMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder capacity(@Nullable CapacityRequirements capacity) {
+
+            this.capacity = capacity;
             return this;
         }
         @CustomType.Setter
@@ -296,6 +325,7 @@ public final class DeviceRequest {
             final var _resultValue = new DeviceRequest();
             _resultValue.adminAccess = adminAccess;
             _resultValue.allocationMode = allocationMode;
+            _resultValue.capacity = capacity;
             _resultValue.count = count;
             _resultValue.deviceClassName = deviceClassName;
             _resultValue.firstAvailable = firstAvailable;

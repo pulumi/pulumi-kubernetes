@@ -82,6 +82,7 @@ namespace Pulumi.Kubernetes.Resource.V1Beta2
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1:DeviceClass" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha3:DeviceClass" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta1:DeviceClass" },
                 },

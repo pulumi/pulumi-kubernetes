@@ -21,14 +21,14 @@ public final class ResourceClaimTemplateSpecPatchArgs extends com.pulumi.resourc
     public static final ResourceClaimTemplateSpecPatchArgs Empty = new ResourceClaimTemplateSpecPatchArgs();
 
     /**
-     * ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+     * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
-     * @return ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+     * @return ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
      * 
      */
     public Optional<Output<ObjectMetaPatchArgs>> metadata() {
@@ -76,7 +76,7 @@ public final class ResourceClaimTemplateSpecPatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class ResourceClaimTemplateSpecPatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+         * @param metadata ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
          * 
          * @return builder
          * 

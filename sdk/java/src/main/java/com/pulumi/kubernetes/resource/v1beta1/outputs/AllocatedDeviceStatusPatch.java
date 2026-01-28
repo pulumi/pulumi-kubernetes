@@ -53,6 +53,11 @@ public final class AllocatedDeviceStatusPatch {
      * 
      */
     private @Nullable String pool;
+    /**
+     * @return ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    private @Nullable String shareID;
 
     private AllocatedDeviceStatusPatch() {}
     /**
@@ -105,6 +110,13 @@ public final class AllocatedDeviceStatusPatch {
     public Optional<String> pool() {
         return Optional.ofNullable(this.pool);
     }
+    /**
+     * @return ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    public Optional<String> shareID() {
+        return Optional.ofNullable(this.shareID);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -121,6 +133,7 @@ public final class AllocatedDeviceStatusPatch {
         private @Nullable String driver;
         private @Nullable NetworkDeviceDataPatch networkData;
         private @Nullable String pool;
+        private @Nullable String shareID;
         public Builder() {}
         public Builder(AllocatedDeviceStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -130,6 +143,7 @@ public final class AllocatedDeviceStatusPatch {
     	      this.driver = defaults.driver;
     	      this.networkData = defaults.networkData;
     	      this.pool = defaults.pool;
+    	      this.shareID = defaults.shareID;
         }
 
         @CustomType.Setter
@@ -171,6 +185,12 @@ public final class AllocatedDeviceStatusPatch {
             this.pool = pool;
             return this;
         }
+        @CustomType.Setter
+        public Builder shareID(@Nullable String shareID) {
+
+            this.shareID = shareID;
+            return this;
+        }
         public AllocatedDeviceStatusPatch build() {
             final var _resultValue = new AllocatedDeviceStatusPatch();
             _resultValue.conditions = conditions;
@@ -179,6 +199,7 @@ public final class AllocatedDeviceStatusPatch {
             _resultValue.driver = driver;
             _resultValue.networkData = networkData;
             _resultValue.pool = pool;
+            _resultValue.shareID = shareID;
             return _resultValue;
         }
     }

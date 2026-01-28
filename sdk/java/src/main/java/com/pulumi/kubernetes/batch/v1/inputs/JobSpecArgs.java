@@ -42,14 +42,14 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies the number of retries before marking this job failed. Defaults to 6
+     * Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     @Import(name="backoffLimit")
     private @Nullable Output<Integer> backoffLimit;
 
     /**
-     * @return Specifies the number of retries before marking this job failed. Defaults to 6
+     * @return Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     public Optional<Output<Integer>> backoffLimit() {
@@ -198,7 +198,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     @Import(name="podReplacementPolicy")
@@ -210,7 +210,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     public Optional<Output<String>> podReplacementPolicy() {
@@ -353,7 +353,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6
+         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
          * 
          * @return builder
          * 
@@ -364,7 +364,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6
+         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
          * 
          * @return builder
          * 
@@ -563,7 +563,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          * - Failed means to wait until a previously created Pod is fully terminated (has phase
          *   Failed or Succeeded) before creating a replacement Pod.
          * 
-         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
          * 
          * @return builder
          * 
@@ -579,7 +579,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          * - Failed means to wait until a previously created Pod is fully terminated (has phase
          *   Failed or Succeeded) before creating a replacement Pod.
          * 
-         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
          * 
          * @return builder
          * 
