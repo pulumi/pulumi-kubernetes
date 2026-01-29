@@ -29,6 +29,7 @@ experimental = true # Required for Go binaries (e.g. pulumictl).
 lockfile = false
 http_retries = 3
 pin = true # `mise use` should pin versions instead of defaulting to latest.
+fetch_remote_versions_cache = "24h" # Mise queries versions even if they're pinned to confirm they exist. Reduce GitHub API calls by doing that less often.
 
 [plugins]
 vfox-pulumi = "https://github.com/pulumi/vfox-pulumi"
