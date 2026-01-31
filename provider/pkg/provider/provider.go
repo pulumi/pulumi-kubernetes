@@ -1520,6 +1520,14 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// object in a new namespace and then deleting the old one).
 			newInputs.GetNamespace() == oldLive.GetNamespace()
 
+	// In YAML render mode, always report changes to force Update to be called.
+	// This ensures all resources are rendered to YAML files, not just changed ones.
+	// This is safe because Update in yamlRenderMode only writes files and doesn't
+	// actually modify any cluster resources.
+	if k.yamlRenderMode {
+		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+	}
+
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
 		Replaces:            replaces,
