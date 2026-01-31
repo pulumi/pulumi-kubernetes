@@ -5,11 +5,18 @@
 
 ### Fixed
 
+
 - Fixed a race condition in StatefulSet await logic where Pulumi could
   incorrectly report a rollout as complete before the controller had processed
   the update. This occurred when Pulumi checked status fields before the
   controller updated `observedGeneration`, causing stale "ready" values to be
   trusted.
+
+- Fixed `renderYamlToDirectory` not rendering unchanged resources. Previously,
+  only created or updated resources would have their YAML files generated.
+  Now all resources are rendered on every run when `renderYamlToDirectory` is
+  enabled. (https://github.com/pulumi/pulumi-kubernetes/issues/4121)
+
 - Fixed a regression of
   [#2943](https://github.com/pulumi/pulumi-kubernetes/pull/2943) which could
   cause Deployments to erroneously report diffs.
