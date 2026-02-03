@@ -21,12 +21,14 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	. "github.com/onsi/ginkgo/v2" //nolint:golint // dot-imports
 	. "github.com/onsi/gomega"    //nolint:golint // dot-imports
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	"google.golang.org/grpc"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/grpc"
+
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
 )
 
 func TestHelmV4(t *testing.T) {

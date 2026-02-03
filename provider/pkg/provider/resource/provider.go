@@ -15,10 +15,12 @@
 package resource
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"helm.sh/helm/v3/pkg/cli"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
-	"helm.sh/helm/v3/pkg/cli"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 type ResourceProvider interface { // nolint:golint // stutters

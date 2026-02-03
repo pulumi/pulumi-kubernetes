@@ -18,9 +18,10 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/yaml"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 // decodeYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into

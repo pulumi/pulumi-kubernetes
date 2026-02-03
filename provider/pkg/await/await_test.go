@@ -21,20 +21,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
@@ -54,6 +40,22 @@ import (
 	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/kube-openapi/pkg/validation/spec"
 	"sigs.k8s.io/yaml"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
 )
 
 var (
@@ -185,8 +187,8 @@ func TestCreation(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitError := func(_ *testing.T, ctx testCtx) awaiter {
+		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
@@ -502,8 +504,8 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitError := func(_ *testing.T, ctx testCtx) awaiter {
+		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
@@ -553,7 +555,7 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 	logged := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(_ *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
 			// FUTURE: assert that a log message was emitted to the fake host
 		}
 	}
@@ -1024,7 +1026,7 @@ func TestDeletion(t *testing.T) {
 			if tt.watcher != nil {
 				clientset.PrependWatchReactor(
 					"*",
-					func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+					func(_ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
 						return true, tt.watcher, nil
 					},
 				)
@@ -1135,26 +1137,26 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 // --------------------------------------------------------------------------
 
 func withSkipAwait(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetAnnotations(map[string]string{
+	objCopy := obj.DeepCopy()
+	objCopy.SetAnnotations(map[string]string{
 		"pulumi.com/skipAwait": "true",
 	})
-	return copy
+	return objCopy
 }
 
 func withWaitFor(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetAnnotations(map[string]string{
+	objCopy := obj.DeepCopy()
+	objCopy.SetAnnotations(map[string]string{
 		"pulumi.com/waitFor": "jsonpath={.metadata}", // Succeeds immediately.
 	})
-	return copy
+	return objCopy
 }
 
 func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
-	copy.SetName("")
-	return copy
+	objCopy := obj.DeepCopy()
+	objCopy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
+	objCopy.SetName("")
+	return objCopy
 }
 
 func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
@@ -1199,9 +1201,9 @@ func (mri *mockResourceInterface) UpdateStatus(
 
 func (mri *mockResourceInterface) Delete(
 	ctx context.Context,
-	name string,
-	options metav1.DeleteOptions,
-	subresources ...string,
+	_ string,
+	_ metav1.DeleteOptions,
+	_ ...string,
 ) error {
 	panic("Delete not implemented")
 }
@@ -1220,7 +1222,7 @@ func (mri *mockResourceInterface) Get(
 
 func (mri *mockResourceInterface) List(
 	ctx context.Context,
-	opts metav1.ListOptions,
+	_ metav1.ListOptions,
 ) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
@@ -1231,18 +1233,18 @@ func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOpt
 
 func (mri *mockResourceInterface) Patch(
 	ctx context.Context,
-	name string,
-	pt types.PatchType,
-	data []byte,
-	options metav1.PatchOptions,
-	subresources ...string,
+	_ string,
+	_ types.PatchType,
+	_ []byte,
+	_ metav1.PatchOptions,
+	_ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
 
 func (mri *mockResourceInterface) Apply(
 	ctx context.Context,
-	name string,
+	_ string,
 	obj *unstructured.Unstructured,
 	options metav1.ApplyOptions,
 	subresources ...string,

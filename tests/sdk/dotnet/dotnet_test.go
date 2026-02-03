@@ -24,10 +24,10 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/onsi/gomega"
+	gm "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
-	. "github.com/onsi/gomega/gstruct"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	gs "github.com/onsi/gomega/gstruct"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
@@ -365,7 +365,7 @@ func TestDotnet_ServerSideApply(t *testing.T) {
 // Component resources are responsible for implementing option propagation logic when creating
 // child resources.
 func TestDotnet_OptionPropagation(t *testing.T) {
-	g := NewWithT(t)
+	g := gm.NewWithT(t)
 	format.MaxLength = 0
 	format.MaxDepth = 5
 	format.RegisterCustomFormatter(pulumirpctesting.FormatDebugInterceptorLog)
@@ -418,11 +418,11 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 			// The Version and PluginDownloadURL options normally serve as hints when selecting
 			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to avoid
 			// any attempt to use the fake version/url.
-			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(HaveEach(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(gm.HaveEach(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 					}),
 				}),
 			))
@@ -431,45 +431,48 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// ConfigGroup "cg-options" with most options
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "a"),
-				"kubernetes:yaml:ConfigGroup", "cg-options")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+				"kubernetes:yaml:ConfigGroup", "cg-options")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cg-options-old"),
+							pgm.Alias("cg-options-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"Providers":     gm.BeEmpty(),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigGroup", "cg-options"),
-				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias("cg-options-cm-1-k8s-aliased"),
-							Alias(
+				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cg-options-cm-1-k8s-aliased"),
+							pgm.Alias(
 								parentA.URN,
 								tokens.Type("kubernetes:core/v1:ConfigMap"),
 								"cg-options-cg-options-cm-1",
 							),
-							Alias("cg-options-cg-options-cm-1-aliased"),
+							pgm.Alias("cg-options-cg-options-cm-1-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("cg-options-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name":        gm.Equal("cg-options-cm-1"),
+								"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
 							}),
 						}))),
 					}),
@@ -479,51 +482,51 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigGroup", "cg-options"),
 				"kubernetes:yaml:ConfigFile",
 				"cg-options-testdata/options/configgroup/manifest.yaml",
-			)).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias(
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias(
 								parentA.URN,
 								tokens.Type("kubernetes:yaml:ConfigFile"),
 								"cg-options-testdata/options/configgroup/manifest.yaml",
 							),
-							Alias("cg-options-testdata/options/configgroup/manifest.yaml-aliased"),
+							pgm.Alias("cg-options-testdata/options/configgroup/manifest.yaml-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"IgnoreChanges":     BeEmpty(),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"IgnoreChanges":     gm.BeEmpty(),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-testdata/options/configgroup/manifest.yaml"),
 				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).
-				To(HaveExactElements(
-					MatchFields(IgnoreExtras, Fields{
-						"Request": MatchFields(IgnoreExtras, Fields{
-							"Aliases": HaveExactElements(
-								Alias("configgroup-cm-1-k8s-aliased"),
-								Alias(
+				To(gm.HaveExactElements(
+					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+							"Aliases": gm.HaveExactElements(
+								pgm.Alias("configgroup-cm-1-k8s-aliased"),
+								pgm.Alias(
 									parentA.URN,
 									tokens.Type("kubernetes:core/v1:ConfigMap"),
 									"cg-options-configgroup-cm-1",
 								),
-								Alias("cg-options-configgroup-cm-1-aliased"),
+								pgm.Alias("cg-options-configgroup-cm-1-aliased"),
 							),
-							"Protect":           PointTo(BeTrue()),
-							"Dependencies":      BeEmpty(),
-							"Provider":          BeEquivalentTo(providerUrn(providerA)),
-							"Version":           Equal("1.2.3"),
-							"PluginDownloadURL": Equal("https://a.pulumi.test"),
-							"Providers":         BeEmpty(),
-							"IgnoreChanges":     BeEmpty(),
-							"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-								"metadata": MatchKeys(IgnoreExtras, Keys{
-									"name":        Equal("configgroup-cm-1"),
-									"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+							"Protect":           gs.PointTo(gm.BeTrue()),
+							"Dependencies":      gm.BeEmpty(),
+							"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+							"Version":           gm.Equal("1.2.3"),
+							"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+							"Providers":         gm.BeEmpty(),
+							"IgnoreChanges":     gm.BeEmpty(),
+							"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+									"name":        gm.Equal("configgroup-cm-1"),
+									"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
 								}),
 							}))),
 						}),
@@ -532,42 +535,42 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigGroup", "cg-provider")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				"kubernetes:yaml:ConfigGroup", "cg-provider")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "cg-provider"),
-				"kubernetes:core/v1:ConfigMap", "cg-provider-cg-provider-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEquivalentTo(providerUrn(providerB)),
+				"kubernetes:core/v1:ConfigMap", "cg-provider-cg-provider-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEquivalentTo(providerUrn(providerB)),
 					}),
 				}),
 			))
 
 			// ConfigGroup "cg-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigGroup", "cg-nullopts")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				"kubernetes:yaml:ConfigGroup", "cg-nullopts")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "cg-nullopts"),
-				"kubernetes:core/v1:ConfigMap", "cg-nullopts-cg-nullopts-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEquivalentTo(providerUrn(providerNullOpts)),
+				"kubernetes:core/v1:ConfigMap", "cg-nullopts-cg-nullopts-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 					}),
 				}),
 			))
@@ -576,49 +579,49 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-options" with most options
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "a"),
-				"kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("cf-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias("cf-options-old"),
-							Alias("cf-options-cf-options-aliased"),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cf-options-old"),
+							pgm.Alias("cf-options-cf-options-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"Providers":     gm.BeEmpty(),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigFile", "cf-options-cf-options"),
-				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias("configfile-cm-1-k8s-aliased"),
-							Alias(
+				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("configfile-cm-1-k8s-aliased"),
+							pgm.Alias(
 								parentA.URN,
 								tokens.Type("kubernetes:core/v1:ConfigMap"),
 								"cf-options-configfile-cm-1",
 							),
-							Alias("cf-options-configfile-cm-1-aliased"),
+							pgm.Alias("cf-options-configfile-cm-1-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("configfile-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name":        gm.Equal("configfile-cm-1"),
+								"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
 							}),
 						}))),
 					}),
@@ -627,27 +630,27 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("cf-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigFile", "cf-provider-cf-provider"),
-				"kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name": Equal("configfile-cm-1"),
+				"kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name": gm.Equal("configfile-cm-1"),
 							}),
 						}))),
 					}),
@@ -656,22 +659,22 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("cf-nullopts") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts"),
-				"kubernetes:core/v1:ConfigMap", "cf-nullopts-configfile-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEquivalentTo(providerUrn(providerNullOpts)),
+				"kubernetes:core/v1:ConfigMap", "cf-nullopts-configfile-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 					}),
 				}),
 			))
@@ -680,46 +683,46 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// Directory "kustomize-options" with most options
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "a"),
-				"kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("kustomize-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias("kustomize-options-old"),
-							Alias("kustomize-options-kustomize-options-aliased"),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("kustomize-options-old"),
+							pgm.Alias("kustomize-options-kustomize-options-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"Providers":     gm.BeEmpty(),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			// urn:pulumi:p-it-pulumitron-options-a5535ee6::options-test::pkg:index:MyComponent$kubernetes:kustomize:Directory::kustomize-options-kustomize-options",
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"),
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).
-				To(HaveExactElements(
-					MatchFields(IgnoreExtras, Fields{
-						"Request": MatchFields(IgnoreExtras, Fields{
-							"Aliases": HaveExactElements(
-								Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
-								Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+				To(gm.HaveExactElements(
+					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+							"Aliases": gm.HaveExactElements(
+								pgm.Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
+								pgm.Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
 							),
-							"Protect":           PointTo(BeTrue()),
-							"Dependencies":      BeEmpty(),
-							"Provider":          BeEquivalentTo(providerUrn(providerA)),
-							"Version":           Equal("1.2.3"),
-							"PluginDownloadURL": Equal("https://a.pulumi.test"),
-							"Providers":         BeEmpty(),
-							"IgnoreChanges":     BeEmpty(),
-							"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-								"metadata": MatchKeys(IgnoreExtras, Keys{
-									"name":        Equal("kustomize-cm-1-2kkk4bthmg"),
-									"annotations": And(HaveKey("transformed")),
+							"Protect":           gs.PointTo(gm.BeTrue()),
+							"Dependencies":      gm.BeEmpty(),
+							"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+							"Version":           gm.Equal("1.2.3"),
+							"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+							"Providers":         gm.BeEmpty(),
+							"IgnoreChanges":     gm.BeEmpty(),
+							"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+									"name":        gm.Equal("kustomize-cm-1-2kkk4bthmg"),
+									"annotations": gm.And(gm.HaveKey("transformed")),
 								}),
 							}))),
 						}),
@@ -728,48 +731,54 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// Directory "kustomize-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("kustomize-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider"),
-				"kubernetes:core/v1:ConfigMap", "kustomize-provider-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+			g.Expect(rr.Named(
+				urn("kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider"),
+				"kubernetes:core/v1:ConfigMap",
+				"kustomize-provider-kustomize-cm-1-2kkk4bthmg",
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 
 			// Directory "kustomize-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("kustomize-nullopts") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts"),
-				"kubernetes:core/v1:ConfigMap", "kustomize-nullopts-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerNullOpts)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+			g.Expect(rr.Named(
+				urn("kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts"),
+				"kubernetes:core/v1:ConfigMap",
+				"kustomize-nullopts-kustomize-cm-1-2kkk4bthmg",
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerNullOpts)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
@@ -778,48 +787,48 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// Chart "chart-options"
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "a"),
-				"kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("chart-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
-							Alias("chart-options-old"),
-							Alias("chart-options-chart-options-aliased"),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
+							pgm.Alias("chart-options-old"),
+							pgm.Alias("chart-options-chart-options-aliased"),
 						),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers":     BeEmpty(),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"Providers":     gm.BeEmpty(),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:helm.sh/v3:Chart", "chart-options-chart-options"),
 				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).
-				To(HaveExactElements(
-					MatchFields(IgnoreExtras, Fields{
-						"Request": MatchFields(IgnoreExtras, Fields{
-							"Aliases": HaveExactElements(
-								Alias("chart-options-chart-options-cm-1-k8s-aliased"),
-								Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
+				To(gm.HaveExactElements(
+					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+							"Aliases": gm.HaveExactElements(
+								pgm.Alias("chart-options-chart-options-cm-1-k8s-aliased"),
+								pgm.Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
 							),
-							"Protect":           PointTo(BeTrue()),
-							"Dependencies":      BeEmpty(),
-							"Provider":          BeEquivalentTo(providerUrn(providerA)),
-							"Version":           Equal("1.2.3"),
-							"PluginDownloadURL": Equal("https://a.pulumi.test"),
-							"Providers":         BeEmpty(),
-							"IgnoreChanges":     BeEmpty(),
-							"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-								"metadata": MatchKeys(IgnoreExtras, Keys{
-									"name": Equal(
+							"Protect":           gs.PointTo(gm.BeTrue()),
+							"Dependencies":      gm.BeEmpty(),
+							"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+							"Version":           gm.Equal("1.2.3"),
+							"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+							"Providers":         gm.BeEmpty(),
+							"IgnoreChanges":     gm.BeEmpty(),
+							"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+									"name": gm.Equal(
 										"chart-options-chart-options-cm-1",
 									), // note: based on the Helm Release name
-									"annotations": And(HaveKey("pulumi.com/skipAwait")),
+									"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait")),
 								}),
 							}))),
 						}),
@@ -828,15 +837,15 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// Chart "chart-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("chart-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
 						// quirk: dotnet SDK applies a default version
-						"Version": Not(BeEmpty()),
+						"Version": gm.Not(gm.BeEmpty()),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
@@ -844,27 +853,27 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				urn("kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
 				"kubernetes:core/v1:ConfigMap",
 				"chart-provider-chart-provider-chart-provider-cm-1",
-			)).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 
 			// Chart "chart-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(gm.HaveExactElements(
 				// quirk: dotnet SDK applies resource_prefix ("chart-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
 						// quirk: dotnet SDK applies a default version
-						"Version": Not(BeEmpty()),
+						"Version": gm.Not(gm.BeEmpty()),
 						// quirk: RegisterResource for component resources doesn't include provider info.
-						"Providers": BeEmpty(),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
@@ -872,12 +881,12 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 				urn("kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts"),
 				"kubernetes:core/v1:ConfigMap",
 				"chart-nullopts-chart-nullopts-chart-nullopts-cm-1",
-			)).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerNullOpts)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerNullOpts)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))

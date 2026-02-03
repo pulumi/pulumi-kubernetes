@@ -42,7 +42,7 @@ func main() {
 			&yaml.ConfigGroupArgs{
 				Files: []string{filepath.Join("manifests", "*.yaml")},
 				Transformations: []yaml.Transformation{
-					func(state map[string]any, opts ...pulumi.ResourceOption) {
+					func(state map[string]any, _ ...pulumi.ResourceOption) {
 						if state["apiVersion"] == "v1" && state["kind"] == "Pod" {
 							metadata := state["metadata"].(map[string]any)
 							_, ok := metadata["labels"]

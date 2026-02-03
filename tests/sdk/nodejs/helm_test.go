@@ -153,7 +153,7 @@ func unmarshalProperties(t *testing.T, props *structpb.Struct) resource.Property
 	return pm
 }
 
-func findByUrn[TRequest any, TResponse any](t *testing.T, entries []grpclog.TypedEntry[TRequest, TResponse],
+func findByUrn[TRequest any, TResponse any](_ *testing.T, entries []grpclog.TypedEntry[TRequest, TResponse],
 	urn string) *grpclog.TypedEntry[TRequest, TResponse] {
 	for _, e := range entries {
 		var eI any = &e.Request

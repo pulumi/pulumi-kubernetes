@@ -18,8 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 )
 
 //

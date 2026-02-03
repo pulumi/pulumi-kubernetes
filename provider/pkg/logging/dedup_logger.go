@@ -19,9 +19,10 @@ import (
 	"sync"
 
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 )
 
 // DedupLogger wraps a time-ordered log set to allow batched logging of unique messages.

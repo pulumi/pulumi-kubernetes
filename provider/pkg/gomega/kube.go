@@ -15,7 +15,7 @@
 package gomega
 
 import (
-	. "github.com/onsi/gomega/gstruct" //nolint:golint // gomega dsl
+	. "github.com/onsi/gomega/gstruct" //nolint:golint,revive // gomega dsl
 	gomegatypes "github.com/onsi/gomega/types"
 )
 

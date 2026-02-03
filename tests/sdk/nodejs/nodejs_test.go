@@ -2187,7 +2187,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				// Repeat step1 again where no changes are made to the deployment since we ignore changes to spec.replicas.
 				Dir:      filepath.Join(testFolderName, "step1"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate replicas was not updated back to 1.
 					depReplicas, err := tests.Kubectl(
 						"get deployment -o=jsonpath='{.spec.replicas}' -n",
@@ -2201,7 +2201,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			{
 				Dir:      filepath.Join(testFolderName, "step2"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
 					depImage, err := tests.Kubectl(
 						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
@@ -2238,7 +2238,7 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			{
 				Dir:      filepath.Join(testFolderName, "step3"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
 					depImage, err := tests.Kubectl(
 						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",

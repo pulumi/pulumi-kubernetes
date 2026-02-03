@@ -17,10 +17,11 @@ package metadata
 import (
 	"errors"
 
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.

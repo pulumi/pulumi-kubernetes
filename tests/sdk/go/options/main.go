@@ -83,7 +83,7 @@ func main() {
 		}
 
 		// transform_k8s is a Kubernetes transformation that applies a unique alias and annotation to each resource.
-		transformK8s := func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+		transformK8s := func(state map[string]interface{}, _ ...pulumi.ResourceOption) {
 			metadata := state["metadata"].(map[string]interface{})
 			metadata["annotations"] = map[string]interface{}{"transformed": "true"}
 

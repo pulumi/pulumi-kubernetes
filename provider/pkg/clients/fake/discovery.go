@@ -16,11 +16,12 @@ package fake
 
 import (
 	"embed"
-	_ "embed" // for embedded metadata documents
 	"encoding/json"
 	"io"
 	"io/fs"
 	"sync"
+
+	_ "embed" // for embedded metadata documents
 
 	openapi_v2 "github.com/google/gnostic-models/openapiv2"
 	"k8s.io/apimachinery/pkg/api/meta"

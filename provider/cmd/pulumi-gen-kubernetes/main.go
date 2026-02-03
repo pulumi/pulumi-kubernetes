@@ -29,8 +29,9 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
-	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v3/codegen/go"
@@ -39,8 +40,9 @@ import (
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 )
 
 // TemplateDir is the path to the base directory for code generator templates.

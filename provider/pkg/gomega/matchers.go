@@ -19,14 +19,15 @@ import (
 	"fmt"
 	"strings"
 
-	. "github.com/onsi/gomega" //nolint:golint // dot-imports
+	. "github.com/onsi/gomega" //nolint:golint,revive // dot-imports
 	"github.com/onsi/gomega/gcustom"
-	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
+	. "github.com/onsi/gomega/gstruct" //nolint:golint,revive // dot-imports
 	gomegatypes "github.com/onsi/gomega/types"
+	structpb "google.golang.org/protobuf/types/known/structpb"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	structpb "google.golang.org/protobuf/types/known/structpb"
 )
 
 // ProtobufStruct matches a protobuf struct by decoding it to a map and then applying the given matcher.

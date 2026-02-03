@@ -58,7 +58,7 @@ func TestObserver(t *testing.T) {
 	t.Run("terminated", func(t *testing.T) {
 		source := Static(make(chan watch.Event))
 		gvk := schema.GroupVersionKind{}
-		o := NewObserver(ctx, source, gvk, func(obj *unstructured.Unstructured) bool {
+		o := NewObserver(ctx, source, gvk, func(_ *unstructured.Unstructured) bool {
 			return true
 		})
 
@@ -83,7 +83,7 @@ func TestObserver(t *testing.T) {
 
 		source := Static(make(chan watch.Event))
 		gvk := schema.GroupVersionKind{}
-		o := NewObserver(ctx, source, gvk, func(obj *unstructured.Unstructured) bool {
+		o := NewObserver(ctx, source, gvk, func(_ *unstructured.Unstructured) bool {
 			return true
 		})
 
@@ -93,7 +93,7 @@ func TestObserver(t *testing.T) {
 		}()
 
 		seen := 0
-		o.Range(func(e watch.Event) bool {
+		o.Range(func(_ watch.Event) bool {
 			seen++
 			return true
 		})

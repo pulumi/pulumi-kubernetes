@@ -23,12 +23,13 @@ import (
 	"testing"
 
 	fxs "github.com/pgavlin/fx/v2/slices"
-	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/txtar"
 	"gopkg.in/yaml.v2"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 )
 
 // gvkToString concatenates a group, version, and kind into a string in the format group.version.kind.

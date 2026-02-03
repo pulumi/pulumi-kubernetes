@@ -20,17 +20,19 @@ import (
 	. "github.com/onsi/ginkgo/v2"      //nolint:golint // dot-imports
 	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
 	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
-	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	kprovider "sigs.k8s.io/kustomize/api/provider"
 	kresmap "sigs.k8s.io/kustomize/api/resmap"
 	kresource "sigs.k8s.io/kustomize/api/resource"
 	kfilesys "sigs.k8s.io/kustomize/kyaml/filesys"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
 var (
@@ -45,7 +47,7 @@ type fakeKustomizer struct {
 
 var _ kustomizer = &fakeKustomizer{}
 
-func (k *fakeKustomizer) Run(fSys kfilesys.FileSystem, path string) (kresmap.ResMap, error) {
+func (k *fakeKustomizer) Run(_ kfilesys.FileSystem, path string) (kresmap.ResMap, error) {
 	return k.resmap, k.err
 }
 
@@ -99,7 +101,7 @@ var _ = Describe("Construct", func() {
 		var err error
 		k = &DirectoryProvider{
 			opts: opts,
-			makeKustomizer: func(args *directoryArgs) kustomizer {
+			makeKustomizer: func(_ *directoryArgs) kustomizer {
 				return tool
 			},
 		}

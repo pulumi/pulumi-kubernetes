@@ -19,9 +19,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 // Satisfier is an Observer which evaluates the observed object against some

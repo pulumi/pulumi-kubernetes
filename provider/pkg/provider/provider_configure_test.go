@@ -16,18 +16,20 @@ package provider
 
 import (
 	"context"
-	_ "embed"
 	"encoding/json"
 	"os"
+
+	_ "embed"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	. "github.com/onsi/gomega/gstruct"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"k8s.io/utils/ptr"
+
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 var _ = Describe("RPC:Configure", func() {

@@ -26,16 +26,18 @@ import (
 	"sync"
 
 	"github.com/go-openapi/jsonreference"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
-	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
-	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/spf13/pflag"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/controller/openapi/builder"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kube-openapi/pkg/validation/spec"
+
+	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 )
 
 // TODO(rquitales): Remove the hardcoded package name once upstream extension parameterization is implemented and can be passed. For now, we can only "parameterize" with one package, but it is

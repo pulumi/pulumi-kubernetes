@@ -21,10 +21,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 func TestEventAggregator(t *testing.T) {

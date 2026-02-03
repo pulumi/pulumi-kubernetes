@@ -17,8 +17,9 @@ package gen
 import (
 	_ "embed" // Needed to support go:embed directive
 
-	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	v1 "k8s.io/api/core/v1"
+
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 )
 
 var serviceSpec = pschema.ComplexTypeSpec{

@@ -20,8 +20,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 // checkCondition is vendored from

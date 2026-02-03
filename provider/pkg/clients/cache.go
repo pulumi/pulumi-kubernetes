@@ -18,9 +18,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 // CRDCache facilitates program-wide resolution of Kubernetes kinds.

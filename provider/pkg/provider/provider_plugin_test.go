@@ -16,11 +16,13 @@ package provider
 
 import (
 	"context"
+
 	_ "embed"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 

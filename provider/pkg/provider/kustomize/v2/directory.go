@@ -18,15 +18,17 @@ import (
 	"context"
 	"fmt"
 
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
-	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"sigs.k8s.io/kustomize/api/krusty"
 	kresmap "sigs.k8s.io/kustomize/api/resmap"
 	ktypes "sigs.k8s.io/kustomize/api/types"
 	kfilesys "sigs.k8s.io/kustomize/kyaml/filesys"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 )
 
 type kustomizer interface {

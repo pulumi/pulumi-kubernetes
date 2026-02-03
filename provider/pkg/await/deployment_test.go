@@ -42,7 +42,7 @@ func Test_Apps_Deployment(t *testing.T) {
 	}{
 		{
 			description: "[Revision 1] Should succeed after creating ReplicaSet",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -63,7 +63,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should succeed after creating ReplicaSet",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -84,7 +84,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Succeed if ReplicaSet becomes available before Deployment repots it",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -302,7 +302,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet is created",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but the replication
 				// controller does not start initializing it before it errors out.
 				deployments <- watchAddedEvent(
@@ -322,7 +322,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet becomes available",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but it's still
 				// unavailable when we time out.
 				deployments <- watchAddedEvent(
@@ -345,7 +345,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if new ReplicaSet isn't created after an update",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, pods chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller does not create a new
 				// ReplicaSet before we time out.
 				deployments <- watchAddedEvent(

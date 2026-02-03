@@ -16,16 +16,19 @@ package provider
 
 import (
 	"context"
+
 	_ "embed"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	helmcli "helm.sh/helm/v3/pkg/cli"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	helmcli "helm.sh/helm/v3/pkg/cli"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
 var _ = Describe("RPC:Construct", func() {

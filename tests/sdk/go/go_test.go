@@ -315,7 +315,7 @@ func TestHelmReleaseImportTool(t *testing.T) {
 				"chart":   chart.ChartReference(), // bitnami/nginx
 				"version": chartVersion.Version,   // 15.3.4
 			},
-			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+			ExtraRuntimeValidation: func(_ *testing.T, _ integration.RuntimeValidationStackInfo) {
 			},
 		})
 		run(t, options, runOptions{

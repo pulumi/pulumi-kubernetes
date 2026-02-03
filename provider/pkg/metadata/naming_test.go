@@ -18,14 +18,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	"github.com/stretchr/testify/assert"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-
-	"github.com/stretchr/testify/assert"
-
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 func TestAssignNameIfAutonamable(t *testing.T) {

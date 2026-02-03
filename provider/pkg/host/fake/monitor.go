@@ -20,15 +20,16 @@ import (
 	"sync"
 	"testing"
 
+	"golang.org/x/exp/maps"
+	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/emptypb"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"golang.org/x/exp/maps"
-	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type SimpleMonitor struct {
@@ -158,7 +159,7 @@ func (m *ResourceMonitorServer) RegisterResourceOutputs(
 }
 
 func (m *ResourceMonitorServer) RegisterResource(
-	ctx context.Context,
+	_ context.Context,
 	in *pulumirpc.RegisterResourceRequest,
 ) (*pulumirpc.RegisterResourceResponse, error) {
 	if in.GetType() == string(resource.RootStackType) && in.GetParent() == "" {

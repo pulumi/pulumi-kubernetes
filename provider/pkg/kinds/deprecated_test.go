@@ -18,13 +18,14 @@ import (
 	"reflect"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/runtime/schema"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	. "k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 func TestDeprecatedApiVersion(t *testing.T) {
 	tests := []struct {
-		gvk     GroupVersionKind
+		gvk     schema.GroupVersionKind
 		version *cluster.ServerVersion
 		want    bool
 	}{
@@ -89,14 +90,14 @@ func TestDeprecatedApiVersion(t *testing.T) {
 
 func TestExistsInVersion(t *testing.T) {
 	tests := []struct {
-		gvk     GroupVersionKind
+		gvk     schema.GroupVersionKind
 		version *cluster.ServerVersion
 		want    bool
 	}{
 		{toGVK(StorageV1, CSINode), &v118, true},
 		{toGVK(StorageV1, CSINode), &v117, true},
 		{toGVK(StorageV1, CSINode), &v116, false},
-		{GroupVersionKind{}, nil, false},
+		{schema.GroupVersionKind{}, nil, false},
 		{toGVK(AppsV1, Deployment), &v18, false},
 		{toGVK(AppsV1, Deployment), &v19, true},
 		{toGVK(ResourceV1B1, DeviceClass), &v132, true},
@@ -126,14 +127,14 @@ func TestExistsInVersion(t *testing.T) {
 func TestGvkFromStr(t *testing.T) {
 	tests := []struct {
 		gvkString string
-		want      GroupVersionKind
+		want      schema.GroupVersionKind
 	}{
-		{"storage.k8s.io/v1/CSINode", GroupVersionKind{Group: "storage.k8s.io", Version: "v1", Kind: "CSINode"}},
+		{"storage.k8s.io/v1/CSINode", schema.GroupVersionKind{Group: "storage.k8s.io", Version: "v1", Kind: "CSINode"}},
 		{
 			"networking.k8s.io/v1beta1/IngressList",
-			GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"},
+			schema.GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"},
 		},
-		{"something/else", GroupVersionKind{}},
+		{"something/else", schema.GroupVersionKind{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvkString, func(t *testing.T) {
@@ -150,7 +151,7 @@ func TestSuggestedApiVersion(t *testing.T) {
 	}
 
 	tests := []struct {
-		gvk  GroupVersionKind
+		gvk  schema.GroupVersionKind
 		want string
 	}{
 		// Deprecated ApiVersions return the suggested version string.
@@ -205,7 +206,7 @@ func TestSuggestedApiVersion(t *testing.T) {
 
 func TestRemovedInVersion(t *testing.T) {
 	tests := []struct {
-		gvk         GroupVersionKind
+		gvk         schema.GroupVersionKind
 		wantVersion *cluster.ServerVersion
 	}{
 		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), &v122},
@@ -248,7 +249,7 @@ func TestRemovedInVersion(t *testing.T) {
 
 func TestRemovedApiVersion(t *testing.T) {
 	type args struct {
-		gvk     GroupVersionKind
+		gvk     schema.GroupVersionKind
 		version cluster.ServerVersion
 	}
 	tests := []struct {
@@ -258,10 +259,10 @@ func TestRemovedApiVersion(t *testing.T) {
 		wantVersion *cluster.ServerVersion
 	}{
 		{"API exists", args{
-			GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+			schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
 			cluster.ServerVersion{Major: 1, Minor: 16}}, false, nil},
 		{"API removed", args{
-			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Deployment"},
+			schema.GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Deployment"},
 			cluster.ServerVersion{Major: 1, Minor: 16}},
 			true, &cluster.ServerVersion{Major: 1, Minor: 16}},
 	}

@@ -19,19 +19,20 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-
-	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/cloud-ready-checks/pkg/checker"
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 var _ condition.Observer = (*Aggregator[*corev1.Event])(nil)
@@ -214,7 +215,7 @@ func NewEventAggregator(
 		relatedEvents(owner),
 	)
 	return NewAggregator(observer, logger,
-		func(l logMessager, e *corev1.Event) error {
+		func(_ logMessager, e *corev1.Event) error {
 			if e == nil {
 				return nil
 			}

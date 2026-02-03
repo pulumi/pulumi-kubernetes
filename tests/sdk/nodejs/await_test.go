@@ -54,8 +54,8 @@ func TestAwaitGeneric(t *testing.T) {
 			msg := e.DiagnosticEvent.Message
 			if strings.Contains(msg, "Waiting for") || strings.Contains(msg, "Missing") {
 				go func() {
+					//nolint:revive // Need to exhaust the channel otherwise things deadlock.
 					for range events {
-						// Need to exhaust the channel otherwise things deadlock.
 					}
 				}()
 				break

@@ -19,10 +19,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"helm.sh/helm/v3/pkg/getter"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 type mockGetter struct {
@@ -32,7 +33,7 @@ type mockGetter struct {
 
 var _ getter.Getter = (*mockGetter)(nil)
 
-func (m *mockGetter) Get(url string, options ...getter.Option) (*bytes.Buffer, error) {
+func (m *mockGetter) Get(_ string, _ ...getter.Option) (*bytes.Buffer, error) {
 	return bytes.NewBuffer(m.data), m.err
 }
 
@@ -238,7 +239,7 @@ image:
 		t.Run(tt.name, func(t *testing.T) {
 			p := getter.Provider{
 				Schemes: []string{"mock"},
-				New: func(options ...getter.Option) (getter.Getter, error) {
+				New: func(_ ...getter.Option) (getter.Getter, error) {
 					return tt.mockGetter, nil
 				},
 			}

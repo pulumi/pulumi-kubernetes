@@ -21,10 +21,11 @@ import (
 	"testing"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 func NewEngineServer(t testing.TB) *EngineServer {
@@ -97,7 +98,7 @@ func (m *EngineServer) Logs() []*pulumirpc.LogRequest {
 var _ pulumirpc.EngineServer = &EngineServer{}
 
 // Log logs a global message in the engine, including errors and warnings.
-func (m *EngineServer) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
+func (m *EngineServer) Log(_ context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
 	m.mu.Lock()
 	m.logs = append(m.logs, in)
@@ -108,8 +109,8 @@ func (m *EngineServer) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbem
 // GetRootResource gets the URN of the root resource, the resource that should be the root of all
 // otherwise-unparented resources.
 func (m *EngineServer) GetRootResource(
-	ctx context.Context,
-	in *pulumirpc.GetRootResourceRequest,
+	_ context.Context,
+	_ *pulumirpc.GetRootResourceRequest,
 ) (*pulumirpc.GetRootResourceResponse, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -120,7 +121,7 @@ func (m *EngineServer) GetRootResource(
 
 // SetRootResource sets the URN of the root resource.
 func (m *EngineServer) SetRootResource(
-	ctx context.Context,
+	_ context.Context,
 	in *pulumirpc.SetRootResourceRequest,
 ) (*pulumirpc.SetRootResourceResponse, error) {
 	m.mu.Lock()

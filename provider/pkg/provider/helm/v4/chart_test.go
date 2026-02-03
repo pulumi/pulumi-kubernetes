@@ -22,16 +22,18 @@ import (
 	. "github.com/onsi/ginkgo/v2"      //nolint:golint // dot-imports
 	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
 	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
-	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	"helm.sh/helm/v3/pkg/chartutil"
+	"helm.sh/helm/v3/pkg/cli"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"helm.sh/helm/v3/pkg/chartutil"
-	"helm.sh/helm/v3/pkg/cli"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
 var _ = Describe("Construct", func() {

@@ -17,9 +17,10 @@ package fake
 import (
 	"context"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubefake "k8s.io/client-go/kubernetes/fake"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 func NewSimpleLogClient(ctx context.Context, objects ...runtime.Object) (*clients.LogClient, *kubefake.Clientset) {

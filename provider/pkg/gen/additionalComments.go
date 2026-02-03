@@ -19,9 +19,10 @@ import (
 	"strconv"
 	"strings"
 
+	"k8s.io/apimachinery/pkg/runtime/schema"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 func awaitComments(kind kinds.Kind) string {

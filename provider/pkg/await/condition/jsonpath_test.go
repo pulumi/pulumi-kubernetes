@@ -5,10 +5,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/jsonpath"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/jsonpath"
 )
 
 func TestJSONPath(t *testing.T) {

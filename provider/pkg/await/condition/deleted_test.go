@@ -51,10 +51,10 @@ var pod = &unstructured.Unstructured{
 type get404 struct{}
 
 func (get404) Get(
-	ctx context.Context,
+	_ context.Context,
 	name string,
-	opts metav1.GetOptions,
-	sub ...string,
+	_ metav1.GetOptions,
+	_ ...string,
 ) (*unstructured.Unstructured, error) {
 	return nil, k8serrors.NewNotFound(schema.GroupResource{}, name)
 }
@@ -62,10 +62,10 @@ func (get404) Get(
 type get503 struct{}
 
 func (get503) Get(
-	ctx context.Context,
-	name string,
-	opts metav1.GetOptions,
-	sub ...string,
+	_ context.Context,
+	_ string,
+	_ metav1.GetOptions,
+	_ ...string,
 ) (*unstructured.Unstructured, error) {
 	return nil, k8serrors.NewServiceUnavailable("boom")
 }

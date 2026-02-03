@@ -17,9 +17,10 @@ package host
 import (
 	"context"
 
+	"google.golang.org/grpc"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"google.golang.org/grpc"
 )
 
 // HostClient is the interface that the provider uses to communicate with the Pulumi engine.

@@ -20,8 +20,6 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -33,6 +31,10 @@ import (
 	clientcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 )
 
 // ResourceClient returns a dynamic client for the given built-in Kind and namespace.
@@ -122,6 +124,7 @@ func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructu
 func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKind, error) {
 	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
 	if err != nil {
+		//nolint:revive // Intentionally empty - we ignore GroupDiscoveryFailed errors
 		if discovery.IsGroupDiscoveryFailedError(err) {
 			// The ServerPreferredResources method will return a best-effort list of resources,
 			// and will also return a GroupDiscoveryFailed error with a list of any resources

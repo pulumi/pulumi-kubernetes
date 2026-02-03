@@ -21,12 +21,13 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
 	"sigs.k8s.io/cli-utils/pkg/kstatus/status"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 var _ Satisfier = (*Deleted)(nil)

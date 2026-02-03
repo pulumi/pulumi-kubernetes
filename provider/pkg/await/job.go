@@ -19,19 +19,21 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/cloud-ready-checks/pkg/checker"
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 )
 
 // ------------------------------------------------------------------------------------------------

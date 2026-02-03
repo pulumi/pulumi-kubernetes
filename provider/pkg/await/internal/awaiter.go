@@ -20,10 +20,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/wait"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 )
 
 // Awaiter orchestrates a condition Satisfier and optional Observers.

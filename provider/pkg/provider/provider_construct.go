@@ -18,13 +18,14 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
 	providerhelmv4 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/helm/v4"
 	providerkustomizev2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/kustomize/v2"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 // resourceProviders contains factories for component resource providers.
