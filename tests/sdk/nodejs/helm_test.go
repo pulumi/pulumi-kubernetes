@@ -47,7 +47,10 @@ func TestHelmUnknowns(t *testing.T) {
 	g := NewWithT(t)
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"
-	test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/)
+	test := pulumitest.NewPulumiTest(
+		t,
+		"helm-release-unknowns", /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/
+	)
 	t.Logf("into %s", test.WorkingDir())
 
 	urn := func(baseType tokens.Type, name string) string {
@@ -237,6 +240,7 @@ func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing
 	if _, err := os.Stat(manifestDir); err == nil {
 		manifestFiles, err := os.ReadDir(manifestDir)
 		g.Expect(err).ToNot(HaveOccurred())
-		g.Expect(len(manifestFiles)).To(BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
+		g.Expect(len(manifestFiles)).
+			To(BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
 	}
 }

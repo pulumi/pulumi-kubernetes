@@ -52,7 +52,10 @@ type directoryArgs struct {
 	SkipAwait      bool
 }
 
-func unwrapDirectoryArgs(ctx context.Context, args *DirectoryArgs) (*directoryArgs, internals.UnsafeAwaitOutputResult, error) {
+func unwrapDirectoryArgs(
+	ctx context.Context,
+	args *DirectoryArgs,
+) (*directoryArgs, internals.UnsafeAwaitOutputResult, error) {
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Directory, args.Namespace, args.ResourcePrefix, args.SkipAwait))
 	if err != nil || !result.Known {
@@ -89,7 +92,12 @@ func NewDirectoryProvider(opts *providerresource.ResourceProviderOptions) provid
 	}
 }
 
-func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+func (r *DirectoryProvider) Construct(
+	ctx *pulumi.Context,
+	typ, name string,
+	inputs pulumiprovider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*pulumiprovider.ConstructResult, error) {
 	comp := &DirectoryState{}
 	err := ctx.RegisterComponentResource(typ, name, comp, options)
 	if err != nil {

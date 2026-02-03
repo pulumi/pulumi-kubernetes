@@ -174,7 +174,9 @@ func (m *StubResettableRESTMapper) ResourceFor(input schema.GroupVersionResource
 	return m.ResettableRESTMapper.ResourceFor(input)
 }
 
-func (m *StubResettableRESTMapper) ResourcesFor(input schema.GroupVersionResource) ([]schema.GroupVersionResource, error) {
+func (m *StubResettableRESTMapper) ResourcesFor(
+	input schema.GroupVersionResource,
+) ([]schema.GroupVersionResource, error) {
 	if m.ResourcesForF != nil {
 		return m.ResourcesForF(input)
 	}

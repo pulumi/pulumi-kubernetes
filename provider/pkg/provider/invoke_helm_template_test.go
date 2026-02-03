@@ -15,7 +15,12 @@ func TestNormalizeChartRef(t *testing.T) {
 		}
 	}
 
-	check("bitnami", "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami", "apache", "apache")
+	check(
+		"bitnami",
+		"https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
+		"apache",
+		"apache",
+	)
 	check("bitnami", "", "apache", "bitnami/apache")
 	check("bitnami", "", "bitnami/apache", "bitnami/apache")
 }

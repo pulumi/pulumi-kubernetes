@@ -139,7 +139,14 @@ func (iia *ingressInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	defer serviceInformer.Unsubscribe()
 
 	timeout := iia.config.getTimeout(DefaultIngressTimeoutMins * 60)
-	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
+	return iia.await(
+		ingressEvents,
+		serviceEvents,
+		endpointsEvents,
+		make(chan struct{}),
+		time.After(60*time.Second),
+		time.After(timeout),
+	)
 }
 
 func (iia *ingressInitAwaiter) Read() error {
@@ -367,8 +374,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 					if iia.endpointsSettled {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist.
-						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
-							expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
+						iia.config.logger.LogStatus(
+							diag.Warning,
+							fmt.Sprintf("No matching service found for ingress rule: %s",
+								expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)),
+						)
 					} else {
 						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false
@@ -405,8 +415,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist
 						// (https://github.com/pulumi/pulumi-kubernetes/issues/1810)
-						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
-							expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
+						iia.config.logger.LogStatus(
+							diag.Warning,
+							fmt.Sprintf("No matching service found for ingress rule: %s",
+								expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)),
+						)
 					} else {
 						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false

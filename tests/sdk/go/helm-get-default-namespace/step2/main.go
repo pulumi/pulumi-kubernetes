@@ -9,8 +9,10 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		chart, err := helm.NewChart(ctx, "test-get-default-object", helm.ChartArgs{
-			Path:    pulumi.String("local-chart"),
-			Version: pulumi.String("0.1.1"), // Trigger a Helm upgrade. This version contains the explicit default namespace for the resource manifest.
+			Path: pulumi.String("local-chart"),
+			Version: pulumi.String(
+				"0.1.1",
+			), // Trigger a Helm upgrade. This version contains the explicit default namespace for the resource manifest.
 		})
 		if err != nil {
 			return err

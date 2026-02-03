@@ -35,7 +35,9 @@ func TestIsPatchURN(t *testing.T) {
 		// Component resources
 		{
 			"Patch resource within a Component Resource",
-			resource.URN("urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:apps/v1:DaemonSetPatch::k8s-daemonset-patch-child"),
+			resource.URN(
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:apps/v1:DaemonSetPatch::k8s-daemonset-patch-child",
+			),
 			"DaemonSet",
 			true,
 		},
@@ -47,13 +49,17 @@ func TestIsPatchURN(t *testing.T) {
 		},
 		{
 			"Custom Resource with Patch suffix",
-			resource.URN("urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatch::k8s-meshproxy-patch-child"),
+			resource.URN(
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatch::k8s-meshproxy-patch-child",
+			),
 			"MeshProxyPatch",
 			false,
 		},
 		{
 			"Custom Resource with Patch suffix that is a patch resource",
-			resource.URN("urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatchPatch::k8s-meshproxy-patch-child"),
+			resource.URN(
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatchPatch::k8s-meshproxy-patch-child",
+			),
 			"MeshProxyPatch",
 			true,
 		},
@@ -80,7 +86,9 @@ func TestIsListURN(t *testing.T) {
 		},
 		{
 			"List resource within a Component Resource",
-			resource.URN("urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:apps/v1:DaemonSetList::k8s-daemonset-list-child"),
+			resource.URN(
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:apps/v1:DaemonSetList::k8s-daemonset-list-child",
+			),
 			true,
 		},
 		{

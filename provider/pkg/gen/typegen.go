@@ -569,7 +569,12 @@ func createAliases(definitions []definition, canonicalGroups map[string]string) 
 }
 
 // createKinds creates a list of KindConfig objects from the parsed Swagger definitions.
-func createKinds(definitions []definition, canonicalGroups map[string]string, aliases map[string][]any, allowHyphens bool) []KindConfig {
+func createKinds(
+	definitions []definition,
+	canonicalGroups map[string]string,
+	aliases map[string][]any,
+	allowHyphens bool,
+) []KindConfig {
 	var kinds []KindConfig
 
 	for _, d := range definitions {

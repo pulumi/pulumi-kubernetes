@@ -91,13 +91,55 @@ func TestIsNamespacedKind(t *testing.T) {
 	}{
 		{schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Pod"}, nil, nil, true, false},
 		{schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, nil, nil, true, false},
-		{schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"}, nil, nil, true, false},
-		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Role"}, nil, nil, false, false},
-		{schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Missing"}, nil, nil, false, true},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, fakeCRDs, nil, true, false},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, fakeCRDs, nil, false, true},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}, nil, fakeCRDs, true, false},
-		{schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"}, nil, fakeCRDs, false, true},
+		{
+			schema.GroupVersionKind{Group: "rbac.authorization.k8s.io", Version: "v1", Kind: "Role"},
+			nil,
+			nil,
+			true,
+			false,
+		},
+		{
+			schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Role"},
+			nil,
+			nil,
+			false,
+			false,
+		},
+		{
+			schema.GroupVersionKind{Group: "postgresql.example.com", Version: "v1alpha1", Kind: "Missing"},
+			nil,
+			nil,
+			false,
+			true,
+		},
+		{
+			schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"},
+			fakeCRDs,
+			nil,
+			true,
+			false,
+		},
+		{
+			schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"},
+			fakeCRDs,
+			nil,
+			false,
+			true,
+		},
+		{
+			schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"},
+			nil,
+			fakeCRDs,
+			true,
+			false,
+		},
+		{
+			schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "Missing"},
+			nil,
+			fakeCRDs,
+			false,
+			true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {

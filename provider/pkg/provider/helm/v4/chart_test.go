@@ -77,7 +77,12 @@ var _ = Describe("Construct", func() {
 			opts: opts,
 			tool: func() *kubehelm.Tool {
 				// make a fake tool for testing purposes
-				return kubehelm.NewFakeTool(opts.HelmOptions.EnvSettings, initActionConfig, locator.LocateChart, executor.Execute)
+				return kubehelm.NewFakeTool(
+					opts.HelmOptions.EnvSettings,
+					initActionConfig,
+					locator.LocateChart,
+					executor.Execute,
+				)
 			},
 		}
 		req.Inputs, err = plugin.MarshalProperties(inputs, plugin.MarshalOptions{
@@ -246,7 +251,9 @@ var _ = Describe("Construct", func() {
 				valuesFile, err = resource.NewTextAsset("fullnameOverride: overridden")
 				Expect(err).ShouldNot(HaveOccurred())
 
-				inputs["valueYamlFiles"] = resource.NewArrayProperty([]resource.PropertyValue{resource.NewAssetProperty(valuesFile)})
+				inputs["valueYamlFiles"] = resource.NewArrayProperty(
+					[]resource.PropertyValue{resource.NewAssetProperty(valuesFile)},
+				)
 			})
 			It("should configure the values", func(ctx context.Context) {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
@@ -266,9 +273,18 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+								"test:crontabs.stable.example.com",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference",
+								"test:default/test-reference",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference",
+								"test:default/test-reference",
+							),
 						)),
 					}))
 				})
@@ -286,9 +302,18 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:provider/test-reference", "test:provider/test-reference"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:provider/test-reference", "test:provider/test-reference"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+								"test:crontabs.stable.example.com",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:provider/test-reference",
+								"test:provider/test-reference",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:provider/test-reference",
+								"test:provider/test-reference",
+							),
 						)),
 					}))
 				})
@@ -305,9 +330,18 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:release/test-reference", "test:release/test-reference"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:release/test-reference", "test:release/test-reference"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+								"test:crontabs.stable.example.com",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:release/test-reference",
+								"test:release/test-reference",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:release/test-reference",
+								"test:release/test-reference",
+							),
 						)),
 					}))
 				})
@@ -344,13 +378,22 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference",
+								"test:default/test-reference",
+							),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference",
+								"test:default/test-reference",
+							),
 						)),
 					}))
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(Not(ContainElement(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+								"test:crontabs.stable.example.com",
+							),
 						))),
 					}))
 				})
@@ -372,7 +415,9 @@ var _ = Describe("Construct", func() {
 					})
 					inputs["postRenderer"] = resource.NewObjectProperty(resource.PropertyMap{
 						"command": resource.NewStringProperty("touch"),
-						"args":    resource.NewArrayProperty([]resource.PropertyValue{resource.NewStringProperty(filepath.Join(tempdir, "touched.txt"))}),
+						"args": resource.NewArrayProperty(
+							[]resource.PropertyValue{resource.NewStringProperty(filepath.Join(tempdir, "touched.txt"))},
+						),
 					})
 				})
 				It("should run the postrender command", func(ctx context.Context) {
@@ -396,9 +441,18 @@ var _ = Describe("Construct", func() {
 			outputs := unmarshalProperties(GinkgoTB(), resp.State)
 			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 				"resources": MatchArrayValue(ConsistOf(
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference", "test:default/test-reference"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference", "test:default/test-reference"),
+					MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+						"test:crontabs.stable.example.com",
+					),
+					MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference",
+						"test:default/test-reference",
+					),
+					MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference",
+						"test:default/test-reference",
+					),
 				)),
 			}))
 		})
@@ -413,9 +467,18 @@ var _ = Describe("Construct", func() {
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com", "prefixed:crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::prefixed:default/test-reference", "prefixed:default/test-reference"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::prefixed:default/test-reference", "prefixed:default/test-reference"),
+						MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com",
+							"prefixed:crontabs.stable.example.com",
+						),
+						MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::prefixed:default/test-reference",
+							"prefixed:default/test-reference",
+						),
+						MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::prefixed:default/test-reference",
+							"prefixed:default/test-reference",
+						),
 					)),
 				}))
 			})
@@ -429,15 +492,24 @@ var _ = Describe("Construct", func() {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
-					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com": MatchFields(IgnoreExtras, Fields{
-						"State": HaveSkipAwaitAnnotation(),
-					}),
-					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
-						"State": HaveSkipAwaitAnnotation(),
-					}),
-					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
-						"State": HaveSkipAwaitAnnotation(),
-					}),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com": MatchFields(
+						IgnoreExtras,
+						Fields{
+							"State": HaveSkipAwaitAnnotation(),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(
+						IgnoreExtras,
+						Fields{
+							"State": HaveSkipAwaitAnnotation(),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Service::test:default/test-reference": MatchFields(
+						IgnoreExtras,
+						Fields{
+							"State": HaveSkipAwaitAnnotation(),
+						},
+					),
 				}))
 			})
 		})
@@ -475,11 +547,14 @@ var _ = Describe("Construct", func() {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
-					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(IgnoreExtras, Fields{
-						"Request": MatchFields(IgnoreExtras, Fields{
-							"RetainOnDelete": PointTo(BeTrue()),
-						}),
-					}),
+					"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ServiceAccount::test:default/test-reference": MatchFields(
+						IgnoreExtras,
+						Fields{
+							"Request": MatchFields(IgnoreExtras, Fields{
+								"RetainOnDelete": PointTo(BeTrue()),
+							}),
+						},
+					),
 				}))
 			})
 		})

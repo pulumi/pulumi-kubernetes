@@ -19,7 +19,12 @@ func main() {
 		if err != nil {
 			return err
 		}
-		nulloptsNs, err := corev1.NewNamespace(ctx, "nullopts", &corev1.NamespaceArgs{}, pulumi.Provider(bootstrapProvider))
+		nulloptsNs, err := corev1.NewNamespace(
+			ctx,
+			"nullopts",
+			&corev1.NamespaceArgs{},
+			pulumi.Provider(bootstrapProvider),
+		)
 		if err != nil {
 			return err
 		}
@@ -31,7 +36,11 @@ func main() {
 		if err != nil {
 			return err
 		}
-		nulloptsProvider, err := kubernetes.NewProvider(ctx, "nullopts", &kubernetes.ProviderArgs{Namespace: nulloptsNs.Metadata.Name()})
+		nulloptsProvider, err := kubernetes.NewProvider(
+			ctx,
+			"nullopts",
+			&kubernetes.ProviderArgs{Namespace: nulloptsNs.Metadata.Name()},
+		)
 		if err != nil {
 			return err
 		}

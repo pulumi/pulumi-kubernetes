@@ -321,7 +321,10 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	return &release, nil
 }
 
-func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (r *helmReleaseProvider) Check(
+	ctx context.Context,
+	req *pulumirpc.CheckRequest,
+) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Check(%s)", r.name, urn)
 
@@ -435,7 +438,11 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 	}
 }
 
-func (r *helmReleaseProvider) helmLoad(ctx context.Context, urn resource.URN, newRelease *Release) (*helmchart.Chart, error) {
+func (r *helmReleaseProvider) helmLoad(
+	ctx context.Context,
+	urn resource.URN,
+	newRelease *Release,
+) (*helmchart.Chart, error) {
 	conf, err := r.getActionConfig(newRelease.Namespace)
 	if err != nil {
 		return nil, err
@@ -565,7 +572,16 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
 			return err
 		}
-		_ = r.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("Helm release %q was created but has a failed status. Use the `helm` command to investigate the error, correct it, then retry. Reason: %v", client.ReleaseName, err))
+		_ = r.host.Log(
+			ctx,
+			diag.Warning,
+			urn,
+			fmt.Sprintf(
+				"Helm release %q was created but has a failed status. Use the `helm` command to investigate the error, correct it, then retry. Reason: %v",
+				client.ReleaseName,
+				err,
+			),
+		)
 		return &releaseFailedError{release: newRelease, err: err}
 	}
 
@@ -766,7 +782,13 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		return nil, fmt.Errorf("internal error: json.Marshal(oldStateJson): %w", err)
 	}
 	logger.V(9).Infof("oldStateJSON: %s", string(oldStateJSON))
-	strategicPatchJSON, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, &noSchema{}, true)
+	strategicPatchJSON, err := strategicpatch.CreateThreeWayMergePatch(
+		oldInputsJSON,
+		newInputsJSON,
+		oldStateJSON,
+		&noSchema{},
+		true,
+	)
 	if err != nil {
 		return nil, fmt.Errorf("internal error: CreateThreeWayMergePatch: %w", err)
 	}
@@ -812,7 +834,9 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 
 		for k, v := range detailedDiff {
 			switch v.Kind {
-			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+			case pulumirpc.PropertyDiff_ADD_REPLACE,
+				pulumirpc.PropertyDiff_DELETE_REPLACE,
+				pulumirpc.PropertyDiff_UPDATE_REPLACE:
 				replaces = append(replaces, k)
 			}
 		}
@@ -854,7 +878,10 @@ func resultToError(r *action.LintResult) error {
 	return fmt.Errorf("malformed chart or values: \n\t%s", strings.Join(messages, "\n\t"))
 }
 
-func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
+func (r *helmReleaseProvider) Create(
+	ctx context.Context,
+	req *pulumirpc.CreateRequest,
+) (*pulumirpc.CreateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Create(%s)", r.name, urn)
 
@@ -1017,7 +1044,10 @@ func (r *helmReleaseProvider) serializeImportInputs(release *Release) resource.P
 	return inputs
 }
 
-func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
+func (r *helmReleaseProvider) Update(
+	ctx context.Context,
+	req *pulumirpc.UpdateRequest,
+) (*pulumirpc.UpdateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Update(%s)", r.name, urn)
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
@@ -1128,12 +1158,22 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	}
 
 	if res.Info != "" {
-		_ = r.host.Log(context.Background(), diag.Warning, urn, fmt.Sprintf("Helm uninstall returned information: %q", res.Info))
+		_ = r.host.Log(
+			context.Background(),
+			diag.Warning,
+			urn,
+			fmt.Sprintf("Helm uninstall returned information: %q", res.Info),
+		)
 	}
 	return &pbempty.Empty{}, nil
 }
 
-func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string, isPreview bool) resource.PropertyMap {
+func checkpointRelease(
+	inputs resource.PropertyMap,
+	outputs *Release,
+	label string,
+	isPreview bool,
+) resource.PropertyMap {
 	logger.V(9).Infof("[%s] Checkpointing outputs: %#v", label, outputs)
 	logger.V(9).Infof("[%s] Checkpointing inputs: %#v", label, inputs)
 	object := resource.NewPropertyMap(outputs)
@@ -1256,7 +1296,12 @@ func getRelease(cfg *action.Configuration, name string) (*release.Release, error
 	return res, nil
 }
 
-func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.URN, release *Release, hr *release.Release) error {
+func (r *helmReleaseProvider) importRelease(
+	ctx context.Context,
+	urn resource.URN,
+	release *Release,
+	hr *release.Release,
+) error {
 
 	// note: setReleaseAttributes pre-populates some of the inputs
 
@@ -1684,11 +1729,15 @@ type noSchema struct{}
 
 var _ strategicpatch.LookupPatchMeta = &noSchema{}
 
-func (*noSchema) LookupPatchMetadataForSlice(key string) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
+func (*noSchema) LookupPatchMetadataForSlice(
+	key string,
+) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
 	return &noSchema{}, strategicpatch.PatchMeta{}, nil
 }
 
-func (*noSchema) LookupPatchMetadataForStruct(key string) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
+func (*noSchema) LookupPatchMetadataForStruct(
+	key string,
+) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
 	return &noSchema{}, strategicpatch.PatchMeta{}, nil
 }
 

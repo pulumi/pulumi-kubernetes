@@ -447,7 +447,12 @@ func TestCRDs(t *testing.T) {
 					//
 					// Assert that the CR was gotten.
 					//
-					ct1ref := tests.SearchResourcesByName(stackInfo, "", "kubernetes:stable.example.com/v1:FooBar", "my-new-foobar-object-ref")
+					ct1ref := tests.SearchResourcesByName(
+						stackInfo,
+						"",
+						"kubernetes:stable.example.com/v1:FooBar",
+						"my-new-foobar-object-ref",
+					)
 					assert.NotNil(t, ct1ref)
 
 					// Assert that the x_kubernetes_preserve_unknown_fields field is now nil, as we remove this in step 2.
@@ -1586,7 +1591,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 							break
 						}
 					}
-					assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+					assert.Truef(
+						t,
+						foundExpectedManager,
+						"missing expected pulumi-kubernetes field manager with operation type Update",
+					)
 				}
 			}
 		},
@@ -1611,7 +1620,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 									break
 								}
 							}
-							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+							assert.Truef(
+								t,
+								foundExpectedManager,
+								"missing expected pulumi-kubernetes field manager with operation type Update",
+							)
 						}
 					}
 				},
@@ -1631,7 +1644,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 									break
 								}
 							}
-							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Apply")
+							assert.Truef(
+								t,
+								foundExpectedManager,
+								"missing expected pulumi-kubernetes field manager with operation type Apply",
+							)
 							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
 							assert.Truef(t, ok, "failed to get containers")
 							containerStatus := containers.([]any)[0].(map[string]any)
@@ -1849,7 +1866,8 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).
+		CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
@@ -1926,7 +1944,8 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).
+		CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
@@ -2017,7 +2036,9 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, string(cm1Contents), "foo: step1")
 
-	t.Log("Disabling access to the second cluster by setting the KUBECONFIG to a fake filepath and re-running `pulumi up`")
+	t.Log(
+		"Disabling access to the second cluster by setting the KUBECONFIG to a fake filepath and re-running `pulumi up`",
+	)
 	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1=/fake/filepath")
 
 	t.Log("Updating the Pulumi program to use step2")
@@ -2040,7 +2061,9 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, string(cm1Contents), "foo: step1") // ConfigMap should not have been updated.
 
-	t.Log("Re-enabling access to the second cluster by setting the KUBECONFIG to the original kubeconfig and re-running `pulumi up`")
+	t.Log(
+		"Re-enabling access to the second cluster by setting the KUBECONFIG to the original kubeconfig and re-running `pulumi up`",
+	)
 	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1="+kubeconfigs[1])
 
 	err = pt.TestPreviewUpdateAndEdits()
@@ -2133,7 +2156,11 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			assert.NotContains(t, string(dep), "Error from server (NotFound)")
 
 			// Validate image of deployment.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+			depImage, err := tests.Kubectl(
+				"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+				depNS,
+				depName,
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "'nginx:1.25.2'", string(depImage))
 
@@ -2143,7 +2170,13 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			assert.Equal(t, "'2'", string(depReplicas))
 
 			// Patch deployment replicas to 3 using patch file in preparation for ignore changes to be tested in step2.
-			_, err = tests.Kubectl("patch --field-manager replica/manager deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch.yaml"))
+			_, err = tests.Kubectl(
+				"patch --field-manager replica/manager deployment -n",
+				depNS,
+				depName,
+				"--patch-file",
+				filepath.Join(testFolderName, "deployment-patch.yaml"),
+			)
 			assert.NoError(t, err)
 			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 			assert.NoError(t, err)
@@ -2156,7 +2189,11 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate replicas was not updated back to 1.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 				},
@@ -2166,18 +2203,32 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25.1'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 
 					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to spec.replicas again when the field manager is
 					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes. This is due to fluxssa.PatchReplaceFieldsManagers
 					// doing a prefix match on the field manager name instead of an exact match on the given field manager name.
-					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch-2.yaml"))
+					_, err = tests.Kubectl(
+						"patch deployment -n",
+						depNS,
+						depName,
+						"--patch-file",
+						filepath.Join(testFolderName, "deployment-patch-2.yaml"),
+					)
 					assert.NoError(t, err)
 					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 					assert.NoError(t, err)
@@ -2189,11 +2240,19 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'4'", string(depReplicas))
 				},
@@ -2313,12 +2372,20 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+			depImage, err := tests.Kubectl(
+				"get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n",
+				namespace,
+				"test-mgr-nginx",
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "nginx:1.14.1", string(depImage))
 
 			// Ensure that the nginx deployment replicas is still 2.
-			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+			depReplicas, err := tests.Kubectl(
+				"get deployment -o=jsonpath={.spec.replicas} -n",
+				namespace,
+				"test-mgr-nginx",
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "2", string(depReplicas))
 		},
@@ -2328,18 +2395,30 @@ func TestFieldManagerPatchResources(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "nginx:1.14.0", string(depImage))
 
 					// Ensure that the nginx deployment replicas is still 2, and was not unset to the default 1 due to field manager being patched.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath={.spec.replicas} -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "2", string(depReplicas))
 
 					// Ensure that we don't inadvertently share ownership of nested fields that we specify in ignoreChanges.
 					// See: https://github.com/pulumi/pulumi-kubernetes/issues/2714.
-					liveObj, err := tests.Kubectl("get deployment -o yaml --show-managed-fields -n", namespace, "test-mgr-nginx")
+					liveObj, err := tests.Kubectl(
+						"get deployment -o yaml --show-managed-fields -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					wantString := ` - apiVersion: apps/v1
     fieldsType: FieldsV1
@@ -2451,7 +2530,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("cg-options-cm-1-k8s-aliased"),
+							Alias("cg-options-cg-options-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -2468,11 +2550,16 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options"),
-				"kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
+			g.Expect(rr.Named(
+				urn("", "kubernetes:yaml:ConfigGroup", "cg-options"),
+				"kubernetes:yaml:ConfigFile",
+				"cg-options-./testdata/options/configgroup/manifest.yaml",
+			)).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
@@ -2483,26 +2570,30 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml"),
-				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("configgroup-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
-							}),
-						}))),
+				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).
+				To(HaveExactElements(
+					MatchFields(IgnoreExtras, Fields{
+						"Request": MatchFields(IgnoreExtras, Fields{
+							"Aliases": HaveExactElements(
+								Alias("configgroup-cm-1-k8s-aliased"),
+								Alias("cg-options-configgroup-cm-1-aliased"),
+							),
+							"Protect":           PointTo(BeTrue()),
+							"Dependencies":      BeEmpty(),
+							"Provider":          BeEquivalentTo(providerUrn(providerA)),
+							"Version":           Equal("1.2.3"),
+							"PluginDownloadURL": Equal("https://a.pulumi.test"),
+							"Providers":         BeEmpty(),
+							"IgnoreChanges":     BeEmpty(),
+							"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+								"metadata": MatchKeys(IgnoreExtras, Keys{
+									"name":        Equal("configgroup-cm-1"),
+									"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+								}),
+							}))),
+						}),
 					}),
-				}),
-			))
+				))
 
 			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
@@ -2540,7 +2631,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("cf-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("cf-options-old"),
+							Alias("cf-options-cf-options-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
@@ -2557,7 +2651,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("configfile-cm-1-k8s-aliased"),
+							Alias("cf-options-configfile-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -2628,7 +2725,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("kustomize-options-old"),
+							Alias("kustomize-options-kustomize-options-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEmpty(),
@@ -2645,7 +2745,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
+							Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -2731,7 +2834,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("chart-options-chart-options-cm-1-k8s-aliased"),
+							Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -2741,7 +2847,9 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
+								"name": Equal(
+									"chart-options-chart-options-cm-1",
+								), // note: based on the Helm Release name
 								"annotations": And(HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),
@@ -2763,8 +2871,11 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
-				"kubernetes:core/v1:ConfigMap", "chart-provider-chart-provider-chart-provider-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(
+				urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
+				"kubernetes:core/v1:ConfigMap",
+				"chart-provider-chart-provider-chart-provider-cm-1",
+			)).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),

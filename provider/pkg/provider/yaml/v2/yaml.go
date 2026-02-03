@@ -136,7 +136,11 @@ func yamlDecode(text string) ([]unstructured.Unstructured, error) {
 // - canonicalize the kind (core/v1 -> v1)
 // - expands any list types into their individual resources
 // - applies the default namespace to namespaced resources that do not have a namespace
-func Normalize(objs []unstructured.Unstructured, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+func Normalize(
+	objs []unstructured.Unstructured,
+	defaultNamespace string,
+	clientSet *clients.DynamicClientSet,
+) ([]unstructured.Unstructured, error) {
 	contract.Requiref(clientSet != nil, "clientSet", "expected != nil")
 
 	var err error
@@ -313,12 +317,20 @@ func register(
 			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait annotation.
 			err := unstructured.SetNestedField(obj.Object, map[string]any{}, "metadata", "annotations")
 			if err != nil {
-				return nil, fmt.Errorf("unable to set an empty map[string]any type for '.metadata.annotations' field: `%s`: %w", printUnstructured(obj), err)
+				return nil, fmt.Errorf(
+					"unable to set an empty map[string]any type for '.metadata.annotations' field: `%s`: %w",
+					printUnstructured(obj),
+					err,
+				)
 			}
 		}
 
 		if err := unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait"); err != nil {
-			return nil, fmt.Errorf("unable to set `pulumi.com/skipAwait` annotation; YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
+			return nil, fmt.Errorf(
+				"unable to set `pulumi.com/skipAwait` annotation; YAML object is invalid: `%s`: %w",
+				printUnstructured(obj),
+				err,
+			)
 		}
 	}
 
@@ -339,7 +351,13 @@ func register(
 	}
 
 	// Finally allocate a resource of the correct type.
-	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), resourceOpts...)
+	res, err := yamlv2.RegisterResource(
+		ctx,
+		apiVersion,
+		kind,
+		resourceName,
+		kubernetes.UntypedArgs(obj.Object),
+		resourceOpts...)
 	if err != nil {
 		return nil, err
 	}

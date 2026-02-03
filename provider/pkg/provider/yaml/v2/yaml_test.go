@@ -142,13 +142,16 @@ var _ = Describe("Register", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 
 			Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-				"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
-					"state": MatchObject(IgnoreExtras, Props{
-						"metadata": MatchObject(IgnoreExtras, Props{
-							"name": MatchValue("crontabs.stable.example.com"),
+				"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(
+					IgnoreExtras,
+					Props{
+						"state": MatchObject(IgnoreExtras, Props{
+							"metadata": MatchObject(IgnoreExtras, Props{
+								"name": MatchValue("crontabs.stable.example.com"),
+							}),
 						}),
-					}),
-				}),
+					},
+				),
 				"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(IgnoreExtras, Props{
 					"state": MatchObject(IgnoreExtras, Props{
 						"metadata": MatchObject(IgnoreExtras, Props{
@@ -156,20 +159,26 @@ var _ = Describe("Register", func() {
 						}),
 					}),
 				}),
-				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(IgnoreExtras, Props{
-					"state": MatchObject(IgnoreExtras, Props{
-						"metadata": MatchObject(IgnoreExtras, Props{
-							"name": MatchValue("my-map"),
+				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(
+					IgnoreExtras,
+					Props{
+						"state": MatchObject(IgnoreExtras, Props{
+							"metadata": MatchObject(IgnoreExtras, Props{
+								"name": MatchValue("my-map"),
+							}),
 						}),
-					}),
-				}),
-				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
-					"state": MatchObject(IgnoreExtras, Props{
-						"metadata": MatchObject(IgnoreExtras, Props{
-							"name": MatchValue("my-new-cron-object"),
+					},
+				),
+				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(
+					IgnoreExtras,
+					Props{
+						"state": MatchObject(IgnoreExtras, Props{
+							"metadata": MatchObject(IgnoreExtras, Props{
+								"name": MatchValue("my-new-cron-object"),
+							}),
 						}),
-					}),
-				}),
+					},
+				),
 			}))
 		})
 
@@ -191,34 +200,46 @@ var _ = Describe("Register", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 
 				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("crontabs.stable.example.com"),
+					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": MatchObject(IgnoreExtras, Props{
+								"metadata": MatchObject(IgnoreExtras, Props{
+									"name": MatchValue("crontabs.stable.example.com"),
+								}),
 							}),
-						}),
-					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed:my-namespace": MatchProps(IgnoreExtras, Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("my-namespace"),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed:my-namespace": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": MatchObject(IgnoreExtras, Props{
+								"metadata": MatchObject(IgnoreExtras, Props{
+									"name": MatchValue("my-namespace"),
+								}),
 							}),
-						}),
-					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map": MatchProps(IgnoreExtras, Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("my-map"),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": MatchObject(IgnoreExtras, Props{
+								"metadata": MatchObject(IgnoreExtras, Props{
+									"name": MatchValue("my-map"),
+								}),
 							}),
-						}),
-					}),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("my-new-cron-object"),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": MatchObject(IgnoreExtras, Props{
+								"metadata": MatchObject(IgnoreExtras, Props{
+									"name": MatchValue("my-new-cron-object"),
+								}),
 							}),
-						}),
-					}),
+						},
+					),
 				}))
 			})
 		})
@@ -232,18 +253,30 @@ var _ = Describe("Register", func() {
 				Expect(err).ShouldNot(HaveOccurred())
 
 				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(IgnoreExtras, Props{
-						"state": BeObject(HaveSkipAwaitAnnotation()),
-					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(IgnoreExtras, Props{
-						"state": BeObject(HaveSkipAwaitAnnotation()),
-					}),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(IgnoreExtras, Props{
-						"state": BeObject(HaveSkipAwaitAnnotation()),
-					}),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(IgnoreExtras, Props{
-						"state": BeObject(HaveSkipAwaitAnnotation()),
-					}),
+					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": BeObject(HaveSkipAwaitAnnotation()),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": BeObject(HaveSkipAwaitAnnotation()),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": BeObject(HaveSkipAwaitAnnotation()),
+						},
+					),
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(
+						IgnoreExtras,
+						Props{
+							"state": BeObject(HaveSkipAwaitAnnotation()),
+						},
+					),
 				}))
 			})
 		})
@@ -255,31 +288,43 @@ var _ = Describe("Register", func() {
 					Expect(err).ShouldNot(HaveOccurred())
 
 					Expect(tc.monitor.Registrations()).To(MatchAllKeys(Keys{
-						"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchFields(IgnoreExtras, Fields{
-							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": BeEmpty(),
-							}),
-						}),
-						"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchFields(IgnoreExtras, Fields{
-							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": BeEmpty(),
-							}),
-						}),
-						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchFields(IgnoreExtras, Fields{
-							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": ConsistOf(
-									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
-								),
-							}),
-						}),
-						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchFields(IgnoreExtras, Fields{
-							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": ConsistOf(
-									"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com",
-									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
-								),
-							}),
-						}),
+						"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchFields(
+							IgnoreExtras,
+							Fields{
+								"Request": MatchFields(IgnoreExtras, Fields{
+									"Dependencies": BeEmpty(),
+								}),
+							},
+						),
+						"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchFields(
+							IgnoreExtras,
+							Fields{
+								"Request": MatchFields(IgnoreExtras, Fields{
+									"Dependencies": BeEmpty(),
+								}),
+							},
+						),
+						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchFields(
+							IgnoreExtras,
+							Fields{
+								"Request": MatchFields(IgnoreExtras, Fields{
+									"Dependencies": ConsistOf(
+										"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
+									),
+								}),
+							},
+						),
+						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchFields(
+							IgnoreExtras,
+							Fields{
+								"Request": MatchFields(IgnoreExtras, Fields{
+									"Dependencies": ConsistOf(
+										"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com",
+										"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
+									),
+								}),
+							},
+						),
 					}))
 				})
 			})
@@ -306,7 +351,9 @@ var _ = Describe("Register", func() {
 					Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
 						"urn:pulumi:stack::project::kubernetes:core/v1:Pod::my-pod": MatchFields(IgnoreExtras, Fields{
 							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": ConsistOf("urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace"),
+								"Dependencies": ConsistOf(
+									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
+								),
 							}),
 						}),
 					}))
@@ -372,7 +419,9 @@ var _ = Describe("Parse", func() {
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(objs).To(ConsistOf(
 				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-namespace")})}),
-				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("crontabs.stable.example.com")})}),
+				matchUnstructured(
+					Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("crontabs.stable.example.com")})},
+				),
 				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-map")})}),
 				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-new-cron-object")})}),
 			))
@@ -443,7 +492,9 @@ var _ = Describe("Parse", func() {
 
 		Context("when the input is a valid YAML URL", func() {
 			BeforeEach(func() {
-				args.Files = []string{`https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml`}
+				args.Files = []string{
+					`https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml`,
+				}
 			})
 			It("should download and use the document", func(ctx context.Context) {
 				objs, err := Parse(ctx, args)

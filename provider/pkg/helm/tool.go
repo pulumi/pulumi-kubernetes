@@ -268,7 +268,10 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	if req := chartRequested.Metadata.Dependencies; req != nil {
 		// If CheckDependencies returns an error, we have unfulfilled dependencies.
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
-			err = errors.Wrap(err, "An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies")
+			err = errors.Wrap(
+				err,
+				"An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies",
+			)
 			if client.DependencyUpdate || chartRequested.Lock != nil {
 				logStream := debugStream()
 				defer logStream.Close()
@@ -339,7 +342,11 @@ func defaultKeyring() string {
 
 // newRegistryClient retruns a new registry client
 // https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L261-L274
-func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool) (*registry.Client, error) {
+func newRegistryClient(
+	settings *cli.EnvSettings,
+	certFile, keyFile, caFile string,
+	insecureSkipTLSverify, plainHTTP bool,
+) (*registry.Client, error) {
 	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipTLSverify {
 		registryClient, err := newRegistryClientWithTLS(settings, certFile, keyFile, caFile, insecureSkipTLSverify)
 		if err != nil {
@@ -378,11 +385,21 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*regis
 
 // newRegistryClientWithTLS returns a new registry client with the given TLS options
 // https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L295-L304
-func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify bool) (*registry.Client, error) {
+func newRegistryClientWithTLS(
+	settings *cli.EnvSettings,
+	certFile, keyFile, caFile string,
+	insecureSkipTLSverify bool,
+) (*registry.Client, error) {
 	logStream := debugStream()
 	// Create a new registry client
-	registryClient, err := registry.NewRegistryClientWithTLS(logStream, certFile, keyFile, caFile, insecureSkipTLSverify,
-		settings.RegistryConfig, settings.Debug,
+	registryClient, err := registry.NewRegistryClientWithTLS(
+		logStream,
+		certFile,
+		keyFile,
+		caFile,
+		insecureSkipTLSverify,
+		settings.RegistryConfig,
+		settings.Debug,
 	)
 	if err != nil {
 		return nil, err

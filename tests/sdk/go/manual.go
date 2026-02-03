@@ -353,7 +353,11 @@ func createHelmEnvironment(t *testing.T, re ...repo.Entry) (he *helmEnvironment,
 		}
 		r.CachePath = settings.RepositoryCache
 		if _, err := r.DownloadIndexFile(); err != nil {
-			return nil, nil, errors.Wrapf(err, "looks like %q is not a valid chart repository or cannot be reached", c.URL)
+			return nil, nil, errors.Wrapf(
+				err,
+				"looks like %q is not a valid chart repository or cannot be reached",
+				c.URL,
+			)
 		}
 		rf.Add(&c)
 	}

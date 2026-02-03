@@ -1034,7 +1034,9 @@ func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy 
 }
 
 // statefulsetUpdating is the state of the StatefulSet object while an update is rolling out and a new Pod is active
-func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdatingWithActiveReplica(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}
@@ -1120,7 +1122,9 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, update
 
 // statefulsetUpdatingWithActiveReplicaOnDelete is the state of the StatefulSet object while an update is in progress
 // using the OnDelete update strategy and a new Pod is active
-func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdatingWithActiveReplicaOnDelete(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}
@@ -1289,7 +1293,9 @@ func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy str
 
 // statefulsetUpdateSuccessOnDelete is the state of the StatefulSet object after an update completed with the OnDelete
 // update strategy
-func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdateSuccessOnDelete(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}

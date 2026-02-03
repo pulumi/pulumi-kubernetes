@@ -349,7 +349,10 @@ func (dia *deploymentInitAwaiter) await(
 	}
 }
 
-func (dia *deploymentInitAwaiter) waitUntilDeploymentControllerReconciles(deploymentEvents <-chan watch.Event, timeout <-chan time.Time) error {
+func (dia *deploymentInitAwaiter) waitUntilDeploymentControllerReconciles(
+	deploymentEvents <-chan watch.Event,
+	timeout <-chan time.Time,
+) error {
 	for {
 		select {
 		case <-dia.config.ctx.Done():
@@ -375,7 +378,11 @@ func (dia *deploymentInitAwaiter) waitUntilDeploymentControllerReconciles(deploy
 				continue
 			}
 
-			observedGeneration, found, err := unstructured.NestedInt64(deployment.Object, "status", "observedGeneration")
+			observedGeneration, found, err := unstructured.NestedInt64(
+				deployment.Object,
+				"status",
+				"observedGeneration",
+			)
 			if err != nil || !found {
 				continue
 			}

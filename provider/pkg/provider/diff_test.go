@@ -99,11 +99,21 @@ func TestPatchToDiff(t *testing.T) {
 			group: "", version: "v1", kind: "Pod",
 			old: object{
 				"metadata": object{"namespace": "default"},
-				"spec":     object{"containers": list{object{"name": "nginx", "image": "nginx"}, object{"name": "nginx", "image": "nginx"}}},
+				"spec": object{
+					"containers": list{
+						object{"name": "nginx", "image": "nginx"},
+						object{"name": "nginx", "image": "nginx"},
+					},
+				},
 			},
 			new: object{
 				"metadata": object{"namespace": "default"},
-				"spec":     object{"containers": list{object{"name": "nginx", "image": "nginx"}, object{"name": "nginx", "image": "nginx:1.15-alpine"}}},
+				"spec": object{
+					"containers": list{
+						object{"name": "nginx", "image": "nginx"},
+						object{"name": "nginx", "image": "nginx:1.15-alpine"},
+					},
+				},
 			},
 			expected: expected{
 				"spec.containers[1].image": UR,
@@ -112,8 +122,14 @@ func TestPatchToDiff(t *testing.T) {
 		{
 			name:  `Changing DNS policy and image spec results in correct diff.`,
 			group: "core", version: "v1", kind: "Pod",
-			old: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}}},
-			new: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx:1.15-alpine", "dnsPolicy": "None"}}}},
+			old: object{
+				"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}},
+			},
+			new: object{
+				"spec": object{
+					"containers": list{object{"name": "nginx", "image": "nginx:1.15-alpine", "dnsPolicy": "None"}},
+				},
+			},
 			expected: expected{
 				"spec.containers[0].dnsPolicy": U,
 				"spec.containers[0].image":     UR,
@@ -123,7 +139,9 @@ func TestPatchToDiff(t *testing.T) {
 			name:  `Adding DNS policy results in correct diff.`,
 			group: "core", version: "v1", kind: "Pod",
 			old: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
-			new: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}}},
+			new: object{
+				"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}},
+			},
 			expected: expected{
 				"spec.containers[0].dnsPolicy": A,
 			},
@@ -131,8 +149,12 @@ func TestPatchToDiff(t *testing.T) {
 		{
 			name:  `Changing DNS policy results in correct diff.`,
 			group: "core", version: "v1", kind: "Pod",
-			old: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}}},
-			new: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "None"}}}},
+			old: object{
+				"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}},
+			},
+			new: object{
+				"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "None"}}},
+			},
 			expected: expected{
 				"spec.containers[0].dnsPolicy": U,
 			},
@@ -140,7 +162,9 @@ func TestPatchToDiff(t *testing.T) {
 		{
 			name:  `Deleting DNS policy results in correct diff.`,
 			group: "core", version: "v1", kind: "Pod",
-			old: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}}},
+			old: object{
+				"spec": object{"containers": list{object{"name": "nginx", "image": "nginx", "dnsPolicy": "Default"}}},
+			},
 			new: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			expected: expected{
 				"spec.containers[0].dnsPolicy": D,
@@ -149,8 +173,14 @@ func TestPatchToDiff(t *testing.T) {
 		{
 			name:  `State diffs with no corresponding input property are ignored.`,
 			group: "core", version: "v1", kind: "Pod",
-			old:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.2"}},
-			new:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.3"}},
+			old: object{
+				"spec":   object{"containers": list{object{"name": "nginx", "image": "nginx"}}},
+				"status": object{"hostIP": "10.0.0.2"},
+			},
+			new: object{
+				"spec":   object{"containers": list{object{"name": "nginx", "image": "nginx"}}},
+				"status": object{"hostIP": "10.0.0.3"},
+			},
 			inputs:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			expected:  expected{},
@@ -158,7 +188,10 @@ func TestPatchToDiff(t *testing.T) {
 		{
 			name:  `State deletes with no corresponding input properties are ignored.`,
 			group: "core", version: "v1", kind: "Pod",
-			old:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.2"}},
+			old: object{
+				"spec":   object{"containers": list{object{"name": "nginx", "image": "nginx"}}},
+				"status": object{"hostIP": "10.0.0.2"},
+			},
 			new:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			inputs:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},

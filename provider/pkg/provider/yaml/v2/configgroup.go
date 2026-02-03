@@ -53,7 +53,12 @@ func NewConfigGroupProvider(opts *providerresource.ResourceProviderOptions) prov
 	}
 }
 
-func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+func (k *ConfigGroupProvider) Construct(
+	ctx *pulumi.Context,
+	typ, name string,
+	inputs pulumiprovider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*pulumiprovider.ConstructResult, error) {
 	comp := &ConfigGroupState{}
 	err := ctx.RegisterComponentResource(typ, name, comp, options)
 	if err != nil {
@@ -72,7 +77,11 @@ func (k *ConfigGroupProvider) Construct(ctx *pulumi.Context, typ, name string, i
 		return nil, err
 	}
 	if !result.Known {
-		msg := fmt.Sprintf("%s:%s -- Required input properties have unknown values. Preview is incomplete.\n", typ, name)
+		msg := fmt.Sprintf(
+			"%s:%s -- Required input properties have unknown values. Preview is incomplete.\n",
+			typ,
+			name,
+		)
 		_ = ctx.Log.Warn(msg, nil)
 	}
 

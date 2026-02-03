@@ -154,7 +154,10 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001", "test:default/cm001"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001",
+								"test:default/cm001",
+							),
 						)),
 					}))
 				})
@@ -170,7 +173,10 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:provider/cm001", "test:provider/cm001"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:provider/cm001",
+								"test:provider/cm001",
+							),
 						)),
 					}))
 				})
@@ -186,7 +192,10 @@ var _ = Describe("Construct", func() {
 					outputs := unmarshalProperties(GinkgoTB(), resp.State)
 					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:override/cm001", "test:override/cm001"),
+							MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:override/cm001",
+								"test:override/cm001",
+							),
 						)),
 					}))
 				})
@@ -201,7 +210,10 @@ var _ = Describe("Construct", func() {
 			outputs := unmarshalProperties(GinkgoTB(), resp.State)
 			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 				"resources": MatchArrayValue(ConsistOf(
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001", "test:default/cm001"),
+					MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001",
+						"test:default/cm001",
+					),
 				)),
 			}))
 		})
@@ -216,7 +228,10 @@ var _ = Describe("Construct", func() {
 				outputs := unmarshalProperties(GinkgoTB(), resp.State)
 				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
 					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::prefixed:default/cm001", "prefixed:default/cm001"),
+						MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::prefixed:default/cm001",
+							"prefixed:default/cm001",
+						),
 					)),
 				}))
 			})
@@ -230,9 +245,12 @@ var _ = Describe("Construct", func() {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
 				Expect(err).ShouldNot(HaveOccurred())
 				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
-					"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001": MatchFields(IgnoreExtras, Fields{
-						"State": HaveSkipAwaitAnnotation(),
-					}),
+					"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001": MatchFields(
+						IgnoreExtras,
+						Fields{
+							"State": HaveSkipAwaitAnnotation(),
+						},
+					),
 				}))
 			})
 		})

@@ -321,8 +321,11 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 
 	// For initial generation, the revision doesn't need to be updated, so skip that step in the log.
 	if isInitialDeployment {
-		sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
-			sia.currentReplicas, sia.targetReplicas))
+		sia.config.logger.LogStatus(
+			diag.Info,
+			fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
+				sia.currentReplicas, sia.targetReplicas),
+		)
 	} else {
 		switch {
 		case !sia.replicasReady:

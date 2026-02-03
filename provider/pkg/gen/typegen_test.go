@@ -328,9 +328,15 @@ func TestCreateVersions(t *testing.T) {
 			},
 			expected: []VersionConfig{
 				{
-					version:    "v1",
-					gv:         schema.GroupVersion{Group: "apps", Version: "v1"},
-					kinds:      []KindConfig{{kind: "Deployment", gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"}, apiVersion: "apps/v1"}},
+					version: "v1",
+					gv:      schema.GroupVersion{Group: "apps", Version: "v1"},
+					kinds: []KindConfig{
+						{
+							kind:       "Deployment",
+							gvk:        schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+							apiVersion: "apps/v1",
+						},
+					},
 					apiVersion: "apps/v1",
 				},
 			},
@@ -351,9 +357,20 @@ func TestCreateVersions(t *testing.T) {
 			},
 			expected: []VersionConfig{
 				{
-					version:    "v1",
-					gv:         schema.GroupVersion{Group: "apps", Version: "v1"},
-					kinds:      []KindConfig{{kind: "Deployment", gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"}, apiVersion: "apps/v1"}, {kind: "StatefulSet", gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "StatefulSet"}, apiVersion: "apps/v1"}},
+					version: "v1",
+					gv:      schema.GroupVersion{Group: "apps", Version: "v1"},
+					kinds: []KindConfig{
+						{
+							kind:       "Deployment",
+							gvk:        schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+							apiVersion: "apps/v1",
+						},
+						{
+							kind:       "StatefulSet",
+							gvk:        schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "StatefulSet"},
+							apiVersion: "apps/v1",
+						},
+					},
 					apiVersion: "apps/v1",
 				},
 			},
@@ -379,21 +396,39 @@ func TestCreateVersions(t *testing.T) {
 			},
 			expected: []VersionConfig{
 				{
-					version:    "v1",
-					gv:         schema.GroupVersion{Group: "apps", Version: "v1"},
-					kinds:      []KindConfig{{kind: "Deployment", gvk: schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"}, apiVersion: "apps/v1"}},
+					version: "v1",
+					gv:      schema.GroupVersion{Group: "apps", Version: "v1"},
+					kinds: []KindConfig{
+						{
+							kind:       "Deployment",
+							gvk:        schema.GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
+							apiVersion: "apps/v1",
+						},
+					},
 					apiVersion: "apps/v1",
 				},
 				{
-					version:    "v1beta1",
-					gv:         schema.GroupVersion{Group: "apps", Version: "v1beta1"},
-					kinds:      []KindConfig{{kind: "Deployment", gvk: schema.GroupVersionKind{Group: "apps", Version: "v1beta1", Kind: "Deployment"}, apiVersion: "apps/v1beta1"}},
+					version: "v1beta1",
+					gv:      schema.GroupVersion{Group: "apps", Version: "v1beta1"},
+					kinds: []KindConfig{
+						{
+							kind:       "Deployment",
+							gvk:        schema.GroupVersionKind{Group: "apps", Version: "v1beta1", Kind: "Deployment"},
+							apiVersion: "apps/v1beta1",
+						},
+					},
 					apiVersion: "apps/v1beta1",
 				},
 				{
-					version:    "v1",
-					gv:         schema.GroupVersion{Group: "core", Version: "v1"},
-					kinds:      []KindConfig{{kind: "Pod", gvk: schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"}, apiVersion: "core/v1"}},
+					version: "v1",
+					gv:      schema.GroupVersion{Group: "core", Version: "v1"},
+					kinds: []KindConfig{
+						{
+							kind:       "Pod",
+							gvk:        schema.GroupVersionKind{Group: "core", Version: "v1", Kind: "Pod"},
+							apiVersion: "core/v1",
+						},
+					},
 					apiVersion: "core/v1",
 				},
 			},
@@ -444,7 +479,9 @@ func TestCreateDefinitions(t *testing.T) {
 				"properties": map[string]any{
 					"apiVersion": map[string]any{"type": "string"},
 					"kind":       map[string]any{"type": "string"},
-					"metadata":   map[string]any{"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"},
+					"metadata": map[string]any{
+						"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+					},
 				},
 				"x-kubernetes-group-version-kind": []any{
 					map[string]any{"group": "apps", "version": "v1", "kind": "Deployment"},
@@ -459,7 +496,9 @@ func TestCreateDefinitions(t *testing.T) {
 				"properties": map[string]any{
 					"apiVersion": map[string]any{"type": "string"},
 					"kind":       map[string]any{"type": "string"},
-					"metadata":   map[string]any{"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"},
+					"metadata": map[string]any{
+						"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+					},
 				},
 				"x-kubernetes-group-version-kind": []any{
 					map[string]any{"group": "", "version": "v1", "kind": "Pod"},

@@ -183,7 +183,11 @@ func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResource
 // For GVKs not in the table, look at the given objects for a matching CRD.
 // Finally, attempt to look up the GVK from the API server. If the GVK cannot be found, a
 // NoNamespaceInfoErr is returned.
-func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet, objs ...unstructured.Unstructured) (bool, error) {
+func IsNamespacedKind(
+	gvk schema.GroupVersionKind,
+	clientSet *DynamicClientSet,
+	objs ...unstructured.Unstructured,
+) (bool, error) {
 	contract.Requiref(clientSet != nil, "clientSet", "expected a clientSet")
 	if gvk.Group == "core" { // nolint:goconst
 		gvk.Group = ""

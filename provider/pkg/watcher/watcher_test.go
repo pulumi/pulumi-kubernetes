@@ -91,10 +91,18 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 				t.Errorf("%s: Polling should have timed out", test.name)
 			}
 			if !test.targetPollFuncCalls(int(pollFuncCalls.Load())) {
-				t.Errorf("%s: Got %d poll function calls, which did not satisfy the test predicate", test.name, pollFuncCalls.Load())
+				t.Errorf(
+					"%s: Got %d poll function calls, which did not satisfy the test predicate",
+					test.name,
+					pollFuncCalls.Load(),
+				)
 			}
 			if !test.targetWatchFuncCalls(int(watchFuncCalls.Load())) {
-				t.Errorf("%s: Got %d watch function calls, which did not satisfy the test predicate", test.name, watchFuncCalls.Load())
+				t.Errorf(
+					"%s: Got %d watch function calls, which did not satisfy the test predicate",
+					test.name,
+					watchFuncCalls.Load(),
+				)
 			}
 			testCompleted <- struct{}{}
 		}(test)

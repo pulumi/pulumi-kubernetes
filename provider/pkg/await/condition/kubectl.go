@@ -26,7 +26,11 @@ import (
 
 // checkCondition is vendored from
 // https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/pkg/cmd/wait/condition.go#L53-L82
-func checkCondition(obj *unstructured.Unstructured, logger logger, conditionType, conditionStatus string) (bool, error) {
+func checkCondition(
+	obj *unstructured.Unstructured,
+	logger logger,
+	conditionType, conditionStatus string,
+) (bool, error) {
 	conditions, found, err := unstructured.NestedSlice(obj.Object, "status", "conditions")
 	if err != nil {
 		return false, err

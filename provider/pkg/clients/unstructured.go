@@ -112,7 +112,12 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 // normalizeSecret manually normalizes Secret resources, which require special handling due to the apiserver replacing
 // the .stringData field with a base64-encoded value in the .data field.
 func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured {
-	contract.Assertf(IsSecret(uns), "normalizeSecret called on a non-Secret resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
+	contract.Assertf(
+		IsSecret(uns),
+		"normalizeSecret called on a non-Secret resource: %s:%s",
+		uns.GetAPIVersion(),
+		uns.GetKind(),
+	)
 
 	stringData, found, err := unstructured.NestedStringMap(uns.Object, "stringData")
 	if err != nil || !found || len(stringData) == 0 {
@@ -123,7 +128,10 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 	return normalizeSecretStringData(stringData, uns)
 }
 
-func normalizeSecretStringData(stringData map[string]string, uns *unstructured.Unstructured) *unstructured.Unstructured {
+func normalizeSecretStringData(
+	stringData map[string]string,
+	uns *unstructured.Unstructured,
+) *unstructured.Unstructured {
 	data, found, err := unstructured.NestedMap(uns.Object, "data")
 	if err != nil || !found {
 		data = map[string]any{}

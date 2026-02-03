@@ -137,7 +137,11 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 			continue
 		}
 		// Defaults are not pruned here, but before being served.
-		sw, err := builder.BuildOpenAPIV2(crd, v.Name, builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: true})
+		sw, err := builder.BuildOpenAPIV2(
+			crd,
+			v.Name,
+			builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: true},
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -265,7 +269,10 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 }
 
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
-func generateSchema(swagger *spec.Swagger, packageVersion, baseProvName, baseProvVersion string) *pulumischema.PackageSpec {
+func generateSchema(
+	swagger *spec.Swagger,
+	packageVersion, baseProvName, baseProvVersion string,
+) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that we can generate typed SDKs that contain valid field names,
 	// for example, not allowing hyphens.
 	marshaledOpenAPISchema, err := json.Marshal(swagger)
@@ -293,7 +300,10 @@ func generateSchema(swagger *spec.Swagger, packageVersion, baseProvName, basePro
 }
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
-func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
+func (k *kubeProvider) Parameterize(
+	ctx context.Context,
+	req *pulumirpc.ParameterizeRequest,
+) (*pulumirpc.ParameterizeResponse, error) {
 	log.Println("Parameterizing CRD schemas...")
 	logger.V(9).Info("Parameterizing Pulumi Kubernetes provider")
 
@@ -311,7 +321,9 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 }
 
 // parameterizeRequest_Args is the implementation for the parameterization of the CRD schemas to create typed SDKs from CRD manifests.
-func (k *kubeProvider) parameterizeRequest_Args(p *pulumirpc.ParameterizeRequest_Args) (*pulumirpc.ParameterizeResponse, error) {
+func (k *kubeProvider) parameterizeRequest_Args(
+	p *pulumirpc.ParameterizeRequest_Args,
+) (*pulumirpc.ParameterizeResponse, error) {
 	args, err := parseCrdArgs(p.Args.GetArgs())
 	if err != nil {
 		return nil, err
@@ -360,7 +372,9 @@ func (k *kubeProvider) parameterizeRequest_Args(p *pulumirpc.ParameterizeRequest
 // parameterizeRequest_Value is a placeholder for the extension parameterization implementation. This allows the provider to reconstruct the necessary types for the CRD schemas
 // generated from the CRD manifests. This is where we handle field name denormalization and other necessary transformations to be able to translate the typed SDKs back to the original
 // CR schema.
-func (k *kubeProvider) parameterizeRequest_Value(_ *pulumirpc.ParameterizeRequest_Value) (*pulumirpc.ParameterizeResponse, error) {
+func (k *kubeProvider) parameterizeRequest_Value(
+	_ *pulumirpc.ParameterizeRequest_Value,
+) (*pulumirpc.ParameterizeResponse, error) {
 	// TODO(rquitales): Implement the logic to generate the CRD schema from the CRD manifests once extension parameterization is implemented.
 	// We will need to handle the mapping of normalized field names (to conform to language requirements) to the original k8s field names.
 	return nil, nil

@@ -150,11 +150,25 @@ func TestCreation(t *testing.T) {
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
 		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
-			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
+			require.False(
+				t,
+				metadata.SkipAwaitLogic(cac.currentOutputs),
+				"Await logic should not execute when SkipWait is set",
+			)
 
 			// get the live object from the fake API Server
-			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
-			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			require.Equal(
+				t,
+				cac.currentOutputs.GetNamespace(),
+				cac.currentOutputs.GetNamespace(),
+				"Live object should have a namespace",
+			)
+			require.Equal(
+				t,
+				cac.currentOutputs.GetName(),
+				cac.currentOutputs.GetName(),
+				"Live object should have a name",
+			)
 			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
 			require.NoError(t, err)
 			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
@@ -380,7 +394,13 @@ func TestCreation(t *testing.T) {
 				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := CreateConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           context.Background(),
@@ -447,11 +467,25 @@ func TestUpdate(t *testing.T) {
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
 		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
-			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
+			require.False(
+				t,
+				metadata.SkipAwaitLogic(cac.currentOutputs),
+				"Await logic should not execute when SkipWait is set",
+			)
 
 			// get the live object from the fake API Server
-			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
-			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			require.Equal(
+				t,
+				cac.currentOutputs.GetNamespace(),
+				cac.currentOutputs.GetNamespace(),
+				"Live object should have a namespace",
+			)
+			require.Equal(
+				t,
+				cac.currentOutputs.GetName(),
+				cac.currentOutputs.GetName(),
+				"Live object should have a name",
+			)
 			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
 			require.NoError(t, err)
 			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
@@ -674,7 +708,13 @@ func TestUpdate(t *testing.T) {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := UpdateConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           context.Background(),
@@ -860,8 +900,10 @@ func TestDeletion(t *testing.T) {
 				inputs:  withSkipAwait(validPodUnstructured),
 				outputs: validPodUnstructured,
 			},
-			reaction: []reactionF{suppressDeletion}, // suppress deletion to safeguard that the built-in watcher is not used.
-			expect:   []expectF{succeeded()},
+			reaction: []reactionF{
+				suppressDeletion,
+			}, // suppress deletion to safeguard that the built-in watcher is not used.
+			expect: []expectF{succeeded()},
 		},
 		{
 			name: "AwaitError",
@@ -934,7 +976,13 @@ func TestDeletion(t *testing.T) {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := DeleteConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           ctx,
@@ -965,14 +1013,21 @@ func TestDeletion(t *testing.T) {
 			}
 			for i := len(tt.reaction) - 1; i >= 0; i-- {
 				reaction := tt.reaction[i]
-				clientset.PrependReactor("*", "*", func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-					return reaction(t, testCtx, action)
-				})
+				clientset.PrependReactor(
+					"*",
+					"*",
+					func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+						return reaction(t, testCtx, action)
+					},
+				)
 			}
 			if tt.watcher != nil {
-				clientset.PrependWatchReactor("*", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-					return true, tt.watcher, nil
-				})
+				clientset.PrependWatchReactor(
+					"*",
+					func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+						return true, tt.watcher, nil
+					},
+				)
 			}
 			if tt.condition != nil {
 				config.condition = tt.condition(t, testCtx)
@@ -991,7 +1046,13 @@ func TestAwaitSSAConflict(t *testing.T) {
 	pod := validPodUnstructured.DeepCopy()
 	pod.SetNamespace("default")
 
-	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type(""), "testresource")
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type(""),
+		"testresource",
+	)
 	pconfig := ProviderConfig{
 		Context:         context.Background(),
 		Host:            &fakehost.HostClient{},
@@ -1136,7 +1197,12 @@ func (mri *mockResourceInterface) UpdateStatus(
 	panic("UpdateStatus not implemented")
 }
 
-func (mri *mockResourceInterface) Delete(ctx context.Context, name string, options metav1.DeleteOptions, subresources ...string) error {
+func (mri *mockResourceInterface) Delete(
+	ctx context.Context,
+	name string,
+	options metav1.DeleteOptions,
+	subresources ...string,
+) error {
 	panic("Delete not implemented")
 }
 
@@ -1152,7 +1218,10 @@ func (mri *mockResourceInterface) Get(
 	return &unstructured.Unstructured{Object: map[string]any{}}, nil
 }
 
-func (mri *mockResourceInterface) List(ctx context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+func (mri *mockResourceInterface) List(
+	ctx context.Context,
+	opts metav1.ListOptions,
+) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
 
@@ -1161,22 +1230,40 @@ func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOpt
 }
 
 func (mri *mockResourceInterface) Patch(
-	ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
+	ctx context.Context,
+	name string,
+	pt types.PatchType,
+	data []byte,
+	options metav1.PatchOptions,
+	subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
 
-func (mri *mockResourceInterface) Apply(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions, subresources ...string,
+func (mri *mockResourceInterface) Apply(
+	ctx context.Context,
+	name string,
+	obj *unstructured.Unstructured,
+	options metav1.ApplyOptions,
+	subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Apply not implemented")
 }
 
-func (mri *mockResourceInterface) ApplyStatus(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions,
+func (mri *mockResourceInterface) ApplyStatus(
+	ctx context.Context,
+	name string,
+	obj *unstructured.Unstructured,
+	options metav1.ApplyOptions,
 ) (*unstructured.Unstructured, error) {
 	panic("ApplyStatus not implemented")
 }
 
-func FlakyRESTMapper(mapper meta.ResettableRESTMapper, resettable error, extraErrors ...error) *fake.StubResettableRESTMapper {
+func FlakyRESTMapper(
+	mapper meta.ResettableRESTMapper,
+	resettable error,
+	extraErrors ...error,
+) *fake.StubResettableRESTMapper {
 	return &fake.StubResettableRESTMapper{
 		ResettableRESTMapper: mapper,
 		ResetF: func() {
@@ -1289,14 +1376,24 @@ func TestSSAWithOldObjects(t *testing.T) {
 	// Despite having no field managers, our apply still conflicts with the
 	// legacy "before-first-apply" manager.
 	err = fm.Apply(obj, "pulumi-kubernetes", false)
-	assert.ErrorContains(t, err, `Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart`)
+	assert.ErrorContains(
+		t,
+		err,
+		`Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart`,
+	)
 
 	// Now try again using our SSA upgrade logic -- this should succeed.
 	cfg := &UpdateConfig{
 		Inputs:  obj,
 		Preview: false,
 		ProviderConfig: ProviderConfig{
-			URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
+			URN: resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				"v1/Service",
+				"testresource",
+			),
 			FieldManager:    "pulumi-kubernetes",
 			ServerSideApply: true,
 			Factories:       informers.NewFactories(t.Context()),
@@ -1425,7 +1522,13 @@ status:
 				Inputs:  inputs,
 				Preview: tt.preview,
 				ProviderConfig: ProviderConfig{
-					URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
+					URN: resource.NewURN(
+						tokens.QName("teststack"),
+						tokens.PackageName("testproj"),
+						tokens.Type(""),
+						"v1/Service",
+						"testresource",
+					),
 					FieldManager:    "pulumi-kubernetes",
 					ServerSideApply: true,
 					Factories:       informers.NewFactories(t.Context()),
@@ -1442,14 +1545,28 @@ status:
 }
 
 type typedPatcher[T runtime.Object] interface {
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (T, error)
+	Patch(
+		ctx context.Context,
+		name string,
+		pt types.PatchType,
+		data []byte,
+		opts metav1.PatchOptions,
+		subresources ...string,
+	) (T, error)
 }
 
 type untypedPatcher[T runtime.Object] struct {
 	wrapped typedPatcher[T]
 }
 
-func (p untypedPatcher[T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error) {
+func (p untypedPatcher[T]) Patch(
+	ctx context.Context,
+	name string,
+	pt types.PatchType,
+	data []byte,
+	options metav1.PatchOptions,
+	subresources ...string,
+) (*unstructured.Unstructured, error) {
 	typed, err := p.wrapped.Patch(ctx, name, pt, data, options, subresources...)
 	if err != nil {
 		return nil, err
@@ -1462,7 +1579,14 @@ type fieldManagerPatcher struct {
 	fm managedfieldstest.TestFieldManager
 }
 
-func (p fieldManagerPatcher) Patch(_ context.Context, _ string, pt types.PatchType, data []byte, options metav1.PatchOptions, _ ...string) (*unstructured.Unstructured, error) {
+func (p fieldManagerPatcher) Patch(
+	_ context.Context,
+	_ string,
+	pt types.PatchType,
+	data []byte,
+	options metav1.PatchOptions,
+	_ ...string,
+) (*unstructured.Unstructured, error) {
 	if pt != types.ApplyPatchType {
 		return nil, fmt.Errorf("fieldManagerPatcher only handles Apply")
 	}
@@ -1559,120 +1683,142 @@ func TestUpdateIgnoresStaleEvents(t *testing.T) {
 	newInputs := oldDeployment.DeepCopy()
 	containers, _, _ := unstructured.NestedSlice(newInputs.Object, "spec", "template", "spec", "containers")
 	containers[0].(map[string]any)["image"] = "nginx:2.0"
-	require.NoError(t, unstructured.SetNestedSlice(newInputs.Object, containers, "spec", "template", "spec", "containers"))
+	require.NoError(
+		t,
+		unstructured.SetNestedSlice(newInputs.Object, containers, "spec", "template", "spec", "containers"),
+	)
 
 	// Set up reactor to handle patch/update and return the patched deployment
-	clientset.PrependReactor("patch", "deployments", func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-		// Return the newInputs with generation incremented
-		patched := newInputs.DeepCopy()
-		patched.SetGeneration(2)
-		return true, patched, nil
-	})
+	clientset.PrependReactor(
+		"patch",
+		"deployments",
+		func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+			// Return the newInputs with generation incremented
+			patched := newInputs.DeepCopy()
+			patched.SetGeneration(2)
+			return true, patched, nil
+		},
+	)
 
 	// Set up watch reactor to simulate the race condition where stale events are received
 	var watcherStarted bool
-	clientset.PrependWatchReactor("deployments", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-		if watcherStarted {
-			return false, nil, nil
-		}
-		watcherStarted = true
+	clientset.PrependWatchReactor(
+		"deployments",
+		func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+			if watcherStarted {
+				return false, nil, nil
+			}
+			watcherStarted = true
 
-		fw := watch.NewFake()
-		go func() {
-			// Event 1: Cached event with OLD generation (gen 1, rev "1",
-			// obsGen 1). Should be discarded.
-			staleEvent := oldDeployment.DeepCopy()
-			staleEvent.SetGeneration(1) // OLD generation - should be discarded
-			require.NoError(t, unstructured.SetNestedField(staleEvent.Object, []any{
-				map[string]any{
-					"type":   "Available",
-					"status": "True",
-				},
-			}, "status", "conditions"))
-			fw.Add(staleEvent)
+			fw := watch.NewFake()
+			go func() {
+				// Event 1: Cached event with OLD generation (gen 1, rev "1",
+				// obsGen 1). Should be discarded.
+				staleEvent := oldDeployment.DeepCopy()
+				staleEvent.SetGeneration(1) // OLD generation - should be discarded
+				require.NoError(t, unstructured.SetNestedField(staleEvent.Object, []any{
+					map[string]any{
+						"type":   "Available",
+						"status": "True",
+					},
+				}, "status", "conditions"))
+				fw.Add(staleEvent)
 
-			time.Sleep(10 * time.Millisecond)
+				time.Sleep(10 * time.Millisecond)
 
-			// Event 2: Current/ready deployment (gen 2, rev "2", obsGen 2).
-			// Should not be discarded.
-			readyEvent := oldDeployment.DeepCopy()
-			readyEvent.SetGeneration(2)
-			readyEvent.SetAnnotations(map[string]string{
-				"deployment.kubernetes.io/revision": "2",
-			})
-			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, int64(2), "status", "observedGeneration"))
-			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, []any{
-				map[string]any{
-					"type":   "Progressing",
-					"status": "True",
-					"reason": "NewReplicaSetAvailable",
-				},
-				map[string]any{
-					"type":   "Available",
-					"status": "True",
-				},
-			}, "status", "conditions"))
-			fw.Add(readyEvent)
-		}()
-		return true, fw, nil
-	})
+				// Event 2: Current/ready deployment (gen 2, rev "2", obsGen 2).
+				// Should not be discarded.
+				readyEvent := oldDeployment.DeepCopy()
+				readyEvent.SetGeneration(2)
+				readyEvent.SetAnnotations(map[string]string{
+					"deployment.kubernetes.io/revision": "2",
+				})
+				require.NoError(
+					t,
+					unstructured.SetNestedField(readyEvent.Object, int64(2), "status", "observedGeneration"),
+				)
+				require.NoError(t, unstructured.SetNestedField(readyEvent.Object, []any{
+					map[string]any{
+						"type":   "Progressing",
+						"status": "True",
+						"reason": "NewReplicaSetAvailable",
+					},
+					map[string]any{
+						"type":   "Available",
+						"status": "True",
+					},
+				}, "status", "conditions"))
+				fw.Add(readyEvent)
+			}()
+			return true, fw, nil
+		},
+	)
 
 	// Set up watch reactor for ReplicaSets
-	clientset.PrependWatchReactor("replicasets", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-		fw := watch.NewFake()
-		go func() {
-			time.Sleep(15 * time.Millisecond)
+	clientset.PrependWatchReactor(
+		"replicasets",
+		func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+			fw := watch.NewFake()
+			go func() {
+				time.Sleep(15 * time.Millisecond)
 
-			// Old ReplicaSet (revision "1"). If the stale event (gen 1, rev "1") is NOT discarded,
-			// then the awaiter will see this old RS as ready and complete prematurely.
-			oldRS := &unstructured.Unstructured{
-				Object: map[string]any{
-					"apiVersion": "apps/v1",
-					"kind":       "ReplicaSet",
-					"metadata": map[string]any{
-						"namespace": "default",
-						"name":      "test-deployment-old",
-						"uid":       "rs-old-uid",
-						"annotations": map[string]any{
-							"deployment.kubernetes.io/revision": "1",
-						},
-						"ownerReferences": []any{
-							map[string]any{
-								"apiVersion": "apps/v1",
-								"kind":       "Deployment",
-								"name":       "test-deployment",
-								"uid":        "test-uid",
-								"controller": true,
+				// Old ReplicaSet (revision "1"). If the stale event (gen 1, rev "1") is NOT discarded,
+				// then the awaiter will see this old RS as ready and complete prematurely.
+				oldRS := &unstructured.Unstructured{
+					Object: map[string]any{
+						"apiVersion": "apps/v1",
+						"kind":       "ReplicaSet",
+						"metadata": map[string]any{
+							"namespace": "default",
+							"name":      "test-deployment-old",
+							"uid":       "rs-old-uid",
+							"annotations": map[string]any{
+								"deployment.kubernetes.io/revision": "1",
+							},
+							"ownerReferences": []any{
+								map[string]any{
+									"apiVersion": "apps/v1",
+									"kind":       "Deployment",
+									"name":       "test-deployment",
+									"uid":        "test-uid",
+									"controller": true,
+								},
 							},
 						},
+						"spec": map[string]any{
+							"replicas": int64(1),
+						},
+						"status": map[string]any{
+							"replicas":          int64(1),
+							"readyReplicas":     int64(1),
+							"availableReplicas": int64(1),
+						},
 					},
-					"spec": map[string]any{
-						"replicas": int64(1),
-					},
-					"status": map[string]any{
-						"replicas":          int64(1),
-						"readyReplicas":     int64(1),
-						"availableReplicas": int64(1),
-					},
-				},
-			}
-			fw.Add(oldRS)
+				}
+				fw.Add(oldRS)
 
-			// New ReplicaSet (revision "2").
-			newRS := oldRS.DeepCopy()
-			newRS.SetName("test-deployment-new")
-			newRS.SetUID("rs-new-uid")
-			newRS.SetAnnotations(map[string]string{
-				"deployment.kubernetes.io/revision": "2",
-			})
-			fw.Add(newRS)
-		}()
-		return true, fw, nil
-	})
+				// New ReplicaSet (revision "2").
+				newRS := oldRS.DeepCopy()
+				newRS.SetName("test-deployment-new")
+				newRS.SetUID("rs-new-uid")
+				newRS.SetAnnotations(map[string]string{
+					"deployment.kubernetes.io/revision": "2",
+				})
+				fw.Add(newRS)
+			}()
+			return true, fw, nil
+		},
+	)
 
 	ctx := context.Background()
 	host := &fakehost.HostClient{}
-	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type("kubernetes:apps/v1:Deployment"), "testresource")
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type("kubernetes:apps/v1:Deployment"),
+		"testresource",
+	)
 	result, err := Update(UpdateConfig{
 		ProviderConfig: ProviderConfig{
 			Context:           ctx,

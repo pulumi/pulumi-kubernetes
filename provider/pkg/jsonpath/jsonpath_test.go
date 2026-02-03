@@ -262,7 +262,10 @@ func TestMatches(t *testing.T) {
 					"phase": "Pending",
 				},
 			}},
-			want: MatchResult{Matched: false, Message: `{.status[?@ == "Running" || @ == "Succeeded" ]} selected nothing`},
+			want: MatchResult{
+				Matched: false,
+				Message: `{.status[?@ == "Running" || @ == "Succeeded" ]} selected nothing`,
+			},
 		},
 	}
 

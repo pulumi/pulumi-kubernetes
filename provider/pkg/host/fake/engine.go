@@ -107,7 +107,10 @@ func (m *EngineServer) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbem
 
 // GetRootResource gets the URN of the root resource, the resource that should be the root of all
 // otherwise-unparented resources.
-func (m *EngineServer) GetRootResource(ctx context.Context, in *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
+func (m *EngineServer) GetRootResource(
+	ctx context.Context,
+	in *pulumirpc.GetRootResourceRequest,
+) (*pulumirpc.GetRootResourceResponse, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	return &pulumirpc.GetRootResourceResponse{
@@ -116,7 +119,10 @@ func (m *EngineServer) GetRootResource(ctx context.Context, in *pulumirpc.GetRoo
 }
 
 // SetRootResource sets the URN of the root resource.
-func (m *EngineServer) SetRootResource(ctx context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
+func (m *EngineServer) SetRootResource(
+	ctx context.Context,
+	in *pulumirpc.SetRootResourceRequest,
+) (*pulumirpc.SetRootResourceResponse, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.rootResource = in.GetUrn()

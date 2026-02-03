@@ -63,21 +63,21 @@ type FetchArgs struct {
 
 // fetchArgs is a copy of FetchArgs but without using TInput in types.
 type fetchArgs struct {
-	Version     string `json:"version,omitempty" pulumi:"version"`
-	CAFile      string `json:"ca_file,omitempty" pulumi:"caFile"`
-	CertFile    string `json:"cert_file,omitempty" pulumi:"certFile"`
-	KeyFile     string `json:"key_file,omitempty" pulumi:"keyFile"`
+	Version     string `json:"version,omitempty"     pulumi:"version"`
+	CAFile      string `json:"ca_file,omitempty"     pulumi:"caFile"`
+	CertFile    string `json:"cert_file,omitempty"   pulumi:"certFile"`
+	KeyFile     string `json:"key_file,omitempty"    pulumi:"keyFile"`
 	Destination string `json:"destination,omitempty" pulumi:"destination"`
-	Keyring     string `json:"keyring,omitempty" pulumi:"keyring"`
-	Password    string `json:"password,omitempty" pulumi:"password"`
-	Repo        string `json:"repo,omitempty" pulumi:"repo"`
-	UntarDir    string `json:"untar_dir,omitempty" pulumi:"untarDir"`
-	Username    string `json:"username,omitempty" pulumi:"username"`
-	Home        string `json:"home,omitempty" pulumi:"home"`
-	Devel       *bool  `json:"devel,omitempty" pulumi:"devel"`
-	Prov        *bool  `json:"prov,omitempty" pulumi:"prov"`
-	Untar       *bool  `json:"untar,omitempty" pulumi:"untar"`
-	Verify      *bool  `json:"verify,omitempty" pulumi:"verify"`
+	Keyring     string `json:"keyring,omitempty"     pulumi:"keyring"`
+	Password    string `json:"password,omitempty"    pulumi:"password"`
+	Repo        string `json:"repo,omitempty"        pulumi:"repo"`
+	UntarDir    string `json:"untar_dir,omitempty"   pulumi:"untarDir"`
+	Username    string `json:"username,omitempty"    pulumi:"username"`
+	Home        string `json:"home,omitempty"        pulumi:"home"`
+	Devel       *bool  `json:"devel,omitempty"       pulumi:"devel"`
+	Prov        *bool  `json:"prov,omitempty"        pulumi:"prov"`
+	Untar       *bool  `json:"untar,omitempty"       pulumi:"untar"`
+	Verify      *bool  `json:"verify,omitempty"      pulumi:"verify"`
 }
 
 type FetchArgsInput interface {
@@ -160,20 +160,20 @@ type ChartArgs struct {
 // chartArgs is a copy of ChartArgs but without using TInput in types.
 // Note that Transformations are omitted in JSON marshaling because functions are not serializable.
 type chartArgs struct {
-	APIVersions              []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
+	APIVersions              []string               `json:"api_versions,omitempty"                pulumi:"apiVersions"`
 	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty" pulumi:"includeTestHookResources"`
-	SkipAwait                bool                   `json:"skip_await,omitempty" pulumi:"skipAwait"`
-	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty" pulumi:"skipCRDRendering"`
-	Namespace                string                 `json:"namespace,omitempty" pulumi:"namespace"`
-	Values                   map[string]interface{} `json:"values,omitempty" pulumi:"values"`
-	Transformations          []yaml.Transformation  `json:"-" pulumi:"transformations"`
-	ResourcePrefix           string                 `json:"resource_prefix,omitempty" pulumi:"resourcePrefix"`
-	Repo                     string                 `json:"repo,omitempty" pulumi:"repo"`
-	Chart                    string                 `json:"chart,omitempty" pulumi:"chart"`
-	Version                  string                 `json:"version,omitempty" pulumi:"version"`
-	KubeVersion              string                 `json:"kube_version,omitempty" pulumi:"kubeVersion"`
-	FetchArgs                fetchArgs              `json:"fetch_opts,omitempty" pulumi:"fetchArgs"`
-	Path                     string                 `json:"path,omitempty" pulumi:"path"`
+	SkipAwait                bool                   `json:"skip_await,omitempty"                  pulumi:"skipAwait"`
+	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty"          pulumi:"skipCRDRendering"`
+	Namespace                string                 `json:"namespace,omitempty"                   pulumi:"namespace"`
+	Values                   map[string]interface{} `json:"values,omitempty"                      pulumi:"values"`
+	Transformations          []yaml.Transformation  `json:"-"                                     pulumi:"transformations"`
+	ResourcePrefix           string                 `json:"resource_prefix,omitempty"             pulumi:"resourcePrefix"`
+	Repo                     string                 `json:"repo,omitempty"                        pulumi:"repo"`
+	Chart                    string                 `json:"chart,omitempty"                       pulumi:"chart"`
+	Version                  string                 `json:"version,omitempty"                     pulumi:"version"`
+	KubeVersion              string                 `json:"kube_version,omitempty"                pulumi:"kubeVersion"`
+	FetchArgs                fetchArgs              `json:"fetch_opts,omitempty"                  pulumi:"fetchArgs"`
+	Path                     string                 `json:"path,omitempty"                        pulumi:"path"`
 }
 
 type ChartArgsInput interface {

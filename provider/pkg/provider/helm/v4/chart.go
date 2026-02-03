@@ -141,7 +141,12 @@ func NewChartProvider(opts *providerresource.ResourceProviderOptions) providerre
 	}
 }
 
-func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+func (r *ChartProvider) Construct(
+	ctx *pulumi.Context,
+	typ, name string,
+	inputs pulumiprovider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*pulumiprovider.ConstructResult, error) {
 	comp := &ChartState{}
 	err := ctx.RegisterComponentResource(typ, name, comp, options)
 	if err != nil {
@@ -285,7 +290,12 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 ) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 	// Implement support for Helm resource policies.
 	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
-	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)
+	policy, hasPolicy, err := unstructured.NestedString(
+		obj.Object,
+		"metadata",
+		"annotations",
+		helmkube.ResourcePolicyAnno,
+	)
 	if err == nil && hasPolicy {
 		switch policy {
 		case helmkube.KeepPolicy:

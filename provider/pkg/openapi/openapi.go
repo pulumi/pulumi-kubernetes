@@ -87,7 +87,12 @@ func PatchForResourceUpdate(
 	resources openapi.Resources, lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 
-	contract.Assertf(liveOldObj.GetAPIVersion() == currentSubmitted.GetAPIVersion(), "unexpected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), currentSubmitted.GetAPIVersion())
+	contract.Assertf(
+		liveOldObj.GetAPIVersion() == currentSubmitted.GetAPIVersion(),
+		"unexpected APIVersion %q to be %q",
+		liveOldObj.GetAPIVersion(),
+		currentSubmitted.GetAPIVersion(),
+	)
 
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
@@ -130,7 +135,9 @@ func PatchForResourceUpdate(
 // StrategicMergePatch is a helper to use a three-way strategic merge on a resource version.
 // See for more details: https://tools.ietf.org/html/rfc6902
 func StrategicMergePatch(
-	resources openapi.Resources, liveOld *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+	resources openapi.Resources,
+	liveOld *unstructured.Unstructured,
+	lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 	gvk := liveOld.GroupVersionKind()
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {

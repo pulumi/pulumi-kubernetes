@@ -75,8 +75,13 @@ func NewCustomResource(ctx *pulumi.Context,
 
 // GetCustomResource gets an existing CustomResource resource's state with the given name, ID, and optional
 // state properties that are used to uniquely qualify the lookup (nil if not required).
-func GetCustomResource(ctx *pulumi.Context,
-	name string, id pulumi.IDInput, state *CustomResourceState, opts ...pulumi.ResourceOption) (*CustomResource, error) {
+func GetCustomResource(
+	ctx *pulumi.Context,
+	name string,
+	id pulumi.IDInput,
+	state *CustomResourceState,
+	opts ...pulumi.ResourceOption,
+) (*CustomResource, error) {
 	var resource CustomResource
 	if state == nil {
 		return nil, errors.New("missing one or more required arguments")

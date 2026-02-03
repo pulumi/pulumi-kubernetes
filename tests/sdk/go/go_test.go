@@ -769,7 +769,8 @@ func TestSwitchSSADeleteContainer(t *testing.T) {
 				}
 
 				count++
-				out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", ns, "nginx").CombinedOutput()
+				out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", ns, "nginx").
+					CombinedOutput()
 				assert.NoError(t, err)
 				assert.Equal(t, expectedContainers, string(out))
 			}
@@ -1055,7 +1056,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("kustomize-options-old"),
+							Alias("kustomize-options-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      HaveExactElements(string(sleep.URN)),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -1072,7 +1076,9 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -1158,7 +1164,9 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
+						"Aliases": HaveExactElements(
+							Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -1168,7 +1176,9 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
+								"name": Equal(
+									"chart-options-chart-options-cm-1",
+								), // note: based on the Helm Release name
 								"annotations": And(HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),
@@ -1190,8 +1200,11 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider"),
-				"kubernetes:core/v1:ConfigMap", "chart-provider-chart-provider-chart-provider-cm-1")).To(HaveExactElements(
+			g.Expect(rr.Named(
+				urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider"),
+				"kubernetes:core/v1:ConfigMap",
+				"chart-provider-chart-provider-chart-provider-cm-1",
+			)).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
 						"Provider":  BeEquivalentTo(providerUrn(providerB)),

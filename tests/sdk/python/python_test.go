@@ -307,7 +307,11 @@ func TestGuestbook(t *testing.T) {
 					redisFollowerDepl := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisFollowerDepl.URN.Type())
 					name, _ = openapi.Pluck(redisFollowerDepl.Outputs, "metadata", "name")
-					assert.True(t, strings.HasPrefix(name.(string), "redis-follower"), fmt.Sprintf("%s %s", name, "redis-slave"))
+					assert.True(
+						t,
+						strings.HasPrefix(name.(string), "redis-follower"),
+						fmt.Sprintf("%s %s", name, "redis-slave"),
+					)
 					status, _ = openapi.Pluck(redisFollowerDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(1), status)
 
@@ -315,7 +319,11 @@ func TestGuestbook(t *testing.T) {
 					redisLeaderDepl := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisLeaderDepl.URN.Type())
 					name, _ = openapi.Pluck(redisLeaderDepl.Outputs, "metadata", "name")
-					assert.True(t, strings.HasPrefix(name.(string), "redis-leader"), fmt.Sprintf("%s %s", name, "redis-master"))
+					assert.True(
+						t,
+						strings.HasPrefix(name.(string), "redis-leader"),
+						fmt.Sprintf("%s %s", name, "redis-master"),
+					)
 					status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(1), status)
 
@@ -337,7 +345,11 @@ func TestGuestbook(t *testing.T) {
 					redisFollowerService := stackInfo.Deployment.Resources[5]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisFollowerService.URN.Type())
 					name, _ = openapi.Pluck(redisFollowerService.Outputs, "metadata", "name")
-					assert.True(t, strings.HasPrefix(name.(string), "redis-follower"), fmt.Sprintf("%s %s", name, "redis-slave"))
+					assert.True(
+						t,
+						strings.HasPrefix(name.(string), "redis-follower"),
+						fmt.Sprintf("%s %s", name, "redis-slave"),
+					)
 					status, _ = openapi.Pluck(redisFollowerService.Outputs, "spec", "clusterIP")
 					assert.True(t, len(status.(string)) > 1)
 
@@ -345,7 +357,11 @@ func TestGuestbook(t *testing.T) {
 					redisLeaderService := stackInfo.Deployment.Resources[6]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
 					name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
-					assert.True(t, strings.HasPrefix(name.(string), "redis-leader"), fmt.Sprintf("%s %s", name, "redis-master"))
+					assert.True(
+						t,
+						strings.HasPrefix(name.(string), "redis-leader"),
+						fmt.Sprintf("%s %s", name, "redis-master"),
+					)
 					status, _ = openapi.Pluck(redisLeaderService.Outputs, "spec", "clusterIP")
 					assert.True(t, len(status.(string)) > 1)
 
@@ -707,7 +723,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
+						"Aliases": ConsistOf(
+							Alias("cg-options-cm-1-k8s-aliased"),
+							Alias("cg-options-cg-options-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -724,11 +743,16 @@ func TestOptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"),
-				"kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
+			g.Expect(rr.Named(
+				urn("", "kubernetes:yaml:ConfigGroup", "cg-options-cg-options"),
+				"kubernetes:yaml:ConfigFile",
+				"cg-options-./testdata/options/configgroup/manifest.yaml",
+			)).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
+						"Aliases": ConsistOf(
+							Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEmpty(),
@@ -741,26 +765,30 @@ func TestOptionPropagation(t *testing.T) {
 				}),
 			))
 			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml"),
-				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("configgroup-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
-							}),
-						}))),
+				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).
+				To(HaveExactElements(
+					MatchFields(IgnoreExtras, Fields{
+						"Request": MatchFields(IgnoreExtras, Fields{
+							"Aliases": ConsistOf(
+								Alias("configgroup-cm-1-k8s-aliased"),
+								Alias("cg-options-configgroup-cm-1-aliased"),
+							),
+							"Protect":           PointTo(BeTrue()),
+							"Dependencies":      BeEmpty(),
+							"Provider":          BeEquivalentTo(providerUrn(providerA)),
+							"Version":           Equal("1.2.3"),
+							"PluginDownloadURL": Equal("https://a.pulumi.test"),
+							"Providers":         BeEmpty(),
+							"IgnoreChanges":     BeEmpty(),
+							"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
+								"metadata": MatchKeys(IgnoreExtras, Keys{
+									"name":        Equal("configgroup-cm-1"),
+									"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+								}),
+							}))),
+						}),
 					}),
-				}),
-			))
+				))
 
 			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
@@ -814,7 +842,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
+						"Aliases": ConsistOf(
+							Alias("configfile-cm-1-k8s-aliased"),
+							Alias("cf-options-configfile-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -885,7 +916,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK applies resource_prefix ("kustomize-options") to the component itself.
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
+						"Aliases": ConsistOf(
+							Alias("kustomize-options-old"),
+							Alias("kustomize-options-kustomize-options-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      ConsistOf(string(sleep.URN)),
 						"Provider":          BeEmpty(),
@@ -902,7 +936,10 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
+						"Aliases": ConsistOf(
+							Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
+							Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -989,7 +1026,10 @@ func TestOptionPropagation(t *testing.T) {
 				// quirk: Python SDK does NOT directly apply resource_prefix to the child resources (unlike other SDKs)
 				MatchFields(IgnoreExtras, Fields{
 					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           ConsistOf(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-cm-1-aliased")),
+						"Aliases": ConsistOf(
+							Alias("chart-options-chart-options-cm-1-k8s-aliased"),
+							Alias("chart-options-chart-options-cm-1-aliased"),
+						),
 						"Protect":           PointTo(BeTrue()),
 						"Dependencies":      BeEmpty(),
 						"Provider":          BeEquivalentTo(providerUrn(providerA)),
@@ -999,7 +1039,9 @@ func TestOptionPropagation(t *testing.T) {
 						"IgnoreChanges":     BeEmpty(),
 						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
 							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
+								"name": Equal(
+									"chart-options-chart-options-cm-1",
+								), // note: based on the Helm Release name
 								"annotations": And(HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),

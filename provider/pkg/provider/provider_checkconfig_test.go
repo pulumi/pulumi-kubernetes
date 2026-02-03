@@ -125,7 +125,11 @@ var _ = Describe("RPC:CheckConfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				Expect(err).ToNot(HaveOccurred())
 				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("kubeconfig", Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`))))
+					CheckFailure(
+						"kubeconfig",
+						Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`),
+					),
+				))
 			})
 		})
 

@@ -50,13 +50,23 @@ var pod = &unstructured.Unstructured{
 
 type get404 struct{}
 
-func (get404) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+func (get404) Get(
+	ctx context.Context,
+	name string,
+	opts metav1.GetOptions,
+	sub ...string,
+) (*unstructured.Unstructured, error) {
 	return nil, k8serrors.NewNotFound(schema.GroupResource{}, name)
 }
 
 type get503 struct{}
 
-func (get503) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+func (get503) Get(
+	ctx context.Context,
+	name string,
+	opts metav1.GetOptions,
+	sub ...string,
+) (*unstructured.Unstructured, error) {
 	return nil, k8serrors.NewServiceUnavailable("boom")
 }
 
@@ -71,7 +81,12 @@ type getsequence struct {
 	idx     int
 }
 
-func (g *getsequence) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+func (g *getsequence) Get(
+	ctx context.Context,
+	name string,
+	opts metav1.GetOptions,
+	sub ...string,
+) (*unstructured.Unstructured, error) {
 	defer func() { g.idx++ }()
 	return g.getters[g.idx].Get(ctx, name, opts, sub...)
 }
@@ -81,7 +96,12 @@ type getdeferred struct {
 	objectGetter
 }
 
-func (g *getdeferred) Get(ctx context.Context, name string, opts metav1.GetOptions, sub ...string) (*unstructured.Unstructured, error) {
+func (g *getdeferred) Get(
+	ctx context.Context,
+	name string,
+	opts metav1.GetOptions,
+	sub ...string,
+) (*unstructured.Unstructured, error) {
 	g.wg.Wait()
 	return g.objectGetter.Get(ctx, name, opts, sub...)
 }

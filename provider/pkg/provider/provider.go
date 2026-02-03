@@ -238,7 +238,10 @@ func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*p
 
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
-func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
+func (k *kubeProvider) GetMapping(
+	ctx context.Context,
+	request *pulumirpc.GetMappingRequest,
+) (*pulumirpc.GetMappingResponse, error) {
 	// We only return a mapping for terraform
 	if request.Key != "terraform" {
 		// an empty response means no mapping, by design we don't return an error here
@@ -252,7 +255,10 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
-func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+func (k *kubeProvider) GetSchema(
+	ctx context.Context,
+	req *pulumirpc.GetSchemaRequest,
+) (*pulumirpc.GetSchemaResponse, error) {
 	if v := req.GetVersion(); v != 0 {
 		return nil, fmt.Errorf("unsupported schema version %d", v)
 	}
@@ -376,7 +382,10 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest) (resp *pulumirpc.DiffResponse, err error) {
+func (k *kubeProvider) DiffConfig(
+	_ context.Context,
+	req *pulumirpc.DiffRequest,
+) (resp *pulumirpc.DiffResponse, err error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -491,7 +500,10 @@ func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest)
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
-func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
+func (k *kubeProvider) Configure(
+	_ context.Context,
+	req *pulumirpc.ConfigureRequest,
+) (*pulumirpc.ConfigureResponse, error) {
 	const trueStr = "true"
 
 	// Configure Helm settings based on the ambient Helm environment,
@@ -838,8 +850,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		config, err = kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
-			k.clusterUnreachableReason = fmt.Sprintf("unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
-				" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v", err)
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
+					" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v",
+				err,
+			)
 			config = nil
 		} else {
 			if kubeClientSettings.Burst != nil {
@@ -1055,7 +1070,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if k.clusterUnreachable {
 		if k.skipUpdateUnreachable {
-			_ = k.host.Log(ctx, diag.Warning, urn, "Cluster is unreachable but skipUpdateUnreachable flag is set to true, skipping...")
+			_ = k.host.Log(
+				ctx,
+				diag.Warning,
+				urn,
+				"Cluster is unreachable but skipUpdateUnreachable flag is set to true, skipping...",
+			)
 			return &pulumirpc.CheckResponse{
 				Inputs: req.GetOlds(),
 			}, nil
@@ -1139,7 +1159,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
-				return nil, fmt.Errorf("Failed to create object because of a problem setting managed-by labels: %w", err)
+				return nil, fmt.Errorf(
+					"Failed to create object because of a problem setting managed-by labels: %w",
+					err,
+				)
 			}
 		}
 	} else {
@@ -1429,7 +1452,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if len(patchObj) != 0 {
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
-		if !kinds.IsPatchResource(urn, newInputs.GetKind()) { // Patch resources can be updated in place for all other properties.
+		if !kinds.IsPatchResource(
+			urn,
+			newInputs.GetKind(),
+		) { // Patch resources can be updated in place for all other properties.
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
@@ -1471,7 +1497,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 			for k, v := range detailedDiff {
 				switch v.Kind {
-				case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+				case pulumirpc.PropertyDiff_ADD_REPLACE,
+					pulumirpc.PropertyDiff_DELETE_REPLACE,
+					pulumirpc.PropertyDiff_UPDATE_REPLACE:
 					replaces = append(replaces, k)
 				case pulumirpc.PropertyDiff_DELETE:
 					if k == "metadata" {
@@ -1579,7 +1607,9 @@ func (k *kubeProvider) Create(
 	// 2: The cluster is unreachable or the resource GVK does not exist
 	// 3: The resource is a Patch resource
 	// 4: We are in client-side-apply mode
-	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || kinds.IsPatchResource(urn, newInputs.GetKind()) || !k.serverSideApplyMode
+	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) ||
+		kinds.IsPatchResource(urn, newInputs.GetKind()) ||
+		!k.serverSideApplyMode
 	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
 	// with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && skipPreview {
@@ -1950,7 +1980,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", "deployment.kubernetes.io/revision")
+		unstructured.RemoveNestedField(
+			liveInputs.Object,
+			"metadata",
+			"annotations",
+			"deployment.kubernetes.io/revision",
+		)
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", lastAppliedConfigKey)
 	}
 
@@ -2242,7 +2277,10 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	if isHelmRelease(urn) {
 		if k.clusterUnreachable {
-			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+			return nil, fmt.Errorf(
+				"can't delete Helm Release with unreachable cluster. Reason: %q",
+				k.clusterUnreachableReason,
+			)
 		}
 		return k.helmReleaseProvider.Delete(ctx, req)
 	}
@@ -3129,11 +3167,18 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 		return name
 	}
 
-	fileName := fmt.Sprintf("%s-%s-%s-%s.yaml", sanitise(resource.GetAPIVersion()), strings.ToLower(resource.GetKind()), namespace, resource.GetName())
+	fileName := fmt.Sprintf(
+		"%s-%s-%s-%s.yaml",
+		sanitise(resource.GetAPIVersion()),
+		strings.ToLower(resource.GetKind()),
+		namespace,
+		resource.GetName(),
+	)
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string
-	if kinds.KnownGroupVersions.Has(resource.GetAPIVersion()) && kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
+	if kinds.KnownGroupVersions.Has(resource.GetAPIVersion()) &&
+		kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
 		path = filepath.Join(crdDirectory, fileName)
 	} else {
 		path = filepath.Join(manifestDirectory, fileName)

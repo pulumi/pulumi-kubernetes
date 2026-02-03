@@ -372,7 +372,11 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					patchTok = fmt.Sprintf("%sPatch", tok)
 				}
 
-				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", PascalCaseMapping.Get(group.Group()), PascalCaseMapping.Get(version.Version()))
+				csharpNamespaces[kind.apiVersion] = fmt.Sprintf(
+					"%s.%s",
+					PascalCaseMapping.Get(group.Group()),
+					PascalCaseMapping.Get(version.Version()),
+				)
 				javaPackages[kind.apiVersion] = fmt.Sprintf("%s.%s", group.Group(), version.Version())
 				modToPkg[kind.apiVersion] = kind.schemaPkgName
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
@@ -519,7 +523,10 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 
 					for _, t := range kind.Aliases() {
 						aliasedType := fmt.Sprintf("%sPatch", t)
-						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: aliasedType})
+						patchResourceSpec.Aliases = append(
+							patchResourceSpec.Aliases,
+							pschema.AliasSpec{Type: aliasedType},
+						)
 					}
 
 					// Check if the current resource exists in the overlays and overwrite types accordingly.

@@ -64,7 +64,12 @@ func NewCustomResourcePatch(ctx *pulumi.Context,
 	untyped["metadata"] = args.Metadata
 
 	var resource CustomResourcePatch
-	err = ctx.RegisterResource(fmt.Sprintf("kubernetes:%s:%sPatch", apiVersion, kind), name, untyped, &resource, opts...)
+	err = ctx.RegisterResource(
+		fmt.Sprintf("kubernetes:%s:%sPatch", apiVersion, kind),
+		name,
+		untyped,
+		&resource,
+		opts...)
 	if err != nil {
 		return nil, err
 	}

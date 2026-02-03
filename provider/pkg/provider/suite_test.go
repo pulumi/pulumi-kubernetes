@@ -96,14 +96,20 @@ func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempt
 
 // GetRootResource gets the URN of the root resource, the resource that should be the root of all
 // otherwise-unparented resources.
-func (m *mockEngine) GetRootResource(ctx context.Context, in *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
+func (m *mockEngine) GetRootResource(
+	ctx context.Context,
+	in *pulumirpc.GetRootResourceRequest,
+) (*pulumirpc.GetRootResourceResponse, error) {
 	return &pulumirpc.GetRootResourceResponse{
 		Urn: m.rootResource,
 	}, nil
 }
 
 // SetRootResource sets the URN of the root resource.
-func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
+func (m *mockEngine) SetRootResource(
+	ctx context.Context,
+	in *pulumirpc.SetRootResourceRequest,
+) (*pulumirpc.SetRootResourceResponse, error) {
 	m.rootResource = in.GetUrn()
 	return &pulumirpc.SetRootResourceResponse{}, nil
 }
@@ -223,7 +229,13 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 		opt(&options)
 	}
 
-	k, err := makeKubeProvider(c.host, "kubernetes", testPluginVersion, []byte(testPulumiSchema), []byte(testTerraformMapping))
+	k, err := makeKubeProvider(
+		c.host,
+		"kubernetes",
+		testPluginVersion,
+		[]byte(testPulumiSchema),
+		[]byte(testTerraformMapping),
+	)
 	Expect(err).ShouldNot(HaveOccurred())
 
 	k.makeClient = func(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {

@@ -141,17 +141,26 @@ func (m *ResourceMonitorServer) newURN(parent, typ, name string) string {
 		name))
 }
 
-func (m *ResourceMonitorServer) SupportsFeature(context.Context, *pulumirpc.SupportsFeatureRequest) (*pulumirpc.SupportsFeatureResponse, error) {
+func (m *ResourceMonitorServer) SupportsFeature(
+	context.Context,
+	*pulumirpc.SupportsFeatureRequest,
+) (*pulumirpc.SupportsFeatureResponse, error) {
 	return &pulumirpc.SupportsFeatureResponse{
 		HasSupport: true,
 	}, nil
 }
 
-func (m *ResourceMonitorServer) RegisterResourceOutputs(context.Context, *pulumirpc.RegisterResourceOutputsRequest) (*emptypb.Empty, error) {
+func (m *ResourceMonitorServer) RegisterResourceOutputs(
+	context.Context,
+	*pulumirpc.RegisterResourceOutputsRequest,
+) (*emptypb.Empty, error) {
 	return &emptypb.Empty{}, nil
 }
 
-func (m *ResourceMonitorServer) RegisterResource(ctx context.Context, in *pulumirpc.RegisterResourceRequest) (*pulumirpc.RegisterResourceResponse, error) {
+func (m *ResourceMonitorServer) RegisterResource(
+	ctx context.Context,
+	in *pulumirpc.RegisterResourceRequest,
+) (*pulumirpc.RegisterResourceResponse, error) {
 	if in.GetType() == string(resource.RootStackType) && in.GetParent() == "" {
 		return &pulumirpc.RegisterResourceResponse{
 			Urn: m.newURN(in.GetParent(), in.GetType(), in.GetName()),

@@ -213,7 +213,15 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if c.Preview &&
 					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
 					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
-					_ = c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
+					_ = c.Host.Log(
+						c.Context,
+						diag.Info,
+						c.URN,
+						fmt.Sprintf(
+							"Preview creation failed due to immutable fields; retrying with name %q",
+							previewName,
+						),
+					)
 					c.Inputs.SetName(previewName)
 
 					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
@@ -263,7 +271,12 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		outputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.Preview {
 		return outputs, nil
@@ -277,7 +290,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()))
+	source := condition.NewDynamicSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()),
+	)
 	defer source.Stop()
 
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
@@ -347,7 +364,12 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		outputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.ReadFromCluster {
 		// If the resource is read from a .get or an import, simply return the resource state from the cluster.
@@ -421,14 +443,24 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		liveOldObj.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	currentOutputs, err := updateResource(&c, liveOldObj, client)
 	if err != nil {
 		return nil, err
 	}
 
-	contract.Assertf(currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", currentOutputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		currentOutputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.Preview {
 		// We do not need to get the updated live object if we are in preview mode.
@@ -443,7 +475,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()))
+	source := condition.NewDynamicSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()),
+	)
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
 	if err != nil {
 		return currentOutputs, err
@@ -496,12 +532,21 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		live = currentOutputs
 	}
 
-	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		live.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		live.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	return live, nil
 }
 
-func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+func updateResource(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client dynamic.ResourceInterface,
+) (*unstructured.Unstructured, error) {
 	var currentOutputs *unstructured.Unstructured
 	var err error
 	switch {
@@ -531,7 +576,11 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 }
 
 // csaUpdate handles the logic for updating a resource using client-side apply.
-func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+func csaUpdate(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client dynamic.ResourceInterface,
+) (*unstructured.Unstructured, error) {
 	// Handle ignoreChanges for CSA to use the last known value applied to the cluster, rather than what's in state which may be outdated.
 	// We ignore errors here as it occurs when there is an issue traversing the field path. If this occurs, then use the last value in state
 	// optimistically rather than failing the update.
@@ -553,11 +602,22 @@ func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 }
 
 type patcher interface {
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error)
+	Patch(
+		ctx context.Context,
+		name string,
+		pt types.PatchType,
+		data []byte,
+		options metav1.PatchOptions,
+		subresources ...string,
+	) (*unstructured.Unstructured, error)
 }
 
 // ssaUpdate handles the logic for updating a resource using server-side apply.
-func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
+func ssaUpdate(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client patcher,
+) (*unstructured.Unstructured, error) {
 	liveOldObj, err := fixCSAFieldManagers(c, liveOldObj, client)
 	if err != nil {
 		return nil, err
@@ -629,7 +689,11 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 	for _, f := range managedFields {
 		s, err := fluxssa.FieldsToSet(*f.FieldsV1)
 		if err != nil {
-			return fmt.Errorf("unable to parse managed fields from resource %q into fieldpath.Set: %w", liveOldObj.GetName(), err)
+			return fmt.Errorf(
+				"unable to parse managed fields from resource %q into fieldpath.Set: %w",
+				liveOldObj.GetName(),
+				err,
+			)
 		}
 
 		switch f.Manager {
@@ -740,7 +804,11 @@ func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
+func fixCSAFieldManagers(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client patcher,
+) (*unstructured.Unstructured, error) {
 	if kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
 		// When dealing with a patch resource, there's no need to patch the field managers.
 		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
@@ -860,7 +928,12 @@ func Deletion(c DeleteConfig) error {
 	defer cancel()
 
 	// Setup our Informer factory.
-	source, err := condition.NewDeletionSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, c.Outputs.GetNamespace()), c.Outputs)
+	source, err := condition.NewDeletionSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, c.Outputs.GetNamespace()),
+		c.Outputs,
+	)
 	if err != nil {
 		return err
 	}
@@ -967,7 +1040,10 @@ func (l *legacyReadyCondition) Observe(watch.Event) error {
 	return nil
 }
 
-func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) (*unstructured.Unstructured, error)) condition.Satisfier {
+func newLegacyReadyCondition(
+	c awaitConfig,
+	await func(awaitConfig) (*unstructured.Unstructured, error),
+) condition.Satisfier {
 	if metadata.SkipAwaitLogic(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}

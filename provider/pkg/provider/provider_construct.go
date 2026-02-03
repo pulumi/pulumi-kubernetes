@@ -62,7 +62,10 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 }
 
 // Construct creates a new instance of the provided component resource and returns its state.
-func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
+func (k *kubeProvider) Construct(
+	ctx context.Context,
+	req *pulumirpc.ConstructRequest,
+) (*pulumirpc.ConstructResponse, error) {
 
 	if k.clusterUnreachable && !k.yamlRenderMode {
 		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
@@ -70,7 +73,10 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 	// In yamlRenderMode we provide a default value for the default namespace.
 	// In all other cases we need to assert a default namespace is set.
 	if !k.yamlRenderMode {
-		contract.Assertf(k.defaultNamespace != "" || k.yamlRenderMode, "expected defaultNamespace outside of render mode")
+		contract.Assertf(
+			k.defaultNamespace != "" || k.yamlRenderMode,
+			"expected defaultNamespace outside of render mode",
+		)
 	}
 	contract.Assertf(k.helmDriver != "", "expected helmDriver")
 	contract.Assertf(k.helmSettings != nil, "expected helmSettings")

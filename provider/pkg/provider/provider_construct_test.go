@@ -128,7 +128,13 @@ type mockResourceProvider struct {
 
 var _ providerresource.ResourceProvider = &mockResourceProvider{}
 
-func (t *mockResourceProvider) Construct(ctx *pulumi.Context, typ string, name string, inputs provider.ConstructInputs, options pulumi.ResourceOption) (*provider.ConstructResult, error) {
+func (t *mockResourceProvider) Construct(
+	ctx *pulumi.Context,
+	typ string,
+	name string,
+	inputs provider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*provider.ConstructResult, error) {
 	t.ctx = ctx
 	t.typ = typ
 	t.name = name

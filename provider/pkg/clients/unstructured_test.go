@@ -354,7 +354,12 @@ func TestNormalize(t *testing.T) {
 		{"CRD with status", args{uns: crdStatusUnstructured}, crdUnstructured, false},
 		{"Secret with stringData input", args{uns: secretUnstructured}, secretNormalizedUnstructured, false},
 		{"Secret with data input", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured, false},
-		{"Secret with data containing trailing new line", args{uns: secretNewLineUnstructured}, secretNewLineNormalizedUnstructured, false},
+		{
+			"Secret with data containing trailing new line",
+			args{uns: secretNewLineUnstructured},
+			secretNewLineNormalizedUnstructured,
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

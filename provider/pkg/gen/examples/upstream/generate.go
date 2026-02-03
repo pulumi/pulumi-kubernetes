@@ -186,7 +186,9 @@ func processYaml(path string, mdDir string) error {
 		if err = cmd.Run(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "convert java failed, ignoring: %+v", err)
 		}
-		content, err = os.ReadFile(filepath.Join(dir, "example-java", "src", "main", "java", "generated_program", "App.java"))
+		content, err = os.ReadFile(
+			filepath.Join(dir, "example-java", "src", "main", "java", "generated_program", "App.java"),
+		)
 		if err != nil {
 			return err
 		}
@@ -198,7 +200,10 @@ func processYaml(path string, mdDir string) error {
 		}
 		yaml := string(content)
 
-		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, java, yaml))
+		exampleStrings = append(
+			exampleStrings,
+			markdownExample(description, typescript, python, csharp, golang, java, yaml),
+		)
 	}
 	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
 	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)

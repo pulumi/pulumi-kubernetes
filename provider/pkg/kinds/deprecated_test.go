@@ -129,7 +129,10 @@ func TestGvkFromStr(t *testing.T) {
 		want      GroupVersionKind
 	}{
 		{"storage.k8s.io/v1/CSINode", GroupVersionKind{Group: "storage.k8s.io", Version: "v1", Kind: "CSINode"}},
-		{"networking.k8s.io/v1beta1/IngressList", GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"}},
+		{
+			"networking.k8s.io/v1beta1/IngressList",
+			GroupVersionKind{Group: "networking.k8s.io", Version: "v1beta1", Kind: "IngressList"},
+		},
 		{"something/else", GroupVersionKind{}},
 	}
 	for _, tt := range tests {
@@ -151,8 +154,14 @@ func TestSuggestedApiVersion(t *testing.T) {
 		want string
 	}{
 		// Deprecated ApiVersions return the suggested version string.
-		{toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration), wantStr(AdmissionregistrationV1, MutatingWebhookConfiguration)},
-		{toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration), wantStr(AdmissionregistrationV1, ValidatingWebhookConfiguration)},
+		{
+			toGVK(AdmissionregistrationV1B1, MutatingWebhookConfiguration),
+			wantStr(AdmissionregistrationV1, MutatingWebhookConfiguration),
+		},
+		{
+			toGVK(AdmissionregistrationV1B1, ValidatingWebhookConfiguration),
+			wantStr(AdmissionregistrationV1, ValidatingWebhookConfiguration),
+		},
 		{toGVK(ApiextensionsV1B1, CustomResourceDefinition), wantStr(ApiextensionsV1, CustomResourceDefinition)},
 		{toGVK(ApiregistrationV1B1, APIService), wantStr(ApiregistrationV1, APIService)},
 		{toGVK(ApiregistrationV1B1, APIServiceList), wantStr(ApiregistrationV1, APIServiceList)},

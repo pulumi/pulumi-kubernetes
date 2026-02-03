@@ -123,12 +123,24 @@ func TestPatchResources(t *testing.T) {
 			}
 
 			if annoVal, ok := objOutput.Metadata.Annotations[patchAnnotationField]; ok {
-				t.Errorf("expected %s %s to not have annotation %s, but found %q", resource.kind, resource.name, patchAnnotationField, annoVal)
+				t.Errorf(
+					"expected %s %s to not have annotation %s, but found %q",
+					resource.kind,
+					resource.name,
+					patchAnnotationField,
+					annoVal,
+				)
 			}
 
 			if resource.kind == customResourceKindPlain || resource.kind == customResourceKindWithPatch {
 				if objOutput.Spec.Foo != "bar" {
-					t.Errorf("expected %s %s to have spec.foo=%q, but found %q", resource.kind, resource.name, "bar", objOutput.Spec.Foo)
+					t.Errorf(
+						"expected %s %s to have spec.foo=%q, but found %q",
+						resource.kind,
+						resource.name,
+						"bar",
+						objOutput.Spec.Foo,
+					)
 				}
 			}
 		}
@@ -153,13 +165,27 @@ func TestPatchResources(t *testing.T) {
 				continue
 			}
 
-			if annoVal, ok := objOutput.Metadata.Annotations[patchAnnotationField]; !ok || annoVal != patchAnnotationValue {
-				t.Errorf("expected %s %s to have annotation %s=%q, but found %q", resource.kind, resource.name, patchAnnotationField, patchAnnotationValue, annoVal)
+			if annoVal, ok := objOutput.Metadata.Annotations[patchAnnotationField]; !ok ||
+				annoVal != patchAnnotationValue {
+				t.Errorf(
+					"expected %s %s to have annotation %s=%q, but found %q",
+					resource.kind,
+					resource.name,
+					patchAnnotationField,
+					patchAnnotationValue,
+					annoVal,
+				)
 			}
 
 			if resource.kind == customResourceKindPlain || resource.kind == customResourceKindWithPatch {
 				if objOutput.Spec.Foo != "bar" {
-					t.Errorf("expected %s %s to have spec.foo=%q, but found %q", resource.kind, resource.name, "bar", objOutput.Spec.Foo)
+					t.Errorf(
+						"expected %s %s to have spec.foo=%q, but found %q",
+						resource.kind,
+						resource.name,
+						"bar",
+						objOutput.Spec.Foo,
+					)
 				}
 			}
 		}
@@ -186,12 +212,24 @@ func TestPatchResources(t *testing.T) {
 			}
 
 			if annoVal, ok := objOutput.Metadata.Annotations[patchAnnotationField]; ok {
-				t.Errorf("expected %s %s to not have annotation %s, but found %q", resource.kind, resource.name, patchAnnotationField, annoVal)
+				t.Errorf(
+					"expected %s %s to not have annotation %s, but found %q",
+					resource.kind,
+					resource.name,
+					patchAnnotationField,
+					annoVal,
+				)
 			}
 
 			if resource.kind == customResourceKindPlain || resource.kind == customResourceKindWithPatch {
 				if objOutput.Spec.Foo != "bar" {
-					t.Errorf("expected %s %s to have spec.foo=%q, but found %q", resource.kind, resource.name, "bar", objOutput.Spec.Foo)
+					t.Errorf(
+						"expected %s %s to have spec.foo=%q, but found %q",
+						resource.kind,
+						resource.name,
+						"bar",
+						objOutput.Spec.Foo,
+					)
 				}
 			}
 		}
