@@ -42,7 +42,8 @@ func TestJSONPath(t *testing.T) {
 				"foo": "",
 			}},
 			expr: "jsonpath={.foo}",
-			// Ref: https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
+			// Ref:
+			// https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
 			wantReady: true,
 		},
 		{
@@ -51,7 +52,8 @@ func TestJSONPath(t *testing.T) {
 				"foo": nil,
 			}},
 			expr: "jsonpath={.foo}",
-			// Ref: https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
+			// Ref:
+			// https://github.com/kubernetes/kubectl/blob/c4be63c54b7188502c1a63bb884a0b05fac51ebd/pkg/cmd/wait/json.go#L72-L91
 			wantReady: true,
 		},
 		{

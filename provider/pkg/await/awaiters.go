@@ -52,11 +52,12 @@ type awaitConfig struct {
 	clientSet         *clients.DynamicClientSet
 	inputs            *unstructured.Unstructured
 	currentOutputs    *unstructured.Unstructured // The result of our create/update.
-	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
-	timeout           *time.Duration
-	clusterVersion    *cluster.ServerVersion
-	factory           informers.Factory
-	clock             clockwork.Clock
+	// The state of the object before we changed it. `nil` if this is a create.
+	lastOutputs    *unstructured.Unstructured
+	timeout        *time.Duration
+	clusterVersion *cluster.ServerVersion
+	factory        informers.Factory
+	clock          clockwork.Clock
 }
 
 // Clock returns a real or mock clock for the config as appropriate.
@@ -421,8 +422,9 @@ func untilCoreV1ResourceQuotaInitialized(c awaitConfig) (*unstructured.Unstructu
 
 func untilCoreV1SecretInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	//
-	// Some types secrets do not have data available immediately and therefore are not considered initialized where data map is empty.
-	// For example service-account-token as described in the docs: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
+	// Some types secrets do not have data available immediately and therefore are not considered initialized where data
+	// map is empty. For example service-account-token as described in the docs:
+	// https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
 	//
 	secretType, _ := openapi.Pluck(c.currentOutputs.Object, "type")
 

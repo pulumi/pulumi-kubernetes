@@ -234,14 +234,16 @@ func (k *kubeProvider) invalidateResources() {
 }
 
 // Call dynamically executes a method in the provider associated with a component resource.
-func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+func (k *kubeProvider) Call(
+	_ /* ctx */ context.Context, _ /* req */ *pulumirpc.CallRequest,
+) (*pulumirpc.CallResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
 func (k *kubeProvider) GetMapping(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	request *pulumirpc.GetMappingRequest,
 ) (*pulumirpc.GetMappingResponse, error) {
 	// We only return a mapping for terraform
@@ -258,7 +260,7 @@ func (k *kubeProvider) GetMapping(
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
 func (k *kubeProvider) GetSchema(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	req *pulumirpc.GetSchemaRequest,
 ) (*pulumirpc.GetSchemaResponse, error) {
 	if v := req.GetVersion(); v != 0 {
@@ -284,7 +286,9 @@ func (k *kubeProvider) GetSchema(
 }
 
 // CheckConfig validates the configuration for this provider.
-func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (k *kubeProvider) CheckConfig(
+	_ /* ctx */ context.Context, req *pulumirpc.CheckRequest,
+) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -854,7 +858,8 @@ func (k *kubeProvider) Configure(
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
-					" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v",
+					" \t • set up the provider as per "+
+					"https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v",
 				err,
 			)
 			config = nil
@@ -1460,7 +1465,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		) { // Patch resources can be updated in place for all other properties.
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(
+			patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...,
+		); err != nil {
 			return nil, fmt.Errorf(
 				"Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
@@ -2605,7 +2612,8 @@ func shouldNormalize(uns *unstructured.Unstructured) bool {
 	return kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
 }
 
-// normalizeInputs converts an Unstructured resource into a normalized form so that semantically equivalent representations
+// normalizeInputs converts an Unstructured resource into a normalized form so that semantically equivalent
+// representations
 // are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
 // result on the cluster.
 func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
@@ -2671,7 +2679,7 @@ var underscoreToDashMap = map[string]string{
 // dashedToUnderscoreMap holds the reverse mappings between dash and underscore keys. This
 // is a precomputed map based on underscoreToDashMap at runtime to avoid duplicating
 // code, or extra passes over the map.
-var dashToUnderscoreMap map[string]string = func() map[string]string {
+var dashToUnderscoreMap = func() map[string]string {
 	dashToUnderscoreMap := make(map[string]string, len(underscoreToDashMap))
 	for k, v := range underscoreToDashMap {
 		dashToUnderscoreMap[v] = k
@@ -2691,7 +2699,8 @@ func mapReplDashToUnderscore(v string) (resource.PropertyKey, bool) {
 	return resource.PropertyKey(val), ok
 }
 
-// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name denormalization
+// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name
+// denormalization
 // and secret stripping.
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
@@ -2749,8 +2758,9 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	return object
 }
 
-// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field names.
-// It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live containing the live state.
+// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field
+// names. It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live
+// containing the live state.
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	// Since we are converting everything to unstructured's, we need to strip out any secretness that
 	// may nested deep within the object.
@@ -3016,7 +3026,9 @@ func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
 	for k, v := range m {
-		if err := pc.addPatchValueToDiff(append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
+		if err := pc.addPatchValueToDiff(
+			append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray,
+		); err != nil {
 			return err
 		}
 	}
@@ -3025,7 +3037,9 @@ func (pc *patchConverter) addPatchMapToDiff(
 			if _, ok := m[k]; ok {
 				continue
 			}
-			if err := pc.addPatchValueToDiff(append(path, k), nil, v, pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
+			if err := pc.addPatchValueToDiff(
+				append(path, k), nil, v, pc.get(newInput, k), pc.get(oldInput, k), inArray,
+			); err != nil {
 				return err
 			}
 		}
@@ -3035,7 +3049,7 @@ func (pc *patchConverter) addPatchMapToDiff(
 
 // addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
 func (pc *patchConverter) addPatchArrayToDiff(
-	path []any, a, old, newInput, oldInput []any, inArray bool,
+	path []any, a, old, newInput, oldInput []any, _ /* inArray */ bool,
 ) error {
 	at := func(arr []any, i int) any {
 		if i < len(arr) {

@@ -187,14 +187,14 @@ func TestCreation(t *testing.T) {
 		}
 	}
 
-	awaitError := func(_ *testing.T, ctx testCtx) awaiter {
+	awaitError := func(_ *testing.T, _ /* ctx */ testCtx) awaiter {
 		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitUnexpected := func(t *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ /* cac */ awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil, nil
 		}
@@ -203,12 +203,12 @@ func TestCreation(t *testing.T) {
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 	previewed := func(ns, name string) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			require.NotNil(t, actual)
 			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
@@ -229,7 +229,7 @@ func TestCreation(t *testing.T) {
 		}
 	}
 	touched := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			actualPhase, ok, err := unstructured.NestedString(actual.Object, "status", "phase")
 			require.NoError(t, err)
@@ -504,14 +504,14 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 
-	awaitError := func(_ *testing.T, ctx testCtx) awaiter {
+	awaitError := func(_ *testing.T, _ /* ctx */ testCtx) awaiter {
 		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitUnexpected := func(t *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ /* cac */ awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil, nil
 		}
@@ -520,12 +520,12 @@ func TestUpdate(t *testing.T) {
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 	previewed := func(ns, name string) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			require.NotNil(t, actual)
 			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
@@ -546,7 +546,7 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 	touched := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			actualPhase, ok, err := unstructured.NestedString(actual.Object, "status", "phase")
 			require.NoError(t, err)
@@ -555,7 +555,7 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 	logged := func() expectF {
-		return func(_ *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(_ *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, _ /* err */ error) {
 			// FUTURE: assert that a log message was emitted to the fake host
 		}
 	}
@@ -787,39 +787,43 @@ func TestDeletion(t *testing.T) {
 
 	// reactions
 
-	suppressDeletion := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
+	suppressDeletion := func(
+		_ /* t */ *testing.T, ctx testCtx, _ /* action */ kubetesting.Action,
+	) (bool, runtime.Object, error) {
 		return true, ctx.config.Outputs, nil
 	}
 
-	cancelAwait := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
+	cancelAwait := func(
+		_ /* t */ *testing.T, ctx testCtx, _ /* action */ kubetesting.Action,
+	) (bool, runtime.Object, error) {
 		ctx.cancel()
 		return false, nil, nil
 	}
 
 	// awaiters
 
-	awaitNoop := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitNoop := func(_ /* t */ *testing.T, ctx testCtx) condition.Satisfier {
 		return condition.NewImmediate(ctx.config.DedupLogger, ctx.config.Inputs)
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitError := func(_ /* t */ *testing.T, _ /* ctx */ testCtx) condition.Satisfier {
 		return condition.NewFailure(serviceUnavailableErr)
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitUnexpected := func(_ /* t */ *testing.T, _ /* ctx */ testCtx) condition.Satisfier {
 		return condition.NewFailure(fmt.Errorf("unexpected call to await"))
 	}
 
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 
 	succeeded := func() expectF {
-		return func(t *testing.T, ctx testCtx, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, err error) {
 			require.NoError(t, err)
 		}
 	}
@@ -1160,15 +1164,15 @@ func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured
 }
 
 func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.Object["status"] = map[string]any{
+	objCopy := obj.DeepCopy()
+	objCopy.Object["status"] = map[string]any{
 		"conditions": []any{map[string]any{
 			"type":   "Ready",
 			"status": "True",
 		}},
 		"phase": "Running",
 	}
-	return copy
+	return objCopy
 }
 
 // --------------------------------------------------------------------------
@@ -1182,25 +1186,31 @@ type mockResourceInterface struct{}
 var _ dynamic.ResourceInterface = (*mockResourceInterface)(nil)
 
 func (mri *mockResourceInterface) Create(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.CreateOptions, subresources ...string,
+	_ /* ctx */ context.Context,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.CreateOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Create not implemented")
 }
 
 func (mri *mockResourceInterface) Update(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
+	_ /* ctx */ context.Context,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.UpdateOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Update not implemented")
 }
 
 func (mri *mockResourceInterface) UpdateStatus(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions,
+	_ /* ctx */ context.Context, _ /* obj */ *unstructured.Unstructured, _ /* options */ metav1.UpdateOptions,
 ) (*unstructured.Unstructured, error) {
 	panic("UpdateStatus not implemented")
 }
 
 func (mri *mockResourceInterface) Delete(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	_ string,
 	_ metav1.DeleteOptions,
 	_ ...string,
@@ -1209,30 +1219,32 @@ func (mri *mockResourceInterface) Delete(
 }
 
 func (mri *mockResourceInterface) DeleteCollection(
-	ctx context.Context, deleteOptions metav1.DeleteOptions, listOptions metav1.ListOptions,
+	_ /* ctx */ context.Context, _ /* deleteOptions */ metav1.DeleteOptions, _ /* listOptions */ metav1.ListOptions,
 ) error {
 	panic("DeleteCollection not implemented")
 }
 
 func (mri *mockResourceInterface) Get(
-	ctx context.Context, name string, options metav1.GetOptions, subresources ...string,
+	_ /* ctx */ context.Context, _ /* name */ string, _ /* options */ metav1.GetOptions, _ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	return &unstructured.Unstructured{Object: map[string]any{}}, nil
 }
 
 func (mri *mockResourceInterface) List(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	_ metav1.ListOptions,
 ) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
 
-func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+func (mri *mockResourceInterface) Watch(
+	_ /* ctx */ context.Context, _ /* opts */ metav1.ListOptions,
+) (watch.Interface, error) {
 	panic("Watch not implemented")
 }
 
 func (mri *mockResourceInterface) Patch(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	_ string,
 	_ types.PatchType,
 	_ []byte,
@@ -1243,20 +1255,20 @@ func (mri *mockResourceInterface) Patch(
 }
 
 func (mri *mockResourceInterface) Apply(
-	ctx context.Context,
+	_ /* ctx */ context.Context,
 	_ string,
-	obj *unstructured.Unstructured,
-	options metav1.ApplyOptions,
-	subresources ...string,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.ApplyOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Apply not implemented")
 }
 
 func (mri *mockResourceInterface) ApplyStatus(
-	ctx context.Context,
-	name string,
-	obj *unstructured.Unstructured,
-	options metav1.ApplyOptions,
+	_ /* ctx */ context.Context,
+	_ /* name */ string,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.ApplyOptions,
 ) (*unstructured.Unstructured, error) {
 	panic("ApplyStatus not implemented")
 }
@@ -1289,7 +1301,7 @@ func FlakyRESTMapper(
 func FailedRESTMapper(mapper meta.ResettableRESTMapper, err error) *fake.StubResettableRESTMapper {
 	return &fake.StubResettableRESTMapper{
 		ResettableRESTMapper: mapper,
-		RESTMappingF: func(gk schema.GroupKind, versions ...string) (*meta.RESTMapping, error) {
+		RESTMappingF: func(_ /* gk */ schema.GroupKind, _ /* versions */ ...string) (*meta.RESTMapping, error) {
 			return nil, err
 		},
 	}
@@ -1419,7 +1431,10 @@ kind: Namespace
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux","pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},"name":"flux-system"}}
+      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},
+      "labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux",
+      "pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},
+      "name":"flux-system"}}
   creationTimestamp: "2024-09-24T19:27:32Z"
   labels:
     app.kubernetes.io/instance: flux-system
@@ -1463,7 +1478,10 @@ kind: Namespace
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux","pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},"name":"flux-system"}}
+      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},
+      "labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux",
+      "pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},
+      "name":"flux-system"}}
   creationTimestamp: "2024-09-24T19:27:32Z"
   labels:
     app.kubernetes.io/instance: flux-system
@@ -1694,7 +1712,7 @@ func TestUpdateIgnoresStaleEvents(t *testing.T) {
 	clientset.PrependReactor(
 		"patch",
 		"deployments",
-		func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+		func(_ /* action */ kubetesting.Action) (handled bool, ret runtime.Object, err error) {
 			// Return the newInputs with generation incremented
 			patched := newInputs.DeepCopy()
 			patched.SetGeneration(2)
@@ -1706,7 +1724,7 @@ func TestUpdateIgnoresStaleEvents(t *testing.T) {
 	var watcherStarted bool
 	clientset.PrependWatchReactor(
 		"deployments",
-		func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+		func(_ /* action */ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
 			if watcherStarted {
 				return false, nil, nil
 			}
@@ -1759,7 +1777,7 @@ func TestUpdateIgnoresStaleEvents(t *testing.T) {
 	// Set up watch reactor for ReplicaSets
 	clientset.PrependWatchReactor(
 		"replicasets",
-		func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+		func(_ /* action */ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
 			fw := watch.NewFake()
 			go func() {
 				time.Sleep(15 * time.Millisecond)

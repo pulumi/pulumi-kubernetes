@@ -85,43 +85,44 @@ func (k *ConfigFileProvider) Construct(
 
 	// Parse the manifest(s) and register the resources.
 
-	comp.Resources = pulumi.All(args.File, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
-		// make type assertions to get each value (or the zero value)
-		file, _ := args[0].(string)
-		resourcePrefix, hasResourcePrefix := args[1].(string)
-		skipAwait, _ := args[2].(bool)
+	comp.Resources = pulumi.All(args.File, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(
+		ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
+			// make type assertions to get each value (or the zero value)
+			file, _ := args[0].(string)
+			resourcePrefix, hasResourcePrefix := args[1].(string)
+			skipAwait, _ := args[2].(bool)
 
-		if !hasResourcePrefix {
-			// use the name of the ConfigFile as the resource prefix to ensure uniqueness
-			// across multiple instances of the component resource.
-			resourcePrefix = name
-		}
+			if !hasResourcePrefix {
+				// use the name of the ConfigFile as the resource prefix to ensure uniqueness
+				// across multiple instances of the component resource.
+				resourcePrefix = name
+			}
 
-		// Parse the YAML file into an array of Kubernetes objects.
-		parseOpts := ParseOptions{
-			Files: []string{file},
-			Glob:  false,
-		}
-		objs, err := Parse(ctx.Context(), parseOpts)
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
+			// Parse the YAML file into an array of Kubernetes objects.
+			parseOpts := ParseOptions{
+				Files: []string{file},
+				Glob:  false,
+			}
+			objs, err := Parse(ctx.Context(), parseOpts)
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
 
-		// Normalize the objects (apply a default namespace, etc.)
-		objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
+			// Normalize the objects (apply a default namespace, etc.)
+			objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
 
-		// Register the objects as Pulumi resources.
-		registerOpts := RegisterOptions{
-			Objects:         objs,
-			ResourcePrefix:  resourcePrefix,
-			SkipAwait:       skipAwait,
-			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		}
-		return Register(ctx, registerOpts)
-	}).(pulumi.ArrayOutput)
+			// Register the objects as Pulumi resources.
+			registerOpts := RegisterOptions{
+				Objects:         objs,
+				ResourcePrefix:  resourcePrefix,
+				SkipAwait:       skipAwait,
+				ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+			}
+			return Register(ctx, registerOpts)
+		}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
 	_, _ = internals.UnsafeAwaitOutput(ctx.Context(), comp.Resources)

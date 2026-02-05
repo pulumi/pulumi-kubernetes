@@ -59,7 +59,8 @@ func main() {
 			return err
 		}
 
-		// apply_default_opts is a stack transformation that applies default opts to any resource whose name ends with "-nullopts".
+		// apply_default_opts is a stack transformation that applies default opts to any resource whose name ends with
+		// "-nullopts".
 		// this is intended to be applied to component resources only.
 		applyDefaultOpts := func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
 			if strings.HasSuffix(args.Name, "-nullopts") {
@@ -87,7 +88,8 @@ func main() {
 			metadata := state["metadata"].(map[string]interface{})
 			metadata["annotations"] = map[string]interface{}{"transformed": "true"}
 
-			// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased" alias)
+			// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased"
+			// alias)
 			// https://github.com/pulumi/pulumi-kubernetes/issues/2666
 		}
 

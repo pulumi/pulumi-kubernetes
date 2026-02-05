@@ -89,7 +89,8 @@ import (
 //
 // (1) observedGeneration updated (corresponds to .metadata.generation)
 // (2) updateRevision updated -> currentRevision matches updateRevision
-// (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision updates)
+// (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision
+// updates)
 //
 // ------
 // The following table illustrates the timeline of status updates with the OnDelete strategy:
@@ -331,7 +332,8 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 	} else {
 		switch {
 		case !sia.replicasReady:
-			sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
+			sia.config.logger.LogStatus(diag.Info, fmt.Sprintf(
+				"[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
 				sia.currentReplicas, sia.targetReplicas))
 		case !sia.revisionReady:
 			sia.config.logger.LogStatus(diag.Info,

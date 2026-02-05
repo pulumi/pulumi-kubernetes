@@ -1035,7 +1035,8 @@ func dsFailedPod(namespace, name, dsName string) *unstructured.Unstructured {
 					"started": false,
 					"state": {
 						"waiting": {
-							"message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:busted not found: manifest unknown: manifest unknown",
+							"message": "rpc error: code = Unknown desc = Error response from daemon: " +
+								"manifest for nginx:busted not found: manifest unknown: manifest unknown",
 							"reason": "ErrImagePull"
 						}
 					}

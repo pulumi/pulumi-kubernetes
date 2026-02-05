@@ -74,7 +74,8 @@ func checkCondition(
 }
 
 // getObservedGeneration is vendored from
-// https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/pkg/cmd/wait/condition.go#L190-L197
+// https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/
+// pkg/cmd/wait/condition.go#L190-L197
 func getObservedGeneration(obj *unstructured.Unstructured, condition map[string]interface{}) (int64, bool) {
 	conditionObservedGeneration, found, _ := unstructured.NestedInt64(condition, "observedGeneration")
 	if found {

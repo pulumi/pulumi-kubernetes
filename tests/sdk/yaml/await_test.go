@@ -79,7 +79,8 @@ func TestAwaitDaemonSet(t *testing.T) {
 	assert.ErrorContains(
 		t,
 		err,
-		`the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or become live: timed out waiting for the condition`,
+		`the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or `+
+			`become live: timed out waiting for the condition`,
 	)
 }
 

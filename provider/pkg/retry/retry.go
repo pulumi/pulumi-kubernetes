@@ -27,7 +27,8 @@ type retrier struct {
 	backOffFactor uint16
 }
 
-func SleepingRetry(try func(uint) error) *retrier {
+func SleepingRetry(try func(uint) error) *retrier { //nolint:revive // intentional unexported return type
+
 	return &retrier{
 		try:           try,
 		sleep:         time.Sleep,

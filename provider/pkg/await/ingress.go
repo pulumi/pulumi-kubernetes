@@ -60,7 +60,9 @@ import (
 // Any time the success conditions described above a reached, we will terminate the awaiter.
 //
 // x-refs:
-//   * https://github.com/nginxinc/kubernetes-ingress/blob/5847d1f3906287d2771f3767d61c15ac02522caa/docs/report-ingress-status.md
+// *
+// https://github.com/nginxinc/kubernetes-ingress/blob/5847d1f3906287d2771f3767d61c15ac02522caa/
+// docs/report-ingress-status.md
 
 // ------------------------------------------------------------------------------------------------
 

@@ -19,8 +19,8 @@ import (
 	"testing"
 
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
 	"google.golang.org/grpc"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -32,8 +32,8 @@ import (
 )
 
 func TestYamlV2(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "provider/pkg/provider/yaml/v2")
+	gm.RegisterFailHandler(gk.Fail)
+	gk.RunSpecs(t, "provider/pkg/provider/yaml/v2")
 }
 
 func unmarshalProperties(t testing.TB, props *structpb.Struct) resource.PropertyMap {

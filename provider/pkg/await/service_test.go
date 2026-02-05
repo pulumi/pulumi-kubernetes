@@ -98,7 +98,9 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should fail if neither the Service nor the Endpoints have initialized",
 			serviceInput: serviceInput,
-			do: func(_ /* services */, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(
+				_ /* services */, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time,
+			) {
 				// Trigger timeout.
 				timeout <- time.Now()
 			},
@@ -173,7 +175,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if Externalname doesn't target any Pods",
 			serviceInput: externalNameService,
-			do: func(services, _ /* endpoints */ chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(externalNameService("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -183,7 +185,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "[Part 1] Should succeed if empty headless service doesn't target any Pods",
 			serviceInput: headlessEmptyServiceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessEmptyServiceOutput1("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -193,7 +195,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "[Part 2] Should succeed if empty headless service doesn't target any Pods",
 			serviceInput: headlessEmptyServiceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessEmptyServiceOutput2("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -215,7 +217,7 @@ func Test_Core_Service(t *testing.T) {
 			description:  "Should succeed if non-empty headless service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 11},
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -226,7 +228,7 @@ func Test_Core_Service(t *testing.T) {
 			description:  "Should succeed if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 12},
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -236,7 +238,9 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if no selector",
 			serviceInput: serviceWithoutSelector,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(
+				services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, _ /* timeout */ chan time.Time,
+			) {
 				services <- watchAddedEvent(serviceWithoutSelector("default", "foo-4setj4y6"))
 			},
 		},

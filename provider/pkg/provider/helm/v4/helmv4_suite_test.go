@@ -19,8 +19,8 @@ import (
 	"testing"
 
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	. "github.com/onsi/ginkgo/v2" //nolint:golint // dot-imports
-	. "github.com/onsi/gomega"    //nolint:golint // dot-imports
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
 	"google.golang.org/grpc"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -32,8 +32,8 @@ import (
 )
 
 func TestHelmV4(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "provider/pkg/provider/helm/v4")
+	gm.RegisterFailHandler(gk.Fail)
+	gk.RunSpecs(t, "provider/pkg/provider/helm/v4")
 }
 
 func unmarshalProperties(t testing.TB, props *structpb.Struct) resource.PropertyMap {

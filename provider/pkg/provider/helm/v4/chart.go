@@ -272,7 +272,10 @@ func (r *ChartProvider) Construct(
 		ResourcePrefix:  *chartArgs.ResourcePrefix,
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+		PreRegisterF: func(
+			ctx *pulumi.Context,
+			_ /* apiVersion */, _ /* kind */, _ /* resourceName */ string,
+			obj *unstructured.Unstructured,
 			resourceOpts []pulumi.ResourceOption,
 		) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 			return preregister(ctx, comp, obj, resourceOpts)

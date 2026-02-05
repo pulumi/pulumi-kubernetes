@@ -98,7 +98,8 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 
 	// .spec.preserveUnknownFields is deprecated, and will be removed by the apiserver on the created resource if the
 	// value is false. Normalize for diffing by removing this field if present and set to "false".
-	// See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
+	// See
+	// https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 	preserve, found, err := unstructured.NestedBool(uns.Object, "spec", "preserveUnknownFields")
 	if err == nil && found && !preserve {
 		unstructured.RemoveNestedField(uns.Object, "spec", "preserveUnknownFields")
@@ -165,7 +166,9 @@ func normalizeSecretData(uns *unstructured.Unstructured) *unstructured.Unstructu
 		if s, ok := v.(string); ok {
 			// Trim whitespace from the string value, for consistency with the apiserver which
 			// does the decoding and re-encoding to validate the value provided is valid base64.
-			// See: https://github.com/kubernetes/kubernetes/blob/41890534532931742770a7dc98f78bcdc59b1a6f/staging/src/k8s.io/apimachinery/pkg/runtime/codec.go#L212-L260
+			// See:
+			// https://github.com/kubernetes/kubernetes/blob/41890534532931742770a7dc98f78bcdc59b1a6f/
+			// staging/src/k8s.io/apimachinery/pkg/runtime/codec.go#L212-L260
 			base64Decoded, err := base64.StdEncoding.DecodeString(s)
 			if err != nil {
 				// TODO: propagate error upwards to parent Normalize function to fail early. It is safe to

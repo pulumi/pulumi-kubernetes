@@ -21,10 +21,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
-	"github.com/onsi/gomega/gstruct"
-	. "github.com/onsi/gomega/gstruct"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
+	gs "github.com/onsi/gomega/gstruct"
 	gomegatypes "github.com/onsi/gomega/types"
 	"github.com/stretchr/testify/assert"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -35,7 +34,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 )
 
 const (
@@ -114,12 +113,12 @@ metadata:
 `
 )
 
-var _ = Describe("Register", func() {
+var _ = gk.Describe("Register", func() {
 	var tc *componentProviderTestContext
 	var registerOpts *RegisterOptions
 
-	BeforeEach(func() {
-		tc = newTestContext(GinkgoTB())
+	gk.BeforeEach(func() {
+		tc = newTestContext(gk.GinkgoTB())
 		registerOpts = &RegisterOptions{}
 	})
 
@@ -132,51 +131,53 @@ var _ = Describe("Register", func() {
 		return resources, err
 	}
 
-	Context("given the objects in the manifest", func() {
-		BeforeEach(func() {
+	gk.Context("given the objects in the manifest", func() {
+		gk.BeforeEach(func() {
 			resources, err := yamlDecode(manifest)
-			Expect(err).ShouldNot(HaveOccurred())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
 			registerOpts.Objects = resources
 		})
 
-		It("should register some resources", func(ctx context.Context) {
+		gk.It("should register some resources", func(ctx context.Context) {
 			_, err := register(ctx)
-			Expect(err).ShouldNot(HaveOccurred())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-			Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-				"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(
-					IgnoreExtras,
-					Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("crontabs.stable.example.com"),
+			gm.Expect(tc.monitor.Resources()).To(gs.MatchAllKeys(gs.Keys{
+				"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::" +
+					"crontabs.stable.example.com": pgm.MatchProps(
+					gs.IgnoreExtras,
+					pgm.Props{
+						"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+							"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"name": pgm.MatchValue("crontabs.stable.example.com"),
 							}),
 						}),
 					},
 				),
-				"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(IgnoreExtras, Props{
-					"state": MatchObject(IgnoreExtras, Props{
-						"metadata": MatchObject(IgnoreExtras, Props{
-							"name": MatchValue("my-namespace"),
+				"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+						"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+							"name": pgm.MatchValue("my-namespace"),
 						}),
 					}),
 				}),
-				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(
-					IgnoreExtras,
-					Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("my-map"),
+				"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": pgm.MatchProps(
+					gs.IgnoreExtras,
+					pgm.Props{
+						"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+							"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"name": pgm.MatchValue("my-map"),
 							}),
 						}),
 					},
 				),
-				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(
-					IgnoreExtras,
-					Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"metadata": MatchObject(IgnoreExtras, Props{
-								"name": MatchValue("my-new-cron-object"),
+				"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::" +
+					"my-namespace/my-new-cron-object": pgm.MatchProps(
+					gs.IgnoreExtras,
+					pgm.Props{
+						"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+							"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"name": pgm.MatchValue("my-new-cron-object"),
 							}),
 						}),
 					},
@@ -184,60 +185,62 @@ var _ = Describe("Register", func() {
 			}))
 		})
 
-		It("should return an array of resource outputs", func(ctx context.Context) {
+		gk.It("should return an array of resource outputs", func(ctx context.Context) {
 			resources, err := register(ctx)
-			Expect(err).ShouldNot(HaveOccurred())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
 			resourceArray, err := internals.UnsafeAwaitOutput(ctx, resources)
-			Expect(err).ShouldNot(HaveOccurred())
-			Expect(resourceArray.Value).To(HaveLen(4))
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			gm.Expect(resourceArray.Value).To(gm.HaveLen(4))
 		})
 
-		Context("when a prefix is configured", func() {
-			BeforeEach(func() {
+		gk.Context("when a prefix is configured", func() {
+			gk.BeforeEach(func() {
 				registerOpts.ResourcePrefix = "prefixed"
 			})
-			It("should apply the prefix to the resource (but not to the Kubernetes object)", func(ctx context.Context) {
+			gk.It("should apply the prefix to the resource (but not to the Kubernetes object)", func(ctx context.Context) {
 				_, err := register(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": MatchObject(IgnoreExtras, Props{
-								"metadata": MatchObject(IgnoreExtras, Props{
-									"name": MatchValue("crontabs.stable.example.com"),
+				gm.Expect(tc.monitor.Resources()).To(gs.MatchAllKeys(gs.Keys{
+					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::" +
+						"prefixed:crontabs.stable.example.com": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+									"name": pgm.MatchValue("crontabs.stable.example.com"),
 								}),
 							}),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed:my-namespace": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": MatchObject(IgnoreExtras, Props{
-								"metadata": MatchObject(IgnoreExtras, Props{
-									"name": MatchValue("my-namespace"),
+					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::prefixed:my-namespace": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+									"name": pgm.MatchValue("my-namespace"),
 								}),
 							}),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": MatchObject(IgnoreExtras, Props{
-								"metadata": MatchObject(IgnoreExtras, Props{
-									"name": MatchValue("my-map"),
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+									"name": pgm.MatchValue("my-map"),
 								}),
 							}),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": MatchObject(IgnoreExtras, Props{
-								"metadata": MatchObject(IgnoreExtras, Props{
-									"name": MatchValue("my-new-cron-object"),
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::" +
+						"prefixed:my-namespace/my-new-cron-object": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+								"metadata": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+									"name": pgm.MatchValue("my-new-cron-object"),
 								}),
 							}),
 						},
@@ -246,82 +249,87 @@ var _ = Describe("Register", func() {
 			})
 		})
 
-		Context("when skipAwait is enabled", func() {
-			BeforeEach(func() {
+		gk.Context("when skipAwait is enabled", func() {
+			gk.BeforeEach(func() {
 				registerOpts.SkipAwait = true
 			})
-			It("should apply the skipAwait annotation", func(ctx context.Context) {
+			gk.It("should apply the skipAwait annotation", func(ctx context.Context) {
 				_, err := register(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-				Expect(tc.monitor.Resources()).To(MatchAllKeys(Keys{
-					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": BeObject(HaveSkipAwaitAnnotation()),
+				gm.Expect(tc.monitor.Resources()).To(gs.MatchAllKeys(gs.Keys{
+					"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::" +
+						"crontabs.stable.example.com": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.BeObject(pgm.HaveSkipAwaitAnnotation()),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": BeObject(HaveSkipAwaitAnnotation()),
+					"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.BeObject(pgm.HaveSkipAwaitAnnotation()),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": BeObject(HaveSkipAwaitAnnotation()),
+					"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.BeObject(pgm.HaveSkipAwaitAnnotation()),
 						},
 					),
-					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchProps(
-						IgnoreExtras,
-						Props{
-							"state": BeObject(HaveSkipAwaitAnnotation()),
+					"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::" +
+						"my-namespace/my-new-cron-object": pgm.MatchProps(
+						gs.IgnoreExtras,
+						pgm.Props{
+							"state": pgm.BeObject(pgm.HaveSkipAwaitAnnotation()),
 						},
 					),
 				}))
 			})
 		})
 
-		Describe("Ordering", func() {
-			Context("implicit dependencies", func() {
-				It("should apply a DependsOn option on the dependents", func(ctx context.Context) {
+		gk.Describe("Ordering", func() {
+			gk.Context("implicit dependencies", func() {
+				gk.It("should apply a DependsOn option on the dependents", func(ctx context.Context) {
 					_, err := register(ctx)
-					Expect(err).ShouldNot(HaveOccurred())
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-					Expect(tc.monitor.Registrations()).To(MatchAllKeys(Keys{
-						"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com": MatchFields(
-							IgnoreExtras,
-							Fields{
-								"Request": MatchFields(IgnoreExtras, Fields{
-									"Dependencies": BeEmpty(),
+					gm.Expect(tc.monitor.Registrations()).To(gs.MatchAllKeys(gs.Keys{
+						"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::" +
+							"crontabs.stable.example.com": gs.MatchFields(
+							gs.IgnoreExtras,
+							gs.Fields{
+								"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+									"Dependencies": gm.BeEmpty(),
 								}),
 							},
 						),
-						"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": MatchFields(
-							IgnoreExtras,
-							Fields{
-								"Request": MatchFields(IgnoreExtras, Fields{
-									"Dependencies": BeEmpty(),
+						"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace": gs.MatchFields(
+							gs.IgnoreExtras,
+							gs.Fields{
+								"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+									"Dependencies": gm.BeEmpty(),
 								}),
 							},
 						),
-						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": MatchFields(
-							IgnoreExtras,
-							Fields{
-								"Request": MatchFields(IgnoreExtras, Fields{
-									"Dependencies": ConsistOf(
+						"urn:pulumi:stack::project::kubernetes:core/v1:ConfigMap::my-namespace/my-map": gs.MatchFields(
+							gs.IgnoreExtras,
+							gs.Fields{
+								"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+									"Dependencies": gm.ConsistOf(
 										"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
 									),
 								}),
 							},
 						),
-						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object": MatchFields(
-							IgnoreExtras,
-							Fields{
-								"Request": MatchFields(IgnoreExtras, Fields{
-									"Dependencies": ConsistOf(
-										"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com",
+						"urn:pulumi:stack::project::kubernetes:stable.example.com/v1:CronTab::" +
+							"my-namespace/my-new-cron-object": gs.MatchFields(
+							gs.IgnoreExtras,
+							gs.Fields{
+								"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+									"Dependencies": gm.ConsistOf(
+										"urn:pulumi:stack::project::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::"+
+											"crontabs.stable.example.com",
 										"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
 									),
 								}),
@@ -331,8 +339,8 @@ var _ = Describe("Register", func() {
 				})
 			})
 
-			Context("explicit dependencies (config.kubernetes.io/depends-on annotation)", func() {
-				BeforeEach(func() {
+			gk.Context("explicit dependencies (config.kubernetes.io/depends-on annotation)", func() {
+				gk.BeforeEach(func() {
 					registerOpts.Objects = append(registerOpts.Objects, unstructured.Unstructured{
 						Object: map[string]any{
 							"apiVersion": "v1",
@@ -346,14 +354,14 @@ var _ = Describe("Register", func() {
 						},
 					})
 				})
-				It("should apply a DependsOn option on the dependents", func(ctx context.Context) {
+				gk.It("should apply a DependsOn option on the dependents", func(ctx context.Context) {
 					_, err := register(ctx)
-					Expect(err).ShouldNot(HaveOccurred())
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-					Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
-						"urn:pulumi:stack::project::kubernetes:core/v1:Pod::my-pod": MatchFields(IgnoreExtras, Fields{
-							"Request": MatchFields(IgnoreExtras, Fields{
-								"Dependencies": ConsistOf(
+					gm.Expect(tc.monitor.Registrations()).To(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+						"urn:pulumi:stack::project::kubernetes:core/v1:Pod::my-pod": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+							"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+								"Dependencies": gm.ConsistOf(
 									"urn:pulumi:stack::project::kubernetes:core/v1:Namespace::my-namespace",
 								),
 							}),
@@ -364,9 +372,9 @@ var _ = Describe("Register", func() {
 		})
 	})
 
-	Describe("Kubernetes object specifics", func() {
-		Context("when the object is a Secret", func() {
-			BeforeEach(func() {
+	gk.Describe("Kubernetes object specifics", func() {
+		gk.Context("when the object is a Secret", func() {
+			gk.BeforeEach(func() {
 				registerOpts.Objects = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "v1",
@@ -380,14 +388,14 @@ var _ = Describe("Register", func() {
 					},
 				}}
 			})
-			It("should mark the contents as a secret", func(ctx context.Context) {
+			gk.It("should mark the contents as a secret", func(ctx context.Context) {
 				_, err := register(ctx)
-				Expect(err).ShouldNot(HaveOccurred())
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-				Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
-					"urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret": MatchProps(IgnoreExtras, Props{
-						"state": MatchObject(IgnoreExtras, Props{
-							"stringData": BeSecret(),
+				gm.Expect(tc.monitor.Resources()).To(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+					"urn:pulumi:stack::project::kubernetes:core/v1:Secret::my-secret": pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"state": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+							"stringData": pgm.BeSecret(),
 						}),
 					}),
 				}))
@@ -396,77 +404,79 @@ var _ = Describe("Register", func() {
 	})
 })
 
-var _ = Describe("Parse", func() {
+var _ = gk.Describe("Parse", func() {
 	var args ParseOptions
 
-	BeforeEach(func() {
+	gk.BeforeEach(func() {
 		args = ParseOptions{}
 	})
 
 	tempFiles := func(manifests ...string) string {
-		tempDir := GinkgoTB().TempDir()
+		tempDir := gk.GinkgoTB().TempDir()
 		for i, m := range manifests {
 			name := filepath.Join(tempDir, fmt.Sprintf("manifest-%02d.yaml", i+1))
 			err := os.WriteFile(name, []byte(m), 0o600)
-			Expect(err).ShouldNot(HaveOccurred())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
 		}
 		return tempDir
 	}
 
 	manifestAssertions := func() {
-		GinkgoHelper()
+		gk.GinkgoHelper()
 
-		It("should produce the objects in the manifest", func(ctx context.Context) {
+		gk.It("should produce the objects in the manifest", func(ctx context.Context) {
 			objs, err := Parse(ctx, args)
-			Expect(err).ShouldNot(HaveOccurred())
-			Expect(objs).To(ConsistOf(
-				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-namespace")})}),
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			gm.Expect(objs).To(gm.ConsistOf(
 				matchUnstructured(
-					Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("crontabs.stable.example.com")})},
+					gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("my-namespace")})}),
+				matchUnstructured(
+					gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("crontabs.stable.example.com")})},
 				),
-				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-map")})}),
-				matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("my-new-cron-object")})}),
+				matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("my-map")})}),
+				matchUnstructured(
+					gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("my-new-cron-object")})}),
 			))
 		})
 	}
 
-	Describe("yamls", func() {
-		Context("when the input is a valid YAML string", func() {
-			BeforeEach(func() {
+	gk.Describe("yamls", func() {
+		gk.Context("when the input is a valid YAML string", func() {
+			gk.BeforeEach(func() {
 				args.YAML = manifest
 			})
 			manifestAssertions()
 		})
 
-		Context("when the manifest has empty blocks", func() {
-			BeforeEach(func() {
+		gk.Context("when the manifest has empty blocks", func() {
+			gk.BeforeEach(func() {
 				args.YAML = "---"
 			})
-			It("should do nothing", func(ctx context.Context) {
+			gk.It("should do nothing", func(ctx context.Context) {
 				_, err := Parse(ctx, args)
-				Expect(err).ShouldNot(HaveOccurred())
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 			})
 		})
 	})
 
-	Describe("files", func() {
-		Describe("globbing", func() {
-			BeforeEach(func() {
+	gk.Describe("files", func() {
+		gk.Describe("globbing", func() {
+			gk.BeforeEach(func() {
 				args.Glob = true
 			})
 
-			Context("when the pattern matches no files", func() {
-				BeforeEach(func() {
+			gk.Context("when the pattern matches no files", func() {
+				gk.BeforeEach(func() {
 					args.Files = []string{"nosuchfile-*.yaml"}
 				})
-				It("should do nothing", func(ctx context.Context) {
+				gk.It("should do nothing", func(ctx context.Context) {
 					_, err := Parse(ctx, args)
-					Expect(err).ShouldNot(HaveOccurred())
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				})
 			})
 
-			Context("when the pattern matches some files", func() {
-				BeforeEach(func() {
+			gk.Context("when the pattern matches some files", func() {
+				gk.BeforeEach(func() {
 					tempDir := tempFiles(manifest)
 					args.Files = []string{filepath.Join(tempDir, "*.yaml")}
 				})
@@ -474,46 +484,47 @@ var _ = Describe("Parse", func() {
 			})
 		})
 
-		Context("when the file doesn't exist", func() {
-			BeforeEach(func() {
+		gk.Context("when the file doesn't exist", func() {
+			gk.BeforeEach(func() {
 				args.Files = []string{"nosuchfile.yaml"}
 			})
-			It("should fail", func(ctx context.Context) {
+			gk.It("should fail", func(ctx context.Context) {
 				_, err := Parse(ctx, args)
-				Expect(err).Should(HaveOccurred())
+				gm.Expect(err).Should(gm.HaveOccurred())
 			})
 		})
 
-		Context("when the input is a valid YAML file", func() {
-			BeforeEach(func() {
+		gk.Context("when the input is a valid YAML file", func() {
+			gk.BeforeEach(func() {
 				tempDir := tempFiles(manifest)
 				args.Files = []string{filepath.Join(tempDir, "manifest-01.yaml")}
 			})
 			manifestAssertions()
 		})
 
-		Context("when the input is a valid YAML URL", func() {
-			BeforeEach(func() {
+		gk.Context("when the input is a valid YAML URL", func() {
+			gk.BeforeEach(func() {
 				args.Files = []string{
-					`https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/yaml-guestbook/yaml/guestbook.yaml`,
+					`https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/sdk/nodejs/examples/` +
+						`yaml-guestbook/yaml/guestbook.yaml`,
 				}
 			})
-			It("should download and use the document", func(ctx context.Context) {
+			gk.It("should download and use the document", func(ctx context.Context) {
 				objs, err := Parse(ctx, args)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(objs).To(HaveLen(6))
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(objs).To(gm.HaveLen(6))
 			})
 		})
 	})
 })
 
-var _ = Describe("Normalize", func() {
+var _ = gk.Describe("Normalize", func() {
 	var objs []unstructured.Unstructured
 	var defaultNamespace string
 	var clientSet *clients.DynamicClientSet
 	var disco *fake.SimpleDiscovery
 
-	BeforeEach(func() {
+	gk.BeforeEach(func() {
 		objs = []unstructured.Unstructured{}
 		defaultNamespace = "default"
 		clientSet, disco, _, _ = fake.NewSimpleDynamicClient()
@@ -531,9 +542,9 @@ var _ = Describe("Normalize", func() {
 		disco.Resources = append(disco.Resources, fakeResources...)
 	})
 
-	Describe("validation", func() {
-		Context("when the object has no kind", func() {
-			BeforeEach(func() {
+	gk.Describe("validation", func() {
+		gk.Context("when the object has no kind", func() {
+			gk.BeforeEach(func() {
 				objs = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "v1",
@@ -541,14 +552,14 @@ var _ = Describe("Normalize", func() {
 					},
 				}}
 			})
-			It("should fail", func(ctx context.Context) {
+			gk.It("should fail", func(_ /* ctx */ context.Context) {
 				_, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a kind and apiVersion")))
+				gm.Expect(err).Should(gm.MatchError(gm.ContainSubstring("Kubernetes resources require a kind and apiVersion")))
 			})
 		})
 
-		Context("when the object has no metadata.name", func() {
-			BeforeEach(func() {
+		gk.Context("when the object has no metadata.name", func() {
+			gk.BeforeEach(func() {
 				objs = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "v1",
@@ -557,16 +568,16 @@ var _ = Describe("Normalize", func() {
 					},
 				}}
 			})
-			It("should fail", func(ctx context.Context) {
+			gk.It("should fail", func(_ /* ctx */ context.Context) {
 				_, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).Should(MatchError(ContainSubstring("Kubernetes resources require a .metadata.name")))
+				gm.Expect(err).Should(gm.MatchError(gm.ContainSubstring("Kubernetes resources require a .metadata.name")))
 			})
 		})
 	})
 
-	Describe("namespacing", func() {
-		Context("when the object has a namespace-scoped kind", func() {
-			BeforeEach(func() {
+	gk.Describe("namespacing", func() {
+		gk.Context("when the object has a namespace-scoped kind", func() {
+			gk.BeforeEach(func() {
 				objs = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "v1",
@@ -578,17 +589,17 @@ var _ = Describe("Normalize", func() {
 				}}
 			})
 
-			It("should apply the default namespace", func(ctx context.Context) {
+			gk.It("should apply the default namespace", func(_ /* ctx */ context.Context) {
 				objs, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(objs).To(HaveExactElements(
-					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"namespace": Equal("default")})}),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(objs).To(gm.HaveExactElements(
+					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"namespace": gm.Equal("default")})}),
 				))
 			})
 		})
 
-		Context("when the object has a cluster-scoped kind", func() {
-			BeforeEach(func() {
+		gk.Context("when the object has a cluster-scoped kind", func() {
+			gk.BeforeEach(func() {
 				objs = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "rbac.authorization.k8s.io/v1",
@@ -600,36 +611,36 @@ var _ = Describe("Normalize", func() {
 				}}
 			})
 
-			It("should not apply the default namespace", func(ctx context.Context) {
+			gk.It("should not apply the default namespace", func(_ /* ctx */ context.Context) {
 				objs, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(objs).To(HaveExactElements(
-					matchUnstructured(Keys{"metadata": Not(HaveKey("namespace"))}),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(objs).To(gm.HaveExactElements(
+					matchUnstructured(gs.Keys{"metadata": gm.Not(gm.HaveKey("namespace"))}),
 				))
 			})
 		})
 	})
 
-	Describe("special-case kinds", func() {
-		Context("when the object is a list", func() {
-			BeforeEach(func() {
+	gk.Describe("special-case kinds", func() {
+		gk.Context("when the object is a list", func() {
+			gk.BeforeEach(func() {
 				resources, err := yamlDecode(list)
-				Expect(err).ShouldNot(HaveOccurred())
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				objs = resources
 			})
-			It("should flatten the list", func(ctx context.Context) {
+			gk.It("should flatten the list", func(_ /* ctx */ context.Context) {
 				objs, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(objs).To(HaveExactElements(
-					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-1")})}),
-					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-2")})}),
-					matchUnstructured(Keys{"metadata": MatchKeys(IgnoreExtras, Keys{"name": Equal("map-3")})}),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(objs).To(gm.HaveExactElements(
+					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("map-1")})}),
+					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("map-2")})}),
+					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("map-3")})}),
 				))
 			})
 		})
 
-		Context("when the object has kind 'core/v1'", func() {
-			BeforeEach(func() {
+		gk.Context("when the object has kind 'core/v1'", func() {
+			gk.BeforeEach(func() {
 				objs = []unstructured.Unstructured{{
 					Object: map[string]any{
 						"apiVersion": "core/v1",
@@ -641,11 +652,11 @@ var _ = Describe("Normalize", func() {
 				}}
 			})
 
-			It("should replace with 'v1", func(ctx context.Context) {
+			gk.It("should replace with 'v1", func(_ /* ctx */ context.Context) {
 				objs, err := Normalize(objs, defaultNamespace, clientSet)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(objs).To(HaveExactElements(
-					matchUnstructured(Keys{"apiVersion": Equal("v1"), "kind": Equal("Secret")}),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(objs).To(gm.HaveExactElements(
+					matchUnstructured(gs.Keys{"apiVersion": gm.Equal("v1"), "kind": gm.Equal("Secret")}),
 				))
 			})
 		})
@@ -683,8 +694,8 @@ func TestIsGlobPattern(t *testing.T) {
 	}
 }
 
-func matchUnstructured(keys gstruct.Keys) gomegatypes.GomegaMatcher {
-	return WithTransform(func(obj unstructured.Unstructured) map[string]interface{} {
+func matchUnstructured(keys gs.Keys) gomegatypes.GomegaMatcher {
+	return gm.WithTransform(func(obj unstructured.Unstructured) map[string]interface{} {
 		return obj.Object
-	}, MatchKeys(IgnoreExtras, keys))
+	}, gs.MatchKeys(gs.IgnoreExtras, keys))
 }

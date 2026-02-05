@@ -23,12 +23,12 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
-type ResourceProvider interface { // nolint:golint // stutters
+type ResourceProvider interface { // nolint:golint,revive // stutters
 	Construct(ctx *pulumi.Context, typ, name string,
 		inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error)
 }
 
-type ResourceProviderOptions struct { // nolint:golint // stutters
+type ResourceProviderOptions struct { // nolint:golint,revive // stutters
 	ClientSet        *clients.DynamicClientSet
 	DefaultNamespace string
 	HelmOptions      *HelmOptions
@@ -40,9 +40,9 @@ type HelmOptions struct {
 	EnvSettings              *cli.EnvSettings
 }
 
-type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider // nolint:golint // stutters
+type ResourceProviderFactory func(*ResourceProviderOptions) ResourceProvider // nolint:golint,revive // stutters
 
-type ResourceProviderFuncs struct { // nolint:golint // stutters
+type ResourceProviderFuncs struct { // nolint:golint,revive // stutters
 	ConstructF pulumiprovider.ConstructFunc
 }
 

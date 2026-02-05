@@ -26,12 +26,14 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
-// TestPatchResources tests that patching resources works as expected. The Patch variants of the following resources are tested:
+// TestPatchResources tests that patching resources works as expected. The Patch variants of the following resources are
+// tested:
 // a) Namespace
 // b) Deployment
 // c) CustomResource (TestResource)
 // d) CustomResource with Kind ending in "Patch" (TestResourcePatch)
-// We ensure that the Patch variants are properly handled, and deletion of these resources should unset the fields that were set by the patch.
+// We ensure that the Patch variants are properly handled, and deletion of these resources should unset the fields that
+// were set by the patch.
 // This test currently runs against yaml, golang and nodejs languages since CustomResources are overlays.
 func TestPatchResources(t *testing.T) {
 	t.Parallel()
@@ -71,7 +73,8 @@ func TestPatchResources(t *testing.T) {
 		return objOutput, nil
 	}
 
-	// Apply the required CRDs for this test to the cluster. We manage this separately from the Pulumi program since it is cluster scoped,
+	// Apply the required CRDs for this test to the cluster. We manage this separately from the Pulumi program since it
+	// is cluster scoped,
 	// and can be used by all sub-tests.
 	_, err := tests.Kubectl("apply", "-f", filepath.Join(testFolder, "crds.yaml"))
 	if err != nil {
@@ -82,7 +85,8 @@ func TestPatchResources(t *testing.T) {
 		contract.AssertNoErrorf(err, "failed to delete CRDs during cleanup")
 	})
 
-	// testRunnerF is a is the acutal test runner to run the same test case for every language. This ensures that the CustomResourcePatch overlay resources
+	// testRunnerF is a is the acutal test runner to run the same test case for every language. This ensures that the
+	// CustomResourcePatch overlay resources
 	// works in all languages.
 	testRunnerF := func(t *testing.T, language string) {
 		// 1. Create the resources.

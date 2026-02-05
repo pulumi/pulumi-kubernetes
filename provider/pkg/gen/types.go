@@ -39,11 +39,13 @@ func (tp TemplateProperty) Type() string {
 
 // TemplateResource holds information about a resource that can be used to generate SDK overlays.
 type TemplateResource struct {
-	Alias      string             // The optional alias to use for package imports (e.g., "flowcontrolv1alpha1")
-	Name       string             // The name of the resource (e.g., "FlowSchema")
-	Package    string             // The name of the package containing the resource definition (e.g., "flowcontrol.v1alpha1")
+	Alias   string // The optional alias to use for package imports (e.g., "flowcontrolv1alpha1")
+	Name    string // The name of the resource (e.g., "FlowSchema")
+	Package string // The name of the package containing the resource definition
+	// (e.g., "flowcontrol.v1alpha1")
 	Properties []TemplateProperty // Properties of the resource
-	Token      string             // The schema token for the resource (e.g., "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema")
+	Token      string             // The schema token for the resource
+	// (e.g., "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema")
 }
 
 // GVK returns the GroupVersionKind string for the k8s resource in the form "group/version/kind". The "core" group is

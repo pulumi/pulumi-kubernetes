@@ -49,7 +49,8 @@ import (
 // extensions/v1beta1/Ingress / 1.14 / 1.18
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
 //
-// admissionregistration/v1beta1/* / 1.16 / 1.22 (Previously 1.19, see https://github.com/kubernetes/kubernetes/issues/82021#issuecomment-636873001)
+// admissionregistration/v1beta1/* / 1.16 / 1.22 (Previously 1.19, see
+// https://github.com/kubernetes/kubernetes/issues/82021#issuecomment-636873001)
 // apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.22 (Previously 1.19)
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //

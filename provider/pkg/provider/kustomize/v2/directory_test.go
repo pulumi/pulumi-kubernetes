@@ -17,9 +17,9 @@ import (
 	"context"
 	"fmt"
 
-	. "github.com/onsi/ginkgo/v2"      //nolint:golint // dot-imports
-	. "github.com/onsi/gomega"         //nolint:golint // dot-imports
-	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
+	gs "github.com/onsi/gomega/gstruct"
 	kprovider "sigs.k8s.io/kustomize/api/provider"
 	kresmap "sigs.k8s.io/kustomize/api/resmap"
 	kresource "sigs.k8s.io/kustomize/api/resource"
@@ -31,7 +31,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
@@ -47,7 +47,7 @@ type fakeKustomizer struct {
 
 var _ kustomizer = &fakeKustomizer{}
 
-func (k *fakeKustomizer) Run(_ kfilesys.FileSystem, path string) (kresmap.ResMap, error) {
+func (k *fakeKustomizer) Run(_ kfilesys.FileSystem, _ /* path */ string) (kresmap.ResMap, error) {
 	return k.resmap, k.err
 }
 
@@ -66,7 +66,7 @@ func makeCm(i int) *kresource.Resource {
 	return resource
 }
 
-var _ = Describe("Construct", func() {
+var _ = gk.Describe("Construct", func() {
 	var tc *componentProviderTestContext
 	var opts *providerresource.ResourceProviderOptions
 	var req *pulumirpc.ConstructRequest
@@ -74,8 +74,8 @@ var _ = Describe("Construct", func() {
 	var tool *fakeKustomizer
 	var k *DirectoryProvider
 
-	BeforeEach(func() {
-		tc = newTestContext(GinkgoTB())
+	gk.BeforeEach(func() {
+		tc = newTestContext(gk.GinkgoTB())
 
 		opts = &providerresource.ResourceProviderOptions{}
 		opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
@@ -97,7 +97,7 @@ var _ = Describe("Construct", func() {
 		_ = tool.resmap.Append(makeCm(1))
 	})
 
-	JustBeforeEach(func() {
+	gk.JustBeforeEach(func() {
 		var err error
 		k = &DirectoryProvider{
 			opts: opts,
@@ -108,55 +108,55 @@ var _ = Describe("Construct", func() {
 		req.Inputs, err = plugin.MarshalProperties(inputs, plugin.MarshalOptions{
 			Label: "inputs", KeepSecrets: true, KeepResources: true, KeepUnknowns: true, KeepOutputValues: true,
 		})
-		Expect(err).ShouldNot(HaveOccurred())
+		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 	})
 
-	It("should register a component resource", func() {
+	gk.It("should register a component resource", func() {
 		resp, err := pulumiprovider.Construct(context.Background(), req, tc.EngineConn(), k.Construct)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(resp.Urn).Should(Equal("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test"))
+		gm.Expect(err).ShouldNot(gm.HaveOccurred())
+		gm.Expect(resp.Urn).Should(gm.Equal("urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test"))
 
-		Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
-			"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test": MatchProps(IgnoreExtras, Props{
-				"id": MatchValue("test"),
+		gm.Expect(tc.monitor.Resources()).To(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+			"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory::test": pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+				"id": pgm.MatchValue("test"),
 			}),
 		}))
 	})
 
-	Describe("Preview", func() {
-		Context("when the input value(s) are unknown", func() {
-			BeforeEach(func() {
+	gk.Describe("Preview", func() {
+		gk.Context("when the input value(s) are unknown", func() {
+			gk.BeforeEach(func() {
 				req.DryRun = true
 				inputs["directory"] = resource.MakeComputed(resource.NewStringProperty(""))
 			})
 
-			It("should emit a warning", func(ctx context.Context) {
+			gk.It("should emit a warning", func(ctx context.Context) {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(tc.engine.Logs()).To(HaveLen(1))
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(tc.engine.Logs()).To(gm.HaveLen(1))
 			})
 
-			It("should provide a 'resources' output property", func(ctx context.Context) {
+			gk.It("should provide a 'resources' output property", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": BeComputed(),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.BeComputed(),
 				}))
 			})
 		})
 	})
 
-	Describe("Templating", func() {
-		Describe("Namespacing", func() {
-			Context("by default", func() {
-				It("should use the context namespace", func(ctx context.Context) {
+	gk.Describe("Templating", func() {
+		gk.Describe("Namespacing", func() {
+			gk.Context("by default", func() {
+				gk.It("should use the context namespace", func(ctx context.Context) {
 					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-					Expect(err).ShouldNot(HaveOccurred())
-					outputs := unmarshalProperties(GinkgoTB(), resp.State)
-					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue(
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.ContainElements(
+							pgm.MatchResourceReferenceValue(
 								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001",
 								"test:default/cm001",
 							),
@@ -165,18 +165,19 @@ var _ = Describe("Construct", func() {
 				})
 			})
 
-			Context("given a provider namespace", func() {
-				BeforeEach(func() {
+			gk.Context("given a provider namespace", func() {
+				gk.BeforeEach(func() {
 					opts.DefaultNamespace = "provider"
 				})
-				It("should use the provider's namespace", func(ctx context.Context) {
+				gk.It("should use the provider's namespace", func(ctx context.Context) {
 					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-					Expect(err).ShouldNot(HaveOccurred())
-					outputs := unmarshalProperties(GinkgoTB(), resp.State)
-					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue(
-								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:provider/cm001",
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.ContainElements(
+							pgm.MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::"+
+									"test:provider/cm001",
 								"test:provider/cm001",
 							),
 						)),
@@ -184,18 +185,19 @@ var _ = Describe("Construct", func() {
 				})
 			})
 
-			Context("given an configured namespace", func() {
-				BeforeEach(func() {
+			gk.Context("given an configured namespace", func() {
+				gk.BeforeEach(func() {
 					inputs["namespace"] = resource.NewStringProperty("override")
 				})
-				It("should use the configured namespace", func(ctx context.Context) {
+				gk.It("should use the configured namespace", func(ctx context.Context) {
 					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-					Expect(err).ShouldNot(HaveOccurred())
-					outputs := unmarshalProperties(GinkgoTB(), resp.State)
-					Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-						"resources": MatchArrayValue(ContainElements(
-							MatchResourceReferenceValue(
-								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:override/cm001",
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.ContainElements(
+							pgm.MatchResourceReferenceValue(
+								"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::"+
+									"test:override/cm001",
 								"test:override/cm001",
 							),
 						)),
@@ -205,14 +207,14 @@ var _ = Describe("Construct", func() {
 		})
 	})
 
-	Describe("Resource Registration", func() {
-		It("should provide a 'resources' output property", func(ctx context.Context) {
+	gk.Describe("Resource Registration", func() {
+		gk.It("should provide a 'resources' output property", func(ctx context.Context) {
 			resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-			Expect(err).ShouldNot(HaveOccurred())
-			outputs := unmarshalProperties(GinkgoTB(), resp.State)
-			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-				"resources": MatchArrayValue(ConsistOf(
-					MatchResourceReferenceValue(
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+			gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+				"resources": pgm.MatchArrayValue(gm.ConsistOf(
+					pgm.MatchResourceReferenceValue(
 						"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001",
 						"test:default/cm001",
 					),
@@ -220,18 +222,19 @@ var _ = Describe("Construct", func() {
 			}))
 		})
 
-		Describe("Resource Prefix", func() {
-			BeforeEach(func() {
+		gk.Describe("Resource Prefix", func() {
+			gk.BeforeEach(func() {
 				inputs["resourcePrefix"] = resource.NewStringProperty("prefixed")
 			})
-			It("should use the prefix (instead of the component name)", func(ctx context.Context) {
+			gk.It("should use the prefix (instead of the component name)", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue(
-							"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::prefixed:default/cm001",
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.MatchArrayValue(gm.ConsistOf(
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::"+
+								"prefixed:default/cm001",
 							"prefixed:default/cm001",
 						),
 					)),
@@ -239,18 +242,19 @@ var _ = Describe("Construct", func() {
 			})
 		})
 
-		Describe("Skip Await", func() {
-			BeforeEach(func() {
+		gk.Describe("Skip Await", func() {
+			gk.BeforeEach(func() {
 				inputs["skipAwait"] = resource.NewBoolProperty(true)
 			})
-			It("should not await the resources", func(ctx context.Context) {
+			gk.It("should not await the resources", func(ctx context.Context) {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(tc.monitor.Registrations()).To(MatchKeys(IgnoreExtras, Keys{
-					"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::test:default/cm001": MatchFields(
-						IgnoreExtras,
-						Fields{
-							"State": HaveSkipAwaitAnnotation(),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(tc.monitor.Registrations()).To(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+					"urn:pulumi:stack::project::kubernetes:kustomize/v2:Directory$kubernetes:core/v1:ConfigMap::" +
+						"test:default/cm001": gs.MatchFields(
+						gs.IgnoreExtras,
+						gs.Fields{
+							"State": pgm.HaveSkipAwaitAnnotation(),
 						},
 					),
 				}))

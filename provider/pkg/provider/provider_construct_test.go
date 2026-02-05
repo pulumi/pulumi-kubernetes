@@ -19,8 +19,8 @@ import (
 
 	_ "embed"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
 	helmcli "helm.sh/helm/v3/pkg/cli"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -31,12 +31,12 @@ import (
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
-var _ = Describe("RPC:Construct", func() {
+var _ = gk.Describe("RPC:Construct", func() {
 	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.ConstructRequest
 
-	BeforeEach(func() {
+	gk.BeforeEach(func() {
 		opts = []NewProviderOption{}
 
 		// initialize the ConstructRequest to be customized in nested BeforeEach blocks
@@ -54,7 +54,7 @@ var _ = Describe("RPC:Construct", func() {
 		}
 	}
 
-	JustBeforeEach(func() {
+	gk.JustBeforeEach(func() {
 		k = pctx.NewProvider(opts...)
 		k.clientSet = &clients.DynamicClientSet{}
 		k.defaultNamespace = "default"
@@ -62,20 +62,20 @@ var _ = Describe("RPC:Construct", func() {
 		k.helmSettings = helmcli.New()
 	})
 
-	Context("when the requested type is unknown", func() {
-		BeforeEach(func() {
+	gk.Context("when the requested type is unknown", func() {
+		gk.BeforeEach(func() {
 			req.Type = "kubernetes:test:UnknownComponent"
 			req.Name = "testComponent"
 		})
-		It("should return an error", func() {
+		gk.It("should return an error", func() {
 			_, err := k.Construct(context.Background(), req)
-			Expect(err).Should(HaveOccurred())
+			gm.Expect(err).Should(gm.HaveOccurred())
 		})
 	})
 
-	Context("when the requested type is known", func() {
+	gk.Context("when the requested type is known", func() {
 		var testComponent *mockResourceProvider
-		BeforeEach(func() {
+		gk.BeforeEach(func() {
 			testComponent = &mockResourceProvider{
 				Result: &provider.ConstructResult{
 					URN: pulumi.URN("urn:pulumi:test::test::test:TestComponent::testComponent"),
@@ -87,30 +87,30 @@ var _ = Describe("RPC:Construct", func() {
 			req.Name = "testComponent"
 		})
 
-		It("should delegate to the provider", func() {
+		gk.It("should delegate to the provider", func() {
 			result, err := k.Construct(context.Background(), req)
-			Expect(err).ShouldNot(HaveOccurred())
-			Expect(testComponent.typ).Should(Equal("kubernetes:test:TestComponent"))
-			Expect(testComponent.name).Should(Equal("testComponent"))
-			Expect(result.Urn).Should(Equal("urn:pulumi:test::test::test:TestComponent::testComponent"))
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			gm.Expect(testComponent.typ).Should(gm.Equal("kubernetes:test:TestComponent"))
+			gm.Expect(testComponent.name).Should(gm.Equal("testComponent"))
+			gm.Expect(result.Urn).Should(gm.Equal("urn:pulumi:test::test::test:TestComponent::testComponent"))
 		})
 
-		It("should provide options", func() {
+		gk.It("should provide options", func() {
 			_, err := k.Construct(context.Background(), req)
-			Expect(err).ShouldNot(HaveOccurred())
-			Expect(testComponent.opts.ClientSet).ShouldNot(BeNil())
-			Expect(testComponent.opts.DefaultNamespace).ShouldNot(BeEmpty())
-			Expect(testComponent.opts.HelmOptions).ShouldNot(BeNil())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			gm.Expect(testComponent.opts.ClientSet).ShouldNot(gm.BeNil())
+			gm.Expect(testComponent.opts.DefaultNamespace).ShouldNot(gm.BeEmpty())
+			gm.Expect(testComponent.opts.HelmOptions).ShouldNot(gm.BeNil())
 		})
 
-		Context("when clusterUnreachable is true", func() {
-			JustBeforeEach(func() {
+		gk.Context("when clusterUnreachable is true", func() {
+			gk.JustBeforeEach(func() {
 				k.clusterUnreachable = true
 				k.clusterUnreachableReason = "testing"
 			})
-			It("should return an error", func() {
+			gk.It("should return an error", func() {
 				_, err := k.Construct(context.Background(), req)
-				Expect(err).To(MatchError(ContainSubstring("configured Kubernetes cluster is unreachable")))
+				gm.Expect(err).To(gm.MatchError(gm.ContainSubstring("configured Kubernetes cluster is unreachable")))
 			})
 		})
 	})

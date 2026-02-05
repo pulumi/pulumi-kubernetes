@@ -36,9 +36,13 @@ import (
 type CustomResource struct {
 	pulumi.CustomResourceState
 
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized
+	// schemas to the latest internal value, and may reject unrecognized values. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the
+	// endpoint the client submits requests to. Cannot be updated. In CamelCase. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
@@ -100,18 +104,26 @@ func GetCustomResource(
 
 // Input properties used for looking up and filtering CustomResource resources.
 type customResourceState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized
+	// schemas to the latest internal value, and may reject unrecognized values. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the
+	// endpoint the client submits requests to. Cannot be updated. In CamelCase. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 }
 
 type CustomResourceState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized
+	// schemas to the latest internal value, and may reject unrecognized values. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the
+	// endpoint the client submits requests to. Cannot be updated. In CamelCase. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput
@@ -122,9 +134,13 @@ func (CustomResourceState) ElementType() reflect.Type {
 }
 
 type customResourceArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized
+	// schemas to the latest internal value, and may reject unrecognized values. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the
+	// endpoint the client submits requests to. Cannot be updated. In CamelCase. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind string `pulumi:"kind"`
 	// Standard object metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
@@ -134,9 +150,13 @@ type customResourceArgs struct {
 
 // The set of arguments for constructing a CustomResource resource.
 type CustomResourceArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized
+	// schemas to the latest internal value, and may reject unrecognized values. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the
+	// endpoint the client submits requests to. Cannot be updated. In CamelCase. More info:
+	// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringInput
 	// Standard object metadata.
 	Metadata metav1.ObjectMetaPtrInput

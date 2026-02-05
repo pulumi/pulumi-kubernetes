@@ -416,7 +416,8 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 
 			// Verify that the invokes for provider A contain version info across-the-board.
 			// The Version and PluginDownloadURL options normally serve as hints when selecting
-			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to avoid
+			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to
+			// avoid
 			// any attempt to use the fake version/url.
 			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(gm.HaveEach(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -502,7 +503,9 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-testdata/options/configgroup/manifest.yaml"),
+			g.Expect(rr.Named(
+				urn("pkg:index:MyComponent", "kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile",
+					"cg-options-testdata/options/configgroup/manifest.yaml"),
 				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).
 				To(gm.HaveExactElements(
 					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -702,8 +705,10 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 					}),
 				}),
 			))
-			// urn:pulumi:p-it-pulumitron-options-a5535ee6::options-test::pkg:index:MyComponent$kubernetes:kustomize:Directory::kustomize-options-kustomize-options",
-			g.Expect(rr.Named(urn("pkg:index:MyComponent", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"),
+			// urn:pulumi:p-it-pulumitron-options-a5535ee6::options-test::pkg:index:MyComponent
+			// $kubernetes:kustomize:Directory::kustomize-options-kustomize-options
+			g.Expect(rr.Named(
+				urn("pkg:index:MyComponent", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"),
 				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).
 				To(gm.HaveExactElements(
 					gs.MatchFields(gs.IgnoreExtras, gs.Fields{

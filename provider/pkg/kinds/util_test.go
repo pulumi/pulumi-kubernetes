@@ -50,7 +50,8 @@ func TestIsPatchURN(t *testing.T) {
 		{
 			"Custom Resource with Patch suffix",
 			resource.URN(
-				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatch::k8s-meshproxy-patch-child",
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$" +
+					"kubernetes:kuma.io/v1alpha1:MeshProxyPatch::k8s-meshproxy-patch-child",
 			),
 			"MeshProxyPatch",
 			false,
@@ -58,7 +59,8 @@ func TestIsPatchURN(t *testing.T) {
 		{
 			"Custom Resource with Patch suffix that is a patch resource",
 			resource.URN(
-				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$kubernetes:kuma.io/v1alpha1:MeshProxyPatchPatch::k8s-meshproxy-patch-child",
+				"urn:pulumi:dev::kubernetes-ts::my:component:Resource$" +
+					"kubernetes:kuma.io/v1alpha1:MeshProxyPatchPatch::k8s-meshproxy-patch-child",
 			),
 			"MeshProxyPatch",
 			true,

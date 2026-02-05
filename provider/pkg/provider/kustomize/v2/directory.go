@@ -176,8 +176,9 @@ func (r *DirectoryProvider) Construct(
 	return pulumiprovider.NewConstructResult(comp)
 }
 
-// makeKustomizer prepares the kustomize tool with helm support, full permission to use plugins, and no load restrictions
-func makeKustomizer(args *directoryArgs) kustomizer {
+// makeKustomizer prepares the kustomize tool with helm support, full permission to use plugins, and no load
+// restrictions
+func makeKustomizer(_ /* args */ *directoryArgs) kustomizer {
 	opts := krusty.MakeDefaultOptions()
 	opts.Reorder = krusty.ReorderOptionNone
 	opts.AddManagedbyLabel = false

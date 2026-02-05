@@ -144,7 +144,12 @@ func (d *memCacheClient) ServerGroupsAndResources() ([]*metav1.APIGroup, []*meta
 // GroupsAndMaybeResources returns the list of APIGroups, and possibly the map of group/version
 // to resources. The returned groups will never be nil, but the resources map can be nil
 // if there are no cached resources.
-func (d *memCacheClient) GroupsAndMaybeResources() (*metav1.APIGroupList, map[schema.GroupVersion]*metav1.APIResourceList, map[schema.GroupVersion]error, error) {
+func (d *memCacheClient) GroupsAndMaybeResources() (
+	*metav1.APIGroupList,
+	map[schema.GroupVersion]*metav1.APIResourceList,
+	map[schema.GroupVersion]error,
+	error,
+) {
 	d.lock.Lock()
 	defer d.lock.Unlock()
 

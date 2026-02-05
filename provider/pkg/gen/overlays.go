@@ -73,7 +73,10 @@ var helmV3ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The name of the chart to deploy. If [repo] is provided, this chart name will be prefixed by the repo name. Example: repo: \"stable\", chart: \"nginx-ingress\" -> \"stable/nginx-ingress\" Example: chart: \"stable/nginx-ingress\" -> \"stable/nginx-ingress\"\n\nRequired if specifying `ChartOpts` for a remote chart.",
+			Description: "The name of the chart to deploy. If [repo] is provided, this chart name will be " +
+				"prefixed by the repo name. Example: repo: \"stable\", chart: \"nginx-ingress\" -> " +
+				"\"stable/nginx-ingress\" Example: chart: \"stable/nginx-ingress\" -> \"stable/nginx-ingress\"\n\n" +
+				"Required if specifying `ChartOpts` for a remote chart.",
 		},
 		"fetchOpts": {
 			TypeSpec: pschema.TypeSpec{
@@ -85,7 +88,8 @@ var helmV3ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The path to the chart directory which contains the `Chart.yaml` file.\n\nRequired if specifying `LocalChartOpts`.",
+			Description: "The path to the chart directory which contains the `Chart.yaml` file.\n\n" +
+				"Required if specifying `LocalChartOpts`.",
 		},
 		"namespace": {
 			TypeSpec: pschema.TypeSpec{
@@ -97,13 +101,15 @@ var helmV3ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The repository name of the chart to deploy. Example: \"stable\".\n\nUsed only when specifying options for a remote chart.",
+			Description: "The repository name of the chart to deploy. Example: \"stable\".\n\n" +
+				"Used only when specifying options for a remote chart.",
 		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with " +
+				"resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"transformations": {
 			TypeSpec: pschema.TypeSpec{
@@ -112,7 +118,8 @@ var helmV3ChartResource = pschema.ResourceSpec{
 					Ref: "pulumi.json#/Any",
 				},
 			},
-			Description: "Optional array of transformations to apply to resources that will be created by this chart prior to creation. Allows customization of the chart behaviour without directly modifying the chart itself.",
+			Description: "Optional array of transformations to apply to resources that will be created by this chart " +
+				"prior to creation. Allows customization of the chart behaviour without directly modifying the chart itself.",
 		},
 		"values": {
 			TypeSpec: pschema.TypeSpec{
@@ -188,7 +195,8 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
+			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. " +
+				"If `version` is set, this is ignored.",
 		},
 		"dependencyUpdate": {
 			TypeSpec: pschema.TypeSpec{
@@ -242,7 +250,8 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
+			Description: "By default, the provider waits until all resources are in a ready state before marking the " +
+				"release as successful. Setting this to true will skip such await logic.",
 		},
 		"plainHttp": {
 			TypeSpec: pschema.TypeSpec{
@@ -254,7 +263,8 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
+			Description: "An optional prefix for the auto-generated resource names. " +
+				"Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
 		},
 	},
 	RequiredInputs: []string{
@@ -283,13 +293,15 @@ var helmV3FetchOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Location to write the chart. If this and tardir are specified, tardir is appended to this (default \".\").",
+				Description: "Location to write the chart. If this and tardir are specified, " +
+					"tardir is appended to this (default \".\").",
 			},
 			"devel": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "Use development versions, too. Equivalent to version '>0.0.0-0'. If –version is set, this is ignored.",
+				Description: "Use development versions, too. Equivalent to version '>0.0.0-0'. " +
+					"If –version is set, this is ignored.",
 			},
 			"home": {
 				TypeSpec: pschema.TypeSpec{
@@ -337,7 +349,8 @@ var helmV3FetchOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "If untar is specified, this flag specifies the name of the directory into which the chart is expanded (default \".\").",
+				Description: "If untar is specified, this flag specifies the name of the directory into which " +
+					"the chart is expanded (default \".\").",
 			},
 			"username": {
 				TypeSpec: pschema.TypeSpec{
@@ -370,7 +383,8 @@ var helmV3RepoOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.",
+				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed " +
+					"without installing the repository.",
 			},
 			"keyFile": { // TODO: Content or file
 				TypeSpec: pschema.TypeSpec{
@@ -427,7 +441,8 @@ var helmV4RepoOpts = pschema.ComplexTypeSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed without installing the repository.",
+				Description: "Repository where to locate the requested chart. If it's a URL the chart is installed " +
+					"without installing the repository.",
 			},
 			"keyFile": {
 				TypeSpec: pschema.TypeSpec{
@@ -597,8 +612,9 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 				},
 			},
 			"timeout": {
-				Description: "Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.",
-				TypeSpec:    pschema.TypeSpec{Type: "integer"},
+				Description: "Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. " +
+					"Default value is 32.",
+				TypeSpec: pschema.TypeSpec{Type: "integer"},
 				DefaultInfo: &pschema.DefaultSpec{
 					Environment: []string{
 						"PULUMI_K8S_CLIENT_TIMEOUT",
@@ -693,13 +709,15 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "Specify the exact chart version to install. If this is not specified, the latest version is installed.",
+				Description: "Specify the exact chart version to install. If this is not specified, " +
+					"the latest version is installed.",
 			},
 			"devel": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
+				Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. " +
+					"If `version` is set, this is ignored.",
 			},
 			"valueYamlFiles": {
 				TypeSpec: pschema.TypeSpec{
@@ -708,7 +726,8 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 						Ref: "pulumi.json#/Asset",
 					},
 				},
-				Description: "List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).",
+				Description: "List of assets (raw yaml files). Content is read and merged with values " +
+					"(with values taking precedence).",
 			},
 			"values": {
 				TypeSpec: pschema.TypeSpec{
@@ -780,7 +799,8 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored",
+				Description: "When upgrading, reuse the last release's values and merge in any overrides. " +
+					"If 'resetValues' is specified, this is ignored",
 			},
 			"resetValues": {
 				TypeSpec: pschema.TypeSpec{
@@ -816,7 +836,8 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.",
+				Description: "If set, installation process purges chart on fail. `skipAwait` will be disabled " +
+					"automatically if atomic is used.",
 			},
 			"skipCrds": {
 				TypeSpec: pschema.TypeSpec{
@@ -834,19 +855,22 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema",
+				Description: "If set, the installation process will not validate rendered templates against " +
+					"the Kubernetes OpenAPI Schema",
 			},
 			"skipAwait": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
+				Description: "By default, the provider waits until all resources are in a ready state " +
+					"before marking the release as successful. Setting this to true will skip such await logic.",
 			},
 			"waitForJobs": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.",
+				Description: "Will wait until all Jobs have been completed before marking the release as successful. " +
+					"This is ignored if `skipAwait` is enabled.",
 			},
 			"dependencyUpdate": {
 				TypeSpec: pschema.TypeSpec{
@@ -965,13 +989,15 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "Specify the exact chart version to install. If this is not specified, the latest version is installed.",
+			Description: "Specify the exact chart version to install. If this is not specified, " +
+				"the latest version is installed.",
 		},
 		"devel": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
+			Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. " +
+				"If `version` is set, this is ignored.",
 		},
 		"valueYamlFiles": {
 			TypeSpec: pschema.TypeSpec{
@@ -1052,7 +1078,8 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored",
+			Description: "When upgrading, reuse the last release's values and merge in any overrides. " +
+				"If 'resetValues' is specified, this is ignored",
 		},
 		"resetValues": {
 			TypeSpec: pschema.TypeSpec{
@@ -1088,7 +1115,8 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.",
+			Description: "If set, installation process purges chart on fail. `skipAwait` will be disabled " +
+				"automatically if atomic is used.",
 		},
 		"skipCrds": {
 			TypeSpec: pschema.TypeSpec{
@@ -1106,19 +1134,22 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema",
+			Description: "If set, the installation process will not validate rendered templates against " +
+				"the Kubernetes OpenAPI Schema",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
+			Description: "By default, the provider waits until all resources are in a ready state before marking the " +
+				"release as successful. Setting this to true will skip such await logic.",
 		},
 		"waitForJobs": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.",
+			Description: "Will wait until all Jobs have been completed before marking the release as successful. " +
+				"This is ignored if `skipAwait` is enabled.",
 		},
 		"dependencyUpdate": {
 			TypeSpec: pschema.TypeSpec{
@@ -1188,13 +1219,16 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
+				Description: "The directory containing the kustomization to apply. The value can be a local directory " +
+					"or a folder in a\ngit repository.\nExample: ./helloWorld\n" +
+					"Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
 			},
 			"resourcePrefix": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
 				},
-				Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+				Description: "An optional prefix for the auto-generated resource names. " +
+					"Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 			},
 			"transformations": {
 				TypeSpec: pschema.TypeSpec{
@@ -1216,13 +1250,16 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
+			Description: "The directory containing the kustomization to apply. The value can be a local directory " +
+				"or a folder in a\ngit repository.\nExample: ./helloWorld\n" +
+				"Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
 		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with " +
+				"resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"transformations": {
 			TypeSpec: pschema.TypeSpec{
@@ -1262,7 +1299,9 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
+			Description: "The directory containing the kustomization to apply. The value can be a local directory " +
+				"or a folder in a\ngit repository.\nExample: ./helloWorld\n" +
+				"Example: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld",
 		},
 		"namespace": {
 			TypeSpec: pschema.TypeSpec{
@@ -1274,7 +1313,8 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. " +
+				"Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo:resourceName\".",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
@@ -1318,7 +1358,8 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with " +
+				"resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"transformations": {
 			TypeSpec: pschema.TypeSpec{
@@ -1367,7 +1408,8 @@ var yamlConfigFileV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. " +
+				"Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
@@ -1437,7 +1479,8 @@ var yamlConfigGroupResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with " +
+				"resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"transformations": {
 			TypeSpec: pschema.TypeSpec{
@@ -1511,7 +1554,8 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
+			Description: "A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. " +
+				"Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
 		},
 		"skipAwait": {
 			TypeSpec: pschema.TypeSpec{
@@ -1532,27 +1576,36 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs", "java"},
-		Description:               "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
+		Description: "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n " +
+			"CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n " +
+			"instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n " +
+			"`ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{
 					Type:  "string",
 					Plain: true,
 				},
-				Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+				Description: "APIVersion defines the versioned schema of this representation of an object. " +
+					"Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. " +
+					"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 			},
 			"kind": {
 				TypeSpec: pschema.TypeSpec{
 					Type:  "string",
 					Plain: true,
 				},
-				Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+				Description: "Kind is a string value representing the REST resource this object represents. " +
+					"Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. " +
+					"More info: " +
+					"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 			},
 			"metadata": {
 				TypeSpec: pschema.TypeSpec{
 					Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
 				},
-				Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+				Description: "Standard object metadata; More info: " +
+					"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
 			},
 		},
 		Type: "object",
@@ -1566,19 +1619,24 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+			Description: "APIVersion defines the versioned schema of this representation of an object. " +
+				"Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. " +
+				"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 		},
 		"kind": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+			Description: "Kind is a string value representing the REST resource this object represents. " +
+				"Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. " +
+				"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 		},
 		"metadata": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
 			},
-			Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+			Description: "Standard object metadata; More info: " +
+				"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
 		},
 		"others": {
 			TypeSpec: pschema.TypeSpec{
@@ -1587,7 +1645,9 @@ var apiextensionsCustomResource = pschema.ResourceSpec{
 					Ref: "pulumi.json#/Any",
 				},
 			},
-			Description: "This field is not an actual property. It is used to represent custom property names and their values that can be passed in addition to the other input properties.",
+			Description: "This field is not an actual property. " +
+				"It is used to represent custom property names and their values " +
+				"that can be passed in addition to the other input properties.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1600,27 +1660,36 @@ var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:                 true,
 		OverlaySupportedLanguages: []string{"csharp", "go", "python", "nodejs", "java"},
-		Description:               "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
+		Description: "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n " +
+			"CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n " +
+			"instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n " +
+			"`ServiceMonitor` resource definition as an argument.",
 		Properties: map[string]pschema.PropertySpec{
 			"apiVersion": {
 				TypeSpec: pschema.TypeSpec{
 					Type:  "string",
 					Plain: true,
 				},
-				Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+				Description: "APIVersion defines the versioned schema of this representation of an object. " +
+					"Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. " +
+					"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 			},
 			"kind": {
 				TypeSpec: pschema.TypeSpec{
 					Type:  "string",
 					Plain: true,
 				},
-				Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+				Description: "Kind is a string value representing the REST resource this object represents. " +
+					"Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. " +
+					"More info: " +
+					"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 			},
 			"metadata": {
 				TypeSpec: pschema.TypeSpec{
 					Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
 				},
-				Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+				Description: "Standard object metadata; More info: " +
+					"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
 			},
 		},
 		Type: "object",
@@ -1634,19 +1703,24 @@ var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+			Description: "APIVersion defines the versioned schema of this representation of an object. " +
+				"Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. " +
+				"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
 		},
 		"kind": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+			Description: "Kind is a string value representing the REST resource this object represents. " +
+				"Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. " +
+				"More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
 		},
 		"metadata": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
 			},
-			Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+			Description: "Standard object metadata; More info: " +
+				"https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
 		},
 		"others": {
 			TypeSpec: pschema.TypeSpec{
@@ -1655,7 +1729,9 @@ var apiextensionsCustomResourcePatch = pschema.ResourceSpec{
 					Ref: "pulumi.json#/Any",
 				},
 			},
-			Description: "This field is not an actual property. It is used to represent custom property names and their values that can be passed in addition to the other input properties.",
+			Description: "This field is not an actual property. " +
+				"It is used to represent custom property names and their values that can be passed " +
+				"in addition to the other input properties.",
 		},
 	},
 	RequiredInputs: []string{

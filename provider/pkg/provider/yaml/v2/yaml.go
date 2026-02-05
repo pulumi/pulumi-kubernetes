@@ -70,8 +70,10 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
-			// Otherwise, assume this is a path to a file on disk. If globbing is enabled and a pattern is provided, we might have
-			// multiple files -- otherwise just read a singular file and fail if it doesn't exist.
+			// Otherwise, assume this is a path to a file on disk. If globbing
+			// is enabled and a pattern is provided, we might have multiple
+			// files -- otherwise just read a singular file and fail if it
+			// doesn't exist.
 			var files []string
 			if opts.Glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
@@ -242,7 +244,8 @@ func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, er
 		return pulumi.ArrayOutput{}, err
 	}
 
-	// process the resources in topological order, meaning that we first process the resources that have no dependencies,
+	// process the resources in topological order, meaning that we first process the resources that have no
+	// dependencies,
 	// then process the resources that depend on those, and so on.
 	sorted, err := g.Sort()
 	if err != nil {
@@ -309,12 +312,14 @@ func register(
 
 	// Apply the skipAwait annotation if necessary.
 	if opts.SkipAwait {
-		// Note: when decoding YAML manifests into unstructured objects, a null value will be unmarshalled as an untyped nil value.
-		// This prevents us from successfully setting the annotation to "true" in the object, so we should ensure the field is set
-		// correctly.
+		// Note: when decoding YAML manifests into unstructured objects, a null
+		// value will be unmarshalled as an untyped nil value. This prevents us
+		// from successfully setting the annotation to "true" in the object, so
+		// we should ensure the field is set correctly.
 		annos, found, _ := unstructured.NestedFieldNoCopy(obj.Object, "metadata", "annotations")
 		if annos == nil || !found {
-			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait annotation.
+			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait
+			// annotation.
 			err := unstructured.SetNestedField(obj.Object, map[string]any{}, "metadata", "annotations")
 			if err != nil {
 				return nil, fmt.Errorf(

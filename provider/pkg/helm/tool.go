@@ -47,7 +47,9 @@ type InitActionConfigF func(actionConfig *action.Configuration, namespaceOverrid
 
 type LocateChartF func(i *action.Install, name string, settings *cli.EnvSettings) (string, error)
 
-type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error)
+type ExecuteF func(
+	ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{},
+) (*release.Release, error)
 
 // Tool for executing Helm commands via the Helm library.
 type Tool struct {
@@ -77,7 +79,9 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
 			return i.ChartPathOptions.LocateChart(name, settings)
 		},
-		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+		execute: func(
+			ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{},
+		) (*release.Release, error) {
 			return i.RunWithContext(ctx, chrt, vals)
 		},
 	}
@@ -272,7 +276,8 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
 			err = errors.Wrap(
 				err,
-				"An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies",
+				"An error occurred while checking for chart dependencies. "+
+					"You may need to run `helm dependency build` to fetch missing dependencies",
 			)
 			if client.DependencyUpdate || chartRequested.Lock != nil {
 				logStream := debugStream()

@@ -89,51 +89,52 @@ func (k *ConfigGroupProvider) Construct(
 
 	// Parse the manifest(s) and register the resources.
 
-	comp.Resources = pulumi.All(args.Files, args.YAML, args.Objects, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
-		// make type assertions to get each value (or the zero value)
-		// note: "objects" contains unwrapped values at this point
-		files, _ := args[0].([]string)
-		yaml, _ := args[1].(string)
-		objects, _ := args[2].([]map[string]any)
-		resourcePrefix, hasResourcePrefix := args[3].(string)
-		skipAwait, _ := args[4].(bool)
+	comp.Resources = pulumi.All(args.Files, args.YAML, args.Objects, args.ResourcePrefix, args.SkipAwait).
+		ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
+			// make type assertions to get each value (or the zero value)
+			// note: "objects" contains unwrapped values at this point
+			files, _ := args[0].([]string)
+			yaml, _ := args[1].(string)
+			objects, _ := args[2].([]map[string]any)
+			resourcePrefix, hasResourcePrefix := args[3].(string)
+			skipAwait, _ := args[4].(bool)
 
-		if !hasResourcePrefix {
-			// use the name of the ConfigGroup as the resource prefix to ensure uniqueness
-			// across multiple instances of the component resource.
-			resourcePrefix = name
-		}
+			if !hasResourcePrefix {
+				// use the name of the ConfigGroup as the resource prefix to ensure uniqueness
+				// across multiple instances of the component resource.
+				resourcePrefix = name
+			}
 
-		// Parse the YAML files and literals into an array of Kubernetes objects, plus the provided objects.
-		parseOpts := ParseOptions{
-			Files: files,
-			Glob:  true,
-			YAML:  yaml,
-		}
-		objs, err := Parse(ctx.Context(), parseOpts)
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
-		for _, obj := range objects {
-			objs = append(objs, unstructured.Unstructured{Object: obj})
-		}
+			// Parse the YAML files and literals into an array of Kubernetes objects, plus the provided objects.
+			parseOpts := ParseOptions{
+				Files: files,
+				Glob:  true,
+				YAML:  yaml,
+			}
+			objs, err := Parse(ctx.Context(), parseOpts)
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
+			for _, obj := range objects {
+				objs = append(objs, unstructured.Unstructured{Object: obj})
+			}
 
-		// Normalize the objects (apply a default namespace, etc.)
-		objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
-		if err != nil {
-			return pulumi.ArrayOutput{}, err
-		}
+			// Normalize the objects (apply a default namespace, etc.)
+			objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
+			if err != nil {
+				return pulumi.ArrayOutput{}, err
+			}
 
-		// Register the objects as Pulumi resources.
-		registerOpts := RegisterOptions{
-			Objects:         objs,
-			ResourcePrefix:  resourcePrefix,
-			SkipAwait:       skipAwait,
-			ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		}
-		return Register(ctx, registerOpts)
+			// Register the objects as Pulumi resources.
+			registerOpts := RegisterOptions{
+				Objects:         objs,
+				ResourcePrefix:  resourcePrefix,
+				SkipAwait:       skipAwait,
+				ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
+			}
+			return Register(ctx, registerOpts)
 
-	}).(pulumi.ArrayOutput)
+		}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
 	_, _ = internals.UnsafeAwaitOutput(ctx.Context(), comp.Resources)
