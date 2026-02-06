@@ -1,0 +1,3 @@
+name: render-yaml-always-test
+description: Tests the alwaysRender option to idempotently render YAML rather than create k8s resources on a cluster.
+runtime: nodejs

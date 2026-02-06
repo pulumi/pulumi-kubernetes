@@ -1185,7 +1185,7 @@ func TestRenderYAMLNoChangeRegeneratesFiles(t *testing.T) {
 		Config: map[string]string{
 			"renderDir": dir,
 		},
-		Dir:         filepath.Join("render-yaml", "step1"),
+		Dir:         "render-yaml-always",
 		Quick:       true,
 		SkipRefresh: true,
 	})
