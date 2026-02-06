@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Key;
         /// <summary>
-        /// TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        /// TimeAdded represents the time at which the taint was added.
         /// </summary>
         public readonly string TimeAdded;
         /// <summary>

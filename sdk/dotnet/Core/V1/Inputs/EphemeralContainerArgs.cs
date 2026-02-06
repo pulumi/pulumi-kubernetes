@@ -57,7 +57,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.EnvFromSourceArgs>? _envFrom;
 
         /// <summary>
-        /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        /// List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.EnvFromSourceArgs> EnvFrom
         {
@@ -132,10 +132,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs>? Resources { get; set; }
 
         /// <summary>
-        /// Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        /// Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
         /// </summary>
         [Input("restartPolicy")]
         public Input<string>? RestartPolicy { get; set; }
+
+        [Input("restartPolicyRules")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerRestartRuleArgs>? _restartPolicyRules;
+
+        /// <summary>
+        /// Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerRestartRuleArgs> RestartPolicyRules
+        {
+            get => _restartPolicyRules ?? (_restartPolicyRules = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerRestartRuleArgs>());
+            set => _restartPolicyRules = value;
+        }
 
         /// <summary>
         /// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.

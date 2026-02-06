@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceClassConfigurationPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceSelectorPatchArgs;
+import java.lang.String;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,6 +42,25 @@ public final class DeviceClassSpecPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
+     * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+     * 
+     * This is an alpha field.
+     * 
+     */
+    @Import(name="extendedResourceName")
+    private @Nullable Output<String> extendedResourceName;
+
+    /**
+     * @return ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+     * 
+     * This is an alpha field.
+     * 
+     */
+    public Optional<Output<String>> extendedResourceName() {
+        return Optional.ofNullable(this.extendedResourceName);
+    }
+
+    /**
      * Each selector must be satisfied by a device which is claimed via this class.
      * 
      */
@@ -59,6 +79,7 @@ public final class DeviceClassSpecPatchArgs extends com.pulumi.resources.Resourc
 
     private DeviceClassSpecPatchArgs(DeviceClassSpecPatchArgs $) {
         this.config = $.config;
+        this.extendedResourceName = $.extendedResourceName;
         this.selectors = $.selectors;
     }
 
@@ -115,6 +136,31 @@ public final class DeviceClassSpecPatchArgs extends com.pulumi.resources.Resourc
          */
         public Builder config(DeviceClassConfigurationPatchArgs... config) {
             return config(List.of(config));
+        }
+
+        /**
+         * @param extendedResourceName ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+         * 
+         * This is an alpha field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceName(@Nullable Output<String> extendedResourceName) {
+            $.extendedResourceName = extendedResourceName;
+            return this;
+        }
+
+        /**
+         * @param extendedResourceName ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+         * 
+         * This is an alpha field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceName(String extendedResourceName) {
+            return extendedResourceName(Output.of(extendedResourceName));
         }
 
         /**

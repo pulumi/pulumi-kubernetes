@@ -23,6 +23,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         [Input("allNodes")]
         public Input<bool>? AllNodes { get; set; }
 
+        /// <summary>
+        /// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+        /// 
+        /// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+        /// </summary>
+        [Input("allowMultipleAllocations")]
+        public Input<bool>? AllowMultipleAllocations { get; set; }
+
         [Input("attributes")]
         private InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceAttributeArgs>? _attributes;
 
@@ -36,6 +44,50 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
             get => _attributes ?? (_attributes = new InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceAttributeArgs>());
             set => _attributes = value;
         }
+
+        [Input("bindingConditions")]
+        private InputList<string>? _bindingConditions;
+
+        /// <summary>
+        /// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+        /// 
+        /// The maximum number of binding conditions is 4.
+        /// 
+        /// The conditions must be a valid condition type string.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public InputList<string> BindingConditions
+        {
+            get => _bindingConditions ?? (_bindingConditions = new InputList<string>());
+            set => _bindingConditions = value;
+        }
+
+        [Input("bindingFailureConditions")]
+        private InputList<string>? _bindingFailureConditions;
+
+        /// <summary>
+        /// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+        /// 
+        /// The maximum number of binding failure conditions is 4.
+        /// 
+        /// The conditions must be a valid condition type string.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public InputList<string> BindingFailureConditions
+        {
+            get => _bindingFailureConditions ?? (_bindingFailureConditions = new InputList<string>());
+            set => _bindingFailureConditions = value;
+        }
+
+        /// <summary>
+        /// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        [Input("bindsToNode")]
+        public Input<bool>? BindsToNode { get; set; }
 
         [Input("capacity")]
         private InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceCapacityArgs>? _capacity;

@@ -85,11 +85,6 @@ export type ResourceSlice = import("./resourceSlice").ResourceSlice;
 export const ResourceSlice: typeof import("./resourceSlice").ResourceSlice = null as any;
 utilities.lazyLoad(exports, ["ResourceSlice"], () => require("./resourceSlice"));
 
-export { ResourceSliceListArgs } from "./resourceSliceList";
-export type ResourceSliceList = import("./resourceSliceList").ResourceSliceList;
-export const ResourceSliceList: typeof import("./resourceSliceList").ResourceSliceList = null as any;
-utilities.lazyLoad(exports, ["ResourceSliceList"], () => require("./resourceSliceList"));
-
 export { ResourceSlicePatchArgs } from "./resourceSlicePatch";
 export type ResourceSlicePatch = import("./resourceSlicePatch").ResourceSlicePatch;
 export const ResourceSlicePatch: typeof import("./resourceSlicePatch").ResourceSlicePatch = null as any;
@@ -132,8 +127,6 @@ const _module = {
                 return new ResourceClaimTemplatePatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice":
                 return new ResourceSlice(name, <any>undefined, { urn })
-            case "kubernetes:resource.k8s.io/v1alpha3:ResourceSliceList":
-                return new ResourceSliceList(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch":
                 return new ResourceSlicePatch(name, <any>undefined, { urn })
             default:

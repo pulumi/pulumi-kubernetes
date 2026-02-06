@@ -189,7 +189,7 @@ class VolumeAttributesClassPatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'VolumeAttributesClass'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["parameters"] = parameters
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1:VolumeAttributesClassPatch"), pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(VolumeAttributesClassPatch, __self__).__init__(
             'kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch',

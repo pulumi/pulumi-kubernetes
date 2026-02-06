@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ClusterTrustBundleProjectionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ConfigMapProjectionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.DownwardAPIProjectionPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodCertificateProjectionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.SecretProjectionPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ServiceAccountTokenProjectionPatchArgs;
 import java.util.Objects;
@@ -81,6 +82,45 @@ public final class VolumeProjectionPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
+     * Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+     * 
+     * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+     * 
+     * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+     * 
+     * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+     * 
+     * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+     * 
+     * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+     * 
+     * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+     * 
+     */
+    @Import(name="podCertificate")
+    private @Nullable Output<PodCertificateProjectionPatchArgs> podCertificate;
+
+    /**
+     * @return Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+     * 
+     * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+     * 
+     * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+     * 
+     * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+     * 
+     * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+     * 
+     * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+     * 
+     * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+     * 
+     */
+    public Optional<Output<PodCertificateProjectionPatchArgs>> podCertificate() {
+        return Optional.ofNullable(this.podCertificate);
+    }
+
+    /**
      * secret information about the secret data to project
      * 
      */
@@ -116,6 +156,7 @@ public final class VolumeProjectionPatchArgs extends com.pulumi.resources.Resour
         this.clusterTrustBundle = $.clusterTrustBundle;
         this.configMap = $.configMap;
         this.downwardAPI = $.downwardAPI;
+        this.podCertificate = $.podCertificate;
         this.secret = $.secret;
         this.serviceAccountToken = $.serviceAccountToken;
     }
@@ -211,6 +252,51 @@ public final class VolumeProjectionPatchArgs extends com.pulumi.resources.Resour
          */
         public Builder downwardAPI(DownwardAPIProjectionPatchArgs downwardAPI) {
             return downwardAPI(Output.of(downwardAPI));
+        }
+
+        /**
+         * @param podCertificate Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+         * 
+         * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+         * 
+         * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+         * 
+         * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+         * 
+         * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+         * 
+         * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+         * 
+         * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podCertificate(@Nullable Output<PodCertificateProjectionPatchArgs> podCertificate) {
+            $.podCertificate = podCertificate;
+            return this;
+        }
+
+        /**
+         * @param podCertificate Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+         * 
+         * Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+         * 
+         * Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+         * 
+         * Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+         * 
+         * The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+         * 
+         * Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+         * 
+         * The named signer controls chooses the format of the certificate it issues; consult the signer implementation&#39;s documentation to learn how to use the certificates it issues.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podCertificate(PodCertificateProjectionPatchArgs podCertificate) {
+            return podCertificate(Output.of(podCertificate));
         }
 
         /**

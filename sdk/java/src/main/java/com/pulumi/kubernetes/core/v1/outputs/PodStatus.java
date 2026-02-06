@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatus;
 import com.pulumi.kubernetes.core.v1.outputs.HostIP;
 import com.pulumi.kubernetes.core.v1.outputs.PodCondition;
+import com.pulumi.kubernetes.core.v1.outputs.PodExtendedResourceClaimStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PodIP;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatus;
 import java.lang.Integer;
@@ -33,6 +34,11 @@ public final class PodStatus {
      * 
      */
     private @Nullable List<ContainerStatus> ephemeralContainerStatuses;
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    private @Nullable PodExtendedResourceClaimStatus extendedResourceClaimStatus;
     /**
      * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
@@ -129,6 +135,13 @@ public final class PodStatus {
      */
     public List<ContainerStatus> ephemeralContainerStatuses() {
         return this.ephemeralContainerStatuses == null ? List.of() : this.ephemeralContainerStatuses;
+    }
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    public Optional<PodExtendedResourceClaimStatus> extendedResourceClaimStatus() {
+        return Optional.ofNullable(this.extendedResourceClaimStatus);
     }
     /**
      * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
@@ -245,6 +258,7 @@ public final class PodStatus {
         private @Nullable List<PodCondition> conditions;
         private @Nullable List<ContainerStatus> containerStatuses;
         private @Nullable List<ContainerStatus> ephemeralContainerStatuses;
+        private @Nullable PodExtendedResourceClaimStatus extendedResourceClaimStatus;
         private @Nullable String hostIP;
         private @Nullable List<HostIP> hostIPs;
         private @Nullable List<ContainerStatus> initContainerStatuses;
@@ -265,6 +279,7 @@ public final class PodStatus {
     	      this.conditions = defaults.conditions;
     	      this.containerStatuses = defaults.containerStatuses;
     	      this.ephemeralContainerStatuses = defaults.ephemeralContainerStatuses;
+    	      this.extendedResourceClaimStatus = defaults.extendedResourceClaimStatus;
     	      this.hostIP = defaults.hostIP;
     	      this.hostIPs = defaults.hostIPs;
     	      this.initContainerStatuses = defaults.initContainerStatuses;
@@ -307,6 +322,12 @@ public final class PodStatus {
         }
         public Builder ephemeralContainerStatuses(ContainerStatus... ephemeralContainerStatuses) {
             return ephemeralContainerStatuses(List.of(ephemeralContainerStatuses));
+        }
+        @CustomType.Setter
+        public Builder extendedResourceClaimStatus(@Nullable PodExtendedResourceClaimStatus extendedResourceClaimStatus) {
+
+            this.extendedResourceClaimStatus = extendedResourceClaimStatus;
+            return this;
         }
         @CustomType.Setter
         public Builder hostIP(@Nullable String hostIP) {
@@ -409,6 +430,7 @@ public final class PodStatus {
             _resultValue.conditions = conditions;
             _resultValue.containerStatuses = containerStatuses;
             _resultValue.ephemeralContainerStatuses = ephemeralContainerStatuses;
+            _resultValue.extendedResourceClaimStatus = extendedResourceClaimStatus;
             _resultValue.hostIP = hostIP;
             _resultValue.hostIPs = hostIPs;
             _resultValue.initContainerStatuses = initContainerStatuses;

@@ -28,6 +28,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectFieldSelectorPatchArgs>? FieldRef { get; set; }
 
         /// <summary>
+        /// FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+        /// </summary>
+        [Input("fileKeyRef")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FileKeySelectorPatchArgs>? FileKeyRef { get; set; }
+
+        /// <summary>
         /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
         /// </summary>
         [Input("resourceFieldRef")]

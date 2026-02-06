@@ -6,8 +6,10 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceClassConfigurationPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSelectorPatch;
+import java.lang.String;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
@@ -19,6 +21,13 @@ public final class DeviceClassSpecPatch {
      * 
      */
     private @Nullable List<DeviceClassConfigurationPatch> config;
+    /**
+     * @return ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+     * 
+     * This is an alpha field.
+     * 
+     */
+    private @Nullable String extendedResourceName;
     /**
      * @return Each selector must be satisfied by a device which is claimed via this class.
      * 
@@ -34,6 +43,15 @@ public final class DeviceClassSpecPatch {
      */
     public List<DeviceClassConfigurationPatch> config() {
         return this.config == null ? List.of() : this.config;
+    }
+    /**
+     * @return ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+     * 
+     * This is an alpha field.
+     * 
+     */
+    public Optional<String> extendedResourceName() {
+        return Optional.ofNullable(this.extendedResourceName);
     }
     /**
      * @return Each selector must be satisfied by a device which is claimed via this class.
@@ -53,11 +71,13 @@ public final class DeviceClassSpecPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable List<DeviceClassConfigurationPatch> config;
+        private @Nullable String extendedResourceName;
         private @Nullable List<DeviceSelectorPatch> selectors;
         public Builder() {}
         public Builder(DeviceClassSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.config = defaults.config;
+    	      this.extendedResourceName = defaults.extendedResourceName;
     	      this.selectors = defaults.selectors;
         }
 
@@ -71,6 +91,12 @@ public final class DeviceClassSpecPatch {
             return config(List.of(config));
         }
         @CustomType.Setter
+        public Builder extendedResourceName(@Nullable String extendedResourceName) {
+
+            this.extendedResourceName = extendedResourceName;
+            return this;
+        }
+        @CustomType.Setter
         public Builder selectors(@Nullable List<DeviceSelectorPatch> selectors) {
 
             this.selectors = selectors;
@@ -82,6 +108,7 @@ public final class DeviceClassSpecPatch {
         public DeviceClassSpecPatch build() {
             final var _resultValue = new DeviceClassSpecPatch();
             _resultValue.config = config;
+            _resultValue.extendedResourceName = extendedResourceName;
             _resultValue.selectors = selectors;
             return _resultValue;
         }

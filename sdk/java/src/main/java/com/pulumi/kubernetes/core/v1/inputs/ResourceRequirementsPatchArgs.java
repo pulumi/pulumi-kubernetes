@@ -25,7 +25,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
     /**
      * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This field depends on the DynamicResourceAllocation feature gate.
      * 
      * This field is immutable. It can only be set for containers.
      * 
@@ -36,7 +36,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
     /**
      * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This field depends on the DynamicResourceAllocation feature gate.
      * 
      * This field is immutable. It can only be set for containers.
      * 
@@ -104,7 +104,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
         /**
          * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This field depends on the DynamicResourceAllocation feature gate.
          * 
          * This field is immutable. It can only be set for containers.
          * 
@@ -119,7 +119,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
         /**
          * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This field depends on the DynamicResourceAllocation feature gate.
          * 
          * This field is immutable. It can only be set for containers.
          * 
@@ -133,7 +133,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
         /**
          * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This field depends on the DynamicResourceAllocation feature gate.
          * 
          * This field is immutable. It can only be set for containers.
          * 

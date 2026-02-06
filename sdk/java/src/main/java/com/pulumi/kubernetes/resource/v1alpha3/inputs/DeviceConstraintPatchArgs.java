@@ -46,16 +46,12 @@ public final class DeviceConstraintPatchArgs extends com.pulumi.resources.Resour
     /**
      * Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
      * 
-     * References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
-     * 
      */
     @Import(name="requests")
     private @Nullable Output<List<String>> requests;
 
     /**
      * @return Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
-     * 
-     * References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
      * 
      */
     public Optional<Output<List<String>>> requests() {
@@ -119,8 +115,6 @@ public final class DeviceConstraintPatchArgs extends com.pulumi.resources.Resour
         /**
          * @param requests Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
          * 
-         * References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
-         * 
          * @return builder
          * 
          */
@@ -132,8 +126,6 @@ public final class DeviceConstraintPatchArgs extends com.pulumi.resources.Resour
         /**
          * @param requests Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
          * 
-         * References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
-         * 
          * @return builder
          * 
          */
@@ -143,8 +135,6 @@ public final class DeviceConstraintPatchArgs extends com.pulumi.resources.Resour
 
         /**
          * @param requests Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
-         * 
-         * References to subrequests must include the name of the main request and may include the subrequest using the format &lt;main request&gt;[/&lt;subrequest&gt;]. If just the main request is given, the constraint applies to all subrequests.
          * 
          * @return builder
          * 

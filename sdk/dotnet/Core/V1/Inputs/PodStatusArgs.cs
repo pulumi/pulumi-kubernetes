@@ -52,6 +52,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
+        /// Status of extended resource claim backed by DRA.
+        /// </summary>
+        [Input("extendedResourceClaimStatus")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodExtendedResourceClaimStatusArgs>? ExtendedResourceClaimStatus { get; set; }
+
+        /// <summary>
         /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         /// </summary>
         [Input("hostIP")]

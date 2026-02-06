@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerRestartRuleArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LifecycleArgs;
@@ -80,14 +81,14 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     @Import(name="envFrom")
     private @Nullable Output<List<EnvFromSourceArgs>> envFrom;
 
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     public Optional<Output<List<EnvFromSourceArgs>>> envFrom() {
@@ -230,18 +231,33 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     @Import(name="restartPolicy")
     private @Nullable Output<String> restartPolicy;
 
     /**
-     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * 
      */
     public Optional<Output<String>> restartPolicy() {
         return Optional.ofNullable(this.restartPolicy);
+    }
+
+    /**
+     * Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    @Import(name="restartPolicyRules")
+    private @Nullable Output<List<ContainerRestartRuleArgs>> restartPolicyRules;
+
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * 
+     */
+    public Optional<Output<List<ContainerRestartRuleArgs>>> restartPolicyRules() {
+        return Optional.ofNullable(this.restartPolicyRules);
     }
 
     /**
@@ -430,6 +446,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
         this.restartPolicy = $.restartPolicy;
+        this.restartPolicyRules = $.restartPolicyRules;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
         this.stdin = $.stdin;
@@ -555,7 +572,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -566,7 +583,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -576,7 +593,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -795,7 +812,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
          * 
          * @return builder
          * 
@@ -806,13 +823,44 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
          * 
          * @return builder
          * 
          */
         public Builder restartPolicy(String restartPolicy) {
             return restartPolicy(Output.of(restartPolicy));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(@Nullable Output<List<ContainerRestartRuleArgs>> restartPolicyRules) {
+            $.restartPolicyRules = restartPolicyRules;
+            return this;
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(List<ContainerRestartRuleArgs> restartPolicyRules) {
+            return restartPolicyRules(Output.of(restartPolicyRules));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(ContainerRestartRuleArgs... restartPolicyRules) {
+            return restartPolicyRules(List.of(restartPolicyRules));
         }
 
         /**

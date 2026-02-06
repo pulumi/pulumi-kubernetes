@@ -9,6 +9,7 @@ import com.pulumi.kubernetes.resource.v1beta2.outputs.DeviceToleration;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -22,6 +23,29 @@ public final class DeviceRequestAllocationResult {
      * 
      */
     private @Nullable Boolean adminAccess;
+    /**
+     * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    private @Nullable List<String> bindingConditions;
+    /**
+     * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    private @Nullable List<String> bindingFailureConditions;
+    /**
+     * @return ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+     * 
+     * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+     * 
+     * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+     * 
+     */
+    private @Nullable Map<String,String> consumedCapacity;
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
@@ -49,6 +73,11 @@ public final class DeviceRequestAllocationResult {
      */
     private String request;
     /**
+     * @return ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+     * 
+     */
+    private @Nullable String shareID;
+    /**
      * @return A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -67,6 +96,35 @@ public final class DeviceRequestAllocationResult {
      */
     public Optional<Boolean> adminAccess() {
         return Optional.ofNullable(this.adminAccess);
+    }
+    /**
+     * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public List<String> bindingConditions() {
+        return this.bindingConditions == null ? List.of() : this.bindingConditions;
+    }
+    /**
+     * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public List<String> bindingFailureConditions() {
+        return this.bindingFailureConditions == null ? List.of() : this.bindingFailureConditions;
+    }
+    /**
+     * @return ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+     * 
+     * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+     * 
+     * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+     * 
+     */
+    public Map<String,String> consumedCapacity() {
+        return this.consumedCapacity == null ? Map.of() : this.consumedCapacity;
     }
     /**
      * @return Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
@@ -103,6 +161,13 @@ public final class DeviceRequestAllocationResult {
         return this.request;
     }
     /**
+     * @return ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+     * 
+     */
+    public Optional<String> shareID() {
+        return Optional.ofNullable(this.shareID);
+    }
+    /**
      * @return A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -124,19 +189,27 @@ public final class DeviceRequestAllocationResult {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Boolean adminAccess;
+        private @Nullable List<String> bindingConditions;
+        private @Nullable List<String> bindingFailureConditions;
+        private @Nullable Map<String,String> consumedCapacity;
         private String device;
         private String driver;
         private String pool;
         private String request;
+        private @Nullable String shareID;
         private @Nullable List<DeviceToleration> tolerations;
         public Builder() {}
         public Builder(DeviceRequestAllocationResult defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.adminAccess = defaults.adminAccess;
+    	      this.bindingConditions = defaults.bindingConditions;
+    	      this.bindingFailureConditions = defaults.bindingFailureConditions;
+    	      this.consumedCapacity = defaults.consumedCapacity;
     	      this.device = defaults.device;
     	      this.driver = defaults.driver;
     	      this.pool = defaults.pool;
     	      this.request = defaults.request;
+    	      this.shareID = defaults.shareID;
     	      this.tolerations = defaults.tolerations;
         }
 
@@ -144,6 +217,30 @@ public final class DeviceRequestAllocationResult {
         public Builder adminAccess(@Nullable Boolean adminAccess) {
 
             this.adminAccess = adminAccess;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder bindingConditions(@Nullable List<String> bindingConditions) {
+
+            this.bindingConditions = bindingConditions;
+            return this;
+        }
+        public Builder bindingConditions(String... bindingConditions) {
+            return bindingConditions(List.of(bindingConditions));
+        }
+        @CustomType.Setter
+        public Builder bindingFailureConditions(@Nullable List<String> bindingFailureConditions) {
+
+            this.bindingFailureConditions = bindingFailureConditions;
+            return this;
+        }
+        public Builder bindingFailureConditions(String... bindingFailureConditions) {
+            return bindingFailureConditions(List.of(bindingFailureConditions));
+        }
+        @CustomType.Setter
+        public Builder consumedCapacity(@Nullable Map<String,String> consumedCapacity) {
+
+            this.consumedCapacity = consumedCapacity;
             return this;
         }
         @CustomType.Setter
@@ -179,6 +276,12 @@ public final class DeviceRequestAllocationResult {
             return this;
         }
         @CustomType.Setter
+        public Builder shareID(@Nullable String shareID) {
+
+            this.shareID = shareID;
+            return this;
+        }
+        @CustomType.Setter
         public Builder tolerations(@Nullable List<DeviceToleration> tolerations) {
 
             this.tolerations = tolerations;
@@ -190,10 +293,14 @@ public final class DeviceRequestAllocationResult {
         public DeviceRequestAllocationResult build() {
             final var _resultValue = new DeviceRequestAllocationResult();
             _resultValue.adminAccess = adminAccess;
+            _resultValue.bindingConditions = bindingConditions;
+            _resultValue.bindingFailureConditions = bindingFailureConditions;
+            _resultValue.consumedCapacity = consumedCapacity;
             _resultValue.device = device;
             _resultValue.driver = driver;
             _resultValue.pool = pool;
             _resultValue.request = request;
+            _resultValue.shareID = shareID;
             _resultValue.tolerations = tolerations;
             return _resultValue;
         }

@@ -17,12 +17,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
     public sealed class BasicDevicePatch
     {
         /// <summary>
-        /// AllNodes indicates that all nodes have access to the device.
-        /// 
-        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-        /// </summary>
-        public readonly bool AllNodes;
-        /// <summary>
         /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
         /// 
         /// The maximum number of attributes and capacities combined is 32.
@@ -34,58 +28,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// The maximum number of attributes and capacities combined is 32.
         /// </summary>
         public readonly ImmutableDictionary<string, string> Capacity;
-        /// <summary>
-        /// ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.
-        /// 
-        /// There can only be a single entry per counterSet.
-        /// 
-        /// The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
-        /// </summary>
-        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceCounterConsumptionPatch> ConsumesCounters;
-        /// <summary>
-        /// NodeName identifies the node where the device is available.
-        /// 
-        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-        /// </summary>
-        public readonly string NodeName;
-        /// <summary>
-        /// NodeSelector defines the nodes where the device is available.
-        /// 
-        /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
-        /// </summary>
-        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelectorPatch NodeSelector;
-        /// <summary>
-        /// If specified, these are the driver-defined taints.
-        /// 
-        /// The maximum number of taints is 4.
-        /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
-        /// </summary>
-        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintPatch> Taints;
 
         [OutputConstructor]
         private BasicDevicePatch(
-            bool allNodes,
-
             ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceAttribute> attributes,
 
-            ImmutableDictionary<string, string> capacity,
-
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceCounterConsumptionPatch> consumesCounters,
-
-            string nodeName,
-
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelectorPatch nodeSelector,
-
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintPatch> taints)
+            ImmutableDictionary<string, string> capacity)
         {
-            AllNodes = allNodes;
             Attributes = attributes;
             Capacity = capacity;
-            ConsumesCounters = consumesCounters;
-            NodeName = nodeName;
-            NodeSelector = nodeSelector;
-            Taints = taints;
         }
     }
 }

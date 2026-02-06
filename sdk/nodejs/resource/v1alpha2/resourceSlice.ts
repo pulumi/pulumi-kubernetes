@@ -93,7 +93,7 @@ export class ResourceSlice extends pulumi.CustomResource {
             resourceInputs["nodeName"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice" }, { type: "kubernetes:resource.k8s.io/v1beta1:ResourceSlice" }, { type: "kubernetes:resource.k8s.io/v1beta2:ResourceSlice" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1:ResourceSlice" }, { type: "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice" }, { type: "kubernetes:resource.k8s.io/v1beta1:ResourceSlice" }, { type: "kubernetes:resource.k8s.io/v1beta2:ResourceSlice" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ResourceSlice.__pulumiType, name, resourceInputs, opts);
     }

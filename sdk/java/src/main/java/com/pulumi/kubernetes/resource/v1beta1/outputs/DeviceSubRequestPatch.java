@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.CapacityRequirementsPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSelectorPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceTolerationPatch;
 import java.lang.Integer;
@@ -32,6 +33,15 @@ public final class DeviceSubRequestPatch {
      * 
      */
     private @Nullable String allocationMode;
+    /**
+     * @return Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    private @Nullable CapacityRequirementsPatch capacity;
     /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
@@ -93,6 +103,17 @@ public final class DeviceSubRequestPatch {
         return Optional.ofNullable(this.allocationMode);
     }
     /**
+     * @return Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    public Optional<CapacityRequirementsPatch> capacity() {
+        return Optional.ofNullable(this.capacity);
+    }
+    /**
      * @return Count is used only when the count mode is &#34;ExactCount&#34;. Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
      * 
      */
@@ -152,6 +173,7 @@ public final class DeviceSubRequestPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String allocationMode;
+        private @Nullable CapacityRequirementsPatch capacity;
         private @Nullable Integer count;
         private @Nullable String deviceClassName;
         private @Nullable String name;
@@ -161,6 +183,7 @@ public final class DeviceSubRequestPatch {
         public Builder(DeviceSubRequestPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.allocationMode = defaults.allocationMode;
+    	      this.capacity = defaults.capacity;
     	      this.count = defaults.count;
     	      this.deviceClassName = defaults.deviceClassName;
     	      this.name = defaults.name;
@@ -172,6 +195,12 @@ public final class DeviceSubRequestPatch {
         public Builder allocationMode(@Nullable String allocationMode) {
 
             this.allocationMode = allocationMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder capacity(@Nullable CapacityRequirementsPatch capacity) {
+
+            this.capacity = capacity;
             return this;
         }
         @CustomType.Setter
@@ -213,6 +242,7 @@ public final class DeviceSubRequestPatch {
         public DeviceSubRequestPatch build() {
             final var _resultValue = new DeviceSubRequestPatch();
             _resultValue.allocationMode = allocationMode;
+            _resultValue.capacity = capacity;
             _resultValue.count = count;
             _resultValue.deviceClassName = deviceClassName;
             _resultValue.name = name;

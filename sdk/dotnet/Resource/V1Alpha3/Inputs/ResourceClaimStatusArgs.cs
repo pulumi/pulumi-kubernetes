@@ -31,18 +31,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         [Input("deallocationRequested")]
         public Input<bool>? DeallocationRequested { get; set; }
 
-        [Input("devices")]
-        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs>? _devices;
-
-        /// <summary>
-        /// Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
-        /// </summary>
-        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs> Devices
-        {
-            get => _devices ?? (_devices = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.AllocatedDeviceStatusArgs>());
-            set => _devices = value;
-        }
-
         [Input("reservedFor")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.ResourceClaimConsumerReferenceArgs>? _reservedFor;
 
@@ -53,7 +41,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// 
         /// Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
         /// 
-        /// There can be at most 256 such reservations. This may get increased in the future, but not reduced.
+        /// There can be at most 32 such reservations. This may get increased in the future, but not reduced.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.ResourceClaimConsumerReferenceArgs> ReservedFor
         {

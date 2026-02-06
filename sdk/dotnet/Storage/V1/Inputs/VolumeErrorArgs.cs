@@ -18,7 +18,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// <summary>
         /// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
         /// 
-        /// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        /// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         /// </summary>
         [Input("errorCode")]
         public Input<int>? ErrorCode { get; set; }

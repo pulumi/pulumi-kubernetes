@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
     public sealed class ResourceClaimTemplateSpecPatch
     {
         /// <summary>
-        /// ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
+        /// ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch Metadata;
         /// <summary>

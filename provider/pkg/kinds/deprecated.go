@@ -76,6 +76,9 @@ import (
 // core/v1/Endpoints / 1.33 / -
 // resource/v1beta1/* / 1.33 / 1.36
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.33.md#deprecation
+//
+// resource/v1beta2/* / 1.34 / 1.37 (estimated)
+// https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.34.md#deprecation
 
 var v18 = cluster.ServerVersion{Major: 1, Minor: 8}
 var v19 = cluster.ServerVersion{Major: 1, Minor: 9}
@@ -99,6 +102,7 @@ var v129 = cluster.ServerVersion{Major: 1, Minor: 29}
 var v131 = cluster.ServerVersion{Major: 1, Minor: 31}
 var v132 = cluster.ServerVersion{Major: 1, Minor: 32}
 var v133 = cluster.ServerVersion{Major: 1, Minor: 33}
+var v134 = cluster.ServerVersion{Major: 1, Minor: 34}
 
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
@@ -222,6 +226,11 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		switch k {
 		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
 			return &v133
+		}
+	case ResourceV1:
+		switch k {
+		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+			return &v134
 		}
 	case SchedulingV1B1:
 		switch k {
@@ -418,8 +427,8 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		}
 	case RbacV1A1, RbacV1B1:
 		return fmt.Sprintf(gvkFmt, RbacV1, k)
-	case ResourceV1A1, ResourceV1A2, ResourceV1A3, ResourceV1B1:
-		return fmt.Sprintf(gvkFmt, ResourceV1B2, k)
+	case ResourceV1A1, ResourceV1A2, ResourceV1A3, ResourceV1B1, ResourceV1B2:
+		return fmt.Sprintf(gvkFmt, ResourceV1, k)
 	case SchedulingV1A1, SchedulingV1B1:
 		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
 	case StorageV1A1, StorageV1B1, "storage/v1alpha1", "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
