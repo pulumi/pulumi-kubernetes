@@ -2505,9 +2505,6 @@ func TestOptionPropagation(t *testing.T) {
 			urn := func(parentType, baseType tokens.Type, name string) resource.URN {
 				return resource.NewURN(stackInfo.StackName, "options-test", parentType, baseType, name)
 			}
-			Alias := func(s string) string {
-				return s
-			}
 
 			// read the GRPC log file to inspect the RegisterResource calls, since they provide
 			// the most detailed view of the resource's options as determined by the SDK.
@@ -2538,7 +2535,7 @@ func TestOptionPropagation(t *testing.T) {
 				"kubernetes:yaml:ConfigGroup", "cg-options")).To(gm.HaveExactElements(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
-						"Aliases":           gm.HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
+						"Aliases":           gm.HaveExactElements(pgm.Alias("cg-options-old"), pgm.Alias("cg-options-aliased")),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
 						"Provider":          gm.BeEmpty(),
@@ -2556,8 +2553,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("cg-options-cm-1-k8s-aliased"),
-							Alias("cg-options-cg-options-cm-1-aliased"),
+						    pgm.Alias("cg-options-cm-1-k8s-aliased"),
+							pgm.Alias("cg-options-cg-options-cm-1-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.BeEmpty(),
@@ -2583,7 +2580,7 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased"),
+							pgm.Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.BeEmpty(),
@@ -2602,8 +2599,8 @@ func TestOptionPropagation(t *testing.T) {
 					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 							"Aliases": gm.HaveExactElements(
-								Alias("configgroup-cm-1-k8s-aliased"),
-								Alias("cg-options-configgroup-cm-1-aliased"),
+								pgm.Alias("configgroup-cm-1-k8s-aliased"),
+								pgm.Alias("cg-options-configgroup-cm-1-aliased"),
 							),
 							"Protect":           gs.PointTo(gm.BeTrue()),
 							"Dependencies":      gm.BeEmpty(),
@@ -2659,8 +2656,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("cf-options-old"),
-							Alias("cf-options-cf-options-aliased"),
+							pgm.Alias("cf-options-old"),
+							pgm.Alias("cf-options-cf-options-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
@@ -2679,8 +2676,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("configfile-cm-1-k8s-aliased"),
-							Alias("cf-options-configfile-cm-1-aliased"),
+							pgm.Alias("configfile-cm-1-k8s-aliased"),
+							pgm.Alias("cf-options-configfile-cm-1-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.BeEmpty(),
@@ -2753,8 +2750,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("kustomize-options-old"),
-							Alias("kustomize-options-kustomize-options-aliased"),
+							pgm.Alias("kustomize-options-old"),
+							pgm.Alias("kustomize-options-kustomize-options-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
@@ -2773,8 +2770,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
-							Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+							pgm.Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
+							pgm.Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.BeEmpty(),
@@ -2842,9 +2839,9 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias(string(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
-							Alias("chart-options-old"),
-							Alias("chart-options-chart-options-aliased")),
+							pgm.Alias(string(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
+							pgm.Alias("chart-options-old"),
+							pgm.Alias("chart-options-chart-options-aliased")),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
 						"Provider":          gm.BeEmpty(),
@@ -2862,8 +2859,8 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							Alias("chart-options-chart-options-cm-1-k8s-aliased"),
-							Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
+							pgm.Alias("chart-options-chart-options-cm-1-k8s-aliased"),
+							pgm.Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
 						"Dependencies":      gm.BeEmpty(),
