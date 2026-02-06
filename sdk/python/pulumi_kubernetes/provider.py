@@ -20,6 +20,7 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
+                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
                  cluster: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
                  context: Optional[pulumi.Input[_builtins.str]] = None,
@@ -37,6 +38,7 @@ class ProviderArgs:
                  suppress_helm_hook_warnings: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Provider resource.
+        :param pulumi.Input[_builtins.bool] always_render: If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
         :param pulumi.Input[_builtins.str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[_builtins.str] cluster_identifier: If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
                
@@ -80,6 +82,8 @@ class ProviderArgs:
         :param pulumi.Input[_builtins.bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[_builtins.bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         """
+        if always_render is not None:
+            pulumi.set(__self__, "always_render", always_render)
         if cluster is not None:
             pulumi.set(__self__, "cluster", cluster)
         if cluster_identifier is not None:
@@ -126,6 +130,18 @@ class ProviderArgs:
             suppress_helm_hook_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS')
         if suppress_helm_hook_warnings is not None:
             pulumi.set(__self__, "suppress_helm_hook_warnings", suppress_helm_hook_warnings)
+
+    @_builtins.property
+    @pulumi.getter(name="alwaysRender")
+    def always_render(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+        """
+        return pulumi.get(self, "always_render")
+
+    @always_render.setter
+    def always_render(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "always_render", value)
 
     @_builtins.property
     @pulumi.getter
@@ -341,6 +357,7 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
                  cluster: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
                  context: Optional[pulumi.Input[_builtins.str]] = None,
@@ -362,6 +379,7 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] always_render: If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
         :param pulumi.Input[_builtins.str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[_builtins.str] cluster_identifier: If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
                
@@ -429,6 +447,7 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
                  cluster: Optional[pulumi.Input[_builtins.str]] = None,
                  cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
                  context: Optional[pulumi.Input[_builtins.str]] = None,
@@ -453,6 +472,7 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
+            __props__.__dict__["always_render"] = pulumi.Output.from_input(always_render).apply(pulumi.runtime.to_json) if always_render is not None else None
             __props__.__dict__["cluster"] = cluster
             __props__.__dict__["cluster_identifier"] = cluster_identifier
             __props__.__dict__["context"] = context

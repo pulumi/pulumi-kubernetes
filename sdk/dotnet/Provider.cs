@@ -47,6 +47,12 @@ namespace Pulumi.Kubernetes
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+        /// </summary>
+        [Input("alwaysRender", json: true)]
+        public Input<bool>? AlwaysRender { get; set; }
+
+        /// <summary>
         /// If present, the name of the kubeconfig cluster to use.
         /// </summary>
         [Input("cluster")]

@@ -20,6 +20,21 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     public static final ProviderArgs Empty = new ProviderArgs();
 
     /**
+     * If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+     * 
+     */
+    @Import(name="alwaysRender", json=true)
+    private @Nullable Output<Boolean> alwaysRender;
+
+    /**
+     * @return If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+     * 
+     */
+    public Optional<Output<Boolean>> alwaysRender() {
+        return Optional.ofNullable(this.alwaysRender);
+    }
+
+    /**
      * If present, the name of the kubeconfig cluster to use.
      * 
      */
@@ -301,6 +316,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     private ProviderArgs() {}
 
     private ProviderArgs(ProviderArgs $) {
+        this.alwaysRender = $.alwaysRender;
         this.cluster = $.cluster;
         this.clusterIdentifier = $.clusterIdentifier;
         this.context = $.context;
@@ -334,6 +350,27 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(ProviderArgs defaults) {
             $ = new ProviderArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param alwaysRender If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder alwaysRender(@Nullable Output<Boolean> alwaysRender) {
+            $.alwaysRender = alwaysRender;
+            return this;
+        }
+
+        /**
+         * @param alwaysRender If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder alwaysRender(Boolean alwaysRender) {
+            return alwaysRender(Output.of(alwaysRender));
         }
 
         /**
