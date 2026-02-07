@@ -2553,7 +2553,7 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-						    pgm.Alias("cg-options-cm-1-k8s-aliased"),
+							pgm.Alias("cg-options-cm-1-k8s-aliased"),
 							pgm.Alias("cg-options-cg-options-cm-1-aliased"),
 						),
 						"Protect":           gs.PointTo(gm.BeTrue()),
@@ -2839,7 +2839,7 @@ func TestOptionPropagation(t *testing.T) {
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 						"Aliases": gm.HaveExactElements(
-							pgm.Alias(string(tokens.Type("kubernetes:helm.sh/v2:Chart"))),
+							pgm.Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
 							pgm.Alias("chart-options-old"),
 							pgm.Alias("chart-options-chart-options-aliased")),
 						"Protect":           gs.PointTo(gm.BeTrue()),
