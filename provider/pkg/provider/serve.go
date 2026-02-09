@@ -15,12 +15,12 @@
 package provider
 
 import (
+	// Load auth plugins. Removing this will likely cause compilation error.
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
+
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	lumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-
-	// Load auth plugins. Removing this will likely cause compilation error.
-	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 
 // Serve launches the gRPC server for the Pulumi Kubernetes resource provider.

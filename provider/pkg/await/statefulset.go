@@ -19,14 +19,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,6 +26,16 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+
+	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -87,7 +89,8 @@ import (
 //
 // (1) observedGeneration updated (corresponds to .metadata.generation)
 // (2) updateRevision updated -> currentRevision matches updateRevision
-// (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision updates)
+// (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision
+// updates)
 //
 // ------
 // The following table illustrates the timeline of status updates with the OnDelete strategy:
@@ -321,12 +324,16 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 
 	// For initial generation, the revision doesn't need to be updated, so skip that step in the log.
 	if isInitialDeployment {
-		sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
-			sia.currentReplicas, sia.targetReplicas))
+		sia.config.logger.LogStatus(
+			diag.Info,
+			fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
+				sia.currentReplicas, sia.targetReplicas),
+		)
 	} else {
 		switch {
 		case !sia.replicasReady:
-			sia.config.logger.LogStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
+			sia.config.logger.LogStatus(diag.Info, fmt.Sprintf(
+				"[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
 				sia.currentReplicas, sia.targetReplicas))
 		case !sia.revisionReady:
 			sia.config.logger.LogStatus(diag.Info,

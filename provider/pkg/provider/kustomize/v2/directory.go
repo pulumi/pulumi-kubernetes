@@ -18,15 +18,17 @@ import (
 	"context"
 	"fmt"
 
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
-	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"sigs.k8s.io/kustomize/api/krusty"
 	kresmap "sigs.k8s.io/kustomize/api/resmap"
 	ktypes "sigs.k8s.io/kustomize/api/types"
 	kfilesys "sigs.k8s.io/kustomize/kyaml/filesys"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 )
 
 type kustomizer interface {
@@ -52,7 +54,10 @@ type directoryArgs struct {
 	SkipAwait      bool
 }
 
-func unwrapDirectoryArgs(ctx context.Context, args *DirectoryArgs) (*directoryArgs, internals.UnsafeAwaitOutputResult, error) {
+func unwrapDirectoryArgs(
+	ctx context.Context,
+	args *DirectoryArgs,
+) (*directoryArgs, internals.UnsafeAwaitOutputResult, error) {
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Directory, args.Namespace, args.ResourcePrefix, args.SkipAwait))
 	if err != nil || !result.Known {
@@ -89,7 +94,12 @@ func NewDirectoryProvider(opts *providerresource.ResourceProviderOptions) provid
 	}
 }
 
-func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+func (r *DirectoryProvider) Construct(
+	ctx *pulumi.Context,
+	typ, name string,
+	inputs pulumiprovider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*pulumiprovider.ConstructResult, error) {
 	comp := &DirectoryState{}
 	err := ctx.RegisterComponentResource(typ, name, comp, options)
 	if err != nil {
@@ -166,8 +176,9 @@ func (r *DirectoryProvider) Construct(ctx *pulumi.Context, typ, name string, inp
 	return pulumiprovider.NewConstructResult(comp)
 }
 
-// makeKustomizer prepares the kustomize tool with helm support, full permission to use plugins, and no load restrictions
-func makeKustomizer(args *directoryArgs) kustomizer {
+// makeKustomizer prepares the kustomize tool with helm support, full permission to use plugins, and no load
+// restrictions
+func makeKustomizer(_ /* args */ *directoryArgs) kustomizer {
 	opts := krusty.MakeDefaultOptions()
 	opts.Reorder = krusty.ReorderOptionNone
 	opts.AddManagedbyLabel = false

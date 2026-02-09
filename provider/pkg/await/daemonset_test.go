@@ -21,15 +21,6 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	v1 "k8s.io/api/apps/v1"
@@ -38,6 +29,17 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	testcore "k8s.io/client-go/testing"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 )
 
 // _dsGVR is a GroupVersionResource for apps/v1 DaemonSets.
@@ -264,7 +266,7 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 		clientset.PrependReactor(
 			"delete",
 			"daemonsets",
-			func(action testcore.Action) (handled bool, ret runtime.Object, err error) {
+			func(_ testcore.Action) (handled bool, ret runtime.Object, err error) {
 				return true, ds, nil
 			},
 		)
@@ -305,7 +307,7 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 				ensureExists,
 				dontDeleteImmediately,
 			},
-			events: func(ds *unstructured.Unstructured) <-chan watch.Event {
+			events: func(_ *unstructured.Unstructured) <-chan watch.Event {
 				c := make(chan watch.Event, 1)
 				return c
 			},
@@ -843,6 +845,7 @@ func dsReadyPod(namespace, name, dsName string) *unstructured.Unstructured {
 
 // dsFailedPod returns a Pod created by a DaemonSet that has failed.
 func dsFailedPod(namespace, name, dsName string) *unstructured.Unstructured {
+	//nolint:lll // Test data.
 	return mustDecodeUnstructured(fmt.Sprintf(`
 	{
 		"apiVersion": "v1",

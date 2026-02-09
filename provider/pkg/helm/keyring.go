@@ -15,8 +15,9 @@
 package helm
 
 import (
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/getter"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // LocateKeyring locates a keyring file for Helm from the given asset.

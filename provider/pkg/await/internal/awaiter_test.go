@@ -19,13 +19,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 )
 
 func TestCancel(t *testing.T) {

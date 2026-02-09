@@ -91,7 +91,9 @@ func TestSetCRDDefaults(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			setCRDDefaults(&tt.crd) //nolint:gosec // This is a false positive on older versions of golangci-lint. We are already using Go v1.22+
+			setCRDDefaults(
+				&tt.crd,
+			) //nolint:gosec // This is a false positive on older versions of golangci-lint. We are already using Go v1.22+
 
 			if !equality.Semantic.DeepEqual(tt.crd, tt.expected) {
 				t.Errorf("setCRDDefaults() got = %v, want %v", tt.crd, tt.expected)

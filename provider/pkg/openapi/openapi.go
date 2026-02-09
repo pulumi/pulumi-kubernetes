@@ -17,9 +17,6 @@ package openapi
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -30,6 +27,11 @@ import (
 	"k8s.io/kubectl/pkg/scheme"
 	"k8s.io/kubectl/pkg/util/openapi"
 	"k8s.io/kubectl/pkg/validation"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 )
 
 // --------------------------------------------------------------------------
@@ -87,7 +89,12 @@ func PatchForResourceUpdate(
 	resources openapi.Resources, lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 
-	contract.Assertf(liveOldObj.GetAPIVersion() == currentSubmitted.GetAPIVersion(), "unexpected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), currentSubmitted.GetAPIVersion())
+	contract.Assertf(
+		liveOldObj.GetAPIVersion() == currentSubmitted.GetAPIVersion(),
+		"unexpected APIVersion %q to be %q",
+		liveOldObj.GetAPIVersion(),
+		currentSubmitted.GetAPIVersion(),
+	)
 
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
@@ -130,7 +137,9 @@ func PatchForResourceUpdate(
 // StrategicMergePatch is a helper to use a three-way strategic merge on a resource version.
 // See for more details: https://tools.ietf.org/html/rfc6902
 func StrategicMergePatch(
-	resources openapi.Resources, liveOld *unstructured.Unstructured, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
+	resources openapi.Resources,
+	liveOld *unstructured.Unstructured,
+	lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
 ) (patch []byte, patchType types.PatchType, lookupPatchMeta strategicpatch.LookupPatchMeta, err error) {
 	gvk := liveOld.GroupVersionKind()
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {

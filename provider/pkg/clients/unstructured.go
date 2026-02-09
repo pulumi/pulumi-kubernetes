@@ -18,14 +18,16 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	kscheme "k8s.io/client-go/kubernetes/scheme"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 )
 
 var scheme = runtime.NewScheme()
@@ -96,7 +98,8 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 
 	// .spec.preserveUnknownFields is deprecated, and will be removed by the apiserver on the created resource if the
 	// value is false. Normalize for diffing by removing this field if present and set to "false".
-	// See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
+	// See
+	// https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
 	preserve, found, err := unstructured.NestedBool(uns.Object, "spec", "preserveUnknownFields")
 	if err == nil && found && !preserve {
 		unstructured.RemoveNestedField(uns.Object, "spec", "preserveUnknownFields")
@@ -112,7 +115,12 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 // normalizeSecret manually normalizes Secret resources, which require special handling due to the apiserver replacing
 // the .stringData field with a base64-encoded value in the .data field.
 func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured {
-	contract.Assertf(IsSecret(uns), "normalizeSecret called on a non-Secret resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
+	contract.Assertf(
+		IsSecret(uns),
+		"normalizeSecret called on a non-Secret resource: %s:%s",
+		uns.GetAPIVersion(),
+		uns.GetKind(),
+	)
 
 	stringData, found, err := unstructured.NestedStringMap(uns.Object, "stringData")
 	if err != nil || !found || len(stringData) == 0 {
@@ -123,7 +131,10 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 	return normalizeSecretStringData(stringData, uns)
 }
 
-func normalizeSecretStringData(stringData map[string]string, uns *unstructured.Unstructured) *unstructured.Unstructured {
+func normalizeSecretStringData(
+	stringData map[string]string,
+	uns *unstructured.Unstructured,
+) *unstructured.Unstructured {
 	data, found, err := unstructured.NestedMap(uns.Object, "data")
 	if err != nil || !found {
 		data = map[string]any{}
@@ -155,7 +166,9 @@ func normalizeSecretData(uns *unstructured.Unstructured) *unstructured.Unstructu
 		if s, ok := v.(string); ok {
 			// Trim whitespace from the string value, for consistency with the apiserver which
 			// does the decoding and re-encoding to validate the value provided is valid base64.
-			// See: https://github.com/kubernetes/kubernetes/blob/41890534532931742770a7dc98f78bcdc59b1a6f/staging/src/k8s.io/apimachinery/pkg/runtime/codec.go#L212-L260
+			// See:
+			// https://github.com/kubernetes/kubernetes/blob/41890534532931742770a7dc98f78bcdc59b1a6f/
+			// staging/src/k8s.io/apimachinery/pkg/runtime/codec.go#L212-L260
 			base64Decoded, err := base64.StdEncoding.DecodeString(s)
 			if err != nil {
 				// TODO: propagate error upwards to parent Normalize function to fail early. It is safe to

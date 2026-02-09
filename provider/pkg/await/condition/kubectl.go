@@ -20,13 +20,18 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 // checkCondition is vendored from
 // https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/pkg/cmd/wait/condition.go#L53-L82
-func checkCondition(obj *unstructured.Unstructured, logger logger, conditionType, conditionStatus string) (bool, error) {
+func checkCondition(
+	obj *unstructured.Unstructured,
+	logger logger,
+	conditionType, conditionStatus string,
+) (bool, error) {
 	conditions, found, err := unstructured.NestedSlice(obj.Object, "status", "conditions")
 	if err != nil {
 		return false, err
@@ -69,7 +74,8 @@ func checkCondition(obj *unstructured.Unstructured, logger logger, conditionType
 }
 
 // getObservedGeneration is vendored from
-// https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/pkg/cmd/wait/condition.go#L190-L197
+// https://github.com/kubernetes/kubectl/blob/b315eb8455a7d5c11ed788d1592b4afeca85771d/
+// pkg/cmd/wait/condition.go#L190-L197
 func getObservedGeneration(obj *unstructured.Unstructured, condition map[string]interface{}) (int64, bool) {
 	conditionObservedGeneration, found, _ := unstructured.NestedInt64(condition, "observedGeneration")
 	if found {

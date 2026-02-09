@@ -160,7 +160,8 @@ type RegisterResourceList []RegisterResource
 func (l RegisterResourceList) Named(parent resource.URN, typ tokens.Type, name tokens.QName) RegisterResourceList {
 	var results []RegisterResource
 	for _, v := range l {
-		if resource.URN(v.Request.Parent) == parent && tokens.Type(v.Request.Type) == typ && tokens.QName(v.Request.Name) == name {
+		if resource.URN(v.Request.Parent) == parent && tokens.Type(v.Request.Type) == typ &&
+			tokens.QName(v.Request.Name) == name {
 			results = append(results, v)
 		}
 	}

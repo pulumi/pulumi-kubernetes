@@ -23,10 +23,11 @@ import (
 	"sort"
 	"strings"
 
-	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
+
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 var validCharRegex = regexp.MustCompile(`[^a-zA-Z0-9]`)
@@ -569,7 +570,12 @@ func createAliases(definitions []definition, canonicalGroups map[string]string) 
 }
 
 // createKinds creates a list of KindConfig objects from the parsed Swagger definitions.
-func createKinds(definitions []definition, canonicalGroups map[string]string, aliases map[string][]any, allowHyphens bool) []KindConfig {
+func createKinds(
+	definitions []definition,
+	canonicalGroups map[string]string,
+	aliases map[string][]any,
+	allowHyphens bool,
+) []KindConfig {
 	var kinds []KindConfig
 
 	for _, d := range definitions {
@@ -603,8 +609,9 @@ func createKinds(definitions []definition, canonicalGroups map[string]string, al
 		for _, propName := range propNames {
 			prop := propMap[propName].(map[string]any)
 
-			// Determine if kind is a list resource if it contains an `items` property that is an array and Kind name ends in `List`.
-			// Ref: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+			// Determine if kind is a list resource if it contains an `items` property that is an array and Kind name
+			// ends in `List`. Ref:
+			// https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 			propType, ok := prop["type"].(string)
 			if ok {
 				if propName == "items" && propType == "array" && strings.HasSuffix(d.gvk.Kind, "List") {
@@ -632,7 +639,8 @@ func createKinds(definitions []definition, canonicalGroups map[string]string, al
 				propName = "x_kubernetes_validations" //nolint:gosec
 			}
 
-			// 'pulumi' is treated as a reserved work by the schema binder, so replace it with 'pulumi_' until it's unique.
+			// 'pulumi' is treated as a reserved work by the schema binder, so replace it with 'pulumi_' until it's
+			// unique.
 			if propName == "pulumi" {
 				propName = "pulumi_"
 				for slices.Contains(propNames, propName) {

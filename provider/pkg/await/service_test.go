@@ -7,10 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 )
 
 func Test_Core_Service(t *testing.T) {
@@ -24,7 +25,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed when Service is allocated an IP address and Endpoints target a Pod",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, _ chan time.Time) {
 				// API server passes initialized service and endpoint objects back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -36,7 +37,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if Endpoints have settled when timeout occurs",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, _ chan struct{}, timeout chan time.Time) {
 				// API server passes initialized service back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
 
@@ -50,7 +51,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should fail if unrelated Service succeeds",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, _ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(initializedService("default", "bar"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "bar"))
 
@@ -82,7 +83,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should report success immediately even if the next event is a failure",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, _ chan time.Time) {
 				// API server passes initialized service and endpoint objects back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -97,7 +98,9 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should fail if neither the Service nor the Endpoints have initialized",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(
+				_ /* services */, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time,
+			) {
 				// Trigger timeout.
 				timeout <- time.Now()
 			},
@@ -113,7 +116,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed with no endpoints",
 			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, _ chan time.Time) {
 				// API server passes initialized service back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
 
@@ -172,7 +175,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if Externalname doesn't target any Pods",
 			serviceInput: externalNameService,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(externalNameService("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -182,7 +185,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "[Part 1] Should succeed if empty headless service doesn't target any Pods",
 			serviceInput: headlessEmptyServiceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessEmptyServiceOutput1("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -192,7 +195,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "[Part 2] Should succeed if empty headless service doesn't target any Pods",
 			serviceInput: headlessEmptyServiceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessEmptyServiceOutput2("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -202,7 +205,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if non-empty headless service targets Pods",
 			serviceInput: headlessNonemptyServiceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, endpoints chan watch.Event, _ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
 
@@ -214,7 +217,7 @@ func Test_Core_Service(t *testing.T) {
 			description:  "Should succeed if non-empty headless service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 11},
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -225,7 +228,7 @@ func Test_Core_Service(t *testing.T) {
 			description:  "Should succeed if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 12},
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
 				// Finally, time out.
@@ -235,7 +238,9 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if no selector",
 			serviceInput: serviceWithoutSelector,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(
+				services, _ /* endpoints */ chan watch.Event, _ /* settled */ chan struct{}, _ /* timeout */ chan time.Time,
+			) {
 				services <- watchAddedEvent(serviceWithoutSelector("default", "foo-4setj4y6"))
 			},
 		},

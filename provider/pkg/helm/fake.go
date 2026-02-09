@@ -25,7 +25,12 @@ import (
 )
 
 // NewFakeTool creates a new Helm tool with faked execution.
-func NewFakeTool(settings *cli.EnvSettings, initActionConfig InitActionConfigF, locateChart LocateChartF, execute ExecuteF) *Tool {
+func NewFakeTool(
+	settings *cli.EnvSettings,
+	initActionConfig InitActionConfigF,
+	locateChart LocateChartF,
+	execute ExecuteF,
+) *Tool {
 	if initActionConfig == nil {
 		initActionConfig = FakeInitActionConfig(settings.Namespace(), nil)
 	}
@@ -114,7 +119,12 @@ func (f *FakeExecutor) Values() map[string]interface{} {
 	return f.values
 }
 
-func (f *FakeExecutor) Execute(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+func (f *FakeExecutor) Execute(
+	ctx context.Context,
+	i *action.Install,
+	chrt *chart.Chart,
+	vals map[string]interface{},
+) (*release.Release, error) {
 	f.action = i
 	f.chart = chrt
 	f.values = vals

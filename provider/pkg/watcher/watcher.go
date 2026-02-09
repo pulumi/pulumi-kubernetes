@@ -20,10 +20,11 @@ import (
 	"math/rand"
 	"time"
 
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
+
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 )
 
 // Predicate is a function that returns true when we can stop watching in `WatchUntil`.

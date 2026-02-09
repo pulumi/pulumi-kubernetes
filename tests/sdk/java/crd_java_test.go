@@ -45,7 +45,11 @@ func TestJavaCanCreateCRD(t *testing.T) {
 	urn, ok := up.Outputs["urn"]
 	require.True(t, ok)
 	require.NotNil(t, urn)
-	require.Equal(t, urn.Value, "urn:pulumi:test::crd_java::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::getCRDUrn")
+	require.Equal(
+		t,
+		urn.Value,
+		"urn:pulumi:test::crd_java::kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::getCRDUrn",
+	)
 
 	// Verify with kubectl that the CRD has `x-kubernetes-*` fields set correctly.
 	output, err := tests.Kubectl("get crd javacrds.example.com -o json")

@@ -26,22 +26,6 @@ import (
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/jonboulle/clockwork"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/retry"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	apivalidation "k8s.io/apimachinery/pkg/api/validation"
@@ -55,6 +39,24 @@ import (
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
 	"sigs.k8s.io/yaml"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/retry"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
 )
 
 var _ condition.Satisfier = (*legacyReadyCondition)(nil)
@@ -213,7 +215,15 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if c.Preview &&
 					(apierrors.IsInvalid(err) && strings.Contains(err.Error(), apivalidation.FieldImmutableErrorMsg)) {
 					previewName := names.SimpleNameGenerator.GenerateName(c.Inputs.GetName())
-					_ = c.Host.Log(c.Context, diag.Info, c.URN, fmt.Sprintf("Preview creation failed due to immutable fields; retrying with name %q", previewName))
+					_ = c.Host.Log(
+						c.Context,
+						diag.Info,
+						c.URN,
+						fmt.Sprintf(
+							"Preview creation failed due to immutable fields; retrying with name %q",
+							previewName,
+						),
+					)
 					c.Inputs.SetName(previewName)
 
 					objYAML, errYaml := yaml.Marshal(c.Inputs.Object)
@@ -263,7 +273,12 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		outputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.Preview {
 		return outputs, nil
@@ -277,7 +292,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()))
+	source := condition.NewDynamicSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, outputs.GetNamespace()),
+	)
 	defer source.Stop()
 
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, outputs)
@@ -347,7 +366,12 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", outputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		outputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		outputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.ReadFromCluster {
 		// If the resource is read from a .get or an import, simply return the resource state from the cluster.
@@ -421,14 +445,24 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	contract.Assertf(liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", liveOldObj.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		liveOldObj.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		liveOldObj.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	currentOutputs, err := updateResource(&c, liveOldObj, client)
 	if err != nil {
 		return nil, err
 	}
 
-	contract.Assertf(currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", currentOutputs.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		currentOutputs.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		currentOutputs.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	if c.Preview {
 		// We do not need to get the updated live object if we are in preview mode.
@@ -443,7 +477,11 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	ctx, cancel := context.WithTimeout(c.Context, timeout)
 	defer cancel()
 
-	source := condition.NewDynamicSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()))
+	source := condition.NewDynamicSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, currentOutputs.GetNamespace()),
+	)
 	ready, custom, err := metadata.ReadyCondition(ctx, source, c.ClientSet, c.DedupLogger, c.Inputs, currentOutputs)
 	if err != nil {
 		return currentOutputs, err
@@ -496,21 +534,34 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		live = currentOutputs
 	}
 
-	contract.Assertf(live.GetAPIVersion() == c.Inputs.GetAPIVersion(), "expected APIVersion %q to be %q", live.GetAPIVersion(), c.Inputs.GetAPIVersion())
+	contract.Assertf(
+		live.GetAPIVersion() == c.Inputs.GetAPIVersion(),
+		"expected APIVersion %q to be %q",
+		live.GetAPIVersion(),
+		c.Inputs.GetAPIVersion(),
+	)
 
 	return live, nil
 }
 
-func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+func updateResource(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client dynamic.ResourceInterface,
+) (*unstructured.Unstructured, error) {
 	var currentOutputs *unstructured.Unstructured
 	var err error
 	switch {
 	case clients.IsCRD(c.Inputs):
-		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
-		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
-		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This
-		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
-		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
+		// CRDs require special handling to update. Rather than computing a
+		// patch, replace the CRD with a PUT operation (equivalent to running
+		// `kubectl replace`). This is accomplished by getting the
+		// `resourceVersion` of the existing CRD, setting that as the
+		// `resourceVersion` in the request, and then running an update. This
+		// results in the immediate replacement of the CRD without deleting it,
+		// or any CustomResources that depend on it. The PUT operation is still
+		// validated by the api server, so a badly formed request will fail as
+		// usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
 
 		options := metav1.UpdateOptions{
@@ -531,10 +582,16 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 }
 
 // csaUpdate handles the logic for updating a resource using client-side apply.
-func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
-	// Handle ignoreChanges for CSA to use the last known value applied to the cluster, rather than what's in state which may be outdated.
-	// We ignore errors here as it occurs when there is an issue traversing the field path. If this occurs, then use the last value in state
-	// optimistically rather than failing the update.
+func csaUpdate(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client dynamic.ResourceInterface,
+) (*unstructured.Unstructured, error) {
+	// Handle ignoreChanges for CSA to use the last known value applied to the
+	// cluster, rather than what's in state which may be outdated. We ignore
+	// errors here as it occurs when there is an issue traversing the field
+	// path. If this occurs, then use the last value in state optimistically
+	// rather than failing the update.
 	_ = handleCSAIgnoreFields(c, liveOldObj)
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
 	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.OldInputs, c.Inputs, liveOldObj)
@@ -553,11 +610,22 @@ func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 }
 
 type patcher interface {
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error)
+	Patch(
+		ctx context.Context,
+		name string,
+		pt types.PatchType,
+		data []byte,
+		options metav1.PatchOptions,
+		subresources ...string,
+	) (*unstructured.Unstructured, error)
 }
 
 // ssaUpdate handles the logic for updating a resource using server-side apply.
-func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
+func ssaUpdate(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client patcher,
+) (*unstructured.Unstructured, error) {
 	liveOldObj, err := fixCSAFieldManagers(c, liveOldObj, client)
 	if err != nil {
 		return nil, err
@@ -589,13 +657,15 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client pa
 	return currentOutputs, nil
 }
 
-// handleCSAIgnoreFields handles updating the inputs to use the last known value applied to the cluster. If the value is not present,
-// then we use what is declared in state as per the specs of Pulumi's ignoreChanges.
+// handleCSAIgnoreFields handles updating the inputs to use the last known
+// value applied to the cluster. If the value is not present, then we use what
+// is declared in state as per the specs of Pulumi's ignoreChanges.
 func handleCSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
 	for _, ignorePath := range c.IgnoreChanges {
 		ipParsed, err := resource.ParsePropertyPath(ignorePath)
 		if err != nil {
-			// NB: This shouldn't really happen since we already validated the ignoreChanges paths in the parent Diff function.
+			// NB: This shouldn't really happen since we already validated the
+			// ignoreChanges paths in the parent Diff function.
 			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
 		}
 
@@ -603,8 +673,9 @@ func handleCSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 
 		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
 		if found && err == nil {
-			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
-			// the live state.
+			// We only care if the field is found, as not found indicates that
+			// the field does not exist in the live state so we don't have to
+			// worry about changing the inputs to match the live state.
 			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
 			if err != nil {
 				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
@@ -619,17 +690,24 @@ func handleCSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 	return nil
 }
 
-// handleSSAIgnoreFields handles updating the inputs to either drop fields that are present on the cluster and not managed
-// by the current field manager, or to set the value of the field to the last known value applied to the cluster.
+// handleSSAIgnoreFields handles updating the inputs to either drop fields that
+// are present on the cluster and not managed by the current field manager, or
+// to set the value of the field to the last known value applied to the
+// cluster.
 func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
 	managedFields := liveOldObj.GetManagedFields()
-	// Keep track of fields that are managed by the current field manager, and fields that are managed by other field managers.
+	// Keep track of fields that are managed by the current field manager, and
+	// fields that are managed by other field managers.
 	theirFields, ourFields := new(fieldpath.Set), new(fieldpath.Set)
 
 	for _, f := range managedFields {
 		s, err := fluxssa.FieldsToSet(*f.FieldsV1)
 		if err != nil {
-			return fmt.Errorf("unable to parse managed fields from resource %q into fieldpath.Set: %w", liveOldObj.GetName(), err)
+			return fmt.Errorf(
+				"unable to parse managed fields from resource %q into fieldpath.Set: %w",
+				liveOldObj.GetName(),
+				err,
+			)
 		}
 
 		switch f.Manager {
@@ -647,7 +725,8 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 	for _, ignorePath := range c.IgnoreChanges {
 		ipParsed, err := resource.ParsePropertyPath(ignorePath)
 		if err != nil {
-			// NB: This shouldn't really happen since we already validated the ignoreChanges paths in the parent Diff function.
+			// NB: This shouldn't really happen since we already validated the
+			// ignoreChanges paths in the parent Diff function.
 			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
 		}
 
@@ -658,29 +737,41 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 			return fmt.Errorf("unable to normalize ignoreField path %q: %w", ignorePath, err)
 		}
 
-		// Drop the field from the inputs if it is present on the cluster and managed by another manager, and is not shared with current manager. This ensures
-		// that we don't get any conflict errors, or mistakenly setting the current field manager as a shared manager of that field.
+		// Drop the field from the inputs if it is present on the cluster and
+		// managed by another manager, and is not shared with current manager.
+		// This ensures that we don't get any conflict errors, or mistakenly
+		// setting the current field manager as a shared manager of that field.
 		if theirFields.Has(pe) && !ourFields.Has(pe) {
 			unstructured.RemoveNestedField(c.Inputs.Object, pathComponents...)
 			continue
 		}
 
-		// We didn't find another field manager that is managing this field, so we need to use the last known value applied to
-		// the cluster so we don't unset it or change it to a different value that is not the last known value. This case handles 2 posibilities:
+		// We didn't find another field manager that is managing this field, so
+		// we need to use the last known value applied to the cluster so we
+		// don't unset it or change it to a different value that is not the
+		// last known value. This case handles 2 posibilities:
 		//
-		// 1. The field is managed by the current field manager, or is a shared manager, in this case the field needs to be in the request sent to
+		// 1. The field is managed by the current field manager, or is a shared
+		// manager, in this case the field needs to be in the request sent to
 		// the server, otherwise it will be unset.
-		// 2. The field is set/exists on the cluster, but for some reason is not listed in the managed fields, in this case we need to set the field to the last
-		// known value applied to the cluster, otherwise it will be unset. This would cause the current field manager to take ownership of the field, but this edge
-		// case probably shouldn't be hit in practice.
+		// 2. The field is set/exists on the cluster, but for some reason is
+		// not listed in the managed fields, in this case we need to set the
+		// field to the last known value applied to the cluster, otherwise it
+		// will be unset. This would cause the current field manager to take
+		// ownership of the field, but this edge case probably shouldn't be hit
+		// in practice.
 		//
-		// NOTE: If the field has been reverted to its default value, ignoreChanges will still not update this field to what is supplied
+		// NOTE: If the field has been reverted to its default value,
+		// ignoreChanges will still not update this field to what is supplied
 		// by the user in their Pulumi program.
 		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
 		if found && err == nil {
-			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
-			// the live state. If this occurs, then Pulumi will set the field back to the declared value as ignoreChanges will use the declared value if one is not found in state as per
-			// the intent of ignoreChanges.
+			// We only care if the field is found, as not found indicates that
+			// the field does not exist in the live state so we don't have to
+			// worry about changing the inputs to match the live state. If this
+			// occurs, then Pulumi will set the field back to the declared
+			// value as ignoreChanges will use the declared value if one is not
+			// found in state as per the intent of ignoreChanges.
 			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
 			if err != nil {
 				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
@@ -701,10 +792,11 @@ func handleSSAErr(err error, manager string) error {
 	if !apierrors.IsConflict(err) {
 		return err
 	}
-	link := "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
+	link := "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/" +
+		"managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
 	//nolint:golint // Capitalized since this is expected to be user-facing.
 	info := fmt.Errorf(
-		"Server-Side Apply field conflict detected. See %s for troubleshooting help.",
+		"server-side apply field conflict detected, see %s for troubleshooting help",
 		link,
 	)
 	cause := fmt.Errorf(
@@ -724,9 +816,11 @@ func makeInterfaceSlice[T any](inputs []T) []interface{} {
 	return s
 }
 
-// ensureFieldsAreMembers adds all parent paths of a given fieldpath.Set back to the set. The fieldpath.Set.Insert method specifically mentions that it does not
-// add parent paths, so we need to do this manually. We do this by iterating from the start of the path to the end, and
-// adding each level of the path tree to the set.
+// ensureFieldsAreMembers adds all parent paths of a given fieldpath.Set back
+// to the set. The fieldpath.Set.Insert method specifically mentions that it
+// does not add parent paths, so we need to do this manually. We do this by
+// iterating from the start of the path to the end, and adding each level of
+// the path tree to the set.
 func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 	newSet := new(fieldpath.Set)
 	s.Iterate(func(p fieldpath.Path) {
@@ -738,14 +832,21 @@ func ensureFieldsAreMembers(s *fieldpath.Set) *fieldpath.Set {
 	return newSet
 }
 
-// fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
-// The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client patcher) (*unstructured.Unstructured, error) {
+// fixCSAFieldManagers patches the field managers for an existing resource that
+// was managed using client-side apply. The new server-side apply field manager
+// takes ownership of all these fields to avoid conflicts.
+func fixCSAFieldManagers(
+	c *UpdateConfig,
+	liveOldObj *unstructured.Unstructured,
+	client patcher,
+) (*unstructured.Unstructured, error) {
 	if kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
-		// When dealing with a patch resource, there's no need to patch the field managers.
-		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
-		// which occurs when reusing a patch resource. Patch resources do not need to worry about other fields
-		// not directly defined within a the Patch resource.
+		// When dealing with a patch resource, there's no need to patch the
+		// field managers. Doing so would inadvertently make us responsible for
+		// managing fields that are not relevant to us during updates, which
+		// occurs when reusing a patch resource. Patch resources do not need to
+		// worry about other fields not directly defined within a the Patch
+		// resource.
 		return liveOldObj, nil
 	}
 
@@ -860,7 +961,12 @@ func Deletion(c DeleteConfig) error {
 	defer cancel()
 
 	// Setup our Informer factory.
-	source, err := condition.NewDeletionSource(ctx, c.ClientSet, c.Factories.ForNamespace(c.ClientSet.GenericClient, c.Outputs.GetNamespace()), c.Outputs)
+	source, err := condition.NewDeletionSource(
+		ctx,
+		c.ClientSet,
+		c.Factories.ForNamespace(c.ClientSet.GenericClient, c.Outputs.GetNamespace()),
+		c.Outputs,
+	)
 	if err != nil {
 		return err
 	}
@@ -967,7 +1073,10 @@ func (l *legacyReadyCondition) Observe(watch.Event) error {
 	return nil
 }
 
-func newLegacyReadyCondition(c awaitConfig, await func(awaitConfig) (*unstructured.Unstructured, error)) condition.Satisfier {
+func newLegacyReadyCondition(
+	c awaitConfig,
+	await func(awaitConfig) (*unstructured.Unstructured, error),
+) condition.Satisfier {
 	if metadata.SkipAwaitLogic(c.inputs) {
 		return condition.NewImmediate(c.logger, c.currentOutputs)
 	}

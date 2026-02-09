@@ -18,27 +18,29 @@ import (
 	"os"
 	"path/filepath"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
-	. "github.com/onsi/gomega/gstruct"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
+	gs "github.com/onsi/gomega/gstruct"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
-var _ = Describe("Construct", func() {
+var _ = gk.Describe("Construct", func() {
 	var tc *componentProviderTestContext
 	var opts *providerresource.ResourceProviderOptions
 	var req *pulumirpc.ConstructRequest
 	var inputs resource.PropertyMap
 	var k *ConfigGroupProvider
 
-	BeforeEach(func() {
-		tc = newTestContext(GinkgoTB())
+	gk.BeforeEach(func() {
+		tc = newTestContext(gk.GinkgoTB())
 
 		opts = &providerresource.ResourceProviderOptions{}
 		opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
@@ -52,97 +54,142 @@ var _ = Describe("Construct", func() {
 		inputs = make(resource.PropertyMap)
 	})
 
-	JustBeforeEach(func() {
+	gk.JustBeforeEach(func() {
 		var err error
 		k = NewConfigGroupProvider(opts).(*ConfigGroupProvider)
 		req.Inputs, err = plugin.MarshalProperties(inputs, plugin.MarshalOptions{
 			Label: "inputs", KeepSecrets: true, KeepResources: true, KeepUnknowns: true, KeepOutputValues: true,
 		})
-		Expect(err).ShouldNot(HaveOccurred())
+		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 	})
 
-	It("should register a component resource", func() {
+	gk.It("should register a component resource", func() {
 		resp, err := pulumiprovider.Construct(context.Background(), req, tc.EngineConn(), k.Construct)
-		Expect(err).ShouldNot(HaveOccurred())
-		Expect(resp.Urn).Should(Equal("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup::test"))
+		gm.Expect(err).ShouldNot(gm.HaveOccurred())
+		gm.Expect(resp.Urn).Should(gm.Equal("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup::test"))
 
-		Expect(tc.monitor.Resources()).To(MatchKeys(IgnoreExtras, Keys{
-			"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup::test": MatchProps(IgnoreExtras, Props{
-				"id": MatchValue("test"),
+		gm.Expect(tc.monitor.Resources()).To(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+			"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup::test": pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+				"id": pgm.MatchValue("test"),
 			}),
 		}))
 	})
 
 	commonAssertions := func() {
-		GinkgoHelper()
+		gk.GinkgoHelper()
 
-		It("should provide a 'resources' output property", func(ctx context.Context) {
+		gk.It("should provide a 'resources' output property", func(ctx context.Context) {
 			resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-			Expect(err).ShouldNot(HaveOccurred())
-			outputs := unmarshalProperties(GinkgoTB(), resp.State)
-			Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-				"resources": MatchArrayValue(ConsistOf(
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::test:my-namespace", "test:my-namespace"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com", "test:crontabs.stable.example.com"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:my-namespace/my-map", "test:my-namespace/my-map"),
-					MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::test:my-namespace/my-new-cron-object", "test:my-namespace/my-new-cron-object"),
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
+			outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+			gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+				"resources": pgm.MatchArrayValue(gm.ConsistOf(
+					pgm.MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::test:my-namespace",
+						"test:my-namespace",
+					),
+					pgm.MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$"+
+							"kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::test:crontabs.stable.example.com",
+						"test:crontabs.stable.example.com",
+					),
+					pgm.MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::"+
+							"test:my-namespace/my-map",
+						"test:my-namespace/my-map",
+					),
+					pgm.MatchResourceReferenceValue(
+						"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::"+
+							"test:my-namespace/my-new-cron-object",
+						"test:my-namespace/my-new-cron-object",
+					),
 				)),
 			}))
 		})
 
-		Context("given a resource prefix", func() {
-			BeforeEach(func() {
+		gk.Context("given a resource prefix", func() {
+			gk.BeforeEach(func() {
 				inputs["resourcePrefix"] = resource.NewStringProperty("prefixed")
 			})
-			It("should use the prefix (instead of the component name)", func(ctx context.Context) {
+			gk.It("should use the prefix (instead of the component name)", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::prefixed:my-namespace", "prefixed:my-namespace"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com", "prefixed:crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::prefixed:my-namespace/my-map", "prefixed:my-namespace/my-map"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::prefixed:my-namespace/my-new-cron-object", "prefixed:my-namespace/my-new-cron-object"),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.MatchArrayValue(gm.ConsistOf(
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::prefixed:my-namespace",
+							"prefixed:my-namespace",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$"+
+								"kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::prefixed:crontabs.stable.example.com",
+							"prefixed:crontabs.stable.example.com",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::"+
+								"prefixed:my-namespace/my-map",
+							"prefixed:my-namespace/my-map",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::"+
+								"prefixed:my-namespace/my-new-cron-object",
+							"prefixed:my-namespace/my-new-cron-object",
+						),
 					)),
 				}))
 			})
 		})
 
-		Context("given a blank resource prefix", func() {
-			BeforeEach(func() {
+		gk.Context("given a blank resource prefix", func() {
+			gk.BeforeEach(func() {
 				inputs["resourcePrefix"] = resource.NewStringProperty("")
 			})
-			It("should have no prefix", func(ctx context.Context) {
+			gk.It("should have no prefix", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(ConsistOf(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::my-namespace", "my-namespace"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com", "crontabs.stable.example.com"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::my-namespace/my-map", "my-namespace/my-map"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::my-namespace/my-new-cron-object", "my-namespace/my-new-cron-object"),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.MatchArrayValue(gm.ConsistOf(
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:Namespace::my-namespace",
+							"my-namespace",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$"+
+								"kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition::crontabs.stable.example.com",
+							"crontabs.stable.example.com",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::"+
+								"my-namespace/my-map",
+							"my-namespace/my-map",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:stable.example.com/v1:CronTab::"+
+								"my-namespace/my-new-cron-object",
+							"my-namespace/my-new-cron-object",
+						),
 					)),
 				}))
 			})
 		})
 	}
 
-	Describe("yamls", func() {
-		Context("when the input is a valid YAML", func() {
-			BeforeEach(func() {
+	gk.Describe("yamls", func() {
+		gk.Context("when the input is a valid YAML", func() {
+			gk.BeforeEach(func() {
 				inputs["yaml"] = resource.NewStringProperty(manifest)
 			})
 			commonAssertions()
 		})
 	})
 
-	Describe("objs", func() {
+	gk.Describe("objs", func() {
 		decodeObjects := func(manifest string) []resource.PropertyValue {
 			// decode the manifest to Unstructured objects, then convert to input properties
 			resources, err := yamlDecode(manifest)
-			Expect(err).ShouldNot(HaveOccurred())
+			gm.Expect(err).ShouldNot(gm.HaveOccurred())
 			var objs []resource.PropertyValue
 			for _, res := range resources {
 				objs = append(objs, resource.NewPropertyValue(res.Object))
@@ -150,64 +197,75 @@ var _ = Describe("Construct", func() {
 			return objs
 		}
 
-		Context("when the input is a valid object literal", func() {
-			BeforeEach(func() {
+		gk.Context("when the input is a valid object literal", func() {
+			gk.BeforeEach(func() {
 				inputs["objs"] = resource.NewArrayProperty(decodeObjects(manifest))
 			})
 			commonAssertions()
 		})
 
-		Context("when the object is a list", func() {
-			BeforeEach(func() {
+		gk.Context("when the object is a list", func() {
+			gk.BeforeEach(func() {
 				inputs["objs"] = resource.NewArrayProperty(decodeObjects(list))
 			})
 
-			It("should expand the list", func(ctx context.Context) {
+			gk.It("should expand the list", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": MatchArrayValue(HaveExactElements(
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-1", "test:map-1"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-2", "test:map-2"),
-						MatchResourceReferenceValue("urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-3", "test:map-3"),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.MatchArrayValue(gm.HaveExactElements(
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-1",
+							"test:map-1",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-2",
+							"test:map-2",
+						),
+						pgm.MatchResourceReferenceValue(
+							"urn:pulumi:stack::project::kubernetes:yaml/v2:ConfigGroup$kubernetes:core/v1:ConfigMap::test:map-3",
+							"test:map-3",
+						),
 					)),
 				}))
 			})
 		})
 	})
 
-	Describe("files", func() {
-		Context("when the input is a valid file", func() {
-			BeforeEach(func() {
-				tempDir := GinkgoTB().TempDir()
+	gk.Describe("files", func() {
+		gk.Context("when the input is a valid file", func() {
+			gk.BeforeEach(func() {
+				tempDir := gk.GinkgoTB().TempDir()
 				err := os.WriteFile(filepath.Join(tempDir, "manifest.yaml"), []byte(manifest), 0o600)
-				Expect(err).ShouldNot(HaveOccurred())
-				inputs["files"] = resource.NewArrayProperty([]resource.PropertyValue{resource.NewStringProperty(filepath.Join(tempDir, "manifest.yaml"))})
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				inputs["files"] = resource.NewArrayProperty(
+					[]resource.PropertyValue{resource.NewStringProperty(filepath.Join(tempDir, "manifest.yaml"))},
+				)
 			})
 			commonAssertions()
 		})
 	})
 
-	Describe("preview", func() {
-		Context("when the input value(s) are unknown", func() {
-			BeforeEach(func() {
+	gk.Describe("preview", func() {
+		gk.Context("when the input value(s) are unknown", func() {
+			gk.BeforeEach(func() {
 				req.DryRun = true
 				inputs["yaml"] = resource.MakeComputed(resource.NewStringProperty(""))
 			})
 
-			It("should emit a warning", func(ctx context.Context) {
+			gk.It("should emit a warning", func(ctx context.Context) {
 				_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				Expect(tc.engine.Logs()).To(HaveLen(1))
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(tc.engine.Logs()).To(gm.HaveLen(1))
 			})
 
-			It("should provide a 'resources' output property", func(ctx context.Context) {
+			gk.It("should provide a 'resources' output property", func(ctx context.Context) {
 				resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
-				Expect(err).ShouldNot(HaveOccurred())
-				outputs := unmarshalProperties(GinkgoTB(), resp.State)
-				Expect(outputs).To(MatchProps(IgnoreExtras, Props{
-					"resources": BeComputed(),
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+				gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+					"resources": pgm.BeComputed(),
 				}))
 			})
 		})

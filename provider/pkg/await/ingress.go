@@ -20,12 +20,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"
 	networkingv1 "k8s.io/api/networking/v1"
 	networkingv1beta1 "k8s.io/api/networking/v1beta1"
@@ -35,6 +29,14 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -58,7 +60,9 @@ import (
 // Any time the success conditions described above a reached, we will terminate the awaiter.
 //
 // x-refs:
-//   * https://github.com/nginxinc/kubernetes-ingress/blob/5847d1f3906287d2771f3767d61c15ac02522caa/docs/report-ingress-status.md
+// *
+// https://github.com/nginxinc/kubernetes-ingress/blob/5847d1f3906287d2771f3767d61c15ac02522caa/
+// docs/report-ingress-status.md
 
 // ------------------------------------------------------------------------------------------------
 
@@ -139,7 +143,14 @@ func (iia *ingressInitAwaiter) Await() (*unstructured.Unstructured, error) {
 	defer serviceInformer.Unsubscribe()
 
 	timeout := iia.config.getTimeout(DefaultIngressTimeoutMins * 60)
-	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
+	return iia.await(
+		ingressEvents,
+		serviceEvents,
+		endpointsEvents,
+		make(chan struct{}),
+		time.After(60*time.Second),
+		time.After(timeout),
+	)
 }
 
 func (iia *ingressInitAwaiter) Read() error {
@@ -367,8 +378,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 					if iia.endpointsSettled {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist.
-						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
-							expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
+						iia.config.logger.LogStatus(
+							diag.Warning,
+							fmt.Sprintf("No matching service found for ingress rule: %s",
+								expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)),
+						)
 					} else {
 						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false
@@ -405,8 +419,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 						// We haven't seen the target endpoint emit any events within the settlement period
 						// and there is a chance it may never exist
 						// (https://github.com/pulumi/pulumi-kubernetes/issues/1810)
-						iia.config.logger.LogStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
-							expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
+						iia.config.logger.LogStatus(
+							diag.Warning,
+							fmt.Sprintf("No matching service found for ingress rule: %s",
+								expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)),
+						)
 					} else {
 						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false

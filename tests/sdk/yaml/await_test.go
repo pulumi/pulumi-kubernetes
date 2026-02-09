@@ -76,7 +76,12 @@ func TestAwaitDaemonSet(t *testing.T) {
 	// Update the DS to use an invalid image tag. It should never become ready.
 	test.UpdateSource(t, "testdata/await/daemonset/step3")
 	_, err := test.CurrentStack().Up(context.Background())
-	assert.ErrorContains(t, err, `the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or become live: timed out waiting for the condition`)
+	assert.ErrorContains(
+		t,
+		err,
+		`the Kubernetes API server reported that "default/await-daemonset" failed to fully initialize or `+
+			`become live: timed out waiting for the condition`,
+	)
 }
 
 func TestAwaitPVC(t *testing.T) {

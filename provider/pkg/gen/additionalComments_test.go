@@ -26,20 +26,27 @@ func TestAPIVersionComment(t *testing.T) {
 		expected string
 	}{
 		{
-			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1beta1", Kind: "Deployment"},
-			expected: "apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by Kubernetes v1.16+ clusters.",
+			gvk: schema.GroupVersionKind{Group: "io.k8s.api.apps", Version: "v1beta1", Kind: "Deployment"},
+			expected: "apps/v1beta1/Deployment is deprecated by apps/v1/Deployment " +
+				"and not supported by Kubernetes v1.16+ clusters.",
 		},
 		{
-			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.extensions", Version: "v1beta1", Kind: "Ingress"},
-			expected: "extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress and not supported by Kubernetes v1.20+ clusters.",
+			gvk: schema.GroupVersionKind{Group: "io.k8s.api.extensions", Version: "v1beta1", Kind: "Ingress"},
+			expected: "extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress " +
+				"and not supported by Kubernetes v1.20+ clusters.",
 		},
 		{
 			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.batch", Version: "v1beta1", Kind: "CronJob"},
 			expected: "batch/v1beta1/CronJob is deprecated by batch/v1/CronJob and not supported by Kubernetes v1.25+ clusters.",
 		},
 		{
-			gvk:      schema.GroupVersionKind{Group: "storage.k8s.io", Version: "v1alpha1", Kind: "VolumeAttributesClass"},
-			expected: "storage.k8s.io/v1alpha1/VolumeAttributesClass is deprecated by storage.k8s.io/v1beta1/VolumeAttributesClass.",
+			gvk: schema.GroupVersionKind{
+				Group:   "storage.k8s.io",
+				Version: "v1alpha1",
+				Kind:    "VolumeAttributesClass",
+			},
+			expected: "storage.k8s.io/v1alpha1/VolumeAttributesClass is deprecated by " +
+				"storage.k8s.io/v1beta1/VolumeAttributesClass.",
 		},
 		{
 			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.core", Version: "v1", Kind: "Pod"},

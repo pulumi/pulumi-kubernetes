@@ -17,9 +17,10 @@ package logging
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestOrderedStringSet_Add(t *testing.T) {
@@ -72,7 +73,7 @@ func TestOrderedStringSet_Add(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			o := &TimeOrderedLogSet{
 				exists:   tt.fields.exists,
 				Messages: tt.fields.Messages,

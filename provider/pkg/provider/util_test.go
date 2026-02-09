@@ -22,7 +22,6 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -30,6 +29,8 @@ import (
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"sigs.k8s.io/yaml"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
 func TestHasComputedValue(t *testing.T) {
@@ -309,7 +310,6 @@ func TestAnnotateComputed(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			annotateComputed(tt.outValue, tt.inValue)
@@ -340,6 +340,7 @@ func TestFqName(t *testing.T) {
 }
 
 var (
+	//nolint:lll // Test data.
 	validKubeconfig = `apiVersion: v1
 clusters:
 - cluster:
@@ -596,6 +597,7 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 }
 
 func TestPruneMap(t *testing.T) {
+	//nolint:lll // Test data.
 	oldLiveJSON := []byte(`{
   "__fieldManager": "pulumi-kubernetes",
   "__initialApiVersion": "apps/v1",

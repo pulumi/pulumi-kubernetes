@@ -19,19 +19,21 @@ import (
 	"testing"
 
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	. "github.com/onsi/ginkgo/v2" //nolint:golint // dot-imports
-	. "github.com/onsi/gomega"    //nolint:golint // dot-imports
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
+	"google.golang.org/grpc"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/grpc"
+
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
 )
 
 func TestKustomizeV2(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "provider/pkg/provider/kustomize/v2")
+	gm.RegisterFailHandler(gk.Fail)
+	gk.RunSpecs(t, "provider/pkg/provider/kustomize/v2")
 }
 
 func unmarshalProperties(t testing.TB, props *structpb.Struct) resource.PropertyMap {

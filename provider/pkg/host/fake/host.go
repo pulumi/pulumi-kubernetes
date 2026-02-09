@@ -18,12 +18,14 @@ import (
 	"context"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	"google.golang.org/grpc"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/grpc"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
 )
 
 // HostClient implements host.HostClient by forwarding all requests directly to the given pulumirpc.EngineServer.

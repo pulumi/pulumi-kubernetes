@@ -323,9 +323,9 @@ func createHelmEnvironment(t *testing.T, re ...repo.Entry) (he *helmEnvironment,
 		// magic up a Helm EnvSettings struct using the home directories we just created
 		helmEnvLock.Lock()
 		defer helmEnvLock.Unlock()
-		setEnv := func(name, new string) func() {
+		setEnv := func(name, newValue string) func() {
 			old, existed := os.LookupEnv(name)
-			_ = os.Setenv(name, new)
+			_ = os.Setenv(name, newValue)
 			return func() {
 				if existed {
 					_ = os.Setenv(name, old)
@@ -353,7 +353,11 @@ func createHelmEnvironment(t *testing.T, re ...repo.Entry) (he *helmEnvironment,
 		}
 		r.CachePath = settings.RepositoryCache
 		if _, err := r.DownloadIndexFile(); err != nil {
-			return nil, nil, errors.Wrapf(err, "looks like %q is not a valid chart repository or cannot be reached", c.URL)
+			return nil, nil, errors.Wrapf(
+				err,
+				"looks like %q is not a valid chart repository or cannot be reached",
+				c.URL,
+			)
 		}
 		rf.Add(&c)
 	}

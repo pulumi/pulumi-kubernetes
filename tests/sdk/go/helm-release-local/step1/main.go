@@ -33,7 +33,12 @@ func main() {
 				arr := r.([]any)
 				namespace := arr[0].(*string)
 				name := arr[1].(*string)
-				svc, err := appsv1.GetDeployment(ctx, "deployment", pulumi.ID(fmt.Sprintf("%s/%s-nginx", *namespace, *name)), nil)
+				svc, err := appsv1.GetDeployment(
+					ctx,
+					"deployment",
+					pulumi.ID(fmt.Sprintf("%s/%s-nginx", *namespace, *name)),
+					nil,
+				)
 				if err != nil {
 					return "", nil
 				}

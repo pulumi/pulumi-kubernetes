@@ -22,11 +22,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	. "github.com/onsi/gomega"
-	. "github.com/onsi/gomega/gstruct"
+	gm "github.com/onsi/gomega"
+	gs "github.com/onsi/gomega/gstruct"
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -44,10 +44,13 @@ import (
 // 2. Deploy a program; expected real outputs.
 // 3. Preview an update involving a change to the release name; expect replacement.
 func TestHelmUnknowns(t *testing.T) {
-	g := NewWithT(t)
+	g := gm.NewWithT(t)
 
 	// Copy test_dir to temp directory, install deps and create "my-stack"
-	test := pulumitest.NewPulumiTest(t, "helm-release-unknowns" /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/)
+	test := pulumitest.NewPulumiTest(
+		t,
+		"helm-release-unknowns", /*opttest.LocalProviderPath("kubernetes", abs(t, "../../../bin"))*/
+	)
 	t.Logf("into %s", test.WorkingDir())
 
 	urn := func(baseType tokens.Type, name string) string {
@@ -69,9 +72,9 @@ func TestHelmUnknowns(t *testing.T) {
 
 	lookup := func() grpclog.TypedEntry[rpc.CreateRequest, rpc.CreateResponse] {
 		creates, err := test.GrpcLog(t).Creates()
-		g.Expect(err).ToNot(HaveOccurred())
+		g.Expect(err).ToNot(gm.HaveOccurred())
 		release := findByUrn(t, creates, urn("kubernetes:helm.sh/v3:Release", "release"))
-		g.Expect(release).ToNot(BeNil())
+		g.Expect(release).ToNot(gm.BeNil())
 		logEntry(t, *release)
 		return *release
 	}
@@ -80,15 +83,15 @@ func TestHelmUnknowns(t *testing.T) {
 	previewF()
 	release1 := lookup()
 	outputs1 := unmarshalProperties(t, release1.Response.Properties)
-	g.Expect(release1.Response.Id).To(BeEmpty(), "Previews should return empty IDs")
-	g.Expect(outputs1).To(MatchProps(IgnoreExtras, Props{
-		"name":          BeComputed(),
-		"resourceNames": BeComputed(),
-		"status":        BeComputed(),
-		"values": MatchObject(IgnoreExtras, Props{
-			"global": MatchObject(IgnoreExtras, Props{
-				"redis": MatchObject(IgnoreExtras, Props{
-					"password": BeComputed(),
+	g.Expect(release1.Response.Id).To(gm.BeEmpty(), "Previews should return empty IDs")
+	g.Expect(outputs1).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+		"name":          pgm.BeComputed(),
+		"resourceNames": pgm.BeComputed(),
+		"status":        pgm.BeComputed(),
+		"values": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+			"global": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+				"redis": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+					"password": pgm.BeComputed(),
 				}),
 			}),
 		}),
@@ -98,19 +101,19 @@ func TestHelmUnknowns(t *testing.T) {
 	upF()
 	release2 := lookup()
 	outputs2 := unmarshalProperties(t, release2.Response.Properties)
-	g.Expect(release2.Response.Id).To(MatchRegexp(`release-ns-\w+\/\w{8}`), "Ups should return proper IDs")
-	g.Expect(outputs2).To(MatchProps(IgnoreExtras, Props{
-		"name": MatchValue(MatchRegexp(`\w{8}`)),
-		"resourceNames": MatchObject(IgnoreExtras, Props{
-			"Service/v1": BeArray(),
+	g.Expect(release2.Response.Id).To(gm.MatchRegexp(`release-ns-\w+\/\w{8}`), "Ups should return proper IDs")
+	g.Expect(outputs2).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+		"name": pgm.MatchValue(gm.MatchRegexp(`\w{8}`)),
+		"resourceNames": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+			"Service/v1": pgm.BeArray(),
 		}),
-		"status": MatchObject(IgnoreExtras, Props{
-			"status": MatchValue(Equal("deployed")),
+		"status": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+			"status": pgm.MatchValue(gm.Equal("deployed")),
 		}),
-		"values": MatchObject(IgnoreExtras, Props{
-			"global": MatchObject(IgnoreExtras, Props{
-				"redis": MatchObject(IgnoreExtras, Props{
-					"password": MatchSecret(MatchValue(Not(BeEmpty()))),
+		"values": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+			"global": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+				"redis": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+					"password": pgm.MatchSecret(pgm.MatchValue(gm.Not(gm.BeEmpty()))),
 				}),
 			}),
 		}),
@@ -120,15 +123,15 @@ func TestHelmUnknowns(t *testing.T) {
 	previewF(optpreview.Replace([]string{urn("random:index/randomString:RandomString", "name")}))
 	release3 := lookup()
 	output3 := unmarshalProperties(t, release3.Response.Properties)
-	g.Expect(release3.Response.Id).To(BeEmpty(), "Previews should return empty IDs")
-	g.Expect(output3).To(MatchProps(IgnoreExtras, Props{
-		"name":          BeComputed(),
-		"resourceNames": BeComputed(),
-		"status":        BeComputed(),
-		"values": MatchObject(IgnoreExtras, Props{
-			"global": MatchObject(IgnoreExtras, Props{
-				"redis": MatchObject(IgnoreExtras, Props{
-					"password": MatchSecret(MatchValue(Not(BeEmpty()))),
+	g.Expect(release3.Response.Id).To(gm.BeEmpty(), "Previews should return empty IDs")
+	g.Expect(output3).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+		"name":          pgm.BeComputed(),
+		"resourceNames": pgm.BeComputed(),
+		"status":        pgm.BeComputed(),
+		"values": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+			"global": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+				"redis": pgm.MatchObject(gs.IgnoreExtras, pgm.Props{
+					"password": pgm.MatchSecret(pgm.MatchValue(gm.Not(gm.BeEmpty()))),
 				}),
 			}),
 		}),
@@ -150,7 +153,7 @@ func unmarshalProperties(t *testing.T, props *structpb.Struct) resource.Property
 	return pm
 }
 
-func findByUrn[TRequest any, TResponse any](t *testing.T, entries []grpclog.TypedEntry[TRequest, TResponse],
+func findByUrn[TRequest any, TResponse any](_ *testing.T, entries []grpclog.TypedEntry[TRequest, TResponse],
 	urn string) *grpclog.TypedEntry[TRequest, TResponse] {
 	for _, e := range entries {
 		var eI any = &e.Request
@@ -203,11 +206,11 @@ func TestPreviewWithUnreachableCluster(t *testing.T) {
 
 func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing.T) {
 	t.Parallel()
-	g := NewWithT(t)
+	g := gm.NewWithT(t)
 
 	// Create a temporary directory to hold rendered YAML manifests.
 	dir, err := os.MkdirTemp("", "helm-chart-v4-render-yaml-test")
-	g.Expect(err).ToNot(HaveOccurred())
+	g.Expect(err).ToNot(gm.HaveOccurred())
 	defer os.RemoveAll(dir)
 
 	test := pulumitest.NewPulumiTest(t, "helm-chart-v4-render-yaml")
@@ -220,7 +223,7 @@ func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing
 		Value:  dir,
 		Secret: false,
 	})
-	g.Expect(err).ToNot(HaveOccurred())
+	g.Expect(err).ToNot(gm.HaveOccurred())
 
 	preview := test.Preview(t)
 	t.Log(preview.StdOut)
@@ -230,13 +233,14 @@ func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing
 
 	// Verify that YAML directory was created and contains files
 	files, err := os.ReadDir(dir)
-	g.Expect(err).ToNot(HaveOccurred())
-	g.Expect(len(files)).To(BeNumerically(">", 0), "YAML directory should contain rendered files")
+	g.Expect(err).ToNot(gm.HaveOccurred())
+	g.Expect(len(files)).To(gm.BeNumerically(">", 0), "YAML directory should contain rendered files")
 
 	manifestDir := filepath.Join(dir, "1-manifest")
 	if _, err := os.Stat(manifestDir); err == nil {
 		manifestFiles, err := os.ReadDir(manifestDir)
-		g.Expect(err).ToNot(HaveOccurred())
-		g.Expect(len(manifestFiles)).To(BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
+		g.Expect(err).ToNot(gm.HaveOccurred())
+		g.Expect(len(manifestFiles)).
+			To(gm.BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
 	}
 }

@@ -70,7 +70,10 @@ import (
 //	    pulumi.Run(func(ctx *pulumi.Context) error {
 //	        _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
 //	            kustomize.DirectoryArgs{
-//	                Directory: pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
+//	                Directory:
+//
+// pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
+//
 //	            },
 //	        )
 //	        if err != nil {
@@ -99,7 +102,10 @@ import (
 //	    pulumi.Run(func(ctx *pulumi.Context) error {
 //	        _, err := kustomize.NewDirectory(ctx, "helloWorldRemote",
 //	            kustomize.DirectoryArgs{
-//	                Directory: pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
+//	                Directory:
+//
+// pulumi.String("https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld"),
+//
 //	                Transformations: []yaml.Transformation{
 //	                    // Make every service private to the cluster, i.e., turn all services into ClusterIP
 //	                    // instead of LoadBalancer.

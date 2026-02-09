@@ -54,8 +54,8 @@ func TestAwaitGeneric(t *testing.T) {
 			msg := e.DiagnosticEvent.Message
 			if strings.Contains(msg, "Waiting for") || strings.Contains(msg, "Missing") {
 				go func() {
+					//nolint:revive // Need to exhaust the channel otherwise things deadlock.
 					for range events {
-						// Need to exhaust the channel otherwise things deadlock.
 					}
 				}()
 				break
@@ -190,7 +190,12 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Create
-		up := test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up := test.Up(
+			t,
+			optup.EventStreams(ch),
+			optup.ProgressStreams(os.Stdout),
+			optup.ErrorProgressStreams(os.Stderr),
+		)
 		assertAllResourcesReady(t, up.Outputs)
 
 		// Touch our resources and refresh in order to trigger an update later.
@@ -233,7 +238,12 @@ func TestAwaitGeneric(t *testing.T) {
 		}()
 
 		// Create
-		up := test.Up(t, optup.EventStreams(ch), optup.ProgressStreams(os.Stdout), optup.ErrorProgressStreams(os.Stderr))
+		up := test.Up(
+			t,
+			optup.EventStreams(ch),
+			optup.ProgressStreams(os.Stdout),
+			optup.ErrorProgressStreams(os.Stderr),
+		)
 		assertGenericResourceUntouched(t, up.Outputs)
 		assertWaitForResourcesReady(t, up.Outputs)
 

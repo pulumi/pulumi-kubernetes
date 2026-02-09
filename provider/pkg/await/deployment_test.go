@@ -42,7 +42,7 @@ func Test_Apps_Deployment(t *testing.T) {
 	}{
 		{
 			description: "[Revision 1] Should succeed after creating ReplicaSet",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -63,7 +63,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should succeed after creating ReplicaSet",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -84,7 +84,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Succeed if ReplicaSet becomes available before Deployment repots it",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -104,7 +104,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Succeed if ReplicaSet becomes available before Deployment repots it",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
 				deployments <- watchAddedEvent(
@@ -124,7 +124,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should succeed if update has rolled out",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller creates and successfully
 				// initializes the ReplicaSet.
 				deployments <- watchAddedEvent(
@@ -143,7 +143,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "Should succeed if Deployment scaled to 0",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller creates and successfully
 				// initializes the ReplicaSet.
 				deployments <- watchAddedEvent(
@@ -158,7 +158,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Should fail if unrelated Deployment succeeds",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentAdded(inputNamespace, deploymentInputName, revision1))
 				replicaSets <- watchAddedEvent(
@@ -180,7 +180,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentAdded(inputNamespace, deploymentInputName, revision2))
 				replicaSets <- watchAddedEvent(
@@ -202,7 +202,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Should succeed when unrelated deployment fails",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
 				replicaSets <- watchAddedEvent(
@@ -218,7 +218,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should succeed when unrelated deployment fails",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
 				replicaSets <- watchAddedEvent(
@@ -234,7 +234,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Should report success even if the next event is a failure",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
 				replicaSets <- watchAddedEvent(
@@ -248,7 +248,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should report success even if the next event is a failure",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
 				replicaSets <- watchAddedEvent(
@@ -262,7 +262,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Should fail if timeout occurs before ReplicaSet becomes available",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller hasn't created the ReplicaSet when we time
 				// out.
 				deployments <- watchAddedEvent(
@@ -282,7 +282,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before Deployment controller progresses",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller hasn't created the ReplicaSet when we time
 				// out.
 				deployments <- watchAddedEvent(
@@ -302,7 +302,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet is created",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but the replication
 				// controller does not start initializing it before it errors out.
 				deployments <- watchAddedEvent(
@@ -322,7 +322,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet becomes available",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but it's still
 				// unavailable when we time out.
 				deployments <- watchAddedEvent(
@@ -345,7 +345,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if new ReplicaSet isn't created after an update",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller does not create a new
 				// ReplicaSet before we time out.
 				deployments <- watchAddedEvent(
@@ -363,7 +363,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if timeout before new ReplicaSet becomes available",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, _ /* replicaSets */, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller creates the ReplicaSet, but we
 				// time out before it can complete initializing.
 				deployments <- watchAddedEvent(
@@ -383,7 +383,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 1] Deployment should succeed and not report 'Progressing' condition",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. In the first revision, the "Progressing" condition is
 				// not reported, because nothing is rolling out -- the ReplicaSet need only be
 				// created and become available.
@@ -400,7 +400,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Deployment should fail if 'Progressing' condition is missing",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. In the first revision, the "Progressing" condition is
 				// not reported, because nothing is rolling out -- the ReplicaSet need only be
 				// created and become available.
@@ -423,7 +423,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Deployment should fail if Deployment reports 'Progressing' failure",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it fails.
 				deployments <- watchAddedEvent(
@@ -449,7 +449,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		},
 		{
 			description: "[Revision 2] Should fail if Deployment is progressing but new ReplicaSet not available",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it will not, because it is using an invalid container image.
 				deployments <- watchAddedEvent(
@@ -546,7 +546,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: ` +
+						`[nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				},
 			},
 		},
@@ -573,13 +574,14 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
-					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: [nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
+					`[Pod foo-4setj4y6-7cdf7ddc54-kvh2w]: containers with unready status: ` +
+						`[nginx][ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				},
 			},
 		},
 		{
 			description: "Should fail if ReplicaSet generations do not match",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
 				replicaSets <- watchAddedEvent(
@@ -624,8 +626,10 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 		expectedError error
 	}{
 		{
-			description: "[Revision 1] Deployment should fail if Deployment reports 'Progressing' failure due to a PersistentVolumeClaim being in the 'Pending' phase: it has not successfully bounded to a PersistentVolume",
-			do: func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time) {
+			description: "[Revision 1] Deployment should fail if Deployment reports 'Progressing' " +
+				"failure due to a PersistentVolumeClaim being in the 'Pending' phase: " +
+				"it has not successfully bounded to a PersistentVolume",
+			do: func(deployments, replicaSets, _ /* pods */, pvcs chan watch.Event, timeout chan time.Time) {
 				// User submits a Deployment with a PersistentVolumeClaim.
 				// Controller creates ReplicaSet, and it tries to progress, but
 				// it fails when there are no PersistentVolumes available to fulfill the
@@ -682,8 +686,9 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 		expectedError error
 	}{
 		{
-			description: "[Revision 1] Deployment should always succeed when any non-referenced PersistentVolumeClaims in the namespace are not in the 'Bound' phase",
-			do: func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time) {
+			description: "[Revision 1] Deployment should always succeed when any non-referenced " +
+				"PersistentVolumeClaims in the namespace are not in the 'Bound' phase",
+			do: func(deployments, replicaSets, _ /* pods */, pvcs chan watch.Event, timeout chan time.Time) {
 				// User submits a Deployment, and a PVC to the same namespace,
 				// with no PV's available.
 				//
@@ -740,7 +745,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 			description: "Should succeed if replicas are scaled",
 			outputs:     regressionDeploymentScaled3Output,
 			firstUpdate: func(
-				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
+				deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time,
 			) {
 				computed := regressionDeploymentScaled3()
 				deployments <- watchAddedEvent(computed)
@@ -749,7 +754,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
-			secondUpdate: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			secondUpdate: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(regressionDeploymentScaled5())
 				replicaSets <- watchAddedEvent(regressionReplicaSetScaled5())
 
@@ -761,7 +766,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 			description: "Should succeed if deployment spec has a no-op replicaset change that doesn't trigger a rollout",
 			outputs:     regressionDeploymentScaled3Output,
 			firstUpdate: func(
-				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
+				deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time,
 			) {
 				computed := regressionDeploymentScaled3()
 				deployments <- watchAddedEvent(computed)
@@ -770,7 +775,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
-			secondUpdate: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+			secondUpdate: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(regressionDeploymentScaled3ExplicitDefault())
 				replicaSets <- watchAddedEvent(regressionReplicaSetScaled3()) // ReplicaSet is still the same as previous step.
 

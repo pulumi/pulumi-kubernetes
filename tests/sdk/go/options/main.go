@@ -19,7 +19,12 @@ func main() {
 		if err != nil {
 			return err
 		}
-		nulloptsNs, err := corev1.NewNamespace(ctx, "nullopts", &corev1.NamespaceArgs{}, pulumi.Provider(bootstrapProvider))
+		nulloptsNs, err := corev1.NewNamespace(
+			ctx,
+			"nullopts",
+			&corev1.NamespaceArgs{},
+			pulumi.Provider(bootstrapProvider),
+		)
 		if err != nil {
 			return err
 		}
@@ -31,7 +36,11 @@ func main() {
 		if err != nil {
 			return err
 		}
-		nulloptsProvider, err := kubernetes.NewProvider(ctx, "nullopts", &kubernetes.ProviderArgs{Namespace: nulloptsNs.Metadata.Name()})
+		nulloptsProvider, err := kubernetes.NewProvider(
+			ctx,
+			"nullopts",
+			&kubernetes.ProviderArgs{Namespace: nulloptsNs.Metadata.Name()},
+		)
 		if err != nil {
 			return err
 		}
@@ -50,7 +59,8 @@ func main() {
 			return err
 		}
 
-		// apply_default_opts is a stack transformation that applies default opts to any resource whose name ends with "-nullopts".
+		// apply_default_opts is a stack transformation that applies default opts to any resource whose name ends with
+		// "-nullopts".
 		// this is intended to be applied to component resources only.
 		applyDefaultOpts := func(args *pulumi.ResourceTransformationArgs) *pulumi.ResourceTransformationResult {
 			if strings.HasSuffix(args.Name, "-nullopts") {
@@ -74,11 +84,12 @@ func main() {
 		}
 
 		// transform_k8s is a Kubernetes transformation that applies a unique alias and annotation to each resource.
-		transformK8s := func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+		transformK8s := func(state map[string]interface{}, _ ...pulumi.ResourceOption) {
 			metadata := state["metadata"].(map[string]interface{})
 			metadata["annotations"] = map[string]interface{}{"transformed": "true"}
 
-			// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased" alias)
+			// note: pulumi-kubernetes Go SDK doesn't provide a way to mutate the options (e.g. to add a "-k8s-aliased"
+			// alias)
 			// https://github.com/pulumi/pulumi-kubernetes/issues/2666
 		}
 

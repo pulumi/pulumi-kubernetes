@@ -22,19 +22,21 @@ import (
 	"testing"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
 	gomegatypes "github.com/onsi/gomega/types"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
 const (
@@ -45,11 +47,11 @@ const (
 
 // CheckFailure matches a CheckFailure by property and reason.
 func CheckFailure(prop string, reason gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
-	return And(
-		WithTransform(func(failure *pulumirpc.CheckFailure) string {
+	return gm.And(
+		gm.WithTransform(func(failure *pulumirpc.CheckFailure) string {
 			return failure.GetProperty()
-		}, Equal(prop)),
-		WithTransform(func(failure *pulumirpc.CheckFailure) string {
+		}, gm.Equal(prop)),
+		gm.WithTransform(func(failure *pulumirpc.CheckFailure) string {
 			return failure.GetReason()
 		}, reason))
 }
@@ -57,21 +59,21 @@ func CheckFailure(prop string, reason gomegatypes.GomegaMatcher) gomegatypes.Gom
 // WriteKubeconfigToString converts a clientcmdapi.Config to a string.
 func WriteKubeconfigToString(config *clientcmdapi.Config) string {
 	contents, err := clientcmd.Write(*config)
-	Expect(err).ToNot(HaveOccurred())
+	gm.Expect(err).ToNot(gm.HaveOccurred())
 	return string(contents)
 }
 
 // WriteKubeconfigToFile converts a clientcmdapi.Config to a temporary file.
 func WriteKubeconfigToFile(config *clientcmdapi.Config) string {
 	f, err := os.CreateTemp("", "kubeconfig-")
-	Expect(err).ToNot(HaveOccurred())
-	DeferCleanup(func() {
+	gm.Expect(err).ToNot(gm.HaveOccurred())
+	gk.DeferCleanup(func() {
 		os.Remove(f.Name())
 	})
 	err = f.Close()
-	Expect(err).ToNot(HaveOccurred())
+	gm.Expect(err).ToNot(gm.HaveOccurred())
 	err = clientcmd.WriteToFile(*config, f.Name())
-	Expect(err).ToNot(HaveOccurred())
+	gm.Expect(err).ToNot(gm.HaveOccurred())
 	return f.Name()
 }
 
@@ -86,7 +88,7 @@ type mockEngine struct {
 var _ pulumirpc.EngineServer = &mockEngine{}
 
 // Log logs a global message in the engine, including errors and warnings.
-func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
+func (m *mockEngine) Log(_ /* ctx */ context.Context, in *pulumirpc.LogRequest) (*pbempty.Empty, error) {
 	m.t.Logf("%s: %s", in.GetSeverity(), in.GetMessage())
 	if m.logger != nil {
 		m.logger.Printf("%s: %s", in.GetSeverity(), in.GetMessage())
@@ -96,14 +98,20 @@ func (m *mockEngine) Log(ctx context.Context, in *pulumirpc.LogRequest) (*pbempt
 
 // GetRootResource gets the URN of the root resource, the resource that should be the root of all
 // otherwise-unparented resources.
-func (m *mockEngine) GetRootResource(ctx context.Context, in *pulumirpc.GetRootResourceRequest) (*pulumirpc.GetRootResourceResponse, error) {
+func (m *mockEngine) GetRootResource(
+	_ /* ctx */ context.Context,
+	_ /* in */ *pulumirpc.GetRootResourceRequest,
+) (*pulumirpc.GetRootResourceResponse, error) {
 	return &pulumirpc.GetRootResourceResponse{
 		Urn: m.rootResource,
 	}, nil
 }
 
 // SetRootResource sets the URN of the root resource.
-func (m *mockEngine) SetRootResource(ctx context.Context, in *pulumirpc.SetRootResourceRequest) (*pulumirpc.SetRootResourceResponse, error) {
+func (m *mockEngine) SetRootResource(
+	_ /* ctx */ context.Context,
+	in *pulumirpc.SetRootResourceRequest,
+) (*pulumirpc.SetRootResourceResponse, error) {
 	m.rootResource = in.GetUrn()
 	return &pulumirpc.SetRootResourceResponse{}, nil
 }
@@ -223,10 +231,18 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 		opt(&options)
 	}
 
-	k, err := makeKubeProvider(c.host, "kubernetes", testPluginVersion, []byte(testPulumiSchema), []byte(testTerraformMapping))
-	Expect(err).ShouldNot(HaveOccurred())
+	k, err := makeKubeProvider(
+		c.host,
+		"kubernetes",
+		testPluginVersion,
+		[]byte(testPulumiSchema),
+		[]byte(testTerraformMapping),
+	)
+	gm.Expect(err).ShouldNot(gm.HaveOccurred())
 
-	k.makeClient = func(ctx context.Context, config *rest.Config) (*clients.DynamicClientSet, *clients.LogClient, error) {
+	k.makeClient = func(
+		ctx context.Context, _ /* config */ *rest.Config,
+	) (*clients.DynamicClientSet, *clients.LogClient, error) {
 		dc, _, _, _ := fakeclients.NewSimpleDynamicClient(options.copts...)
 		lc, _ := fakeclients.NewSimpleLogClient(ctx, options.objects...)
 		return dc, lc, nil
@@ -239,11 +255,11 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 
 var pctx *providerTestContext
 
-var _ = BeforeSuite(func() {
+var _ = gk.BeforeSuite(func() {
 	// make a mock engine that simply buffers the log messages.
 	var buff bytes.Buffer
 	engine := &mockEngine{
-		t:      GinkgoTB(),
+		t:      gk.GinkgoTB(),
 		logger: log.New(&buff, "\t", 0),
 	}
 
@@ -258,6 +274,6 @@ var _ = BeforeSuite(func() {
 })
 
 func TestSuite(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "provider/pkg/provider")
+	gm.RegisterFailHandler(gk.Fail)
+	gk.RunSpecs(t, "provider/pkg/provider")
 }

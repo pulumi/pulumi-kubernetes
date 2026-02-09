@@ -30,14 +30,16 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
-// TestPreview tests the `pulumi preview` CUJ with a serviceaccount that is not allowed to create a configmap. This test ensures that
-// we do a client side diff if the server dry run fails and do not error on preview. We also ensure that we error on pulumi up, and that
+// TestPreview tests the `pulumi preview` CUJ with a serviceaccount that is not allowed to create a configmap. This test
+// ensures that we do a client side diff if the server dry run fails and do not error on preview. We also ensure that we
+// error on pulumi up, and that
 // the configmap was not created using kubectl.
 func TestPreview(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-auth",
 		ExpectRefreshChanges: true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		Quick:            true,
 		OrderedConfig: []integration.ConfigValue{
@@ -145,15 +147,17 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 	return kubeconfigPath, err
 }
 
-// TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
-// This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
+// TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status
+// subresoruces. This is to ensure we don't fail preview, since status fields are only populated after the resource is
+// created on cluster.
 func TestPreviewWithApply(t *testing.T) {
 	tests.SkipIfShort(t, "test requires a load balancer and won't work on kind clusters")
 	var externalIP, nsName, svcName string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",
 		ExpectRefreshChanges: false,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		Quick:            true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {

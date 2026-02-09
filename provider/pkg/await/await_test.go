@@ -21,20 +21,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
@@ -54,6 +40,22 @@ import (
 	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/kube-openapi/pkg/validation/spec"
 	"sigs.k8s.io/yaml"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/internal"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
 )
 
 var (
@@ -150,11 +152,25 @@ func TestCreation(t *testing.T) {
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
 		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
-			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
+			require.False(
+				t,
+				metadata.SkipAwaitLogic(cac.currentOutputs),
+				"Await logic should not execute when SkipWait is set",
+			)
 
 			// get the live object from the fake API Server
-			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
-			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			require.Equal(
+				t,
+				cac.currentOutputs.GetNamespace(),
+				cac.currentOutputs.GetNamespace(),
+				"Live object should have a namespace",
+			)
+			require.Equal(
+				t,
+				cac.currentOutputs.GetName(),
+				cac.currentOutputs.GetName(),
+				"Live object should have a name",
+			)
 			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
 			require.NoError(t, err)
 			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
@@ -171,14 +187,14 @@ func TestCreation(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitError := func(_ *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitUnexpected := func(t *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ /* cac */ awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil, nil
 		}
@@ -187,12 +203,12 @@ func TestCreation(t *testing.T) {
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 	previewed := func(ns, name string) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			require.NotNil(t, actual)
 			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
@@ -213,7 +229,7 @@ func TestCreation(t *testing.T) {
 		}
 	}
 	touched := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			actualPhase, ok, err := unstructured.NestedString(actual.Object, "status", "phase")
 			require.NoError(t, err)
@@ -380,7 +396,13 @@ func TestCreation(t *testing.T) {
 				t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := CreateConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           context.Background(),
@@ -447,11 +469,25 @@ func TestUpdate(t *testing.T) {
 
 	touch := func(t *testing.T, ctx testCtx) awaiter {
 		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
-			require.False(t, metadata.SkipAwaitLogic(cac.currentOutputs), "Await logic should not execute when SkipWait is set")
+			require.False(
+				t,
+				metadata.SkipAwaitLogic(cac.currentOutputs),
+				"Await logic should not execute when SkipWait is set",
+			)
 
 			// get the live object from the fake API Server
-			require.Equal(t, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetNamespace(), "Live object should have a namespace")
-			require.Equal(t, cac.currentOutputs.GetName(), cac.currentOutputs.GetName(), "Live object should have a name")
+			require.Equal(
+				t,
+				cac.currentOutputs.GetNamespace(),
+				cac.currentOutputs.GetNamespace(),
+				"Live object should have a namespace",
+			)
+			require.Equal(
+				t,
+				cac.currentOutputs.GetName(),
+				cac.currentOutputs.GetName(),
+				"Live object should have a name",
+			)
 			gvr, err := clients.GVRForGVK(cac.clientSet.RESTMapper, cac.currentOutputs.GroupVersionKind())
 			require.NoError(t, err)
 			live, err := ctx.client.Tracker().Get(gvr, cac.currentOutputs.GetNamespace(), cac.currentOutputs.GetName())
@@ -468,14 +504,14 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitError := func(_ *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ awaitConfig) (*unstructured.Unstructured, error) {
 			return nil, serviceUnavailableErr
 		}
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) awaiter {
-		return func(cac awaitConfig) (*unstructured.Unstructured, error) {
+	awaitUnexpected := func(t *testing.T, _ /* ctx */ testCtx) awaiter {
+		return func(_ /* cac */ awaitConfig) (*unstructured.Unstructured, error) {
 			require.Fail(t, "Unexpected call to awaiter")
 			return nil, nil
 		}
@@ -484,12 +520,12 @@ func TestUpdate(t *testing.T) {
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 	previewed := func(ns, name string) expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			require.NotNil(t, actual)
 			require.Equal(t, ns, actual.GetNamespace(), "Object should have the expected namespace")
@@ -510,7 +546,7 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 	touched := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, actual *unstructured.Unstructured, err error) {
 			require.NoError(t, err)
 			actualPhase, ok, err := unstructured.NestedString(actual.Object, "status", "phase")
 			require.NoError(t, err)
@@ -519,7 +555,7 @@ func TestUpdate(t *testing.T) {
 		}
 	}
 	logged := func() expectF {
-		return func(t *testing.T, ctx testCtx, actual *unstructured.Unstructured, err error) {
+		return func(_ *testing.T, _ /* ctx */ testCtx, _ /* actual */ *unstructured.Unstructured, _ /* err */ error) {
 			// FUTURE: assert that a log message was emitted to the fake host
 		}
 	}
@@ -674,7 +710,13 @@ func TestUpdate(t *testing.T) {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := UpdateConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           context.Background(),
@@ -745,39 +787,43 @@ func TestDeletion(t *testing.T) {
 
 	// reactions
 
-	suppressDeletion := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
+	suppressDeletion := func(
+		_ /* t */ *testing.T, ctx testCtx, _ /* action */ kubetesting.Action,
+	) (bool, runtime.Object, error) {
 		return true, ctx.config.Outputs, nil
 	}
 
-	cancelAwait := func(t *testing.T, ctx testCtx, action kubetesting.Action) (bool, runtime.Object, error) {
+	cancelAwait := func(
+		_ /* t */ *testing.T, ctx testCtx, _ /* action */ kubetesting.Action,
+	) (bool, runtime.Object, error) {
 		ctx.cancel()
 		return false, nil, nil
 	}
 
 	// awaiters
 
-	awaitNoop := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitNoop := func(_ /* t */ *testing.T, ctx testCtx) condition.Satisfier {
 		return condition.NewImmediate(ctx.config.DedupLogger, ctx.config.Inputs)
 	}
 
-	awaitError := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitError := func(_ /* t */ *testing.T, _ /* ctx */ testCtx) condition.Satisfier {
 		return condition.NewFailure(serviceUnavailableErr)
 	}
 
-	awaitUnexpected := func(t *testing.T, ctx testCtx) condition.Satisfier {
+	awaitUnexpected := func(_ /* t */ *testing.T, _ /* ctx */ testCtx) condition.Satisfier {
 		return condition.NewFailure(fmt.Errorf("unexpected call to await"))
 	}
 
 	// expectations
 
 	failed := func(target error) expectF {
-		return func(t *testing.T, ctx testCtx, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, err error) {
 			require.ErrorAs(t, err, &target)
 		}
 	}
 
 	succeeded := func() expectF {
-		return func(t *testing.T, ctx testCtx, err error) {
+		return func(t *testing.T, _ /* ctx */ testCtx, err error) {
 			require.NoError(t, err)
 		}
 	}
@@ -860,8 +906,10 @@ func TestDeletion(t *testing.T) {
 				inputs:  withSkipAwait(validPodUnstructured),
 				outputs: validPodUnstructured,
 			},
-			reaction: []reactionF{suppressDeletion}, // suppress deletion to safeguard that the built-in watcher is not used.
-			expect:   []expectF{succeeded()},
+			reaction: []reactionF{
+				suppressDeletion,
+			}, // suppress deletion to safeguard that the built-in watcher is not used.
+			expect: []expectF{succeeded()},
 		},
 		{
 			name: "AwaitError",
@@ -934,7 +982,13 @@ func TestDeletion(t *testing.T) {
 				client.RESTMapper = tt.client.RESTMapperF(client.RESTMapper)
 			}
 
-			urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tt.args.resType, "testresource")
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.args.resType,
+				"testresource",
+			)
 			config := DeleteConfig{
 				ProviderConfig: ProviderConfig{
 					Context:           ctx,
@@ -965,14 +1019,21 @@ func TestDeletion(t *testing.T) {
 			}
 			for i := len(tt.reaction) - 1; i >= 0; i-- {
 				reaction := tt.reaction[i]
-				clientset.PrependReactor("*", "*", func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-					return reaction(t, testCtx, action)
-				})
+				clientset.PrependReactor(
+					"*",
+					"*",
+					func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+						return reaction(t, testCtx, action)
+					},
+				)
 			}
 			if tt.watcher != nil {
-				clientset.PrependWatchReactor("*", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-					return true, tt.watcher, nil
-				})
+				clientset.PrependWatchReactor(
+					"*",
+					func(_ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+						return true, tt.watcher, nil
+					},
+				)
 			}
 			if tt.condition != nil {
 				config.condition = tt.condition(t, testCtx)
@@ -991,7 +1052,13 @@ func TestAwaitSSAConflict(t *testing.T) {
 	pod := validPodUnstructured.DeepCopy()
 	pod.SetNamespace("default")
 
-	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type(""), "testresource")
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type(""),
+		"testresource",
+	)
 	pconfig := ProviderConfig{
 		Context:         context.Background(),
 		Host:            &fakehost.HostClient{},
@@ -1074,38 +1141,38 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 // --------------------------------------------------------------------------
 
 func withSkipAwait(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetAnnotations(map[string]string{
+	objCopy := obj.DeepCopy()
+	objCopy.SetAnnotations(map[string]string{
 		"pulumi.com/skipAwait": "true",
 	})
-	return copy
+	return objCopy
 }
 
 func withWaitFor(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetAnnotations(map[string]string{
+	objCopy := obj.DeepCopy()
+	objCopy.SetAnnotations(map[string]string{
 		"pulumi.com/waitFor": "jsonpath={.metadata}", // Succeeds immediately.
 	})
-	return copy
+	return objCopy
 }
 
 func withGenerateName(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
-	copy.SetName("")
-	return copy
+	objCopy := obj.DeepCopy()
+	objCopy.SetGenerateName(fmt.Sprintf("%s-", obj.GetName()))
+	objCopy.SetName("")
+	return objCopy
 }
 
 func withReadyCondition(obj *unstructured.Unstructured) *unstructured.Unstructured {
-	copy := obj.DeepCopy()
-	copy.Object["status"] = map[string]any{
+	objCopy := obj.DeepCopy()
+	objCopy.Object["status"] = map[string]any{
 		"conditions": []any{map[string]any{
 			"type":   "Ready",
 			"status": "True",
 		}},
 		"phase": "Running",
 	}
-	return copy
+	return objCopy
 }
 
 // --------------------------------------------------------------------------
@@ -1119,64 +1186,98 @@ type mockResourceInterface struct{}
 var _ dynamic.ResourceInterface = (*mockResourceInterface)(nil)
 
 func (mri *mockResourceInterface) Create(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.CreateOptions, subresources ...string,
+	_ /* ctx */ context.Context,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.CreateOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Create not implemented")
 }
 
 func (mri *mockResourceInterface) Update(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
+	_ /* ctx */ context.Context,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.UpdateOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Update not implemented")
 }
 
 func (mri *mockResourceInterface) UpdateStatus(
-	ctx context.Context, obj *unstructured.Unstructured, options metav1.UpdateOptions,
+	_ /* ctx */ context.Context, _ /* obj */ *unstructured.Unstructured, _ /* options */ metav1.UpdateOptions,
 ) (*unstructured.Unstructured, error) {
 	panic("UpdateStatus not implemented")
 }
 
-func (mri *mockResourceInterface) Delete(ctx context.Context, name string, options metav1.DeleteOptions, subresources ...string) error {
+func (mri *mockResourceInterface) Delete(
+	_ /* ctx */ context.Context,
+	_ string,
+	_ metav1.DeleteOptions,
+	_ ...string,
+) error {
 	panic("Delete not implemented")
 }
 
 func (mri *mockResourceInterface) DeleteCollection(
-	ctx context.Context, deleteOptions metav1.DeleteOptions, listOptions metav1.ListOptions,
+	_ /* ctx */ context.Context, _ /* deleteOptions */ metav1.DeleteOptions, _ /* listOptions */ metav1.ListOptions,
 ) error {
 	panic("DeleteCollection not implemented")
 }
 
 func (mri *mockResourceInterface) Get(
-	ctx context.Context, name string, options metav1.GetOptions, subresources ...string,
+	_ /* ctx */ context.Context, _ /* name */ string, _ /* options */ metav1.GetOptions, _ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	return &unstructured.Unstructured{Object: map[string]any{}}, nil
 }
 
-func (mri *mockResourceInterface) List(ctx context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+func (mri *mockResourceInterface) List(
+	_ /* ctx */ context.Context,
+	_ metav1.ListOptions,
+) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")
 }
 
-func (mri *mockResourceInterface) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+func (mri *mockResourceInterface) Watch(
+	_ /* ctx */ context.Context, _ /* opts */ metav1.ListOptions,
+) (watch.Interface, error) {
 	panic("Watch not implemented")
 }
 
 func (mri *mockResourceInterface) Patch(
-	ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
+	_ /* ctx */ context.Context,
+	_ string,
+	_ types.PatchType,
+	_ []byte,
+	_ metav1.PatchOptions,
+	_ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
 
-func (mri *mockResourceInterface) Apply(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions, subresources ...string,
+func (mri *mockResourceInterface) Apply(
+	_ /* ctx */ context.Context,
+	_ string,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.ApplyOptions,
+	_ /* subresources */ ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Apply not implemented")
 }
 
-func (mri *mockResourceInterface) ApplyStatus(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions,
+func (mri *mockResourceInterface) ApplyStatus(
+	_ /* ctx */ context.Context,
+	_ /* name */ string,
+	_ /* obj */ *unstructured.Unstructured,
+	_ /* options */ metav1.ApplyOptions,
 ) (*unstructured.Unstructured, error) {
 	panic("ApplyStatus not implemented")
 }
 
-func FlakyRESTMapper(mapper meta.ResettableRESTMapper, resettable error, extraErrors ...error) *fake.StubResettableRESTMapper {
+func FlakyRESTMapper(
+	mapper meta.ResettableRESTMapper,
+	resettable error,
+	extraErrors ...error,
+) *fake.StubResettableRESTMapper {
 	return &fake.StubResettableRESTMapper{
 		ResettableRESTMapper: mapper,
 		ResetF: func() {
@@ -1200,7 +1301,7 @@ func FlakyRESTMapper(mapper meta.ResettableRESTMapper, resettable error, extraEr
 func FailedRESTMapper(mapper meta.ResettableRESTMapper, err error) *fake.StubResettableRESTMapper {
 	return &fake.StubResettableRESTMapper{
 		ResettableRESTMapper: mapper,
-		RESTMappingF: func(gk schema.GroupKind, versions ...string) (*meta.RESTMapping, error) {
+		RESTMappingF: func(_ /* gk */ schema.GroupKind, _ /* versions */ ...string) (*meta.RESTMapping, error) {
 			return nil, err
 		},
 	}
@@ -1289,14 +1390,24 @@ func TestSSAWithOldObjects(t *testing.T) {
 	// Despite having no field managers, our apply still conflicts with the
 	// legacy "before-first-apply" manager.
 	err = fm.Apply(obj, "pulumi-kubernetes", false)
-	assert.ErrorContains(t, err, `Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart`)
+	assert.ErrorContains(
+		t,
+		err,
+		`Apply failed with 1 conflict: conflict with "before-first-apply" using v1: .metadata.labels.helm.sh/chart`,
+	)
 
 	// Now try again using our SSA upgrade logic -- this should succeed.
 	cfg := &UpdateConfig{
 		Inputs:  obj,
 		Preview: false,
 		ProviderConfig: ProviderConfig{
-			URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
+			URN: resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				"v1/Service",
+				"testresource",
+			),
 			FieldManager:    "pulumi-kubernetes",
 			ServerSideApply: true,
 			Factories:       informers.NewFactories(t.Context()),
@@ -1320,7 +1431,10 @@ kind: Namespace
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux","pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},"name":"flux-system"}}
+      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},
+      "labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux",
+      "pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},
+      "name":"flux-system"}}
   creationTimestamp: "2024-09-24T19:27:32Z"
   labels:
     app.kubernetes.io/instance: flux-system
@@ -1364,7 +1478,10 @@ kind: Namespace
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux","pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},"name":"flux-system"}}
+      {"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},
+      "labels":{"app.kubernetes.io/instance":"flux-system","app.kubernetes.io/part-of":"flux",
+      "pod-security.kubernetes.io/warn":"restricted","pod-security.kubernetes.io/warn-version":"latest"},
+      "name":"flux-system"}}
   creationTimestamp: "2024-09-24T19:27:32Z"
   labels:
     app.kubernetes.io/instance: flux-system
@@ -1425,7 +1542,13 @@ status:
 				Inputs:  inputs,
 				Preview: tt.preview,
 				ProviderConfig: ProviderConfig{
-					URN:             resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), "v1/Service", "testresource"),
+					URN: resource.NewURN(
+						tokens.QName("teststack"),
+						tokens.PackageName("testproj"),
+						tokens.Type(""),
+						"v1/Service",
+						"testresource",
+					),
 					FieldManager:    "pulumi-kubernetes",
 					ServerSideApply: true,
 					Factories:       informers.NewFactories(t.Context()),
@@ -1442,14 +1565,28 @@ status:
 }
 
 type typedPatcher[T runtime.Object] interface {
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (T, error)
+	Patch(
+		ctx context.Context,
+		name string,
+		pt types.PatchType,
+		data []byte,
+		opts metav1.PatchOptions,
+		subresources ...string,
+	) (T, error)
 }
 
 type untypedPatcher[T runtime.Object] struct {
 	wrapped typedPatcher[T]
 }
 
-func (p untypedPatcher[T]) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string) (*unstructured.Unstructured, error) {
+func (p untypedPatcher[T]) Patch(
+	ctx context.Context,
+	name string,
+	pt types.PatchType,
+	data []byte,
+	options metav1.PatchOptions,
+	subresources ...string,
+) (*unstructured.Unstructured, error) {
 	typed, err := p.wrapped.Patch(ctx, name, pt, data, options, subresources...)
 	if err != nil {
 		return nil, err
@@ -1462,7 +1599,14 @@ type fieldManagerPatcher struct {
 	fm managedfieldstest.TestFieldManager
 }
 
-func (p fieldManagerPatcher) Patch(_ context.Context, _ string, pt types.PatchType, data []byte, options metav1.PatchOptions, _ ...string) (*unstructured.Unstructured, error) {
+func (p fieldManagerPatcher) Patch(
+	_ context.Context,
+	_ string,
+	pt types.PatchType,
+	data []byte,
+	options metav1.PatchOptions,
+	_ ...string,
+) (*unstructured.Unstructured, error) {
 	if pt != types.ApplyPatchType {
 		return nil, fmt.Errorf("fieldManagerPatcher only handles Apply")
 	}
@@ -1559,120 +1703,142 @@ func TestUpdateIgnoresStaleEvents(t *testing.T) {
 	newInputs := oldDeployment.DeepCopy()
 	containers, _, _ := unstructured.NestedSlice(newInputs.Object, "spec", "template", "spec", "containers")
 	containers[0].(map[string]any)["image"] = "nginx:2.0"
-	require.NoError(t, unstructured.SetNestedSlice(newInputs.Object, containers, "spec", "template", "spec", "containers"))
+	require.NoError(
+		t,
+		unstructured.SetNestedSlice(newInputs.Object, containers, "spec", "template", "spec", "containers"),
+	)
 
 	// Set up reactor to handle patch/update and return the patched deployment
-	clientset.PrependReactor("patch", "deployments", func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-		// Return the newInputs with generation incremented
-		patched := newInputs.DeepCopy()
-		patched.SetGeneration(2)
-		return true, patched, nil
-	})
+	clientset.PrependReactor(
+		"patch",
+		"deployments",
+		func(_ /* action */ kubetesting.Action) (handled bool, ret runtime.Object, err error) {
+			// Return the newInputs with generation incremented
+			patched := newInputs.DeepCopy()
+			patched.SetGeneration(2)
+			return true, patched, nil
+		},
+	)
 
 	// Set up watch reactor to simulate the race condition where stale events are received
 	var watcherStarted bool
-	clientset.PrependWatchReactor("deployments", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-		if watcherStarted {
-			return false, nil, nil
-		}
-		watcherStarted = true
+	clientset.PrependWatchReactor(
+		"deployments",
+		func(_ /* action */ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+			if watcherStarted {
+				return false, nil, nil
+			}
+			watcherStarted = true
 
-		fw := watch.NewFake()
-		go func() {
-			// Event 1: Cached event with OLD generation (gen 1, rev "1",
-			// obsGen 1). Should be discarded.
-			staleEvent := oldDeployment.DeepCopy()
-			staleEvent.SetGeneration(1) // OLD generation - should be discarded
-			require.NoError(t, unstructured.SetNestedField(staleEvent.Object, []any{
-				map[string]any{
-					"type":   "Available",
-					"status": "True",
-				},
-			}, "status", "conditions"))
-			fw.Add(staleEvent)
+			fw := watch.NewFake()
+			go func() {
+				// Event 1: Cached event with OLD generation (gen 1, rev "1",
+				// obsGen 1). Should be discarded.
+				staleEvent := oldDeployment.DeepCopy()
+				staleEvent.SetGeneration(1) // OLD generation - should be discarded
+				require.NoError(t, unstructured.SetNestedField(staleEvent.Object, []any{
+					map[string]any{
+						"type":   "Available",
+						"status": "True",
+					},
+				}, "status", "conditions"))
+				fw.Add(staleEvent)
 
-			time.Sleep(10 * time.Millisecond)
+				time.Sleep(10 * time.Millisecond)
 
-			// Event 2: Current/ready deployment (gen 2, rev "2", obsGen 2).
-			// Should not be discarded.
-			readyEvent := oldDeployment.DeepCopy()
-			readyEvent.SetGeneration(2)
-			readyEvent.SetAnnotations(map[string]string{
-				"deployment.kubernetes.io/revision": "2",
-			})
-			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, int64(2), "status", "observedGeneration"))
-			require.NoError(t, unstructured.SetNestedField(readyEvent.Object, []any{
-				map[string]any{
-					"type":   "Progressing",
-					"status": "True",
-					"reason": "NewReplicaSetAvailable",
-				},
-				map[string]any{
-					"type":   "Available",
-					"status": "True",
-				},
-			}, "status", "conditions"))
-			fw.Add(readyEvent)
-		}()
-		return true, fw, nil
-	})
+				// Event 2: Current/ready deployment (gen 2, rev "2", obsGen 2).
+				// Should not be discarded.
+				readyEvent := oldDeployment.DeepCopy()
+				readyEvent.SetGeneration(2)
+				readyEvent.SetAnnotations(map[string]string{
+					"deployment.kubernetes.io/revision": "2",
+				})
+				require.NoError(
+					t,
+					unstructured.SetNestedField(readyEvent.Object, int64(2), "status", "observedGeneration"),
+				)
+				require.NoError(t, unstructured.SetNestedField(readyEvent.Object, []any{
+					map[string]any{
+						"type":   "Progressing",
+						"status": "True",
+						"reason": "NewReplicaSetAvailable",
+					},
+					map[string]any{
+						"type":   "Available",
+						"status": "True",
+					},
+				}, "status", "conditions"))
+				fw.Add(readyEvent)
+			}()
+			return true, fw, nil
+		},
+	)
 
 	// Set up watch reactor for ReplicaSets
-	clientset.PrependWatchReactor("replicasets", func(action kubetesting.Action) (handled bool, ret watch.Interface, err error) {
-		fw := watch.NewFake()
-		go func() {
-			time.Sleep(15 * time.Millisecond)
+	clientset.PrependWatchReactor(
+		"replicasets",
+		func(_ /* action */ kubetesting.Action) (handled bool, ret watch.Interface, err error) {
+			fw := watch.NewFake()
+			go func() {
+				time.Sleep(15 * time.Millisecond)
 
-			// Old ReplicaSet (revision "1"). If the stale event (gen 1, rev "1") is NOT discarded,
-			// then the awaiter will see this old RS as ready and complete prematurely.
-			oldRS := &unstructured.Unstructured{
-				Object: map[string]any{
-					"apiVersion": "apps/v1",
-					"kind":       "ReplicaSet",
-					"metadata": map[string]any{
-						"namespace": "default",
-						"name":      "test-deployment-old",
-						"uid":       "rs-old-uid",
-						"annotations": map[string]any{
-							"deployment.kubernetes.io/revision": "1",
-						},
-						"ownerReferences": []any{
-							map[string]any{
-								"apiVersion": "apps/v1",
-								"kind":       "Deployment",
-								"name":       "test-deployment",
-								"uid":        "test-uid",
-								"controller": true,
+				// Old ReplicaSet (revision "1"). If the stale event (gen 1, rev "1") is NOT discarded,
+				// then the awaiter will see this old RS as ready and complete prematurely.
+				oldRS := &unstructured.Unstructured{
+					Object: map[string]any{
+						"apiVersion": "apps/v1",
+						"kind":       "ReplicaSet",
+						"metadata": map[string]any{
+							"namespace": "default",
+							"name":      "test-deployment-old",
+							"uid":       "rs-old-uid",
+							"annotations": map[string]any{
+								"deployment.kubernetes.io/revision": "1",
+							},
+							"ownerReferences": []any{
+								map[string]any{
+									"apiVersion": "apps/v1",
+									"kind":       "Deployment",
+									"name":       "test-deployment",
+									"uid":        "test-uid",
+									"controller": true,
+								},
 							},
 						},
+						"spec": map[string]any{
+							"replicas": int64(1),
+						},
+						"status": map[string]any{
+							"replicas":          int64(1),
+							"readyReplicas":     int64(1),
+							"availableReplicas": int64(1),
+						},
 					},
-					"spec": map[string]any{
-						"replicas": int64(1),
-					},
-					"status": map[string]any{
-						"replicas":          int64(1),
-						"readyReplicas":     int64(1),
-						"availableReplicas": int64(1),
-					},
-				},
-			}
-			fw.Add(oldRS)
+				}
+				fw.Add(oldRS)
 
-			// New ReplicaSet (revision "2").
-			newRS := oldRS.DeepCopy()
-			newRS.SetName("test-deployment-new")
-			newRS.SetUID("rs-new-uid")
-			newRS.SetAnnotations(map[string]string{
-				"deployment.kubernetes.io/revision": "2",
-			})
-			fw.Add(newRS)
-		}()
-		return true, fw, nil
-	})
+				// New ReplicaSet (revision "2").
+				newRS := oldRS.DeepCopy()
+				newRS.SetName("test-deployment-new")
+				newRS.SetUID("rs-new-uid")
+				newRS.SetAnnotations(map[string]string{
+					"deployment.kubernetes.io/revision": "2",
+				})
+				fw.Add(newRS)
+			}()
+			return true, fw, nil
+		},
+	)
 
 	ctx := context.Background()
 	host := &fakehost.HostClient{}
-	urn := resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"), tokens.Type(""), tokens.Type("kubernetes:apps/v1:Deployment"), "testresource")
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type("kubernetes:apps/v1:Deployment"),
+		"testresource",
+	)
 	result, err := Update(UpdateConfig{
 		ProviderConfig: ProviderConfig{
 			Context:           ctx,

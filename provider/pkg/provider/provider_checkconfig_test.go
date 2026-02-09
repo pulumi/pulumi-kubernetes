@@ -16,10 +16,11 @@ package provider
 
 import (
 	"context"
+
 	_ "embed"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	gk "github.com/onsi/ginkgo/v2"
+	gm "github.com/onsi/gomega"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
@@ -28,14 +29,14 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
-var _ = Describe("RPC:CheckConfig", func() {
+var _ = gk.Describe("RPC:CheckConfig", func() {
 	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.CheckRequest
 	var news resource.PropertyMap
 	var config *clientcmdapi.Config
 
-	BeforeEach(func() {
+	gk.BeforeEach(func() {
 		opts = []NewProviderOption{}
 
 		// make a (fake) kubeconfig.
@@ -49,115 +50,119 @@ var _ = Describe("RPC:CheckConfig", func() {
 		news = make(resource.PropertyMap)
 	})
 
-	JustBeforeEach(func() {
+	gk.JustBeforeEach(func() {
 		var err error
 		k = pctx.NewProvider(opts...)
 
 		req.News, err = plugin.MarshalProperties(news, plugin.MarshalOptions{
 			Label: "news", KeepUnknowns: true, SkipNulls: true,
 		})
-		Expect(err).ShouldNot(HaveOccurred())
+		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 	})
 
-	Describe("Strict Mode", func() {
-		BeforeEach(func() {
+	gk.Describe("Strict Mode", func() {
+		gk.BeforeEach(func() {
 			news["strictMode"] = resource.NewStringProperty("true")
 			news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
 			news["context"] = resource.NewStringProperty(config.CurrentContext)
 		})
 
-		Context("when enabled on the default provider", func() {
-			BeforeEach(func() {
+		gk.Context("when enabled on the default provider", func() {
+			gk.BeforeEach(func() {
 				req.Urn = "urn:pulumi:test::test::pulumi:providers:kubernetes::default"
-				Expect(providers.IsDefaultProvider(resource.URN(req.Urn))).To(BeTrue())
+				gm.Expect(providers.IsDefaultProvider(resource.URN(req.Urn))).To(gm.BeTrue())
 			})
-			It("should fail because strict mode prohibits default provider", func() {
+			gk.It("should fail because strict mode prohibits default provider", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("", Equal(`strict mode prohibits default provider`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure("", gm.Equal(`strict mode prohibits default provider`))))
 			})
 		})
 
-		Context("when kubeconfig is NOT specified", func() {
-			BeforeEach(func() {
+		gk.Context("when kubeconfig is NOT specified", func() {
+			gk.BeforeEach(func() {
 				delete(news, "kubeconfig")
 			})
-			It("should fail because strict mode requires kubeconfig", func() {
+			gk.It("should fail because strict mode requires kubeconfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("kubeconfig", Equal(`strict mode requires Provider "kubeconfig" argument`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure("kubeconfig", gm.Equal(`strict mode requires Provider "kubeconfig" argument`))))
 			})
 		})
 
-		Context("when context is NOT specified", func() {
-			BeforeEach(func() {
+		gk.Context("when context is NOT specified", func() {
+			gk.BeforeEach(func() {
 				delete(news, "context")
 			})
-			It("should fail because strict mode requires context", func() {
+			gk.It("should fail because strict mode requires context", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("context", Equal(`strict mode requires Provider "context" argument`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure("context", gm.Equal(`strict mode requires Provider "context" argument`))))
 			})
 		})
 
-		Context("when properly configured", func() {
-			It("should succeed", func() {
+		gk.Context("when properly configured", func() {
+			gk.It("should succeed", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(BeEmpty())
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.BeEmpty())
 			})
 		})
 	})
 
-	Describe("Yaml Rendering Mode", func() {
-		BeforeEach(func() {
+	gk.Describe("Yaml Rendering Mode", func() {
+		gk.BeforeEach(func() {
 			news["renderYamlToDirectory"] = resource.NewStringProperty("true")
 		})
 
-		Context("when kubeconfig is specified", func() {
-			BeforeEach(func() {
+		gk.Context("when kubeconfig is specified", func() {
+			gk.BeforeEach(func() {
 				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
 			})
-			It("should fail because yaml mode disallows kubeconfig", func() {
+			gk.It("should fail because yaml mode disallows kubeconfig", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("kubeconfig", Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure(
+						"kubeconfig",
+						gm.Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`),
+					),
+				))
 			})
 		})
 
-		Context("when context is specified", func() {
-			BeforeEach(func() {
+		gk.Context("when context is specified", func() {
+			gk.BeforeEach(func() {
 				news["context"] = resource.NewStringProperty(config.CurrentContext)
 			})
-			It("should fail because yaml mode disallows context", func() {
+			gk.It("should fail because yaml mode disallows context", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("context", Equal(`"context" arg is not compatible with "renderYamlToDirectory" arg`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure("context", gm.Equal(`"context" arg is not compatible with "renderYamlToDirectory" arg`))))
 			})
 		})
 
-		Context("when cluster is specified", func() {
-			BeforeEach(func() {
+		gk.Context("when cluster is specified", func() {
+			gk.BeforeEach(func() {
 				news["cluster"] = resource.NewStringProperty(config.Contexts[config.CurrentContext].Cluster)
 			})
-			It("should fail because yaml mode disallows cluster", func() {
+			gk.It("should fail because yaml mode disallows cluster", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(HaveExactElements(
-					CheckFailure("cluster", Equal(`"cluster" arg is not compatible with "renderYamlToDirectory" arg`))))
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure("cluster", gm.Equal(`"cluster" arg is not compatible with "renderYamlToDirectory" arg`))))
 			})
 		})
 
-		Context("when properly configured", func() {
-			It("should succeed", func() {
+		gk.Context("when properly configured", func() {
+			gk.It("should succeed", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
-				Expect(err).ToNot(HaveOccurred())
-				Expect(resp.Failures).To(BeEmpty())
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.BeEmpty())
 			})
 		})
 	})

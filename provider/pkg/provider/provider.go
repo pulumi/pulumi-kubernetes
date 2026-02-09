@@ -35,30 +35,6 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
-	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil/rpcerror"
-	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	helmcli "helm.sh/helm/v3/pkg/cli"
@@ -75,6 +51,32 @@ import (
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"k8s.io/utils/ptr"
 	"sigs.k8s.io/yaml"
+
+	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil/rpcerror"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/metadata"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/ssa"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 )
 
 // --------------------------------------------------------------------------
@@ -232,13 +234,18 @@ func (k *kubeProvider) invalidateResources() {
 }
 
 // Call dynamically executes a method in the provider associated with a component resource.
-func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+func (k *kubeProvider) Call(
+	_ /* ctx */ context.Context, _ /* req */ *pulumirpc.CallRequest,
+) (*pulumirpc.CallResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
-func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
+func (k *kubeProvider) GetMapping(
+	_ /* ctx */ context.Context,
+	request *pulumirpc.GetMappingRequest,
+) (*pulumirpc.GetMappingResponse, error) {
 	// We only return a mapping for terraform
 	if request.Key != "terraform" {
 		// an empty response means no mapping, by design we don't return an error here
@@ -252,7 +259,10 @@ func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMap
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
-func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+func (k *kubeProvider) GetSchema(
+	_ /* ctx */ context.Context,
+	req *pulumirpc.GetSchemaRequest,
+) (*pulumirpc.GetSchemaResponse, error) {
 	if v := req.GetVersion(); v != 0 {
 		return nil, fmt.Errorf("unsupported schema version %d", v)
 	}
@@ -276,7 +286,9 @@ func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRe
 }
 
 // CheckConfig validates the configuration for this provider.
-func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (k *kubeProvider) CheckConfig(
+	_ /* ctx */ context.Context, req *pulumirpc.CheckRequest,
+) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -376,7 +388,10 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest) (resp *pulumirpc.DiffResponse, err error) {
+func (k *kubeProvider) DiffConfig(
+	_ context.Context,
+	req *pulumirpc.DiffRequest,
+) (resp *pulumirpc.DiffResponse, err error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -491,7 +506,10 @@ func (k *kubeProvider) DiffConfig(_ context.Context, req *pulumirpc.DiffRequest)
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
-func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
+func (k *kubeProvider) Configure(
+	_ context.Context,
+	req *pulumirpc.ConfigureRequest,
+) (*pulumirpc.ConfigureResponse, error) {
 	const trueStr = "true"
 
 	// Configure Helm settings based on the ambient Helm environment,
@@ -838,8 +856,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		config, err = kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
-			k.clusterUnreachableReason = fmt.Sprintf("unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
-				" \t • set up the provider as per https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v", err)
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"unable to load Kubernetes client configuration from kubeconfig file. Make sure you have: \n\n"+
+					" \t • set up the provider as per "+
+					"https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/ \n\n %v",
+				err,
+			)
 			config = nil
 		} else {
 			if kubeClientSettings.Burst != nil {
@@ -1055,7 +1077,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if k.clusterUnreachable {
 		if k.skipUpdateUnreachable {
-			_ = k.host.Log(ctx, diag.Warning, urn, "Cluster is unreachable but skipUpdateUnreachable flag is set to true, skipping...")
+			_ = k.host.Log(
+				ctx,
+				diag.Warning,
+				urn,
+				"Cluster is unreachable but skipUpdateUnreachable flag is set to true, skipping...",
+			)
 			return &pulumirpc.CheckResponse{
 				Inputs: req.GetOlds(),
 			}, nil
@@ -1139,7 +1166,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
-				return nil, fmt.Errorf("Failed to create object because of a problem setting managed-by labels: %w", err)
+				return nil, fmt.Errorf(
+					"Failed to create object because of a problem setting managed-by labels: %w",
+					err,
+				)
 			}
 		}
 	} else {
@@ -1429,10 +1459,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if len(patchObj) != 0 {
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
-		if !kinds.IsPatchResource(urn, newInputs.GetKind()) { // Patch resources can be updated in place for all other properties.
+		if !kinds.IsPatchResource(
+			urn,
+			newInputs.GetKind(),
+		) { // Patch resources can be updated in place for all other properties.
 			forceNewFields = k.forceNewProperties(newInputs)
 		}
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(
+			patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...,
+		); err != nil {
 			return nil, fmt.Errorf(
 				"Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
@@ -1471,7 +1506,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 			for k, v := range detailedDiff {
 				switch v.Kind {
-				case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+				case pulumirpc.PropertyDiff_ADD_REPLACE,
+					pulumirpc.PropertyDiff_DELETE_REPLACE,
+					pulumirpc.PropertyDiff_UPDATE_REPLACE:
 					replaces = append(replaces, k)
 				case pulumirpc.PropertyDiff_DELETE:
 					if k == "metadata" {
@@ -1579,7 +1616,9 @@ func (k *kubeProvider) Create(
 	// 2: The cluster is unreachable or the resource GVK does not exist
 	// 3: The resource is a Patch resource
 	// 4: We are in client-side-apply mode
-	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || kinds.IsPatchResource(urn, newInputs.GetKind()) || !k.serverSideApplyMode
+	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) ||
+		kinds.IsPatchResource(urn, newInputs.GetKind()) ||
+		!k.serverSideApplyMode
 	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
 	// with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && skipPreview {
@@ -1950,7 +1989,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", "deployment.kubernetes.io/revision")
+		unstructured.RemoveNestedField(
+			liveInputs.Object,
+			"metadata",
+			"annotations",
+			"deployment.kubernetes.io/revision",
+		)
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", lastAppliedConfigKey)
 	}
 
@@ -2242,7 +2286,10 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	if isHelmRelease(urn) {
 		if k.clusterUnreachable {
-			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+			return nil, fmt.Errorf(
+				"can't delete Helm Release with unreachable cluster. Reason: %q",
+				k.clusterUnreachableReason,
+			)
 		}
 		return k.helmReleaseProvider.Delete(ctx, req)
 	}
@@ -2565,7 +2612,8 @@ func shouldNormalize(uns *unstructured.Unstructured) bool {
 	return kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
 }
 
-// normalizeInputs converts an Unstructured resource into a normalized form so that semantically equivalent representations
+// normalizeInputs converts an Unstructured resource into a normalized form so that semantically equivalent
+// representations
 // are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
 // result on the cluster.
 func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
@@ -2631,7 +2679,7 @@ var underscoreToDashMap = map[string]string{
 // dashedToUnderscoreMap holds the reverse mappings between dash and underscore keys. This
 // is a precomputed map based on underscoreToDashMap at runtime to avoid duplicating
 // code, or extra passes over the map.
-var dashToUnderscoreMap map[string]string = func() map[string]string {
+var dashToUnderscoreMap = func() map[string]string {
 	dashToUnderscoreMap := make(map[string]string, len(underscoreToDashMap))
 	for k, v := range underscoreToDashMap {
 		dashToUnderscoreMap[v] = k
@@ -2651,7 +2699,8 @@ func mapReplDashToUnderscore(v string) (resource.PropertyKey, bool) {
 	return resource.PropertyKey(val), ok
 }
 
-// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name denormalization
+// propMapToUnstructured converts a resource.PropertyMap to an *unstructured.Unstructured; and applies field name
+// denormalization
 // and secret stripping.
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
@@ -2709,8 +2758,9 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	return object
 }
 
-// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field names.
-// It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live containing the live state.
+// parseCheckpointObject parses the given resource.PropertyMap, stripping sensitive information and normalizing field
+// names. It returns two unstructured.Unstructured objects: oldInputs containing the input properties and live
+// containing the live state.
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	// Since we are converting everything to unstructured's, we need to strip out any secretness that
 	// may nested deep within the object.
@@ -2976,7 +3026,9 @@ func (pc *patchConverter) addPatchMapToDiff(
 	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
 	for k, v := range m {
-		if err := pc.addPatchValueToDiff(append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
+		if err := pc.addPatchValueToDiff(
+			append(path, k), v, pc.get(old, k), pc.get(newInput, k), pc.get(oldInput, k), inArray,
+		); err != nil {
 			return err
 		}
 	}
@@ -2985,7 +3037,9 @@ func (pc *patchConverter) addPatchMapToDiff(
 			if _, ok := m[k]; ok {
 				continue
 			}
-			if err := pc.addPatchValueToDiff(append(path, k), nil, v, pc.get(newInput, k), pc.get(oldInput, k), inArray); err != nil {
+			if err := pc.addPatchValueToDiff(
+				append(path, k), nil, v, pc.get(newInput, k), pc.get(oldInput, k), inArray,
+			); err != nil {
 				return err
 			}
 		}
@@ -2995,7 +3049,7 @@ func (pc *patchConverter) addPatchMapToDiff(
 
 // addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
 func (pc *patchConverter) addPatchArrayToDiff(
-	path []any, a, old, newInput, oldInput []any, inArray bool,
+	path []any, a, old, newInput, oldInput []any, _ /* inArray */ bool,
 ) error {
 	at := func(arr []any, i int) any {
 		if i < len(arr) {
@@ -3129,11 +3183,18 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 		return name
 	}
 
-	fileName := fmt.Sprintf("%s-%s-%s-%s.yaml", sanitise(resource.GetAPIVersion()), strings.ToLower(resource.GetKind()), namespace, resource.GetName())
+	fileName := fmt.Sprintf(
+		"%s-%s-%s-%s.yaml",
+		sanitise(resource.GetAPIVersion()),
+		strings.ToLower(resource.GetKind()),
+		namespace,
+		resource.GetName(),
+	)
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string
-	if kinds.KnownGroupVersions.Has(resource.GetAPIVersion()) && kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
+	if kinds.KnownGroupVersions.Has(resource.GetAPIVersion()) &&
+		kinds.Kind(resource.GetKind()) == kinds.CustomResourceDefinition {
 		path = filepath.Join(crdDirectory, fileName)
 	} else {
 		path = filepath.Join(manifestDirectory, fileName)

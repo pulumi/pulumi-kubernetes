@@ -17,9 +17,10 @@ package metadata
 import (
 	"strings"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
 const (

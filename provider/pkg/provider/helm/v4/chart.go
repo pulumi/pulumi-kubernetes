@@ -18,20 +18,22 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
-	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
-	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
-	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
-	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chartutil"
 	helmkube "helm.sh/helm/v3/pkg/kube"
 	"helm.sh/helm/v3/pkg/postrender"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/discovery"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
+	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
+	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
+	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 )
 
 type toolF func() *kubehelm.Tool
@@ -141,7 +143,12 @@ func NewChartProvider(opts *providerresource.ResourceProviderOptions) providerre
 	}
 }
 
-func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+func (r *ChartProvider) Construct(
+	ctx *pulumi.Context,
+	typ, name string,
+	inputs pulumiprovider.ConstructInputs,
+	options pulumi.ResourceOption,
+) (*pulumiprovider.ConstructResult, error) {
 	comp := &ChartState{}
 	err := ctx.RegisterComponentResource(typ, name, comp, options)
 	if err != nil {
@@ -265,7 +272,10 @@ func (r *ChartProvider) Construct(ctx *pulumi.Context, typ, name string, inputs 
 		ResourcePrefix:  *chartArgs.ResourcePrefix,
 		SkipAwait:       chartArgs.SkipAwait,
 		ResourceOptions: []pulumi.ResourceOption{pulumi.Parent(comp)},
-		PreRegisterF: func(ctx *pulumi.Context, apiVersion, kind, resourceName string, obj *unstructured.Unstructured,
+		PreRegisterF: func(
+			ctx *pulumi.Context,
+			_ /* apiVersion */, _ /* kind */, _ /* resourceName */ string,
+			obj *unstructured.Unstructured,
 			resourceOpts []pulumi.ResourceOption,
 		) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 			return preregister(ctx, comp, obj, resourceOpts)
@@ -285,7 +295,12 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 ) (*unstructured.Unstructured, []pulumi.ResourceOption) {
 	// Implement support for Helm resource policies.
 	// https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource
-	policy, hasPolicy, err := unstructured.NestedString(obj.Object, "metadata", "annotations", helmkube.ResourcePolicyAnno)
+	policy, hasPolicy, err := unstructured.NestedString(
+		obj.Object,
+		"metadata",
+		"annotations",
+		helmkube.ResourcePolicyAnno,
+	)
 	if err == nil && hasPolicy {
 		switch policy {
 		case helmkube.KeepPolicy:

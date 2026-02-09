@@ -31,7 +31,6 @@ import (
 	"syscall"
 
 	openapi_v2 "github.com/google/gnostic-models/openapiv2"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging" // Added in place of upstream HandleError
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -41,6 +40,8 @@ import (
 	"k8s.io/client-go/openapi"
 	cachedopenapi "k8s.io/client-go/openapi/cached"
 	restclient "k8s.io/client-go/rest"
+
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging" // Added in place of upstream HandleError
 )
 
 type cacheEntry struct {
@@ -143,7 +144,12 @@ func (d *memCacheClient) ServerGroupsAndResources() ([]*metav1.APIGroup, []*meta
 // GroupsAndMaybeResources returns the list of APIGroups, and possibly the map of group/version
 // to resources. The returned groups will never be nil, but the resources map can be nil
 // if there are no cached resources.
-func (d *memCacheClient) GroupsAndMaybeResources() (*metav1.APIGroupList, map[schema.GroupVersion]*metav1.APIResourceList, map[schema.GroupVersion]error, error) {
+func (d *memCacheClient) GroupsAndMaybeResources() (
+	*metav1.APIGroupList,
+	map[schema.GroupVersion]*metav1.APIResourceList,
+	map[schema.GroupVersion]error,
+	error,
+) {
 	d.lock.Lock()
 	defer d.lock.Unlock()
 

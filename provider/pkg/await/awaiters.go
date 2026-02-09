@@ -21,6 +21,16 @@ import (
 	"time"
 
 	"github.com/jonboulle/clockwork"
+	corev1 "k8s.io/api/core/v1"
+	storagev1 "k8s.io/api/storage/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -28,14 +38,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/watcher"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	corev1 "k8s.io/api/core/v1"
-	storagev1 "k8s.io/api/storage/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // awaitConfig specifies on which conditions we are to consider a resource created and fully
@@ -50,11 +52,12 @@ type awaitConfig struct {
 	clientSet         *clients.DynamicClientSet
 	inputs            *unstructured.Unstructured
 	currentOutputs    *unstructured.Unstructured // The result of our create/update.
-	lastOutputs       *unstructured.Unstructured // The state of the object before we changed it. `nil` if this is a create.
-	timeout           *time.Duration
-	clusterVersion    *cluster.ServerVersion
-	factory           informers.Factory
-	clock             clockwork.Clock
+	// The state of the object before we changed it. `nil` if this is a create.
+	lastOutputs    *unstructured.Unstructured
+	timeout        *time.Duration
+	clusterVersion *cluster.ServerVersion
+	factory        informers.Factory
+	clock          clockwork.Clock
 }
 
 // Clock returns a real or mock clock for the config as appropriate.
@@ -419,8 +422,9 @@ func untilCoreV1ResourceQuotaInitialized(c awaitConfig) (*unstructured.Unstructu
 
 func untilCoreV1SecretInitialized(c awaitConfig) (*unstructured.Unstructured, error) {
 	//
-	// Some types secrets do not have data available immediately and therefore are not considered initialized where data map is empty.
-	// For example service-account-token as described in the docs: https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
+	// Some types secrets do not have data available immediately and therefore are not considered initialized where data
+	// map is empty. For example service-account-token as described in the docs:
+	// https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#to-create-additional-api-tokens
 	//
 	secretType, _ := openapi.Pluck(c.currentOutputs.Object, "type")
 

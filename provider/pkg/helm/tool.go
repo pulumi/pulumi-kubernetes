@@ -26,10 +26,6 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -39,13 +35,21 @@ import (
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/client-go/util/homedir"
+
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
 )
 
 type InitActionConfigF func(actionConfig *action.Configuration, namespaceOverride string) error
 
 type LocateChartF func(i *action.Install, name string, settings *cli.EnvSettings) (string, error)
 
-type ExecuteF func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error)
+type ExecuteF func(
+	ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{},
+) (*release.Release, error)
 
 // Tool for executing Helm commands via the Helm library.
 type Tool struct {
@@ -75,7 +79,9 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
 			return i.ChartPathOptions.LocateChart(name, settings)
 		},
-		execute: func(ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
+		execute: func(
+			ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{},
+		) (*release.Release, error) {
 			return i.RunWithContext(ctx, chrt, vals)
 		},
 	}
@@ -268,7 +274,11 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 	if req := chartRequested.Metadata.Dependencies; req != nil {
 		// If CheckDependencies returns an error, we have unfulfilled dependencies.
 		if err := action.CheckDependencies(chartRequested, req); err != nil {
-			err = errors.Wrap(err, "An error occurred while checking for chart dependencies. You may need to run `helm dependency build` to fetch missing dependencies")
+			err = errors.Wrap(
+				err,
+				"An error occurred while checking for chart dependencies. "+
+					"You may need to run `helm dependency build` to fetch missing dependencies",
+			)
 			if client.DependencyUpdate || chartRequested.Lock != nil {
 				logStream := debugStream()
 				defer logStream.Close()
@@ -339,7 +349,11 @@ func defaultKeyring() string {
 
 // newRegistryClient retruns a new registry client
 // https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L261-L274
-func newRegistryClient(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify, plainHTTP bool) (*registry.Client, error) {
+func newRegistryClient(
+	settings *cli.EnvSettings,
+	certFile, keyFile, caFile string,
+	insecureSkipTLSverify, plainHTTP bool,
+) (*registry.Client, error) {
 	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipTLSverify {
 		registryClient, err := newRegistryClientWithTLS(settings, certFile, keyFile, caFile, insecureSkipTLSverify)
 		if err != nil {
@@ -378,11 +392,21 @@ func newDefaultRegistryClient(settings *cli.EnvSettings, plainHTTP bool) (*regis
 
 // newRegistryClientWithTLS returns a new registry client with the given TLS options
 // https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L295-L304
-func newRegistryClientWithTLS(settings *cli.EnvSettings, certFile, keyFile, caFile string, insecureSkipTLSverify bool) (*registry.Client, error) {
+func newRegistryClientWithTLS(
+	settings *cli.EnvSettings,
+	certFile, keyFile, caFile string,
+	insecureSkipTLSverify bool,
+) (*registry.Client, error) {
 	logStream := debugStream()
 	// Create a new registry client
-	registryClient, err := registry.NewRegistryClientWithTLS(logStream, certFile, keyFile, caFile, insecureSkipTLSverify,
-		settings.RegistryConfig, settings.Debug,
+	registryClient, err := registry.NewRegistryClientWithTLS(
+		logStream,
+		certFile,
+		keyFile,
+		caFile,
+		insecureSkipTLSverify,
+		settings.RegistryConfig,
+		settings.Debug,
 	)
 	if err != nil {
 		return nil, err

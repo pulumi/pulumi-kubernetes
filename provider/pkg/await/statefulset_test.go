@@ -43,7 +43,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 	}{
 		{
 			description: "Should succeed after creating StatefulSet",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetAdded(inputNamespace, inputName, targetService, ""))
@@ -60,7 +60,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should succeed after creating StatefulSet with OnDelete strategy",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetAdded(inputNamespace, inputName, targetService, onDelete))
@@ -77,7 +77,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should succeed after updating StatefulSet",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetUpdate(inputNamespace, inputName, targetService, ""))
@@ -143,7 +143,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should succeed after updating StatefulSet with OnDelete strategy",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetUpdate(inputNamespace, inputName, targetService, onDelete))
@@ -160,7 +160,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should fail if timeout occurs before successful creation",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetAdded(inputNamespace, inputName, targetService, ""))
@@ -179,7 +179,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should fail if timeout occurs before successful update rollout",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
 				statefulsets <- watchAddedEvent(
 					statefulsetUpdate(inputNamespace, inputName, targetService, ""))
@@ -329,7 +329,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 			description: "StatefulSet fails, is updated with working config, and then succeeds",
 			outputs:     statefulsetFailed,
 			firstUpdate: func(
-				statefulsets, pods chan watch.Event, timeout chan time.Time,
+				statefulsets, _ /* pods */ chan watch.Event, timeout chan time.Time,
 			) {
 				statefulsets <- watchAddedEvent(statefulsetFailed())
 
@@ -342,7 +342,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 					"0 out of 2 replicas succeeded readiness checks",
 				},
 			},
-			secondUpdate: func(statefulset, pods chan watch.Event, timeout chan time.Time) {
+			secondUpdate: func(statefulset, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				statefulset <- watchAddedEvent(statefulsetUpdatedAfterFailed())
 				statefulset <- watchAddedEvent(statefulsetSucceedAfterFailed())
 
@@ -1172,7 +1172,9 @@ func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy 
 }
 
 // statefulsetUpdating is the state of the StatefulSet object while an update is rolling out and a new Pod is active
-func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdatingWithActiveReplica(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}
@@ -1258,7 +1260,9 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, update
 
 // statefulsetUpdatingWithActiveReplicaOnDelete is the state of the StatefulSet object while an update is in progress
 // using the OnDelete update strategy and a new Pod is active
-func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdatingWithActiveReplicaOnDelete(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}
@@ -1427,7 +1431,9 @@ func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy str
 
 // statefulsetUpdateSuccessOnDelete is the state of the StatefulSet object after an update completed with the OnDelete
 // update strategy
-func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+func statefulsetUpdateSuccessOnDelete(
+	namespace, name, targetService, updateStrategy string,
+) *unstructured.Unstructured {
 	if updateStrategy == "" {
 		updateStrategy = rollingUpdate
 	}

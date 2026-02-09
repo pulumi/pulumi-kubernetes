@@ -17,10 +17,11 @@ package condition
 import (
 	"context"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
 	"sigs.k8s.io/cli-utils/pkg/kstatus/status"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 var _ Satisfier = (*Ready)(nil)

@@ -15,13 +15,14 @@
 package fake
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/restmapper"
 	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/kubectl/pkg/scheme"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 var (

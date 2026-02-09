@@ -19,13 +19,6 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -33,6 +26,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -195,7 +197,7 @@ func (sia *serviceInitAwaiter) Read() error {
 
 func (sia *serviceInitAwaiter) read(
 	service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
-	version cluster.ServerVersion,
+	_ cluster.ServerVersion,
 ) error {
 	sia.processServiceEvent(watchAddedEvent(service))
 
@@ -230,7 +232,7 @@ func (sia *serviceInitAwaiter) await(
 	endpointsEvents <-chan watch.Event,
 	timeout <-chan time.Time,
 	settled chan struct{},
-	version cluster.ServerVersion,
+	_ cluster.ServerVersion,
 ) (*unstructured.Unstructured, error) {
 	sia.config.logger.LogStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 

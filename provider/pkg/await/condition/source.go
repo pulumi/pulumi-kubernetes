@@ -19,13 +19,14 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/informers"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 var (
@@ -44,7 +45,7 @@ type Source interface {
 // establish a single dynamicinformer.DynamicSharedInformerFactory. Subsequent
 // calls to Start will spawn informers.GenericInformer from that factory.
 func NewDynamicSource(
-	ctx context.Context,
+	_ context.Context,
 	clientset *clients.DynamicClientSet,
 	factory informers.Factory,
 ) *DynamicSource {

@@ -70,8 +70,10 @@ func Parse(ctx context.Context, opts ParseOptions) ([]unstructured.Unstructured,
 			}
 			yamls = append(yamls, string(yaml))
 		} else {
-			// Otherwise, assume this is a path to a file on disk. If globbing is enabled and a pattern is provided, we might have
-			// multiple files -- otherwise just read a singular file and fail if it doesn't exist.
+			// Otherwise, assume this is a path to a file on disk. If globbing
+			// is enabled and a pattern is provided, we might have multiple
+			// files -- otherwise just read a singular file and fail if it
+			// doesn't exist.
 			var files []string
 			if opts.Glob && isGlobPattern(file) {
 				files, err = filepath.Glob(file)
@@ -136,7 +138,11 @@ func yamlDecode(text string) ([]unstructured.Unstructured, error) {
 // - canonicalize the kind (core/v1 -> v1)
 // - expands any list types into their individual resources
 // - applies the default namespace to namespaced resources that do not have a namespace
-func Normalize(objs []unstructured.Unstructured, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]unstructured.Unstructured, error) {
+func Normalize(
+	objs []unstructured.Unstructured,
+	defaultNamespace string,
+	clientSet *clients.DynamicClientSet,
+) ([]unstructured.Unstructured, error) {
 	contract.Requiref(clientSet != nil, "clientSet", "expected != nil")
 
 	var err error
@@ -238,7 +244,8 @@ func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, er
 		return pulumi.ArrayOutput{}, err
 	}
 
-	// process the resources in topological order, meaning that we first process the resources that have no dependencies,
+	// process the resources in topological order, meaning that we first process the resources that have no
+	// dependencies,
 	// then process the resources that depend on those, and so on.
 	sorted, err := g.Sort()
 	if err != nil {
@@ -305,20 +312,30 @@ func register(
 
 	// Apply the skipAwait annotation if necessary.
 	if opts.SkipAwait {
-		// Note: when decoding YAML manifests into unstructured objects, a null value will be unmarshalled as an untyped nil value.
-		// This prevents us from successfully setting the annotation to "true" in the object, so we should ensure the field is set
-		// correctly.
+		// Note: when decoding YAML manifests into unstructured objects, a null
+		// value will be unmarshalled as an untyped nil value. This prevents us
+		// from successfully setting the annotation to "true" in the object, so
+		// we should ensure the field is set correctly.
 		annos, found, _ := unstructured.NestedFieldNoCopy(obj.Object, "metadata", "annotations")
 		if annos == nil || !found {
-			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait annotation.
+			// If the annotations field is nil, set it to an empty map[string]any value so we can set the skipAwait
+			// annotation.
 			err := unstructured.SetNestedField(obj.Object, map[string]any{}, "metadata", "annotations")
 			if err != nil {
-				return nil, fmt.Errorf("unable to set an empty map[string]any type for '.metadata.annotations' field: `%s`: %w", printUnstructured(obj), err)
+				return nil, fmt.Errorf(
+					"unable to set an empty map[string]any type for '.metadata.annotations' field: `%s`: %w",
+					printUnstructured(obj),
+					err,
+				)
 			}
 		}
 
 		if err := unstructured.SetNestedField(obj.Object, "true", "metadata", "annotations", "pulumi.com/skipAwait"); err != nil {
-			return nil, fmt.Errorf("unable to set `pulumi.com/skipAwait` annotation; YAML object is invalid: `%s`: %w", printUnstructured(obj), err)
+			return nil, fmt.Errorf(
+				"unable to set `pulumi.com/skipAwait` annotation; YAML object is invalid: `%s`: %w",
+				printUnstructured(obj),
+				err,
+			)
 		}
 	}
 
@@ -339,7 +356,13 @@ func register(
 	}
 
 	// Finally allocate a resource of the correct type.
-	res, err := yamlv2.RegisterResource(ctx, apiVersion, kind, resourceName, kubernetes.UntypedArgs(obj.Object), resourceOpts...)
+	res, err := yamlv2.RegisterResource(
+		ctx,
+		apiVersion,
+		kind,
+		resourceName,
+		kubernetes.UntypedArgs(obj.Object),
+		resourceOpts...)
 	if err != nil {
 		return nil, err
 	}

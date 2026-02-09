@@ -19,19 +19,20 @@ import (
 	"fmt"
 	"strings"
 
-	. "github.com/onsi/gomega" //nolint:golint // dot-imports
+	gm "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gcustom"
-	. "github.com/onsi/gomega/gstruct" //nolint:golint // dot-imports
+	gs "github.com/onsi/gomega/gstruct"
 	gomegatypes "github.com/onsi/gomega/types"
+	structpb "google.golang.org/protobuf/types/known/structpb"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	structpb "google.golang.org/protobuf/types/known/structpb"
 )
 
 // ProtobufStruct matches a protobuf struct by decoding it to a map and then applying the given matcher.
 func ProtobufStruct(matcher gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
-	return WithTransform(func(actual structpb.Struct) (map[string]interface{}, error) { //nolint:govet // copylocks
+	return gm.WithTransform(func(actual structpb.Struct) (map[string]interface{}, error) { //nolint:govet // copylocks
 		m := actual.AsMap()
 		return m, nil
 	}, matcher)
@@ -133,53 +134,53 @@ func MatchValue(v any) gomegatypes.GomegaMatcher {
 	case gomegatypes.GomegaMatcher:
 		matcher = v
 	default:
-		matcher = Equal(v)
+		matcher = gm.Equal(v)
 	}
-	return WithTransform(func(v resource.PropertyValue) (any, error) {
+	return gm.WithTransform(func(v resource.PropertyValue) (any, error) {
 		return v.V, nil
 	}, matcher)
 }
 
 func BeComputed() gomegatypes.GomegaMatcher {
-	return Equal(resource.MakeComputed(resource.NewStringProperty("")))
+	return gm.Equal(resource.MakeComputed(resource.NewStringProperty("")))
 }
 
 type Props map[resource.PropertyKey]gomegatypes.GomegaMatcher
 
 // MatchProps succeeds if the actual value is a resource.PropertyMap and all of the expected properties match.
 // Options can be used to ignore extra properties or missing properties.
-func MatchProps(options Options, props Props) gomegatypes.GomegaMatcher {
-	keys := make(Keys, len(props))
+func MatchProps(options gs.Options, props Props) gomegatypes.GomegaMatcher {
+	keys := make(gs.Keys, len(props))
 	for p, v := range props {
 		keys[p] = v
 	}
-	return &KeysMatcher{
+	return &gs.KeysMatcher{
 		Keys:          keys,
-		IgnoreExtras:  options&IgnoreExtras != 0,
-		IgnoreMissing: options&IgnoreMissing != 0,
+		IgnoreExtras:  options&gs.IgnoreExtras != 0,
+		IgnoreMissing: options&gs.IgnoreMissing != 0,
 	}
 }
 
 func BeObject(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
-	return WithTransform(func(v resource.PropertyValue) (resource.PropertyMap, error) {
+	return gm.WithTransform(func(v resource.PropertyValue) (resource.PropertyMap, error) {
 		if !v.IsObject() {
 			return nil, errors.New("expected property value of type 'object'")
 		}
 		return v.ObjectValue(), nil
-	}, And(matcher...))
+	}, gm.And(matcher...))
 }
 
-func MatchObject(options Options, props Props) gomegatypes.GomegaMatcher {
+func MatchObject(options gs.Options, props Props) gomegatypes.GomegaMatcher {
 	return BeObject(MatchProps(options, props))
 }
 
 func BeSecret(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
-	return WithTransform(func(v resource.PropertyValue) (resource.PropertyValue, error) {
+	return gm.WithTransform(func(v resource.PropertyValue) (resource.PropertyValue, error) {
 		if !v.IsSecret() {
 			return resource.PropertyValue{}, errors.New("expected property value of type 'secret'")
 		}
 		return v.SecretValue().Element, nil
-	}, And(matcher...))
+	}, gm.And(matcher...))
 }
 
 func MatchSecret(e gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
@@ -187,12 +188,12 @@ func MatchSecret(e gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
 }
 
 func BeArray(matcher ...gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {
-	return WithTransform(func(v resource.PropertyValue) ([]resource.PropertyValue, error) {
+	return gm.WithTransform(func(v resource.PropertyValue) ([]resource.PropertyValue, error) {
 		if !v.IsArray() {
 			return nil, errors.New("expected property value of type 'array'")
 		}
 		return v.ArrayValue(), nil
-	}, And(matcher...))
+	}, gm.And(matcher...))
 }
 
 func MatchArrayValue(matcher gomegatypes.GomegaMatcher) gomegatypes.GomegaMatcher {

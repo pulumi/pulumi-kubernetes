@@ -17,10 +17,11 @@ package metadata
 import (
 	"errors"
 
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
@@ -39,7 +40,11 @@ func AssignNameIfAutonamable(randomSeed []byte, engineAutonaming *pulumirpc.Chec
 		case pulumirpc.CheckRequest_AutonamingOptions_DISABLE:
 			return errors.New("autonaming is disabled, resource requires the .metadata.name field to be set")
 		case pulumirpc.CheckRequest_AutonamingOptions_ENFORCE, pulumirpc.CheckRequest_AutonamingOptions_PROPOSE:
-			contract.Assertf(engineAutonaming.ProposedName != "", "expected proposed name to be non-empty: %v", engineAutonaming)
+			contract.Assertf(
+				engineAutonaming.ProposedName != "",
+				"expected proposed name to be non-empty: %v",
+				engineAutonaming,
+			)
 			autoname = engineAutonaming.ProposedName
 		}
 	}

@@ -7,13 +7,14 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 )
 
 func mockAwaitConfig(outputs *unstructured.Unstructured) awaitConfig {

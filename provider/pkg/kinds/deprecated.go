@@ -18,8 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 )
 
 //
@@ -48,7 +49,8 @@ import (
 // extensions/v1beta1/Ingress / 1.14 / 1.18
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.14.md#deprecations
 //
-// admissionregistration/v1beta1/* / 1.16 / 1.22 (Previously 1.19, see https://github.com/kubernetes/kubernetes/issues/82021#issuecomment-636873001)
+// admissionregistration/v1beta1/* / 1.16 / 1.22 (Previously 1.19, see
+// https://github.com/kubernetes/kubernetes/issues/82021#issuecomment-636873001)
 // apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.22 (Previously 1.19)
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //
@@ -133,7 +135,10 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 	switch gv {
 	case AdmissionregistrationV1:
 		switch k {
-		case MutatingWebhookConfiguration, MutatingWebhookConfigurationList, ValidatingWebhookConfiguration, ValidatingWebhookConfigurationList:
+		case MutatingWebhookConfiguration,
+			MutatingWebhookConfigurationList,
+			ValidatingWebhookConfiguration,
+			ValidatingWebhookConfigurationList:
 			return &v116
 		}
 	case ApiextensionsV1B1:
@@ -215,12 +220,26 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		}
 	case ResourceV1B1:
 		switch k {
-		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+		case DeviceClass,
+			DeviceClassList,
+			ResourceClaim,
+			ResourceClaimList,
+			ResourceClaimTemplate,
+			ResourceClaimTemplateList,
+			ResourceSlice,
+			ResourceSliceList:
 			return &v132
 		}
 	case ResourceV1B2:
 		switch k {
-		case DeviceClass, DeviceClassList, ResourceClaim, ResourceClaimList, ResourceClaimTemplate, ResourceClaimTemplateList, ResourceSlice, ResourceSliceList:
+		case DeviceClass,
+			DeviceClassList,
+			ResourceClaim,
+			ResourceClaimList,
+			ResourceClaimTemplate,
+			ResourceClaimTemplateList,
+			ResourceSlice,
+			ResourceSliceList:
 			return &v133
 		}
 	case SchedulingV1B1:
@@ -422,7 +441,10 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, ResourceV1B2, k)
 	case SchedulingV1A1, SchedulingV1B1:
 		return fmt.Sprintf(gvkFmt, SchedulingV1, k)
-	case StorageV1A1, StorageV1B1, "storage/v1alpha1", "storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
+	case StorageV1A1,
+		StorageV1B1,
+		"storage/v1alpha1",
+		"storage/v1beta1": // The storage group was renamed to storage.k8s.io, so check for both.
 		switch k {
 		case VolumeAttributesClass, VolumeAttributesClassList:
 			return fmt.Sprintf(gvkFmt, StorageV1B1, k)
@@ -450,7 +472,11 @@ func upstreamDocsLink(version cluster.ServerVersion) string {
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.27.md#deprecation"
 	default:
 		// If we don't have a specific link for the version, we link to the general changelog deprecation header.
-		return fmt.Sprintf("https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-%d.%d.md#deprecation", version.Major, version.Minor)
+		return fmt.Sprintf(
+			"https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-%d.%d.md#deprecation",
+			version.Major,
+			version.Minor,
+		)
 	}
 }
 

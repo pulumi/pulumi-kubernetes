@@ -36,7 +36,11 @@ func TestJobUnreachable(t *testing.T) {
 
 	// Create the job, but expect it to fail as the job is meant to fail.
 	_, err := test.CurrentStack().Up(test.Context())
-	assert.ErrorContains(t, err, `but the Kubernetes API server reported that it failed to fully initialize or become live`)
+	assert.ErrorContains(
+		t,
+		err,
+		`but the Kubernetes API server reported that it failed to fully initialize or become live`,
+	)
 
 	// Re-run the Pulumi program with a malformed kubeconfig to simulate an unreachable API server.
 	// This should not panic annd preview should succeed.

@@ -18,9 +18,10 @@ import (
 	"context"
 	"sync/atomic"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 )
 
 var (

@@ -29,10 +29,10 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/onsi/gomega"
+	gm "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
-	. "github.com/onsi/gomega/gstruct"
-	. "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	gs "github.com/onsi/gomega/gstruct"
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
@@ -427,7 +427,8 @@ func TestCRDs(t *testing.T) {
 			assert.Equal(t, "foobar", crd.URN.Name())
 			assert.Equal(t, "my-new-foobar-object", ct1.URN.Name())
 
-			// Assert that we can reference the x_kubernetes_preserve_unknown_fields field as we should correctly normalize the live object.
+			// Assert that we can reference the x_kubernetes_preserve_unknown_fields field as we should correctly
+			// normalize the live object.
 			assert.NotNil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
 			assert.True(t, outputs["preserveUnknownFields"].(bool), "preserveUnknownFields should be true")
 
@@ -447,10 +448,16 @@ func TestCRDs(t *testing.T) {
 					//
 					// Assert that the CR was gotten.
 					//
-					ct1ref := tests.SearchResourcesByName(stackInfo, "", "kubernetes:stable.example.com/v1:FooBar", "my-new-foobar-object-ref")
+					ct1ref := tests.SearchResourcesByName(
+						stackInfo,
+						"",
+						"kubernetes:stable.example.com/v1:FooBar",
+						"my-new-foobar-object-ref",
+					)
 					assert.NotNil(t, ct1ref)
 
-					// Assert that the x_kubernetes_preserve_unknown_fields field is now nil, as we remove this in step 2.
+					// Assert that the x_kubernetes_preserve_unknown_fields field is now nil, as we remove this in step
+					// 2.
 					assert.Nil(t, outputs["preserveUnknownFields"], "preserveUnknownFields should be present")
 
 					// Verify with kubectl that the CRD does not have `x-kubernetes-*` fields.
@@ -1484,7 +1491,8 @@ func TestServerSideApply(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-// TestServerSideApplyEmptyMaps tests that we correctly handle merging structs containing empty maps when diffing live and wanted
+// TestServerSideApplyEmptyMaps tests that we correctly handle merging structs containing empty maps when diffing live
+// and wanted
 // states. This is a regression test for issue #2332 to ensure Pulumi can handle updating a resource which has a
 // map field that is empty in the live state but non-empty in the wanted state.
 func TestServerSideApplyEmptyMaps(t *testing.T) {
@@ -1493,7 +1501,8 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	applyStep := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("server-side-apply-empty-maps", "configmap"),
 		ExpectRefreshChanges: true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		Quick:            true,
 		OrderedConfig: []integration.ConfigValue{
@@ -1521,7 +1530,8 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 		},
 	})
 
-	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while
+	// referencing
 	// the same stack.
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
@@ -1586,7 +1596,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 							break
 						}
 					}
-					assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+					assert.Truef(
+						t,
+						foundExpectedManager,
+						"missing expected pulumi-kubernetes field manager with operation type Update",
+					)
 				}
 			}
 		},
@@ -1611,7 +1625,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 									break
 								}
 							}
-							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+							assert.Truef(
+								t,
+								foundExpectedManager,
+								"missing expected pulumi-kubernetes field manager with operation type Update",
+							)
 						}
 					}
 				},
@@ -1631,7 +1649,11 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 									break
 								}
 							}
-							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Apply")
+							assert.Truef(
+								t,
+								foundExpectedManager,
+								"missing expected pulumi-kubernetes field manager with operation type Apply",
+							)
 							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
 							assert.Truef(t, ok, "failed to get containers")
 							containerStatus := containers.([]any)[0].(map[string]any)
@@ -1808,7 +1830,8 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 	applyStep := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("drift-correct", "configmap-csa"),
 		ExpectRefreshChanges: true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
@@ -1837,7 +1860,8 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 		},
 	})
 
-	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while
+	// referencing
 	// the same stack.
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
@@ -1849,7 +1873,8 @@ func TestClientSideDriftCorrectCSA(t *testing.T) {
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).
+		CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
@@ -1885,7 +1910,8 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 	applyStep := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("drift-correct", "configmap-ssa"),
 		ExpectRefreshChanges: true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
@@ -1914,7 +1940,8 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 		},
 	})
 
-	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while
+	// referencing
 	// the same stack.
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err := pt.TestLifeCycleInitAndDestroy()
@@ -1926,7 +1953,8 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
 
 	// Update the ConfigMap and change the data foo: bar to foo: baz.
-	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).
+		CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
 
@@ -1962,7 +1990,9 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 //  1. Create a ConfigMap in 2 separate clusters. (We clone the same KUBECONFIG file to simulate 2 separate clusters.)
 //  2. Disable access to one of the clusters.
 //  3. Run `pulumi up` with the skip-update-unreachable flag set.
-//  4. Validate that the resource in the reachable cluster was updated, and the resource in the unreachable cluster was not.
+//
+// 4. Validate that the resource in the reachable cluster was updated, and the resource in the unreachable cluster was
+// not.
 //  5. Re-enable access to the unreachable cluster and run `pulumi up` again.
 //  6. Validate that the resource in the unreachable cluster was updated.
 func TestSkipUpdateUnreachableFlag(t *testing.T) {
@@ -1971,7 +2001,8 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("skip-update-unreachable", "step1"),
 		ExpectRefreshChanges: true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse
+		// the same stack.
 		DestroyOnCleanup: true,
 		Env:              []string{"PULUMI_K8S_SKIP_UPDATE_UNREACHABLE=true"},
 		OrderedConfig: []integration.ConfigValue{
@@ -2002,7 +2033,8 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 		Env: []string{"KUBECONFIG_CLUSTER_0=" + kubeconfigs[0], "KUBECONFIG_CLUSTER_1=" + kubeconfigs[0]},
 	})
 
-	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while
+	// referencing
 	// the same stack.
 	t.Log("Creating ConfigMaps in 2 separate clusters")
 	pt := integration.ProgramTestManualLifeCycle(t, &test)
@@ -2017,7 +2049,9 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, string(cm1Contents), "foo: step1")
 
-	t.Log("Disabling access to the second cluster by setting the KUBECONFIG to a fake filepath and re-running `pulumi up`")
+	t.Log(
+		"Disabling access to the second cluster by setting the KUBECONFIG to a fake filepath and re-running `pulumi up`",
+	)
 	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1=/fake/filepath")
 
 	t.Log("Updating the Pulumi program to use step2")
@@ -2040,7 +2074,10 @@ func TestSkipUpdateUnreachableFlag(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, string(cm1Contents), "foo: step1") // ConfigMap should not have been updated.
 
-	t.Log("Re-enabling access to the second cluster by setting the KUBECONFIG to the original kubeconfig and re-running `pulumi up`")
+	t.Log(
+		"Re-enabling access to the second cluster by setting the KUBECONFIG to the original kubeconfig and " +
+			"re-running `pulumi up`",
+	)
 	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1="+kubeconfigs[1])
 
 	err = pt.TestPreviewUpdateAndEdits()
@@ -2133,7 +2170,11 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			assert.NotContains(t, string(dep), "Error from server (NotFound)")
 
 			// Validate image of deployment.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+			depImage, err := tests.Kubectl(
+				"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+				depNS,
+				depName,
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "'nginx:1.25.2'", string(depImage))
 
@@ -2143,7 +2184,13 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			assert.Equal(t, "'2'", string(depReplicas))
 
 			// Patch deployment replicas to 3 using patch file in preparation for ignore changes to be tested in step2.
-			_, err = tests.Kubectl("patch --field-manager replica/manager deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch.yaml"))
+			_, err = tests.Kubectl(
+				"patch --field-manager replica/manager deployment -n",
+				depNS,
+				depName,
+				"--patch-file",
+				filepath.Join(testFolderName, "deployment-patch.yaml"),
+			)
 			assert.NoError(t, err)
 			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 			assert.NoError(t, err)
@@ -2151,12 +2198,17 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 		},
 		EditDirs: []integration.EditDir{
 			{
-				// Repeat step1 again where no changes are made to the deployment since we ignore changes to spec.replicas.
+				// Repeat step1 again where no changes are made to the deployment since we ignore changes to
+				// spec.replicas.
 				Dir:      filepath.Join(testFolderName, "step1"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate replicas was not updated back to 1.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 				},
@@ -2164,20 +2216,36 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			{
 				Dir:      filepath.Join(testFolderName, "step2"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25.1'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 
-					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to spec.replicas again when the field manager is
-					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes. This is due to fluxssa.PatchReplaceFieldsManagers
-					// doing a prefix match on the field manager name instead of an exact match on the given field manager name.
-					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch-2.yaml"))
+					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to
+					// spec.replicas again when the field manager is "kubectl-patch" since we have logic to override
+					// certain field managers with manager name prefixes. This is due to
+					// fluxssa.PatchReplaceFieldsManagers doing a prefix match on the field manager name instead of an
+					// exact match on the given field manager name.
+					_, err = tests.Kubectl(
+						"patch deployment -n",
+						depNS,
+						depName,
+						"--patch-file",
+						filepath.Join(testFolderName, "deployment-patch-2.yaml"),
+					)
 					assert.NoError(t, err)
 					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 					assert.NoError(t, err)
@@ -2187,13 +2255,21 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 			{
 				Dir:      filepath.Join(testFolderName, "step3"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 					// Validate image was updated, but spec.replicas was not.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'nginx:1.25'", string(depImage))
 
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath='{.spec.replicas}' -n",
+						depNS,
+						depName,
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "'4'", string(depReplicas))
 				},
@@ -2266,11 +2342,13 @@ func TestEmptyItemNormalization(t *testing.T) {
 }
 
 // TestFieldManagerPatchResources ensures field managers are not patched when dealing with a Patch resource
-// (e.g., DaemonSetPatch). This precaution prevents the Patch resource from taking ownership of fields managed by kubectl field managers,
-// which would otherwise result in the unintended unsetting of all unspecified fields of a resource via Server-Side Apply (SSA).
+// (e.g., DaemonSetPatch). This precaution prevents the Patch resource from taking ownership of fields managed by
+// kubectl field managers, which would otherwise result in the unintended unsetting of all unspecified fields of a
+// resource via Server-Side Apply (SSA).
 // For additional context, refer to: https://github.com/pulumi/pulumi-kubernetes/issues/2639.
 // Test Steps:
-//  1. Deploy an nginx:1.14.2 image with 2 replicas using kubectl which sets the field manager to kubectl-client-side-apply.
+// 1. Deploy an nginx:1.14.2 image with 2 replicas using kubectl which sets the field manager to
+// kubectl-client-side-apply.
 //  2. Apply a DeploymentPatch resource to modify the deployment by changing the image to nginx:1.14.1 (Step 1).
 //  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
 //     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
@@ -2311,14 +2389,22 @@ func TestFieldManagerPatchResources(t *testing.T) {
 		Config: map[string]string{
 			"namespace": namespace,
 		},
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+		ExtraRuntimeValidation: func(t *testing.T, _ /* stackInfo */ integration.RuntimeValidationStackInfo) {
 			// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-			depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+			depImage, err := tests.Kubectl(
+				"get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n",
+				namespace,
+				"test-mgr-nginx",
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "nginx:1.14.1", string(depImage))
 
 			// Ensure that the nginx deployment replicas is still 2.
-			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+			depReplicas, err := tests.Kubectl(
+				"get deployment -o=jsonpath={.spec.replicas} -n",
+				namespace,
+				"test-mgr-nginx",
+			)
 			assert.NoError(t, err)
 			assert.Equal(t, "2", string(depReplicas))
 		},
@@ -2326,20 +2412,34 @@ func TestFieldManagerPatchResources(t *testing.T) {
 			{
 				Dir:      filepath.Join(testFolder, "step2"),
 				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				ExtraRuntimeValidation: func(t *testing.T, _ /* stackInfo */ integration.RuntimeValidationStackInfo) {
 					// Ensure that the nginx deployment was patched with image nginx:1.14.1.
-					depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+					depImage, err := tests.Kubectl(
+						"get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "nginx:1.14.0", string(depImage))
 
-					// Ensure that the nginx deployment replicas is still 2, and was not unset to the default 1 due to field manager being patched.
-					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+					// Ensure that the nginx deployment replicas is still 2, and was not unset to the default 1 due to
+					// field manager being patched.
+					depReplicas, err := tests.Kubectl(
+						"get deployment -o=jsonpath={.spec.replicas} -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					assert.Equal(t, "2", string(depReplicas))
 
-					// Ensure that we don't inadvertently share ownership of nested fields that we specify in ignoreChanges.
+					// Ensure that we don't inadvertently share ownership of nested fields that we specify in
+					// ignoreChanges.
 					// See: https://github.com/pulumi/pulumi-kubernetes/issues/2714.
-					liveObj, err := tests.Kubectl("get deployment -o yaml --show-managed-fields -n", namespace, "test-mgr-nginx")
+					liveObj, err := tests.Kubectl(
+						"get deployment -o yaml --show-managed-fields -n",
+						namespace,
+						"test-mgr-nginx",
+					)
 					assert.NoError(t, err)
 					wantString := ` - apiVersion: apps/v1
     fieldsType: FieldsV1
@@ -2369,7 +2469,7 @@ func TestFieldManagerPatchResources(t *testing.T) {
 // Component resources are responsible for implementing option propagation logic when creating
 // child resources.
 func TestOptionPropagation(t *testing.T) {
-	g := NewWithT(t)
+	g := gm.NewWithT(t)
 	format.MaxLength = 0
 	format.MaxDepth = 5
 	format.RegisterCustomFormatter(pulumirpctesting.FormatDebugInterceptorLog)
@@ -2415,14 +2515,15 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Verify that the invokes for provider A contain version info across-the-board.
 			// The Version and PluginDownloadURL options normally serve as hints when selecting
-			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to avoid
+			// a default provider, and should be propagated. For testing purposes, we set the provider explicitly to
+			// avoid
 			// any attempt to use the fake version/url.
-			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(HaveEach(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Version": Equal("1.2.3"),
+			g.Expect(invokes.ByProvider(providerUrn(providerA))).To(gm.HaveEach(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Version": gm.Equal("1.2.3"),
 						// bug: https://github.com/pulumi/pulumi/issues/14839
-						// "PluginDownloadURL": Equal("https://a.pulumi.test"),
+						// "PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
 					}),
 				}),
 			))
@@ -2431,88 +2532,102 @@ func TestOptionPropagation(t *testing.T) {
 
 			// ConfigGroup "cg-options" with most options
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigGroup", "cg-options")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-old"), Alias("cg-options-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+				"kubernetes:yaml:ConfigGroup", "cg-options")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases":           gm.HaveExactElements(pgm.Alias("cg-options-old"), pgm.Alias("cg-options-aliased")),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerA)),
 						}),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options"),
-				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-cm-1-k8s-aliased"), Alias("cg-options-cg-options-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("cg-options-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+				"kubernetes:core/v1:ConfigMap", "cg-options-cg-options-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cg-options-cm-1-k8s-aliased"),
+							pgm.Alias("cg-options-cg-options-cm-1-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name":        gm.Equal("cg-options-cm-1"),
+								"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
 							}),
 						}))),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigGroup", "cg-options"),
-				"kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"IgnoreChanges":     BeEmpty(),
+			g.Expect(rr.Named(
+				urn("", "kubernetes:yaml:ConfigGroup", "cg-options"),
+				"kubernetes:yaml:ConfigFile",
+				"cg-options-./testdata/options/configgroup/manifest.yaml",
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cg-options-./testdata/options/configgroup/manifest.yaml-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"IgnoreChanges":     gm.BeEmpty(),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile", "cg-options-./testdata/options/configgroup/manifest.yaml"),
-				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("configgroup-cm-1-k8s-aliased"), Alias("cg-options-configgroup-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("configgroup-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
-							}),
-						}))),
+			g.Expect(rr.Named(
+				urn("kubernetes:yaml:ConfigGroup", "kubernetes:yaml:ConfigFile",
+					"cg-options-./testdata/options/configgroup/manifest.yaml"),
+				"kubernetes:core/v1:ConfigMap", "cg-options-configgroup-cm-1")).
+				To(gm.HaveExactElements(
+					gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+							"Aliases": gm.HaveExactElements(
+								pgm.Alias("configgroup-cm-1-k8s-aliased"),
+								pgm.Alias("cg-options-configgroup-cm-1-aliased"),
+							),
+							"Protect":           gs.PointTo(gm.BeTrue()),
+							"Dependencies":      gm.BeEmpty(),
+							"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+							"Version":           gm.Equal("1.2.3"),
+							"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+							"Providers":         gm.BeEmpty(),
+							"IgnoreChanges":     gm.BeEmpty(),
+							"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+									"name":        gm.Equal("configgroup-cm-1"),
+									"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
+								}),
+							}))),
+						}),
 					}),
-				}),
-			))
+				))
 
 			// ConfigGroup "cg-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigGroup", "cg-provider")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+				"kubernetes:yaml:ConfigGroup", "cg-provider")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerB)),
 						}),
 					}),
 				}),
@@ -2520,13 +2635,13 @@ func TestOptionPropagation(t *testing.T) {
 
 			// ConfigGroup "cg-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigGroup", "cg-nullopts")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+				"kubernetes:yaml:ConfigGroup", "cg-nullopts")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 						}),
 					}),
 				}),
@@ -2536,39 +2651,45 @@ func TestOptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-options" with most options
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-options-cf-options")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("cf-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("cf-options-old"), Alias("cf-options-cf-options-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("cf-options-old"),
+							pgm.Alias("cf-options-cf-options-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerA)),
 						}),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-options-cf-options"),
-				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("configfile-cm-1-k8s-aliased"), Alias("cf-options-configfile-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("configfile-cm-1"),
-								"annotations": And(HaveKey("pulumi.com/skipAwait"), HaveKey("transformed")),
+				"kubernetes:core/v1:ConfigMap", "cf-options-configfile-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("configfile-cm-1-k8s-aliased"),
+							pgm.Alias("cf-options-configfile-cm-1-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name":        gm.Equal("configfile-cm-1"),
+								"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait"), gm.HaveKey("transformed")),
 							}),
 						}))),
 					}),
@@ -2577,28 +2698,28 @@ func TestOptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-provider-cf-provider")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("cf-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerB)),
 						}),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:yaml:ConfigFile", "cf-provider-cf-provider"),
-				"kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name": Equal("configfile-cm-1"),
+				"kubernetes:core/v1:ConfigMap", "cf-provider-configfile-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name": gm.Equal("configfile-cm-1"),
 							}),
 						}))),
 					}),
@@ -2607,14 +2728,14 @@ func TestOptionPropagation(t *testing.T) {
 
 			// ConfigFile "cf-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts")).To(HaveExactElements(
+				"kubernetes:yaml:ConfigFile", "cf-nullopts-cf-nullopts")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("cf-nullopts") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 						}),
 					}),
 				}),
@@ -2624,39 +2745,45 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Directory "kustomize-options" with most options
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-options-kustomize-options")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-options-old"), Alias("kustomize-options-kustomize-options-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("kustomize-options-old"),
+							pgm.Alias("kustomize-options-kustomize-options-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerA)),
 						}),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-options-kustomize-options"),
-				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"), Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("kustomize-cm-1-2kkk4bthmg"),
-								"annotations": And(HaveKey("transformed")),
+				"kubernetes:core/v1:ConfigMap", "kustomize-options-kustomize-cm-1-2kkk4bthmg")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("kustomize-cm-1-2kkk4bthmg-k8s-aliased"),
+							pgm.Alias("kustomize-options-kustomize-cm-1-2kkk4bthmg-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name":        gm.Equal("kustomize-cm-1-2kkk4bthmg"),
+								"annotations": gm.And(gm.HaveKey("transformed")),
 							}),
 						}))),
 					}),
@@ -2665,39 +2792,39 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Directory "kustomize-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerB)),
 						}),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:kustomize:Directory", "kustomize-provider-kustomize-provider"),
-				"kubernetes:core/v1:ConfigMap", "kustomize-provider-kustomize-cm-1-2kkk4bthmg")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+				"kubernetes:core/v1:ConfigMap", "kustomize-provider-kustomize-cm-1-2kkk4bthmg")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 
 			// Directory "kustomize-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts")).To(HaveExactElements(
+				"kubernetes:kustomize:Directory", "kustomize-nullopts-kustomize-nullopts")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-nullopts") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 						}),
 					}),
 				}),
@@ -2707,42 +2834,47 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Chart "chart-options"
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-options-chart-options")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases": HaveExactElements(
-							Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
-							Alias("chart-options-old"),
-							Alias("chart-options-chart-options-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      HaveExactElements(string(sleep.URN)),
-						"Provider":          BeEmpty(),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerA)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias(tokens.Type("kubernetes:helm.sh/v2:Chart")),
+							pgm.Alias("chart-options-old"),
+							pgm.Alias("chart-options-chart-options-aliased")),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.HaveExactElements(string(sleep.URN)),
+						"Provider":          gm.BeEmpty(),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerA)),
 						}),
-						"IgnoreChanges": HaveExactElements("ignored"),
+						"IgnoreChanges": gm.HaveExactElements("ignored"),
 					}),
 				}),
 			))
 			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-options-chart-options"),
-				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Aliases":           HaveExactElements(Alias("chart-options-chart-options-cm-1-k8s-aliased"), Alias("chart-options-chart-options-chart-options-cm-1-aliased")),
-						"Protect":           PointTo(BeTrue()),
-						"Dependencies":      BeEmpty(),
-						"Provider":          BeEquivalentTo(providerUrn(providerA)),
-						"Version":           Equal("1.2.3"),
-						"PluginDownloadURL": Equal("https://a.pulumi.test"),
-						"Providers":         BeEmpty(),
-						"IgnoreChanges":     BeEmpty(),
-						"Object": PointTo(ProtobufStruct(MatchKeys(IgnoreExtras, Keys{
-							"metadata": MatchKeys(IgnoreExtras, Keys{
-								"name":        Equal("chart-options-chart-options-cm-1"), // note: based on the Helm Release name
-								"annotations": And(HaveKey("pulumi.com/skipAwait")),
+				"kubernetes:core/v1:ConfigMap", "chart-options-chart-options-chart-options-cm-1")).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Aliases": gm.HaveExactElements(
+							pgm.Alias("chart-options-chart-options-cm-1-k8s-aliased"),
+							pgm.Alias("chart-options-chart-options-chart-options-cm-1-aliased"),
+						),
+						"Protect":           gs.PointTo(gm.BeTrue()),
+						"Dependencies":      gm.BeEmpty(),
+						"Provider":          gm.BeEquivalentTo(providerUrn(providerA)),
+						"Version":           gm.Equal("1.2.3"),
+						"PluginDownloadURL": gm.Equal("https://a.pulumi.test"),
+						"Providers":         gm.BeEmpty(),
+						"IgnoreChanges":     gm.BeEmpty(),
+						"Object": gs.PointTo(pgm.ProtobufStruct(gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+							"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{
+								"name": gm.Equal(
+									"chart-options-chart-options-cm-1",
+								), // note: based on the Helm Release name
+								"annotations": gm.And(gm.HaveKey("pulumi.com/skipAwait")),
 							}),
 						}))),
 					}),
@@ -2751,39 +2883,42 @@ func TestOptionPropagation(t *testing.T) {
 
 			// Chart "chart-provider" with "provider" option that should propagate to children.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("chart-provider") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerB)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerB)),
 						}),
 					}),
 				}),
 			))
-			g.Expect(rr.Named(urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
-				"kubernetes:core/v1:ConfigMap", "chart-provider-chart-provider-chart-provider-cm-1")).To(HaveExactElements(
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider":  BeEquivalentTo(providerUrn(providerB)),
-						"Version":   Not(BeEmpty()),
-						"Providers": BeEmpty(),
+			g.Expect(rr.Named(
+				urn("", "kubernetes:helm.sh/v3:Chart", "chart-provider-chart-provider"),
+				"kubernetes:core/v1:ConfigMap",
+				"chart-provider-chart-provider-chart-provider-cm-1",
+			)).To(gm.HaveExactElements(
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider":  gm.BeEquivalentTo(providerUrn(providerB)),
+						"Version":   gm.Not(gm.BeEmpty()),
+						"Providers": gm.BeEmpty(),
 					}),
 				}),
 			))
 
 			// Chart "chart-nullopts" with a stack transform to apply a "provider" option.
 			g.Expect(rr.Named(stackInfo.RootResource.URN,
-				"kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(HaveExactElements(
+				"kubernetes:helm.sh/v3:Chart", "chart-nullopts-chart-nullopts")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
-				MatchFields(IgnoreExtras, Fields{
-					"Request": MatchFields(IgnoreExtras, Fields{
-						"Provider": BeEmpty(),
-						"Version":  BeEmpty(),
-						"Providers": MatchAllKeys(Keys{
-							"kubernetes": BeEquivalentTo(providerUrn(providerNullOpts)),
+				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
+						"Provider": gm.BeEmpty(),
+						"Version":  gm.BeEmpty(),
+						"Providers": gs.MatchAllKeys(gs.Keys{
+							"kubernetes": gm.BeEquivalentTo(providerUrn(providerNullOpts)),
 						}),
 					}),
 				}),
