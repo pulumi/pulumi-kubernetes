@@ -25,27 +25,22 @@ __all__ = [
     'EventArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class EventSeriesPatchArgsDict(TypedDict):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        """
-        count: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Number of occurrences in this series up to the last heartbeat time
-        """
-        last_observed_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Time when last Event from the series was seen before last heartbeat.
-        """
-        state: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-        """
-elif False:
-    EventSeriesPatchArgsDict: TypeAlias = Mapping[str, Any]
+class EventSeriesPatchArgsDict(TypedDict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+    """
+    count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Number of occurrences in this series up to the last heartbeat time
+    """
+    last_observed_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Time when last Event from the series was seen before last heartbeat.
+    """
+    state: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+    """
 
 @pulumi.input_type
 class EventSeriesPatchArgs:
@@ -103,25 +98,22 @@ class EventSeriesPatchArgs:
         pulumi.set(self, "state", value)
 
 
-if not MYPY:
-    class EventSeriesArgsDict(TypedDict):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        """
-        count: pulumi.Input[_builtins.int]
-        """
-        Number of occurrences in this series up to the last heartbeat time
-        """
-        last_observed_time: pulumi.Input[_builtins.str]
-        """
-        Time when last Event from the series was seen before last heartbeat.
-        """
-        state: pulumi.Input[_builtins.str]
-        """
-        Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-        """
-elif False:
-    EventSeriesArgsDict: TypeAlias = Mapping[str, Any]
+class EventSeriesArgsDict(TypedDict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+    """
+    count: pulumi.Input[_builtins.int]
+    """
+    Number of occurrences in this series up to the last heartbeat time
+    """
+    last_observed_time: pulumi.Input[_builtins.str]
+    """
+    Time when last Event from the series was seen before last heartbeat.
+    """
+    state: pulumi.Input[_builtins.str]
+    """
+    Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+    """
 
 @pulumi.input_type
 class EventSeriesArgs:
@@ -176,78 +168,75 @@ class EventSeriesArgs:
         pulumi.set(self, "state", value)
 
 
-if not MYPY:
-    class EventArgsDict(TypedDict):
-        """
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
-        """
-        event_time: pulumi.Input[_builtins.str]
-        """
-        Required. Time when this Event was first observed.
-        """
-        action: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        What action was taken/failed regarding to the regarding object.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        deprecated_count: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Deprecated field assuring backward compatibility with core.v1 Event type
-        """
-        deprecated_first_timestamp: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Deprecated field assuring backward compatibility with core.v1 Event type
-        """
-        deprecated_last_timestamp: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Deprecated field assuring backward compatibility with core.v1 Event type
-        """
-        deprecated_source: NotRequired[pulumi.Input['_core.v1.EventSourceArgsDict']]
-        """
-        Deprecated field assuring backward compatibility with core.v1 Event type
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        note: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Why the action was taken.
-        """
-        regarding: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
-        """
-        The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        """
-        related: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
-        """
-        Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        """
-        reporting_controller: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-        """
-        reporting_instance: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        ID of the controller instance, e.g. `kubelet-xyzf`.
-        """
-        series: NotRequired[pulumi.Input['EventSeriesArgsDict']]
-        """
-        Data about the Event series this event represents or nil if it's a singleton Event.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of this event (Normal, Warning), new types could be added in the future.
-        """
-elif False:
-    EventArgsDict: TypeAlias = Mapping[str, Any]
+class EventArgsDict(TypedDict):
+    """
+    Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+    """
+    event_time: pulumi.Input[_builtins.str]
+    """
+    Required. Time when this Event was first observed.
+    """
+    action: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    What action was taken/failed regarding to the regarding object.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    deprecated_count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+    deprecated_first_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+    deprecated_last_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+    deprecated_source: NotRequired[pulumi.Input['_core.v1.EventSourceArgsDict']]
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    note: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Why the action was taken.
+    """
+    regarding: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
+    """
+    The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+    """
+    related: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
+    """
+    Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+    """
+    reporting_controller: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+    """
+    reporting_instance: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    ID of the controller instance, e.g. `kubelet-xyzf`.
+    """
+    series: NotRequired[pulumi.Input['EventSeriesArgsDict']]
+    """
+    Data about the Event series this event represents or nil if it's a singleton Event.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of this event (Normal, Warning), new types could be added in the future.
+    """
 
 @pulumi.input_type
 class EventArgs:

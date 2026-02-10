@@ -24,43 +24,38 @@ __all__ = [
     'LeaseCandidateArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class LeaseCandidateSpecPatchArgsDict(TypedDict):
-        """
-        LeaseCandidateSpec is a specification of a Lease.
-        """
-        binary_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
-        """
-        emulation_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        """
-        lease_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
-        """
-        ping_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        """
-        preferred_strategies: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
-          will be used.
-        - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
-          election will not operate the Lease until resolved.
-        (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
-        """
-        renew_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-        """
-elif False:
-    LeaseCandidateSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseCandidateSpecPatchArgsDict(TypedDict):
+    """
+    LeaseCandidateSpec is a specification of a Lease.
+    """
+    binary_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
+    """
+    emulation_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+    """
+    lease_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+    """
+    ping_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+    """
+    preferred_strategies: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
+      will be used.
+    - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
+      election will not operate the Lease until resolved.
+    (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+    """
+    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+    """
 
 @pulumi.input_type
 class LeaseCandidateSpecPatchArgs:
@@ -174,41 +169,38 @@ class LeaseCandidateSpecPatchArgs:
         pulumi.set(self, "renew_time", value)
 
 
-if not MYPY:
-    class LeaseCandidateSpecArgsDict(TypedDict):
-        """
-        LeaseCandidateSpec is a specification of a Lease.
-        """
-        lease_name: pulumi.Input[_builtins.str]
-        """
-        LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
-        """
-        preferred_strategies: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-        """
-        PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
-          will be used.
-        - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
-          election will not operate the Lease until resolved.
-        (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
-        """
-        binary_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
-        """
-        emulation_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        """
-        ping_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        """
-        renew_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-        """
-elif False:
-    LeaseCandidateSpecArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseCandidateSpecArgsDict(TypedDict):
+    """
+    LeaseCandidateSpec is a specification of a Lease.
+    """
+    lease_name: pulumi.Input[_builtins.str]
+    """
+    LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+    """
+    preferred_strategies: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
+      will be used.
+    - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
+      election will not operate the Lease until resolved.
+    (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+    """
+    binary_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
+    """
+    emulation_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+    """
+    ping_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+    """
+    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+    """
 
 @pulumi.input_type
 class LeaseCandidateSpecArgs:
@@ -320,29 +312,26 @@ class LeaseCandidateSpecArgs:
         pulumi.set(self, "renew_time", value)
 
 
-if not MYPY:
-    class LeaseCandidateArgsDict(TypedDict):
-        """
-        LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['LeaseCandidateSpecArgsDict']]
-        """
-        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    LeaseCandidateArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseCandidateArgsDict(TypedDict):
+    """
+    LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['LeaseCandidateSpecArgsDict']]
+    """
+    spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class LeaseCandidateArgs:

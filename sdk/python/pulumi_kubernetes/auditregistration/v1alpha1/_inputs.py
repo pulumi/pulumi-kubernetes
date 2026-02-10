@@ -44,23 +44,18 @@ __all__ = [
     'WebhookArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class AuditSinkSpecPatchArgsDict(TypedDict):
-        """
-        AuditSinkSpec holds the spec for the audit sink
-        """
-        policy: NotRequired[pulumi.Input['PolicyPatchArgsDict']]
-        """
-        Policy defines the policy for selecting which events should be sent to the webhook required
-        """
-        webhook: NotRequired[pulumi.Input['WebhookPatchArgsDict']]
-        """
-        Webhook to send events required
-        """
-elif False:
-    AuditSinkSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class AuditSinkSpecPatchArgsDict(TypedDict):
+    """
+    AuditSinkSpec holds the spec for the audit sink
+    """
+    policy: NotRequired[pulumi.Input['PolicyPatchArgsDict']]
+    """
+    Policy defines the policy for selecting which events should be sent to the webhook required
+    """
+    webhook: NotRequired[pulumi.Input['WebhookPatchArgsDict']]
+    """
+    Webhook to send events required
+    """
 
 @pulumi.input_type
 class AuditSinkSpecPatchArgs:
@@ -102,21 +97,18 @@ class AuditSinkSpecPatchArgs:
         pulumi.set(self, "webhook", value)
 
 
-if not MYPY:
-    class AuditSinkSpecArgsDict(TypedDict):
-        """
-        AuditSinkSpec holds the spec for the audit sink
-        """
-        policy: pulumi.Input['PolicyArgsDict']
-        """
-        Policy defines the policy for selecting which events should be sent to the webhook required
-        """
-        webhook: pulumi.Input['WebhookArgsDict']
-        """
-        Webhook to send events required
-        """
-elif False:
-    AuditSinkSpecArgsDict: TypeAlias = Mapping[str, Any]
+class AuditSinkSpecArgsDict(TypedDict):
+    """
+    AuditSinkSpec holds the spec for the audit sink
+    """
+    policy: pulumi.Input['PolicyArgsDict']
+    """
+    Policy defines the policy for selecting which events should be sent to the webhook required
+    """
+    webhook: pulumi.Input['WebhookArgsDict']
+    """
+    Webhook to send events required
+    """
 
 @pulumi.input_type
 class AuditSinkSpecArgs:
@@ -156,26 +148,23 @@ class AuditSinkSpecArgs:
         pulumi.set(self, "webhook", value)
 
 
-if not MYPY:
-    class AuditSinkArgsDict(TypedDict):
-        """
-        AuditSink represents a cluster level audit sink
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        spec: NotRequired[pulumi.Input['AuditSinkSpecArgsDict']]
-        """
-        Spec defines the audit configuration spec
-        """
-elif False:
-    AuditSinkArgsDict: TypeAlias = Mapping[str, Any]
+class AuditSinkArgsDict(TypedDict):
+    """
+    AuditSink represents a cluster level audit sink
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    spec: NotRequired[pulumi.Input['AuditSinkSpecArgsDict']]
+    """
+    Spec defines the audit configuration spec
+    """
 
 @pulumi.input_type
 class AuditSinkArgs:
@@ -245,21 +234,18 @@ class AuditSinkArgs:
         pulumi.set(self, "spec", value)
 
 
-if not MYPY:
-    class PolicyPatchArgsDict(TypedDict):
-        """
-        Policy defines the configuration of how audit events are logged
-        """
-        level: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-        """
-        stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Stages is a list of stages for which events are created.
-        """
-elif False:
-    PolicyPatchArgsDict: TypeAlias = Mapping[str, Any]
+class PolicyPatchArgsDict(TypedDict):
+    """
+    Policy defines the configuration of how audit events are logged
+    """
+    level: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
+    """
+    stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Stages is a list of stages for which events are created.
+    """
 
 @pulumi.input_type
 class PolicyPatchArgs:
@@ -301,21 +287,18 @@ class PolicyPatchArgs:
         pulumi.set(self, "stages", value)
 
 
-if not MYPY:
-    class PolicyArgsDict(TypedDict):
-        """
-        Policy defines the configuration of how audit events are logged
-        """
-        level: pulumi.Input[_builtins.str]
-        """
-        The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
-        """
-        stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Stages is a list of stages for which events are created.
-        """
-elif False:
-    PolicyArgsDict: TypeAlias = Mapping[str, Any]
+class PolicyArgsDict(TypedDict):
+    """
+    Policy defines the configuration of how audit events are logged
+    """
+    level: pulumi.Input[_builtins.str]
+    """
+    The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
+    """
+    stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Stages is a list of stages for which events are created.
+    """
 
 @pulumi.input_type
 class PolicyArgs:
@@ -356,29 +339,26 @@ class PolicyArgs:
         pulumi.set(self, "stages", value)
 
 
-if not MYPY:
-    class ServiceReferencePatchArgsDict(TypedDict):
-        """
-        ServiceReference holds a reference to Service.legacy.k8s.io
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `name` is the name of the service. Required
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `namespace` is the namespace of the service. Required
-        """
-        path: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `path` is an optional URL path which will be sent in any request to this service.
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
-        """
-elif False:
-    ServiceReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceReferencePatchArgsDict(TypedDict):
+    """
+    ServiceReference holds a reference to Service.legacy.k8s.io
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `name` is the name of the service. Required
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `namespace` is the namespace of the service. Required
+    """
+    path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `path` is an optional URL path which will be sent in any request to this service.
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+    """
 
 @pulumi.input_type
 class ServiceReferencePatchArgs:
@@ -452,29 +432,26 @@ class ServiceReferencePatchArgs:
         pulumi.set(self, "port", value)
 
 
-if not MYPY:
-    class ServiceReferenceArgsDict(TypedDict):
-        """
-        ServiceReference holds a reference to Service.legacy.k8s.io
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        `name` is the name of the service. Required
-        """
-        namespace: pulumi.Input[_builtins.str]
-        """
-        `namespace` is the namespace of the service. Required
-        """
-        path: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `path` is an optional URL path which will be sent in any request to this service.
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
-        """
-elif False:
-    ServiceReferenceArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceReferenceArgsDict(TypedDict):
+    """
+    ServiceReference holds a reference to Service.legacy.k8s.io
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    `name` is the name of the service. Required
+    """
+    namespace: pulumi.Input[_builtins.str]
+    """
+    `namespace` is the namespace of the service. Required
+    """
+    path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `path` is an optional URL path which will be sent in any request to this service.
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+    """
 
 @pulumi.input_type
 class ServiceReferenceArgs:
@@ -546,37 +523,34 @@ class ServiceReferenceArgs:
         pulumi.set(self, "port", value)
 
 
-if not MYPY:
-    class WebhookClientConfigPatchArgsDict(TypedDict):
-        """
-        WebhookClientConfig contains the information to make a connection with the webhook
-        """
-        ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
-        """
-        service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
-        """
-        `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+class WebhookClientConfigPatchArgsDict(TypedDict):
+    """
+    WebhookClientConfig contains the information to make a connection with the webhook
+    """
+    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+    """
+    service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
+    """
+    `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
-        If the webhook is running within the cluster, then you should use `service`.
-        """
-        url: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+    If the webhook is running within the cluster, then you should use `service`.
+    """
+    url: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
-        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
+    The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
 
-        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+    Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
 
-        The scheme must be "https"; the URL must begin with "https://".
+    The scheme must be "https"; the URL must begin with "https://".
 
-        A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+    A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
 
-        Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
-        """
-elif False:
-    WebhookClientConfigPatchArgsDict: TypeAlias = Mapping[str, Any]
+    Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
+    """
 
 @pulumi.input_type
 class WebhookClientConfigPatchArgs:
@@ -658,37 +632,34 @@ class WebhookClientConfigPatchArgs:
         pulumi.set(self, "url", value)
 
 
-if not MYPY:
-    class WebhookClientConfigArgsDict(TypedDict):
-        """
-        WebhookClientConfig contains the information to make a connection with the webhook
-        """
-        ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
-        """
-        service: NotRequired[pulumi.Input['ServiceReferenceArgsDict']]
-        """
-        `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+class WebhookClientConfigArgsDict(TypedDict):
+    """
+    WebhookClientConfig contains the information to make a connection with the webhook
+    """
+    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+    """
+    service: NotRequired[pulumi.Input['ServiceReferenceArgsDict']]
+    """
+    `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
-        If the webhook is running within the cluster, then you should use `service`.
-        """
-        url: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+    If the webhook is running within the cluster, then you should use `service`.
+    """
+    url: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
-        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
+    The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
 
-        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+    Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
 
-        The scheme must be "https"; the URL must begin with "https://".
+    The scheme must be "https"; the URL must begin with "https://".
 
-        A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+    A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
 
-        Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
-        """
-elif False:
-    WebhookClientConfigArgsDict: TypeAlias = Mapping[str, Any]
+    Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
+    """
 
 @pulumi.input_type
 class WebhookClientConfigArgs:
@@ -770,21 +741,18 @@ class WebhookClientConfigArgs:
         pulumi.set(self, "url", value)
 
 
-if not MYPY:
-    class WebhookPatchArgsDict(TypedDict):
-        """
-        Webhook holds the configuration of the webhook
-        """
-        client_config: NotRequired[pulumi.Input['WebhookClientConfigPatchArgsDict']]
-        """
-        ClientConfig holds the connection parameters for the webhook required
-        """
-        throttle: NotRequired[pulumi.Input['WebhookThrottleConfigPatchArgsDict']]
-        """
-        Throttle holds the options for throttling the webhook
-        """
-elif False:
-    WebhookPatchArgsDict: TypeAlias = Mapping[str, Any]
+class WebhookPatchArgsDict(TypedDict):
+    """
+    Webhook holds the configuration of the webhook
+    """
+    client_config: NotRequired[pulumi.Input['WebhookClientConfigPatchArgsDict']]
+    """
+    ClientConfig holds the connection parameters for the webhook required
+    """
+    throttle: NotRequired[pulumi.Input['WebhookThrottleConfigPatchArgsDict']]
+    """
+    Throttle holds the options for throttling the webhook
+    """
 
 @pulumi.input_type
 class WebhookPatchArgs:
@@ -826,21 +794,18 @@ class WebhookPatchArgs:
         pulumi.set(self, "throttle", value)
 
 
-if not MYPY:
-    class WebhookThrottleConfigPatchArgsDict(TypedDict):
-        """
-        WebhookThrottleConfig holds the configuration for throttling events
-        """
-        burst: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
-        """
-        qps: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        ThrottleQPS maximum number of batches per second default 10 QPS
-        """
-elif False:
-    WebhookThrottleConfigPatchArgsDict: TypeAlias = Mapping[str, Any]
+class WebhookThrottleConfigPatchArgsDict(TypedDict):
+    """
+    WebhookThrottleConfig holds the configuration for throttling events
+    """
+    burst: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+    """
+    qps: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    ThrottleQPS maximum number of batches per second default 10 QPS
+    """
 
 @pulumi.input_type
 class WebhookThrottleConfigPatchArgs:
@@ -882,21 +847,18 @@ class WebhookThrottleConfigPatchArgs:
         pulumi.set(self, "qps", value)
 
 
-if not MYPY:
-    class WebhookThrottleConfigArgsDict(TypedDict):
-        """
-        WebhookThrottleConfig holds the configuration for throttling events
-        """
-        burst: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
-        """
-        qps: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        ThrottleQPS maximum number of batches per second default 10 QPS
-        """
-elif False:
-    WebhookThrottleConfigArgsDict: TypeAlias = Mapping[str, Any]
+class WebhookThrottleConfigArgsDict(TypedDict):
+    """
+    WebhookThrottleConfig holds the configuration for throttling events
+    """
+    burst: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+    """
+    qps: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    ThrottleQPS maximum number of batches per second default 10 QPS
+    """
 
 @pulumi.input_type
 class WebhookThrottleConfigArgs:
@@ -938,21 +900,18 @@ class WebhookThrottleConfigArgs:
         pulumi.set(self, "qps", value)
 
 
-if not MYPY:
-    class WebhookArgsDict(TypedDict):
-        """
-        Webhook holds the configuration of the webhook
-        """
-        client_config: pulumi.Input['WebhookClientConfigArgsDict']
-        """
-        ClientConfig holds the connection parameters for the webhook required
-        """
-        throttle: NotRequired[pulumi.Input['WebhookThrottleConfigArgsDict']]
-        """
-        Throttle holds the options for throttling the webhook
-        """
-elif False:
-    WebhookArgsDict: TypeAlias = Mapping[str, Any]
+class WebhookArgsDict(TypedDict):
+    """
+    Webhook holds the configuration of the webhook
+    """
+    client_config: pulumi.Input['WebhookClientConfigArgsDict']
+    """
+    ClientConfig holds the connection parameters for the webhook required
+    """
+    throttle: NotRequired[pulumi.Input['WebhookThrottleConfigArgsDict']]
+    """
+    Throttle holds the options for throttling the webhook
+    """
 
 @pulumi.input_type
 class WebhookArgs:

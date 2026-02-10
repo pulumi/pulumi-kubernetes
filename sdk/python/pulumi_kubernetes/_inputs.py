@@ -21,35 +21,30 @@ __all__ = [
     'KubeClientSettingsArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class HelmReleaseSettingsArgsDict(TypedDict):
-        """
-        Options to configure the Helm Release resource.
-        """
-        driver: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
-        """
-        plugins_path: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The path to the helm plugins directory.
-        """
-        registry_config_path: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The path to the registry config file.
-        """
-        repository_cache: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The path to the directory containing cached repository indexes.
-        """
-        repository_config_path: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The path to the file containing repository names and URLs.
-        """
-elif False:
-    HelmReleaseSettingsArgsDict: TypeAlias = Mapping[str, Any]
+class HelmReleaseSettingsArgsDict(TypedDict):
+    """
+    Options to configure the Helm Release resource.
+    """
+    driver: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+    """
+    plugins_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The path to the helm plugins directory.
+    """
+    registry_config_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The path to the registry config file.
+    """
+    repository_cache: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The path to the directory containing cached repository indexes.
+    """
+    repository_config_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The path to the file containing repository names and URLs.
+    """
 
 @pulumi.input_type
 class HelmReleaseSettingsArgs:
@@ -149,25 +144,22 @@ class HelmReleaseSettingsArgs:
         pulumi.set(self, "repository_config_path", value)
 
 
-if not MYPY:
-    class KubeClientSettingsArgsDict(TypedDict):
-        """
-        Options for tuning the Kubernetes client used by a Provider.
-        """
-        burst: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Maximum burst for throttle. Default value is 120.
-        """
-        qps: NotRequired[pulumi.Input[_builtins.float]]
-        """
-        Maximum queries per second (QPS) to the API server from this client. Default value is 50.
-        """
-        timeout: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
-        """
-elif False:
-    KubeClientSettingsArgsDict: TypeAlias = Mapping[str, Any]
+class KubeClientSettingsArgsDict(TypedDict):
+    """
+    Options for tuning the Kubernetes client used by a Provider.
+    """
+    burst: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Maximum burst for throttle. Default value is 120.
+    """
+    qps: NotRequired[pulumi.Input[_builtins.float]]
+    """
+    Maximum queries per second (QPS) to the API server from this client. Default value is 50.
+    """
+    timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+    """
 
 @pulumi.input_type
 class KubeClientSettingsArgs:

@@ -85,35 +85,30 @@ __all__ = [
     'StatefulSetArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class ControllerRevisionArgsDict(TypedDict):
-        """
-        ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
-        """
-        revision: pulumi.Input[_builtins.int]
-        """
-        Revision indicates the revision of the state represented by Data.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        data: NotRequired[Any]
-        """
-        Data is the serialized representation of the state.
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-elif False:
-    ControllerRevisionArgsDict: TypeAlias = Mapping[str, Any]
+class ControllerRevisionArgsDict(TypedDict):
+    """
+    ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+    """
+    revision: pulumi.Input[_builtins.int]
+    """
+    Revision indicates the revision of the state represented by Data.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    data: NotRequired[Any]
+    """
+    Data is the serialized representation of the state.
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
 
 @pulumi.input_type
 class ControllerRevisionArgs:
@@ -202,33 +197,30 @@ class ControllerRevisionArgs:
         pulumi.set(self, "metadata", value)
 
 
-if not MYPY:
-    class DaemonSetConditionArgsDict(TypedDict):
-        """
-        DaemonSetCondition describes the state of a DaemonSet at a certain point.
-        """
-        status: pulumi.Input[_builtins.str]
-        """
-        Status of the condition, one of True, False, Unknown.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type of DaemonSet condition.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Last time the condition transitioned from one status to another.
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A human readable message indicating details about the transition.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The reason for the condition's last transition.
-        """
-elif False:
-    DaemonSetConditionArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetConditionArgsDict(TypedDict):
+    """
+    DaemonSetCondition describes the state of a DaemonSet at a certain point.
+    """
+    status: pulumi.Input[_builtins.str]
+    """
+    Status of the condition, one of True, False, Unknown.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of DaemonSet condition.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Last time the condition transitioned from one status to another.
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human readable message indicating details about the transition.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The reason for the condition's last transition.
+    """
 
 @pulumi.input_type
 class DaemonSetConditionArgs:
@@ -316,33 +308,30 @@ class DaemonSetConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-if not MYPY:
-    class DaemonSetSpecPatchArgsDict(TypedDict):
-        """
-        DaemonSetSpec is the specification of a daemon set.
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
-        """
-        A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
-        """
-        An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        """
-        update_strategy: NotRequired[pulumi.Input['DaemonSetUpdateStrategyPatchArgsDict']]
-        """
-        An update strategy to replace existing DaemonSet pods with new pods.
-        """
-elif False:
-    DaemonSetSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetSpecPatchArgsDict(TypedDict):
+    """
+    DaemonSetSpec is the specification of a daemon set.
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    """
+    A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
+    """
+    An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+    """
+    update_strategy: NotRequired[pulumi.Input['DaemonSetUpdateStrategyPatchArgsDict']]
+    """
+    An update strategy to replace existing DaemonSet pods with new pods.
+    """
 
 @pulumi.input_type
 class DaemonSetSpecPatchArgs:
@@ -432,33 +421,30 @@ class DaemonSetSpecPatchArgs:
         pulumi.set(self, "update_strategy", value)
 
 
-if not MYPY:
-    class DaemonSetSpecArgsDict(TypedDict):
-        """
-        DaemonSetSpec is the specification of a daemon set.
-        """
-        selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-        """
-        A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-        """
-        An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        update_strategy: NotRequired[pulumi.Input['DaemonSetUpdateStrategyArgsDict']]
-        """
-        An update strategy to replace existing DaemonSet pods with new pods.
-        """
-elif False:
-    DaemonSetSpecArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetSpecArgsDict(TypedDict):
+    """
+    DaemonSetSpec is the specification of a daemon set.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
+    """
+    An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    update_strategy: NotRequired[pulumi.Input['DaemonSetUpdateStrategyArgsDict']]
+    """
+    An update strategy to replace existing DaemonSet pods with new pods.
+    """
 
 @pulumi.input_type
 class DaemonSetSpecArgs:
@@ -546,53 +532,50 @@ class DaemonSetSpecArgs:
         pulumi.set(self, "update_strategy", value)
 
 
-if not MYPY:
-    class DaemonSetStatusArgsDict(TypedDict):
-        """
-        DaemonSetStatus represents the current status of a daemon set.
-        """
-        current_number_scheduled: pulumi.Input[_builtins.int]
-        """
-        The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        """
-        desired_number_scheduled: pulumi.Input[_builtins.int]
-        """
-        The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        """
-        number_misscheduled: pulumi.Input[_builtins.int]
-        """
-        The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        """
-        number_ready: pulumi.Input[_builtins.int]
-        """
-        The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
-        """
-        collision_count: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['DaemonSetConditionArgsDict']]]]
-        """
-        Represents the latest available observations of a DaemonSet's current state.
-        """
-        number_available: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
-        """
-        number_unavailable: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
-        """
-        observed_generation: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The most recent generation observed by the daemon set controller.
-        """
-        updated_number_scheduled: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The total number of nodes that are running updated daemon pod
-        """
-elif False:
-    DaemonSetStatusArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetStatusArgsDict(TypedDict):
+    """
+    DaemonSetStatus represents the current status of a daemon set.
+    """
+    current_number_scheduled: pulumi.Input[_builtins.int]
+    """
+    The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    """
+    desired_number_scheduled: pulumi.Input[_builtins.int]
+    """
+    The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    """
+    number_misscheduled: pulumi.Input[_builtins.int]
+    """
+    The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+    """
+    number_ready: pulumi.Input[_builtins.int]
+    """
+    The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+    """
+    collision_count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['DaemonSetConditionArgsDict']]]]
+    """
+    Represents the latest available observations of a DaemonSet's current state.
+    """
+    number_available: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+    """
+    number_unavailable: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+    """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The most recent generation observed by the daemon set controller.
+    """
+    updated_number_scheduled: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The total number of nodes that are running updated daemon pod
+    """
 
 @pulumi.input_type
 class DaemonSetStatusArgs:
@@ -758,21 +741,18 @@ class DaemonSetStatusArgs:
         pulumi.set(self, "updated_number_scheduled", value)
 
 
-if not MYPY:
-    class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
-        """
-        DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetPatchArgsDict']]
-        """
-        Rolling update config params. Present only if type = "RollingUpdate".
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-        """
-elif False:
-    DaemonSetUpdateStrategyPatchArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
+    """
+    DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetPatchArgsDict']]
+    """
+    Rolling update config params. Present only if type = "RollingUpdate".
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class DaemonSetUpdateStrategyPatchArgs:
@@ -814,21 +794,18 @@ class DaemonSetUpdateStrategyPatchArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class DaemonSetUpdateStrategyArgsDict(TypedDict):
-        """
-        DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetArgsDict']]
-        """
-        Rolling update config params. Present only if type = "RollingUpdate".
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-        """
-elif False:
-    DaemonSetUpdateStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetUpdateStrategyArgsDict(TypedDict):
+    """
+    DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateDaemonSetArgsDict']]
+    """
+    Rolling update config params. Present only if type = "RollingUpdate".
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class DaemonSetUpdateStrategyArgs:
@@ -870,33 +847,30 @@ class DaemonSetUpdateStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class DaemonSetArgsDict(TypedDict):
-        """
-        DaemonSet represents the configuration of a daemon set.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['DaemonSetSpecArgsDict']]
-        """
-        The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        status: NotRequired[pulumi.Input['DaemonSetStatusArgsDict']]
-        """
-        The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    DaemonSetArgsDict: TypeAlias = Mapping[str, Any]
+class DaemonSetArgsDict(TypedDict):
+    """
+    DaemonSet represents the configuration of a daemon set.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['DaemonSetSpecArgsDict']]
+    """
+    The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+    status: NotRequired[pulumi.Input['DaemonSetStatusArgsDict']]
+    """
+    The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class DaemonSetArgs:
@@ -986,37 +960,34 @@ class DaemonSetArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class DeploymentConditionArgsDict(TypedDict):
-        """
-        DeploymentCondition describes the state of a deployment at a certain point.
-        """
-        status: pulumi.Input[_builtins.str]
-        """
-        Status of the condition, one of True, False, Unknown.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type of deployment condition.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Last time the condition transitioned from one status to another.
-        """
-        last_update_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The last time this condition was updated.
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A human readable message indicating details about the transition.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The reason for the condition's last transition.
-        """
-elif False:
-    DeploymentConditionArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentConditionArgsDict(TypedDict):
+    """
+    DeploymentCondition describes the state of a deployment at a certain point.
+    """
+    status: pulumi.Input[_builtins.str]
+    """
+    Status of the condition, one of True, False, Unknown.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of deployment condition.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Last time the condition transitioned from one status to another.
+    """
+    last_update_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The last time this condition was updated.
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human readable message indicating details about the transition.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The reason for the condition's last transition.
+    """
 
 @pulumi.input_type
 class DeploymentConditionArgs:
@@ -1120,45 +1091,42 @@ class DeploymentConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-if not MYPY:
-    class DeploymentSpecPatchArgsDict(TypedDict):
-        """
-        DeploymentSpec is the specification of the desired behavior of the Deployment.
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        paused: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Indicates that the deployment is paused.
-        """
-        progress_deadline_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
-        """
-        Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-        """
-        strategy: NotRequired[pulumi.Input['DeploymentStrategyPatchArgsDict']]
-        """
-        The deployment strategy to use to replace existing pods with new ones.
-        """
-        template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
-        """
-        Template describes the pods that will be created.
-        """
-elif False:
-    DeploymentSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentSpecPatchArgsDict(TypedDict):
+    """
+    DeploymentSpec is the specification of the desired behavior of the Deployment.
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    paused: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Indicates that the deployment is paused.
+    """
+    progress_deadline_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    """
+    Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+    """
+    strategy: NotRequired[pulumi.Input['DeploymentStrategyPatchArgsDict']]
+    """
+    The deployment strategy to use to replace existing pods with new ones.
+    """
+    template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
+    """
+    Template describes the pods that will be created.
+    """
 
 @pulumi.input_type
 class DeploymentSpecPatchArgs:
@@ -1296,45 +1264,42 @@ class DeploymentSpecPatchArgs:
         pulumi.set(self, "template", value)
 
 
-if not MYPY:
-    class DeploymentSpecArgsDict(TypedDict):
-        """
-        DeploymentSpec is the specification of the desired behavior of the Deployment.
-        """
-        selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-        """
-        Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-        """
-        template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-        """
-        Template describes the pods that will be created.
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        paused: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        Indicates that the deployment is paused.
-        """
-        progress_deadline_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        strategy: NotRequired[pulumi.Input['DeploymentStrategyArgsDict']]
-        """
-        The deployment strategy to use to replace existing pods with new ones.
-        """
-elif False:
-    DeploymentSpecArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentSpecArgsDict(TypedDict):
+    """
+    DeploymentSpec is the specification of the desired behavior of the Deployment.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+    """
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
+    """
+    Template describes the pods that will be created.
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    paused: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Indicates that the deployment is paused.
+    """
+    progress_deadline_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    strategy: NotRequired[pulumi.Input['DeploymentStrategyArgsDict']]
+    """
+    The deployment strategy to use to replace existing pods with new ones.
+    """
 
 @pulumi.input_type
 class DeploymentSpecArgs:
@@ -1470,45 +1435,42 @@ class DeploymentSpecArgs:
         pulumi.set(self, "strategy", value)
 
 
-if not MYPY:
-    class DeploymentStatusArgsDict(TypedDict):
-        """
-        DeploymentStatus is the most recently observed status of the Deployment.
-        """
-        available_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
-        """
-        collision_count: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgsDict']]]]
-        """
-        Represents the latest available observations of a deployment's current state.
-        """
-        observed_generation: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The generation observed by the deployment controller.
-        """
-        ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Total number of ready pods targeted by this deployment.
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Total number of non-terminated pods targeted by this deployment (their labels match the selector).
-        """
-        unavailable_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
-        """
-        updated_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Total number of non-terminated pods targeted by this deployment that have the desired template spec.
-        """
-elif False:
-    DeploymentStatusArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentStatusArgsDict(TypedDict):
+    """
+    DeploymentStatus is the most recently observed status of the Deployment.
+    """
+    available_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+    """
+    collision_count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgsDict']]]]
+    """
+    Represents the latest available observations of a deployment's current state.
+    """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The generation observed by the deployment controller.
+    """
+    ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Total number of ready pods targeted by this deployment.
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+    """
+    unavailable_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
+    """
+    updated_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+    """
 
 @pulumi.input_type
 class DeploymentStatusArgs:
@@ -1646,21 +1608,18 @@ class DeploymentStatusArgs:
         pulumi.set(self, "updated_replicas", value)
 
 
-if not MYPY:
-    class DeploymentStrategyPatchArgsDict(TypedDict):
-        """
-        DeploymentStrategy describes how to replace existing pods with new ones.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentPatchArgsDict']]
-        """
-        Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-        """
-elif False:
-    DeploymentStrategyPatchArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentStrategyPatchArgsDict(TypedDict):
+    """
+    DeploymentStrategy describes how to replace existing pods with new ones.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentPatchArgsDict']]
+    """
+    Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class DeploymentStrategyPatchArgs:
@@ -1702,21 +1661,18 @@ class DeploymentStrategyPatchArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class DeploymentStrategyArgsDict(TypedDict):
-        """
-        DeploymentStrategy describes how to replace existing pods with new ones.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentArgsDict']]
-        """
-        Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-        """
-elif False:
-    DeploymentStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class DeploymentStrategyArgsDict(TypedDict):
+    """
+    DeploymentStrategy describes how to replace existing pods with new ones.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateDeploymentArgsDict']]
+    """
+    Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class DeploymentStrategyArgs:
@@ -1758,55 +1714,52 @@ class DeploymentStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class DeploymentArgsDict(TypedDict):
-        """
-        Deployment enables declarative updates for Pods and ReplicaSets.
+class DeploymentArgsDict(TypedDict):
+    """
+    Deployment enables declarative updates for Pods and ReplicaSets.
 
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
+    This resource waits until its status is ready before registering success
+    for create/update, and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
 
-        1. The Deployment has begun to be updated by the Deployment controller. If the current
-           generation of the Deployment is > 1, then this means that the current generation must
-           be different from the generation reported by the last outputs.
-        2. There exists a ReplicaSet whose revision is equal to the current revision of the
-           Deployment.
-        3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
-           member is set to 'True'.
-        4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
-           'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
-           'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
-           because it doesn't do a rollout (i.e., it simply creates the Deployment and
-           corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+    1. The Deployment has begun to be updated by the Deployment controller. If the current
+       generation of the Deployment is > 1, then this means that the current generation must
+       be different from the generation reported by the last outputs.
+    2. There exists a ReplicaSet whose revision is equal to the current revision of the
+       Deployment.
+    3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+       member is set to 'True'.
+    4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+       'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+       'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+       because it doesn't do a rollout (i.e., it simply creates the Deployment and
+       corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
 
-        If the Deployment has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object metadata.
-        """
-        spec: NotRequired[pulumi.Input['DeploymentSpecArgsDict']]
-        """
-        Specification of the desired behavior of the Deployment.
-        """
-        status: NotRequired[pulumi.Input['DeploymentStatusArgsDict']]
-        """
-        Most recently observed status of the Deployment.
-        """
-elif False:
-    DeploymentArgsDict: TypeAlias = Mapping[str, Any]
+    If the Deployment has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting the 'customTimeouts' option on the resource.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object metadata.
+    """
+    spec: NotRequired[pulumi.Input['DeploymentSpecArgsDict']]
+    """
+    Specification of the desired behavior of the Deployment.
+    """
+    status: NotRequired[pulumi.Input['DeploymentStatusArgsDict']]
+    """
+    Most recently observed status of the Deployment.
+    """
 
 @pulumi.input_type
 class DeploymentArgs:
@@ -1918,33 +1871,30 @@ class DeploymentArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class ReplicaSetConditionArgsDict(TypedDict):
-        """
-        ReplicaSetCondition describes the state of a replica set at a certain point.
-        """
-        status: pulumi.Input[_builtins.str]
-        """
-        Status of the condition, one of True, False, Unknown.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type of replica set condition.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The last time the condition transitioned from one status to another.
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A human readable message indicating details about the transition.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The reason for the condition's last transition.
-        """
-elif False:
-    ReplicaSetConditionArgsDict: TypeAlias = Mapping[str, Any]
+class ReplicaSetConditionArgsDict(TypedDict):
+    """
+    ReplicaSetCondition describes the state of a replica set at a certain point.
+    """
+    status: pulumi.Input[_builtins.str]
+    """
+    Status of the condition, one of True, False, Unknown.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of replica set condition.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The last time the condition transitioned from one status to another.
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human readable message indicating details about the transition.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The reason for the condition's last transition.
+    """
 
 @pulumi.input_type
 class ReplicaSetConditionArgs:
@@ -2032,29 +1982,26 @@ class ReplicaSetConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-if not MYPY:
-    class ReplicaSetSpecPatchArgsDict(TypedDict):
-        """
-        ReplicaSetSpec is the specification of a ReplicaSet.
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        """
-        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
-        """
-        Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
-        """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        """
-elif False:
-    ReplicaSetSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class ReplicaSetSpecPatchArgsDict(TypedDict):
+    """
+    ReplicaSetSpec is the specification of a ReplicaSet.
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+    """
+    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    """
+    Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
+    """
+    Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+    """
 
 @pulumi.input_type
 class ReplicaSetSpecPatchArgs:
@@ -2128,29 +2075,26 @@ class ReplicaSetSpecPatchArgs:
         pulumi.set(self, "template", value)
 
 
-if not MYPY:
-    class ReplicaSetSpecArgsDict(TypedDict):
-        """
-        ReplicaSetSpec is the specification of a ReplicaSet.
-        """
-        selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-        """
-        Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        """
-        template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecArgsDict']]
-        """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        """
-elif False:
-    ReplicaSetSpecArgsDict: TypeAlias = Mapping[str, Any]
+class ReplicaSetSpecArgsDict(TypedDict):
+    """
+    ReplicaSetSpec is the specification of a ReplicaSet.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+    """
+    template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecArgsDict']]
+    """
+    Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+    """
 
 @pulumi.input_type
 class ReplicaSetSpecArgs:
@@ -2223,37 +2167,34 @@ class ReplicaSetSpecArgs:
         pulumi.set(self, "template", value)
 
 
-if not MYPY:
-    class ReplicaSetStatusArgsDict(TypedDict):
-        """
-        ReplicaSetStatus represents the current status of a ReplicaSet.
-        """
-        replicas: pulumi.Input[_builtins.int]
-        """
-        Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
-        """
-        available_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of available replicas (ready for at least minReadySeconds) for this replica set.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['ReplicaSetConditionArgsDict']]]]
-        """
-        Represents the latest available observations of a replica set's current state.
-        """
-        fully_labeled_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of pods that have labels matching the labels of the pod template of the replicaset.
-        """
-        observed_generation: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
-        """
-        ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        The number of ready replicas for this replica set.
-        """
-elif False:
-    ReplicaSetStatusArgsDict: TypeAlias = Mapping[str, Any]
+class ReplicaSetStatusArgsDict(TypedDict):
+    """
+    ReplicaSetStatus represents the current status of a ReplicaSet.
+    """
+    replicas: pulumi.Input[_builtins.int]
+    """
+    Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+    """
+    available_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of available replicas (ready for at least minReadySeconds) for this replica set.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['ReplicaSetConditionArgsDict']]]]
+    """
+    Represents the latest available observations of a replica set's current state.
+    """
+    fully_labeled_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of pods that have labels matching the labels of the pod template of the replicaset.
+    """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
+    """
+    ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The number of ready replicas for this replica set.
+    """
 
 @pulumi.input_type
 class ReplicaSetStatusArgs:
@@ -2358,33 +2299,30 @@ class ReplicaSetStatusArgs:
         pulumi.set(self, "ready_replicas", value)
 
 
-if not MYPY:
-    class ReplicaSetArgsDict(TypedDict):
-        """
-        ReplicaSet ensures that a specified number of pod replicas are running at any given time.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['ReplicaSetSpecArgsDict']]
-        """
-        Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        status: NotRequired[pulumi.Input['ReplicaSetStatusArgsDict']]
-        """
-        Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    ReplicaSetArgsDict: TypeAlias = Mapping[str, Any]
+class ReplicaSetArgsDict(TypedDict):
+    """
+    ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['ReplicaSetSpecArgsDict']]
+    """
+    Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+    status: NotRequired[pulumi.Input['ReplicaSetStatusArgsDict']]
+    """
+    Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class ReplicaSetArgs:
@@ -2474,17 +2412,14 @@ class ReplicaSetArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class RollingUpdateDaemonSetPatchArgsDict(TypedDict):
-        """
-        Spec to control the desired behavior of daemon set rolling update.
-        """
-        max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-        """
-elif False:
-    RollingUpdateDaemonSetPatchArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateDaemonSetPatchArgsDict(TypedDict):
+    """
+    Spec to control the desired behavior of daemon set rolling update.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+    """
 
 @pulumi.input_type
 class RollingUpdateDaemonSetPatchArgs:
@@ -2510,17 +2445,14 @@ class RollingUpdateDaemonSetPatchArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-if not MYPY:
-    class RollingUpdateDaemonSetArgsDict(TypedDict):
-        """
-        Spec to control the desired behavior of daemon set rolling update.
-        """
-        max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-        """
-elif False:
-    RollingUpdateDaemonSetArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateDaemonSetArgsDict(TypedDict):
+    """
+    Spec to control the desired behavior of daemon set rolling update.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+    """
 
 @pulumi.input_type
 class RollingUpdateDaemonSetArgs:
@@ -2546,21 +2478,18 @@ class RollingUpdateDaemonSetArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-if not MYPY:
-    class RollingUpdateDeploymentPatchArgsDict(TypedDict):
-        """
-        Spec to control the desired behavior of rolling update.
-        """
-        max_surge: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
-        """
-        max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
-        """
-elif False:
-    RollingUpdateDeploymentPatchArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateDeploymentPatchArgsDict(TypedDict):
+    """
+    Spec to control the desired behavior of rolling update.
+    """
+    max_surge: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+    """
 
 @pulumi.input_type
 class RollingUpdateDeploymentPatchArgs:
@@ -2602,21 +2531,18 @@ class RollingUpdateDeploymentPatchArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-if not MYPY:
-    class RollingUpdateDeploymentArgsDict(TypedDict):
-        """
-        Spec to control the desired behavior of rolling update.
-        """
-        max_surge: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
-        """
-        max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
-        """
-        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
-        """
-elif False:
-    RollingUpdateDeploymentArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateDeploymentArgsDict(TypedDict):
+    """
+    Spec to control the desired behavior of rolling update.
+    """
+    max_surge: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    """
+    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+    """
 
 @pulumi.input_type
 class RollingUpdateDeploymentArgs:
@@ -2658,17 +2584,14 @@ class RollingUpdateDeploymentArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-if not MYPY:
-    class RollingUpdateStatefulSetStrategyPatchArgsDict(TypedDict):
-        """
-        RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
-        """
-        partition: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
-        """
-elif False:
-    RollingUpdateStatefulSetStrategyPatchArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateStatefulSetStrategyPatchArgsDict(TypedDict):
+    """
+    RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    """
+    partition: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+    """
 
 @pulumi.input_type
 class RollingUpdateStatefulSetStrategyPatchArgs:
@@ -2694,17 +2617,14 @@ class RollingUpdateStatefulSetStrategyPatchArgs:
         pulumi.set(self, "partition", value)
 
 
-if not MYPY:
-    class RollingUpdateStatefulSetStrategyArgsDict(TypedDict):
-        """
-        RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
-        """
-        partition: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
-        """
-elif False:
-    RollingUpdateStatefulSetStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class RollingUpdateStatefulSetStrategyArgsDict(TypedDict):
+    """
+    RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    """
+    partition: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+    """
 
 @pulumi.input_type
 class RollingUpdateStatefulSetStrategyArgs:
@@ -2730,33 +2650,30 @@ class RollingUpdateStatefulSetStrategyArgs:
         pulumi.set(self, "partition", value)
 
 
-if not MYPY:
-    class StatefulSetConditionArgsDict(TypedDict):
-        """
-        StatefulSetCondition describes the state of a statefulset at a certain point.
-        """
-        status: pulumi.Input[_builtins.str]
-        """
-        Status of the condition, one of True, False, Unknown.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type of statefulset condition.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Last time the condition transitioned from one status to another.
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        A human readable message indicating details about the transition.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The reason for the condition's last transition.
-        """
-elif False:
-    StatefulSetConditionArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetConditionArgsDict(TypedDict):
+    """
+    StatefulSetCondition describes the state of a statefulset at a certain point.
+    """
+    status: pulumi.Input[_builtins.str]
+    """
+    Status of the condition, one of True, False, Unknown.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of statefulset condition.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Last time the condition transitioned from one status to another.
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    A human readable message indicating details about the transition.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The reason for the condition's last transition.
+    """
 
 @pulumi.input_type
 class StatefulSetConditionArgs:
@@ -2844,45 +2761,42 @@ class StatefulSetConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-if not MYPY:
-    class StatefulSetSpecPatchArgsDict(TypedDict):
-        """
-        A StatefulSetSpec is the specification of a StatefulSet.
-        """
-        pod_management_policy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
-        """
-        selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
-        """
-        selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        service_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-        """
-        template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
-        """
-        template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-        """
-        update_strategy: NotRequired[pulumi.Input['StatefulSetUpdateStrategyPatchArgsDict']]
-        """
-        updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        """
-        volume_claim_templates: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgsDict']]]]
-        """
-        volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
-        """
-elif False:
-    StatefulSetSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetSpecPatchArgsDict(TypedDict):
+    """
+    A StatefulSetSpec is the specification of a StatefulSet.
+    """
+    pod_management_policy: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+    """
+    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    """
+    selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    service_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+    """
+    template: NotRequired[pulumi.Input['_core.v1.PodTemplateSpecPatchArgsDict']]
+    """
+    template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+    """
+    update_strategy: NotRequired[pulumi.Input['StatefulSetUpdateStrategyPatchArgsDict']]
+    """
+    updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+    """
+    volume_claim_templates: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgsDict']]]]
+    """
+    volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+    """
 
 @pulumi.input_type
 class StatefulSetSpecPatchArgs:
@@ -3020,45 +2934,42 @@ class StatefulSetSpecPatchArgs:
         pulumi.set(self, "volume_claim_templates", value)
 
 
-if not MYPY:
-    class StatefulSetSpecArgsDict(TypedDict):
-        """
-        A StatefulSetSpec is the specification of a StatefulSet.
-        """
-        selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-        """
-        selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        service_name: pulumi.Input[_builtins.str]
-        """
-        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-        """
-        template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-        """
-        template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
-        """
-        pod_management_policy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
-        """
-        replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
-        """
-        revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
-        """
-        update_strategy: NotRequired[pulumi.Input['StatefulSetUpdateStrategyArgsDict']]
-        """
-        updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        """
-        volume_claim_templates: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgsDict']]]]
-        """
-        volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
-        """
-elif False:
-    StatefulSetSpecArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetSpecArgsDict(TypedDict):
+    """
+    A StatefulSetSpec is the specification of a StatefulSet.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    service_name: pulumi.Input[_builtins.str]
+    """
+    serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+    """
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
+    """
+    template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+    """
+    pod_management_policy: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+    """
+    replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+    """
+    update_strategy: NotRequired[pulumi.Input['StatefulSetUpdateStrategyArgsDict']]
+    """
+    updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+    """
+    volume_claim_templates: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgsDict']]]]
+    """
+    volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+    """
 
 @pulumi.input_type
 class StatefulSetSpecArgs:
@@ -3193,49 +3104,46 @@ class StatefulSetSpecArgs:
         pulumi.set(self, "volume_claim_templates", value)
 
 
-if not MYPY:
-    class StatefulSetStatusArgsDict(TypedDict):
-        """
-        StatefulSetStatus represents the current state of a StatefulSet.
-        """
-        replicas: pulumi.Input[_builtins.int]
-        """
-        replicas is the number of Pods created by the StatefulSet controller.
-        """
-        collision_count: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgsDict']]]]
-        """
-        Represents the latest available observations of a statefulset's current state.
-        """
-        current_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
-        """
-        current_revision: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
-        """
-        observed_generation: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
-        """
-        ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
-        """
-        update_revision: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
-        """
-        updated_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
-        """
-elif False:
-    StatefulSetStatusArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetStatusArgsDict(TypedDict):
+    """
+    StatefulSetStatus represents the current state of a StatefulSet.
+    """
+    replicas: pulumi.Input[_builtins.int]
+    """
+    replicas is the number of Pods created by the StatefulSet controller.
+    """
+    collision_count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgsDict']]]]
+    """
+    Represents the latest available observations of a statefulset's current state.
+    """
+    current_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
+    """
+    current_revision: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
+    """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
+    """
+    ready_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+    """
+    update_revision: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
+    """
+    updated_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
+    """
 
 @pulumi.input_type
 class StatefulSetStatusArgs:
@@ -3388,21 +3296,18 @@ class StatefulSetStatusArgs:
         pulumi.set(self, "updated_replicas", value)
 
 
-if not MYPY:
-    class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
-        """
-        StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgsDict']]
-        """
-        RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-        """
-elif False:
-    StatefulSetUpdateStrategyPatchArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
+    """
+    StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgsDict']]
+    """
+    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class StatefulSetUpdateStrategyPatchArgs:
@@ -3444,21 +3349,18 @@ class StatefulSetUpdateStrategyPatchArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class StatefulSetUpdateStrategyArgsDict(TypedDict):
-        """
-        StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-        """
-        rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyArgsDict']]
-        """
-        RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
-        """
-        type: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-        """
-elif False:
-    StatefulSetUpdateStrategyArgsDict: TypeAlias = Mapping[str, Any]
+class StatefulSetUpdateStrategyArgsDict(TypedDict):
+    """
+    StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+    """
+    rolling_update: NotRequired[pulumi.Input['RollingUpdateStatefulSetStrategyArgsDict']]
+    """
+    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+    """
+    type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+    """
 
 @pulumi.input_type
 class StatefulSetUpdateStrategyArgs:
@@ -3500,46 +3402,43 @@ class StatefulSetUpdateStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-if not MYPY:
-    class StatefulSetArgsDict(TypedDict):
-        """
-        StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-         - Network: A single stable DNS and hostname.
-         - Storage: As many VolumeClaims as requested.
-        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+class StatefulSetArgsDict(TypedDict):
+    """
+    StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+     - Network: A single stable DNS and hostname.
+     - Storage: As many VolumeClaims as requested.
+    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
+    This resource waits until its status is ready before registering success
+    for create/update, and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
 
-        1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-           and '.status.readyReplicas'.
-        2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+    1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+       and '.status.readyReplicas'.
+    2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 
-        If the StatefulSet has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        spec: NotRequired[pulumi.Input['StatefulSetSpecArgsDict']]
-        """
-        Spec defines the desired identities of pods in this set.
-        """
-        status: NotRequired[pulumi.Input['StatefulSetStatusArgsDict']]
-        """
-        Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
-        """
-elif False:
-    StatefulSetArgsDict: TypeAlias = Mapping[str, Any]
+    If the StatefulSet has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting the 'customTimeouts' option on the resource.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    spec: NotRequired[pulumi.Input['StatefulSetSpecArgsDict']]
+    """
+    Spec defines the desired identities of pods in this set.
+    """
+    status: NotRequired[pulumi.Input['StatefulSetStatusArgsDict']]
+    """
+    Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+    """
 
 @pulumi.input_type
 class StatefulSetArgs:

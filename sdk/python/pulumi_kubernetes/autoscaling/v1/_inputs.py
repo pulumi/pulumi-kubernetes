@@ -30,27 +30,22 @@ __all__ = [
     'HorizontalPodAutoscalerArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class CrossVersionObjectReferencePatchArgsDict(TypedDict):
-        """
-        CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        apiVersion is the API version of the referent
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        """
-elif False:
-    CrossVersionObjectReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+class CrossVersionObjectReferencePatchArgsDict(TypedDict):
+    """
+    CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    apiVersion is the API version of the referent
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    """
 
 @pulumi.input_type
 class CrossVersionObjectReferencePatchArgs:
@@ -108,25 +103,22 @@ class CrossVersionObjectReferencePatchArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class CrossVersionObjectReferenceArgsDict(TypedDict):
-        """
-        CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        """
-        kind: pulumi.Input[_builtins.str]
-        """
-        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        apiVersion is the API version of the referent
-        """
-elif False:
-    CrossVersionObjectReferenceArgsDict: TypeAlias = Mapping[str, Any]
+class CrossVersionObjectReferenceArgsDict(TypedDict):
+    """
+    CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    apiVersion is the API version of the referent
+    """
 
 @pulumi.input_type
 class CrossVersionObjectReferenceArgs:
@@ -182,29 +174,26 @@ class CrossVersionObjectReferenceArgs:
         pulumi.set(self, "api_version", value)
 
 
-if not MYPY:
-    class HorizontalPodAutoscalerSpecPatchArgsDict(TypedDict):
-        """
-        specification of a horizontal pod autoscaler.
-        """
-        max_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
-        """
-        min_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-        """
-        scale_target_ref: NotRequired[pulumi.Input['CrossVersionObjectReferencePatchArgsDict']]
-        """
-        reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
-        """
-        target_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
-        """
-elif False:
-    HorizontalPodAutoscalerSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class HorizontalPodAutoscalerSpecPatchArgsDict(TypedDict):
+    """
+    specification of a horizontal pod autoscaler.
+    """
+    max_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+    """
+    min_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+    """
+    scale_target_ref: NotRequired[pulumi.Input['CrossVersionObjectReferencePatchArgsDict']]
+    """
+    reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+    """
+    target_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+    """
 
 @pulumi.input_type
 class HorizontalPodAutoscalerSpecPatchArgs:
@@ -278,29 +267,26 @@ class HorizontalPodAutoscalerSpecPatchArgs:
         pulumi.set(self, "target_cpu_utilization_percentage", value)
 
 
-if not MYPY:
-    class HorizontalPodAutoscalerSpecArgsDict(TypedDict):
-        """
-        specification of a horizontal pod autoscaler.
-        """
-        max_replicas: pulumi.Input[_builtins.int]
-        """
-        maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
-        """
-        scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgsDict']
-        """
-        reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
-        """
-        min_replicas: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-        """
-        target_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
-        """
-elif False:
-    HorizontalPodAutoscalerSpecArgsDict: TypeAlias = Mapping[str, Any]
+class HorizontalPodAutoscalerSpecArgsDict(TypedDict):
+    """
+    specification of a horizontal pod autoscaler.
+    """
+    max_replicas: pulumi.Input[_builtins.int]
+    """
+    maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+    """
+    scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgsDict']
+    """
+    reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+    """
+    min_replicas: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+    """
+    target_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+    """
 
 @pulumi.input_type
 class HorizontalPodAutoscalerSpecArgs:
@@ -372,33 +358,30 @@ class HorizontalPodAutoscalerSpecArgs:
         pulumi.set(self, "target_cpu_utilization_percentage", value)
 
 
-if not MYPY:
-    class HorizontalPodAutoscalerStatusArgsDict(TypedDict):
-        """
-        current status of a horizontal pod autoscaler
-        """
-        current_replicas: pulumi.Input[_builtins.int]
-        """
-        currentReplicas is the current number of replicas of pods managed by this autoscaler.
-        """
-        desired_replicas: pulumi.Input[_builtins.int]
-        """
-        desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
-        """
-        current_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
-        """
-        last_scale_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
-        """
-        observed_generation: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        observedGeneration is the most recent generation observed by this autoscaler.
-        """
-elif False:
-    HorizontalPodAutoscalerStatusArgsDict: TypeAlias = Mapping[str, Any]
+class HorizontalPodAutoscalerStatusArgsDict(TypedDict):
+    """
+    current status of a horizontal pod autoscaler
+    """
+    current_replicas: pulumi.Input[_builtins.int]
+    """
+    currentReplicas is the current number of replicas of pods managed by this autoscaler.
+    """
+    desired_replicas: pulumi.Input[_builtins.int]
+    """
+    desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
+    """
+    current_cpu_utilization_percentage: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+    """
+    last_scale_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+    """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    observedGeneration is the most recent generation observed by this autoscaler.
+    """
 
 @pulumi.input_type
 class HorizontalPodAutoscalerStatusArgs:
@@ -486,33 +469,30 @@ class HorizontalPodAutoscalerStatusArgs:
         pulumi.set(self, "observed_generation", value)
 
 
-if not MYPY:
-    class HorizontalPodAutoscalerArgsDict(TypedDict):
-        """
-        configuration of a horizontal pod autoscaler.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['HorizontalPodAutoscalerSpecArgsDict']]
-        """
-        spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-        """
-        status: NotRequired[pulumi.Input['HorizontalPodAutoscalerStatusArgsDict']]
-        """
-        status is the current information about the autoscaler.
-        """
-elif False:
-    HorizontalPodAutoscalerArgsDict: TypeAlias = Mapping[str, Any]
+class HorizontalPodAutoscalerArgsDict(TypedDict):
+    """
+    configuration of a horizontal pod autoscaler.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['HorizontalPodAutoscalerSpecArgsDict']]
+    """
+    spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+    """
+    status: NotRequired[pulumi.Input['HorizontalPodAutoscalerStatusArgsDict']]
+    """
+    status is the current information about the autoscaler.
+    """
 
 @pulumi.input_type
 class HorizontalPodAutoscalerArgs:
