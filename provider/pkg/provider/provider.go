@@ -374,7 +374,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	}
 
 	// alwaysRender requires renderYamlToDirectory to be set
-	if truthyValue("alwaysRender", news) && !renderYamlEnabled {
+	if v, ok := news["alwaysRender"]; ok && v.BoolValue() && !renderYamlEnabled {
 		return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: []*pulumirpc.CheckFailure{{
 			Property: "alwaysRender",
 			Reason:   `"alwaysRender" requires "renderYamlToDirectory" to be set`,
