@@ -18,8 +18,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.3.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
-	github.com/pulumi/pulumi/pkg/v3 v3.219.0
-	github.com/pulumi/pulumi/sdk/v3 v3.219.0
+	github.com/pulumi/pulumi/pkg/v3 v3.220.0
+	github.com/pulumi/pulumi/sdk/v3 v3.220.0
 	github.com/stretchr/testify v1.10.0
 	github.com/theory/jsonpath v0.9.0
 	golang.org/x/crypto v0.47.0
@@ -177,7 +177,7 @@ require (
 	github.com/prometheus/common v0.62.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/esc v0.21.0 // indirect
+	github.com/pulumi/esc v0.22.0 // indirect
 	github.com/pulumi/inflector v0.2.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
