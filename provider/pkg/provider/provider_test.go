@@ -331,7 +331,7 @@ func TestCheckConfig_AlwaysRenderRequiresRenderYamlToDirectory(t *testing.T) {
 		{
 			name: "alwaysRender without renderYamlToDirectory should fail",
 			news: resource.PropertyMap{
-				"alwaysRender": resource.NewStringProperty("true"),
+				"alwaysRender": resource.NewBoolProperty(true),
 			},
 			wantFailure: true,
 			wantReason:  `"alwaysRender" requires "renderYamlToDirectory" to be set`,
@@ -339,7 +339,7 @@ func TestCheckConfig_AlwaysRenderRequiresRenderYamlToDirectory(t *testing.T) {
 		{
 			name: "alwaysRender with renderYamlToDirectory should succeed",
 			news: resource.PropertyMap{
-				"alwaysRender":          resource.NewStringProperty("true"),
+				"alwaysRender":          resource.NewBoolProperty(true),
 				"renderYamlToDirectory": resource.NewStringProperty("/tmp/yaml"),
 			},
 			wantFailure: false,
