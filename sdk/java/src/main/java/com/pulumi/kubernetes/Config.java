@@ -12,6 +12,13 @@ public final class Config {
 
     private static final com.pulumi.Config config = com.pulumi.Config.of("kubernetes");
 /**
+ * If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+ * 
+ */
+    public Optional<Boolean> alwaysRender() {
+        return Codegen.booleanProp("alwaysRender").config(config).get();
+    }
+/**
  * If present, the name of the kubeconfig cluster to use.
  * 
  */

@@ -79,6 +79,8 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
+	// If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+	AlwaysRender *bool `pulumi:"alwaysRender"`
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster *string `pulumi:"cluster"`
 	// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
@@ -140,6 +142,8 @@ type providerArgs struct {
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
+	// If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+	AlwaysRender pulumi.BoolPtrInput
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster pulumi.StringPtrInput
 	// If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.

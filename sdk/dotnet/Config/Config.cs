@@ -32,6 +32,16 @@ namespace Pulumi.Kubernetes
 
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("kubernetes");
 
+        private static readonly __Value<bool?> _alwaysRender = new __Value<bool?>(() => __config.GetBoolean("alwaysRender"));
+        /// <summary>
+        /// If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+        /// </summary>
+        public static bool? AlwaysRender
+        {
+            get => _alwaysRender.Get();
+            set => _alwaysRender.Set(value);
+        }
+
         private static readonly __Value<string?> _cluster = new __Value<string?>(() => __config.Get("cluster"));
         /// <summary>
         /// If present, the name of the kubeconfig cluster to use.

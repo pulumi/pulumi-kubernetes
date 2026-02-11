@@ -322,3 +322,66 @@ func TestDiffConfig(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckConfig_AlwaysRenderRequiresRenderYamlToDirectory(t *testing.T) {
+	tests := []struct {
+		name        string
+		news        resource.PropertyMap
+		wantFailure bool
+		wantReason  string
+	}{
+		{
+			name: "alwaysRender without renderYamlToDirectory should fail",
+			news: resource.PropertyMap{
+				"alwaysRender": resource.NewBoolProperty(true),
+			},
+			wantFailure: true,
+			wantReason:  `"alwaysRender" requires "renderYamlToDirectory" to be set`,
+		},
+		{
+			name: "alwaysRender with renderYamlToDirectory should succeed",
+			news: resource.PropertyMap{
+				"alwaysRender":          resource.NewBoolProperty(true),
+				"renderYamlToDirectory": resource.NewStringProperty("/tmp/yaml"),
+			},
+			wantFailure: false,
+		},
+		{
+			name: "renderYamlToDirectory without alwaysRender should succeed",
+			news: resource.PropertyMap{
+				"renderYamlToDirectory": resource.NewStringProperty("/tmp/yaml"),
+			},
+			wantFailure: false,
+		},
+		{
+			name:        "neither set should succeed",
+			news:        resource.PropertyMap{},
+			wantFailure: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			k := &kubeProvider{}
+
+			newspb, err := plugin.MarshalProperties(tt.news, plugin.MarshalOptions{})
+			require.NoError(t, err)
+
+			req := &pulumirpc.CheckRequest{
+				Urn:  "urn:pulumi:test::test::pulumi:providers:kubernetes::k8s",
+				News: newspb,
+			}
+
+			resp, err := k.CheckConfig(context.Background(), req)
+			require.NoError(t, err)
+
+			if tt.wantFailure {
+				require.Len(t, resp.Failures, 1)
+				assert.Equal(t, "alwaysRender", resp.Failures[0].Property)
+				assert.Equal(t, tt.wantReason, resp.Failures[0].Reason)
+			} else {
+				assert.Empty(t, resp.Failures)
+			}
+		})
+	}
+}

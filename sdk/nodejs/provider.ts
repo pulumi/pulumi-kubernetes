@@ -37,6 +37,7 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
+            resourceInputs["alwaysRender"] = pulumi.output(args?.alwaysRender).apply(JSON.stringify);
             resourceInputs["cluster"] = args?.cluster;
             resourceInputs["clusterIdentifier"] = args?.clusterIdentifier;
             resourceInputs["context"] = args?.context;
@@ -62,6 +63,10 @@ export class Provider extends pulumi.ProviderResource {
  * The set of arguments for constructing a Provider resource.
  */
 export interface ProviderArgs {
+    /**
+     * If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+     */
+    alwaysRender?: pulumi.Input<boolean>;
     /**
      * If present, the name of the kubeconfig cluster to use.
      */

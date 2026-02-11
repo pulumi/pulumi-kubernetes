@@ -11,6 +11,11 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
+func GetAlwaysRender(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:alwaysRender")
+}
+
 // If present, the name of the kubeconfig cluster to use.
 func GetCluster(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:cluster")

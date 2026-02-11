@@ -98,6 +98,7 @@ const (
 	fieldManagerKey      = "__fieldManager"
 	secretKind           = "Secret"
 	clusterIdentifierKey = "clusterIdentifier"
+	trueStr              = "true"
 )
 
 type cancellationContext struct {
@@ -149,6 +150,7 @@ type kubeProvider struct {
 
 	yamlRenderMode bool
 	yamlDirectory  string
+	alwaysRender   bool
 
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
@@ -320,7 +322,7 @@ func (k *kubeProvider) CheckConfig(
 	if pConfig, ok := k.loadPulumiConfig(); ok {
 		if v, ok := pConfig["strictMode"]; ok {
 			if v, ok := v.(string); ok {
-				strictMode = v == "true"
+				strictMode = v == trueStr
 			}
 		}
 	}
@@ -384,6 +386,16 @@ func (k *kubeProvider) CheckConfig(
 		}
 	}
 
+	// alwaysRender is only valid when we're in YAML render mode
+	if v, ok := news["alwaysRender"]; ok {
+		alwaysRenderEnabled := (v.IsBool() && v.BoolValue()) || (v.IsString() && v.StringValue() == "true")
+		if alwaysRenderEnabled && !renderYamlEnabled {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: []*pulumirpc.CheckFailure{{
+				Property: "alwaysRender",
+				Reason:   `"alwaysRender" requires "renderYamlToDirectory" to be set`,
+			}}}, nil
+		}
+	}
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
@@ -674,6 +686,8 @@ func (k *kubeProvider) Configure(
 	}
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
+
+	k.alwaysRender = vars["kubernetes:config:alwaysRender"] == trueStr
 
 	var helmReleaseSettings HelmReleaseSettings
 	if obj, ok := vars["kubernetes:config:helmReleaseSettings"]; ok {
@@ -1556,6 +1570,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// 5. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
 			newInputs.GetNamespace() == oldLive.GetNamespace()
+
+	// When alwaysRender is enabled in YAML render mode, always report changes so that Update()
+	// is called for all resources. This ensures all resources are rendered to YAML files on every
+	// run, not just changed ones. This is necessary for use cases like ArgoCD Config Management
+	// Plugin that need all manifests regenerated on each run. Update() in yamlRenderMode only
+	// writes files and doesn't modify any cluster resources.
+	if k.yamlRenderMode && k.alwaysRender {
+		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+	}
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
