@@ -32,35 +32,30 @@ __all__ = [
     'ServiceReferenceArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class APIServiceConditionArgsDict(TypedDict):
-        """
-        APIServiceCondition describes the state of an APIService at a particular point
-        """
-        status: pulumi.Input[_builtins.str]
-        """
-        Status is the status of the condition. Can be True, False, Unknown.
-        """
-        type: pulumi.Input[_builtins.str]
-        """
-        Type is the type of the condition.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Last time the condition transitioned from one status to another.
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Human-readable message indicating details about last transition.
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Unique, one-word, CamelCase reason for the condition's last transition.
-        """
-elif False:
-    APIServiceConditionArgsDict: TypeAlias = Mapping[str, Any]
+class APIServiceConditionArgsDict(TypedDict):
+    """
+    APIServiceCondition describes the state of an APIService at a particular point
+    """
+    status: pulumi.Input[_builtins.str]
+    """
+    Status is the status of the condition. Can be True, False, Unknown.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type is the type of the condition.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Last time the condition transitioned from one status to another.
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Human-readable message indicating details about last transition.
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Unique, one-word, CamelCase reason for the condition's last transition.
+    """
 
 @pulumi.input_type
 class APIServiceConditionArgs:
@@ -148,41 +143,38 @@ class APIServiceConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-if not MYPY:
-    class APIServiceSpecPatchArgsDict(TypedDict):
-        """
-        APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
-        """
-        ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
-        """
-        group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Group is the API group name this server hosts
-        """
-        group_priority_minimum: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
-        """
-        insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
-        """
-        service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
-        """
-        Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-        """
-        version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Version is the API version this server hosts.  For example, "v1"
-        """
-        version_priority: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-        """
-elif False:
-    APIServiceSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class APIServiceSpecPatchArgsDict(TypedDict):
+    """
+    APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
+    """
+    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
+    """
+    group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Group is the API group name this server hosts
+    """
+    group_priority_minimum: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+    """
+    insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
+    """
+    service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
+    """
+    Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+    """
+    version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Version is the API version this server hosts.  For example, "v1"
+    """
+    version_priority: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+    """
 
 @pulumi.input_type
 class APIServiceSpecPatchArgs:
@@ -304,41 +296,38 @@ class APIServiceSpecPatchArgs:
         pulumi.set(self, "version_priority", value)
 
 
-if not MYPY:
-    class APIServiceSpecArgsDict(TypedDict):
-        """
-        APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
-        """
-        group_priority_minimum: pulumi.Input[_builtins.int]
-        """
-        GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
-        """
-        service: pulumi.Input['ServiceReferenceArgsDict']
-        """
-        Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-        """
-        version_priority: pulumi.Input[_builtins.int]
-        """
-        VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-        """
-        ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
-        """
-        group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Group is the API group name this server hosts
-        """
-        insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
-        """
-        version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Version is the API version this server hosts.  For example, "v1"
-        """
-elif False:
-    APIServiceSpecArgsDict: TypeAlias = Mapping[str, Any]
+class APIServiceSpecArgsDict(TypedDict):
+    """
+    APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
+    """
+    group_priority_minimum: pulumi.Input[_builtins.int]
+    """
+    GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+    """
+    service: pulumi.Input['ServiceReferenceArgsDict']
+    """
+    Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+    """
+    version_priority: pulumi.Input[_builtins.int]
+    """
+    VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+    """
+    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
+    """
+    group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Group is the API group name this server hosts
+    """
+    insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
+    """
+    version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Version is the API version this server hosts.  For example, "v1"
+    """
 
 @pulumi.input_type
 class APIServiceSpecArgs:
@@ -457,17 +446,14 @@ class APIServiceSpecArgs:
         pulumi.set(self, "version", value)
 
 
-if not MYPY:
-    class APIServiceStatusArgsDict(TypedDict):
-        """
-        APIServiceStatus contains derived information about an API server
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgsDict']]]]
-        """
-        Current service state of apiService.
-        """
-elif False:
-    APIServiceStatusArgsDict: TypeAlias = Mapping[str, Any]
+class APIServiceStatusArgsDict(TypedDict):
+    """
+    APIServiceStatus contains derived information about an API server
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgsDict']]]]
+    """
+    Current service state of apiService.
+    """
 
 @pulumi.input_type
 class APIServiceStatusArgs:
@@ -493,30 +479,27 @@ class APIServiceStatusArgs:
         pulumi.set(self, "conditions", value)
 
 
-if not MYPY:
-    class APIServiceArgsDict(TypedDict):
-        """
-        APIService represents a server for a particular GroupVersion. Name must be "version.group".
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        spec: NotRequired[pulumi.Input['APIServiceSpecArgsDict']]
-        """
-        Spec contains information for locating and communicating with a server
-        """
-        status: NotRequired[pulumi.Input['APIServiceStatusArgsDict']]
-        """
-        Status contains derived information about an API server
-        """
-elif False:
-    APIServiceArgsDict: TypeAlias = Mapping[str, Any]
+class APIServiceArgsDict(TypedDict):
+    """
+    APIService represents a server for a particular GroupVersion. Name must be "version.group".
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    spec: NotRequired[pulumi.Input['APIServiceSpecArgsDict']]
+    """
+    Spec contains information for locating and communicating with a server
+    """
+    status: NotRequired[pulumi.Input['APIServiceStatusArgsDict']]
+    """
+    Status contains derived information about an API server
+    """
 
 @pulumi.input_type
 class APIServiceArgs:
@@ -602,25 +585,22 @@ class APIServiceArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class ServiceReferencePatchArgsDict(TypedDict):
-        """
-        ServiceReference holds a reference to Service.legacy.k8s.io
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name is the name of the service
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace is the namespace of the service
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
-        """
-elif False:
-    ServiceReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceReferencePatchArgsDict(TypedDict):
+    """
+    ServiceReference holds a reference to Service.legacy.k8s.io
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name is the name of the service
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace is the namespace of the service
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+    """
 
 @pulumi.input_type
 class ServiceReferencePatchArgs:
@@ -678,25 +658,22 @@ class ServiceReferencePatchArgs:
         pulumi.set(self, "port", value)
 
 
-if not MYPY:
-    class ServiceReferenceArgsDict(TypedDict):
-        """
-        ServiceReference holds a reference to Service.legacy.k8s.io
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name is the name of the service
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace is the namespace of the service
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
-        """
-elif False:
-    ServiceReferenceArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceReferenceArgsDict(TypedDict):
+    """
+    ServiceReference holds a reference to Service.legacy.k8s.io
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name is the name of the service
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace is the namespace of the service
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+    """
 
 @pulumi.input_type
 class ServiceReferenceArgs:

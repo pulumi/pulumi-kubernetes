@@ -43,31 +43,26 @@ __all__ = [
     'ServiceCIDRArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class ClusterCIDRSpecPatchArgsDict(TypedDict):
-        """
-        ClusterCIDRSpec defines the desired state of ClusterCIDR.
-        """
-        ipv4: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
-        """
-        ipv6: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
-        """
-        node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorPatchArgsDict']]
-        """
-        NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
-        """
-        per_node_host_bits: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
-        """
-elif False:
-    ClusterCIDRSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterCIDRSpecPatchArgsDict(TypedDict):
+    """
+    ClusterCIDRSpec defines the desired state of ClusterCIDR.
+    """
+    ipv4: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+    """
+    ipv6: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+    """
+    node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorPatchArgsDict']]
+    """
+    NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+    """
+    per_node_host_bits: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+    """
 
 @pulumi.input_type
 class ClusterCIDRSpecPatchArgs:
@@ -141,29 +136,26 @@ class ClusterCIDRSpecPatchArgs:
         pulumi.set(self, "per_node_host_bits", value)
 
 
-if not MYPY:
-    class ClusterCIDRSpecArgsDict(TypedDict):
-        """
-        ClusterCIDRSpec defines the desired state of ClusterCIDR.
-        """
-        per_node_host_bits: pulumi.Input[_builtins.int]
-        """
-        PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
-        """
-        ipv4: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
-        """
-        ipv6: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
-        """
-        node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
-        """
-        NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
-        """
-elif False:
-    ClusterCIDRSpecArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterCIDRSpecArgsDict(TypedDict):
+    """
+    ClusterCIDRSpec defines the desired state of ClusterCIDR.
+    """
+    per_node_host_bits: pulumi.Input[_builtins.int]
+    """
+    PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+    """
+    ipv4: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+    """
+    ipv6: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+    """
+    node_selector: NotRequired[pulumi.Input['_core.v1.NodeSelectorArgsDict']]
+    """
+    NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+    """
 
 @pulumi.input_type
 class ClusterCIDRSpecArgs:
@@ -236,29 +228,26 @@ class ClusterCIDRSpecArgs:
         pulumi.set(self, "node_selector", value)
 
 
-if not MYPY:
-    class ClusterCIDRArgsDict(TypedDict):
-        """
-        ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['ClusterCIDRSpecArgsDict']]
-        """
-        Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    ClusterCIDRArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterCIDRArgsDict(TypedDict):
+    """
+    ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['ClusterCIDRSpecArgsDict']]
+    """
+    Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class ClusterCIDRArgs:
@@ -332,17 +321,14 @@ class ClusterCIDRArgs:
         pulumi.set(self, "spec", value)
 
 
-if not MYPY:
-    class IPAddressSpecPatchArgsDict(TypedDict):
-        """
-        IPAddressSpec describe the attributes in an IP Address.
-        """
-        parent_ref: NotRequired[pulumi.Input['ParentReferencePatchArgsDict']]
-        """
-        ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
-        """
-elif False:
-    IPAddressSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class IPAddressSpecPatchArgsDict(TypedDict):
+    """
+    IPAddressSpec describe the attributes in an IP Address.
+    """
+    parent_ref: NotRequired[pulumi.Input['ParentReferencePatchArgsDict']]
+    """
+    ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+    """
 
 @pulumi.input_type
 class IPAddressSpecPatchArgs:
@@ -368,17 +354,14 @@ class IPAddressSpecPatchArgs:
         pulumi.set(self, "parent_ref", value)
 
 
-if not MYPY:
-    class IPAddressSpecArgsDict(TypedDict):
-        """
-        IPAddressSpec describe the attributes in an IP Address.
-        """
-        parent_ref: pulumi.Input['ParentReferenceArgsDict']
-        """
-        ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
-        """
-elif False:
-    IPAddressSpecArgsDict: TypeAlias = Mapping[str, Any]
+class IPAddressSpecArgsDict(TypedDict):
+    """
+    IPAddressSpec describe the attributes in an IP Address.
+    """
+    parent_ref: pulumi.Input['ParentReferenceArgsDict']
+    """
+    ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+    """
 
 @pulumi.input_type
 class IPAddressSpecArgs:
@@ -403,29 +386,26 @@ class IPAddressSpecArgs:
         pulumi.set(self, "parent_ref", value)
 
 
-if not MYPY:
-    class IPAddressArgsDict(TypedDict):
-        """
-        IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['IPAddressSpecArgsDict']]
-        """
-        spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    IPAddressArgsDict: TypeAlias = Mapping[str, Any]
+class IPAddressArgsDict(TypedDict):
+    """
+    IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['IPAddressSpecArgsDict']]
+    """
+    spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class IPAddressArgs:
@@ -499,33 +479,30 @@ class IPAddressArgs:
         pulumi.set(self, "spec", value)
 
 
-if not MYPY:
-    class ParentReferencePatchArgsDict(TypedDict):
-        """
-        ParentReference describes a reference to a parent object.
-        """
-        group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Group is the group of the object being referenced.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name is the name of the object being referenced.
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace is the namespace of the object being referenced.
-        """
-        resource: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Resource is the resource of the object being referenced.
-        """
-        uid: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        UID is the uid of the object being referenced.
-        """
-elif False:
-    ParentReferencePatchArgsDict: TypeAlias = Mapping[str, Any]
+class ParentReferencePatchArgsDict(TypedDict):
+    """
+    ParentReference describes a reference to a parent object.
+    """
+    group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Group is the group of the object being referenced.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name is the name of the object being referenced.
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace is the namespace of the object being referenced.
+    """
+    resource: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Resource is the resource of the object being referenced.
+    """
+    uid: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    UID is the uid of the object being referenced.
+    """
 
 @pulumi.input_type
 class ParentReferencePatchArgs:
@@ -615,33 +592,30 @@ class ParentReferencePatchArgs:
         pulumi.set(self, "uid", value)
 
 
-if not MYPY:
-    class ParentReferenceArgsDict(TypedDict):
-        """
-        ParentReference describes a reference to a parent object.
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        Name is the name of the object being referenced.
-        """
-        resource: pulumi.Input[_builtins.str]
-        """
-        Resource is the resource of the object being referenced.
-        """
-        group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Group is the group of the object being referenced.
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace is the namespace of the object being referenced.
-        """
-        uid: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        UID is the uid of the object being referenced.
-        """
-elif False:
-    ParentReferenceArgsDict: TypeAlias = Mapping[str, Any]
+class ParentReferenceArgsDict(TypedDict):
+    """
+    ParentReference describes a reference to a parent object.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the name of the object being referenced.
+    """
+    resource: pulumi.Input[_builtins.str]
+    """
+    Resource is the resource of the object being referenced.
+    """
+    group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Group is the group of the object being referenced.
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace is the namespace of the object being referenced.
+    """
+    uid: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    UID is the uid of the object being referenced.
+    """
 
 @pulumi.input_type
 class ParentReferenceArgs:
@@ -729,17 +703,14 @@ class ParentReferenceArgs:
         pulumi.set(self, "uid", value)
 
 
-if not MYPY:
-    class ServiceCIDRSpecPatchArgsDict(TypedDict):
-        """
-        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
-        """
-        cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
-        """
-elif False:
-    ServiceCIDRSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceCIDRSpecPatchArgsDict(TypedDict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+    """
 
 @pulumi.input_type
 class ServiceCIDRSpecPatchArgs:
@@ -765,17 +736,14 @@ class ServiceCIDRSpecPatchArgs:
         pulumi.set(self, "cidrs", value)
 
 
-if not MYPY:
-    class ServiceCIDRSpecArgsDict(TypedDict):
-        """
-        ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
-        """
-        cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
-        """
-elif False:
-    ServiceCIDRSpecArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceCIDRSpecArgsDict(TypedDict):
+    """
+    ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+    """
+    cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+    """
 
 @pulumi.input_type
 class ServiceCIDRSpecArgs:
@@ -801,17 +769,14 @@ class ServiceCIDRSpecArgs:
         pulumi.set(self, "cidrs", value)
 
 
-if not MYPY:
-    class ServiceCIDRStatusArgsDict(TypedDict):
-        """
-        ServiceCIDRStatus describes the current state of the ServiceCIDR.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
-        """
-        conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
-        """
-elif False:
-    ServiceCIDRStatusArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceCIDRStatusArgsDict(TypedDict):
+    """
+    ServiceCIDRStatus describes the current state of the ServiceCIDR.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    """
+    conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
+    """
 
 @pulumi.input_type
 class ServiceCIDRStatusArgs:
@@ -837,33 +802,30 @@ class ServiceCIDRStatusArgs:
         pulumi.set(self, "conditions", value)
 
 
-if not MYPY:
-    class ServiceCIDRArgsDict(TypedDict):
-        """
-        ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['ServiceCIDRSpecArgsDict']]
-        """
-        spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        status: NotRequired[pulumi.Input['ServiceCIDRStatusArgsDict']]
-        """
-        status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    ServiceCIDRArgsDict: TypeAlias = Mapping[str, Any]
+class ServiceCIDRArgsDict(TypedDict):
+    """
+    ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['ServiceCIDRSpecArgsDict']]
+    """
+    spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+    status: NotRequired[pulumi.Input['ServiceCIDRStatusArgsDict']]
+    """
+    status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class ServiceCIDRArgs:

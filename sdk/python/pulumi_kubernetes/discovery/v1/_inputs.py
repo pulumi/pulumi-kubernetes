@@ -45,27 +45,22 @@ __all__ = [
     'ForZoneArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class EndpointConditionsPatchArgsDict(TypedDict):
-        """
-        EndpointConditions represents the current condition of an endpoint.
-        """
-        ready: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as "true". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.
-        """
-        serving: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as "true".
-        """
-        terminating: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        terminating indicates that this endpoint is terminating. A nil value should be interpreted as "false".
-        """
-elif False:
-    EndpointConditionsPatchArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointConditionsPatchArgsDict(TypedDict):
+    """
+    EndpointConditions represents the current condition of an endpoint.
+    """
+    ready: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as "true". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.
+    """
+    serving: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as "true".
+    """
+    terminating: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    terminating indicates that this endpoint is terminating. A nil value should be interpreted as "false".
+    """
 
 @pulumi.input_type
 class EndpointConditionsPatchArgs:
@@ -123,25 +118,22 @@ class EndpointConditionsPatchArgs:
         pulumi.set(self, "terminating", value)
 
 
-if not MYPY:
-    class EndpointConditionsArgsDict(TypedDict):
-        """
-        EndpointConditions represents the current condition of an endpoint.
-        """
-        ready: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as "true". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.
-        """
-        serving: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as "true".
-        """
-        terminating: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        terminating indicates that this endpoint is terminating. A nil value should be interpreted as "false".
-        """
-elif False:
-    EndpointConditionsArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointConditionsArgsDict(TypedDict):
+    """
+    EndpointConditions represents the current condition of an endpoint.
+    """
+    ready: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as "true". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.
+    """
+    serving: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as "true".
+    """
+    terminating: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    terminating indicates that this endpoint is terminating. A nil value should be interpreted as "false".
+    """
 
 @pulumi.input_type
 class EndpointConditionsArgs:
@@ -199,21 +191,18 @@ class EndpointConditionsArgs:
         pulumi.set(self, "terminating", value)
 
 
-if not MYPY:
-    class EndpointHintsPatchArgsDict(TypedDict):
-        """
-        EndpointHints provides hints describing how an endpoint should be consumed.
-        """
-        for_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForNodePatchArgsDict']]]]
-        """
-        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
-        """
-        for_zones: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForZonePatchArgsDict']]]]
-        """
-        forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
-        """
-elif False:
-    EndpointHintsPatchArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointHintsPatchArgsDict(TypedDict):
+    """
+    EndpointHints provides hints describing how an endpoint should be consumed.
+    """
+    for_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForNodePatchArgsDict']]]]
+    """
+    forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+    """
+    for_zones: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForZonePatchArgsDict']]]]
+    """
+    forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
+    """
 
 @pulumi.input_type
 class EndpointHintsPatchArgs:
@@ -255,21 +244,18 @@ class EndpointHintsPatchArgs:
         pulumi.set(self, "for_zones", value)
 
 
-if not MYPY:
-    class EndpointHintsArgsDict(TypedDict):
-        """
-        EndpointHints provides hints describing how an endpoint should be consumed.
-        """
-        for_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForNodeArgsDict']]]]
-        """
-        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
-        """
-        for_zones: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForZoneArgsDict']]]]
-        """
-        forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
-        """
-elif False:
-    EndpointHintsArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointHintsArgsDict(TypedDict):
+    """
+    EndpointHints provides hints describing how an endpoint should be consumed.
+    """
+    for_nodes: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForNodeArgsDict']]]]
+    """
+    forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+    """
+    for_zones: NotRequired[pulumi.Input[Sequence[pulumi.Input['ForZoneArgsDict']]]]
+    """
+    forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
+    """
 
 @pulumi.input_type
 class EndpointHintsArgs:
@@ -311,45 +297,42 @@ class EndpointHintsArgs:
         pulumi.set(self, "for_zones", value)
 
 
-if not MYPY:
-    class EndpointPatchArgsDict(TypedDict):
-        """
-        Endpoint represents a single logical "backend" implementing a service.
-        """
-        addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        addresses of this endpoint. For EndpointSlices of addressType "IPv4" or "IPv6", the values are IP addresses in canonical form. The syntax and semantics of other addressType values are not defined. This must contain at least one address but no more than 100. EndpointSlices generated by the EndpointSlice controller will always have exactly 1 address. No semantics are defined for additional addresses beyond the first, and kube-proxy does not look at them.
-        """
-        conditions: NotRequired[pulumi.Input['EndpointConditionsPatchArgsDict']]
-        """
-        conditions contains information about the current status of the endpoint.
-        """
-        deprecated_topology: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
-        """
-        deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
-        """
-        hints: NotRequired[pulumi.Input['EndpointHintsPatchArgsDict']]
-        """
-        hints contains information associated with how an endpoint should be consumed.
-        """
-        hostname: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        """
-        node_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
-        """
-        target_ref: NotRequired[pulumi.Input['_core.v1.ObjectReferencePatchArgsDict']]
-        """
-        targetRef is a reference to a Kubernetes object that represents this endpoint.
-        """
-        zone: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        zone is the name of the Zone this endpoint exists in.
-        """
-elif False:
-    EndpointPatchArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointPatchArgsDict(TypedDict):
+    """
+    Endpoint represents a single logical "backend" implementing a service.
+    """
+    addresses: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    addresses of this endpoint. For EndpointSlices of addressType "IPv4" or "IPv6", the values are IP addresses in canonical form. The syntax and semantics of other addressType values are not defined. This must contain at least one address but no more than 100. EndpointSlices generated by the EndpointSlice controller will always have exactly 1 address. No semantics are defined for additional addresses beyond the first, and kube-proxy does not look at them.
+    """
+    conditions: NotRequired[pulumi.Input['EndpointConditionsPatchArgsDict']]
+    """
+    conditions contains information about the current status of the endpoint.
+    """
+    deprecated_topology: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
+    """
+    hints: NotRequired[pulumi.Input['EndpointHintsPatchArgsDict']]
+    """
+    hints contains information associated with how an endpoint should be consumed.
+    """
+    hostname: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+    """
+    node_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
+    """
+    target_ref: NotRequired[pulumi.Input['_core.v1.ObjectReferencePatchArgsDict']]
+    """
+    targetRef is a reference to a Kubernetes object that represents this endpoint.
+    """
+    zone: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    zone is the name of the Zone this endpoint exists in.
+    """
 
 @pulumi.input_type
 class EndpointPatchArgs:
@@ -487,38 +470,35 @@ class EndpointPatchArgs:
         pulumi.set(self, "zone", value)
 
 
-if not MYPY:
-    class EndpointPortPatchArgsDict(TypedDict):
-        """
-        EndpointPort represents a Port used by an EndpointSlice
-        """
-        app_protocol: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+class EndpointPortPatchArgsDict(TypedDict):
+    """
+    EndpointPort represents a Port used by an EndpointSlice
+    """
+    app_protocol: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 
-        * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+    * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
-        * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
-          * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
-          * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
+    * Kubernetes-defined prefixed names:
+      * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
+      * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+      * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
-        * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
-        """
-        protocol: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-        """
-elif False:
-    EndpointPortPatchArgsDict: TypeAlias = Mapping[str, Any]
+    * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
+    """
+    protocol: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+    """
 
 @pulumi.input_type
 class EndpointPortPatchArgs:
@@ -610,38 +590,35 @@ class EndpointPortPatchArgs:
         pulumi.set(self, "protocol", value)
 
 
-if not MYPY:
-    class EndpointPortArgsDict(TypedDict):
-        """
-        EndpointPort represents a Port used by an EndpointSlice
-        """
-        app_protocol: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+class EndpointPortArgsDict(TypedDict):
+    """
+    EndpointPort represents a Port used by an EndpointSlice
+    """
+    app_protocol: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
 
-        * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+    * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
 
-        * Kubernetes-defined prefixed names:
-          * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
-          * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
-          * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
+    * Kubernetes-defined prefixed names:
+      * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
+      * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+      * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 
-        * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
-        """
-        port: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
-        """
-        protocol: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-        """
-elif False:
-    EndpointPortArgsDict: TypeAlias = Mapping[str, Any]
+    * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
+    """
+    protocol: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+    """
 
 @pulumi.input_type
 class EndpointPortArgs:
@@ -733,37 +710,34 @@ class EndpointPortArgs:
         pulumi.set(self, "protocol", value)
 
 
-if not MYPY:
-    class EndpointSliceArgsDict(TypedDict):
-        """
-        EndpointSlice represents a set of service endpoints. Most EndpointSlices are created by the EndpointSlice controller to represent the Pods selected by Service objects. For a given service there may be multiple EndpointSlice objects which must be joined to produce the full set of endpoints; you can find all of the slices for a given service by listing EndpointSlices in the service's namespace whose `kubernetes.io/service-name` label contains the service's name.
-        """
-        address_type: pulumi.Input[_builtins.str]
-        """
-        addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name. (Deprecated) The EndpointSlice controller only generates, and kube-proxy only processes, slices of addressType "IPv4" and "IPv6". No semantics are defined for the "FQDN" type.
-        """
-        endpoints: pulumi.Input[Sequence[pulumi.Input['EndpointArgsDict']]]
-        """
-        endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata.
-        """
-        ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgsDict']]]]
-        """
-        ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. Each slice may include a maximum of 100 ports. Services always have at least 1 port, so EndpointSlices generated by the EndpointSlice controller will likewise always have at least 1 port. EndpointSlices used for other purposes may have an empty ports list.
-        """
-elif False:
-    EndpointSliceArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointSliceArgsDict(TypedDict):
+    """
+    EndpointSlice represents a set of service endpoints. Most EndpointSlices are created by the EndpointSlice controller to represent the Pods selected by Service objects. For a given service there may be multiple EndpointSlice objects which must be joined to produce the full set of endpoints; you can find all of the slices for a given service by listing EndpointSlices in the service's namespace whose `kubernetes.io/service-name` label contains the service's name.
+    """
+    address_type: pulumi.Input[_builtins.str]
+    """
+    addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name. (Deprecated) The EndpointSlice controller only generates, and kube-proxy only processes, slices of addressType "IPv4" and "IPv6". No semantics are defined for the "FQDN" type.
+    """
+    endpoints: pulumi.Input[Sequence[pulumi.Input['EndpointArgsDict']]]
+    """
+    endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata.
+    """
+    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgsDict']]]]
+    """
+    ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. Each slice may include a maximum of 100 ports. Services always have at least 1 port, so EndpointSlices generated by the EndpointSlice controller will likewise always have at least 1 port. EndpointSlices used for other purposes may have an empty ports list.
+    """
 
 @pulumi.input_type
 class EndpointSliceArgs:
@@ -867,45 +841,42 @@ class EndpointSliceArgs:
         pulumi.set(self, "ports", value)
 
 
-if not MYPY:
-    class EndpointArgsDict(TypedDict):
-        """
-        Endpoint represents a single logical "backend" implementing a service.
-        """
-        addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-        """
-        addresses of this endpoint. For EndpointSlices of addressType "IPv4" or "IPv6", the values are IP addresses in canonical form. The syntax and semantics of other addressType values are not defined. This must contain at least one address but no more than 100. EndpointSlices generated by the EndpointSlice controller will always have exactly 1 address. No semantics are defined for additional addresses beyond the first, and kube-proxy does not look at them.
-        """
-        conditions: NotRequired[pulumi.Input['EndpointConditionsArgsDict']]
-        """
-        conditions contains information about the current status of the endpoint.
-        """
-        deprecated_topology: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
-        """
-        deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
-        """
-        hints: NotRequired[pulumi.Input['EndpointHintsArgsDict']]
-        """
-        hints contains information associated with how an endpoint should be consumed.
-        """
-        hostname: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        """
-        node_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
-        """
-        target_ref: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
-        """
-        targetRef is a reference to a Kubernetes object that represents this endpoint.
-        """
-        zone: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        zone is the name of the Zone this endpoint exists in.
-        """
-elif False:
-    EndpointArgsDict: TypeAlias = Mapping[str, Any]
+class EndpointArgsDict(TypedDict):
+    """
+    Endpoint represents a single logical "backend" implementing a service.
+    """
+    addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    addresses of this endpoint. For EndpointSlices of addressType "IPv4" or "IPv6", the values are IP addresses in canonical form. The syntax and semantics of other addressType values are not defined. This must contain at least one address but no more than 100. EndpointSlices generated by the EndpointSlice controller will always have exactly 1 address. No semantics are defined for additional addresses beyond the first, and kube-proxy does not look at them.
+    """
+    conditions: NotRequired[pulumi.Input['EndpointConditionsArgsDict']]
+    """
+    conditions contains information about the current status of the endpoint.
+    """
+    deprecated_topology: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
+    """
+    hints: NotRequired[pulumi.Input['EndpointHintsArgsDict']]
+    """
+    hints contains information associated with how an endpoint should be consumed.
+    """
+    hostname: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+    """
+    node_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
+    """
+    target_ref: NotRequired[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]
+    """
+    targetRef is a reference to a Kubernetes object that represents this endpoint.
+    """
+    zone: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    zone is the name of the Zone this endpoint exists in.
+    """
 
 @pulumi.input_type
 class EndpointArgs:
@@ -1042,17 +1013,14 @@ class EndpointArgs:
         pulumi.set(self, "zone", value)
 
 
-if not MYPY:
-    class ForNodePatchArgsDict(TypedDict):
-        """
-        ForNode provides information about which nodes should consume this endpoint.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        name represents the name of the node.
-        """
-elif False:
-    ForNodePatchArgsDict: TypeAlias = Mapping[str, Any]
+class ForNodePatchArgsDict(TypedDict):
+    """
+    ForNode provides information about which nodes should consume this endpoint.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    name represents the name of the node.
+    """
 
 @pulumi.input_type
 class ForNodePatchArgs:
@@ -1078,17 +1046,14 @@ class ForNodePatchArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class ForNodeArgsDict(TypedDict):
-        """
-        ForNode provides information about which nodes should consume this endpoint.
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        name represents the name of the node.
-        """
-elif False:
-    ForNodeArgsDict: TypeAlias = Mapping[str, Any]
+class ForNodeArgsDict(TypedDict):
+    """
+    ForNode provides information about which nodes should consume this endpoint.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name represents the name of the node.
+    """
 
 @pulumi.input_type
 class ForNodeArgs:
@@ -1113,17 +1078,14 @@ class ForNodeArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class ForZonePatchArgsDict(TypedDict):
-        """
-        ForZone provides information about which zones should consume this endpoint.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        name represents the name of the zone.
-        """
-elif False:
-    ForZonePatchArgsDict: TypeAlias = Mapping[str, Any]
+class ForZonePatchArgsDict(TypedDict):
+    """
+    ForZone provides information about which zones should consume this endpoint.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    name represents the name of the zone.
+    """
 
 @pulumi.input_type
 class ForZonePatchArgs:
@@ -1149,17 +1111,14 @@ class ForZonePatchArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class ForZoneArgsDict(TypedDict):
-        """
-        ForZone provides information about which zones should consume this endpoint.
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        name represents the name of the zone.
-        """
-elif False:
-    ForZoneArgsDict: TypeAlias = Mapping[str, Any]
+class ForZoneArgsDict(TypedDict):
+    """
+    ForZone provides information about which zones should consume this endpoint.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name represents the name of the zone.
+    """
 
 @pulumi.input_type
 class ForZoneArgs:

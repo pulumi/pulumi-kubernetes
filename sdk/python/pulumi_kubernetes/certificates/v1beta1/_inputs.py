@@ -34,36 +34,31 @@ __all__ = [
     'ClusterTrustBundleArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class CertificateSigningRequestConditionArgsDict(TypedDict):
-        type: pulumi.Input[_builtins.str]
-        """
-        request approval state, currently Approved or Denied.
-        """
-        last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
-        """
-        last_update_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        timestamp for the last update to this condition
-        """
-        message: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        human readable message with details about the request state
-        """
-        reason: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        brief reason for the request state
-        """
-        status: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
-        """
-elif False:
-    CertificateSigningRequestConditionArgsDict: TypeAlias = Mapping[str, Any]
+class CertificateSigningRequestConditionArgsDict(TypedDict):
+    type: pulumi.Input[_builtins.str]
+    """
+    request approval state, currently Approved or Denied.
+    """
+    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
+    """
+    last_update_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    timestamp for the last update to this condition
+    """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    human readable message with details about the request state
+    """
+    reason: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    brief reason for the request state
+    """
+    status: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
+    """
 
 @pulumi.input_type
 class CertificateSigningRequestConditionArgs:
@@ -167,48 +162,45 @@ class CertificateSigningRequestConditionArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
-        """
-        This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
-        """
-        extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
-        """
-        Extra information about the requesting user. See user.Info interface for details.
-        """
-        groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Group information about the requesting user. See user.Info interface for details.
-        """
-        request: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Base64-encoded PKCS#10 CSR data
-        """
-        signer_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
-         1. If it's a kubelet client certificate, it is assigned
-            "kubernetes.io/kube-apiserver-client-kubelet".
-         2. If it's a kubelet serving certificate, it is assigned
-            "kubernetes.io/kubelet-serving".
-         3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
-        """
-        uid: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        UID information about the requesting user. See user.Info interface for details.
-        """
-        usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-             https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-        """
-        username: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Information about the requesting user. See user.Info interface for details.
-        """
-elif False:
-    CertificateSigningRequestSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
+    """
+    This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+    """
+    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    """
+    Extra information about the requesting user. See user.Info interface for details.
+    """
+    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Group information about the requesting user. See user.Info interface for details.
+    """
+    request: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Base64-encoded PKCS#10 CSR data
+    """
+    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+     1. If it's a kubelet client certificate, it is assigned
+        "kubernetes.io/kube-apiserver-client-kubelet".
+     2. If it's a kubelet serving certificate, it is assigned
+        "kubernetes.io/kubelet-serving".
+     3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+    Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+    """
+    uid: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    UID information about the requesting user. See user.Info interface for details.
+    """
+    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+         https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+    """
+    username: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Information about the requesting user. See user.Info interface for details.
+    """
 
 @pulumi.input_type
 class CertificateSigningRequestSpecPatchArgs:
@@ -344,48 +336,45 @@ class CertificateSigningRequestSpecPatchArgs:
         pulumi.set(self, "username", value)
 
 
-if not MYPY:
-    class CertificateSigningRequestSpecArgsDict(TypedDict):
-        """
-        This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
-        """
-        request: pulumi.Input[_builtins.str]
-        """
-        Base64-encoded PKCS#10 CSR data
-        """
-        extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
-        """
-        Extra information about the requesting user. See user.Info interface for details.
-        """
-        groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Group information about the requesting user. See user.Info interface for details.
-        """
-        signer_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
-         1. If it's a kubelet client certificate, it is assigned
-            "kubernetes.io/kube-apiserver-client-kubelet".
-         2. If it's a kubelet serving certificate, it is assigned
-            "kubernetes.io/kubelet-serving".
-         3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
-        """
-        uid: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        UID information about the requesting user. See user.Info interface for details.
-        """
-        usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-             https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-        """
-        username: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Information about the requesting user. See user.Info interface for details.
-        """
-elif False:
-    CertificateSigningRequestSpecArgsDict: TypeAlias = Mapping[str, Any]
+class CertificateSigningRequestSpecArgsDict(TypedDict):
+    """
+    This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+    """
+    request: pulumi.Input[_builtins.str]
+    """
+    Base64-encoded PKCS#10 CSR data
+    """
+    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    """
+    Extra information about the requesting user. See user.Info interface for details.
+    """
+    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Group information about the requesting user. See user.Info interface for details.
+    """
+    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+     1. If it's a kubelet client certificate, it is assigned
+        "kubernetes.io/kube-apiserver-client-kubelet".
+     2. If it's a kubelet serving certificate, it is assigned
+        "kubernetes.io/kubelet-serving".
+     3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+    Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+    """
+    uid: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    UID information about the requesting user. See user.Info interface for details.
+    """
+    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+         https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+    """
+    username: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Information about the requesting user. See user.Info interface for details.
+    """
 
 @pulumi.input_type
 class CertificateSigningRequestSpecArgs:
@@ -520,18 +509,15 @@ class CertificateSigningRequestSpecArgs:
         pulumi.set(self, "username", value)
 
 
-if not MYPY:
-    class CertificateSigningRequestStatusArgsDict(TypedDict):
-        certificate: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        If request was approved, the controller will place the issued certificate here.
-        """
-        conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]
-        """
-        Conditions applied to the request, such as approval or denial.
-        """
-elif False:
-    CertificateSigningRequestStatusArgsDict: TypeAlias = Mapping[str, Any]
+class CertificateSigningRequestStatusArgsDict(TypedDict):
+    certificate: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If request was approved, the controller will place the issued certificate here.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]
+    """
+    Conditions applied to the request, such as approval or denial.
+    """
 
 @pulumi.input_type
 class CertificateSigningRequestStatusArgs:
@@ -572,30 +558,27 @@ class CertificateSigningRequestStatusArgs:
         pulumi.set(self, "conditions", value)
 
 
-if not MYPY:
-    class CertificateSigningRequestArgsDict(TypedDict):
-        """
-        Describes a certificate signing request
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        spec: NotRequired[pulumi.Input['CertificateSigningRequestSpecArgsDict']]
-        """
-        The certificate request itself and any additional information.
-        """
-        status: NotRequired[pulumi.Input['CertificateSigningRequestStatusArgsDict']]
-        """
-        Derived information about the request.
-        """
-elif False:
-    CertificateSigningRequestArgsDict: TypeAlias = Mapping[str, Any]
+class CertificateSigningRequestArgsDict(TypedDict):
+    """
+    Describes a certificate signing request
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    spec: NotRequired[pulumi.Input['CertificateSigningRequestSpecArgsDict']]
+    """
+    The certificate request itself and any additional information.
+    """
+    status: NotRequired[pulumi.Input['CertificateSigningRequestStatusArgsDict']]
+    """
+    Derived information about the request.
+    """
 
 @pulumi.input_type
 class CertificateSigningRequestArgs:
@@ -681,33 +664,30 @@ class CertificateSigningRequestArgs:
         pulumi.set(self, "status", value)
 
 
-if not MYPY:
-    class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
-        """
-        ClusterTrustBundleSpec contains the signer and trust anchors.
-        """
-        signer_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        signerName indicates the associated signer, if any.
+class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
+    """
+    ClusterTrustBundleSpec contains the signer and trust anchors.
+    """
+    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    signerName indicates the associated signer, if any.
 
-        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
 
-        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
 
-        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
 
-        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        """
-        trust_bundle: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+    """
+    trust_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
-        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
 
-        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        """
-elif False:
-    ClusterTrustBundleSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+    """
 
 @pulumi.input_type
 class ClusterTrustBundleSpecPatchArgs:
@@ -773,33 +753,30 @@ class ClusterTrustBundleSpecPatchArgs:
         pulumi.set(self, "trust_bundle", value)
 
 
-if not MYPY:
-    class ClusterTrustBundleSpecArgsDict(TypedDict):
-        """
-        ClusterTrustBundleSpec contains the signer and trust anchors.
-        """
-        trust_bundle: pulumi.Input[_builtins.str]
-        """
-        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+class ClusterTrustBundleSpecArgsDict(TypedDict):
+    """
+    ClusterTrustBundleSpec contains the signer and trust anchors.
+    """
+    trust_bundle: pulumi.Input[_builtins.str]
+    """
+    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
-        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
 
-        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        """
-        signer_name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        signerName indicates the associated signer, if any.
+    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+    """
+    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    signerName indicates the associated signer, if any.
 
-        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
 
-        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
 
-        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
 
-        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        """
-elif False:
-    ClusterTrustBundleSpecArgsDict: TypeAlias = Mapping[str, Any]
+    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+    """
 
 @pulumi.input_type
 class ClusterTrustBundleSpecArgs:
@@ -864,33 +841,30 @@ class ClusterTrustBundleSpecArgs:
         pulumi.set(self, "signer_name", value)
 
 
-if not MYPY:
-    class ClusterTrustBundleArgsDict(TypedDict):
-        """
-        ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+class ClusterTrustBundleArgsDict(TypedDict):
+    """
+    ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 
-        ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
+    ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 
-        It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
-        """
-        spec: pulumi.Input['ClusterTrustBundleSpecArgsDict']
-        """
-        spec contains the signer (if any) and trust anchors.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        metadata contains the object metadata.
-        """
-elif False:
-    ClusterTrustBundleArgsDict: TypeAlias = Mapping[str, Any]
+    It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+    """
+    spec: pulumi.Input['ClusterTrustBundleSpecArgsDict']
+    """
+    spec contains the signer (if any) and trust anchors.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    metadata contains the object metadata.
+    """
 
 @pulumi.input_type
 class ClusterTrustBundleArgs:

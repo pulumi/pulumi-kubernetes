@@ -42,19 +42,14 @@ __all__ = [
     'SubjectArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class AggregationRulePatchArgsDict(TypedDict):
-        """
-        AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
-        """
-        cluster_role_selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]]]
-        """
-        ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
-        """
-elif False:
-    AggregationRulePatchArgsDict: TypeAlias = Mapping[str, Any]
+class AggregationRulePatchArgsDict(TypedDict):
+    """
+    AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
+    """
+    cluster_role_selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]]]
+    """
+    ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+    """
 
 @pulumi.input_type
 class AggregationRulePatchArgs:
@@ -80,17 +75,14 @@ class AggregationRulePatchArgs:
         pulumi.set(self, "cluster_role_selectors", value)
 
 
-if not MYPY:
-    class AggregationRuleArgsDict(TypedDict):
-        """
-        AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
-        """
-        cluster_role_selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]]]
-        """
-        ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
-        """
-elif False:
-    AggregationRuleArgsDict: TypeAlias = Mapping[str, Any]
+class AggregationRuleArgsDict(TypedDict):
+    """
+    AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
+    """
+    cluster_role_selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]]]
+    """
+    ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+    """
 
 @pulumi.input_type
 class AggregationRuleArgs:
@@ -116,33 +108,30 @@ class AggregationRuleArgs:
         pulumi.set(self, "cluster_role_selectors", value)
 
 
-if not MYPY:
-    class ClusterRoleBindingArgsDict(TypedDict):
-        """
-        ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.
-        """
-        role_ref: pulumi.Input['RoleRefArgsDict']
-        """
-        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata.
-        """
-        subjects: NotRequired[pulumi.Input[Sequence[pulumi.Input['SubjectArgsDict']]]]
-        """
-        Subjects holds references to the objects the role applies to.
-        """
-elif False:
-    ClusterRoleBindingArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterRoleBindingArgsDict(TypedDict):
+    """
+    ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.
+    """
+    role_ref: pulumi.Input['RoleRefArgsDict']
+    """
+    RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata.
+    """
+    subjects: NotRequired[pulumi.Input[Sequence[pulumi.Input['SubjectArgsDict']]]]
+    """
+    Subjects holds references to the objects the role applies to.
+    """
 
 @pulumi.input_type
 class ClusterRoleBindingArgs:
@@ -231,33 +220,30 @@ class ClusterRoleBindingArgs:
         pulumi.set(self, "subjects", value)
 
 
-if not MYPY:
-    class ClusterRoleArgsDict(TypedDict):
-        """
-        ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
-        """
-        aggregation_rule: NotRequired[pulumi.Input['AggregationRuleArgsDict']]
-        """
-        AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata.
-        """
-        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]
-        """
-        Rules holds all the PolicyRules for this ClusterRole
-        """
-elif False:
-    ClusterRoleArgsDict: TypeAlias = Mapping[str, Any]
+class ClusterRoleArgsDict(TypedDict):
+    """
+    ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
+    """
+    aggregation_rule: NotRequired[pulumi.Input['AggregationRuleArgsDict']]
+    """
+    AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata.
+    """
+    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]
+    """
+    Rules holds all the PolicyRules for this ClusterRole
+    """
 
 @pulumi.input_type
 class ClusterRoleArgs:
@@ -347,33 +333,30 @@ class ClusterRoleArgs:
         pulumi.set(self, "rules", value)
 
 
-if not MYPY:
-    class PolicyRulePatchArgsDict(TypedDict):
-        """
-        PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
-        """
-        api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
-        """
-        non_resource_urls: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
-        """
-        resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        """
-        resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
-        """
-        verbs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
-        """
-elif False:
-    PolicyRulePatchArgsDict: TypeAlias = Mapping[str, Any]
+class PolicyRulePatchArgsDict(TypedDict):
+    """
+    PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
+    """
+    api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+    """
+    non_resource_urls: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+    """
+    resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+    """
+    resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
+    """
+    verbs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+    """
 
 @pulumi.input_type
 class PolicyRulePatchArgs:
@@ -463,33 +446,30 @@ class PolicyRulePatchArgs:
         pulumi.set(self, "verbs", value)
 
 
-if not MYPY:
-    class PolicyRuleArgsDict(TypedDict):
-        """
-        PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
-        """
-        verbs: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-        """
-        Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
-        """
-        api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
-        """
-        non_resource_urls: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
-        """
-        resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        """
-        resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
-        """
-        Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
-        """
-elif False:
-    PolicyRuleArgsDict: TypeAlias = Mapping[str, Any]
+class PolicyRuleArgsDict(TypedDict):
+    """
+    PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
+    """
+    verbs: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+    """
+    api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+    """
+    non_resource_urls: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+    """
+    resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+    """
+    resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
+    """
 
 @pulumi.input_type
 class PolicyRuleArgs:
@@ -578,33 +558,30 @@ class PolicyRuleArgs:
         pulumi.set(self, "resources", value)
 
 
-if not MYPY:
-    class RoleBindingArgsDict(TypedDict):
-        """
-        RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
-        """
-        role_ref: pulumi.Input['RoleRefArgsDict']
-        """
-        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata.
-        """
-        subjects: NotRequired[pulumi.Input[Sequence[pulumi.Input['SubjectArgsDict']]]]
-        """
-        Subjects holds references to the objects the role applies to.
-        """
-elif False:
-    RoleBindingArgsDict: TypeAlias = Mapping[str, Any]
+class RoleBindingArgsDict(TypedDict):
+    """
+    RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
+    """
+    role_ref: pulumi.Input['RoleRefArgsDict']
+    """
+    RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata.
+    """
+    subjects: NotRequired[pulumi.Input[Sequence[pulumi.Input['SubjectArgsDict']]]]
+    """
+    Subjects holds references to the objects the role applies to.
+    """
 
 @pulumi.input_type
 class RoleBindingArgs:
@@ -693,25 +670,22 @@ class RoleBindingArgs:
         pulumi.set(self, "subjects", value)
 
 
-if not MYPY:
-    class RoleRefPatchArgsDict(TypedDict):
-        """
-        RoleRef contains information that points to the role being used
-        """
-        api_group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIGroup is the group for the resource being referenced
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is the type of resource being referenced
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name is the name of resource being referenced
-        """
-elif False:
-    RoleRefPatchArgsDict: TypeAlias = Mapping[str, Any]
+class RoleRefPatchArgsDict(TypedDict):
+    """
+    RoleRef contains information that points to the role being used
+    """
+    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIGroup is the group for the resource being referenced
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is the type of resource being referenced
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name is the name of resource being referenced
+    """
 
 @pulumi.input_type
 class RoleRefPatchArgs:
@@ -769,25 +743,22 @@ class RoleRefPatchArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class RoleRefArgsDict(TypedDict):
-        """
-        RoleRef contains information that points to the role being used
-        """
-        api_group: pulumi.Input[_builtins.str]
-        """
-        APIGroup is the group for the resource being referenced
-        """
-        kind: pulumi.Input[_builtins.str]
-        """
-        Kind is the type of resource being referenced
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        Name is the name of resource being referenced
-        """
-elif False:
-    RoleRefArgsDict: TypeAlias = Mapping[str, Any]
+class RoleRefArgsDict(TypedDict):
+    """
+    RoleRef contains information that points to the role being used
+    """
+    api_group: pulumi.Input[_builtins.str]
+    """
+    APIGroup is the group for the resource being referenced
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind is the type of resource being referenced
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the name of resource being referenced
+    """
 
 @pulumi.input_type
 class RoleRefArgs:
@@ -842,29 +813,26 @@ class RoleRefArgs:
         pulumi.set(self, "name", value)
 
 
-if not MYPY:
-    class RoleArgsDict(TypedDict):
-        """
-        Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        Standard object's metadata.
-        """
-        rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]
-        """
-        Rules holds all the PolicyRules for this Role
-        """
-elif False:
-    RoleArgsDict: TypeAlias = Mapping[str, Any]
+class RoleArgsDict(TypedDict):
+    """
+    Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object's metadata.
+    """
+    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]
+    """
+    Rules holds all the PolicyRules for this Role
+    """
 
 @pulumi.input_type
 class RoleArgs:
@@ -938,29 +906,26 @@ class RoleArgs:
         pulumi.set(self, "rules", value)
 
 
-if not MYPY:
-    class SubjectPatchArgsDict(TypedDict):
-        """
-        Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
-        """
-        api_group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-        """
-        name: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Name of the object being referenced.
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
-        """
-elif False:
-    SubjectPatchArgsDict: TypeAlias = Mapping[str, Any]
+class SubjectPatchArgsDict(TypedDict):
+    """
+    Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
+    """
+    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name of the object being referenced.
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+    """
 
 @pulumi.input_type
 class SubjectPatchArgs:
@@ -1034,29 +999,26 @@ class SubjectPatchArgs:
         pulumi.set(self, "namespace", value)
 
 
-if not MYPY:
-    class SubjectArgsDict(TypedDict):
-        """
-        Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
-        """
-        kind: pulumi.Input[_builtins.str]
-        """
-        Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-        """
-        name: pulumi.Input[_builtins.str]
-        """
-        Name of the object being referenced.
-        """
-        api_group: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
-        """
-        namespace: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
-        """
-elif False:
-    SubjectArgsDict: TypeAlias = Mapping[str, Any]
+class SubjectArgsDict(TypedDict):
+    """
+    Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the object being referenced.
+    """
+    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+    """
+    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+    """
 
 @pulumi.input_type
 class SubjectArgs:

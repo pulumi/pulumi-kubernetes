@@ -24,43 +24,38 @@ __all__ = [
     'LeaseArgsDict',
 ]
 
-MYPY = False
-
-if not MYPY:
-    class LeaseSpecPatchArgsDict(TypedDict):
-        """
-        LeaseSpec is a specification of a Lease.
-        """
-        acquire_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        acquireTime is a time when the current lease was acquired.
-        """
-        holder_identity: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
-        """
-        lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
-        """
-        lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        leaseTransitions is the number of transitions of a lease between holders.
-        """
-        preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
-        """
-        renew_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        renewTime is a time when the current holder of a lease has last updated the lease.
-        """
-        strategy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
-        """
-elif False:
-    LeaseSpecPatchArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseSpecPatchArgsDict(TypedDict):
+    """
+    LeaseSpec is a specification of a Lease.
+    """
+    acquire_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    acquireTime is a time when the current lease was acquired.
+    """
+    holder_identity: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
+    """
+    lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
+    """
+    lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    leaseTransitions is the number of transitions of a lease between holders.
+    """
+    preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+    """
+    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    renewTime is a time when the current holder of a lease has last updated the lease.
+    """
+    strategy: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+    """
 
 @pulumi.input_type
 class LeaseSpecPatchArgs:
@@ -182,41 +177,38 @@ class LeaseSpecPatchArgs:
         pulumi.set(self, "strategy", value)
 
 
-if not MYPY:
-    class LeaseSpecArgsDict(TypedDict):
-        """
-        LeaseSpec is a specification of a Lease.
-        """
-        acquire_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        acquireTime is a time when the current lease was acquired.
-        """
-        holder_identity: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
-        """
-        lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
-        """
-        lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
-        """
-        leaseTransitions is the number of transitions of a lease between holders.
-        """
-        preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
-        """
-        renew_time: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        renewTime is a time when the current holder of a lease has last updated the lease.
-        """
-        strategy: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
-        """
-elif False:
-    LeaseSpecArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseSpecArgsDict(TypedDict):
+    """
+    LeaseSpec is a specification of a Lease.
+    """
+    acquire_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    acquireTime is a time when the current lease was acquired.
+    """
+    holder_identity: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
+    """
+    lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
+    """
+    lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    leaseTransitions is the number of transitions of a lease between holders.
+    """
+    preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+    """
+    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    renewTime is a time when the current holder of a lease has last updated the lease.
+    """
+    strategy: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+    """
 
 @pulumi.input_type
 class LeaseSpecArgs:
@@ -338,29 +330,26 @@ class LeaseSpecArgs:
         pulumi.set(self, "strategy", value)
 
 
-if not MYPY:
-    class LeaseArgsDict(TypedDict):
-        """
-        Lease defines a lease concept.
-        """
-        api_version: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        kind: NotRequired[pulumi.Input[_builtins.str]]
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-        """
-        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        spec: NotRequired[pulumi.Input['LeaseSpecArgsDict']]
-        """
-        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-elif False:
-    LeaseArgsDict: TypeAlias = Mapping[str, Any]
+class LeaseArgsDict(TypedDict):
+    """
+    Lease defines a lease concept.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input['LeaseSpecArgsDict']]
+    """
+    spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
 
 @pulumi.input_type
 class LeaseArgs:
