@@ -96,6 +96,7 @@ const (
 	fieldManagerKey      = "__fieldManager"
 	secretKind           = "Secret"
 	clusterIdentifierKey = "clusterIdentifier"
+	trueStr              = "true"
 )
 
 type cancellationContext struct {
@@ -309,7 +310,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	if pConfig, ok := k.loadPulumiConfig(); ok {
 		if v, ok := pConfig["strictMode"]; ok {
 			if v, ok := v.(string); ok {
-				strictMode = v == "true"
+				strictMode = v == trueStr
 			}
 		}
 	}
