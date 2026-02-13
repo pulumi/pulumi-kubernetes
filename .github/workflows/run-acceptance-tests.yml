@@ -531,26 +531,8 @@ jobs:
     - prerequisites
     - lint
   lint:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      with:
-        lfs: true
-        persist-credentials: false
-        ref: ${{ env.PR_COMMIT_SHA }}
-    - name: Setup Tools
-      uses: ./.github/actions/setup-tools
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Disarm go:embed directives to enable linters that compile source code
-      run: git grep -l 'go:embed' -- provider | xargs --no-run-if-empty sed -i
-        's/go:embed/ goembed/g'
-    - name: golangci-lint provider pkg
-      uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6.5.2
-      with:
-        install-mode: none # Handled by mise.
-        working-directory: provider
-    name: lint
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
+    name: lint
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
