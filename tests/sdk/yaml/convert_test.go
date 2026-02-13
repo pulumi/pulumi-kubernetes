@@ -15,11 +15,12 @@
 package test
 
 import (
-	_ "embed"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
+
+	_ "embed"
 
 	"github.com/stretchr/testify/require"
 )

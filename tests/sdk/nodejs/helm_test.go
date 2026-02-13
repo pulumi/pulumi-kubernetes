@@ -24,18 +24,20 @@ import (
 
 	gm "github.com/onsi/gomega"
 	gs "github.com/onsi/gomega/gstruct"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/structpb"
+
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
-	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	rpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/structpb"
+
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
 )
 
 // TestHelmUnknowns tests the handling of unknowns in the Helm provider.

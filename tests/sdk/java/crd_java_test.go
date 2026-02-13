@@ -17,11 +17,13 @@ package test
 import (
 	"testing"
 
-	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 // TestJavaCanCreateCRD tests that we can create a CRD using the Java SDK, and that `x-kubernetes-*` fields are

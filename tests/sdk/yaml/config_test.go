@@ -4,9 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/pulumi/providertest/pulumitest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/pulumi/providertest/pulumitest"
 )
 
 func TestClusterIdentifier(t *testing.T) {

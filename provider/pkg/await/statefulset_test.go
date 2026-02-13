@@ -94,7 +94,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should not succeed when observedGeneration lags behind generation (race condition)",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ chan watch.Event, timeout chan time.Time) {
 				// This simulates the race condition where:
 				// 1. User updates the StatefulSet spec (generation becomes 2)
 				// 2. Pulumi gets the object before the controller has processed it
@@ -124,7 +124,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		},
 		{
 			description: "Should succeed after observedGeneration catches up",
-			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+			do: func(statefulsets, _ chan watch.Event, timeout chan time.Time) {
 				// First event: stale status (observedGeneration=1, generation=2)
 				statefulsets <- watchAddedEvent(
 					statefulsetUpdateStaleStatus(inputNamespace, inputName, targetService, ""))

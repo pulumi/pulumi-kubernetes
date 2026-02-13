@@ -22,8 +22,9 @@ import (
 	"testing"
 
 	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 // TestPatchResources tests that patching resources works as expected. The Patch variants of the following resources are

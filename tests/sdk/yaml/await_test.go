@@ -16,10 +16,14 @@ package test
 
 import (
 	"context"
-	_ "embed"
 	"os"
 	"testing"
 	"time"
+
+	_ "embed"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
@@ -27,8 +31,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optrefresh"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 func TestAwaitDaemonSet(t *testing.T) {

@@ -17,11 +17,12 @@ package main
 import (
 	"path/filepath"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+
 	k8s "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apiextensions"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/yaml"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
