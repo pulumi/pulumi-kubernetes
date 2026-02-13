@@ -107,9 +107,9 @@ build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotn
 only_build:: build
 
 lint::
-	git grep -l 'go:embed' -- provider | xargs perl -i -pe 's/go:embed/go:embed/g'
+	git grep -l 'go:embed' -- provider | xargs perl -i -pe 's/go:embed/ goembed/g'
 	cd provider && golangci-lint run -c ../.golangci.yml --timeout 10m
-	git grep -l 'goembed' | xargs perl -i -pe 's/go:embed/go:embed/g'; \
+	git grep -l ' goembed' -- provider | xargs perl -i -pe 's/ goembed/go:embed/g'
 	cd tests && golangci-lint run -c ../.golangci.yml --timeout 10m
 
 install_provider:: k8sprovider
