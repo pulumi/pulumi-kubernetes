@@ -8,8 +8,11 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: "637339343727"
   PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
+  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   PULUMI_PULUMI_ENABLE_JOURNALING: "true"
   PULUMI_TEST_OWNER: moolumi
+  TF_APPEND_USER_AGENT: pulumi
 
 jobs:
   command-dispatch-for-testing:
