@@ -51,7 +51,7 @@ class Program
                                 new ContainerArgs
                                 {
                                     Name = "master",
-                                    Image = "k8s.gcr.io/redis:e2e",
+                                    Image = "docker.io/redis:6.0.5",
                                     Resources = new ResourceRequirementsArgs
                                     {
                                         Requests =
