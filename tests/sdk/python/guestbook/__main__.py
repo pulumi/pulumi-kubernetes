@@ -51,7 +51,7 @@ redis_leader_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[ContainerArgs(
                     name="master",
-                    image="k8s.gcr.io/redis:e2e",
+                    image="docker.io/redis:6.0.5",
                     resources=ResourceRequirementsArgs(
                         requests={
                             "cpu": "100m",

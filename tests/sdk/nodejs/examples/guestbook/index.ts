@@ -49,7 +49,7 @@ let redisMasterDeployment = new k8s.apps.v1.Deployment("redis-master", {
             spec: {
                 containers: [{
                     name: "master",
-                    image: "k8s.gcr.io/redis:e2e",
+                    image: "docker.io/redis:6.0.5",
                     resources: {
                         requests: {
                             cpu: "100m",
