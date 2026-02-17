@@ -3,9 +3,10 @@ package test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
-	"github.com/stretchr/testify/assert"
 )
 
 // TestAutonaming ensures that custom resource autonaming configuration works as expected.

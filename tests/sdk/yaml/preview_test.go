@@ -3,10 +3,12 @@ package test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
+
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	"github.com/stretchr/testify/require"
 )
 
 // TestPreviewReplacements ensures that replacements for immutable fields are correctly previewed.

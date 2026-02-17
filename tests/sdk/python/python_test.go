@@ -28,10 +28,10 @@ import (
 	gm "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
 	gs "github.com/onsi/gomega/gstruct"
-	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
 	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
@@ -40,9 +40,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/fsutil"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 )
 
 var baseOptions = &integration.ProgramTestOptions{

@@ -22,12 +22,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 // TestPreview tests the `pulumi preview` CUJ with a serviceaccount that is not allowed to create a configmap. This test

@@ -27,8 +27,6 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/archive"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/cli"
@@ -37,6 +35,10 @@ import (
 	"helm.sh/helm/v3/pkg/release"
 	"helm.sh/helm/v3/pkg/repo"
 	"k8s.io/client-go/tools/clientcmd"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/archive"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider"
 )
 
 // a Helm chart available in numerous formats for test purposes

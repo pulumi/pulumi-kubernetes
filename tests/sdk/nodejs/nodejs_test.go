@@ -32,10 +32,12 @@ import (
 	gm "github.com/onsi/gomega"
 	"github.com/onsi/gomega/format"
 	gs "github.com/onsi/gomega/gstruct"
-	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
-	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/util/rand"
+	"k8s.io/client-go/tools/clientcmd"
+
 	"github.com/pulumi/pulumi/pkg/v3/engine"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
@@ -44,11 +46,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/fsutil"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/util/rand"
-	"k8s.io/client-go/tools/clientcmd"
+
+	pgm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gomega"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	pulumirpctesting "github.com/pulumi/pulumi-kubernetes/tests/v4/pulumirpc"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -1231,7 +1233,7 @@ func TestRenderYAMLNoChangeRegeneratesFiles(t *testing.T) {
 		err = os.Remove(filepath.Join(manifestDir, f.Name()))
 		require.NoError(t, err)
 	}
-	
+
 	// Second up: no code change. With renderYamlToDirectory + DIFF_SOME, Update() is called and re-renders all files.
 	err = pt.RunPulumiCommand("up", "--yes", "--skip-preview")
 	require.NoError(t, err)

@@ -18,14 +18,15 @@ import (
 	"context"
 	"testing"
 
-	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/providertest/pulumitest/opttest"
-	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/stretchr/testify/require"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/tools/clientcmd"
+
+	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 )
 
 // TestCSAToSSANoManagedFields tests that the conversion from CSA to SSA works as expected when the object

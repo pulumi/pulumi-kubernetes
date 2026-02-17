@@ -1,9 +1,10 @@
 package main
 
 import (
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+
 	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apps/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {

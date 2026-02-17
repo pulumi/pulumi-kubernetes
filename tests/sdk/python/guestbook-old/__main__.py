@@ -39,7 +39,7 @@ redis_leader_deployment = Deployment(
             "spec": {
                 "containers": [{
                     "name": "master",
-                    "image": "k8s.gcr.io/redis:e2e",
+                    "image": "docker.io/redis:6.0.5",
                     "resources": {
                         "requests": {
                             "cpu": "100m",
@@ -91,7 +91,7 @@ redis_follower_deployment = Deployment(
             "spec": {
                 "containers": [{
                     "name": "slave",
-                    "image": "gcr.io/google_samples/gb-redisslave:v1",
+                    "image": "us-docker.pkg.dev/google-samples/containers/gke/gb-redis-follower:v2",
                     "resources": {
                         "requests": {
                             "cpu": "100m",

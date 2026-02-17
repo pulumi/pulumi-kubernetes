@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
