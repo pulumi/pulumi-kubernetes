@@ -112,6 +112,15 @@ lint::
 	git grep -l ' goembed' -- provider | xargs perl -i -pe 's/ goembed/go:embed/g'
 	cd tests && golangci-lint run -c ../.golangci.yml --timeout 10m
 
+# lint-fix is a utility target meant to be run manually
+# that will run the linter and fix errors when possible.
+lint.fix::
+	git grep -l 'go:embed' -- provider | xargs perl -i -pe 's/go:embed/ goembed/g'
+	cd provider && golangci-lint run -c ../.golangci.yml --fix --timeout 10m
+	git grep -l ' goembed' -- provider | xargs perl -i -pe 's/ goembed/go:embed/g'
+	cd tests && golangci-lint run -c ../.golangci.yml --fix --timeout 10m
+
+
 install_provider:: k8sprovider
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin/
 
