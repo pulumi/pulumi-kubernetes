@@ -116,7 +116,7 @@ class Program
                                 new ContainerArgs
                                 {
                                     Name = "replica",
-                                    Image = "gcr.io/google_samples/gb-redisslave:v1",
+                                    Image = "us-docker.pkg.dev/google-samples/containers/gke/gb-redis-follower:v2",
                                     Resources = new ResourceRequirementsArgs
                                     {
                                         Requests =
