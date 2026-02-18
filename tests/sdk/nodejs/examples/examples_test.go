@@ -24,13 +24,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/stretchr/testify/assert"
+
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/providers"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
-	"github.com/stretchr/testify/assert"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 func TestAccMinimal(t *testing.T) {
@@ -289,7 +291,7 @@ func TestAccHelmLocal(t *testing.T) {
 						case dependentRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
 							dependentFound = true
 						}
-						assert.Falsef(t, dependentFound && !(configmapFound && serviceFound && deploymentFound),
+						assert.Falsef(t, dependentFound && (!configmapFound || !serviceFound || !deploymentFound),
 							"dependent ConfigMap created before all chart resources were ready")
 						fmt.Println(e.ResOutputsEvent.Metadata.URN)
 					}
@@ -568,7 +570,7 @@ func getCwd(t *testing.T) string {
 	return cwd
 }
 
-func getBaseOptions(t *testing.T) integration.ProgramTestOptions {
+func getBaseOptions(_ *testing.T) integration.ProgramTestOptions {
 	return integration.ProgramTestOptions{
 		Dependencies: []string{
 			"@pulumi/kubernetes",

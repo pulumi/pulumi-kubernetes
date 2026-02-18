@@ -794,11 +794,12 @@ func handleSSAErr(err error, manager string) error {
 	}
 	link := "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/" +
 		"managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
-	//nolint:golint // Capitalized since this is expected to be user-facing.
+	//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 	info := fmt.Errorf(
 		"server-side apply field conflict detected, see %s for troubleshooting help",
 		link,
 	)
+	//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 	cause := fmt.Errorf(
 		"The resource managed by field manager %q had an apply conflict: %w",
 		manager, err,

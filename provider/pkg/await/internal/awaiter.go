@@ -171,7 +171,7 @@ type logger interface {
 type stdout struct{}
 
 func (stdout) Log(sev diag.Severity, msg string) {
-	_, _ = os.Stdout.WriteString(fmt.Sprintf("%s: %s\n", sev, msg))
+	_, _ = fmt.Fprintf(os.Stdout, "%s: %s\n", sev, msg)
 }
 
 func (s stdout) LogStatus(sev diag.Severity, msg string) {

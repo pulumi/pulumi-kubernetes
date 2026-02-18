@@ -804,6 +804,7 @@ func (r *helmReleaseProvider) Diff(
 	logger.V(9).Infof("strategicPatchJSON: %s", string(strategicPatchJSON))
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(strategicPatchJSON, &patchObj); err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf(
 			"Failed to check for changes in Helm release %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes: %w",
@@ -836,6 +837,7 @@ func (r *helmReleaseProvider) Diff(
 		if detailedDiff, err = convertPatchToDiff(
 			patchObj, strip(olds), strip(news), strip(oldInputs), forceNewFields...,
 		); err != nil {
+			//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 			return nil, fmt.Errorf(
 				"Failed to check for changes in helm release %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
@@ -944,6 +946,7 @@ func (r *helmReleaseProvider) Create(
 	if creationError != nil {
 		return nil, partialError(
 			id,
+			//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 			fmt.Errorf(
 				"Helm release %q was created, but failed to initialize completely. "+
 					"Use Helm CLI to investigate: %w", id, creationError),
@@ -1122,6 +1125,7 @@ func (r *helmReleaseProvider) Update(
 	if updateError != nil {
 		return nil, partialError(
 			fqName(newRelease.Namespace, newRelease.Name),
+			//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 			fmt.Errorf(
 				"Helm release %q failed to initialize completely. "+
 					"Use Helm CLI to investigate: %w", fqName(newRelease.Namespace, newRelease.Name), updateError),

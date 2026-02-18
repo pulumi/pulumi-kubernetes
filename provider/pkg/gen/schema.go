@@ -583,7 +583,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	}
 
 	// Add examples to resources
-	for k, v := range examples.ApiVersionToExample {
+	for k, v := range examples.APIVersionToExample {
 		if r, ok := pkg.Resources[k]; ok {
 			r.Description += "\n\n" + v
 			pkg.Resources[k] = r

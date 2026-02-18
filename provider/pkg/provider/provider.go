@@ -32,7 +32,6 @@ import (
 	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	"google.golang.org/grpc/codes"
@@ -1060,13 +1059,13 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 }
 
 // Attach sends the engine address to an already running plugin.
-func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*empty.Empty, error) {
+func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*pbempty.Empty, error) {
 	host, err := provider.NewHostClient(req.GetAddress())
 	if err != nil {
 		return nil, err
 	}
 	k.host = host
-	return &empty.Empty{}, nil
+	return &pbempty.Empty{}, nil
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
@@ -1180,6 +1179,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
+				//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 				return nil, fmt.Errorf(
 					"Failed to create object because of a problem setting managed-by labels: %w",
 					err,
@@ -1197,6 +1197,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if !k.serverSideApplyMode {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
+				//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 				return nil, fmt.Errorf("Failed to create object because of a problem setting managed-by labels: %w", err)
 			}
 		}
@@ -1249,6 +1250,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if !hasComputedValue(newInputs) && !k.clusterUnreachable {
 		resources, err := k.getResources()
 		if err != nil {
+			//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 			return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 		}
 
@@ -1456,11 +1458,13 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Compute a diff between the pruned live state and the new inputs.
 	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf("Failed to check for changes in resource %q: %w", urn, err)
 	}
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf(
 			"Failed to check for changes in resource %q because of an error serializing "+
 				"the JSON patch describing resource changes: %w", urn, err)
@@ -1482,6 +1486,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		if detailedDiff, err = convertPatchToDiff(
 			patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...,
 		); err != nil {
+			//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 			return nil, fmt.Errorf(
 				"Failed to check for changes in resource %q because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
@@ -1685,6 +1690,7 @@ func (k *kubeProvider) Create(
 
 	resources, err := k.getResources()
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.CreateConfig{
@@ -1936,6 +1942,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	resources, err := k.getResources()
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.ReadConfig{
@@ -2190,6 +2197,7 @@ func (k *kubeProvider) Update(
 
 	resources, err := k.getResources()
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 	config := await.UpdateConfig{
@@ -2354,6 +2362,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, fmt.Errorf("Failed to fetch OpenAPI schema from the API server: %w", err)
 	}
 
@@ -3197,7 +3206,7 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 	manifestDirectory := filepath.Join(yamlDirectory, "1-manifest")
 
 	namespace := "default"
-	if "" != resource.GetNamespace() {
+	if resource.GetNamespace() != "" {
 		namespace = resource.GetNamespace()
 	}
 

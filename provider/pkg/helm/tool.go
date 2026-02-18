@@ -77,7 +77,7 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
 		},
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
-			return i.ChartPathOptions.LocateChart(name, settings)
+			return i.LocateChart(name, settings)
 		},
 		execute: func(
 			ctx context.Context, i *action.Install, chrt *chart.Chart, vals map[string]interface{},
@@ -148,7 +148,7 @@ func (cmd *TemplateOrInstallCommand) addValueOptionsFlags() {
 
 func (cmd *TemplateOrInstallCommand) addChartPathOptionsFlags() {
 	// https://github.com/helm/helm/blob/14d0c13e9eefff5b4a1b511cf50643529692ec94/cmd/helm/flags.go#L54-L66
-	c := &cmd.Install.ChartPathOptions
+	c := &cmd.ChartPathOptions
 	c.Version = ""
 	c.Verify = false
 	c.Keyring = defaultKeyring()
@@ -189,12 +189,12 @@ func (t *Tool) Template() *TemplateCommand {
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L192-L203
 	cmd.addFlags()
-	cmd.Install.OutputDir = ""
+	cmd.OutputDir = ""
 	cmd.Validate = false
 	cmd.IncludeCRDs = false
 	cmd.SkipTests = false
-	cmd.Install.IsUpgrade = false
-	cmd.Install.UseReleaseName = false
+	cmd.IsUpgrade = false
+	cmd.UseReleaseName = false
 	return cmd
 }
 
@@ -286,7 +286,7 @@ func (cmd *TemplateOrInstallCommand) runInstall(ctx context.Context) (*release.R
 				man := &downloader.Manager{
 					Out:              logStream,
 					ChartPath:        cp,
-					Keyring:          client.ChartPathOptions.Keyring,
+					Keyring:          client.Keyring,
 					SkipUpdate:       false,
 					Getters:          p,
 					RepositoryConfig: settings.RepositoryConfig,
