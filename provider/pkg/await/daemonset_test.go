@@ -399,7 +399,7 @@ func fakeProviderConfig(
 		Factories:         informers.NewFactories(t.Context()),
 	}
 
-	return config, clientset, clock
+	return config, clientset, *clock
 }
 
 // assertDaemonSetStatus asserts a DaemonSet has the expected status.
