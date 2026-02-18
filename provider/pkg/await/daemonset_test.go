@@ -95,7 +95,7 @@ func TestAwaitDaemonSetCreation(t *testing.T) {
 			clientset.PrependWatchReactor("daemonsets", testcore.DefaultWatchReactor(w, nil))
 			go func() {
 				clock.BlockUntil(1) // Timeout sleeper
-				for e := range tt.events(clock, tt.given) {
+				for e := range tt.events(*clock, tt.given) {
 					w.Action(e.Type, e.Object)
 					// The Fake's ObjectStore doesn't stay in sync with watch
 					// events. We manually update it so subsequent Get
@@ -168,7 +168,7 @@ func TestAwaitDaemonSetUpdate(t *testing.T) {
 			clientset.PrependWatchReactor("daemonsets", testcore.DefaultWatchReactor(w, nil))
 			go func() {
 				clock.BlockUntil(1) // Timeout sleeper
-				for e := range tt.events(clock, tt.given) {
+				for e := range tt.events(*clock, tt.given) {
 					w.Action(e.Type, e.Object)
 					_ = clientset.Tracker().Update(_dsGVR, e.Object, "default")
 				}
@@ -367,7 +367,7 @@ func TestAwaitDaemonSetDelete(t *testing.T) {
 func fakeProviderConfig(
 	ctx context.Context,
 	t *testing.T,
-) (ProviderConfig, *fake.SimpleDynamicClient, clockwork.FakeClock) {
+) (ProviderConfig, *fake.SimpleDynamicClient, *clockwork.FakeClock) {
 	clock := clockwork.NewFakeClock()
 
 	host := &fakehost.HostClient{}
@@ -399,7 +399,7 @@ func fakeProviderConfig(
 		Factories:         informers.NewFactories(t.Context()),
 	}
 
-	return config, clientset, *clock
+	return config, clientset, clock
 }
 
 // assertDaemonSetStatus asserts a DaemonSet has the expected status.
