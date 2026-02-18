@@ -171,6 +171,7 @@ class DeviceTaintRulePatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'DeviceTaintRule'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         super(DeviceTaintRulePatch, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch',
             resource_name,
@@ -197,6 +198,7 @@ class DeviceTaintRulePatch(pulumi.CustomResource):
         __props__.__dict__["kind"] = None
         __props__.__dict__["metadata"] = None
         __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return DeviceTaintRulePatch(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -232,4 +234,12 @@ class DeviceTaintRulePatch(pulumi.CustomResource):
         Changing the spec automatically increments the metadata.generation number.
         """
         return pulumi.get(self, "spec")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Output[Optional['outputs.DeviceTaintRuleStatusPatch']]:
+        """
+        Status provides information about what was requested in the spec.
+        """
+        return pulumi.get(self, "status")
 

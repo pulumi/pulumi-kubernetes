@@ -7,17 +7,25 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatusPatch;
 import com.pulumi.kubernetes.core.v1.outputs.HostIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodConditionPatch;
+import com.pulumi.kubernetes.core.v1.outputs.PodExtendedResourceClaimStatusPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatusPatch;
+import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
 public final class PodStatusPatch {
+    /**
+     * @return AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+     * 
+     */
+    private @Nullable Map<String,String> allocatedResources;
     /**
      * @return Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
      * 
@@ -33,6 +41,11 @@ public final class PodStatusPatch {
      * 
      */
     private @Nullable List<ContainerStatusPatch> ephemeralContainerStatuses;
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    private @Nullable PodExtendedResourceClaimStatusPatch extendedResourceClaimStatus;
     /**
      * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
@@ -59,7 +72,7 @@ public final class PodStatusPatch {
      */
     private @Nullable String nominatedNodeName;
     /**
-     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     private @Nullable Integer observedGeneration;
@@ -103,12 +116,24 @@ public final class PodStatusPatch {
      */
     private @Nullable List<PodResourceClaimStatusPatch> resourceClaimStatuses;
     /**
+     * @return Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+     * 
+     */
+    private @Nullable ResourceRequirementsPatch resources;
+    /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
      */
     private @Nullable String startTime;
 
     private PodStatusPatch() {}
+    /**
+     * @return AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+     * 
+     */
+    public Map<String,String> allocatedResources() {
+        return this.allocatedResources == null ? Map.of() : this.allocatedResources;
+    }
     /**
      * @return Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
      * 
@@ -129,6 +154,13 @@ public final class PodStatusPatch {
      */
     public List<ContainerStatusPatch> ephemeralContainerStatuses() {
         return this.ephemeralContainerStatuses == null ? List.of() : this.ephemeralContainerStatuses;
+    }
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    public Optional<PodExtendedResourceClaimStatusPatch> extendedResourceClaimStatus() {
+        return Optional.ofNullable(this.extendedResourceClaimStatus);
     }
     /**
      * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
@@ -166,7 +198,7 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.nominatedNodeName);
     }
     /**
-     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     public Optional<Integer> observedGeneration() {
@@ -226,6 +258,13 @@ public final class PodStatusPatch {
         return this.resourceClaimStatuses == null ? List.of() : this.resourceClaimStatuses;
     }
     /**
+     * @return Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+     * 
+     */
+    public Optional<ResourceRequirementsPatch> resources() {
+        return Optional.ofNullable(this.resources);
+    }
+    /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
      */
@@ -242,9 +281,11 @@ public final class PodStatusPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable Map<String,String> allocatedResources;
         private @Nullable List<PodConditionPatch> conditions;
         private @Nullable List<ContainerStatusPatch> containerStatuses;
         private @Nullable List<ContainerStatusPatch> ephemeralContainerStatuses;
+        private @Nullable PodExtendedResourceClaimStatusPatch extendedResourceClaimStatus;
         private @Nullable String hostIP;
         private @Nullable List<HostIPPatch> hostIPs;
         private @Nullable List<ContainerStatusPatch> initContainerStatuses;
@@ -258,13 +299,16 @@ public final class PodStatusPatch {
         private @Nullable String reason;
         private @Nullable String resize;
         private @Nullable List<PodResourceClaimStatusPatch> resourceClaimStatuses;
+        private @Nullable ResourceRequirementsPatch resources;
         private @Nullable String startTime;
         public Builder() {}
         public Builder(PodStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.allocatedResources = defaults.allocatedResources;
     	      this.conditions = defaults.conditions;
     	      this.containerStatuses = defaults.containerStatuses;
     	      this.ephemeralContainerStatuses = defaults.ephemeralContainerStatuses;
+    	      this.extendedResourceClaimStatus = defaults.extendedResourceClaimStatus;
     	      this.hostIP = defaults.hostIP;
     	      this.hostIPs = defaults.hostIPs;
     	      this.initContainerStatuses = defaults.initContainerStatuses;
@@ -278,9 +322,16 @@ public final class PodStatusPatch {
     	      this.reason = defaults.reason;
     	      this.resize = defaults.resize;
     	      this.resourceClaimStatuses = defaults.resourceClaimStatuses;
+    	      this.resources = defaults.resources;
     	      this.startTime = defaults.startTime;
         }
 
+        @CustomType.Setter
+        public Builder allocatedResources(@Nullable Map<String,String> allocatedResources) {
+
+            this.allocatedResources = allocatedResources;
+            return this;
+        }
         @CustomType.Setter
         public Builder conditions(@Nullable List<PodConditionPatch> conditions) {
 
@@ -307,6 +358,12 @@ public final class PodStatusPatch {
         }
         public Builder ephemeralContainerStatuses(ContainerStatusPatch... ephemeralContainerStatuses) {
             return ephemeralContainerStatuses(List.of(ephemeralContainerStatuses));
+        }
+        @CustomType.Setter
+        public Builder extendedResourceClaimStatus(@Nullable PodExtendedResourceClaimStatusPatch extendedResourceClaimStatus) {
+
+            this.extendedResourceClaimStatus = extendedResourceClaimStatus;
+            return this;
         }
         @CustomType.Setter
         public Builder hostIP(@Nullable String hostIP) {
@@ -399,6 +456,12 @@ public final class PodStatusPatch {
             return resourceClaimStatuses(List.of(resourceClaimStatuses));
         }
         @CustomType.Setter
+        public Builder resources(@Nullable ResourceRequirementsPatch resources) {
+
+            this.resources = resources;
+            return this;
+        }
+        @CustomType.Setter
         public Builder startTime(@Nullable String startTime) {
 
             this.startTime = startTime;
@@ -406,9 +469,11 @@ public final class PodStatusPatch {
         }
         public PodStatusPatch build() {
             final var _resultValue = new PodStatusPatch();
+            _resultValue.allocatedResources = allocatedResources;
             _resultValue.conditions = conditions;
             _resultValue.containerStatuses = containerStatuses;
             _resultValue.ephemeralContainerStatuses = ephemeralContainerStatuses;
+            _resultValue.extendedResourceClaimStatus = extendedResourceClaimStatus;
             _resultValue.hostIP = hostIP;
             _resultValue.hostIPs = hostIPs;
             _resultValue.initContainerStatuses = initContainerStatuses;
@@ -422,6 +487,7 @@ public final class PodStatusPatch {
             _resultValue.reason = reason;
             _resultValue.resize = resize;
             _resultValue.resourceClaimStatuses = resourceClaimStatuses;
+            _resultValue.resources = resources;
             _resultValue.startTime = startTime;
             return _resultValue;
         }

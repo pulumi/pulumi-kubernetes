@@ -33,6 +33,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
             set => _conditions = value;
         }
 
+        /// <summary>
+        /// The generation observed by the CRD controller.
+        /// </summary>
+        [Input("observedGeneration")]
+        public Input<int>? ObservedGeneration { get; set; }
+
         [Input("storedVersions", required: true)]
         private InputList<string>? _storedVersions;
 

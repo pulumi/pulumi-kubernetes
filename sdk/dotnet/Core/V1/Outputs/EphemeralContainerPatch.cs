@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EnvVarPatch> Env;
         /// <summary>
-        /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        /// List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EnvFromSourcePatch> EnvFrom;
         /// <summary>
@@ -71,9 +71,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirementsPatch Resources;
         /// <summary>
-        /// Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        /// Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
         /// </summary>
         public readonly string RestartPolicy;
+        /// <summary>
+        /// Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerRestartRulePatch> RestartPolicyRules;
         /// <summary>
         /// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         /// </summary>
@@ -151,6 +155,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string restartPolicy,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerRestartRulePatch> restartPolicyRules,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecurityContextPatch securityContext,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ProbePatch startupProbe,
@@ -187,6 +193,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ResizePolicy = resizePolicy;
             Resources = resources;
             RestartPolicy = restartPolicy;
+            RestartPolicyRules = restartPolicyRules;
             SecurityContext = securityContext;
             StartupProbe = startupProbe;
             Stdin = stdin;

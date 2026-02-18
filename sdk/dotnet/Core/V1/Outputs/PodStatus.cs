@@ -17,6 +17,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PodStatus
     {
         /// <summary>
+        /// AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+        /// </summary>
+        public readonly ImmutableDictionary<string, string> AllocatedResources;
+        /// <summary>
         /// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodCondition> Conditions;
@@ -28,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> EphemeralContainerStatuses;
+        /// <summary>
+        /// Status of extended resource claim backed by DRA.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PodExtendedResourceClaimStatus ExtendedResourceClaimStatus;
         /// <summary>
         /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         /// </summary>
@@ -49,7 +57,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string NominatedNodeName;
         /// <summary>
-        /// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        /// If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>
@@ -85,17 +93,25 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaimStatus> ResourceClaimStatuses;
         /// <summary>
+        /// Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements Resources;
+        /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         /// </summary>
         public readonly string StartTime;
 
         [OutputConstructor]
         private PodStatus(
+            ImmutableDictionary<string, string> allocatedResources,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodCondition> conditions,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> containerStatuses,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> ephemeralContainerStatuses,
+
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.PodExtendedResourceClaimStatus extendedResourceClaimStatus,
 
             string hostIP,
 
@@ -123,11 +139,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaimStatus> resourceClaimStatuses,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements resources,
+
             string startTime)
         {
+            AllocatedResources = allocatedResources;
             Conditions = conditions;
             ContainerStatuses = containerStatuses;
             EphemeralContainerStatuses = ephemeralContainerStatuses;
+            ExtendedResourceClaimStatus = extendedResourceClaimStatus;
             HostIP = hostIP;
             HostIPs = hostIPs;
             InitContainerStatuses = initContainerStatuses;
@@ -141,6 +161,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Reason = reason;
             Resize = resize;
             ResourceClaimStatuses = resourceClaimStatuses;
+            Resources = resources;
             StartTime = startTime;
         }
     }

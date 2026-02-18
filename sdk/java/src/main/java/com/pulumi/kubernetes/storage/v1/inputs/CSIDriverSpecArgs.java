@@ -24,7 +24,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     public static final CSIDriverSpecArgs Empty = new CSIDriverSpecArgs();
 
     /**
-     * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+     * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
      * 
      * This field is immutable.
      * 
@@ -33,7 +33,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<Boolean> attachRequired;
 
     /**
-     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
      * 
      * This field is immutable.
      * 
@@ -68,7 +68,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -79,7 +79,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -165,6 +165,37 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Boolean>> seLinuxMount() {
         return Optional.ofNullable(this.seLinuxMount);
+    }
+
+    /**
+     * serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+     * 
+     * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+     * 
+     * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+     * 
+     * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+     * 
+     * Default behavior if unset is to pass tokens in the VolumeContext field.
+     * 
+     */
+    @Import(name="serviceAccountTokenInSecrets")
+    private @Nullable Output<Boolean> serviceAccountTokenInSecrets;
+
+    /**
+     * @return serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+     * 
+     * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+     * 
+     * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+     * 
+     * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+     * 
+     * Default behavior if unset is to pass tokens in the VolumeContext field.
+     * 
+     */
+    public Optional<Output<Boolean>> serviceAccountTokenInSecrets() {
+        return Optional.ofNullable(this.serviceAccountTokenInSecrets);
     }
 
     /**
@@ -261,6 +292,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.podInfoOnMount = $.podInfoOnMount;
         this.requiresRepublish = $.requiresRepublish;
         this.seLinuxMount = $.seLinuxMount;
+        this.serviceAccountTokenInSecrets = $.serviceAccountTokenInSecrets;
         this.storageCapacity = $.storageCapacity;
         this.tokenRequests = $.tokenRequests;
         this.volumeLifecycleModes = $.volumeLifecycleModes;
@@ -285,7 +317,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param attachRequired attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+         * @param attachRequired attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
          * 
          * This field is immutable.
          * 
@@ -298,7 +330,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param attachRequired attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+         * @param attachRequired attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
          * 
          * This field is immutable.
          * 
@@ -341,7 +373,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param nodeAllocatableUpdatePeriodSeconds nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
          * 
-         * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+         * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
          * 
          * This field is mutable.
          * 
@@ -356,7 +388,7 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param nodeAllocatableUpdatePeriodSeconds nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
          * 
-         * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+         * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
          * 
          * This field is mutable.
          * 
@@ -462,6 +494,43 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder seLinuxMount(Boolean seLinuxMount) {
             return seLinuxMount(Output.of(seLinuxMount));
+        }
+
+        /**
+         * @param serviceAccountTokenInSecrets serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+         * 
+         * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+         * 
+         * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+         * 
+         * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+         * 
+         * Default behavior if unset is to pass tokens in the VolumeContext field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder serviceAccountTokenInSecrets(@Nullable Output<Boolean> serviceAccountTokenInSecrets) {
+            $.serviceAccountTokenInSecrets = serviceAccountTokenInSecrets;
+            return this;
+        }
+
+        /**
+         * @param serviceAccountTokenInSecrets serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+         * 
+         * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+         * 
+         * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+         * 
+         * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+         * 
+         * Default behavior if unset is to pass tokens in the VolumeContext field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder serviceAccountTokenInSecrets(Boolean serviceAccountTokenInSecrets) {
+            return serviceAccountTokenInSecrets(Output.of(serviceAccountTokenInSecrets));
         }
 
         /**

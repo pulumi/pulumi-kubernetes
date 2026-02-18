@@ -21,14 +21,18 @@ public final class DeviceTaintArgs extends com.pulumi.resources.ResourceArgs {
     public static final DeviceTaintArgs Empty = new DeviceTaintArgs();
 
     /**
-     * The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+     * The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+     * 
+     * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
      * 
      */
     @Import(name="effect", required=true)
     private Output<String> effect;
 
     /**
-     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+     * 
+     * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
      * 
      */
     public Output<String> effect() {
@@ -108,7 +112,9 @@ public final class DeviceTaintArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param effect The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+         * @param effect The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+         * 
+         * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
          * 
          * @return builder
          * 
@@ -119,7 +125,9 @@ public final class DeviceTaintArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param effect The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+         * @param effect The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+         * 
+         * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
          * 
          * @return builder
          * 

@@ -15,7 +15,7 @@ public final class VolumeErrorPatch {
     /**
      * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
      * 
-     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
      * 
      */
     private @Nullable Integer errorCode;
@@ -34,7 +34,7 @@ public final class VolumeErrorPatch {
     /**
      * @return errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
      * 
-     * This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
      * 
      */
     public Optional<Integer> errorCode() {

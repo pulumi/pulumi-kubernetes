@@ -53,6 +53,11 @@ public final class NodeStatusPatch {
      */
     private @Nullable NodeDaemonEndpointsPatch daemonEndpoints;
     /**
+     * @return DeclaredFeatures represents the features related to feature gates that are declared by the node.
+     * 
+     */
+    private @Nullable List<String> declaredFeatures;
+    /**
      * @return Features describes the set of features implemented by the CRI implementation.
      * 
      */
@@ -132,6 +137,13 @@ public final class NodeStatusPatch {
         return Optional.ofNullable(this.daemonEndpoints);
     }
     /**
+     * @return DeclaredFeatures represents the features related to feature gates that are declared by the node.
+     * 
+     */
+    public List<String> declaredFeatures() {
+        return this.declaredFeatures == null ? List.of() : this.declaredFeatures;
+    }
+    /**
      * @return Features describes the set of features implemented by the CRI implementation.
      * 
      */
@@ -196,6 +208,7 @@ public final class NodeStatusPatch {
         private @Nullable List<NodeConditionPatch> conditions;
         private @Nullable NodeConfigStatusPatch config;
         private @Nullable NodeDaemonEndpointsPatch daemonEndpoints;
+        private @Nullable List<String> declaredFeatures;
         private @Nullable NodeFeaturesPatch features;
         private @Nullable List<ContainerImagePatch> images;
         private @Nullable NodeSystemInfoPatch nodeInfo;
@@ -212,6 +225,7 @@ public final class NodeStatusPatch {
     	      this.conditions = defaults.conditions;
     	      this.config = defaults.config;
     	      this.daemonEndpoints = defaults.daemonEndpoints;
+    	      this.declaredFeatures = defaults.declaredFeatures;
     	      this.features = defaults.features;
     	      this.images = defaults.images;
     	      this.nodeInfo = defaults.nodeInfo;
@@ -262,6 +276,15 @@ public final class NodeStatusPatch {
 
             this.daemonEndpoints = daemonEndpoints;
             return this;
+        }
+        @CustomType.Setter
+        public Builder declaredFeatures(@Nullable List<String> declaredFeatures) {
+
+            this.declaredFeatures = declaredFeatures;
+            return this;
+        }
+        public Builder declaredFeatures(String... declaredFeatures) {
+            return declaredFeatures(List.of(declaredFeatures));
         }
         @CustomType.Setter
         public Builder features(@Nullable NodeFeaturesPatch features) {
@@ -325,6 +348,7 @@ public final class NodeStatusPatch {
             _resultValue.conditions = conditions;
             _resultValue.config = config;
             _resultValue.daemonEndpoints = daemonEndpoints;
+            _resultValue.declaredFeatures = declaredFeatures;
             _resultValue.features = features;
             _resultValue.images = images;
             _resultValue.nodeInfo = nodeInfo;

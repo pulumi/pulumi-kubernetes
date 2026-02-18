@@ -12,6 +12,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
     /// <summary>
     /// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    /// 
+    /// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     /// </summary>
     [OutputType]
     public sealed class AllocatedDeviceStatus
@@ -35,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// <summary>
         /// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
         /// 
-        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         /// </summary>
         public readonly string Driver;
         /// <summary>
@@ -48,6 +50,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         /// </summary>
         public readonly string Pool;
+        /// <summary>
+        /// ShareID uniquely identifies an individual allocation share of the device.
+        /// </summary>
+        public readonly string ShareID;
 
         [OutputConstructor]
         private AllocatedDeviceStatus(
@@ -61,7 +67,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
             Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.NetworkDeviceData networkData,
 
-            string pool)
+            string pool,
+
+            string shareID)
         {
             Conditions = conditions;
             Data = data;
@@ -69,6 +77,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
             Driver = driver;
             NetworkData = networkData;
             Pool = pool;
+            ShareID = shareID;
         }
     }
 }

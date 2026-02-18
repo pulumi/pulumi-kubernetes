@@ -27,6 +27,8 @@ type DeviceTaintRule struct {
 	//
 	// Changing the spec automatically increments the metadata.generation number.
 	Spec DeviceTaintRuleSpecOutput `pulumi:"spec"`
+	// Status provides information about what was requested in the spec.
+	Status DeviceTaintRuleStatusPtrOutput `pulumi:"status"`
 }
 
 // NewDeviceTaintRule registers a new resource with the given unique name, arguments, and options.
@@ -207,6 +209,11 @@ func (o DeviceTaintRuleOutput) Metadata() metav1.ObjectMetaOutput {
 // Changing the spec automatically increments the metadata.generation number.
 func (o DeviceTaintRuleOutput) Spec() DeviceTaintRuleSpecOutput {
 	return o.ApplyT(func(v *DeviceTaintRule) DeviceTaintRuleSpecOutput { return v.Spec }).(DeviceTaintRuleSpecOutput)
+}
+
+// Status provides information about what was requested in the spec.
+func (o DeviceTaintRuleOutput) Status() DeviceTaintRuleStatusPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintRule) DeviceTaintRuleStatusPtrOutput { return v.Status }).(DeviceTaintRuleStatusPtrOutput)
 }
 
 type DeviceTaintRuleArrayOutput struct{ *pulumi.OutputState }

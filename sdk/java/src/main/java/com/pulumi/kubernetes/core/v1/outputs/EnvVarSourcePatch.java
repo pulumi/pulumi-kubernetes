@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ConfigMapKeySelectorPatch;
+import com.pulumi.kubernetes.core.v1.outputs.FileKeySelectorPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectFieldSelectorPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceFieldSelectorPatch;
 import com.pulumi.kubernetes.core.v1.outputs.SecretKeySelectorPatch;
@@ -24,6 +25,11 @@ public final class EnvVarSourcePatch {
      * 
      */
     private @Nullable ObjectFieldSelectorPatch fieldRef;
+    /**
+     * @return FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+     * 
+     */
+    private @Nullable FileKeySelectorPatch fileKeyRef;
     /**
      * @return Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
      * 
@@ -51,6 +57,13 @@ public final class EnvVarSourcePatch {
         return Optional.ofNullable(this.fieldRef);
     }
     /**
+     * @return FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+     * 
+     */
+    public Optional<FileKeySelectorPatch> fileKeyRef() {
+        return Optional.ofNullable(this.fileKeyRef);
+    }
+    /**
      * @return Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
      * 
      */
@@ -76,6 +89,7 @@ public final class EnvVarSourcePatch {
     public static final class Builder {
         private @Nullable ConfigMapKeySelectorPatch configMapKeyRef;
         private @Nullable ObjectFieldSelectorPatch fieldRef;
+        private @Nullable FileKeySelectorPatch fileKeyRef;
         private @Nullable ResourceFieldSelectorPatch resourceFieldRef;
         private @Nullable SecretKeySelectorPatch secretKeyRef;
         public Builder() {}
@@ -83,6 +97,7 @@ public final class EnvVarSourcePatch {
     	      Objects.requireNonNull(defaults);
     	      this.configMapKeyRef = defaults.configMapKeyRef;
     	      this.fieldRef = defaults.fieldRef;
+    	      this.fileKeyRef = defaults.fileKeyRef;
     	      this.resourceFieldRef = defaults.resourceFieldRef;
     	      this.secretKeyRef = defaults.secretKeyRef;
         }
@@ -97,6 +112,12 @@ public final class EnvVarSourcePatch {
         public Builder fieldRef(@Nullable ObjectFieldSelectorPatch fieldRef) {
 
             this.fieldRef = fieldRef;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder fileKeyRef(@Nullable FileKeySelectorPatch fileKeyRef) {
+
+            this.fileKeyRef = fileKeyRef;
             return this;
         }
         @CustomType.Setter
@@ -115,6 +136,7 @@ public final class EnvVarSourcePatch {
             final var _resultValue = new EnvVarSourcePatch();
             _resultValue.configMapKeyRef = configMapKeyRef;
             _resultValue.fieldRef = fieldRef;
+            _resultValue.fileKeyRef = fileKeyRef;
             _resultValue.resourceFieldRef = resourceFieldRef;
             _resultValue.secretKeyRef = secretKeyRef;
             return _resultValue;

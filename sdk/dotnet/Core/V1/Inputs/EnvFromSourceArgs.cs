@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapEnvSourceArgs>? ConfigMapRef { get; set; }
 
         /// <summary>
-        /// Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+        /// Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
         /// </summary>
         [Input("prefix")]
         public Input<string>? Prefix { get; set; }

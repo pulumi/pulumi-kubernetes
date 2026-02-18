@@ -105,6 +105,8 @@ __all__ = [
     'ConfigMapVolumeSourceArgsDict',
     'ConfigMapArgs',
     'ConfigMapArgsDict',
+    'ContainerExtendedResourceRequestArgs',
+    'ContainerExtendedResourceRequestArgsDict',
     'ContainerImageArgs',
     'ContainerImageArgsDict',
     'ContainerPatchArgs',
@@ -117,6 +119,14 @@ __all__ = [
     'ContainerResizePolicyPatchArgsDict',
     'ContainerResizePolicyArgs',
     'ContainerResizePolicyArgsDict',
+    'ContainerRestartRuleOnExitCodesPatchArgs',
+    'ContainerRestartRuleOnExitCodesPatchArgsDict',
+    'ContainerRestartRuleOnExitCodesArgs',
+    'ContainerRestartRuleOnExitCodesArgsDict',
+    'ContainerRestartRulePatchArgs',
+    'ContainerRestartRulePatchArgsDict',
+    'ContainerRestartRuleArgs',
+    'ContainerRestartRuleArgsDict',
     'ContainerStateRunningArgs',
     'ContainerStateRunningArgsDict',
     'ContainerStateTerminatedArgs',
@@ -201,6 +211,10 @@ __all__ = [
     'FCVolumeSourcePatchArgsDict',
     'FCVolumeSourceArgs',
     'FCVolumeSourceArgsDict',
+    'FileKeySelectorPatchArgs',
+    'FileKeySelectorPatchArgsDict',
+    'FileKeySelectorArgs',
+    'FileKeySelectorArgsDict',
     'FlexPersistentVolumeSourcePatchArgs',
     'FlexPersistentVolumeSourcePatchArgsDict',
     'FlexPersistentVolumeSourceArgs',
@@ -419,6 +433,10 @@ __all__ = [
     'PodAntiAffinityPatchArgsDict',
     'PodAntiAffinityArgs',
     'PodAntiAffinityArgsDict',
+    'PodCertificateProjectionPatchArgs',
+    'PodCertificateProjectionPatchArgsDict',
+    'PodCertificateProjectionArgs',
+    'PodCertificateProjectionArgsDict',
     'PodConditionArgs',
     'PodConditionArgsDict',
     'PodDNSConfigOptionPatchArgs',
@@ -429,6 +447,8 @@ __all__ = [
     'PodDNSConfigPatchArgsDict',
     'PodDNSConfigArgs',
     'PodDNSConfigArgsDict',
+    'PodExtendedResourceClaimStatusArgs',
+    'PodExtendedResourceClaimStatusArgsDict',
     'PodIPArgs',
     'PodIPArgsDict',
     'PodOSPatchArgs',
@@ -689,6 +709,10 @@ __all__ = [
     'WindowsSecurityContextOptionsPatchArgsDict',
     'WindowsSecurityContextOptionsArgs',
     'WindowsSecurityContextOptionsArgsDict',
+    'WorkloadReferencePatchArgs',
+    'WorkloadReferencePatchArgsDict',
+    'WorkloadReferenceArgs',
+    'WorkloadReferenceArgsDict',
 ]
 
 class AWSElasticBlockStoreVolumeSourcePatchArgsDict(TypedDict):
@@ -4855,6 +4879,76 @@ class ConfigMapArgs:
         pulumi.set(self, "metadata", value)
 
 
+class ContainerExtendedResourceRequestArgsDict(TypedDict):
+    """
+    ContainerExtendedResourceRequest has the mapping of container name, extended resource name to the device request name.
+    """
+    container_name: pulumi.Input[_builtins.str]
+    """
+    The name of the container requesting resources.
+    """
+    request_name: pulumi.Input[_builtins.str]
+    """
+    The name of the request in the special ResourceClaim which corresponds to the extended resource.
+    """
+    resource_name: pulumi.Input[_builtins.str]
+    """
+    The name of the extended resource in that container which gets backed by DRA.
+    """
+
+@pulumi.input_type
+class ContainerExtendedResourceRequestArgs:
+    def __init__(__self__, *,
+                 container_name: pulumi.Input[_builtins.str],
+                 request_name: pulumi.Input[_builtins.str],
+                 resource_name: pulumi.Input[_builtins.str]):
+        """
+        ContainerExtendedResourceRequest has the mapping of container name, extended resource name to the device request name.
+        :param pulumi.Input[_builtins.str] container_name: The name of the container requesting resources.
+        :param pulumi.Input[_builtins.str] request_name: The name of the request in the special ResourceClaim which corresponds to the extended resource.
+        :param pulumi.Input[_builtins.str] resource_name: The name of the extended resource in that container which gets backed by DRA.
+        """
+        pulumi.set(__self__, "container_name", container_name)
+        pulumi.set(__self__, "request_name", request_name)
+        pulumi.set(__self__, "resource_name", resource_name)
+
+    @_builtins.property
+    @pulumi.getter(name="containerName")
+    def container_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the container requesting resources.
+        """
+        return pulumi.get(self, "container_name")
+
+    @container_name.setter
+    def container_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "container_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requestName")
+    def request_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the request in the special ResourceClaim which corresponds to the extended resource.
+        """
+        return pulumi.get(self, "request_name")
+
+    @request_name.setter
+    def request_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "request_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceName")
+    def resource_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the extended resource in that container which gets backed by DRA.
+        """
+        return pulumi.get(self, "resource_name")
+
+    @resource_name.setter
+    def resource_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource_name", value)
+
+
 class ContainerImageArgsDict(TypedDict):
     """
     Describe a container image
@@ -4925,7 +5019,7 @@ class ContainerPatchArgsDict(TypedDict):
     """
     env_from: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgsDict']]]]
     """
-    List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+    List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
     image: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -4957,7 +5051,7 @@ class ContainerPatchArgsDict(TypedDict):
     """
     resize_policy: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgsDict']]]]
     """
-    Resources resize policy for the container.
+    Resources resize policy for the container. This field cannot be set on ephemeral containers.
     """
     resources: NotRequired[pulumi.Input['ResourceRequirementsPatchArgsDict']]
     """
@@ -4965,7 +5059,11 @@ class ContainerPatchArgsDict(TypedDict):
     """
     restart_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
-    RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+    RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+    """
+    restart_policy_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgsDict']]]]
+    """
+    Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
     """
     security_context: NotRequired[pulumi.Input['SecurityContextPatchArgsDict']]
     """
@@ -5025,6 +5123,7 @@ class ContainerPatchArgs:
                  resize_policy: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]]] = None,
                  resources: Optional[pulumi.Input['ResourceRequirementsPatchArgs']] = None,
                  restart_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 restart_policy_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]] = None,
                  security_context: Optional[pulumi.Input['SecurityContextPatchArgs']] = None,
                  startup_probe: Optional[pulumi.Input['ProbePatchArgs']] = None,
                  stdin: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -5040,7 +5139,7 @@ class ContainerPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarPatchArgs']]] env: List of environment variables to set in the container. Cannot be updated.
-        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         :param pulumi.Input[_builtins.str] image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
         :param pulumi.Input[_builtins.str] image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
         :param pulumi.Input['LifecyclePatchArgs'] lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
@@ -5048,9 +5147,10 @@ class ContainerPatchArgs:
         :param pulumi.Input[_builtins.str] name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerPortPatchArgs']]] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param pulumi.Input['ProbePatchArgs'] readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-        :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]] resize_policy: Resources resize policy for the container.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]] resize_policy: Resources resize policy for the container. This field cannot be set on ephemeral containers.
         :param pulumi.Input['ResourceRequirementsPatchArgs'] resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-        :param pulumi.Input[_builtins.str] restart_policy: RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        :param pulumi.Input[_builtins.str] restart_policy: RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]] restart_policy_rules: Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
         :param pulumi.Input['SecurityContextPatchArgs'] security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         :param pulumi.Input['ProbePatchArgs'] startup_probe: StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[_builtins.bool] stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
@@ -5090,6 +5190,8 @@ class ContainerPatchArgs:
             pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
+        if restart_policy_rules is not None:
+            pulumi.set(__self__, "restart_policy_rules", restart_policy_rules)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if startup_probe is not None:
@@ -5151,7 +5253,7 @@ class ContainerPatchArgs:
     @pulumi.getter(name="envFrom")
     def env_from(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]]]:
         """
-        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         """
         return pulumi.get(self, "env_from")
 
@@ -5247,7 +5349,7 @@ class ContainerPatchArgs:
     @pulumi.getter(name="resizePolicy")
     def resize_policy(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]]]:
         """
-        Resources resize policy for the container.
+        Resources resize policy for the container. This field cannot be set on ephemeral containers.
         """
         return pulumi.get(self, "resize_policy")
 
@@ -5271,13 +5373,25 @@ class ContainerPatchArgs:
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
         """
         return pulumi.get(self, "restart_policy")
 
     @restart_policy.setter
     def restart_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "restart_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="restartPolicyRules")
+    def restart_policy_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]:
+        """
+        Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
+        """
+        return pulumi.get(self, "restart_policy_rules")
+
+    @restart_policy_rules.setter
+    def restart_policy_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]):
+        pulumi.set(self, "restart_policy_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="securityContext")
@@ -5727,6 +5841,234 @@ class ContainerResizePolicyArgs:
     @restart_policy.setter
     def restart_policy(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "restart_policy", value)
+
+
+class ContainerRestartRuleOnExitCodesPatchArgsDict(TypedDict):
+    """
+    ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+    """
+    operator: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+      set of specified values.
+    - NotIn: the requirement is satisfied if the container exit code is
+      not in the set of specified values.
+    """
+    values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]
+    """
+    Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+    """
+
+@pulumi.input_type
+class ContainerRestartRuleOnExitCodesPatchArgs:
+    def __init__(__self__, *,
+                 operator: Optional[pulumi.Input[_builtins.str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]] = None):
+        """
+        ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+        :param pulumi.Input[_builtins.str] operator: Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+                 set of specified values.
+               - NotIn: the requirement is satisfied if the container exit code is
+                 not in the set of specified values.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] values: Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+        """
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+          set of specified values.
+        - NotIn: the requirement is satisfied if the container exit code is
+          not in the set of specified values.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]:
+        """
+        Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]):
+        pulumi.set(self, "values", value)
+
+
+class ContainerRestartRuleOnExitCodesArgsDict(TypedDict):
+    """
+    ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+    """
+    operator: pulumi.Input[_builtins.str]
+    """
+    Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+      set of specified values.
+    - NotIn: the requirement is satisfied if the container exit code is
+      not in the set of specified values.
+    """
+    values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]
+    """
+    Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+    """
+
+@pulumi.input_type
+class ContainerRestartRuleOnExitCodesArgs:
+    def __init__(__self__, *,
+                 operator: pulumi.Input[_builtins.str],
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]] = None):
+        """
+        ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.
+        :param pulumi.Input[_builtins.str] operator: Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+                 set of specified values.
+               - NotIn: the requirement is satisfied if the container exit code is
+                 not in the set of specified values.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] values: Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+        """
+        pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @_builtins.property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[_builtins.str]:
+        """
+        Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+          set of specified values.
+        - NotIn: the requirement is satisfied if the container exit code is
+          not in the set of specified values.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "operator", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]:
+        """
+        Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]):
+        pulumi.set(self, "values", value)
+
+
+class ContainerRestartRulePatchArgsDict(TypedDict):
+    """
+    ContainerRestartRule describes how a container exit is handled.
+    """
+    action: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+    """
+    exit_codes: NotRequired[pulumi.Input['ContainerRestartRuleOnExitCodesPatchArgsDict']]
+    """
+    Represents the exit codes to check on container exits.
+    """
+
+@pulumi.input_type
+class ContainerRestartRulePatchArgs:
+    def __init__(__self__, *,
+                 action: Optional[pulumi.Input[_builtins.str]] = None,
+                 exit_codes: Optional[pulumi.Input['ContainerRestartRuleOnExitCodesPatchArgs']] = None):
+        """
+        ContainerRestartRule describes how a container exit is handled.
+        :param pulumi.Input[_builtins.str] action: Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+        :param pulumi.Input['ContainerRestartRuleOnExitCodesPatchArgs'] exit_codes: Represents the exit codes to check on container exits.
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if exit_codes is not None:
+            pulumi.set(__self__, "exit_codes", exit_codes)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter(name="exitCodes")
+    def exit_codes(self) -> Optional[pulumi.Input['ContainerRestartRuleOnExitCodesPatchArgs']]:
+        """
+        Represents the exit codes to check on container exits.
+        """
+        return pulumi.get(self, "exit_codes")
+
+    @exit_codes.setter
+    def exit_codes(self, value: Optional[pulumi.Input['ContainerRestartRuleOnExitCodesPatchArgs']]):
+        pulumi.set(self, "exit_codes", value)
+
+
+class ContainerRestartRuleArgsDict(TypedDict):
+    """
+    ContainerRestartRule describes how a container exit is handled.
+    """
+    action: pulumi.Input[_builtins.str]
+    """
+    Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+    """
+    exit_codes: NotRequired[pulumi.Input['ContainerRestartRuleOnExitCodesArgsDict']]
+    """
+    Represents the exit codes to check on container exits.
+    """
+
+@pulumi.input_type
+class ContainerRestartRuleArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[_builtins.str],
+                 exit_codes: Optional[pulumi.Input['ContainerRestartRuleOnExitCodesArgs']] = None):
+        """
+        ContainerRestartRule describes how a container exit is handled.
+        :param pulumi.Input[_builtins.str] action: Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+        :param pulumi.Input['ContainerRestartRuleOnExitCodesArgs'] exit_codes: Represents the exit codes to check on container exits.
+        """
+        pulumi.set(__self__, "action", action)
+        if exit_codes is not None:
+            pulumi.set(__self__, "exit_codes", exit_codes)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[_builtins.str]:
+        """
+        Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "action", value)
+
+    @_builtins.property
+    @pulumi.getter(name="exitCodes")
+    def exit_codes(self) -> Optional[pulumi.Input['ContainerRestartRuleOnExitCodesArgs']]:
+        """
+        Represents the exit codes to check on container exits.
+        """
+        return pulumi.get(self, "exit_codes")
+
+    @exit_codes.setter
+    def exit_codes(self, value: Optional[pulumi.Input['ContainerRestartRuleOnExitCodesArgs']]):
+        pulumi.set(self, "exit_codes", value)
 
 
 class ContainerStateRunningArgsDict(TypedDict):
@@ -6409,7 +6751,7 @@ class ContainerArgsDict(TypedDict):
     """
     env_from: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgsDict']]]]
     """
-    List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+    List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
     image: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -6437,7 +6779,7 @@ class ContainerArgsDict(TypedDict):
     """
     resize_policy: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgsDict']]]]
     """
-    Resources resize policy for the container.
+    Resources resize policy for the container. This field cannot be set on ephemeral containers.
     """
     resources: NotRequired[pulumi.Input['ResourceRequirementsArgsDict']]
     """
@@ -6445,7 +6787,11 @@ class ContainerArgsDict(TypedDict):
     """
     restart_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
-    RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+    RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+    """
+    restart_policy_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgsDict']]]]
+    """
+    Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
     """
     security_context: NotRequired[pulumi.Input['SecurityContextArgsDict']]
     """
@@ -6505,6 +6851,7 @@ class ContainerArgs:
                  resize_policy: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]]] = None,
                  resources: Optional[pulumi.Input['ResourceRequirementsArgs']] = None,
                  restart_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 restart_policy_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]] = None,
                  security_context: Optional[pulumi.Input['SecurityContextArgs']] = None,
                  startup_probe: Optional[pulumi.Input['ProbeArgs']] = None,
                  stdin: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -6521,16 +6868,17 @@ class ContainerArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarArgs']]] env: List of environment variables to set in the container. Cannot be updated.
-        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         :param pulumi.Input[_builtins.str] image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
         :param pulumi.Input[_builtins.str] image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
         :param pulumi.Input['LifecycleArgs'] lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
         :param pulumi.Input['ProbeArgs'] liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[Sequence[pulumi.Input['ContainerPortArgs']]] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param pulumi.Input['ProbeArgs'] readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-        :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]] resize_policy: Resources resize policy for the container.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]] resize_policy: Resources resize policy for the container. This field cannot be set on ephemeral containers.
         :param pulumi.Input['ResourceRequirementsArgs'] resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-        :param pulumi.Input[_builtins.str] restart_policy: RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        :param pulumi.Input[_builtins.str] restart_policy: RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]] restart_policy_rules: Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
         :param pulumi.Input['SecurityContextArgs'] security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         :param pulumi.Input['ProbeArgs'] startup_probe: StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[_builtins.bool] stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
@@ -6569,6 +6917,8 @@ class ContainerArgs:
             pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
+        if restart_policy_rules is not None:
+            pulumi.set(__self__, "restart_policy_rules", restart_policy_rules)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if startup_probe is not None:
@@ -6642,7 +6992,7 @@ class ContainerArgs:
     @pulumi.getter(name="envFrom")
     def env_from(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]]]:
         """
-        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         """
         return pulumi.get(self, "env_from")
 
@@ -6726,7 +7076,7 @@ class ContainerArgs:
     @pulumi.getter(name="resizePolicy")
     def resize_policy(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]]]:
         """
-        Resources resize policy for the container.
+        Resources resize policy for the container. This field cannot be set on ephemeral containers.
         """
         return pulumi.get(self, "resize_policy")
 
@@ -6750,13 +7100,25 @@ class ContainerArgs:
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+        RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
         """
         return pulumi.get(self, "restart_policy")
 
     @restart_policy.setter
     def restart_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "restart_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="restartPolicyRules")
+    def restart_policy_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]:
+        """
+        Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
+        """
+        return pulumi.get(self, "restart_policy_rules")
+
+    @restart_policy_rules.setter
+    def restart_policy_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]):
+        pulumi.set(self, "restart_policy_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="securityContext")
@@ -8127,7 +8489,7 @@ class EnvFromSourcePatchArgsDict(TypedDict):
     """
     prefix: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+    Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
     """
     secret_ref: NotRequired[pulumi.Input['SecretEnvSourcePatchArgsDict']]
     """
@@ -8143,7 +8505,7 @@ class EnvFromSourcePatchArgs:
         """
         EnvFromSource represents the source of a set of ConfigMaps or Secrets
         :param pulumi.Input['ConfigMapEnvSourcePatchArgs'] config_map_ref: The ConfigMap to select from
-        :param pulumi.Input[_builtins.str] prefix: Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+        :param pulumi.Input[_builtins.str] prefix: Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
         :param pulumi.Input['SecretEnvSourcePatchArgs'] secret_ref: The Secret to select from
         """
         if config_map_ref is not None:
@@ -8169,7 +8531,7 @@ class EnvFromSourcePatchArgs:
     @pulumi.getter
     def prefix(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+        Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
         """
         return pulumi.get(self, "prefix")
 
@@ -8200,7 +8562,7 @@ class EnvFromSourceArgsDict(TypedDict):
     """
     prefix: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+    Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
     """
     secret_ref: NotRequired[pulumi.Input['SecretEnvSourceArgsDict']]
     """
@@ -8216,7 +8578,7 @@ class EnvFromSourceArgs:
         """
         EnvFromSource represents the source of a set of ConfigMaps or Secrets
         :param pulumi.Input['ConfigMapEnvSourceArgs'] config_map_ref: The ConfigMap to select from
-        :param pulumi.Input[_builtins.str] prefix: Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+        :param pulumi.Input[_builtins.str] prefix: Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
         :param pulumi.Input['SecretEnvSourceArgs'] secret_ref: The Secret to select from
         """
         if config_map_ref is not None:
@@ -8242,7 +8604,7 @@ class EnvFromSourceArgs:
     @pulumi.getter
     def prefix(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.
+        Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
         """
         return pulumi.get(self, "prefix")
 
@@ -8269,7 +8631,7 @@ class EnvVarPatchArgsDict(TypedDict):
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Name of the environment variable. Must be a C_IDENTIFIER.
+    Name of the environment variable. May consist of any printable ASCII characters except '='.
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -8288,7 +8650,7 @@ class EnvVarPatchArgs:
                  value_from: Optional[pulumi.Input['EnvVarSourcePatchArgs']] = None):
         """
         EnvVar represents an environment variable present in a Container.
-        :param pulumi.Input[_builtins.str] name: Name of the environment variable. Must be a C_IDENTIFIER.
+        :param pulumi.Input[_builtins.str] name: Name of the environment variable. May consist of any printable ASCII characters except '='.
         :param pulumi.Input[_builtins.str] value: Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
         :param pulumi.Input['EnvVarSourcePatchArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
         """
@@ -8303,7 +8665,7 @@ class EnvVarPatchArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Name of the environment variable. Must be a C_IDENTIFIER.
+        Name of the environment variable. May consist of any printable ASCII characters except '='.
         """
         return pulumi.get(self, "name")
 
@@ -8348,6 +8710,10 @@ class EnvVarSourcePatchArgsDict(TypedDict):
     """
     Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
     """
+    file_key_ref: NotRequired[pulumi.Input['FileKeySelectorPatchArgsDict']]
+    """
+    FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+    """
     resource_field_ref: NotRequired[pulumi.Input['ResourceFieldSelectorPatchArgsDict']]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -8362,12 +8728,14 @@ class EnvVarSourcePatchArgs:
     def __init__(__self__, *,
                  config_map_key_ref: Optional[pulumi.Input['ConfigMapKeySelectorPatchArgs']] = None,
                  field_ref: Optional[pulumi.Input['ObjectFieldSelectorPatchArgs']] = None,
+                 file_key_ref: Optional[pulumi.Input['FileKeySelectorPatchArgs']] = None,
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorPatchArgs']] = None,
                  secret_key_ref: Optional[pulumi.Input['SecretKeySelectorPatchArgs']] = None):
         """
         EnvVarSource represents a source for the value of an EnvVar.
         :param pulumi.Input['ConfigMapKeySelectorPatchArgs'] config_map_key_ref: Selects a key of a ConfigMap.
         :param pulumi.Input['ObjectFieldSelectorPatchArgs'] field_ref: Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+        :param pulumi.Input['FileKeySelectorPatchArgs'] file_key_ref: FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
         :param pulumi.Input['ResourceFieldSelectorPatchArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
         :param pulumi.Input['SecretKeySelectorPatchArgs'] secret_key_ref: Selects a key of a secret in the pod's namespace
         """
@@ -8375,6 +8743,8 @@ class EnvVarSourcePatchArgs:
             pulumi.set(__self__, "config_map_key_ref", config_map_key_ref)
         if field_ref is not None:
             pulumi.set(__self__, "field_ref", field_ref)
+        if file_key_ref is not None:
+            pulumi.set(__self__, "file_key_ref", file_key_ref)
         if resource_field_ref is not None:
             pulumi.set(__self__, "resource_field_ref", resource_field_ref)
         if secret_key_ref is not None:
@@ -8403,6 +8773,18 @@ class EnvVarSourcePatchArgs:
     @field_ref.setter
     def field_ref(self, value: Optional[pulumi.Input['ObjectFieldSelectorPatchArgs']]):
         pulumi.set(self, "field_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fileKeyRef")
+    def file_key_ref(self) -> Optional[pulumi.Input['FileKeySelectorPatchArgs']]:
+        """
+        FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+        """
+        return pulumi.get(self, "file_key_ref")
+
+    @file_key_ref.setter
+    def file_key_ref(self, value: Optional[pulumi.Input['FileKeySelectorPatchArgs']]):
+        pulumi.set(self, "file_key_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceFieldRef")
@@ -8441,6 +8823,10 @@ class EnvVarSourceArgsDict(TypedDict):
     """
     Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
     """
+    file_key_ref: NotRequired[pulumi.Input['FileKeySelectorArgsDict']]
+    """
+    FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+    """
     resource_field_ref: NotRequired[pulumi.Input['ResourceFieldSelectorArgsDict']]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -8455,12 +8841,14 @@ class EnvVarSourceArgs:
     def __init__(__self__, *,
                  config_map_key_ref: Optional[pulumi.Input['ConfigMapKeySelectorArgs']] = None,
                  field_ref: Optional[pulumi.Input['ObjectFieldSelectorArgs']] = None,
+                 file_key_ref: Optional[pulumi.Input['FileKeySelectorArgs']] = None,
                  resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorArgs']] = None,
                  secret_key_ref: Optional[pulumi.Input['SecretKeySelectorArgs']] = None):
         """
         EnvVarSource represents a source for the value of an EnvVar.
         :param pulumi.Input['ConfigMapKeySelectorArgs'] config_map_key_ref: Selects a key of a ConfigMap.
         :param pulumi.Input['ObjectFieldSelectorArgs'] field_ref: Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+        :param pulumi.Input['FileKeySelectorArgs'] file_key_ref: FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
         :param pulumi.Input['ResourceFieldSelectorArgs'] resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
         :param pulumi.Input['SecretKeySelectorArgs'] secret_key_ref: Selects a key of a secret in the pod's namespace
         """
@@ -8468,6 +8856,8 @@ class EnvVarSourceArgs:
             pulumi.set(__self__, "config_map_key_ref", config_map_key_ref)
         if field_ref is not None:
             pulumi.set(__self__, "field_ref", field_ref)
+        if file_key_ref is not None:
+            pulumi.set(__self__, "file_key_ref", file_key_ref)
         if resource_field_ref is not None:
             pulumi.set(__self__, "resource_field_ref", resource_field_ref)
         if secret_key_ref is not None:
@@ -8496,6 +8886,18 @@ class EnvVarSourceArgs:
     @field_ref.setter
     def field_ref(self, value: Optional[pulumi.Input['ObjectFieldSelectorArgs']]):
         pulumi.set(self, "field_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fileKeyRef")
+    def file_key_ref(self) -> Optional[pulumi.Input['FileKeySelectorArgs']]:
+        """
+        FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+        """
+        return pulumi.get(self, "file_key_ref")
+
+    @file_key_ref.setter
+    def file_key_ref(self, value: Optional[pulumi.Input['FileKeySelectorArgs']]):
+        pulumi.set(self, "file_key_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceFieldRef")
@@ -8528,7 +8930,7 @@ class EnvVarArgsDict(TypedDict):
     """
     name: pulumi.Input[_builtins.str]
     """
-    Name of the environment variable. Must be a C_IDENTIFIER.
+    Name of the environment variable. May consist of any printable ASCII characters except '='.
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -8547,7 +8949,7 @@ class EnvVarArgs:
                  value_from: Optional[pulumi.Input['EnvVarSourceArgs']] = None):
         """
         EnvVar represents an environment variable present in a Container.
-        :param pulumi.Input[_builtins.str] name: Name of the environment variable. Must be a C_IDENTIFIER.
+        :param pulumi.Input[_builtins.str] name: Name of the environment variable. May consist of any printable ASCII characters except '='.
         :param pulumi.Input[_builtins.str] value: Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
         :param pulumi.Input['EnvVarSourceArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
         """
@@ -8561,7 +8963,7 @@ class EnvVarArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[_builtins.str]:
         """
-        Name of the environment variable. Must be a C_IDENTIFIER.
+        Name of the environment variable. May consist of any printable ASCII characters except '='.
         """
         return pulumi.get(self, "name")
 
@@ -8614,7 +9016,7 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     env_from: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgsDict']]]]
     """
-    List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+    List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
     image: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -8654,7 +9056,11 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     restart_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+    Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
+    """
+    restart_policy_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgsDict']]]]
+    """
+    Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
     """
     security_context: NotRequired[pulumi.Input['SecurityContextPatchArgsDict']]
     """
@@ -8720,6 +9126,7 @@ class EphemeralContainerPatchArgs:
                  resize_policy: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]]] = None,
                  resources: Optional[pulumi.Input['ResourceRequirementsPatchArgs']] = None,
                  restart_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 restart_policy_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]] = None,
                  security_context: Optional[pulumi.Input['SecurityContextPatchArgs']] = None,
                  startup_probe: Optional[pulumi.Input['ProbePatchArgs']] = None,
                  stdin: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -8738,7 +9145,7 @@ class EphemeralContainerPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarPatchArgs']]] env: List of environment variables to set in the container. Cannot be updated.
-        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         :param pulumi.Input[_builtins.str] image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
         :param pulumi.Input[_builtins.str] image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
         :param pulumi.Input['LifecyclePatchArgs'] lifecycle: Lifecycle is not allowed for ephemeral containers.
@@ -8748,7 +9155,8 @@ class EphemeralContainerPatchArgs:
         :param pulumi.Input['ProbePatchArgs'] readiness_probe: Probes are not allowed for ephemeral containers.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]] resize_policy: Resources resize policy for the container.
         :param pulumi.Input['ResourceRequirementsPatchArgs'] resources: Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
-        :param pulumi.Input[_builtins.str] restart_policy: Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        :param pulumi.Input[_builtins.str] restart_policy: Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]] restart_policy_rules: Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
         :param pulumi.Input['SecurityContextPatchArgs'] security_context: Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         :param pulumi.Input['ProbePatchArgs'] startup_probe: Probes are not allowed for ephemeral containers.
         :param pulumi.Input[_builtins.bool] stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
@@ -8791,6 +9199,8 @@ class EphemeralContainerPatchArgs:
             pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
+        if restart_policy_rules is not None:
+            pulumi.set(__self__, "restart_policy_rules", restart_policy_rules)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if startup_probe is not None:
@@ -8854,7 +9264,7 @@ class EphemeralContainerPatchArgs:
     @pulumi.getter(name="envFrom")
     def env_from(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]]]:
         """
-        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         """
         return pulumi.get(self, "env_from")
 
@@ -8974,13 +9384,25 @@ class EphemeralContainerPatchArgs:
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
         """
         return pulumi.get(self, "restart_policy")
 
     @restart_policy.setter
     def restart_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "restart_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="restartPolicyRules")
+    def restart_policy_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]:
+        """
+        Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+        """
+        return pulumi.get(self, "restart_policy_rules")
+
+    @restart_policy_rules.setter
+    def restart_policy_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]):
+        pulumi.set(self, "restart_policy_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="securityContext")
@@ -9141,7 +9563,7 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     env_from: NotRequired[pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgsDict']]]]
     """
-    List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+    List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
     image: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -9177,7 +9599,11 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     restart_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+    Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
+    """
+    restart_policy_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgsDict']]]]
+    """
+    Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
     """
     security_context: NotRequired[pulumi.Input['SecurityContextArgsDict']]
     """
@@ -9243,6 +9669,7 @@ class EphemeralContainerArgs:
                  resize_policy: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]]] = None,
                  resources: Optional[pulumi.Input['ResourceRequirementsArgs']] = None,
                  restart_policy: Optional[pulumi.Input[_builtins.str]] = None,
+                 restart_policy_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]] = None,
                  security_context: Optional[pulumi.Input['SecurityContextArgs']] = None,
                  startup_probe: Optional[pulumi.Input['ProbeArgs']] = None,
                  stdin: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -9262,7 +9689,7 @@ class EphemeralContainerArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param pulumi.Input[Sequence[pulumi.Input['EnvVarArgs']]] env: List of environment variables to set in the container. Cannot be updated.
-        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]] env_from: List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         :param pulumi.Input[_builtins.str] image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
         :param pulumi.Input[_builtins.str] image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
         :param pulumi.Input['LifecycleArgs'] lifecycle: Lifecycle is not allowed for ephemeral containers.
@@ -9271,7 +9698,8 @@ class EphemeralContainerArgs:
         :param pulumi.Input['ProbeArgs'] readiness_probe: Probes are not allowed for ephemeral containers.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerResizePolicyArgs']]] resize_policy: Resources resize policy for the container.
         :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
-        :param pulumi.Input[_builtins.str] restart_policy: Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        :param pulumi.Input[_builtins.str] restart_policy: Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]] restart_policy_rules: Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
         :param pulumi.Input['SecurityContextArgs'] security_context: Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         :param pulumi.Input['ProbeArgs'] startup_probe: Probes are not allowed for ephemeral containers.
         :param pulumi.Input[_builtins.bool] stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
@@ -9313,6 +9741,8 @@ class EphemeralContainerArgs:
             pulumi.set(__self__, "resources", resources)
         if restart_policy is not None:
             pulumi.set(__self__, "restart_policy", restart_policy)
+        if restart_policy_rules is not None:
+            pulumi.set(__self__, "restart_policy_rules", restart_policy_rules)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if startup_probe is not None:
@@ -9388,7 +9818,7 @@ class EphemeralContainerArgs:
     @pulumi.getter(name="envFrom")
     def env_from(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['EnvFromSourceArgs']]]]:
         """
-        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
         """
         return pulumi.get(self, "env_from")
 
@@ -9496,13 +9926,25 @@ class EphemeralContainerArgs:
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
         """
         return pulumi.get(self, "restart_policy")
 
     @restart_policy.setter
     def restart_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "restart_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="restartPolicyRules")
+    def restart_policy_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]:
+        """
+        Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+        """
+        return pulumi.get(self, "restart_policy_rules")
+
+    @restart_policy_rules.setter
+    def restart_policy_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]):
+        pulumi.set(self, "restart_policy_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="securityContext")
@@ -10674,6 +11116,201 @@ class FCVolumeSourceArgs:
     @wwids.setter
     def wwids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "wwids", value)
+
+
+class FileKeySelectorPatchArgsDict(TypedDict):
+    """
+    FileKeySelector selects a key of the env file.
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+    """
+    optional: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+
+    If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+    """
+    path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+    """
+    volume_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The name of the volume mount containing the env file.
+    """
+
+@pulumi.input_type
+class FileKeySelectorPatchArgs:
+    def __init__(__self__, *,
+                 key: Optional[pulumi.Input[_builtins.str]] = None,
+                 optional: Optional[pulumi.Input[_builtins.bool]] = None,
+                 path: Optional[pulumi.Input[_builtins.str]] = None,
+                 volume_name: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        FileKeySelector selects a key of the env file.
+        :param pulumi.Input[_builtins.str] key: The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+        :param pulumi.Input[_builtins.bool] optional: Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+               
+               If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+        :param pulumi.Input[_builtins.str] path: The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+        :param pulumi.Input[_builtins.str] volume_name: The name of the volume mount containing the env file.
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def optional(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+
+        If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+        """
+        return pulumi.get(self, "optional")
+
+    @optional.setter
+    def optional(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "optional", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The name of the volume mount containing the env file.
+        """
+        return pulumi.get(self, "volume_name")
+
+    @volume_name.setter
+    def volume_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "volume_name", value)
+
+
+class FileKeySelectorArgsDict(TypedDict):
+    """
+    FileKeySelector selects a key of the env file.
+    """
+    key: pulumi.Input[_builtins.str]
+    """
+    The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+    """
+    path: pulumi.Input[_builtins.str]
+    """
+    The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+    """
+    volume_name: pulumi.Input[_builtins.str]
+    """
+    The name of the volume mount containing the env file.
+    """
+    optional: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+
+    If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+    """
+
+@pulumi.input_type
+class FileKeySelectorArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[_builtins.str],
+                 path: pulumi.Input[_builtins.str],
+                 volume_name: pulumi.Input[_builtins.str],
+                 optional: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        FileKeySelector selects a key of the env file.
+        :param pulumi.Input[_builtins.str] key: The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+        :param pulumi.Input[_builtins.str] path: The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+        :param pulumi.Input[_builtins.str] volume_name: The name of the volume mount containing the env file.
+        :param pulumi.Input[_builtins.bool] optional: Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+               
+               If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "path", path)
+        pulumi.set(__self__, "volume_name", volume_name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[_builtins.str]:
+        """
+        The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[_builtins.str]:
+        """
+        The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the volume mount containing the env file.
+        """
+        return pulumi.get(self, "volume_name")
+
+    @volume_name.setter
+    def volume_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "volume_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def optional(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+
+        If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+        """
+        return pulumi.get(self, "optional")
+
+    @optional.setter
+    def optional(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "optional", value)
 
 
 class FlexPersistentVolumeSourcePatchArgsDict(TypedDict):
@@ -11885,7 +12522,7 @@ class GlusterfsVolumeSourcePatchArgsDict(TypedDict):
     """
     endpoints: NotRequired[pulumi.Input[_builtins.str]]
     """
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints is the endpoint name that details Glusterfs topology.
     """
     path: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -11904,7 +12541,7 @@ class GlusterfsVolumeSourcePatchArgs:
                  read_only: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
-        :param pulumi.Input[_builtins.str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param pulumi.Input[_builtins.str] endpoints: endpoints is the endpoint name that details Glusterfs topology.
         :param pulumi.Input[_builtins.str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[_builtins.bool] read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
@@ -11919,7 +12556,7 @@ class GlusterfsVolumeSourcePatchArgs:
     @pulumi.getter
     def endpoints(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        endpoints is the endpoint name that details Glusterfs topology.
         """
         return pulumi.get(self, "endpoints")
 
@@ -11958,7 +12595,7 @@ class GlusterfsVolumeSourceArgsDict(TypedDict):
     """
     endpoints: pulumi.Input[_builtins.str]
     """
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints is the endpoint name that details Glusterfs topology.
     """
     path: pulumi.Input[_builtins.str]
     """
@@ -11977,7 +12614,7 @@ class GlusterfsVolumeSourceArgs:
                  read_only: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
-        :param pulumi.Input[_builtins.str] endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param pulumi.Input[_builtins.str] endpoints: endpoints is the endpoint name that details Glusterfs topology.
         :param pulumi.Input[_builtins.str] path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         :param pulumi.Input[_builtins.bool] read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
@@ -11990,7 +12627,7 @@ class GlusterfsVolumeSourceArgs:
     @pulumi.getter
     def endpoints(self) -> pulumi.Input[_builtins.str]:
         """
-        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        endpoints is the endpoint name that details Glusterfs topology.
         """
         return pulumi.get(self, "endpoints")
 
@@ -16807,6 +17444,10 @@ class NodeStatusArgsDict(TypedDict):
     """
     Endpoints of daemons running on the Node.
     """
+    declared_features: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    DeclaredFeatures represents the features related to feature gates that are declared by the node.
+    """
     features: NotRequired[pulumi.Input['NodeFeaturesArgsDict']]
     """
     Features describes the set of features implemented by the CRI implementation.
@@ -16845,6 +17486,7 @@ class NodeStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]]] = None,
                  config: Optional[pulumi.Input['NodeConfigStatusArgs']] = None,
                  daemon_endpoints: Optional[pulumi.Input['NodeDaemonEndpointsArgs']] = None,
+                 declared_features: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  features: Optional[pulumi.Input['NodeFeaturesArgs']] = None,
                  images: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerImageArgs']]]] = None,
                  node_info: Optional[pulumi.Input['NodeSystemInfoArgs']] = None,
@@ -16860,6 +17502,7 @@ class NodeStatusArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
         :param pulumi.Input['NodeConfigStatusArgs'] config: Status of the config assigned to the node via the dynamic Kubelet config feature.
         :param pulumi.Input['NodeDaemonEndpointsArgs'] daemon_endpoints: Endpoints of daemons running on the Node.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] declared_features: DeclaredFeatures represents the features related to feature gates that are declared by the node.
         :param pulumi.Input['NodeFeaturesArgs'] features: Features describes the set of features implemented by the CRI implementation.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerImageArgs']]] images: List of container images on this node
         :param pulumi.Input['NodeSystemInfoArgs'] node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
@@ -16880,6 +17523,8 @@ class NodeStatusArgs:
             pulumi.set(__self__, "config", config)
         if daemon_endpoints is not None:
             pulumi.set(__self__, "daemon_endpoints", daemon_endpoints)
+        if declared_features is not None:
+            pulumi.set(__self__, "declared_features", declared_features)
         if features is not None:
             pulumi.set(__self__, "features", features)
         if images is not None:
@@ -16966,6 +17611,18 @@ class NodeStatusArgs:
     @daemon_endpoints.setter
     def daemon_endpoints(self, value: Optional[pulumi.Input['NodeDaemonEndpointsArgs']]):
         pulumi.set(self, "daemon_endpoints", value)
+
+    @_builtins.property
+    @pulumi.getter(name="declaredFeatures")
+    def declared_features(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        DeclaredFeatures represents the features related to feature gates that are declared by the node.
+        """
+        return pulumi.get(self, "declared_features")
+
+    @declared_features.setter
+    def declared_features(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "declared_features", value)
 
     @_builtins.property
     @pulumi.getter
@@ -18234,7 +18891,7 @@ class PersistentVolumeClaimSpecPatchArgsDict(TypedDict):
     """
     resources: NotRequired[pulumi.Input['VolumeResourceRequirementsPatchArgsDict']]
     """
-    resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+    resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
     """
     selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
     """
@@ -18246,7 +18903,7 @@ class PersistentVolumeClaimSpecPatchArgsDict(TypedDict):
     """
     volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+    volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
     """
     volume_mode: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -18281,10 +18938,10 @@ class PersistentVolumeClaimSpecPatchArgs:
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
                (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
-        :param pulumi.Input['VolumeResourceRequirementsPatchArgs'] resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param pulumi.Input['VolumeResourceRequirementsPatchArgs'] resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: selector is a label query over volumes to consider for binding.
         :param pulumi.Input[_builtins.str] storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-        :param pulumi.Input[_builtins.str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+        :param pulumi.Input[_builtins.str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
         :param pulumi.Input[_builtins.str] volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param pulumi.Input[_builtins.str] volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -18354,7 +19011,7 @@ class PersistentVolumeClaimSpecPatchArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input['VolumeResourceRequirementsPatchArgs']]:
         """
-        resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         """
         return pulumi.get(self, "resources")
 
@@ -18390,7 +19047,7 @@ class PersistentVolumeClaimSpecPatchArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -18448,7 +19105,7 @@ class PersistentVolumeClaimSpecArgsDict(TypedDict):
     """
     resources: NotRequired[pulumi.Input['VolumeResourceRequirementsArgsDict']]
     """
-    resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+    resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
     """
     selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
     """
@@ -18460,7 +19117,7 @@ class PersistentVolumeClaimSpecArgsDict(TypedDict):
     """
     volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+    volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
     """
     volume_mode: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -18495,10 +19152,10 @@ class PersistentVolumeClaimSpecArgs:
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
                (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
-        :param pulumi.Input['VolumeResourceRequirementsArgs'] resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param pulumi.Input['VolumeResourceRequirementsArgs'] resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over volumes to consider for binding.
         :param pulumi.Input[_builtins.str] storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
-        :param pulumi.Input[_builtins.str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+        :param pulumi.Input[_builtins.str] volume_attributes_class_name: volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
         :param pulumi.Input[_builtins.str] volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
         :param pulumi.Input[_builtins.str] volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
@@ -18568,7 +19225,7 @@ class PersistentVolumeClaimSpecArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input['VolumeResourceRequirementsArgs']]:
         """
-        resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         """
         return pulumi.get(self, "resources")
 
@@ -18604,7 +19261,7 @@ class PersistentVolumeClaimSpecArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+        volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -18675,8 +19332,6 @@ class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
     When this field is not set, it means that no resize operation is in progress for the given PVC.
 
     A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-    This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
     """
     allocated_resources: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -18689,8 +19344,6 @@ class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
     Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
 
     A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-    This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
     """
     capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -18702,11 +19355,11 @@ class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
     """
     current_volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
     """
     modify_volume_status: NotRequired[pulumi.Input['ModifyVolumeStatusPatchArgsDict']]
     """
-    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
     """
     phase: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -18760,8 +19413,6 @@ class PersistentVolumeClaimStatusPatchArgs:
                When this field is not set, it means that no resize operation is in progress for the given PVC.
                
                A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-               
-               This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] allocated_resources: allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
                	* Un-prefixed keys:
                		- storage - the capacity of the volume.
@@ -18771,12 +19422,10 @@ class PersistentVolumeClaimStatusPatchArgs:
                Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
                
                A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-               
-               This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] capacity: capacity represents the actual resources of the underlying volume.
         :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
-        :param pulumi.Input[_builtins.str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
-        :param pulumi.Input['ModifyVolumeStatusPatchArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        :param pulumi.Input[_builtins.str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
+        :param pulumi.Input['ModifyVolumeStatusPatchArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         :param pulumi.Input[_builtins.str] phase: phase represents the current phase of PersistentVolumeClaim.
         :param pulumi.Input[_builtins.str] resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
@@ -18843,8 +19492,6 @@ class PersistentVolumeClaimStatusPatchArgs:
         When this field is not set, it means that no resize operation is in progress for the given PVC.
 
         A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-        This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "allocated_resource_statuses")
 
@@ -18865,8 +19512,6 @@ class PersistentVolumeClaimStatusPatchArgs:
         Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
 
         A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-        This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "allocated_resources")
 
@@ -18902,7 +19547,7 @@ class PersistentVolumeClaimStatusPatchArgs:
     @pulumi.getter(name="currentVolumeAttributesClassName")
     def current_volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
         """
         return pulumi.get(self, "current_volume_attributes_class_name")
 
@@ -18914,7 +19559,7 @@ class PersistentVolumeClaimStatusPatchArgs:
     @pulumi.getter(name="modifyVolumeStatus")
     def modify_volume_status(self) -> Optional[pulumi.Input['ModifyVolumeStatusPatchArgs']]:
         """
-        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         """
         return pulumi.get(self, "modify_volume_status")
 
@@ -18985,8 +19630,6 @@ class PersistentVolumeClaimStatusArgsDict(TypedDict):
     When this field is not set, it means that no resize operation is in progress for the given PVC.
 
     A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-    This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
     """
     allocated_resources: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -18999,8 +19642,6 @@ class PersistentVolumeClaimStatusArgsDict(TypedDict):
     Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
 
     A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-    This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
     """
     capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -19012,11 +19653,11 @@ class PersistentVolumeClaimStatusArgsDict(TypedDict):
     """
     current_volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
     """
     modify_volume_status: NotRequired[pulumi.Input['ModifyVolumeStatusArgsDict']]
     """
-    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
     """
     phase: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -19070,8 +19711,6 @@ class PersistentVolumeClaimStatusArgs:
                When this field is not set, it means that no resize operation is in progress for the given PVC.
                
                A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-               
-               This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] allocated_resources: allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
                	* Un-prefixed keys:
                		- storage - the capacity of the volume.
@@ -19081,12 +19720,10 @@ class PersistentVolumeClaimStatusArgs:
                Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
                
                A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-               
-               This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] capacity: capacity represents the actual resources of the underlying volume.
         :param pulumi.Input[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgs']]] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
-        :param pulumi.Input[_builtins.str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
-        :param pulumi.Input['ModifyVolumeStatusArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        :param pulumi.Input[_builtins.str] current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
+        :param pulumi.Input['ModifyVolumeStatusArgs'] modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         :param pulumi.Input[_builtins.str] phase: phase represents the current phase of PersistentVolumeClaim.
         :param pulumi.Input[_builtins.str] resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
@@ -19153,8 +19790,6 @@ class PersistentVolumeClaimStatusArgs:
         When this field is not set, it means that no resize operation is in progress for the given PVC.
 
         A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-        This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "allocated_resource_statuses")
 
@@ -19175,8 +19810,6 @@ class PersistentVolumeClaimStatusArgs:
         Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
 
         A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-
-        This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "allocated_resources")
 
@@ -19212,7 +19845,7 @@ class PersistentVolumeClaimStatusArgs:
     @pulumi.getter(name="currentVolumeAttributesClassName")
     def current_volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
         """
         return pulumi.get(self, "current_volume_attributes_class_name")
 
@@ -19224,7 +19857,7 @@ class PersistentVolumeClaimStatusArgs:
     @pulumi.getter(name="modifyVolumeStatus")
     def modify_volume_status(self) -> Optional[pulumi.Input['ModifyVolumeStatusArgs']]:
         """
-        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         """
         return pulumi.get(self, "modify_volume_status")
 
@@ -19662,7 +20295,7 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     node_affinity: NotRequired[pulumi.Input['VolumeNodeAffinityPatchArgsDict']]
     """
-    nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+    nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
     """
     persistent_volume_reclaim_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -19698,7 +20331,7 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
     """
     volume_mode: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -19764,7 +20397,7 @@ class PersistentVolumeSpecPatchArgs:
         :param pulumi.Input['LocalVolumeSourcePatchArgs'] local: local represents directly-attached storage with node affinity
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] mount_options: mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
         :param pulumi.Input['NFSVolumeSourcePatchArgs'] nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param pulumi.Input['VolumeNodeAffinityPatchArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        :param pulumi.Input['VolumeNodeAffinityPatchArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         :param pulumi.Input[_builtins.str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
@@ -19773,7 +20406,7 @@ class PersistentVolumeSpecPatchArgs:
         :param pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input[_builtins.str] storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         :param pulumi.Input['StorageOSPersistentVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
-        :param pulumi.Input[_builtins.str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        :param pulumi.Input[_builtins.str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
         :param pulumi.Input[_builtins.str] volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
         :param pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
@@ -20072,7 +20705,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="nodeAffinity")
     def node_affinity(self) -> Optional[pulumi.Input['VolumeNodeAffinityPatchArgs']]:
         """
-        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         """
         return pulumi.get(self, "node_affinity")
 
@@ -20180,7 +20813,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -20295,7 +20928,7 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     node_affinity: NotRequired[pulumi.Input['VolumeNodeAffinityArgsDict']]
     """
-    nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+    nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
     """
     persistent_volume_reclaim_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -20331,7 +20964,7 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     volume_attributes_class_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
     """
     volume_mode: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -20397,7 +21030,7 @@ class PersistentVolumeSpecArgs:
         :param pulumi.Input['LocalVolumeSourceArgs'] local: local represents directly-attached storage with node affinity
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] mount_options: mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
         :param pulumi.Input['NFSVolumeSourceArgs'] nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param pulumi.Input['VolumeNodeAffinityArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        :param pulumi.Input['VolumeNodeAffinityArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         :param pulumi.Input[_builtins.str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
@@ -20406,7 +21039,7 @@ class PersistentVolumeSpecArgs:
         :param pulumi.Input['ScaleIOPersistentVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input[_builtins.str] storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         :param pulumi.Input['StorageOSPersistentVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
-        :param pulumi.Input[_builtins.str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        :param pulumi.Input[_builtins.str] volume_attributes_class_name: Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
         :param pulumi.Input[_builtins.str] volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
         :param pulumi.Input['VsphereVirtualDiskVolumeSourceArgs'] vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
         """
@@ -20705,7 +21338,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="nodeAffinity")
     def node_affinity(self) -> Optional[pulumi.Input['VolumeNodeAffinityArgs']]:
         """
-        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         """
         return pulumi.get(self, "node_affinity")
 
@@ -20813,7 +21446,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="volumeAttributesClassName")
     def volume_attributes_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
         """
         return pulumi.get(self, "volume_attributes_class_name")
 
@@ -21534,7 +22167,7 @@ class PodAntiAffinityPatchArgsDict(TypedDict):
     """
     preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgsDict']]]]
     """
-    The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+    The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
     required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgsDict']]]]
     """
@@ -21548,7 +22181,7 @@ class PodAntiAffinityPatchArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]] = None):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
-        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]] required_during_scheduling_ignored_during_execution: If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -21560,7 +22193,7 @@ class PodAntiAffinityPatchArgs:
     @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
     def preferred_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]]]:
         """
-        The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         """
         return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
 
@@ -21587,7 +22220,7 @@ class PodAntiAffinityArgsDict(TypedDict):
     """
     preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgsDict']]]]
     """
-    The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+    The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
     required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgsDict']]]]
     """
@@ -21601,7 +22234,7 @@ class PodAntiAffinityArgs:
                  required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None):
         """
         Pod anti affinity is a group of inter pod anti affinity scheduling rules.
-        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]] required_during_scheduling_ignored_during_execution: If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -21613,7 +22246,7 @@ class PodAntiAffinityArgs:
     @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
     def preferred_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]:
         """
-        The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
         """
         return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
 
@@ -21632,6 +22265,454 @@ class PodAntiAffinityArgs:
     @required_during_scheduling_ignored_during_execution.setter
     def required_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]]):
         pulumi.set(self, "required_during_scheduling_ignored_during_execution", value)
+
+
+class PodCertificateProjectionPatchArgsDict(TypedDict):
+    """
+    PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+    """
+    certificate_chain_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the certificate chain at this path in the projected volume.
+
+    Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    """
+    credential_bundle_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the credential bundle at this path in the projected volume.
+
+    The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+
+    The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+
+    Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+    """
+    key_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the key at this path in the projected volume.
+
+    Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    """
+    key_type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The type of keypair Kubelet will generate for the pod.
+
+    Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+    """
+    max_expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+    Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+
+    If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+    The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+    """
+    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kubelet's generated CSRs will be addressed to this signer.
+    """
+    user_annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+
+    These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+
+    Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+
+    Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+    """
+
+@pulumi.input_type
+class PodCertificateProjectionPatchArgs:
+    def __init__(__self__, *,
+                 certificate_chain_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 credential_bundle_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 key_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 key_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 max_expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
+                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 user_annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+        :param pulumi.Input[_builtins.str] certificate_chain_path: Write the certificate chain at this path in the projected volume.
+               
+               Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        :param pulumi.Input[_builtins.str] credential_bundle_path: Write the credential bundle at this path in the projected volume.
+               
+               The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+               
+               The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+               
+               Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+        :param pulumi.Input[_builtins.str] key_path: Write the key at this path in the projected volume.
+               
+               Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        :param pulumi.Input[_builtins.str] key_type: The type of keypair Kubelet will generate for the pod.
+               
+               Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+        :param pulumi.Input[_builtins.int] max_expiration_seconds: maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+               
+               Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+               
+               If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+               
+               The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        :param pulumi.Input[_builtins.str] signer_name: Kubelet's generated CSRs will be addressed to this signer.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] user_annotations: userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+               
+               These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+               
+               Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+               
+               Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+        """
+        if certificate_chain_path is not None:
+            pulumi.set(__self__, "certificate_chain_path", certificate_chain_path)
+        if credential_bundle_path is not None:
+            pulumi.set(__self__, "credential_bundle_path", credential_bundle_path)
+        if key_path is not None:
+            pulumi.set(__self__, "key_path", key_path)
+        if key_type is not None:
+            pulumi.set(__self__, "key_type", key_type)
+        if max_expiration_seconds is not None:
+            pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+        if user_annotations is not None:
+            pulumi.set(__self__, "user_annotations", user_annotations)
+
+    @_builtins.property
+    @pulumi.getter(name="certificateChainPath")
+    def certificate_chain_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the certificate chain at this path in the projected volume.
+
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        """
+        return pulumi.get(self, "certificate_chain_path")
+
+    @certificate_chain_path.setter
+    def certificate_chain_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "certificate_chain_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="credentialBundlePath")
+    def credential_bundle_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the credential bundle at this path in the projected volume.
+
+        The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+
+        The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+
+        Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+        """
+        return pulumi.get(self, "credential_bundle_path")
+
+    @credential_bundle_path.setter
+    def credential_bundle_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "credential_bundle_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="keyPath")
+    def key_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the key at this path in the projected volume.
+
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        """
+        return pulumi.get(self, "key_path")
+
+    @key_path.setter
+    def key_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="keyType")
+    def key_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The type of keypair Kubelet will generate for the pod.
+
+        Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+        """
+        return pulumi.get(self, "key_type")
+
+    @key_type.setter
+    def key_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxExpirationSeconds")
+    def max_expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+        Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        """
+        return pulumi.get(self, "max_expiration_seconds")
+
+    @max_expiration_seconds.setter
+    def max_expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "max_expiration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Kubelet's generated CSRs will be addressed to this signer.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "signer_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="userAnnotations")
+    def user_annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+
+        These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+
+        Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+
+        Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+        """
+        return pulumi.get(self, "user_annotations")
+
+    @user_annotations.setter
+    def user_annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "user_annotations", value)
+
+
+class PodCertificateProjectionArgsDict(TypedDict):
+    """
+    PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+    """
+    key_type: pulumi.Input[_builtins.str]
+    """
+    The type of keypair Kubelet will generate for the pod.
+
+    Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+    """
+    signer_name: pulumi.Input[_builtins.str]
+    """
+    Kubelet's generated CSRs will be addressed to this signer.
+    """
+    certificate_chain_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the certificate chain at this path in the projected volume.
+
+    Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    """
+    credential_bundle_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the credential bundle at this path in the projected volume.
+
+    The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+
+    The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+
+    Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+    """
+    key_path: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Write the key at this path in the projected volume.
+
+    Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    """
+    max_expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+    Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+
+    If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+    The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+    """
+    user_annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+
+    These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+
+    Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+
+    Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+    """
+
+@pulumi.input_type
+class PodCertificateProjectionArgs:
+    def __init__(__self__, *,
+                 key_type: pulumi.Input[_builtins.str],
+                 signer_name: pulumi.Input[_builtins.str],
+                 certificate_chain_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 credential_bundle_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 key_path: Optional[pulumi.Input[_builtins.str]] = None,
+                 max_expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
+                 user_annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+        :param pulumi.Input[_builtins.str] key_type: The type of keypair Kubelet will generate for the pod.
+               
+               Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+        :param pulumi.Input[_builtins.str] signer_name: Kubelet's generated CSRs will be addressed to this signer.
+        :param pulumi.Input[_builtins.str] certificate_chain_path: Write the certificate chain at this path in the projected volume.
+               
+               Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        :param pulumi.Input[_builtins.str] credential_bundle_path: Write the credential bundle at this path in the projected volume.
+               
+               The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+               
+               The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+               
+               Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+        :param pulumi.Input[_builtins.str] key_path: Write the key at this path in the projected volume.
+               
+               Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        :param pulumi.Input[_builtins.int] max_expiration_seconds: maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+               
+               Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+               
+               If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+               
+               The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] user_annotations: userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+               
+               These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+               
+               Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+               
+               Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+        """
+        pulumi.set(__self__, "key_type", key_type)
+        pulumi.set(__self__, "signer_name", signer_name)
+        if certificate_chain_path is not None:
+            pulumi.set(__self__, "certificate_chain_path", certificate_chain_path)
+        if credential_bundle_path is not None:
+            pulumi.set(__self__, "credential_bundle_path", credential_bundle_path)
+        if key_path is not None:
+            pulumi.set(__self__, "key_path", key_path)
+        if max_expiration_seconds is not None:
+            pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
+        if user_annotations is not None:
+            pulumi.set(__self__, "user_annotations", user_annotations)
+
+    @_builtins.property
+    @pulumi.getter(name="keyType")
+    def key_type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The type of keypair Kubelet will generate for the pod.
+
+        Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+        """
+        return pulumi.get(self, "key_type")
+
+    @key_type.setter
+    def key_type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "key_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Kubelet's generated CSRs will be addressed to this signer.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "signer_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="certificateChainPath")
+    def certificate_chain_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the certificate chain at this path in the projected volume.
+
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        """
+        return pulumi.get(self, "certificate_chain_path")
+
+    @certificate_chain_path.setter
+    def certificate_chain_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "certificate_chain_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="credentialBundlePath")
+    def credential_bundle_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the credential bundle at this path in the projected volume.
+
+        The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+
+        The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+
+        Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+        """
+        return pulumi.get(self, "credential_bundle_path")
+
+    @credential_bundle_path.setter
+    def credential_bundle_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "credential_bundle_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="keyPath")
+    def key_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Write the key at this path in the projected volume.
+
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+        """
+        return pulumi.get(self, "key_path")
+
+    @key_path.setter
+    def key_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "key_path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxExpirationSeconds")
+    def max_expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+
+        Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        """
+        return pulumi.get(self, "max_expiration_seconds")
+
+    @max_expiration_seconds.setter
+    def max_expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "max_expiration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="userAnnotations")
+    def user_annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+
+        These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
+
+        Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+
+        Signers should document the keys and values they support. Signers should deny requests that contain keys they do not recognize.
+        """
+        return pulumi.get(self, "user_annotations")
+
+    @user_annotations.setter
+    def user_annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "user_annotations", value)
 
 
 class PodConditionArgsDict(TypedDict):
@@ -21660,7 +22741,7 @@ class PodConditionArgsDict(TypedDict):
     """
     observed_generation: NotRequired[pulumi.Input[_builtins.int]]
     """
-    If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+    If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
     """
     reason: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -21684,7 +22765,7 @@ class PodConditionArgs:
         :param pulumi.Input[_builtins.str] last_probe_time: Last time we probed the condition.
         :param pulumi.Input[_builtins.str] last_transition_time: Last time the condition transitioned from one status to another.
         :param pulumi.Input[_builtins.str] message: Human-readable message indicating details about last transition.
-        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         :param pulumi.Input[_builtins.str] reason: Unique, one-word, CamelCase reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
@@ -21764,7 +22845,7 @@ class PodConditionArgs:
     @pulumi.getter(name="observedGeneration")
     def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         """
         return pulumi.get(self, "observed_generation")
 
@@ -22035,6 +23116,57 @@ class PodDNSConfigArgs:
     @searches.setter
     def searches(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "searches", value)
+
+
+class PodExtendedResourceClaimStatusArgsDict(TypedDict):
+    """
+    PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.
+    """
+    request_mappings: pulumi.Input[Sequence[pulumi.Input['ContainerExtendedResourceRequestArgsDict']]]
+    """
+    RequestMappings identifies the mapping of <container, extended resource backed by DRA> to  device request in the generated ResourceClaim.
+    """
+    resource_claim_name: pulumi.Input[_builtins.str]
+    """
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+    """
+
+@pulumi.input_type
+class PodExtendedResourceClaimStatusArgs:
+    def __init__(__self__, *,
+                 request_mappings: pulumi.Input[Sequence[pulumi.Input['ContainerExtendedResourceRequestArgs']]],
+                 resource_claim_name: pulumi.Input[_builtins.str]):
+        """
+        PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.
+        :param pulumi.Input[Sequence[pulumi.Input['ContainerExtendedResourceRequestArgs']]] request_mappings: RequestMappings identifies the mapping of <container, extended resource backed by DRA> to  device request in the generated ResourceClaim.
+        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+        """
+        pulumi.set(__self__, "request_mappings", request_mappings)
+        pulumi.set(__self__, "resource_claim_name", resource_claim_name)
+
+    @_builtins.property
+    @pulumi.getter(name="requestMappings")
+    def request_mappings(self) -> pulumi.Input[Sequence[pulumi.Input['ContainerExtendedResourceRequestArgs']]]:
+        """
+        RequestMappings identifies the mapping of <container, extended resource backed by DRA> to  device request in the generated ResourceClaim.
+        """
+        return pulumi.get(self, "request_mappings")
+
+    @request_mappings.setter
+    def request_mappings(self, value: pulumi.Input[Sequence[pulumi.Input['ContainerExtendedResourceRequestArgs']]]):
+        pulumi.set(self, "request_mappings", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaimName")
+    def resource_claim_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+        """
+        return pulumi.get(self, "resource_claim_name")
+
+    @resource_claim_name.setter
+    def resource_claim_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource_claim_name", value)
 
 
 class PodIPArgsDict(TypedDict):
@@ -23233,7 +24365,7 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     host_network: NotRequired[pulumi.Input[_builtins.bool]]
     """
-    Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+    Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
     """
     host_pid: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -23246,6 +24378,12 @@ class PodSpecPatchArgsDict(TypedDict):
     hostname: NotRequired[pulumi.Input[_builtins.str]]
     """
     Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+    """
+    hostname_override: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+
+    This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
     """
     image_pull_secrets: NotRequired[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgsDict']]]]
     """
@@ -23269,7 +24407,7 @@ class PodSpecPatchArgsDict(TypedDict):
 
     If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-    If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+    If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
     """
     overhead: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -23295,13 +24433,13 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
 
     This field is immutable.
     """
     resources: NotRequired[pulumi.Input['ResourceRequirementsPatchArgsDict']]
     """
-    Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+    Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
     This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
 
@@ -23365,6 +24503,10 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
+    workload_ref: NotRequired[pulumi.Input['WorkloadReferencePatchArgsDict']]
+    """
+    WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+    """
 
 @pulumi.input_type
 class PodSpecPatchArgs:
@@ -23383,6 +24525,7 @@ class PodSpecPatchArgs:
                  host_pid: Optional[pulumi.Input[_builtins.bool]] = None,
                  host_users: Optional[pulumi.Input[_builtins.bool]] = None,
                  hostname: Optional[pulumi.Input[_builtins.str]] = None,
+                 hostname_override: Optional[pulumi.Input[_builtins.str]] = None,
                  image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]] = None,
                  init_containers: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerPatchArgs']]]] = None,
                  node_name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -23408,7 +24551,8 @@ class PodSpecPatchArgs:
                  termination_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['TolerationPatchArgs']]]] = None,
                  topology_spread_constraints: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgs']]]] = None,
-                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None):
+                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None,
+                 workload_ref: Optional[pulumi.Input['WorkloadReferencePatchArgs']] = None):
         """
         PodSpec is a description of a pod.
         :param pulumi.Input[_builtins.int] active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
@@ -23421,10 +24565,13 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['EphemeralContainerPatchArgs']]] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         :param pulumi.Input[Sequence[pulumi.Input['HostAliasPatchArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param pulumi.Input[_builtins.bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
-        :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         :param pulumi.Input[_builtins.bool] host_pid: Use the host's pid namespace. Optional: Default to false.
         :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param pulumi.Input[_builtins.str] hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+        :param pulumi.Input[_builtins.str] hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+               
+               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
         :param pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param pulumi.Input[Sequence[pulumi.Input['ContainerPatchArgs']]] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param pulumi.Input[_builtins.str] node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
@@ -23433,7 +24580,7 @@ class PodSpecPatchArgs:
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param pulumi.Input[_builtins.str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[_builtins.int] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -23441,10 +24588,10 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodReadinessGatePatchArgs']]] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
         :param pulumi.Input[Sequence[pulumi.Input['PodResourceClaimPatchArgs']]] resource_claims: ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
                
-               This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+               This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
                
                This field is immutable.
-        :param pulumi.Input['ResourceRequirementsPatchArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        :param pulumi.Input['ResourceRequirementsPatchArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
                
                This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
                
@@ -23465,6 +24612,7 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['TolerationPatchArgs']]] tolerations: If specified, the pod's tolerations.
         :param pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgs']]] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         :param pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
+        :param pulumi.Input['WorkloadReferencePatchArgs'] workload_ref: WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         """
         if active_deadline_seconds is not None:
             pulumi.set(__self__, "active_deadline_seconds", active_deadline_seconds)
@@ -23494,6 +24642,8 @@ class PodSpecPatchArgs:
             pulumi.set(__self__, "host_users", host_users)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
+        if hostname_override is not None:
+            pulumi.set(__self__, "hostname_override", hostname_override)
         if image_pull_secrets is not None:
             pulumi.set(__self__, "image_pull_secrets", image_pull_secrets)
         if init_containers is not None:
@@ -23546,6 +24696,8 @@ class PodSpecPatchArgs:
             pulumi.set(__self__, "topology_spread_constraints", topology_spread_constraints)
         if volumes is not None:
             pulumi.set(__self__, "volumes", volumes)
+        if workload_ref is not None:
+            pulumi.set(__self__, "workload_ref", workload_ref)
 
     @_builtins.property
     @pulumi.getter(name="activeDeadlineSeconds")
@@ -23671,7 +24823,7 @@ class PodSpecPatchArgs:
     @pulumi.getter(name="hostNetwork")
     def host_network(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         """
         return pulumi.get(self, "host_network")
 
@@ -23714,6 +24866,20 @@ class PodSpecPatchArgs:
     @hostname.setter
     def hostname(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "hostname", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hostnameOverride")
+    def hostname_override(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+
+        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        """
+        return pulumi.get(self, "hostname_override")
+
+    @hostname_override.setter
+    def hostname_override(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "hostname_override", value)
 
     @_builtins.property
     @pulumi.getter(name="imagePullSecrets")
@@ -23771,7 +24937,7 @@ class PodSpecPatchArgs:
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -23845,7 +25011,7 @@ class PodSpecPatchArgs:
         """
         ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
-        This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
 
         This field is immutable.
         """
@@ -23859,7 +25025,7 @@ class PodSpecPatchArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input['ResourceRequirementsPatchArgs']]:
         """
-        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
         This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
 
@@ -24041,6 +25207,18 @@ class PodSpecPatchArgs:
     def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]]):
         pulumi.set(self, "volumes", value)
 
+    @_builtins.property
+    @pulumi.getter(name="workloadRef")
+    def workload_ref(self) -> Optional[pulumi.Input['WorkloadReferencePatchArgs']]:
+        """
+        WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        """
+        return pulumi.get(self, "workload_ref")
+
+    @workload_ref.setter
+    def workload_ref(self, value: Optional[pulumi.Input['WorkloadReferencePatchArgs']]):
+        pulumi.set(self, "workload_ref", value)
+
 
 class PodSpecArgsDict(TypedDict):
     """
@@ -24088,7 +25266,7 @@ class PodSpecArgsDict(TypedDict):
     """
     host_network: NotRequired[pulumi.Input[_builtins.bool]]
     """
-    Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+    Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
     """
     host_pid: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -24101,6 +25279,12 @@ class PodSpecArgsDict(TypedDict):
     hostname: NotRequired[pulumi.Input[_builtins.str]]
     """
     Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+    """
+    hostname_override: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+
+    This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
     """
     image_pull_secrets: NotRequired[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferenceArgsDict']]]]
     """
@@ -24124,7 +25308,7 @@ class PodSpecArgsDict(TypedDict):
 
     If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-    If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+    If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
     """
     overhead: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -24150,13 +25334,13 @@ class PodSpecArgsDict(TypedDict):
     """
     ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
 
     This field is immutable.
     """
     resources: NotRequired[pulumi.Input['ResourceRequirementsArgsDict']]
     """
-    Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+    Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
     This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
 
@@ -24220,6 +25404,10 @@ class PodSpecArgsDict(TypedDict):
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
+    workload_ref: NotRequired[pulumi.Input['WorkloadReferenceArgsDict']]
+    """
+    WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+    """
 
 @pulumi.input_type
 class PodSpecArgs:
@@ -24238,6 +25426,7 @@ class PodSpecArgs:
                  host_pid: Optional[pulumi.Input[_builtins.bool]] = None,
                  host_users: Optional[pulumi.Input[_builtins.bool]] = None,
                  hostname: Optional[pulumi.Input[_builtins.str]] = None,
+                 hostname_override: Optional[pulumi.Input[_builtins.str]] = None,
                  image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferenceArgs']]]] = None,
                  init_containers: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]]] = None,
                  node_name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -24263,7 +25452,8 @@ class PodSpecArgs:
                  termination_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]]] = None,
                  topology_spread_constraints: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]]] = None,
-                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None):
+                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None,
+                 workload_ref: Optional[pulumi.Input['WorkloadReferenceArgs']] = None):
         """
         PodSpec is a description of a pod.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]] containers: List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
@@ -24276,10 +25466,13 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['EphemeralContainerArgs']]] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         :param pulumi.Input[Sequence[pulumi.Input['HostAliasArgs']]] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param pulumi.Input[_builtins.bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
-        :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         :param pulumi.Input[_builtins.bool] host_pid: Use the host's pid namespace. Optional: Default to false.
         :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param pulumi.Input[_builtins.str] hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+        :param pulumi.Input[_builtins.str] hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+               
+               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
         :param pulumi.Input[Sequence[pulumi.Input['LocalObjectReferenceArgs']]] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param pulumi.Input[_builtins.str] node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
@@ -24288,7 +25481,7 @@ class PodSpecArgs:
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param pulumi.Input[_builtins.str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[_builtins.int] priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -24296,10 +25489,10 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodReadinessGateArgs']]] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
         :param pulumi.Input[Sequence[pulumi.Input['PodResourceClaimArgs']]] resource_claims: ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
                
-               This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+               This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
                
                This field is immutable.
-        :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
                
                This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
                
@@ -24320,6 +25513,7 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]] tolerations: If specified, the pod's tolerations.
         :param pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         :param pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
+        :param pulumi.Input['WorkloadReferenceArgs'] workload_ref: WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         """
         pulumi.set(__self__, "containers", containers)
         if active_deadline_seconds is not None:
@@ -24348,6 +25542,8 @@ class PodSpecArgs:
             pulumi.set(__self__, "host_users", host_users)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
+        if hostname_override is not None:
+            pulumi.set(__self__, "hostname_override", hostname_override)
         if image_pull_secrets is not None:
             pulumi.set(__self__, "image_pull_secrets", image_pull_secrets)
         if init_containers is not None:
@@ -24400,6 +25596,8 @@ class PodSpecArgs:
             pulumi.set(__self__, "topology_spread_constraints", topology_spread_constraints)
         if volumes is not None:
             pulumi.set(__self__, "volumes", volumes)
+        if workload_ref is not None:
+            pulumi.set(__self__, "workload_ref", workload_ref)
 
     @_builtins.property
     @pulumi.getter
@@ -24525,7 +25723,7 @@ class PodSpecArgs:
     @pulumi.getter(name="hostNetwork")
     def host_network(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         """
         return pulumi.get(self, "host_network")
 
@@ -24568,6 +25766,20 @@ class PodSpecArgs:
     @hostname.setter
     def hostname(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "hostname", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hostnameOverride")
+    def hostname_override(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+
+        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        """
+        return pulumi.get(self, "hostname_override")
+
+    @hostname_override.setter
+    def hostname_override(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "hostname_override", value)
 
     @_builtins.property
     @pulumi.getter(name="imagePullSecrets")
@@ -24625,7 +25837,7 @@ class PodSpecArgs:
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -24699,7 +25911,7 @@ class PodSpecArgs:
         """
         ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
-        This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
 
         This field is immutable.
         """
@@ -24713,7 +25925,7 @@ class PodSpecArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input['ResourceRequirementsArgs']]:
         """
-        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
         This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
 
@@ -24895,10 +26107,26 @@ class PodSpecArgs:
     def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]]):
         pulumi.set(self, "volumes", value)
 
+    @_builtins.property
+    @pulumi.getter(name="workloadRef")
+    def workload_ref(self) -> Optional[pulumi.Input['WorkloadReferenceArgs']]:
+        """
+        WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        """
+        return pulumi.get(self, "workload_ref")
+
+    @workload_ref.setter
+    def workload_ref(self, value: Optional[pulumi.Input['WorkloadReferenceArgs']]):
+        pulumi.set(self, "workload_ref", value)
+
 
 class PodStatusArgsDict(TypedDict):
     """
     PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+    """
+    allocated_resources: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    """
+    AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
     """
     conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['PodConditionArgsDict']]]]
     """
@@ -24911,6 +26139,10 @@ class PodStatusArgsDict(TypedDict):
     ephemeral_container_statuses: NotRequired[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]
     """
     Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+    """
+    extended_resource_claim_status: NotRequired[pulumi.Input['PodExtendedResourceClaimStatusArgsDict']]
+    """
+    Status of extended resource claim backed by DRA.
     """
     host_ip: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -24934,7 +26166,7 @@ class PodStatusArgsDict(TypedDict):
     """
     observed_generation: NotRequired[pulumi.Input[_builtins.int]]
     """
-    If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+    If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
     """
     phase: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -24968,6 +26200,10 @@ class PodStatusArgsDict(TypedDict):
     """
     Status of resource claims.
     """
+    resources: NotRequired[pulumi.Input['ResourceRequirementsArgsDict']]
+    """
+    Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+    """
     start_time: NotRequired[pulumi.Input[_builtins.str]]
     """
     RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
@@ -24976,9 +26212,11 @@ class PodStatusArgsDict(TypedDict):
 @pulumi.input_type
 class PodStatusArgs:
     def __init__(__self__, *,
+                 allocated_resources: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodConditionArgs']]]] = None,
                  container_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]] = None,
                  ephemeral_container_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]] = None,
+                 extended_resource_claim_status: Optional[pulumi.Input['PodExtendedResourceClaimStatusArgs']] = None,
                  host_ip: Optional[pulumi.Input[_builtins.str]] = None,
                  host_ips: Optional[pulumi.Input[Sequence[pulumi.Input['HostIPArgs']]]] = None,
                  init_container_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]] = None,
@@ -24992,18 +26230,21 @@ class PodStatusArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None,
                  resize: Optional[pulumi.Input[_builtins.str]] = None,
                  resource_claim_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['PodResourceClaimStatusArgs']]]] = None,
+                 resources: Optional[pulumi.Input['ResourceRequirementsArgs']] = None,
                  start_time: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] allocated_resources: AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
         :param pulumi.Input[Sequence[pulumi.Input['PodConditionArgs']]] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] container_statuses: Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] ephemeral_container_statuses: Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param pulumi.Input['PodExtendedResourceClaimStatusArgs'] extended_resource_claim_status: Status of extended resource claim backed by DRA.
         :param pulumi.Input[_builtins.str] host_ip: hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         :param pulumi.Input[Sequence[pulumi.Input['HostIPArgs']]] host_ips: hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] init_container_statuses: Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         :param pulumi.Input[_builtins.str] message: A human readable message indicating details about why the pod is in this condition.
         :param pulumi.Input[_builtins.str] nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
-        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         :param pulumi.Input[_builtins.str] phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
                
                Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
@@ -25015,14 +26256,19 @@ class PodStatusArgs:
         :param pulumi.Input[_builtins.str] reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
         :param pulumi.Input[_builtins.str] resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
         :param pulumi.Input[Sequence[pulumi.Input['PodResourceClaimStatusArgs']]] resource_claim_statuses: Status of resource claims.
+        :param pulumi.Input['ResourceRequirementsArgs'] resources: Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
         :param pulumi.Input[_builtins.str] start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
+        if allocated_resources is not None:
+            pulumi.set(__self__, "allocated_resources", allocated_resources)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
         if container_statuses is not None:
             pulumi.set(__self__, "container_statuses", container_statuses)
         if ephemeral_container_statuses is not None:
             pulumi.set(__self__, "ephemeral_container_statuses", ephemeral_container_statuses)
+        if extended_resource_claim_status is not None:
+            pulumi.set(__self__, "extended_resource_claim_status", extended_resource_claim_status)
         if host_ip is not None:
             pulumi.set(__self__, "host_ip", host_ip)
         if host_ips is not None:
@@ -25049,8 +26295,22 @@ class PodStatusArgs:
             pulumi.set(__self__, "resize", resize)
         if resource_claim_statuses is not None:
             pulumi.set(__self__, "resource_claim_statuses", resource_claim_statuses)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
+
+    @_builtins.property
+    @pulumi.getter(name="allocatedResources")
+    def allocated_resources(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+        """
+        return pulumi.get(self, "allocated_resources")
+
+    @allocated_resources.setter
+    def allocated_resources(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allocated_resources", value)
 
     @_builtins.property
     @pulumi.getter
@@ -25087,6 +26347,18 @@ class PodStatusArgs:
     @ephemeral_container_statuses.setter
     def ephemeral_container_statuses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]]):
         pulumi.set(self, "ephemeral_container_statuses", value)
+
+    @_builtins.property
+    @pulumi.getter(name="extendedResourceClaimStatus")
+    def extended_resource_claim_status(self) -> Optional[pulumi.Input['PodExtendedResourceClaimStatusArgs']]:
+        """
+        Status of extended resource claim backed by DRA.
+        """
+        return pulumi.get(self, "extended_resource_claim_status")
+
+    @extended_resource_claim_status.setter
+    def extended_resource_claim_status(self, value: Optional[pulumi.Input['PodExtendedResourceClaimStatusArgs']]):
+        pulumi.set(self, "extended_resource_claim_status", value)
 
     @_builtins.property
     @pulumi.getter(name="hostIP")
@@ -25152,7 +26424,7 @@ class PodStatusArgs:
     @pulumi.getter(name="observedGeneration")
     def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         """
         return pulumi.get(self, "observed_generation")
 
@@ -25247,6 +26519,18 @@ class PodStatusArgs:
     @resource_claim_statuses.setter
     def resource_claim_statuses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodResourceClaimStatusArgs']]]]):
         pulumi.set(self, "resource_claim_statuses", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resources(self) -> Optional[pulumi.Input['ResourceRequirementsArgs']]:
+        """
+        Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+        """
+        return pulumi.get(self, "resources")
+
+    @resources.setter
+    def resources(self, value: Optional[pulumi.Input['ResourceRequirementsArgs']]):
+        pulumi.set(self, "resources", value)
 
     @_builtins.property
     @pulumi.getter(name="startTime")
@@ -28603,7 +29887,7 @@ class ResourceRequirementsPatchArgsDict(TypedDict):
     """
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This field depends on the DynamicResourceAllocation feature gate.
 
     This field is immutable. It can only be set for containers.
     """
@@ -28626,7 +29910,7 @@ class ResourceRequirementsPatchArgs:
         ResourceRequirements describes the compute resource requirements.
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimPatchArgs']]] claims: Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
                
-               This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+               This field depends on the DynamicResourceAllocation feature gate.
                
                This field is immutable. It can only be set for containers.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -28645,7 +29929,7 @@ class ResourceRequirementsPatchArgs:
         """
         Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
-        This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        This field depends on the DynamicResourceAllocation feature gate.
 
         This field is immutable. It can only be set for containers.
         """
@@ -28688,7 +29972,7 @@ class ResourceRequirementsArgsDict(TypedDict):
     """
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This field depends on the DynamicResourceAllocation feature gate.
 
     This field is immutable. It can only be set for containers.
     """
@@ -28711,7 +29995,7 @@ class ResourceRequirementsArgs:
         ResourceRequirements describes the compute resource requirements.
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimArgs']]] claims: Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
                
-               This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+               This field depends on the DynamicResourceAllocation feature gate.
                
                This field is immutable. It can only be set for containers.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -28730,7 +30014,7 @@ class ResourceRequirementsArgs:
         """
         Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
-        This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        This field depends on the DynamicResourceAllocation feature gate.
 
         This field is immutable. It can only be set for containers.
         """
@@ -34101,7 +35385,7 @@ class TaintPatchArgsDict(TypedDict):
     """
     time_added: NotRequired[pulumi.Input[_builtins.str]]
     """
-    TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+    TimeAdded represents the time at which the taint was added.
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -34119,7 +35403,7 @@ class TaintPatchArgs:
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
         :param pulumi.Input[_builtins.str] effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Required. The taint key to be applied to a node.
-        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added.
         :param pulumi.Input[_builtins.str] value: The taint value corresponding to the taint key.
         """
         if effect is not None:
@@ -34159,7 +35443,7 @@ class TaintPatchArgs:
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        TimeAdded represents the time at which the taint was added.
         """
         return pulumi.get(self, "time_added")
 
@@ -34194,7 +35478,7 @@ class TaintArgsDict(TypedDict):
     """
     time_added: NotRequired[pulumi.Input[_builtins.str]]
     """
-    TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+    TimeAdded represents the time at which the taint was added.
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -34212,7 +35496,7 @@ class TaintArgs:
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
         :param pulumi.Input[_builtins.str] effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Required. The taint key to be applied to a node.
-        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added.
         :param pulumi.Input[_builtins.str] value: The taint value corresponding to the taint key.
         """
         pulumi.set(__self__, "effect", effect)
@@ -34250,7 +35534,7 @@ class TaintArgs:
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        TimeAdded represents the time at which the taint was added.
         """
         return pulumi.get(self, "time_added")
 
@@ -34285,7 +35569,7 @@ class TolerationPatchArgsDict(TypedDict):
     """
     operator: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+    Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
     """
     toleration_seconds: NotRequired[pulumi.Input[_builtins.int]]
     """
@@ -34308,7 +35592,7 @@ class TolerationPatchArgs:
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
         :param pulumi.Input[_builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
-        :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
         :param pulumi.Input[_builtins.int] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
         :param pulumi.Input[_builtins.str] value: Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
         """
@@ -34351,7 +35635,7 @@ class TolerationPatchArgs:
     @pulumi.getter
     def operator(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
         """
         return pulumi.get(self, "operator")
 
@@ -34398,7 +35682,7 @@ class TolerationArgsDict(TypedDict):
     """
     operator: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+    Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
     """
     toleration_seconds: NotRequired[pulumi.Input[_builtins.int]]
     """
@@ -34421,7 +35705,7 @@ class TolerationArgs:
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
         :param pulumi.Input[_builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
-        :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
         :param pulumi.Input[_builtins.int] toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
         :param pulumi.Input[_builtins.str] value: Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
         """
@@ -34464,7 +35748,7 @@ class TolerationArgs:
     @pulumi.getter
     def operator(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
         """
         return pulumi.get(self, "operator")
 
@@ -36096,7 +37380,7 @@ class VolumePatchArgsDict(TypedDict):
     """
     glusterfs: NotRequired[pulumi.Input['GlusterfsVolumeSourcePatchArgsDict']]
     """
-    glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+    glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
     """
     host_path: NotRequired[pulumi.Input['HostPathVolumeSourcePatchArgsDict']]
     """
@@ -36112,7 +37396,7 @@ class VolumePatchArgsDict(TypedDict):
     """
     iscsi: NotRequired[pulumi.Input['ISCSIVolumeSourcePatchArgsDict']]
     """
-    iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+    iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -36144,7 +37428,7 @@ class VolumePatchArgsDict(TypedDict):
     """
     rbd: NotRequired[pulumi.Input['RBDVolumeSourcePatchArgsDict']]
     """
-    rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+    rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
     """
     scale_io: NotRequired[pulumi.Input['ScaleIOVolumeSourcePatchArgsDict']]
     """
@@ -36227,14 +37511,14 @@ class VolumePatchArgs:
         :param pulumi.Input['FlockerVolumeSourcePatchArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         :param pulumi.Input['GCEPersistentDiskVolumeSourcePatchArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input['GitRepoVolumeSourcePatchArgs'] git_repo: gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param pulumi.Input['GlusterfsVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['GlusterfsVolumeSourcePatchArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
         :param pulumi.Input['HostPathVolumeSourcePatchArgs'] host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ImageVolumeSourcePatchArgs'] image: image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
                The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
-        :param pulumi.Input['ISCSIVolumeSourcePatchArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        :param pulumi.Input['ISCSIVolumeSourcePatchArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         :param pulumi.Input[_builtins.str] name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input['NFSVolumeSourcePatchArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourcePatchArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
@@ -36242,7 +37526,7 @@ class VolumePatchArgs:
         :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         :param pulumi.Input['ProjectedVolumeSourcePatchArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
         :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
-        :param pulumi.Input['RBDVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['RBDVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
         :param pulumi.Input['ScaleIOVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input['SecretVolumeSourcePatchArgs'] secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         :param pulumi.Input['StorageOSVolumeSourcePatchArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
@@ -36508,7 +37792,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsVolumeSourcePatchArgs']]:
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
         """
         return pulumi.get(self, "glusterfs")
 
@@ -36548,7 +37832,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def iscsi(self) -> Optional[pulumi.Input['ISCSIVolumeSourcePatchArgs']]:
         """
-        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         """
         return pulumi.get(self, "iscsi")
 
@@ -36644,7 +37928,7 @@ class VolumePatchArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDVolumeSourcePatchArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
         """
         return pulumi.get(self, "rbd")
 
@@ -36723,6 +38007,22 @@ class VolumeProjectionPatchArgsDict(TypedDict):
     """
     downwardAPI information about the downwardAPI data to project
     """
+    pod_certificate: NotRequired[pulumi.Input['PodCertificateProjectionPatchArgsDict']]
+    """
+    Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+
+    Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+
+    Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+
+    Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+
+    The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+
+    Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+
+    The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+    """
     secret: NotRequired[pulumi.Input['SecretProjectionPatchArgsDict']]
     """
     secret information about the secret data to project
@@ -36738,6 +38038,7 @@ class VolumeProjectionPatchArgs:
                  cluster_trust_bundle: Optional[pulumi.Input['ClusterTrustBundleProjectionPatchArgs']] = None,
                  config_map: Optional[pulumi.Input['ConfigMapProjectionPatchArgs']] = None,
                  downward_api: Optional[pulumi.Input['DownwardAPIProjectionPatchArgs']] = None,
+                 pod_certificate: Optional[pulumi.Input['PodCertificateProjectionPatchArgs']] = None,
                  secret: Optional[pulumi.Input['SecretProjectionPatchArgs']] = None,
                  service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionPatchArgs']] = None):
         """
@@ -36751,6 +38052,19 @@ class VolumeProjectionPatchArgs:
                Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
         :param pulumi.Input['ConfigMapProjectionPatchArgs'] config_map: configMap information about the configMap data to project
         :param pulumi.Input['DownwardAPIProjectionPatchArgs'] downward_api: downwardAPI information about the downwardAPI data to project
+        :param pulumi.Input['PodCertificateProjectionPatchArgs'] pod_certificate: Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+               
+               Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+               
+               Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+               
+               Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+               
+               The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+               
+               Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+               
+               The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
         :param pulumi.Input['SecretProjectionPatchArgs'] secret: secret information about the secret data to project
         :param pulumi.Input['ServiceAccountTokenProjectionPatchArgs'] service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
         """
@@ -36760,6 +38074,8 @@ class VolumeProjectionPatchArgs:
             pulumi.set(__self__, "config_map", config_map)
         if downward_api is not None:
             pulumi.set(__self__, "downward_api", downward_api)
+        if pod_certificate is not None:
+            pulumi.set(__self__, "pod_certificate", pod_certificate)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
         if service_account_token is not None:
@@ -36808,6 +38124,30 @@ class VolumeProjectionPatchArgs:
         pulumi.set(self, "downward_api", value)
 
     @_builtins.property
+    @pulumi.getter(name="podCertificate")
+    def pod_certificate(self) -> Optional[pulumi.Input['PodCertificateProjectionPatchArgs']]:
+        """
+        Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+
+        Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+
+        Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+
+        Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+
+        The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+
+        Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+
+        The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+        """
+        return pulumi.get(self, "pod_certificate")
+
+    @pod_certificate.setter
+    def pod_certificate(self, value: Optional[pulumi.Input['PodCertificateProjectionPatchArgs']]):
+        pulumi.set(self, "pod_certificate", value)
+
+    @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input['SecretProjectionPatchArgs']]:
         """
@@ -36854,6 +38194,22 @@ class VolumeProjectionArgsDict(TypedDict):
     """
     downwardAPI information about the downwardAPI data to project
     """
+    pod_certificate: NotRequired[pulumi.Input['PodCertificateProjectionArgsDict']]
+    """
+    Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+
+    Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+
+    Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+
+    Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+
+    The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+
+    Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+
+    The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+    """
     secret: NotRequired[pulumi.Input['SecretProjectionArgsDict']]
     """
     secret information about the secret data to project
@@ -36869,6 +38225,7 @@ class VolumeProjectionArgs:
                  cluster_trust_bundle: Optional[pulumi.Input['ClusterTrustBundleProjectionArgs']] = None,
                  config_map: Optional[pulumi.Input['ConfigMapProjectionArgs']] = None,
                  downward_api: Optional[pulumi.Input['DownwardAPIProjectionArgs']] = None,
+                 pod_certificate: Optional[pulumi.Input['PodCertificateProjectionArgs']] = None,
                  secret: Optional[pulumi.Input['SecretProjectionArgs']] = None,
                  service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']] = None):
         """
@@ -36882,6 +38239,19 @@ class VolumeProjectionArgs:
                Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
         :param pulumi.Input['ConfigMapProjectionArgs'] config_map: configMap information about the configMap data to project
         :param pulumi.Input['DownwardAPIProjectionArgs'] downward_api: downwardAPI information about the downwardAPI data to project
+        :param pulumi.Input['PodCertificateProjectionArgs'] pod_certificate: Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+               
+               Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+               
+               Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+               
+               Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+               
+               The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+               
+               Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+               
+               The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
         :param pulumi.Input['SecretProjectionArgs'] secret: secret information about the secret data to project
         :param pulumi.Input['ServiceAccountTokenProjectionArgs'] service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
         """
@@ -36891,6 +38261,8 @@ class VolumeProjectionArgs:
             pulumi.set(__self__, "config_map", config_map)
         if downward_api is not None:
             pulumi.set(__self__, "downward_api", downward_api)
+        if pod_certificate is not None:
+            pulumi.set(__self__, "pod_certificate", pod_certificate)
         if secret is not None:
             pulumi.set(__self__, "secret", secret)
         if service_account_token is not None:
@@ -36937,6 +38309,30 @@ class VolumeProjectionArgs:
     @downward_api.setter
     def downward_api(self, value: Optional[pulumi.Input['DownwardAPIProjectionArgs']]):
         pulumi.set(self, "downward_api", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podCertificate")
+    def pod_certificate(self) -> Optional[pulumi.Input['PodCertificateProjectionArgs']]:
+        """
+        Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+
+        Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+
+        Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+
+        Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+
+        The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+
+        Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+
+        The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+        """
+        return pulumi.get(self, "pod_certificate")
+
+    @pod_certificate.setter
+    def pod_certificate(self, value: Optional[pulumi.Input['PodCertificateProjectionArgs']]):
+        pulumi.set(self, "pod_certificate", value)
 
     @_builtins.property
     @pulumi.getter
@@ -37152,7 +38548,7 @@ class VolumeArgsDict(TypedDict):
     """
     glusterfs: NotRequired[pulumi.Input['GlusterfsVolumeSourceArgsDict']]
     """
-    glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+    glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
     """
     host_path: NotRequired[pulumi.Input['HostPathVolumeSourceArgsDict']]
     """
@@ -37168,7 +38564,7 @@ class VolumeArgsDict(TypedDict):
     """
     iscsi: NotRequired[pulumi.Input['ISCSIVolumeSourceArgsDict']]
     """
-    iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+    iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
     """
     nfs: NotRequired[pulumi.Input['NFSVolumeSourceArgsDict']]
     """
@@ -37196,7 +38592,7 @@ class VolumeArgsDict(TypedDict):
     """
     rbd: NotRequired[pulumi.Input['RBDVolumeSourceArgsDict']]
     """
-    rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+    rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
     """
     scale_io: NotRequired[pulumi.Input['ScaleIOVolumeSourceArgsDict']]
     """
@@ -37280,21 +38676,21 @@ class VolumeArgs:
         :param pulumi.Input['FlockerVolumeSourceArgs'] flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
         :param pulumi.Input['GCEPersistentDiskVolumeSourceArgs'] gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         :param pulumi.Input['GitRepoVolumeSourceArgs'] git_repo: gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param pulumi.Input['GlusterfsVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param pulumi.Input['GlusterfsVolumeSourceArgs'] glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
         :param pulumi.Input['HostPathVolumeSourceArgs'] host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         :param pulumi.Input['ImageVolumeSourceArgs'] image: image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
                The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
-        :param pulumi.Input['ISCSIVolumeSourceArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        :param pulumi.Input['ISCSIVolumeSourceArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         :param pulumi.Input['NFSVolumeSourceArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourceArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
         :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
         :param pulumi.Input['ProjectedVolumeSourceArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
         :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
-        :param pulumi.Input['RBDVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param pulumi.Input['RBDVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
         :param pulumi.Input['ScaleIOVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
         :param pulumi.Input['SecretVolumeSourceArgs'] secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         :param pulumi.Input['StorageOSVolumeSourceArgs'] storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
@@ -37571,7 +38967,7 @@ class VolumeArgs:
     @pulumi.getter
     def glusterfs(self) -> Optional[pulumi.Input['GlusterfsVolumeSourceArgs']]:
         """
-        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
         """
         return pulumi.get(self, "glusterfs")
 
@@ -37611,7 +39007,7 @@ class VolumeArgs:
     @pulumi.getter
     def iscsi(self) -> Optional[pulumi.Input['ISCSIVolumeSourceArgs']]:
         """
-        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         """
         return pulumi.get(self, "iscsi")
 
@@ -37695,7 +39091,7 @@ class VolumeArgs:
     @pulumi.getter
     def rbd(self) -> Optional[pulumi.Input['RBDVolumeSourceArgs']]:
         """
-        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
         """
         return pulumi.get(self, "rbd")
 
@@ -38225,5 +39621,149 @@ class WindowsSecurityContextOptionsArgs:
     @run_as_user_name.setter
     def run_as_user_name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "run_as_user_name", value)
+
+
+class WorkloadReferencePatchArgsDict(TypedDict):
+    """
+    WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
+    """
+    name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+    """
+    pod_group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+    """
+    pod_group_replica_key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+    """
+
+@pulumi.input_type
+class WorkloadReferencePatchArgs:
+    def __init__(__self__, *,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 pod_group: Optional[pulumi.Input[_builtins.str]] = None,
+                 pod_group_replica_key: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
+        :param pulumi.Input[_builtins.str] name: Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+        :param pulumi.Input[_builtins.str] pod_group: PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+        :param pulumi.Input[_builtins.str] pod_group_replica_key: PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if pod_group is not None:
+            pulumi.set(__self__, "pod_group", pod_group)
+        if pod_group_replica_key is not None:
+            pulumi.set(__self__, "pod_group_replica_key", pod_group_replica_key)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroup")
+    def pod_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+        """
+        return pulumi.get(self, "pod_group")
+
+    @pod_group.setter
+    def pod_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pod_group", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupReplicaKey")
+    def pod_group_replica_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+        """
+        return pulumi.get(self, "pod_group_replica_key")
+
+    @pod_group_replica_key.setter
+    def pod_group_replica_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pod_group_replica_key", value)
+
+
+class WorkloadReferenceArgsDict(TypedDict):
+    """
+    WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+    """
+    pod_group: pulumi.Input[_builtins.str]
+    """
+    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+    """
+    pod_group_replica_key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+    """
+
+@pulumi.input_type
+class WorkloadReferenceArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 pod_group: pulumi.Input[_builtins.str],
+                 pod_group_replica_key: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
+        :param pulumi.Input[_builtins.str] name: Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+        :param pulumi.Input[_builtins.str] pod_group: PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+        :param pulumi.Input[_builtins.str] pod_group_replica_key: PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "pod_group", pod_group)
+        if pod_group_replica_key is not None:
+            pulumi.set(__self__, "pod_group_replica_key", pod_group_replica_key)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroup")
+    def pod_group(self) -> pulumi.Input[_builtins.str]:
+        """
+        PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
+        """
+        return pulumi.get(self, "pod_group")
+
+    @pod_group.setter
+    def pod_group(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "pod_group", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupReplicaKey")
+    def pod_group_replica_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
+        """
+        return pulumi.get(self, "pod_group_replica_key")
+
+    @pod_group_replica_key.setter
+    def pod_group_replica_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pod_group_replica_key", value)
 
 

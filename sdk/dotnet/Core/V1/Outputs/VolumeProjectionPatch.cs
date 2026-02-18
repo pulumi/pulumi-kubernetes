@@ -35,6 +35,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIProjectionPatch DownwardAPI;
         /// <summary>
+        /// Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+        /// 
+        /// Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+        /// 
+        /// Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+        /// 
+        /// Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+        /// 
+        /// The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+        /// 
+        /// Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+        /// 
+        /// The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PodCertificateProjectionPatch PodCertificate;
+        /// <summary>
         /// secret information about the secret data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretProjectionPatch Secret;
@@ -51,6 +67,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIProjectionPatch downwardAPI,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.PodCertificateProjectionPatch podCertificate,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretProjectionPatch secret,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ServiceAccountTokenProjectionPatch serviceAccountToken)
@@ -58,6 +76,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ClusterTrustBundle = clusterTrustBundle;
             ConfigMap = configMap;
             DownwardAPI = downwardAPI;
+            PodCertificate = podCertificate;
             Secret = secret;
             ServiceAccountToken = serviceAccountToken;
         }

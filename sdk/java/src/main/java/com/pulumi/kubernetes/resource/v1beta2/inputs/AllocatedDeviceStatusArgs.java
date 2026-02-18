@@ -19,6 +19,8 @@ import javax.annotation.Nullable;
 /**
  * AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
  * 
+ * The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
+ * 
  */
 public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.ResourceArgs {
 
@@ -80,7 +82,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
     /**
      * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     @Import(name="driver", required=true)
@@ -89,7 +91,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
     /**
      * @return Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     public Output<String> driver() {
@@ -130,6 +132,21 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         return this.pool;
     }
 
+    /**
+     * ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    @Import(name="shareID")
+    private @Nullable Output<String> shareID;
+
+    /**
+     * @return ShareID uniquely identifies an individual allocation share of the device.
+     * 
+     */
+    public Optional<Output<String>> shareID() {
+        return Optional.ofNullable(this.shareID);
+    }
+
     private AllocatedDeviceStatusArgs() {}
 
     private AllocatedDeviceStatusArgs(AllocatedDeviceStatusArgs $) {
@@ -139,6 +156,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         this.driver = $.driver;
         this.networkData = $.networkData;
         this.pool = $.pool;
+        this.shareID = $.shareID;
     }
 
     public static Builder builder() {
@@ -245,7 +263,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         /**
          * @param driver Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 
@@ -258,7 +276,7 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
         /**
          * @param driver Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 
@@ -311,6 +329,27 @@ public final class AllocatedDeviceStatusArgs extends com.pulumi.resources.Resour
          */
         public Builder pool(String pool) {
             return pool(Output.of(pool));
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(@Nullable Output<String> shareID) {
+            $.shareID = shareID;
+            return this;
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(String shareID) {
+            return shareID(Output.of(shareID));
         }
 
         public AllocatedDeviceStatusArgs build() {

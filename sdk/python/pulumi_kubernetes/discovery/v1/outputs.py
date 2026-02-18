@@ -283,7 +283,7 @@ class EndpointHints(dict):
                  for_zones: Optional[Sequence['outputs.ForZone']] = None):
         """
         EndpointHints provides hints describing how an endpoint should be consumed.
-        :param Sequence['ForNodeArgs'] for_nodes: forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        :param Sequence['ForNodeArgs'] for_nodes: forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         :param Sequence['ForZoneArgs'] for_zones: forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         """
         if for_nodes is not None:
@@ -295,7 +295,7 @@ class EndpointHints(dict):
     @pulumi.getter(name="forNodes")
     def for_nodes(self) -> Optional[Sequence['outputs.ForNode']]:
         """
-        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         """
         return pulumi.get(self, "for_nodes")
 
@@ -337,7 +337,7 @@ class EndpointHintsPatch(dict):
                  for_zones: Optional[Sequence['outputs.ForZonePatch']] = None):
         """
         EndpointHints provides hints describing how an endpoint should be consumed.
-        :param Sequence['ForNodePatchArgs'] for_nodes: forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        :param Sequence['ForNodePatchArgs'] for_nodes: forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         :param Sequence['ForZonePatchArgs'] for_zones: forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         """
         if for_nodes is not None:
@@ -349,7 +349,7 @@ class EndpointHintsPatch(dict):
     @pulumi.getter(name="forNodes")
     def for_nodes(self) -> Optional[Sequence['outputs.ForNodePatch']]:
         """
-        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         """
         return pulumi.get(self, "for_nodes")
 

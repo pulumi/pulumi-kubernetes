@@ -24,7 +24,7 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
      * 
      * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     @Import(name="driver", required=true)
@@ -35,7 +35,7 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
      * 
      * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     public Output<String> driver() {
@@ -91,7 +91,7 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
          * 
          * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 
@@ -106,7 +106,7 @@ public final class OpaqueDeviceConfigurationArgs extends com.pulumi.resources.Re
          * 
          * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 

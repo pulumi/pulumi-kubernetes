@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1beta2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.resource.v1beta2.inputs.CapacityRequirementsPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceSelectorPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceTolerationPatchArgs;
 import java.lang.Integer;
@@ -62,6 +63,29 @@ public final class DeviceSubRequestPatchArgs extends com.pulumi.resources.Resour
      */
     public Optional<Output<String>> allocationMode() {
         return Optional.ofNullable(this.allocationMode);
+    }
+
+    /**
+     * Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    @Import(name="capacity")
+    private @Nullable Output<CapacityRequirementsPatchArgs> capacity;
+
+    /**
+     * @return Capacity define resource requirements against each capacity.
+     * 
+     * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+     * 
+     * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+     * 
+     */
+    public Optional<Output<CapacityRequirementsPatchArgs>> capacity() {
+        return Optional.ofNullable(this.capacity);
     }
 
     /**
@@ -171,6 +195,7 @@ public final class DeviceSubRequestPatchArgs extends com.pulumi.resources.Resour
 
     private DeviceSubRequestPatchArgs(DeviceSubRequestPatchArgs $) {
         this.allocationMode = $.allocationMode;
+        this.capacity = $.capacity;
         this.count = $.count;
         this.deviceClassName = $.deviceClassName;
         this.name = $.name;
@@ -239,6 +264,35 @@ public final class DeviceSubRequestPatchArgs extends com.pulumi.resources.Resour
          */
         public Builder allocationMode(String allocationMode) {
             return allocationMode(Output.of(allocationMode));
+        }
+
+        /**
+         * @param capacity Capacity define resource requirements against each capacity.
+         * 
+         * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+         * 
+         * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder capacity(@Nullable Output<CapacityRequirementsPatchArgs> capacity) {
+            $.capacity = capacity;
+            return this;
+        }
+
+        /**
+         * @param capacity Capacity define resource requirements against each capacity.
+         * 
+         * If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+         * 
+         * Applies to each device allocation. If Count &gt; 1, the request fails if there aren&#39;t enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder capacity(CapacityRequirementsPatchArgs capacity) {
+            return capacity(Output.of(capacity));
         }
 
         /**

@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class CSIDriverSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+        /// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
         /// 
         /// This field is immutable.
         /// </summary>
@@ -36,7 +36,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// <summary>
         /// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
         /// 
-        /// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        /// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
         /// 
         /// This field is mutable.
         /// </summary>
@@ -77,6 +77,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// </summary>
         [Input("seLinuxMount")]
         public Input<bool>? SeLinuxMount { get; set; }
+
+        /// <summary>
+        /// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+        /// 
+        /// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+        /// 
+        /// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+        /// 
+        /// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+        /// 
+        /// Default behavior if unset is to pass tokens in the VolumeContext field.
+        /// </summary>
+        [Input("serviceAccountTokenInSecrets")]
+        public Input<bool>? ServiceAccountTokenInSecrets { get; set; }
 
         /// <summary>
         /// storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.

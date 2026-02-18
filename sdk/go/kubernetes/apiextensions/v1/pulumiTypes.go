@@ -776,6 +776,8 @@ type CustomResourceDefinitionCondition struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// message is a human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
@@ -801,6 +803,8 @@ type CustomResourceDefinitionConditionArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// message is a human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
@@ -871,6 +875,11 @@ func (o CustomResourceDefinitionConditionOutput) Message() pulumi.StringPtrOutpu
 	return o.ApplyT(func(v CustomResourceDefinitionCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+func (o CustomResourceDefinitionConditionOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionCondition) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // reason is a unique, one-word, CamelCase reason for the condition's last transition.
 func (o CustomResourceDefinitionConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -912,6 +921,8 @@ type CustomResourceDefinitionConditionPatch struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// message is a human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
@@ -937,6 +948,8 @@ type CustomResourceDefinitionConditionPatchArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// message is a human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// reason is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// status is the status of the condition. Can be True, False, Unknown.
@@ -1005,6 +1018,11 @@ func (o CustomResourceDefinitionConditionPatchOutput) LastTransitionTime() pulum
 // message is a human-readable message indicating details about last transition.
 func (o CustomResourceDefinitionConditionPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+func (o CustomResourceDefinitionConditionPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionConditionPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // reason is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -2026,6 +2044,8 @@ type CustomResourceDefinitionStatus struct {
 	AcceptedNames CustomResourceDefinitionNames `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions []CustomResourceDefinitionCondition `pulumi:"conditions"`
+	// The generation observed by the CRD controller.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 	StoredVersions []string `pulumi:"storedVersions"`
 }
@@ -2047,6 +2067,8 @@ type CustomResourceDefinitionStatusArgs struct {
 	AcceptedNames CustomResourceDefinitionNamesInput `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions CustomResourceDefinitionConditionArrayInput `pulumi:"conditions"`
+	// The generation observed by the CRD controller.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 	StoredVersions pulumi.StringArrayInput `pulumi:"storedVersions"`
 }
@@ -2139,6 +2161,11 @@ func (o CustomResourceDefinitionStatusOutput) Conditions() CustomResourceDefinit
 	return o.ApplyT(func(v CustomResourceDefinitionStatus) []CustomResourceDefinitionCondition { return v.Conditions }).(CustomResourceDefinitionConditionArrayOutput)
 }
 
+// The generation observed by the CRD controller.
+func (o CustomResourceDefinitionStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 func (o CustomResourceDefinitionStatusOutput) StoredVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionStatus) []string { return v.StoredVersions }).(pulumi.StringArrayOutput)
@@ -2188,6 +2215,16 @@ func (o CustomResourceDefinitionStatusPtrOutput) Conditions() CustomResourceDefi
 	}).(CustomResourceDefinitionConditionArrayOutput)
 }
 
+// The generation observed by the CRD controller.
+func (o CustomResourceDefinitionStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CustomResourceDefinitionStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
+}
+
 // storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 func (o CustomResourceDefinitionStatusPtrOutput) StoredVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CustomResourceDefinitionStatus) []string {
@@ -2204,6 +2241,8 @@ type CustomResourceDefinitionStatusPatch struct {
 	AcceptedNames *CustomResourceDefinitionNamesPatch `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions []CustomResourceDefinitionConditionPatch `pulumi:"conditions"`
+	// The generation observed by the CRD controller.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 	StoredVersions []string `pulumi:"storedVersions"`
 }
@@ -2225,6 +2264,8 @@ type CustomResourceDefinitionStatusPatchArgs struct {
 	AcceptedNames CustomResourceDefinitionNamesPatchPtrInput `pulumi:"acceptedNames"`
 	// conditions indicate state for particular aspects of a CustomResourceDefinition
 	Conditions CustomResourceDefinitionConditionPatchArrayInput `pulumi:"conditions"`
+	// The generation observed by the CRD controller.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 	StoredVersions pulumi.StringArrayInput `pulumi:"storedVersions"`
 }
@@ -2321,6 +2362,11 @@ func (o CustomResourceDefinitionStatusPatchOutput) Conditions() CustomResourceDe
 	}).(CustomResourceDefinitionConditionPatchArrayOutput)
 }
 
+// The generation observed by the CRD controller.
+func (o CustomResourceDefinitionStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
 func (o CustomResourceDefinitionStatusPatchOutput) StoredVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionStatusPatch) []string { return v.StoredVersions }).(pulumi.StringArrayOutput)
@@ -2368,6 +2414,16 @@ func (o CustomResourceDefinitionStatusPatchPtrOutput) Conditions() CustomResourc
 		}
 		return v.Conditions
 	}).(CustomResourceDefinitionConditionPatchArrayOutput)
+}
+
+// The generation observed by the CRD controller.
+func (o CustomResourceDefinitionStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CustomResourceDefinitionStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
 }
 
 // storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
@@ -3082,6 +3138,98 @@ func (o CustomResourceSubresourceScalePatchPtrOutput) StatusReplicasPath() pulum
 		}
 		return v.StatusReplicasPath
 	}).(pulumi.StringPtrOutput)
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatus struct {
+}
+
+// CustomResourceSubresourceStatusInput is an input type that accepts CustomResourceSubresourceStatusArgs and CustomResourceSubresourceStatusOutput values.
+// You can construct a concrete instance of `CustomResourceSubresourceStatusInput` via:
+//
+//	CustomResourceSubresourceStatusArgs{...}
+type CustomResourceSubresourceStatusInput interface {
+	pulumi.Input
+
+	ToCustomResourceSubresourceStatusOutput() CustomResourceSubresourceStatusOutput
+	ToCustomResourceSubresourceStatusOutputWithContext(context.Context) CustomResourceSubresourceStatusOutput
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatusArgs struct {
+}
+
+func (CustomResourceSubresourceStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceSubresourceStatus)(nil)).Elem()
+}
+
+func (i CustomResourceSubresourceStatusArgs) ToCustomResourceSubresourceStatusOutput() CustomResourceSubresourceStatusOutput {
+	return i.ToCustomResourceSubresourceStatusOutputWithContext(context.Background())
+}
+
+func (i CustomResourceSubresourceStatusArgs) ToCustomResourceSubresourceStatusOutputWithContext(ctx context.Context) CustomResourceSubresourceStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceStatusOutput)
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatusOutput struct{ *pulumi.OutputState }
+
+func (CustomResourceSubresourceStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceSubresourceStatus)(nil)).Elem()
+}
+
+func (o CustomResourceSubresourceStatusOutput) ToCustomResourceSubresourceStatusOutput() CustomResourceSubresourceStatusOutput {
+	return o
+}
+
+func (o CustomResourceSubresourceStatusOutput) ToCustomResourceSubresourceStatusOutputWithContext(ctx context.Context) CustomResourceSubresourceStatusOutput {
+	return o
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatusPatch struct {
+}
+
+// CustomResourceSubresourceStatusPatchInput is an input type that accepts CustomResourceSubresourceStatusPatchArgs and CustomResourceSubresourceStatusPatchOutput values.
+// You can construct a concrete instance of `CustomResourceSubresourceStatusPatchInput` via:
+//
+//	CustomResourceSubresourceStatusPatchArgs{...}
+type CustomResourceSubresourceStatusPatchInput interface {
+	pulumi.Input
+
+	ToCustomResourceSubresourceStatusPatchOutput() CustomResourceSubresourceStatusPatchOutput
+	ToCustomResourceSubresourceStatusPatchOutputWithContext(context.Context) CustomResourceSubresourceStatusPatchOutput
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatusPatchArgs struct {
+}
+
+func (CustomResourceSubresourceStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceSubresourceStatusPatch)(nil)).Elem()
+}
+
+func (i CustomResourceSubresourceStatusPatchArgs) ToCustomResourceSubresourceStatusPatchOutput() CustomResourceSubresourceStatusPatchOutput {
+	return i.ToCustomResourceSubresourceStatusPatchOutputWithContext(context.Background())
+}
+
+func (i CustomResourceSubresourceStatusPatchArgs) ToCustomResourceSubresourceStatusPatchOutputWithContext(ctx context.Context) CustomResourceSubresourceStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceStatusPatchOutput)
+}
+
+// CustomResourceSubresourceStatus defines how to serve the status subresource for CustomResources. Status is represented by the `.status` JSON path inside of a CustomResource. When set, * exposes a /status subresource for the custom resource * PUT requests to the /status subresource take a custom resource object, and ignore changes to anything except the status stanza * PUT/POST/PATCH requests to the custom resource ignore changes to the status stanza
+type CustomResourceSubresourceStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (CustomResourceSubresourceStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceSubresourceStatusPatch)(nil)).Elem()
+}
+
+func (o CustomResourceSubresourceStatusPatchOutput) ToCustomResourceSubresourceStatusPatchOutput() CustomResourceSubresourceStatusPatchOutput {
+	return o
+}
+
+func (o CustomResourceSubresourceStatusPatchOutput) ToCustomResourceSubresourceStatusPatchOutputWithContext(ctx context.Context) CustomResourceSubresourceStatusPatchOutput {
+	return o
 }
 
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
@@ -3982,6 +4130,98 @@ func (o ExternalDocumentationPatchPtrOutput) Url() pulumi.StringPtrOutput {
 		}
 		return v.Url
 	}).(pulumi.StringPtrOutput)
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSON struct {
+}
+
+// JSONInput is an input type that accepts JSONArgs and JSONOutput values.
+// You can construct a concrete instance of `JSONInput` via:
+//
+//	JSONArgs{...}
+type JSONInput interface {
+	pulumi.Input
+
+	ToJSONOutput() JSONOutput
+	ToJSONOutputWithContext(context.Context) JSONOutput
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSONArgs struct {
+}
+
+func (JSONArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSON)(nil)).Elem()
+}
+
+func (i JSONArgs) ToJSONOutput() JSONOutput {
+	return i.ToJSONOutputWithContext(context.Background())
+}
+
+func (i JSONArgs) ToJSONOutputWithContext(ctx context.Context) JSONOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONOutput)
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSONOutput struct{ *pulumi.OutputState }
+
+func (JSONOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSON)(nil)).Elem()
+}
+
+func (o JSONOutput) ToJSONOutput() JSONOutput {
+	return o
+}
+
+func (o JSONOutput) ToJSONOutputWithContext(ctx context.Context) JSONOutput {
+	return o
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSONPatch struct {
+}
+
+// JSONPatchInput is an input type that accepts JSONPatchArgs and JSONPatchOutput values.
+// You can construct a concrete instance of `JSONPatchInput` via:
+//
+//	JSONPatchArgs{...}
+type JSONPatchInput interface {
+	pulumi.Input
+
+	ToJSONPatchOutput() JSONPatchOutput
+	ToJSONPatchOutputWithContext(context.Context) JSONPatchOutput
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSONPatchArgs struct {
+}
+
+func (JSONPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatch)(nil)).Elem()
+}
+
+func (i JSONPatchArgs) ToJSONPatchOutput() JSONPatchOutput {
+	return i.ToJSONPatchOutputWithContext(context.Background())
+}
+
+func (i JSONPatchArgs) ToJSONPatchOutputWithContext(ctx context.Context) JSONPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONPatchOutput)
+}
+
+// JSON represents any valid JSON value. These types are supported: bool, int64, float64, string, []interface{}, map[string]interface{} and nil.
+type JSONPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONPatch)(nil)).Elem()
+}
+
+func (o JSONPatchOutput) ToJSONPatchOutput() JSONPatchOutput {
+	return o
+}
+
+func (o JSONPatchOutput) ToJSONPatchOutputWithContext(ctx context.Context) JSONPatchOutput {
+	return o
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
@@ -5031,6 +5271,282 @@ func (o JSONSchemaPropsMapOutput) MapIndex(k pulumi.StringInput) JSONSchemaProps
 	return pulumi.All(o, k).ApplyT(func(vs []interface{}) JSONSchemaProps {
 		return vs[0].(map[string]JSONSchemaProps)[vs[1].(string)]
 	}).(JSONSchemaPropsOutput)
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArray struct {
+}
+
+// JSONSchemaPropsOrArrayInput is an input type that accepts JSONSchemaPropsOrArray and JSONSchemaPropsOrArrayOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrArrayInput` via:
+//
+//	JSONSchemaPropsOrArray{ JSONSchemaPropsOrArgs{...} }
+type JSONSchemaPropsOrArrayInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrArrayOutput() JSONSchemaPropsOrArrayOutput
+	ToJSONSchemaPropsOrArrayOutputWithContext(context.Context) JSONSchemaPropsOrArrayOutput
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArrayArgs struct {
+}
+
+func (JSONSchemaPropsOrArrayArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrArray)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrArrayArgs) ToJSONSchemaPropsOrArrayOutput() JSONSchemaPropsOrArrayOutput {
+	return i.ToJSONSchemaPropsOrArrayOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrArrayArgs) ToJSONSchemaPropsOrArrayOutputWithContext(ctx context.Context) JSONSchemaPropsOrArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrArrayOutput)
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArrayOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrArray)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrArrayOutput) ToJSONSchemaPropsOrArrayOutput() JSONSchemaPropsOrArrayOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrArrayOutput) ToJSONSchemaPropsOrArrayOutputWithContext(ctx context.Context) JSONSchemaPropsOrArrayOutput {
+	return o
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArrayPatch struct {
+}
+
+// JSONSchemaPropsOrArrayPatchInput is an input type that accepts JSONSchemaPropsOrArrayPatchArgs and JSONSchemaPropsOrArrayPatchOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrArrayPatchInput` via:
+//
+//	JSONSchemaPropsOrArrayPatchArgs{...}
+type JSONSchemaPropsOrArrayPatchInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrArrayPatchOutput() JSONSchemaPropsOrArrayPatchOutput
+	ToJSONSchemaPropsOrArrayPatchOutputWithContext(context.Context) JSONSchemaPropsOrArrayPatchOutput
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArrayPatchArgs struct {
+}
+
+func (JSONSchemaPropsOrArrayPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrArrayPatch)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrArrayPatchArgs) ToJSONSchemaPropsOrArrayPatchOutput() JSONSchemaPropsOrArrayPatchOutput {
+	return i.ToJSONSchemaPropsOrArrayPatchOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrArrayPatchArgs) ToJSONSchemaPropsOrArrayPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrArrayPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrArrayPatchOutput)
+}
+
+// JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.
+type JSONSchemaPropsOrArrayPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrArrayPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrArrayPatch)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrArrayPatchOutput) ToJSONSchemaPropsOrArrayPatchOutput() JSONSchemaPropsOrArrayPatchOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrArrayPatchOutput) ToJSONSchemaPropsOrArrayPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrArrayPatchOutput {
+	return o
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBool struct {
+}
+
+// JSONSchemaPropsOrBoolInput is an input type that accepts JSONSchemaPropsOrBoolArgs and JSONSchemaPropsOrBoolOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrBoolInput` via:
+//
+//	JSONSchemaPropsOrBoolArgs{...}
+type JSONSchemaPropsOrBoolInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrBoolOutput() JSONSchemaPropsOrBoolOutput
+	ToJSONSchemaPropsOrBoolOutputWithContext(context.Context) JSONSchemaPropsOrBoolOutput
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBoolArgs struct {
+}
+
+func (JSONSchemaPropsOrBoolArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrBool)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrBoolArgs) ToJSONSchemaPropsOrBoolOutput() JSONSchemaPropsOrBoolOutput {
+	return i.ToJSONSchemaPropsOrBoolOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrBoolArgs) ToJSONSchemaPropsOrBoolOutputWithContext(ctx context.Context) JSONSchemaPropsOrBoolOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrBoolOutput)
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBoolOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrBoolOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrBool)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrBoolOutput) ToJSONSchemaPropsOrBoolOutput() JSONSchemaPropsOrBoolOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrBoolOutput) ToJSONSchemaPropsOrBoolOutputWithContext(ctx context.Context) JSONSchemaPropsOrBoolOutput {
+	return o
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBoolPatch struct {
+}
+
+// JSONSchemaPropsOrBoolPatchInput is an input type that accepts JSONSchemaPropsOrBoolPatchArgs and JSONSchemaPropsOrBoolPatchOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrBoolPatchInput` via:
+//
+//	JSONSchemaPropsOrBoolPatchArgs{...}
+type JSONSchemaPropsOrBoolPatchInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrBoolPatchOutput() JSONSchemaPropsOrBoolPatchOutput
+	ToJSONSchemaPropsOrBoolPatchOutputWithContext(context.Context) JSONSchemaPropsOrBoolPatchOutput
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBoolPatchArgs struct {
+}
+
+func (JSONSchemaPropsOrBoolPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrBoolPatch)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrBoolPatchArgs) ToJSONSchemaPropsOrBoolPatchOutput() JSONSchemaPropsOrBoolPatchOutput {
+	return i.ToJSONSchemaPropsOrBoolPatchOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrBoolPatchArgs) ToJSONSchemaPropsOrBoolPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrBoolPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrBoolPatchOutput)
+}
+
+// JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.
+type JSONSchemaPropsOrBoolPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrBoolPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrBoolPatch)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrBoolPatchOutput) ToJSONSchemaPropsOrBoolPatchOutput() JSONSchemaPropsOrBoolPatchOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrBoolPatchOutput) ToJSONSchemaPropsOrBoolPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrBoolPatchOutput {
+	return o
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArray struct {
+}
+
+// JSONSchemaPropsOrStringArrayInput is an input type that accepts JSONSchemaPropsOrStringArray and JSONSchemaPropsOrStringArrayOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrStringArrayInput` via:
+//
+//	JSONSchemaPropsOrStringArray{ JSONSchemaPropsOrStringArgs{...} }
+type JSONSchemaPropsOrStringArrayInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrStringArrayOutput() JSONSchemaPropsOrStringArrayOutput
+	ToJSONSchemaPropsOrStringArrayOutputWithContext(context.Context) JSONSchemaPropsOrStringArrayOutput
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArrayArgs struct {
+}
+
+func (JSONSchemaPropsOrStringArrayArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrStringArray)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrStringArrayArgs) ToJSONSchemaPropsOrStringArrayOutput() JSONSchemaPropsOrStringArrayOutput {
+	return i.ToJSONSchemaPropsOrStringArrayOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrStringArrayArgs) ToJSONSchemaPropsOrStringArrayOutputWithContext(ctx context.Context) JSONSchemaPropsOrStringArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrStringArrayOutput)
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArrayOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrStringArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrStringArray)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrStringArrayOutput) ToJSONSchemaPropsOrStringArrayOutput() JSONSchemaPropsOrStringArrayOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrStringArrayOutput) ToJSONSchemaPropsOrStringArrayOutputWithContext(ctx context.Context) JSONSchemaPropsOrStringArrayOutput {
+	return o
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArrayPatch struct {
+}
+
+// JSONSchemaPropsOrStringArrayPatchInput is an input type that accepts JSONSchemaPropsOrStringArrayPatchArgs and JSONSchemaPropsOrStringArrayPatchOutput values.
+// You can construct a concrete instance of `JSONSchemaPropsOrStringArrayPatchInput` via:
+//
+//	JSONSchemaPropsOrStringArrayPatchArgs{...}
+type JSONSchemaPropsOrStringArrayPatchInput interface {
+	pulumi.Input
+
+	ToJSONSchemaPropsOrStringArrayPatchOutput() JSONSchemaPropsOrStringArrayPatchOutput
+	ToJSONSchemaPropsOrStringArrayPatchOutputWithContext(context.Context) JSONSchemaPropsOrStringArrayPatchOutput
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArrayPatchArgs struct {
+}
+
+func (JSONSchemaPropsOrStringArrayPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrStringArrayPatch)(nil)).Elem()
+}
+
+func (i JSONSchemaPropsOrStringArrayPatchArgs) ToJSONSchemaPropsOrStringArrayPatchOutput() JSONSchemaPropsOrStringArrayPatchOutput {
+	return i.ToJSONSchemaPropsOrStringArrayPatchOutputWithContext(context.Background())
+}
+
+func (i JSONSchemaPropsOrStringArrayPatchArgs) ToJSONSchemaPropsOrStringArrayPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrStringArrayPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOrStringArrayPatchOutput)
+}
+
+// JSONSchemaPropsOrStringArray represents a JSONSchemaProps or a string array.
+type JSONSchemaPropsOrStringArrayPatchOutput struct{ *pulumi.OutputState }
+
+func (JSONSchemaPropsOrStringArrayPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JSONSchemaPropsOrStringArrayPatch)(nil)).Elem()
+}
+
+func (o JSONSchemaPropsOrStringArrayPatchOutput) ToJSONSchemaPropsOrStringArrayPatchOutput() JSONSchemaPropsOrStringArrayPatchOutput {
+	return o
+}
+
+func (o JSONSchemaPropsOrStringArrayPatchOutput) ToJSONSchemaPropsOrStringArrayPatchOutputWithContext(ctx context.Context) JSONSchemaPropsOrStringArrayPatchOutput {
+	return o
 }
 
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
@@ -7963,6 +8479,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScalePtrInput)(nil)).Elem(), CustomResourceSubresourceScaleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScalePatchInput)(nil)).Elem(), CustomResourceSubresourceScalePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScalePatchPtrInput)(nil)).Elem(), CustomResourceSubresourceScalePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceStatusInput)(nil)).Elem(), CustomResourceSubresourceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceStatusPatchInput)(nil)).Elem(), CustomResourceSubresourceStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesPtrInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesPatchInput)(nil)).Elem(), CustomResourceSubresourcesPatchArgs{})
@@ -7975,10 +8493,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationPtrInput)(nil)).Elem(), ExternalDocumentationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationPatchInput)(nil)).Elem(), ExternalDocumentationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationPatchPtrInput)(nil)).Elem(), ExternalDocumentationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONInput)(nil)).Elem(), JSONArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONPatchInput)(nil)).Elem(), JSONPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsInput)(nil)).Elem(), JSONSchemaPropsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPtrInput)(nil)).Elem(), JSONSchemaPropsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsArrayInput)(nil)).Elem(), JSONSchemaPropsArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsMapInput)(nil)).Elem(), JSONSchemaPropsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrArrayInput)(nil)).Elem(), JSONSchemaPropsOrArrayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrArrayPatchInput)(nil)).Elem(), JSONSchemaPropsOrArrayPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrBoolInput)(nil)).Elem(), JSONSchemaPropsOrBoolArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrBoolPatchInput)(nil)).Elem(), JSONSchemaPropsOrBoolPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrStringArrayInput)(nil)).Elem(), JSONSchemaPropsOrStringArrayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsOrStringArrayPatchInput)(nil)).Elem(), JSONSchemaPropsOrStringArrayPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchInput)(nil)).Elem(), JSONSchemaPropsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchPtrInput)(nil)).Elem(), JSONSchemaPropsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPatchArrayInput)(nil)).Elem(), JSONSchemaPropsPatchArray{})
@@ -8037,6 +8563,8 @@ func init() {
 	pulumi.RegisterOutputType(CustomResourceSubresourceScalePtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceSubresourceScalePatchOutput{})
 	pulumi.RegisterOutputType(CustomResourceSubresourceScalePatchPtrOutput{})
+	pulumi.RegisterOutputType(CustomResourceSubresourceStatusOutput{})
+	pulumi.RegisterOutputType(CustomResourceSubresourceStatusPatchOutput{})
 	pulumi.RegisterOutputType(CustomResourceSubresourcesOutput{})
 	pulumi.RegisterOutputType(CustomResourceSubresourcesPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceSubresourcesPatchOutput{})
@@ -8049,10 +8577,18 @@ func init() {
 	pulumi.RegisterOutputType(ExternalDocumentationPtrOutput{})
 	pulumi.RegisterOutputType(ExternalDocumentationPatchOutput{})
 	pulumi.RegisterOutputType(ExternalDocumentationPatchPtrOutput{})
+	pulumi.RegisterOutputType(JSONOutput{})
+	pulumi.RegisterOutputType(JSONPatchOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPtrOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsArrayOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsMapOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrArrayOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrArrayPatchOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrBoolOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrBoolPatchOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrStringArrayOutput{})
+	pulumi.RegisterOutputType(JSONSchemaPropsOrStringArrayPatchOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchPtrOutput{})
 	pulumi.RegisterOutputType(JSONSchemaPropsPatchArrayOutput{})

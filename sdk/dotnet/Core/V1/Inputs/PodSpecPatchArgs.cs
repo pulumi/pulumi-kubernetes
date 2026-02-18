@@ -94,7 +94,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<bool>? HostIPC { get; set; }
 
         /// <summary>
-        /// Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        /// Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         /// </summary>
         [Input("hostNetwork")]
         public Input<bool>? HostNetwork { get; set; }
@@ -116,6 +116,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
+
+        /// <summary>
+        /// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+        /// 
+        /// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        /// </summary>
+        [Input("hostnameOverride")]
+        public Input<string>? HostnameOverride { get; set; }
 
         [Input("imagePullSecrets")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.LocalObjectReferencePatchArgs>? _imagePullSecrets;
@@ -164,7 +172,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// 
         /// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
         /// 
-        /// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+        /// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         /// </summary>
         [Input("os")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodOSPatchArgs>? Os { get; set; }
@@ -217,7 +225,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// <summary>
         /// ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
         /// 
-        /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        /// This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
         /// 
         /// This field is immutable.
         /// </summary>
@@ -228,7 +236,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu" and "memory" resource names only. ResourceClaims are not supported.
+        /// Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
         /// 
         /// This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
         /// 
@@ -346,6 +354,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _volumes ?? (_volumes = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumePatchArgs>());
             set => _volumes = value;
         }
+
+        /// <summary>
+        /// WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        /// </summary>
+        [Input("workloadRef")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.WorkloadReferencePatchArgs>? WorkloadRef { get; set; }
 
         public PodSpecPatchArgs()
         {

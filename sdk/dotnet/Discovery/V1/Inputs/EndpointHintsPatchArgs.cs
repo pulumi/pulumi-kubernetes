@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForNodePatchArgs>? _forNodes;
 
         /// <summary>
-        /// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+        /// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.ForNodePatchArgs> ForNodes
         {

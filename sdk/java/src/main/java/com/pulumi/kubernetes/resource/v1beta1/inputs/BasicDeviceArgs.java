@@ -47,6 +47,25 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+     * 
+     * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+     * 
+     */
+    @Import(name="allowMultipleAllocations")
+    private @Nullable Output<Boolean> allowMultipleAllocations;
+
+    /**
+     * @return AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+     * 
+     * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+     * 
+     */
+    public Optional<Output<Boolean>> allowMultipleAllocations() {
+        return Optional.ofNullable(this.allowMultipleAllocations);
+    }
+
+    /**
      * Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
      * 
      * The maximum number of attributes and capacities combined is 32.
@@ -63,6 +82,79 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Map<String,DeviceAttributeArgs>>> attributes() {
         return Optional.ofNullable(this.attributes);
+    }
+
+    /**
+     * BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+     * 
+     * The maximum number of binding conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    @Import(name="bindingConditions")
+    private @Nullable Output<List<String>> bindingConditions;
+
+    /**
+     * @return BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+     * 
+     * The maximum number of binding conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Output<List<String>>> bindingConditions() {
+        return Optional.ofNullable(this.bindingConditions);
+    }
+
+    /**
+     * BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+     * 
+     * The maximum number of binding failure conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    @Import(name="bindingFailureConditions")
+    private @Nullable Output<List<String>> bindingFailureConditions;
+
+    /**
+     * @return BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+     * 
+     * The maximum number of binding failure conditions is 4.
+     * 
+     * The conditions must be a valid condition type string.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Output<List<String>>> bindingFailureConditions() {
+        return Optional.ofNullable(this.bindingFailureConditions);
+    }
+
+    /**
+     * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    @Import(name="bindsToNode")
+    private @Nullable Output<Boolean> bindsToNode;
+
+    /**
+     * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Output<Boolean>> bindsToNode() {
+        return Optional.ofNullable(this.bindsToNode);
     }
 
     /**
@@ -89,7 +181,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * There can only be a single entry per counterSet.
      * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+     * The maximum number of device counter consumptions per device is 2.
      * 
      */
     @Import(name="consumesCounters")
@@ -100,7 +192,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * There can only be a single entry per counterSet.
      * 
-     * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+     * The maximum number of device counter consumptions per device is 2.
      * 
      */
     public Optional<Output<List<DeviceCounterConsumptionArgs>>> consumesCounters() {
@@ -152,7 +244,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * If specified, these are the driver-defined taints.
      * 
-     * The maximum number of taints is 4.
+     * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
      * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
      * 
@@ -163,7 +255,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return If specified, these are the driver-defined taints.
      * 
-     * The maximum number of taints is 4.
+     * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
      * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
      * 
@@ -176,7 +268,11 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
 
     private BasicDeviceArgs(BasicDeviceArgs $) {
         this.allNodes = $.allNodes;
+        this.allowMultipleAllocations = $.allowMultipleAllocations;
         this.attributes = $.attributes;
+        this.bindingConditions = $.bindingConditions;
+        this.bindingFailureConditions = $.bindingFailureConditions;
+        this.bindsToNode = $.bindsToNode;
         this.capacity = $.capacity;
         this.consumesCounters = $.consumesCounters;
         this.nodeName = $.nodeName;
@@ -228,6 +324,31 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param allowMultipleAllocations AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+         * 
+         * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowMultipleAllocations(@Nullable Output<Boolean> allowMultipleAllocations) {
+            $.allowMultipleAllocations = allowMultipleAllocations;
+            return this;
+        }
+
+        /**
+         * @param allowMultipleAllocations AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+         * 
+         * If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowMultipleAllocations(Boolean allowMultipleAllocations) {
+            return allowMultipleAllocations(Output.of(allowMultipleAllocations));
+        }
+
+        /**
          * @param attributes Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
          * 
          * The maximum number of attributes and capacities combined is 32.
@@ -250,6 +371,129 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder attributes(Map<String,DeviceAttributeArgs> attributes) {
             return attributes(Output.of(attributes));
+        }
+
+        /**
+         * @param bindingConditions BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+         * 
+         * The maximum number of binding conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(@Nullable Output<List<String>> bindingConditions) {
+            $.bindingConditions = bindingConditions;
+            return this;
+        }
+
+        /**
+         * @param bindingConditions BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+         * 
+         * The maximum number of binding conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(List<String> bindingConditions) {
+            return bindingConditions(Output.of(bindingConditions));
+        }
+
+        /**
+         * @param bindingConditions BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+         * 
+         * The maximum number of binding conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(String... bindingConditions) {
+            return bindingConditions(List.of(bindingConditions));
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+         * 
+         * The maximum number of binding failure conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(@Nullable Output<List<String>> bindingFailureConditions) {
+            $.bindingFailureConditions = bindingFailureConditions;
+            return this;
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+         * 
+         * The maximum number of binding failure conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(List<String> bindingFailureConditions) {
+            return bindingFailureConditions(Output.of(bindingFailureConditions));
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+         * 
+         * The maximum number of binding failure conditions is 4.
+         * 
+         * The conditions must be a valid condition type string.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(String... bindingFailureConditions) {
+            return bindingFailureConditions(List.of(bindingFailureConditions));
+        }
+
+        /**
+         * @param bindsToNode BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindsToNode(@Nullable Output<Boolean> bindsToNode) {
+            $.bindsToNode = bindsToNode;
+            return this;
+        }
+
+        /**
+         * @param bindsToNode BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindsToNode(Boolean bindsToNode) {
+            return bindsToNode(Output.of(bindsToNode));
         }
 
         /**
@@ -282,7 +526,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * There can only be a single entry per counterSet.
          * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+         * The maximum number of device counter consumptions per device is 2.
          * 
          * @return builder
          * 
@@ -297,7 +541,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * There can only be a single entry per counterSet.
          * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+         * The maximum number of device counter consumptions per device is 2.
          * 
          * @return builder
          * 
@@ -311,7 +555,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * There can only be a single entry per counterSet.
          * 
-         * The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+         * The maximum number of device counter consumptions per device is 2.
          * 
          * @return builder
          * 
@@ -377,7 +621,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param taints If specified, these are the driver-defined taints.
          * 
-         * The maximum number of taints is 4.
+         * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
          * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
          * 
@@ -392,7 +636,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param taints If specified, these are the driver-defined taints.
          * 
-         * The maximum number of taints is 4.
+         * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
          * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
          * 
@@ -406,7 +650,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param taints If specified, these are the driver-defined taints.
          * 
-         * The maximum number of taints is 4.
+         * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
          * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
          * 

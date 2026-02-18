@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.apiextensions.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,6 +49,21 @@ public final class CustomResourceDefinitionConditionArgs extends com.pulumi.reso
      */
     public Optional<Output<String>> message() {
         return Optional.ofNullable(this.message);
+    }
+
+    /**
+     * observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+     * 
+     */
+    @Import(name="observedGeneration")
+    private @Nullable Output<Integer> observedGeneration;
+
+    /**
+     * @return observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+     * 
+     */
+    public Optional<Output<Integer>> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
     }
 
     /**
@@ -100,6 +116,7 @@ public final class CustomResourceDefinitionConditionArgs extends com.pulumi.reso
     private CustomResourceDefinitionConditionArgs(CustomResourceDefinitionConditionArgs $) {
         this.lastTransitionTime = $.lastTransitionTime;
         this.message = $.message;
+        this.observedGeneration = $.observedGeneration;
         this.reason = $.reason;
         this.status = $.status;
         this.type = $.type;
@@ -163,6 +180,27 @@ public final class CustomResourceDefinitionConditionArgs extends com.pulumi.reso
          */
         public Builder message(String message) {
             return message(Output.of(message));
+        }
+
+        /**
+         * @param observedGeneration observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(@Nullable Output<Integer> observedGeneration) {
+            $.observedGeneration = observedGeneration;
+            return this;
+        }
+
+        /**
+         * @param observedGeneration observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(Integer observedGeneration) {
+            return observedGeneration(Output.of(observedGeneration));
         }
 
         /**

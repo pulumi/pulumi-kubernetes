@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EnvVarPatch {
     /**
-     * @return Name of the environment variable. Must be a C_IDENTIFIER.
+     * @return Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     private @Nullable String name;
@@ -30,7 +30,7 @@ public final class EnvVarPatch {
 
     private EnvVarPatch() {}
     /**
-     * @return Name of the environment variable. Must be a C_IDENTIFIER.
+     * @return Name of the environment variable. May consist of any printable ASCII characters except &#39;=&#39;.
      * 
      */
     public Optional<String> name() {

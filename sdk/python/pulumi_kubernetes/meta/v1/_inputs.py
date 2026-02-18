@@ -17,6 +17,10 @@ from ... import _utilities
 __all__ = [
     'ConditionArgs',
     'ConditionArgsDict',
+    'GroupResourcePatchArgs',
+    'GroupResourcePatchArgsDict',
+    'GroupResourceArgs',
+    'GroupResourceArgsDict',
     'LabelSelectorPatchArgs',
     'LabelSelectorPatchArgsDict',
     'LabelSelectorRequirementPatchArgs',
@@ -177,6 +181,82 @@ class ConditionArgs:
     @observed_generation.setter
     def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
+
+
+class GroupResourcePatchArgsDict(TypedDict):
+    """
+    GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+    """
+    group: NotRequired[pulumi.Input[_builtins.str]]
+    resource: NotRequired[pulumi.Input[_builtins.str]]
+
+@pulumi.input_type
+class GroupResourcePatchArgs:
+    def __init__(__self__, *,
+                 group: Optional[pulumi.Input[_builtins.str]] = None,
+                 resource: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+        """
+        if group is not None:
+            pulumi.set(__self__, "group", group)
+        if resource is not None:
+            pulumi.set(__self__, "resource", resource)
+
+    @_builtins.property
+    @pulumi.getter
+    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+        return pulumi.get(self, "group")
+
+    @group.setter
+    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "group", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> Optional[pulumi.Input[_builtins.str]]:
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "resource", value)
+
+
+class GroupResourceArgsDict(TypedDict):
+    """
+    GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+    """
+    group: pulumi.Input[_builtins.str]
+    resource: pulumi.Input[_builtins.str]
+
+@pulumi.input_type
+class GroupResourceArgs:
+    def __init__(__self__, *,
+                 group: pulumi.Input[_builtins.str],
+                 resource: pulumi.Input[_builtins.str]):
+        """
+        GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+        """
+        pulumi.set(__self__, "group", group)
+        pulumi.set(__self__, "resource", resource)
+
+    @_builtins.property
+    @pulumi.getter
+    def group(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "group")
+
+    @group.setter
+    def group(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "group", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> pulumi.Input[_builtins.str]:
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource", value)
 
 
 class LabelSelectorPatchArgsDict(TypedDict):

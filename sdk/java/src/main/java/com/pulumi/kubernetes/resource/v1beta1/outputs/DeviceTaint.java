@@ -13,7 +13,9 @@ import javax.annotation.Nullable;
 @CustomType
 public final class DeviceTaint {
     /**
-     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+     * 
+     * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
      * 
      */
     private String effect;
@@ -35,7 +37,9 @@ public final class DeviceTaint {
 
     private DeviceTaint() {}
     /**
-     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+     * @return The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+     * 
+     * Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
      * 
      */
     public String effect() {

@@ -18,8 +18,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// <summary>
         /// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         /// </summary>
-        [Input("status", required: true)]
-        public Input<string> Status { get; set; } = null!;
+        [Input("status")]
+        public Input<string>? Status { get; set; }
 
         /// <summary>
         /// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.

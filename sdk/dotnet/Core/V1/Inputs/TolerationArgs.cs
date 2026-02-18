@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? Key { get; set; }
 
         /// <summary>
-        /// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        /// Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
         /// </summary>
         [Input("operator")]
         public Input<string>? Operator { get; set; }

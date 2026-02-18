@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceTolerationArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -43,6 +44,67 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     }
 
     /**
+     * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    @Import(name="bindingConditions")
+    private @Nullable Output<List<String>> bindingConditions;
+
+    /**
+     * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Output<List<String>>> bindingConditions() {
+        return Optional.ofNullable(this.bindingConditions);
+    }
+
+    /**
+     * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    @Import(name="bindingFailureConditions")
+    private @Nullable Output<List<String>> bindingFailureConditions;
+
+    /**
+     * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * 
+     */
+    public Optional<Output<List<String>>> bindingFailureConditions() {
+        return Optional.ofNullable(this.bindingFailureConditions);
+    }
+
+    /**
+     * ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+     * 
+     * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+     * 
+     * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+     * 
+     */
+    @Import(name="consumedCapacity")
+    private @Nullable Output<Map<String,String>> consumedCapacity;
+
+    /**
+     * @return ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+     * 
+     * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+     * 
+     * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+     * 
+     */
+    public Optional<Output<Map<String,String>>> consumedCapacity() {
+        return Optional.ofNullable(this.consumedCapacity);
+    }
+
+    /**
      * Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
      * 
      */
@@ -60,7 +122,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     @Import(name="driver", required=true)
@@ -69,7 +131,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * @return Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     public Output<String> driver() {
@@ -115,6 +177,21 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     }
 
     /**
+     * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+     * 
+     */
+    @Import(name="shareID")
+    private @Nullable Output<String> shareID;
+
+    /**
+     * @return ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+     * 
+     */
+    public Optional<Output<String>> shareID() {
+        return Optional.ofNullable(this.shareID);
+    }
+
+    /**
      * A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -141,10 +218,14 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
 
     private DeviceRequestAllocationResultArgs(DeviceRequestAllocationResultArgs $) {
         this.adminAccess = $.adminAccess;
+        this.bindingConditions = $.bindingConditions;
+        this.bindingFailureConditions = $.bindingFailureConditions;
+        this.consumedCapacity = $.consumedCapacity;
         this.device = $.device;
         this.driver = $.driver;
         this.pool = $.pool;
         this.request = $.request;
+        this.shareID = $.shareID;
         this.tolerations = $.tolerations;
     }
 
@@ -192,6 +273,109 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         }
 
         /**
+         * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(@Nullable Output<List<String>> bindingConditions) {
+            $.bindingConditions = bindingConditions;
+            return this;
+        }
+
+        /**
+         * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(List<String> bindingConditions) {
+            return bindingConditions(Output.of(bindingConditions));
+        }
+
+        /**
+         * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingConditions(String... bindingConditions) {
+            return bindingConditions(List.of(bindingConditions));
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(@Nullable Output<List<String>> bindingFailureConditions) {
+            $.bindingFailureConditions = bindingFailureConditions;
+            return this;
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(List<String> bindingFailureConditions) {
+            return bindingFailureConditions(Output.of(bindingFailureConditions));
+        }
+
+        /**
+         * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindingFailureConditions(String... bindingFailureConditions) {
+            return bindingFailureConditions(List.of(bindingFailureConditions));
+        }
+
+        /**
+         * @param consumedCapacity ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+         * 
+         * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+         * 
+         * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder consumedCapacity(@Nullable Output<Map<String,String>> consumedCapacity) {
+            $.consumedCapacity = consumedCapacity;
+            return this;
+        }
+
+        /**
+         * @param consumedCapacity ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+         * 
+         * The total consumed capacity for each device must not exceed the DeviceCapacity&#39;s Value.
+         * 
+         * This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder consumedCapacity(Map<String,String> consumedCapacity) {
+            return consumedCapacity(Output.of(consumedCapacity));
+        }
+
+        /**
          * @param device Device references one device instance via its name in the driver&#39;s resource pool. It must be a DNS label.
          * 
          * @return builder
@@ -215,7 +399,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param driver Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 
@@ -228,7 +412,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param driver Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
          * 
          * @return builder
          * 
@@ -285,6 +469,27 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
          */
         public Builder request(String request) {
             return request(Output.of(request));
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(@Nullable Output<String> shareID) {
+            $.shareID = shareID;
+            return this;
+        }
+
+        /**
+         * @param shareID ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareID(String shareID) {
+            return shareID(Output.of(shareID));
         }
 
         /**

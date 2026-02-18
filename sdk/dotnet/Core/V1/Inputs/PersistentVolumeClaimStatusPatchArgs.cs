@@ -59,8 +59,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// When this field is not set, it means that no resize operation is in progress for the given PVC.
         /// 
         /// A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-        /// 
-        /// This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         /// </summary>
         public InputMap<string> AllocatedResourceStatuses
         {
@@ -81,8 +79,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
         /// 
         /// A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-        /// 
-        /// This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         /// </summary>
         public InputMap<string> AllocatedResources
         {
@@ -115,13 +111,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        /// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
         /// </summary>
         [Input("currentVolumeAttributesClassName")]
         public Input<string>? CurrentVolumeAttributesClassName { get; set; }
 
         /// <summary>
-        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+        /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         /// </summary>
         [Input("modifyVolumeStatus")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ModifyVolumeStatusPatchArgs>? ModifyVolumeStatus { get; set; }

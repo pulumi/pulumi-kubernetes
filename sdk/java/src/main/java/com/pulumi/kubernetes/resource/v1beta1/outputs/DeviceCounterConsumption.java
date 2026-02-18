@@ -20,7 +20,7 @@ public final class DeviceCounterConsumption {
     /**
      * @return Counters defines the counters that will be consumed by the device.
      * 
-     * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+     * The maximum number of counters is 32.
      * 
      */
     private Map<String,Counter> counters;
@@ -36,7 +36,7 @@ public final class DeviceCounterConsumption {
     /**
      * @return Counters defines the counters that will be consumed by the device.
      * 
-     * The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+     * The maximum number of counters is 32.
      * 
      */
     public Map<String,Counter> counters() {

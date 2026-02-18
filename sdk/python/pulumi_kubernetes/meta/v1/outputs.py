@@ -18,6 +18,8 @@ from . import outputs
 __all__ = [
     'Condition',
     'ConditionPatch',
+    'GroupResource',
+    'GroupResourcePatch',
     'LabelSelector',
     'LabelSelectorPatch',
     'LabelSelectorRequirement',
@@ -233,6 +235,58 @@ class ConditionPatch(dict):
         type of condition in CamelCase or in foo.example.com/CamelCase.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class GroupResource(dict):
+    """
+    GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+    """
+    def __init__(__self__, *,
+                 group: _builtins.str,
+                 resource: _builtins.str):
+        """
+        GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+        """
+        pulumi.set(__self__, "group", group)
+        pulumi.set(__self__, "resource", resource)
+
+    @_builtins.property
+    @pulumi.getter
+    def group(self) -> _builtins.str:
+        return pulumi.get(self, "group")
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> _builtins.str:
+        return pulumi.get(self, "resource")
+
+
+@pulumi.output_type
+class GroupResourcePatch(dict):
+    """
+    GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+    """
+    def __init__(__self__, *,
+                 group: Optional[_builtins.str] = None,
+                 resource: Optional[_builtins.str] = None):
+        """
+        GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+        """
+        if group is not None:
+            pulumi.set(__self__, "group", group)
+        if resource is not None:
+            pulumi.set(__self__, "resource", resource)
+
+    @_builtins.property
+    @pulumi.getter
+    def group(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "group")
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "resource")
 
 
 @pulumi.output_type

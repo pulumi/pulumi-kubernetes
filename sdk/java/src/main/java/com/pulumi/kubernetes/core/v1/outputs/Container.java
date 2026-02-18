@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerPort;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerResizePolicy;
+import com.pulumi.kubernetes.core.v1.outputs.ContainerRestartRule;
 import com.pulumi.kubernetes.core.v1.outputs.EnvFromSource;
 import com.pulumi.kubernetes.core.v1.outputs.EnvVar;
 import com.pulumi.kubernetes.core.v1.outputs.Lifecycle;
@@ -40,7 +41,7 @@ public final class Container {
      */
     private @Nullable List<EnvVar> env;
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     private @Nullable List<EnvFromSource> envFrom;
@@ -80,7 +81,7 @@ public final class Container {
      */
     private @Nullable Probe readinessProbe;
     /**
-     * @return Resources resize policy for the container.
+     * @return Resources resize policy for the container. This field cannot be set on ephemeral containers.
      * 
      */
     private @Nullable List<ContainerResizePolicy> resizePolicy;
@@ -90,10 +91,15 @@ public final class Container {
      */
     private @Nullable ResourceRequirements resources;
     /**
-     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
      * 
      */
     private @Nullable String restartPolicy;
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+     * 
+     */
+    private @Nullable List<ContainerRestartRule> restartPolicyRules;
     /**
      * @return SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
      * 
@@ -168,7 +174,7 @@ public final class Container {
         return this.env == null ? List.of() : this.env;
     }
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     public List<EnvFromSource> envFrom() {
@@ -224,7 +230,7 @@ public final class Container {
         return Optional.ofNullable(this.readinessProbe);
     }
     /**
-     * @return Resources resize policy for the container.
+     * @return Resources resize policy for the container. This field cannot be set on ephemeral containers.
      * 
      */
     public List<ContainerResizePolicy> resizePolicy() {
@@ -238,11 +244,18 @@ public final class Container {
         return Optional.ofNullable(this.resources);
     }
     /**
-     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
      * 
      */
     public Optional<String> restartPolicy() {
         return Optional.ofNullable(this.restartPolicy);
+    }
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+     * 
+     */
+    public List<ContainerRestartRule> restartPolicyRules() {
+        return this.restartPolicyRules == null ? List.of() : this.restartPolicyRules;
     }
     /**
      * @return SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -338,6 +351,7 @@ public final class Container {
         private @Nullable List<ContainerResizePolicy> resizePolicy;
         private @Nullable ResourceRequirements resources;
         private @Nullable String restartPolicy;
+        private @Nullable List<ContainerRestartRule> restartPolicyRules;
         private @Nullable SecurityContext securityContext;
         private @Nullable Probe startupProbe;
         private @Nullable Boolean stdin;
@@ -365,6 +379,7 @@ public final class Container {
     	      this.resizePolicy = defaults.resizePolicy;
     	      this.resources = defaults.resources;
     	      this.restartPolicy = defaults.restartPolicy;
+    	      this.restartPolicyRules = defaults.restartPolicyRules;
     	      this.securityContext = defaults.securityContext;
     	      this.startupProbe = defaults.startupProbe;
     	      this.stdin = defaults.stdin;
@@ -482,6 +497,15 @@ public final class Container {
             return this;
         }
         @CustomType.Setter
+        public Builder restartPolicyRules(@Nullable List<ContainerRestartRule> restartPolicyRules) {
+
+            this.restartPolicyRules = restartPolicyRules;
+            return this;
+        }
+        public Builder restartPolicyRules(ContainerRestartRule... restartPolicyRules) {
+            return restartPolicyRules(List.of(restartPolicyRules));
+        }
+        @CustomType.Setter
         public Builder securityContext(@Nullable SecurityContext securityContext) {
 
             this.securityContext = securityContext;
@@ -563,6 +587,7 @@ public final class Container {
             _resultValue.resizePolicy = resizePolicy;
             _resultValue.resources = resources;
             _resultValue.restartPolicy = restartPolicy;
+            _resultValue.restartPolicyRules = restartPolicyRules;
             _resultValue.securityContext = securityContext;
             _resultValue.startupProbe = startupProbe;
             _resultValue.stdin = stdin;

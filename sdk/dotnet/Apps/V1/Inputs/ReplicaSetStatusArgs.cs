@@ -60,7 +60,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
         /// 
-        /// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+        /// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
         /// </summary>
         [Input("terminatingReplicas")]
         public Input<int>? TerminatingReplicas { get; set; }

@@ -28,14 +28,16 @@ public final class ResourceSliceSpec {
     /**
      * @return Devices lists some or all of the devices in this pool.
      * 
-     * Must not have more than 128 entries.
+     * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+     * 
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
      * 
      */
     private @Nullable List<Device> devices;
     /**
      * @return Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
      * 
      */
     private String driver;
@@ -72,9 +74,11 @@ public final class ResourceSliceSpec {
     /**
      * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
      * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * The names of the counter sets must be unique in the ResourcePool.
      * 
-     * The maximum number of SharedCounters is 32.
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+     * 
+     * The maximum number of counter sets is 8.
      * 
      */
     private @Nullable List<CounterSet> sharedCounters;
@@ -92,7 +96,9 @@ public final class ResourceSliceSpec {
     /**
      * @return Devices lists some or all of the devices in this pool.
      * 
-     * Must not have more than 128 entries.
+     * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+     * 
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
      * 
      */
     public List<Device> devices() {
@@ -101,7 +107,7 @@ public final class ResourceSliceSpec {
     /**
      * @return Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
      * 
      */
     public String driver() {
@@ -148,9 +154,11 @@ public final class ResourceSliceSpec {
     /**
      * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
      * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * The names of the counter sets must be unique in the ResourcePool.
      * 
-     * The maximum number of SharedCounters is 32.
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+     * 
+     * The maximum number of counter sets is 8.
      * 
      */
     public List<CounterSet> sharedCounters() {

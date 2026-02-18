@@ -41,6 +41,12 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha3
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleSpec> Spec { get; private set; } = null!;
 
+        /// <summary>
+        /// Status provides information about what was requested in the spec.
+        /// </summary>
+        [Output("status")]
+        public Output<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleStatus> Status { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a DeviceTaintRule resource with the given unique name, arguments, and options.

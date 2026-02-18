@@ -16,7 +16,7 @@ public final class ResourceRequirementsPatch {
     /**
      * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This field depends on the DynamicResourceAllocation feature gate.
      * 
      * This field is immutable. It can only be set for containers.
      * 
@@ -37,7 +37,7 @@ public final class ResourceRequirementsPatch {
     /**
      * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This field depends on the DynamicResourceAllocation feature gate.
      * 
      * This field is immutable. It can only be set for containers.
      * 

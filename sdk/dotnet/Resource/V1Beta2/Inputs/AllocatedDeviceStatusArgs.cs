@@ -12,6 +12,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
 
     /// <summary>
     /// AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+    /// 
+    /// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     /// </summary>
     public class AllocatedDeviceStatusArgs : global::Pulumi.ResourceArgs
     {
@@ -46,7 +48,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         /// <summary>
         /// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
         /// 
-        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         /// </summary>
         [Input("driver", required: true)]
         public Input<string> Driver { get; set; } = null!;
@@ -64,6 +66,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         /// </summary>
         [Input("pool", required: true)]
         public Input<string> Pool { get; set; } = null!;
+
+        /// <summary>
+        /// ShareID uniquely identifies an individual allocation share of the device.
+        /// </summary>
+        [Input("shareID")]
+        public Input<string>? ShareID { get; set; }
 
         public AllocatedDeviceStatusArgs()
         {

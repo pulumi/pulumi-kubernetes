@@ -8,6 +8,8 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -22,15 +24,15 @@ public final class PodFailurePolicyOnPodConditionsPatternArgs extends com.pulumi
      * Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
      * 
      */
-    @Import(name="status", required=true)
-    private Output<String> status;
+    @Import(name="status")
+    private @Nullable Output<String> status;
 
     /**
      * @return Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
      * 
      */
-    public Output<String> status() {
-        return this.status;
+    public Optional<Output<String>> status() {
+        return Optional.ofNullable(this.status);
     }
 
     /**
@@ -79,7 +81,7 @@ public final class PodFailurePolicyOnPodConditionsPatternArgs extends com.pulumi
          * @return builder
          * 
          */
-        public Builder status(Output<String> status) {
+        public Builder status(@Nullable Output<String> status) {
             $.status = status;
             return this;
         }
@@ -116,9 +118,6 @@ public final class PodFailurePolicyOnPodConditionsPatternArgs extends com.pulumi
         }
 
         public PodFailurePolicyOnPodConditionsPatternArgs build() {
-            if ($.status == null) {
-                throw new MissingRequiredPropertyException("PodFailurePolicyOnPodConditionsPatternArgs", "status");
-            }
             if ($.type == null) {
                 throw new MissingRequiredPropertyException("PodFailurePolicyOnPodConditionsPatternArgs", "type");
             }

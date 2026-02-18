@@ -1966,6 +1966,424 @@ func (o FieldSelectorRequirementPatchArrayOutput) Index(i pulumi.IntInput) Field
 	}).(FieldSelectorRequirementPatchOutput)
 }
 
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1 struct {
+}
+
+// FieldsV1Input is an input type that accepts FieldsV1Args and FieldsV1Output values.
+// You can construct a concrete instance of `FieldsV1Input` via:
+//
+//	FieldsV1Args{...}
+type FieldsV1Input interface {
+	pulumi.Input
+
+	ToFieldsV1Output() FieldsV1Output
+	ToFieldsV1OutputWithContext(context.Context) FieldsV1Output
+}
+
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1Args struct {
+}
+
+func (FieldsV1Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldsV1)(nil)).Elem()
+}
+
+func (i FieldsV1Args) ToFieldsV1Output() FieldsV1Output {
+	return i.ToFieldsV1OutputWithContext(context.Background())
+}
+
+func (i FieldsV1Args) ToFieldsV1OutputWithContext(ctx context.Context) FieldsV1Output {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldsV1Output)
+}
+
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1Output struct{ *pulumi.OutputState }
+
+func (FieldsV1Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldsV1)(nil)).Elem()
+}
+
+func (o FieldsV1Output) ToFieldsV1Output() FieldsV1Output {
+	return o
+}
+
+func (o FieldsV1Output) ToFieldsV1OutputWithContext(ctx context.Context) FieldsV1Output {
+	return o
+}
+
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1Patch struct {
+}
+
+// FieldsV1PatchInput is an input type that accepts FieldsV1PatchArgs and FieldsV1PatchOutput values.
+// You can construct a concrete instance of `FieldsV1PatchInput` via:
+//
+//	FieldsV1PatchArgs{...}
+type FieldsV1PatchInput interface {
+	pulumi.Input
+
+	ToFieldsV1PatchOutput() FieldsV1PatchOutput
+	ToFieldsV1PatchOutputWithContext(context.Context) FieldsV1PatchOutput
+}
+
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1PatchArgs struct {
+}
+
+func (FieldsV1PatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldsV1Patch)(nil)).Elem()
+}
+
+func (i FieldsV1PatchArgs) ToFieldsV1PatchOutput() FieldsV1PatchOutput {
+	return i.ToFieldsV1PatchOutputWithContext(context.Background())
+}
+
+func (i FieldsV1PatchArgs) ToFieldsV1PatchOutputWithContext(ctx context.Context) FieldsV1PatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FieldsV1PatchOutput)
+}
+
+// FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
+//
+// Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.
+//
+// The exact format is defined in sigs.k8s.io/structured-merge-diff
+type FieldsV1PatchOutput struct{ *pulumi.OutputState }
+
+func (FieldsV1PatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FieldsV1Patch)(nil)).Elem()
+}
+
+func (o FieldsV1PatchOutput) ToFieldsV1PatchOutput() FieldsV1PatchOutput {
+	return o
+}
+
+func (o FieldsV1PatchOutput) ToFieldsV1PatchOutputWithContext(ctx context.Context) FieldsV1PatchOutput {
+	return o
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResource struct {
+	Group    string `pulumi:"group"`
+	Resource string `pulumi:"resource"`
+}
+
+// GroupResourceInput is an input type that accepts GroupResourceArgs and GroupResourceOutput values.
+// You can construct a concrete instance of `GroupResourceInput` via:
+//
+//	GroupResourceArgs{...}
+type GroupResourceInput interface {
+	pulumi.Input
+
+	ToGroupResourceOutput() GroupResourceOutput
+	ToGroupResourceOutputWithContext(context.Context) GroupResourceOutput
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResourceArgs struct {
+	Group    pulumi.StringInput `pulumi:"group"`
+	Resource pulumi.StringInput `pulumi:"resource"`
+}
+
+func (GroupResourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GroupResource)(nil)).Elem()
+}
+
+func (i GroupResourceArgs) ToGroupResourceOutput() GroupResourceOutput {
+	return i.ToGroupResourceOutputWithContext(context.Background())
+}
+
+func (i GroupResourceArgs) ToGroupResourceOutputWithContext(ctx context.Context) GroupResourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourceOutput)
+}
+
+func (i GroupResourceArgs) ToGroupResourcePtrOutput() GroupResourcePtrOutput {
+	return i.ToGroupResourcePtrOutputWithContext(context.Background())
+}
+
+func (i GroupResourceArgs) ToGroupResourcePtrOutputWithContext(ctx context.Context) GroupResourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourceOutput).ToGroupResourcePtrOutputWithContext(ctx)
+}
+
+// GroupResourcePtrInput is an input type that accepts GroupResourceArgs, GroupResourcePtr and GroupResourcePtrOutput values.
+// You can construct a concrete instance of `GroupResourcePtrInput` via:
+//
+//	        GroupResourceArgs{...}
+//
+//	or:
+//
+//	        nil
+type GroupResourcePtrInput interface {
+	pulumi.Input
+
+	ToGroupResourcePtrOutput() GroupResourcePtrOutput
+	ToGroupResourcePtrOutputWithContext(context.Context) GroupResourcePtrOutput
+}
+
+type groupResourcePtrType GroupResourceArgs
+
+func GroupResourcePtr(v *GroupResourceArgs) GroupResourcePtrInput {
+	return (*groupResourcePtrType)(v)
+}
+
+func (*groupResourcePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GroupResource)(nil)).Elem()
+}
+
+func (i *groupResourcePtrType) ToGroupResourcePtrOutput() GroupResourcePtrOutput {
+	return i.ToGroupResourcePtrOutputWithContext(context.Background())
+}
+
+func (i *groupResourcePtrType) ToGroupResourcePtrOutputWithContext(ctx context.Context) GroupResourcePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourcePtrOutput)
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResourceOutput struct{ *pulumi.OutputState }
+
+func (GroupResourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GroupResource)(nil)).Elem()
+}
+
+func (o GroupResourceOutput) ToGroupResourceOutput() GroupResourceOutput {
+	return o
+}
+
+func (o GroupResourceOutput) ToGroupResourceOutputWithContext(ctx context.Context) GroupResourceOutput {
+	return o
+}
+
+func (o GroupResourceOutput) ToGroupResourcePtrOutput() GroupResourcePtrOutput {
+	return o.ToGroupResourcePtrOutputWithContext(context.Background())
+}
+
+func (o GroupResourceOutput) ToGroupResourcePtrOutputWithContext(ctx context.Context) GroupResourcePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GroupResource) *GroupResource {
+		return &v
+	}).(GroupResourcePtrOutput)
+}
+
+func (o GroupResourceOutput) Group() pulumi.StringOutput {
+	return o.ApplyT(func(v GroupResource) string { return v.Group }).(pulumi.StringOutput)
+}
+
+func (o GroupResourceOutput) Resource() pulumi.StringOutput {
+	return o.ApplyT(func(v GroupResource) string { return v.Resource }).(pulumi.StringOutput)
+}
+
+type GroupResourcePtrOutput struct{ *pulumi.OutputState }
+
+func (GroupResourcePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GroupResource)(nil)).Elem()
+}
+
+func (o GroupResourcePtrOutput) ToGroupResourcePtrOutput() GroupResourcePtrOutput {
+	return o
+}
+
+func (o GroupResourcePtrOutput) ToGroupResourcePtrOutputWithContext(ctx context.Context) GroupResourcePtrOutput {
+	return o
+}
+
+func (o GroupResourcePtrOutput) Elem() GroupResourceOutput {
+	return o.ApplyT(func(v *GroupResource) GroupResource {
+		if v != nil {
+			return *v
+		}
+		var ret GroupResource
+		return ret
+	}).(GroupResourceOutput)
+}
+
+func (o GroupResourcePtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GroupResource) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o GroupResourcePtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GroupResource) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResourcePatch struct {
+	Group    *string `pulumi:"group"`
+	Resource *string `pulumi:"resource"`
+}
+
+// GroupResourcePatchInput is an input type that accepts GroupResourcePatchArgs and GroupResourcePatchOutput values.
+// You can construct a concrete instance of `GroupResourcePatchInput` via:
+//
+//	GroupResourcePatchArgs{...}
+type GroupResourcePatchInput interface {
+	pulumi.Input
+
+	ToGroupResourcePatchOutput() GroupResourcePatchOutput
+	ToGroupResourcePatchOutputWithContext(context.Context) GroupResourcePatchOutput
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResourcePatchArgs struct {
+	Group    pulumi.StringPtrInput `pulumi:"group"`
+	Resource pulumi.StringPtrInput `pulumi:"resource"`
+}
+
+func (GroupResourcePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GroupResourcePatch)(nil)).Elem()
+}
+
+func (i GroupResourcePatchArgs) ToGroupResourcePatchOutput() GroupResourcePatchOutput {
+	return i.ToGroupResourcePatchOutputWithContext(context.Background())
+}
+
+func (i GroupResourcePatchArgs) ToGroupResourcePatchOutputWithContext(ctx context.Context) GroupResourcePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourcePatchOutput)
+}
+
+func (i GroupResourcePatchArgs) ToGroupResourcePatchPtrOutput() GroupResourcePatchPtrOutput {
+	return i.ToGroupResourcePatchPtrOutputWithContext(context.Background())
+}
+
+func (i GroupResourcePatchArgs) ToGroupResourcePatchPtrOutputWithContext(ctx context.Context) GroupResourcePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourcePatchOutput).ToGroupResourcePatchPtrOutputWithContext(ctx)
+}
+
+// GroupResourcePatchPtrInput is an input type that accepts GroupResourcePatchArgs, GroupResourcePatchPtr and GroupResourcePatchPtrOutput values.
+// You can construct a concrete instance of `GroupResourcePatchPtrInput` via:
+//
+//	        GroupResourcePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type GroupResourcePatchPtrInput interface {
+	pulumi.Input
+
+	ToGroupResourcePatchPtrOutput() GroupResourcePatchPtrOutput
+	ToGroupResourcePatchPtrOutputWithContext(context.Context) GroupResourcePatchPtrOutput
+}
+
+type groupResourcePatchPtrType GroupResourcePatchArgs
+
+func GroupResourcePatchPtr(v *GroupResourcePatchArgs) GroupResourcePatchPtrInput {
+	return (*groupResourcePatchPtrType)(v)
+}
+
+func (*groupResourcePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GroupResourcePatch)(nil)).Elem()
+}
+
+func (i *groupResourcePatchPtrType) ToGroupResourcePatchPtrOutput() GroupResourcePatchPtrOutput {
+	return i.ToGroupResourcePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *groupResourcePatchPtrType) ToGroupResourcePatchPtrOutputWithContext(ctx context.Context) GroupResourcePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GroupResourcePatchPtrOutput)
+}
+
+// GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
+type GroupResourcePatchOutput struct{ *pulumi.OutputState }
+
+func (GroupResourcePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GroupResourcePatch)(nil)).Elem()
+}
+
+func (o GroupResourcePatchOutput) ToGroupResourcePatchOutput() GroupResourcePatchOutput {
+	return o
+}
+
+func (o GroupResourcePatchOutput) ToGroupResourcePatchOutputWithContext(ctx context.Context) GroupResourcePatchOutput {
+	return o
+}
+
+func (o GroupResourcePatchOutput) ToGroupResourcePatchPtrOutput() GroupResourcePatchPtrOutput {
+	return o.ToGroupResourcePatchPtrOutputWithContext(context.Background())
+}
+
+func (o GroupResourcePatchOutput) ToGroupResourcePatchPtrOutputWithContext(ctx context.Context) GroupResourcePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GroupResourcePatch) *GroupResourcePatch {
+		return &v
+	}).(GroupResourcePatchPtrOutput)
+}
+
+func (o GroupResourcePatchOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GroupResourcePatch) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+func (o GroupResourcePatchOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GroupResourcePatch) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+type GroupResourcePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (GroupResourcePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GroupResourcePatch)(nil)).Elem()
+}
+
+func (o GroupResourcePatchPtrOutput) ToGroupResourcePatchPtrOutput() GroupResourcePatchPtrOutput {
+	return o
+}
+
+func (o GroupResourcePatchPtrOutput) ToGroupResourcePatchPtrOutputWithContext(ctx context.Context) GroupResourcePatchPtrOutput {
+	return o
+}
+
+func (o GroupResourcePatchPtrOutput) Elem() GroupResourcePatchOutput {
+	return o.ApplyT(func(v *GroupResourcePatch) GroupResourcePatch {
+		if v != nil {
+			return *v
+		}
+		var ret GroupResourcePatch
+		return ret
+	}).(GroupResourcePatchOutput)
+}
+
+func (o GroupResourcePatchPtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GroupResourcePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o GroupResourcePatchPtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GroupResourcePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
 type GroupVersionForDiscovery struct {
 	// groupVersion specifies the API group and version in the form "group/version"
@@ -3720,6 +4138,98 @@ func (o ManagedFieldsEntryPatchArrayOutput) Index(i pulumi.IntInput) ManagedFiel
 	}).(ManagedFieldsEntryPatchOutput)
 }
 
+// MicroTime is version of Time with microsecond level precision.
+type MicroTime struct {
+}
+
+// MicroTimeInput is an input type that accepts MicroTimeArgs and MicroTimeOutput values.
+// You can construct a concrete instance of `MicroTimeInput` via:
+//
+//	MicroTimeArgs{...}
+type MicroTimeInput interface {
+	pulumi.Input
+
+	ToMicroTimeOutput() MicroTimeOutput
+	ToMicroTimeOutputWithContext(context.Context) MicroTimeOutput
+}
+
+// MicroTime is version of Time with microsecond level precision.
+type MicroTimeArgs struct {
+}
+
+func (MicroTimeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicroTime)(nil)).Elem()
+}
+
+func (i MicroTimeArgs) ToMicroTimeOutput() MicroTimeOutput {
+	return i.ToMicroTimeOutputWithContext(context.Background())
+}
+
+func (i MicroTimeArgs) ToMicroTimeOutputWithContext(ctx context.Context) MicroTimeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MicroTimeOutput)
+}
+
+// MicroTime is version of Time with microsecond level precision.
+type MicroTimeOutput struct{ *pulumi.OutputState }
+
+func (MicroTimeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicroTime)(nil)).Elem()
+}
+
+func (o MicroTimeOutput) ToMicroTimeOutput() MicroTimeOutput {
+	return o
+}
+
+func (o MicroTimeOutput) ToMicroTimeOutputWithContext(ctx context.Context) MicroTimeOutput {
+	return o
+}
+
+// MicroTime is version of Time with microsecond level precision.
+type MicroTimePatch struct {
+}
+
+// MicroTimePatchInput is an input type that accepts MicroTimePatchArgs and MicroTimePatchOutput values.
+// You can construct a concrete instance of `MicroTimePatchInput` via:
+//
+//	MicroTimePatchArgs{...}
+type MicroTimePatchInput interface {
+	pulumi.Input
+
+	ToMicroTimePatchOutput() MicroTimePatchOutput
+	ToMicroTimePatchOutputWithContext(context.Context) MicroTimePatchOutput
+}
+
+// MicroTime is version of Time with microsecond level precision.
+type MicroTimePatchArgs struct {
+}
+
+func (MicroTimePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicroTimePatch)(nil)).Elem()
+}
+
+func (i MicroTimePatchArgs) ToMicroTimePatchOutput() MicroTimePatchOutput {
+	return i.ToMicroTimePatchOutputWithContext(context.Background())
+}
+
+func (i MicroTimePatchArgs) ToMicroTimePatchOutputWithContext(ctx context.Context) MicroTimePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MicroTimePatchOutput)
+}
+
+// MicroTime is version of Time with microsecond level precision.
+type MicroTimePatchOutput struct{ *pulumi.OutputState }
+
+func (MicroTimePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MicroTimePatch)(nil)).Elem()
+}
+
+func (o MicroTimePatchOutput) ToMicroTimePatchOutput() MicroTimePatchOutput {
+	return o
+}
+
+func (o MicroTimePatchOutput) ToMicroTimePatchOutputWithContext(ctx context.Context) MicroTimePatchOutput {
+	return o
+}
+
 // ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 type ObjectMeta struct {
 	// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
@@ -4970,6 +5480,98 @@ func (o OwnerReferencePatchArrayOutput) Index(i pulumi.IntInput) OwnerReferenceP
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OwnerReferencePatch {
 		return vs[0].([]OwnerReferencePatch)[vs[1].(int)]
 	}).(OwnerReferencePatchOutput)
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type Patch struct {
+}
+
+// PatchInput is an input type that accepts PatchArgs and PatchOutput values.
+// You can construct a concrete instance of `PatchInput` via:
+//
+//	PatchArgs{...}
+type PatchInput interface {
+	pulumi.Input
+
+	ToPatchOutput() PatchOutput
+	ToPatchOutputWithContext(context.Context) PatchOutput
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type PatchArgs struct {
+}
+
+func (PatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Patch)(nil)).Elem()
+}
+
+func (i PatchArgs) ToPatchOutput() PatchOutput {
+	return i.ToPatchOutputWithContext(context.Background())
+}
+
+func (i PatchArgs) ToPatchOutputWithContext(ctx context.Context) PatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PatchOutput)
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type PatchOutput struct{ *pulumi.OutputState }
+
+func (PatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Patch)(nil)).Elem()
+}
+
+func (o PatchOutput) ToPatchOutput() PatchOutput {
+	return o
+}
+
+func (o PatchOutput) ToPatchOutputWithContext(ctx context.Context) PatchOutput {
+	return o
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type PatchPatch struct {
+}
+
+// PatchPatchInput is an input type that accepts PatchPatchArgs and PatchPatchOutput values.
+// You can construct a concrete instance of `PatchPatchInput` via:
+//
+//	PatchPatchArgs{...}
+type PatchPatchInput interface {
+	pulumi.Input
+
+	ToPatchPatchOutput() PatchPatchOutput
+	ToPatchPatchOutputWithContext(context.Context) PatchPatchOutput
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type PatchPatchArgs struct {
+}
+
+func (PatchPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PatchPatch)(nil)).Elem()
+}
+
+func (i PatchPatchArgs) ToPatchPatchOutput() PatchPatchOutput {
+	return i.ToPatchPatchOutputWithContext(context.Background())
+}
+
+func (i PatchPatchArgs) ToPatchPatchOutputWithContext(ctx context.Context) PatchPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PatchPatchOutput)
+}
+
+// Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+type PatchPatchOutput struct{ *pulumi.OutputState }
+
+func (PatchPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PatchPatch)(nil)).Elem()
+}
+
+func (o PatchPatchOutput) ToPatchPatchOutput() PatchPatchOutput {
+	return o
+}
+
+func (o PatchPatchOutput) ToPatchPatchOutputWithContext(ctx context.Context) PatchPatchOutput {
+	return o
 }
 
 // Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
@@ -6476,6 +7078,98 @@ func (o StatusPatchTypeOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatusPatchType) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type Time struct {
+}
+
+// TimeInput is an input type that accepts TimeArgs and TimeOutput values.
+// You can construct a concrete instance of `TimeInput` via:
+//
+//	TimeArgs{...}
+type TimeInput interface {
+	pulumi.Input
+
+	ToTimeOutput() TimeOutput
+	ToTimeOutputWithContext(context.Context) TimeOutput
+}
+
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type TimeArgs struct {
+}
+
+func (TimeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Time)(nil)).Elem()
+}
+
+func (i TimeArgs) ToTimeOutput() TimeOutput {
+	return i.ToTimeOutputWithContext(context.Background())
+}
+
+func (i TimeArgs) ToTimeOutputWithContext(ctx context.Context) TimeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TimeOutput)
+}
+
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type TimeOutput struct{ *pulumi.OutputState }
+
+func (TimeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Time)(nil)).Elem()
+}
+
+func (o TimeOutput) ToTimeOutput() TimeOutput {
+	return o
+}
+
+func (o TimeOutput) ToTimeOutputWithContext(ctx context.Context) TimeOutput {
+	return o
+}
+
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type TimePatch struct {
+}
+
+// TimePatchInput is an input type that accepts TimePatchArgs and TimePatchOutput values.
+// You can construct a concrete instance of `TimePatchInput` via:
+//
+//	TimePatchArgs{...}
+type TimePatchInput interface {
+	pulumi.Input
+
+	ToTimePatchOutput() TimePatchOutput
+	ToTimePatchOutputWithContext(context.Context) TimePatchOutput
+}
+
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type TimePatchArgs struct {
+}
+
+func (TimePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TimePatch)(nil)).Elem()
+}
+
+func (i TimePatchArgs) ToTimePatchOutput() TimePatchOutput {
+	return i.ToTimePatchOutputWithContext(context.Background())
+}
+
+func (i TimePatchArgs) ToTimePatchOutputWithContext(ctx context.Context) TimePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TimePatchOutput)
+}
+
+// Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+type TimePatchOutput struct{ *pulumi.OutputState }
+
+func (TimePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TimePatch)(nil)).Elem()
+}
+
+func (o TimePatchOutput) ToTimePatchOutput() TimePatchOutput {
+	return o
+}
+
+func (o TimePatchOutput) ToTimePatchOutputWithContext(ctx context.Context) TimePatchOutput {
+	return o
+}
+
 // Event represents a single event to a watched resource.
 type WatchEvent struct {
 	// Object is:
@@ -6645,6 +7339,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementArrayInput)(nil)).Elem(), FieldSelectorRequirementArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementPatchInput)(nil)).Elem(), FieldSelectorRequirementPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FieldSelectorRequirementPatchArrayInput)(nil)).Elem(), FieldSelectorRequirementPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldsV1Input)(nil)).Elem(), FieldsV1Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FieldsV1PatchInput)(nil)).Elem(), FieldsV1PatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupResourceInput)(nil)).Elem(), GroupResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupResourcePtrInput)(nil)).Elem(), GroupResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupResourcePatchInput)(nil)).Elem(), GroupResourcePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupResourcePatchPtrInput)(nil)).Elem(), GroupResourcePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryPtrInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryArrayInput)(nil)).Elem(), GroupVersionForDiscoveryArray{})
@@ -6669,6 +7369,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ManagedFieldsEntryArrayInput)(nil)).Elem(), ManagedFieldsEntryArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ManagedFieldsEntryPatchInput)(nil)).Elem(), ManagedFieldsEntryPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ManagedFieldsEntryPatchArrayInput)(nil)).Elem(), ManagedFieldsEntryPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MicroTimeInput)(nil)).Elem(), MicroTimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MicroTimePatchInput)(nil)).Elem(), MicroTimePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObjectMetaInput)(nil)).Elem(), ObjectMetaArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObjectMetaPtrInput)(nil)).Elem(), ObjectMetaArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ObjectMetaPatchInput)(nil)).Elem(), ObjectMetaPatchArgs{})
@@ -6677,6 +7379,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*OwnerReferenceArrayInput)(nil)).Elem(), OwnerReferenceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OwnerReferencePatchInput)(nil)).Elem(), OwnerReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OwnerReferencePatchArrayInput)(nil)).Elem(), OwnerReferencePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PatchInput)(nil)).Elem(), PatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PatchPatchInput)(nil)).Elem(), PatchPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PreconditionsInput)(nil)).Elem(), PreconditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PreconditionsPtrInput)(nil)).Elem(), PreconditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PreconditionsPatchInput)(nil)).Elem(), PreconditionsPatchArgs{})
@@ -6695,6 +7399,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusDetailsPatchInput)(nil)).Elem(), StatusDetailsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusDetailsPatchPtrInput)(nil)).Elem(), StatusDetailsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPatchTypeInput)(nil)).Elem(), StatusPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TimeInput)(nil)).Elem(), TimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TimePatchInput)(nil)).Elem(), TimePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WatchEventInput)(nil)).Elem(), WatchEventArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WatchEventPatchInput)(nil)).Elem(), WatchEventPatchArgs{})
 	pulumi.RegisterOutputType(APIGroupOutput{})
@@ -6719,6 +7425,12 @@ func init() {
 	pulumi.RegisterOutputType(FieldSelectorRequirementArrayOutput{})
 	pulumi.RegisterOutputType(FieldSelectorRequirementPatchOutput{})
 	pulumi.RegisterOutputType(FieldSelectorRequirementPatchArrayOutput{})
+	pulumi.RegisterOutputType(FieldsV1Output{})
+	pulumi.RegisterOutputType(FieldsV1PatchOutput{})
+	pulumi.RegisterOutputType(GroupResourceOutput{})
+	pulumi.RegisterOutputType(GroupResourcePtrOutput{})
+	pulumi.RegisterOutputType(GroupResourcePatchOutput{})
+	pulumi.RegisterOutputType(GroupResourcePatchPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryPtrOutput{})
 	pulumi.RegisterOutputType(GroupVersionForDiscoveryArrayOutput{})
@@ -6743,6 +7455,8 @@ func init() {
 	pulumi.RegisterOutputType(ManagedFieldsEntryArrayOutput{})
 	pulumi.RegisterOutputType(ManagedFieldsEntryPatchOutput{})
 	pulumi.RegisterOutputType(ManagedFieldsEntryPatchArrayOutput{})
+	pulumi.RegisterOutputType(MicroTimeOutput{})
+	pulumi.RegisterOutputType(MicroTimePatchOutput{})
 	pulumi.RegisterOutputType(ObjectMetaOutput{})
 	pulumi.RegisterOutputType(ObjectMetaPtrOutput{})
 	pulumi.RegisterOutputType(ObjectMetaPatchOutput{})
@@ -6751,6 +7465,8 @@ func init() {
 	pulumi.RegisterOutputType(OwnerReferenceArrayOutput{})
 	pulumi.RegisterOutputType(OwnerReferencePatchOutput{})
 	pulumi.RegisterOutputType(OwnerReferencePatchArrayOutput{})
+	pulumi.RegisterOutputType(PatchOutput{})
+	pulumi.RegisterOutputType(PatchPatchOutput{})
 	pulumi.RegisterOutputType(PreconditionsOutput{})
 	pulumi.RegisterOutputType(PreconditionsPtrOutput{})
 	pulumi.RegisterOutputType(PreconditionsPatchOutput{})
@@ -6769,6 +7485,8 @@ func init() {
 	pulumi.RegisterOutputType(StatusDetailsPatchOutput{})
 	pulumi.RegisterOutputType(StatusDetailsPatchPtrOutput{})
 	pulumi.RegisterOutputType(StatusPatchTypeOutput{})
+	pulumi.RegisterOutputType(TimeOutput{})
+	pulumi.RegisterOutputType(TimePatchOutput{})
 	pulumi.RegisterOutputType(WatchEventOutput{})
 	pulumi.RegisterOutputType(WatchEventPatchOutput{})
 }

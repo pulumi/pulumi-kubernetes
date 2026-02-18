@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceDefinitionConditionArgs;
 import com.pulumi.kubernetes.apiextensions.v1.inputs.CustomResourceDefinitionNamesArgs;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -54,6 +55,21 @@ public final class CustomResourceDefinitionStatusArgs extends com.pulumi.resourc
     }
 
     /**
+     * The generation observed by the CRD controller.
+     * 
+     */
+    @Import(name="observedGeneration")
+    private @Nullable Output<Integer> observedGeneration;
+
+    /**
+     * @return The generation observed by the CRD controller.
+     * 
+     */
+    public Optional<Output<Integer>> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+
+    /**
      * storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * 
      */
@@ -73,6 +89,7 @@ public final class CustomResourceDefinitionStatusArgs extends com.pulumi.resourc
     private CustomResourceDefinitionStatusArgs(CustomResourceDefinitionStatusArgs $) {
         this.acceptedNames = $.acceptedNames;
         this.conditions = $.conditions;
+        this.observedGeneration = $.observedGeneration;
         this.storedVersions = $.storedVersions;
     }
 
@@ -144,6 +161,27 @@ public final class CustomResourceDefinitionStatusArgs extends com.pulumi.resourc
          */
         public Builder conditions(CustomResourceDefinitionConditionArgs... conditions) {
             return conditions(List.of(conditions));
+        }
+
+        /**
+         * @param observedGeneration The generation observed by the CRD controller.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(@Nullable Output<Integer> observedGeneration) {
+            $.observedGeneration = observedGeneration;
+            return this;
+        }
+
+        /**
+         * @param observedGeneration The generation observed by the CRD controller.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder observedGeneration(Integer observedGeneration) {
+            return observedGeneration(Output.of(observedGeneration));
         }
 
         /**

@@ -46,7 +46,7 @@ public final class DeploymentStatusPatch {
     /**
      * @return Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
      * 
-     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
      * 
      */
     private @Nullable Integer terminatingReplicas;
@@ -107,7 +107,7 @@ public final class DeploymentStatusPatch {
     /**
      * @return Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
      * 
-     * This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+     * This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
      * 
      */
     public Optional<Integer> terminatingReplicas() {

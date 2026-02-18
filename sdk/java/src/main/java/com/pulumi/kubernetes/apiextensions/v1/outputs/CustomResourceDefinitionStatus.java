@@ -7,9 +7,11 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionCondition;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionNames;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 @CustomType
@@ -24,6 +26,11 @@ public final class CustomResourceDefinitionStatus {
      * 
      */
     private @Nullable List<CustomResourceDefinitionCondition> conditions;
+    /**
+     * @return The generation observed by the CRD controller.
+     * 
+     */
+    private @Nullable Integer observedGeneration;
     /**
      * @return storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * 
@@ -46,6 +53,13 @@ public final class CustomResourceDefinitionStatus {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
+     * @return The generation observed by the CRD controller.
+     * 
+     */
+    public Optional<Integer> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+    /**
      * @return storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * 
      */
@@ -64,12 +78,14 @@ public final class CustomResourceDefinitionStatus {
     public static final class Builder {
         private CustomResourceDefinitionNames acceptedNames;
         private @Nullable List<CustomResourceDefinitionCondition> conditions;
+        private @Nullable Integer observedGeneration;
         private List<String> storedVersions;
         public Builder() {}
         public Builder(CustomResourceDefinitionStatus defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.acceptedNames = defaults.acceptedNames;
     	      this.conditions = defaults.conditions;
+    	      this.observedGeneration = defaults.observedGeneration;
     	      this.storedVersions = defaults.storedVersions;
         }
 
@@ -91,6 +107,12 @@ public final class CustomResourceDefinitionStatus {
             return conditions(List.of(conditions));
         }
         @CustomType.Setter
+        public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
+            this.observedGeneration = observedGeneration;
+            return this;
+        }
+        @CustomType.Setter
         public Builder storedVersions(List<String> storedVersions) {
             if (storedVersions == null) {
               throw new MissingRequiredPropertyException("CustomResourceDefinitionStatus", "storedVersions");
@@ -105,6 +127,7 @@ public final class CustomResourceDefinitionStatus {
             final var _resultValue = new CustomResourceDefinitionStatus();
             _resultValue.acceptedNames = acceptedNames;
             _resultValue.conditions = conditions;
+            _resultValue.observedGeneration = observedGeneration;
             _resultValue.storedVersions = storedVersions;
             return _resultValue;
         }

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class CSIDriverSpecPatch {
     /**
-     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
      * 
      * This field is immutable.
      * 
@@ -34,7 +34,7 @@ public final class CSIDriverSpecPatch {
     /**
      * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -73,6 +73,19 @@ public final class CSIDriverSpecPatch {
      */
     private @Nullable Boolean seLinuxMount;
     /**
+     * @return serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+     * 
+     * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+     * 
+     * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+     * 
+     * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+     * 
+     * Default behavior if unset is to pass tokens in the VolumeContext field.
+     * 
+     */
+    private @Nullable Boolean serviceAccountTokenInSecrets;
+    /**
      * @return storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
      * 
      * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -110,7 +123,7 @@ public final class CSIDriverSpecPatch {
 
     private CSIDriverSpecPatch() {}
     /**
-     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+     * @return attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
      * 
      * This field is immutable.
      * 
@@ -132,7 +145,7 @@ public final class CSIDriverSpecPatch {
     /**
      * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -177,6 +190,21 @@ public final class CSIDriverSpecPatch {
      */
     public Optional<Boolean> seLinuxMount() {
         return Optional.ofNullable(this.seLinuxMount);
+    }
+    /**
+     * @return serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+     * 
+     * When &#34;true&#34;, kubelet will pass the tokens only in the Secrets field with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;. The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+     * 
+     * When &#34;false&#34; or not set, kubelet will pass the tokens in VolumeContext with the key &#34;csi.storage.k8s.io/serviceAccount.tokens&#34; (existing behavior). This maintains backward compatibility with existing CSI drivers.
+     * 
+     * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+     * 
+     * Default behavior if unset is to pass tokens in the VolumeContext field.
+     * 
+     */
+    public Optional<Boolean> serviceAccountTokenInSecrets() {
+        return Optional.ofNullable(this.serviceAccountTokenInSecrets);
     }
     /**
      * @return storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
@@ -235,6 +263,7 @@ public final class CSIDriverSpecPatch {
         private @Nullable Boolean podInfoOnMount;
         private @Nullable Boolean requiresRepublish;
         private @Nullable Boolean seLinuxMount;
+        private @Nullable Boolean serviceAccountTokenInSecrets;
         private @Nullable Boolean storageCapacity;
         private @Nullable List<TokenRequestPatch> tokenRequests;
         private @Nullable List<String> volumeLifecycleModes;
@@ -247,6 +276,7 @@ public final class CSIDriverSpecPatch {
     	      this.podInfoOnMount = defaults.podInfoOnMount;
     	      this.requiresRepublish = defaults.requiresRepublish;
     	      this.seLinuxMount = defaults.seLinuxMount;
+    	      this.serviceAccountTokenInSecrets = defaults.serviceAccountTokenInSecrets;
     	      this.storageCapacity = defaults.storageCapacity;
     	      this.tokenRequests = defaults.tokenRequests;
     	      this.volumeLifecycleModes = defaults.volumeLifecycleModes;
@@ -289,6 +319,12 @@ public final class CSIDriverSpecPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder serviceAccountTokenInSecrets(@Nullable Boolean serviceAccountTokenInSecrets) {
+
+            this.serviceAccountTokenInSecrets = serviceAccountTokenInSecrets;
+            return this;
+        }
+        @CustomType.Setter
         public Builder storageCapacity(@Nullable Boolean storageCapacity) {
 
             this.storageCapacity = storageCapacity;
@@ -320,6 +356,7 @@ public final class CSIDriverSpecPatch {
             _resultValue.podInfoOnMount = podInfoOnMount;
             _resultValue.requiresRepublish = requiresRepublish;
             _resultValue.seLinuxMount = seLinuxMount;
+            _resultValue.serviceAccountTokenInSecrets = serviceAccountTokenInSecrets;
             _resultValue.storageCapacity = storageCapacity;
             _resultValue.tokenRequests = tokenRequests;
             _resultValue.volumeLifecycleModes = volumeLifecycleModes;

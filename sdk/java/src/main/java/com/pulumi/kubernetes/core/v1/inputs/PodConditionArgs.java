@@ -67,14 +67,14 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     @Import(name="observedGeneration")
     private @Nullable Output<Integer> observedGeneration;
 
     /**
-     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     public Optional<Output<Integer>> observedGeneration() {
@@ -220,7 +220,7 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
          * 
          * @return builder
          * 
@@ -231,7 +231,7 @@ public final class PodConditionArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
          * 
          * @return builder
          * 

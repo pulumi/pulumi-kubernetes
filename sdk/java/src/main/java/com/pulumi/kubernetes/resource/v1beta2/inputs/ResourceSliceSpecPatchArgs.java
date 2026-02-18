@@ -47,7 +47,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * Devices lists some or all of the devices in this pool.
      * 
-     * Must not have more than 128 entries.
+     * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+     * 
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
      * 
      */
     @Import(name="devices")
@@ -56,7 +58,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * @return Devices lists some or all of the devices in this pool.
      * 
-     * Must not have more than 128 entries.
+     * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+     * 
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
      * 
      */
     public Optional<Output<List<DevicePatchArgs>>> devices() {
@@ -66,7 +70,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
      * 
      */
     @Import(name="driver")
@@ -75,7 +79,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * @return Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
      * 
      */
     public Optional<Output<String>> driver() {
@@ -165,9 +169,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
      * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * The names of the counter sets must be unique in the ResourcePool.
      * 
-     * The maximum number of counters in all sets is 32.
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+     * 
+     * The maximum number of counter sets is 8.
      * 
      */
     @Import(name="sharedCounters")
@@ -176,9 +182,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     /**
      * @return SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
      * 
-     * The names of the SharedCounters must be unique in the ResourceSlice.
+     * The names of the counter sets must be unique in the ResourcePool.
      * 
-     * The maximum number of counters in all sets is 32.
+     * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+     * 
+     * The maximum number of counter sets is 8.
      * 
      */
     public Optional<Output<List<CounterSetPatchArgs>>> sharedCounters() {
@@ -244,7 +252,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param devices Devices lists some or all of the devices in this pool.
          * 
-         * Must not have more than 128 entries.
+         * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+         * 
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
          * 
          * @return builder
          * 
@@ -257,7 +267,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param devices Devices lists some or all of the devices in this pool.
          * 
-         * Must not have more than 128 entries.
+         * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+         * 
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
          * 
          * @return builder
          * 
@@ -269,7 +281,9 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param devices Devices lists some or all of the devices in this pool.
          * 
-         * Must not have more than 128 entries.
+         * Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+         * 
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
          * 
          * @return builder
          * 
@@ -281,7 +295,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param driver Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
          * 
          * @return builder
          * 
@@ -294,7 +308,7 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param driver Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
          * 
-         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+         * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
          * 
          * @return builder
          * 
@@ -410,9 +424,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
          * 
-         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * The names of the counter sets must be unique in the ResourcePool.
          * 
-         * The maximum number of counters in all sets is 32.
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+         * 
+         * The maximum number of counter sets is 8.
          * 
          * @return builder
          * 
@@ -425,9 +441,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
          * 
-         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * The names of the counter sets must be unique in the ResourcePool.
          * 
-         * The maximum number of counters in all sets is 32.
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+         * 
+         * The maximum number of counter sets is 8.
          * 
          * @return builder
          * 
@@ -439,9 +457,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         /**
          * @param sharedCounters SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
          * 
-         * The names of the SharedCounters must be unique in the ResourceSlice.
+         * The names of the counter sets must be unique in the ResourcePool.
          * 
-         * The maximum number of counters in all sets is 32.
+         * Only one of Devices and SharedCounters can be set in a ResourceSlice.
+         * 
+         * The maximum number of counter sets is 8.
          * 
          * @return builder
          * 

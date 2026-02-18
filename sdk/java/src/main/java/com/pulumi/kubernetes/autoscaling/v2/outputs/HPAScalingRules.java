@@ -34,7 +34,7 @@ public final class HPAScalingRules {
      * 
      * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
      * 
-     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
      * 
      */
     private @Nullable String tolerance;
@@ -66,7 +66,7 @@ public final class HPAScalingRules {
      * 
      * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
      * 
-     * This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+     * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
      * 
      */
     public Optional<String> tolerance() {

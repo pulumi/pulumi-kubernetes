@@ -16,6 +16,8 @@ import (
 var _ = utilities.GetEnvOrDefault
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatus struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
 	//
@@ -29,7 +31,7 @@ type AllocatedDeviceStatus struct {
 	Device string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver string `pulumi:"driver"`
 	// NetworkData contains network-related information specific to the device.
 	NetworkData *NetworkDeviceData `pulumi:"networkData"`
@@ -37,6 +39,8 @@ type AllocatedDeviceStatus struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool string `pulumi:"pool"`
+	// ShareID uniquely identifies an individual allocation share of the device.
+	ShareID *string `pulumi:"shareID"`
 }
 
 // AllocatedDeviceStatusInput is an input type that accepts AllocatedDeviceStatusArgs and AllocatedDeviceStatusOutput values.
@@ -51,6 +55,8 @@ type AllocatedDeviceStatusInput interface {
 }
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatusArgs struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
 	//
@@ -64,7 +70,7 @@ type AllocatedDeviceStatusArgs struct {
 	Device pulumi.StringInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// NetworkData contains network-related information specific to the device.
 	NetworkData NetworkDeviceDataPtrInput `pulumi:"networkData"`
@@ -72,6 +78,8 @@ type AllocatedDeviceStatusArgs struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool pulumi.StringInput `pulumi:"pool"`
+	// ShareID uniquely identifies an individual allocation share of the device.
+	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
 }
 
 func (AllocatedDeviceStatusArgs) ElementType() reflect.Type {
@@ -112,6 +120,8 @@ func (i AllocatedDeviceStatusArray) ToAllocatedDeviceStatusArrayOutputWithContex
 }
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatusOutput struct{ *pulumi.OutputState }
 
 func (AllocatedDeviceStatusOutput) ElementType() reflect.Type {
@@ -147,7 +157,7 @@ func (o AllocatedDeviceStatusOutput) Device() pulumi.StringOutput {
 
 // Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o AllocatedDeviceStatusOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatus) string { return v.Driver }).(pulumi.StringOutput)
 }
@@ -162,6 +172,11 @@ func (o AllocatedDeviceStatusOutput) NetworkData() NetworkDeviceDataPtrOutput {
 // Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 func (o AllocatedDeviceStatusOutput) Pool() pulumi.StringOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatus) string { return v.Pool }).(pulumi.StringOutput)
+}
+
+// ShareID uniquely identifies an individual allocation share of the device.
+func (o AllocatedDeviceStatusOutput) ShareID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatus) *string { return v.ShareID }).(pulumi.StringPtrOutput)
 }
 
 type AllocatedDeviceStatusArrayOutput struct{ *pulumi.OutputState }
@@ -185,6 +200,8 @@ func (o AllocatedDeviceStatusArrayOutput) Index(i pulumi.IntInput) AllocatedDevi
 }
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatusPatch struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
 	//
@@ -198,7 +215,7 @@ type AllocatedDeviceStatusPatch struct {
 	Device *string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver *string `pulumi:"driver"`
 	// NetworkData contains network-related information specific to the device.
 	NetworkData *NetworkDeviceDataPatch `pulumi:"networkData"`
@@ -206,6 +223,8 @@ type AllocatedDeviceStatusPatch struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool *string `pulumi:"pool"`
+	// ShareID uniquely identifies an individual allocation share of the device.
+	ShareID *string `pulumi:"shareID"`
 }
 
 // AllocatedDeviceStatusPatchInput is an input type that accepts AllocatedDeviceStatusPatchArgs and AllocatedDeviceStatusPatchOutput values.
@@ -220,6 +239,8 @@ type AllocatedDeviceStatusPatchInput interface {
 }
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatusPatchArgs struct {
 	// Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
 	//
@@ -233,7 +254,7 @@ type AllocatedDeviceStatusPatchArgs struct {
 	Device pulumi.StringPtrInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// NetworkData contains network-related information specific to the device.
 	NetworkData NetworkDeviceDataPatchPtrInput `pulumi:"networkData"`
@@ -241,6 +262,8 @@ type AllocatedDeviceStatusPatchArgs struct {
 	//
 	// Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 	Pool pulumi.StringPtrInput `pulumi:"pool"`
+	// ShareID uniquely identifies an individual allocation share of the device.
+	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
 }
 
 func (AllocatedDeviceStatusPatchArgs) ElementType() reflect.Type {
@@ -281,6 +304,8 @@ func (i AllocatedDeviceStatusPatchArray) ToAllocatedDeviceStatusPatchArrayOutput
 }
 
 // AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+//
+// The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
 type AllocatedDeviceStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (AllocatedDeviceStatusPatchOutput) ElementType() reflect.Type {
@@ -316,7 +341,7 @@ func (o AllocatedDeviceStatusPatchOutput) Device() pulumi.StringPtrOutput {
 
 // Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o AllocatedDeviceStatusPatchOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
@@ -331,6 +356,11 @@ func (o AllocatedDeviceStatusPatchOutput) NetworkData() NetworkDeviceDataPatchPt
 // Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
 func (o AllocatedDeviceStatusPatchOutput) Pool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.Pool }).(pulumi.StringPtrOutput)
+}
+
+// ShareID uniquely identifies an individual allocation share of the device.
+func (o AllocatedDeviceStatusPatchOutput) ShareID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocatedDeviceStatusPatch) *string { return v.ShareID }).(pulumi.StringPtrOutput)
 }
 
 type AllocatedDeviceStatusPatchArrayOutput struct{ *pulumi.OutputState }
@@ -355,6 +385,10 @@ func (o AllocatedDeviceStatusPatchArrayOutput) Index(i pulumi.IntInput) Allocate
 
 // AllocationResult contains attributes of an allocated resource.
 type AllocationResult struct {
+	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	AllocationTimestamp *string `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices *DeviceAllocationResult `pulumi:"devices"`
 	// NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
@@ -374,6 +408,10 @@ type AllocationResultInput interface {
 
 // AllocationResult contains attributes of an allocated resource.
 type AllocationResultArgs struct {
+	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	AllocationTimestamp pulumi.StringPtrInput `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices DeviceAllocationResultPtrInput `pulumi:"devices"`
 	// NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
@@ -458,6 +496,13 @@ func (o AllocationResultOutput) ToAllocationResultPtrOutputWithContext(ctx conte
 	}).(AllocationResultPtrOutput)
 }
 
+// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+func (o AllocationResultOutput) AllocationTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocationResult) *string { return v.AllocationTimestamp }).(pulumi.StringPtrOutput)
+}
+
 // Devices is the result of allocating devices.
 func (o AllocationResultOutput) Devices() DeviceAllocationResultPtrOutput {
 	return o.ApplyT(func(v AllocationResult) *DeviceAllocationResult { return v.Devices }).(DeviceAllocationResultPtrOutput)
@@ -492,6 +537,18 @@ func (o AllocationResultPtrOutput) Elem() AllocationResultOutput {
 	}).(AllocationResultOutput)
 }
 
+// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+func (o AllocationResultPtrOutput) AllocationTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AllocationResult) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AllocationTimestamp
+	}).(pulumi.StringPtrOutput)
+}
+
 // Devices is the result of allocating devices.
 func (o AllocationResultPtrOutput) Devices() DeviceAllocationResultPtrOutput {
 	return o.ApplyT(func(v *AllocationResult) *DeviceAllocationResult {
@@ -514,6 +571,10 @@ func (o AllocationResultPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 
 // AllocationResult contains attributes of an allocated resource.
 type AllocationResultPatch struct {
+	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	AllocationTimestamp *string `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices *DeviceAllocationResultPatch `pulumi:"devices"`
 	// NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
@@ -533,6 +594,10 @@ type AllocationResultPatchInput interface {
 
 // AllocationResult contains attributes of an allocated resource.
 type AllocationResultPatchArgs struct {
+	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	AllocationTimestamp pulumi.StringPtrInput `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices DeviceAllocationResultPatchPtrInput `pulumi:"devices"`
 	// NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
@@ -617,6 +682,13 @@ func (o AllocationResultPatchOutput) ToAllocationResultPatchPtrOutputWithContext
 	}).(AllocationResultPatchPtrOutput)
 }
 
+// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+func (o AllocationResultPatchOutput) AllocationTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AllocationResultPatch) *string { return v.AllocationTimestamp }).(pulumi.StringPtrOutput)
+}
+
 // Devices is the result of allocating devices.
 func (o AllocationResultPatchOutput) Devices() DeviceAllocationResultPatchPtrOutput {
 	return o.ApplyT(func(v AllocationResultPatch) *DeviceAllocationResultPatch { return v.Devices }).(DeviceAllocationResultPatchPtrOutput)
@@ -651,6 +723,18 @@ func (o AllocationResultPatchPtrOutput) Elem() AllocationResultPatchOutput {
 	}).(AllocationResultPatchOutput)
 }
 
+// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+func (o AllocationResultPatchPtrOutput) AllocationTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AllocationResultPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AllocationTimestamp
+	}).(pulumi.StringPtrOutput)
+}
+
 // Devices is the result of allocating devices.
 func (o AllocationResultPatchPtrOutput) Devices() DeviceAllocationResultPatchPtrOutput {
 	return o.ApplyT(func(v *AllocationResultPatch) *DeviceAllocationResultPatch {
@@ -681,6 +765,8 @@ type CELDeviceSelector struct {
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 	//    of the attributes which were prefixed by "dra.example.com".
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
+	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
 	//
 	// Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 	//
@@ -726,6 +812,8 @@ type CELDeviceSelectorArgs struct {
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 	//    of the attributes which were prefixed by "dra.example.com".
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
+	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
 	//
 	// Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 	//
@@ -836,6 +924,8 @@ func (o CELDeviceSelectorOutput) ToCELDeviceSelectorPtrOutputWithContext(ctx con
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 //     of the attributes which were prefixed by "dra.example.com".
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
+//   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+//     (v1.34+ with the DRAConsumableCapacity feature enabled).
 //
 // Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 //
@@ -893,6 +983,8 @@ func (o CELDeviceSelectorPtrOutput) Elem() CELDeviceSelectorOutput {
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 //     of the attributes which were prefixed by "dra.example.com".
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
+//   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+//     (v1.34+ with the DRAConsumableCapacity feature enabled).
 //
 // Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 //
@@ -933,6 +1025,8 @@ type CELDeviceSelectorPatch struct {
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 	//    of the attributes which were prefixed by "dra.example.com".
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
+	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
 	//
 	// Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 	//
@@ -978,6 +1072,8 @@ type CELDeviceSelectorPatchArgs struct {
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 	//    of the attributes which were prefixed by "dra.example.com".
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
+	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
 	//
 	// Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 	//
@@ -1088,6 +1184,8 @@ func (o CELDeviceSelectorPatchOutput) ToCELDeviceSelectorPatchPtrOutputWithConte
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 //     of the attributes which were prefixed by "dra.example.com".
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
+//   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+//     (v1.34+ with the DRAConsumableCapacity feature enabled).
 //
 // Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 //
@@ -1145,6 +1243,8 @@ func (o CELDeviceSelectorPatchPtrOutput) Elem() CELDeviceSelectorPatchOutput {
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
 //     of the attributes which were prefixed by "dra.example.com".
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
+//   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+//     (v1.34+ with the DRAConsumableCapacity feature enabled).
 //
 // Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 //
@@ -1173,6 +1273,1300 @@ func (o CELDeviceSelectorPatchPtrOutput) Expression() pulumi.StringPtrOutput {
 		}
 		return v.Expression
 	}).(pulumi.StringPtrOutput)
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicy struct {
+	// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+	Default *string `pulumi:"default"`
+	// ValidRange defines an acceptable quantity value range in consuming requests.
+	//
+	// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+	//
+	// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+	//
+	// If the request doesn't contain this capacity entry, Default value is used.
+	ValidRange *CapacityRequestPolicyRange `pulumi:"validRange"`
+	// ValidValues defines a set of acceptable quantity values in consuming requests.
+	//
+	// Must not contain more than 10 entries. Must be sorted in ascending order.
+	//
+	// If this field is set, Default must be defined and it must be included in ValidValues list.
+	//
+	// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+	//
+	// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+	ValidValues []string `pulumi:"validValues"`
+}
+
+// CapacityRequestPolicyInput is an input type that accepts CapacityRequestPolicyArgs and CapacityRequestPolicyOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyInput` via:
+//
+//	CapacityRequestPolicyArgs{...}
+type CapacityRequestPolicyInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyOutput() CapacityRequestPolicyOutput
+	ToCapacityRequestPolicyOutputWithContext(context.Context) CapacityRequestPolicyOutput
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicyArgs struct {
+	// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+	Default pulumi.StringPtrInput `pulumi:"default"`
+	// ValidRange defines an acceptable quantity value range in consuming requests.
+	//
+	// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+	//
+	// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+	//
+	// If the request doesn't contain this capacity entry, Default value is used.
+	ValidRange CapacityRequestPolicyRangePtrInput `pulumi:"validRange"`
+	// ValidValues defines a set of acceptable quantity values in consuming requests.
+	//
+	// Must not contain more than 10 entries. Must be sorted in ascending order.
+	//
+	// If this field is set, Default must be defined and it must be included in ValidValues list.
+	//
+	// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+	//
+	// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+	ValidValues pulumi.StringArrayInput `pulumi:"validValues"`
+}
+
+func (CapacityRequestPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicy)(nil)).Elem()
+}
+
+func (i CapacityRequestPolicyArgs) ToCapacityRequestPolicyOutput() CapacityRequestPolicyOutput {
+	return i.ToCapacityRequestPolicyOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyArgs) ToCapacityRequestPolicyOutputWithContext(ctx context.Context) CapacityRequestPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyOutput)
+}
+
+func (i CapacityRequestPolicyArgs) ToCapacityRequestPolicyPtrOutput() CapacityRequestPolicyPtrOutput {
+	return i.ToCapacityRequestPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyArgs) ToCapacityRequestPolicyPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyOutput).ToCapacityRequestPolicyPtrOutputWithContext(ctx)
+}
+
+// CapacityRequestPolicyPtrInput is an input type that accepts CapacityRequestPolicyArgs, CapacityRequestPolicyPtr and CapacityRequestPolicyPtrOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyPtrInput` via:
+//
+//	        CapacityRequestPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequestPolicyPtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyPtrOutput() CapacityRequestPolicyPtrOutput
+	ToCapacityRequestPolicyPtrOutputWithContext(context.Context) CapacityRequestPolicyPtrOutput
+}
+
+type capacityRequestPolicyPtrType CapacityRequestPolicyArgs
+
+func CapacityRequestPolicyPtr(v *CapacityRequestPolicyArgs) CapacityRequestPolicyPtrInput {
+	return (*capacityRequestPolicyPtrType)(v)
+}
+
+func (*capacityRequestPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicy)(nil)).Elem()
+}
+
+func (i *capacityRequestPolicyPtrType) ToCapacityRequestPolicyPtrOutput() CapacityRequestPolicyPtrOutput {
+	return i.ToCapacityRequestPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequestPolicyPtrType) ToCapacityRequestPolicyPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyPtrOutput)
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicyOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicy)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyOutput) ToCapacityRequestPolicyOutput() CapacityRequestPolicyOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyOutput) ToCapacityRequestPolicyOutputWithContext(ctx context.Context) CapacityRequestPolicyOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyOutput) ToCapacityRequestPolicyPtrOutput() CapacityRequestPolicyPtrOutput {
+	return o.ToCapacityRequestPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequestPolicyOutput) ToCapacityRequestPolicyPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequestPolicy) *CapacityRequestPolicy {
+		return &v
+	}).(CapacityRequestPolicyPtrOutput)
+}
+
+// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+func (o CapacityRequestPolicyOutput) Default() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicy) *string { return v.Default }).(pulumi.StringPtrOutput)
+}
+
+// ValidRange defines an acceptable quantity value range in consuming requests.
+//
+// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+//
+// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+//
+// If the request doesn't contain this capacity entry, Default value is used.
+func (o CapacityRequestPolicyOutput) ValidRange() CapacityRequestPolicyRangePtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicy) *CapacityRequestPolicyRange { return v.ValidRange }).(CapacityRequestPolicyRangePtrOutput)
+}
+
+// ValidValues defines a set of acceptable quantity values in consuming requests.
+//
+// Must not contain more than 10 entries. Must be sorted in ascending order.
+//
+// If this field is set, Default must be defined and it must be included in ValidValues list.
+//
+// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+//
+// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+func (o CapacityRequestPolicyOutput) ValidValues() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CapacityRequestPolicy) []string { return v.ValidValues }).(pulumi.StringArrayOutput)
+}
+
+type CapacityRequestPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicy)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyPtrOutput) ToCapacityRequestPolicyPtrOutput() CapacityRequestPolicyPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPtrOutput) ToCapacityRequestPolicyPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPtrOutput) Elem() CapacityRequestPolicyOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicy) CapacityRequestPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequestPolicy
+		return ret
+	}).(CapacityRequestPolicyOutput)
+}
+
+// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+func (o CapacityRequestPolicyPtrOutput) Default() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Default
+	}).(pulumi.StringPtrOutput)
+}
+
+// ValidRange defines an acceptable quantity value range in consuming requests.
+//
+// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+//
+// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+//
+// If the request doesn't contain this capacity entry, Default value is used.
+func (o CapacityRequestPolicyPtrOutput) ValidRange() CapacityRequestPolicyRangePtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicy) *CapacityRequestPolicyRange {
+		if v == nil {
+			return nil
+		}
+		return v.ValidRange
+	}).(CapacityRequestPolicyRangePtrOutput)
+}
+
+// ValidValues defines a set of acceptable quantity values in consuming requests.
+//
+// Must not contain more than 10 entries. Must be sorted in ascending order.
+//
+// If this field is set, Default must be defined and it must be included in ValidValues list.
+//
+// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+//
+// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+func (o CapacityRequestPolicyPtrOutput) ValidValues() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicy) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ValidValues
+	}).(pulumi.StringArrayOutput)
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicyPatch struct {
+	// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+	Default *string `pulumi:"default"`
+	// ValidRange defines an acceptable quantity value range in consuming requests.
+	//
+	// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+	//
+	// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+	//
+	// If the request doesn't contain this capacity entry, Default value is used.
+	ValidRange *CapacityRequestPolicyRangePatch `pulumi:"validRange"`
+	// ValidValues defines a set of acceptable quantity values in consuming requests.
+	//
+	// Must not contain more than 10 entries. Must be sorted in ascending order.
+	//
+	// If this field is set, Default must be defined and it must be included in ValidValues list.
+	//
+	// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+	//
+	// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+	ValidValues []string `pulumi:"validValues"`
+}
+
+// CapacityRequestPolicyPatchInput is an input type that accepts CapacityRequestPolicyPatchArgs and CapacityRequestPolicyPatchOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyPatchInput` via:
+//
+//	CapacityRequestPolicyPatchArgs{...}
+type CapacityRequestPolicyPatchInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyPatchOutput() CapacityRequestPolicyPatchOutput
+	ToCapacityRequestPolicyPatchOutputWithContext(context.Context) CapacityRequestPolicyPatchOutput
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicyPatchArgs struct {
+	// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+	Default pulumi.StringPtrInput `pulumi:"default"`
+	// ValidRange defines an acceptable quantity value range in consuming requests.
+	//
+	// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+	//
+	// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+	//
+	// If the request doesn't contain this capacity entry, Default value is used.
+	ValidRange CapacityRequestPolicyRangePatchPtrInput `pulumi:"validRange"`
+	// ValidValues defines a set of acceptable quantity values in consuming requests.
+	//
+	// Must not contain more than 10 entries. Must be sorted in ascending order.
+	//
+	// If this field is set, Default must be defined and it must be included in ValidValues list.
+	//
+	// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+	//
+	// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+	ValidValues pulumi.StringArrayInput `pulumi:"validValues"`
+}
+
+func (CapacityRequestPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyPatch)(nil)).Elem()
+}
+
+func (i CapacityRequestPolicyPatchArgs) ToCapacityRequestPolicyPatchOutput() CapacityRequestPolicyPatchOutput {
+	return i.ToCapacityRequestPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyPatchArgs) ToCapacityRequestPolicyPatchOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyPatchOutput)
+}
+
+func (i CapacityRequestPolicyPatchArgs) ToCapacityRequestPolicyPatchPtrOutput() CapacityRequestPolicyPatchPtrOutput {
+	return i.ToCapacityRequestPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyPatchArgs) ToCapacityRequestPolicyPatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyPatchOutput).ToCapacityRequestPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// CapacityRequestPolicyPatchPtrInput is an input type that accepts CapacityRequestPolicyPatchArgs, CapacityRequestPolicyPatchPtr and CapacityRequestPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyPatchPtrInput` via:
+//
+//	        CapacityRequestPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequestPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyPatchPtrOutput() CapacityRequestPolicyPatchPtrOutput
+	ToCapacityRequestPolicyPatchPtrOutputWithContext(context.Context) CapacityRequestPolicyPatchPtrOutput
+}
+
+type capacityRequestPolicyPatchPtrType CapacityRequestPolicyPatchArgs
+
+func CapacityRequestPolicyPatchPtr(v *CapacityRequestPolicyPatchArgs) CapacityRequestPolicyPatchPtrInput {
+	return (*capacityRequestPolicyPatchPtrType)(v)
+}
+
+func (*capacityRequestPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyPatch)(nil)).Elem()
+}
+
+func (i *capacityRequestPolicyPatchPtrType) ToCapacityRequestPolicyPatchPtrOutput() CapacityRequestPolicyPatchPtrOutput {
+	return i.ToCapacityRequestPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequestPolicyPatchPtrType) ToCapacityRequestPolicyPatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyPatchPtrOutput)
+}
+
+// CapacityRequestPolicy defines how requests consume device capacity.
+//
+// Must not set more than one ValidRequestValues.
+type CapacityRequestPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyPatch)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyPatchOutput) ToCapacityRequestPolicyPatchOutput() CapacityRequestPolicyPatchOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPatchOutput) ToCapacityRequestPolicyPatchOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPatchOutput) ToCapacityRequestPolicyPatchPtrOutput() CapacityRequestPolicyPatchPtrOutput {
+	return o.ToCapacityRequestPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequestPolicyPatchOutput) ToCapacityRequestPolicyPatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequestPolicyPatch) *CapacityRequestPolicyPatch {
+		return &v
+	}).(CapacityRequestPolicyPatchPtrOutput)
+}
+
+// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+func (o CapacityRequestPolicyPatchOutput) Default() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyPatch) *string { return v.Default }).(pulumi.StringPtrOutput)
+}
+
+// ValidRange defines an acceptable quantity value range in consuming requests.
+//
+// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+//
+// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+//
+// If the request doesn't contain this capacity entry, Default value is used.
+func (o CapacityRequestPolicyPatchOutput) ValidRange() CapacityRequestPolicyRangePatchPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyPatch) *CapacityRequestPolicyRangePatch { return v.ValidRange }).(CapacityRequestPolicyRangePatchPtrOutput)
+}
+
+// ValidValues defines a set of acceptable quantity values in consuming requests.
+//
+// Must not contain more than 10 entries. Must be sorted in ascending order.
+//
+// If this field is set, Default must be defined and it must be included in ValidValues list.
+//
+// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+//
+// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+func (o CapacityRequestPolicyPatchOutput) ValidValues() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyPatch) []string { return v.ValidValues }).(pulumi.StringArrayOutput)
+}
+
+type CapacityRequestPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyPatch)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyPatchPtrOutput) ToCapacityRequestPolicyPatchPtrOutput() CapacityRequestPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPatchPtrOutput) ToCapacityRequestPolicyPatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyPatchPtrOutput) Elem() CapacityRequestPolicyPatchOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyPatch) CapacityRequestPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequestPolicyPatch
+		return ret
+	}).(CapacityRequestPolicyPatchOutput)
+}
+
+// Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+func (o CapacityRequestPolicyPatchPtrOutput) Default() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Default
+	}).(pulumi.StringPtrOutput)
+}
+
+// ValidRange defines an acceptable quantity value range in consuming requests.
+//
+// If this field is set, Default must be defined and it must fall within the defined ValidRange.
+//
+// If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+//
+// If the request doesn't contain this capacity entry, Default value is used.
+func (o CapacityRequestPolicyPatchPtrOutput) ValidRange() CapacityRequestPolicyRangePatchPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyPatch) *CapacityRequestPolicyRangePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ValidRange
+	}).(CapacityRequestPolicyRangePatchPtrOutput)
+}
+
+// ValidValues defines a set of acceptable quantity values in consuming requests.
+//
+// Must not contain more than 10 entries. Must be sorted in ascending order.
+//
+// If this field is set, Default must be defined and it must be included in ValidValues list.
+//
+// If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+//
+// If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+func (o CapacityRequestPolicyPatchPtrOutput) ValidValues() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ValidValues
+	}).(pulumi.StringArrayOutput)
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRange struct {
+	// Max defines the upper limit for capacity that can be requested.
+	//
+	// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+	Max *string `pulumi:"max"`
+	// Min specifies the minimum capacity allowed for a consumption request.
+	//
+	// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+	Min string `pulumi:"min"`
+	// Step defines the step size between valid capacity amounts within the range.
+	//
+	// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+	Step *string `pulumi:"step"`
+}
+
+// CapacityRequestPolicyRangeInput is an input type that accepts CapacityRequestPolicyRangeArgs and CapacityRequestPolicyRangeOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyRangeInput` via:
+//
+//	CapacityRequestPolicyRangeArgs{...}
+type CapacityRequestPolicyRangeInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyRangeOutput() CapacityRequestPolicyRangeOutput
+	ToCapacityRequestPolicyRangeOutputWithContext(context.Context) CapacityRequestPolicyRangeOutput
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRangeArgs struct {
+	// Max defines the upper limit for capacity that can be requested.
+	//
+	// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+	Max pulumi.StringPtrInput `pulumi:"max"`
+	// Min specifies the minimum capacity allowed for a consumption request.
+	//
+	// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+	Min pulumi.StringInput `pulumi:"min"`
+	// Step defines the step size between valid capacity amounts within the range.
+	//
+	// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+	Step pulumi.StringPtrInput `pulumi:"step"`
+}
+
+func (CapacityRequestPolicyRangeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyRange)(nil)).Elem()
+}
+
+func (i CapacityRequestPolicyRangeArgs) ToCapacityRequestPolicyRangeOutput() CapacityRequestPolicyRangeOutput {
+	return i.ToCapacityRequestPolicyRangeOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyRangeArgs) ToCapacityRequestPolicyRangeOutputWithContext(ctx context.Context) CapacityRequestPolicyRangeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangeOutput)
+}
+
+func (i CapacityRequestPolicyRangeArgs) ToCapacityRequestPolicyRangePtrOutput() CapacityRequestPolicyRangePtrOutput {
+	return i.ToCapacityRequestPolicyRangePtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyRangeArgs) ToCapacityRequestPolicyRangePtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangeOutput).ToCapacityRequestPolicyRangePtrOutputWithContext(ctx)
+}
+
+// CapacityRequestPolicyRangePtrInput is an input type that accepts CapacityRequestPolicyRangeArgs, CapacityRequestPolicyRangePtr and CapacityRequestPolicyRangePtrOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyRangePtrInput` via:
+//
+//	        CapacityRequestPolicyRangeArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequestPolicyRangePtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyRangePtrOutput() CapacityRequestPolicyRangePtrOutput
+	ToCapacityRequestPolicyRangePtrOutputWithContext(context.Context) CapacityRequestPolicyRangePtrOutput
+}
+
+type capacityRequestPolicyRangePtrType CapacityRequestPolicyRangeArgs
+
+func CapacityRequestPolicyRangePtr(v *CapacityRequestPolicyRangeArgs) CapacityRequestPolicyRangePtrInput {
+	return (*capacityRequestPolicyRangePtrType)(v)
+}
+
+func (*capacityRequestPolicyRangePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyRange)(nil)).Elem()
+}
+
+func (i *capacityRequestPolicyRangePtrType) ToCapacityRequestPolicyRangePtrOutput() CapacityRequestPolicyRangePtrOutput {
+	return i.ToCapacityRequestPolicyRangePtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequestPolicyRangePtrType) ToCapacityRequestPolicyRangePtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangePtrOutput)
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRangeOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyRangeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyRange)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyRangeOutput) ToCapacityRequestPolicyRangeOutput() CapacityRequestPolicyRangeOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangeOutput) ToCapacityRequestPolicyRangeOutputWithContext(ctx context.Context) CapacityRequestPolicyRangeOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangeOutput) ToCapacityRequestPolicyRangePtrOutput() CapacityRequestPolicyRangePtrOutput {
+	return o.ToCapacityRequestPolicyRangePtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequestPolicyRangeOutput) ToCapacityRequestPolicyRangePtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequestPolicyRange) *CapacityRequestPolicyRange {
+		return &v
+	}).(CapacityRequestPolicyRangePtrOutput)
+}
+
+// Max defines the upper limit for capacity that can be requested.
+//
+// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+func (o CapacityRequestPolicyRangeOutput) Max() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRange) *string { return v.Max }).(pulumi.StringPtrOutput)
+}
+
+// Min specifies the minimum capacity allowed for a consumption request.
+//
+// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+func (o CapacityRequestPolicyRangeOutput) Min() pulumi.StringOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRange) string { return v.Min }).(pulumi.StringOutput)
+}
+
+// Step defines the step size between valid capacity amounts within the range.
+//
+// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+func (o CapacityRequestPolicyRangeOutput) Step() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRange) *string { return v.Step }).(pulumi.StringPtrOutput)
+}
+
+type CapacityRequestPolicyRangePtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyRangePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyRange)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyRangePtrOutput) ToCapacityRequestPolicyRangePtrOutput() CapacityRequestPolicyRangePtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePtrOutput) ToCapacityRequestPolicyRangePtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePtrOutput) Elem() CapacityRequestPolicyRangeOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRange) CapacityRequestPolicyRange {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequestPolicyRange
+		return ret
+	}).(CapacityRequestPolicyRangeOutput)
+}
+
+// Max defines the upper limit for capacity that can be requested.
+//
+// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+func (o CapacityRequestPolicyRangePtrOutput) Max() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRange) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Max
+	}).(pulumi.StringPtrOutput)
+}
+
+// Min specifies the minimum capacity allowed for a consumption request.
+//
+// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+func (o CapacityRequestPolicyRangePtrOutput) Min() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRange) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Min
+	}).(pulumi.StringPtrOutput)
+}
+
+// Step defines the step size between valid capacity amounts within the range.
+//
+// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+func (o CapacityRequestPolicyRangePtrOutput) Step() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRange) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Step
+	}).(pulumi.StringPtrOutput)
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRangePatch struct {
+	// Max defines the upper limit for capacity that can be requested.
+	//
+	// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+	Max *string `pulumi:"max"`
+	// Min specifies the minimum capacity allowed for a consumption request.
+	//
+	// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+	Min *string `pulumi:"min"`
+	// Step defines the step size between valid capacity amounts within the range.
+	//
+	// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+	Step *string `pulumi:"step"`
+}
+
+// CapacityRequestPolicyRangePatchInput is an input type that accepts CapacityRequestPolicyRangePatchArgs and CapacityRequestPolicyRangePatchOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyRangePatchInput` via:
+//
+//	CapacityRequestPolicyRangePatchArgs{...}
+type CapacityRequestPolicyRangePatchInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyRangePatchOutput() CapacityRequestPolicyRangePatchOutput
+	ToCapacityRequestPolicyRangePatchOutputWithContext(context.Context) CapacityRequestPolicyRangePatchOutput
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRangePatchArgs struct {
+	// Max defines the upper limit for capacity that can be requested.
+	//
+	// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+	Max pulumi.StringPtrInput `pulumi:"max"`
+	// Min specifies the minimum capacity allowed for a consumption request.
+	//
+	// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+	Min pulumi.StringPtrInput `pulumi:"min"`
+	// Step defines the step size between valid capacity amounts within the range.
+	//
+	// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+	Step pulumi.StringPtrInput `pulumi:"step"`
+}
+
+func (CapacityRequestPolicyRangePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyRangePatch)(nil)).Elem()
+}
+
+func (i CapacityRequestPolicyRangePatchArgs) ToCapacityRequestPolicyRangePatchOutput() CapacityRequestPolicyRangePatchOutput {
+	return i.ToCapacityRequestPolicyRangePatchOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyRangePatchArgs) ToCapacityRequestPolicyRangePatchOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangePatchOutput)
+}
+
+func (i CapacityRequestPolicyRangePatchArgs) ToCapacityRequestPolicyRangePatchPtrOutput() CapacityRequestPolicyRangePatchPtrOutput {
+	return i.ToCapacityRequestPolicyRangePatchPtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequestPolicyRangePatchArgs) ToCapacityRequestPolicyRangePatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangePatchOutput).ToCapacityRequestPolicyRangePatchPtrOutputWithContext(ctx)
+}
+
+// CapacityRequestPolicyRangePatchPtrInput is an input type that accepts CapacityRequestPolicyRangePatchArgs, CapacityRequestPolicyRangePatchPtr and CapacityRequestPolicyRangePatchPtrOutput values.
+// You can construct a concrete instance of `CapacityRequestPolicyRangePatchPtrInput` via:
+//
+//	        CapacityRequestPolicyRangePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequestPolicyRangePatchPtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequestPolicyRangePatchPtrOutput() CapacityRequestPolicyRangePatchPtrOutput
+	ToCapacityRequestPolicyRangePatchPtrOutputWithContext(context.Context) CapacityRequestPolicyRangePatchPtrOutput
+}
+
+type capacityRequestPolicyRangePatchPtrType CapacityRequestPolicyRangePatchArgs
+
+func CapacityRequestPolicyRangePatchPtr(v *CapacityRequestPolicyRangePatchArgs) CapacityRequestPolicyRangePatchPtrInput {
+	return (*capacityRequestPolicyRangePatchPtrType)(v)
+}
+
+func (*capacityRequestPolicyRangePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyRangePatch)(nil)).Elem()
+}
+
+func (i *capacityRequestPolicyRangePatchPtrType) ToCapacityRequestPolicyRangePatchPtrOutput() CapacityRequestPolicyRangePatchPtrOutput {
+	return i.ToCapacityRequestPolicyRangePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequestPolicyRangePatchPtrType) ToCapacityRequestPolicyRangePatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequestPolicyRangePatchPtrOutput)
+}
+
+// CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+//   - If the requested amount is less than Min, it is rounded up to the Min value.
+//   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+//     it will be rounded up to the next value equal to Min + (n * Step).
+//   - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+//   - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+//     and the device cannot be allocated.
+type CapacityRequestPolicyRangePatchOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyRangePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequestPolicyRangePatch)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyRangePatchOutput) ToCapacityRequestPolicyRangePatchOutput() CapacityRequestPolicyRangePatchOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePatchOutput) ToCapacityRequestPolicyRangePatchOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePatchOutput) ToCapacityRequestPolicyRangePatchPtrOutput() CapacityRequestPolicyRangePatchPtrOutput {
+	return o.ToCapacityRequestPolicyRangePatchPtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequestPolicyRangePatchOutput) ToCapacityRequestPolicyRangePatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequestPolicyRangePatch) *CapacityRequestPolicyRangePatch {
+		return &v
+	}).(CapacityRequestPolicyRangePatchPtrOutput)
+}
+
+// Max defines the upper limit for capacity that can be requested.
+//
+// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+func (o CapacityRequestPolicyRangePatchOutput) Max() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRangePatch) *string { return v.Max }).(pulumi.StringPtrOutput)
+}
+
+// Min specifies the minimum capacity allowed for a consumption request.
+//
+// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+func (o CapacityRequestPolicyRangePatchOutput) Min() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRangePatch) *string { return v.Min }).(pulumi.StringPtrOutput)
+}
+
+// Step defines the step size between valid capacity amounts within the range.
+//
+// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+func (o CapacityRequestPolicyRangePatchOutput) Step() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CapacityRequestPolicyRangePatch) *string { return v.Step }).(pulumi.StringPtrOutput)
+}
+
+type CapacityRequestPolicyRangePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequestPolicyRangePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequestPolicyRangePatch)(nil)).Elem()
+}
+
+func (o CapacityRequestPolicyRangePatchPtrOutput) ToCapacityRequestPolicyRangePatchPtrOutput() CapacityRequestPolicyRangePatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePatchPtrOutput) ToCapacityRequestPolicyRangePatchPtrOutputWithContext(ctx context.Context) CapacityRequestPolicyRangePatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequestPolicyRangePatchPtrOutput) Elem() CapacityRequestPolicyRangePatchOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRangePatch) CapacityRequestPolicyRangePatch {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequestPolicyRangePatch
+		return ret
+	}).(CapacityRequestPolicyRangePatchOutput)
+}
+
+// Max defines the upper limit for capacity that can be requested.
+//
+// Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+func (o CapacityRequestPolicyRangePatchPtrOutput) Max() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRangePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Max
+	}).(pulumi.StringPtrOutput)
+}
+
+// Min specifies the minimum capacity allowed for a consumption request.
+//
+// Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+func (o CapacityRequestPolicyRangePatchPtrOutput) Min() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRangePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Min
+	}).(pulumi.StringPtrOutput)
+}
+
+// Step defines the step size between valid capacity amounts within the range.
+//
+// Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+func (o CapacityRequestPolicyRangePatchPtrOutput) Step() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CapacityRequestPolicyRangePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Step
+	}).(pulumi.StringPtrOutput)
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirements struct {
+	// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+	//
+	// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+	//
+	// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+	//
+	// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+	//   (i.e., the whole device is claimed).
+	// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+	//
+	// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+	Requests map[string]string `pulumi:"requests"`
+}
+
+// CapacityRequirementsInput is an input type that accepts CapacityRequirementsArgs and CapacityRequirementsOutput values.
+// You can construct a concrete instance of `CapacityRequirementsInput` via:
+//
+//	CapacityRequirementsArgs{...}
+type CapacityRequirementsInput interface {
+	pulumi.Input
+
+	ToCapacityRequirementsOutput() CapacityRequirementsOutput
+	ToCapacityRequirementsOutputWithContext(context.Context) CapacityRequirementsOutput
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirementsArgs struct {
+	// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+	//
+	// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+	//
+	// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+	//
+	// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+	//   (i.e., the whole device is claimed).
+	// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+	//
+	// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+	Requests pulumi.StringMapInput `pulumi:"requests"`
+}
+
+func (CapacityRequirementsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequirements)(nil)).Elem()
+}
+
+func (i CapacityRequirementsArgs) ToCapacityRequirementsOutput() CapacityRequirementsOutput {
+	return i.ToCapacityRequirementsOutputWithContext(context.Background())
+}
+
+func (i CapacityRequirementsArgs) ToCapacityRequirementsOutputWithContext(ctx context.Context) CapacityRequirementsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsOutput)
+}
+
+func (i CapacityRequirementsArgs) ToCapacityRequirementsPtrOutput() CapacityRequirementsPtrOutput {
+	return i.ToCapacityRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequirementsArgs) ToCapacityRequirementsPtrOutputWithContext(ctx context.Context) CapacityRequirementsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsOutput).ToCapacityRequirementsPtrOutputWithContext(ctx)
+}
+
+// CapacityRequirementsPtrInput is an input type that accepts CapacityRequirementsArgs, CapacityRequirementsPtr and CapacityRequirementsPtrOutput values.
+// You can construct a concrete instance of `CapacityRequirementsPtrInput` via:
+//
+//	        CapacityRequirementsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequirementsPtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequirementsPtrOutput() CapacityRequirementsPtrOutput
+	ToCapacityRequirementsPtrOutputWithContext(context.Context) CapacityRequirementsPtrOutput
+}
+
+type capacityRequirementsPtrType CapacityRequirementsArgs
+
+func CapacityRequirementsPtr(v *CapacityRequirementsArgs) CapacityRequirementsPtrInput {
+	return (*capacityRequirementsPtrType)(v)
+}
+
+func (*capacityRequirementsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequirements)(nil)).Elem()
+}
+
+func (i *capacityRequirementsPtrType) ToCapacityRequirementsPtrOutput() CapacityRequirementsPtrOutput {
+	return i.ToCapacityRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequirementsPtrType) ToCapacityRequirementsPtrOutputWithContext(ctx context.Context) CapacityRequirementsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsPtrOutput)
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirementsOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequirementsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequirements)(nil)).Elem()
+}
+
+func (o CapacityRequirementsOutput) ToCapacityRequirementsOutput() CapacityRequirementsOutput {
+	return o
+}
+
+func (o CapacityRequirementsOutput) ToCapacityRequirementsOutputWithContext(ctx context.Context) CapacityRequirementsOutput {
+	return o
+}
+
+func (o CapacityRequirementsOutput) ToCapacityRequirementsPtrOutput() CapacityRequirementsPtrOutput {
+	return o.ToCapacityRequirementsPtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequirementsOutput) ToCapacityRequirementsPtrOutputWithContext(ctx context.Context) CapacityRequirementsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequirements) *CapacityRequirements {
+		return &v
+	}).(CapacityRequirementsPtrOutput)
+}
+
+// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+//
+// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+//
+// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+//
+// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+//
+//	(i.e., the whole device is claimed).
+//
+// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+//
+// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+func (o CapacityRequirementsOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CapacityRequirements) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
+}
+
+type CapacityRequirementsPtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequirementsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequirements)(nil)).Elem()
+}
+
+func (o CapacityRequirementsPtrOutput) ToCapacityRequirementsPtrOutput() CapacityRequirementsPtrOutput {
+	return o
+}
+
+func (o CapacityRequirementsPtrOutput) ToCapacityRequirementsPtrOutputWithContext(ctx context.Context) CapacityRequirementsPtrOutput {
+	return o
+}
+
+func (o CapacityRequirementsPtrOutput) Elem() CapacityRequirementsOutput {
+	return o.ApplyT(func(v *CapacityRequirements) CapacityRequirements {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequirements
+		return ret
+	}).(CapacityRequirementsOutput)
+}
+
+// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+//
+// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+//
+// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+//
+// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+//
+//	(i.e., the whole device is claimed).
+//
+// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+//
+// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+func (o CapacityRequirementsPtrOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CapacityRequirements) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Requests
+	}).(pulumi.StringMapOutput)
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirementsPatch struct {
+	// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+	//
+	// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+	//
+	// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+	//
+	// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+	//   (i.e., the whole device is claimed).
+	// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+	//
+	// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+	Requests map[string]string `pulumi:"requests"`
+}
+
+// CapacityRequirementsPatchInput is an input type that accepts CapacityRequirementsPatchArgs and CapacityRequirementsPatchOutput values.
+// You can construct a concrete instance of `CapacityRequirementsPatchInput` via:
+//
+//	CapacityRequirementsPatchArgs{...}
+type CapacityRequirementsPatchInput interface {
+	pulumi.Input
+
+	ToCapacityRequirementsPatchOutput() CapacityRequirementsPatchOutput
+	ToCapacityRequirementsPatchOutputWithContext(context.Context) CapacityRequirementsPatchOutput
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirementsPatchArgs struct {
+	// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+	//
+	// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+	//
+	// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+	//
+	// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+	//   (i.e., the whole device is claimed).
+	// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+	//
+	// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+	Requests pulumi.StringMapInput `pulumi:"requests"`
+}
+
+func (CapacityRequirementsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequirementsPatch)(nil)).Elem()
+}
+
+func (i CapacityRequirementsPatchArgs) ToCapacityRequirementsPatchOutput() CapacityRequirementsPatchOutput {
+	return i.ToCapacityRequirementsPatchOutputWithContext(context.Background())
+}
+
+func (i CapacityRequirementsPatchArgs) ToCapacityRequirementsPatchOutputWithContext(ctx context.Context) CapacityRequirementsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsPatchOutput)
+}
+
+func (i CapacityRequirementsPatchArgs) ToCapacityRequirementsPatchPtrOutput() CapacityRequirementsPatchPtrOutput {
+	return i.ToCapacityRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CapacityRequirementsPatchArgs) ToCapacityRequirementsPatchPtrOutputWithContext(ctx context.Context) CapacityRequirementsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsPatchOutput).ToCapacityRequirementsPatchPtrOutputWithContext(ctx)
+}
+
+// CapacityRequirementsPatchPtrInput is an input type that accepts CapacityRequirementsPatchArgs, CapacityRequirementsPatchPtr and CapacityRequirementsPatchPtrOutput values.
+// You can construct a concrete instance of `CapacityRequirementsPatchPtrInput` via:
+//
+//	        CapacityRequirementsPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CapacityRequirementsPatchPtrInput interface {
+	pulumi.Input
+
+	ToCapacityRequirementsPatchPtrOutput() CapacityRequirementsPatchPtrOutput
+	ToCapacityRequirementsPatchPtrOutputWithContext(context.Context) CapacityRequirementsPatchPtrOutput
+}
+
+type capacityRequirementsPatchPtrType CapacityRequirementsPatchArgs
+
+func CapacityRequirementsPatchPtr(v *CapacityRequirementsPatchArgs) CapacityRequirementsPatchPtrInput {
+	return (*capacityRequirementsPatchPtrType)(v)
+}
+
+func (*capacityRequirementsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequirementsPatch)(nil)).Elem()
+}
+
+func (i *capacityRequirementsPatchPtrType) ToCapacityRequirementsPatchPtrOutput() CapacityRequirementsPatchPtrOutput {
+	return i.ToCapacityRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *capacityRequirementsPatchPtrType) ToCapacityRequirementsPatchPtrOutputWithContext(ctx context.Context) CapacityRequirementsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CapacityRequirementsPatchPtrOutput)
+}
+
+// CapacityRequirements defines the capacity requirements for a specific device request.
+type CapacityRequirementsPatchOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequirementsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CapacityRequirementsPatch)(nil)).Elem()
+}
+
+func (o CapacityRequirementsPatchOutput) ToCapacityRequirementsPatchOutput() CapacityRequirementsPatchOutput {
+	return o
+}
+
+func (o CapacityRequirementsPatchOutput) ToCapacityRequirementsPatchOutputWithContext(ctx context.Context) CapacityRequirementsPatchOutput {
+	return o
+}
+
+func (o CapacityRequirementsPatchOutput) ToCapacityRequirementsPatchPtrOutput() CapacityRequirementsPatchPtrOutput {
+	return o.ToCapacityRequirementsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CapacityRequirementsPatchOutput) ToCapacityRequirementsPatchPtrOutputWithContext(ctx context.Context) CapacityRequirementsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CapacityRequirementsPatch) *CapacityRequirementsPatch {
+		return &v
+	}).(CapacityRequirementsPatchPtrOutput)
+}
+
+// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+//
+// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+//
+// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+//
+// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+//
+//	(i.e., the whole device is claimed).
+//
+// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+//
+// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+func (o CapacityRequirementsPatchOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CapacityRequirementsPatch) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
+}
+
+type CapacityRequirementsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CapacityRequirementsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CapacityRequirementsPatch)(nil)).Elem()
+}
+
+func (o CapacityRequirementsPatchPtrOutput) ToCapacityRequirementsPatchPtrOutput() CapacityRequirementsPatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequirementsPatchPtrOutput) ToCapacityRequirementsPatchPtrOutputWithContext(ctx context.Context) CapacityRequirementsPatchPtrOutput {
+	return o
+}
+
+func (o CapacityRequirementsPatchPtrOutput) Elem() CapacityRequirementsPatchOutput {
+	return o.ApplyT(func(v *CapacityRequirementsPatch) CapacityRequirementsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CapacityRequirementsPatch
+		return ret
+	}).(CapacityRequirementsPatchOutput)
+}
+
+// Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+//
+// This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+//
+// When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+//
+// For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+//
+//	(i.e., the whole device is claimed).
+//
+// - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+//
+// If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+func (o CapacityRequirementsPatchPtrOutput) Requests() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CapacityRequirementsPatch) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Requests
+	}).(pulumi.StringMapOutput)
 }
 
 // Counter describes a quantity associated with a device.
@@ -1330,13 +2724,13 @@ func (o CounterPatchOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CounterPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSet struct {
 	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 	//
-	// The maximum number of counters in all sets is 32.
+	// The maximum number of counters is 32.
 	Counters map[string]Counter `pulumi:"counters"`
 	// Name defines the name of the counter set. It must be a DNS label.
 	Name string `pulumi:"name"`
@@ -1353,13 +2747,13 @@ type CounterSetInput interface {
 	ToCounterSetOutputWithContext(context.Context) CounterSetOutput
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSetArgs struct {
 	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 	//
-	// The maximum number of counters in all sets is 32.
+	// The maximum number of counters is 32.
 	Counters CounterMapInput `pulumi:"counters"`
 	// Name defines the name of the counter set. It must be a DNS label.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -1402,7 +2796,7 @@ func (i CounterSetArray) ToCounterSetArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CounterSetArrayOutput)
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSetOutput struct{ *pulumi.OutputState }
@@ -1421,7 +2815,7 @@ func (o CounterSetOutput) ToCounterSetOutputWithContext(ctx context.Context) Cou
 
 // Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 //
-// The maximum number of counters in all sets is 32.
+// The maximum number of counters is 32.
 func (o CounterSetOutput) Counters() CounterMapOutput {
 	return o.ApplyT(func(v CounterSet) map[string]Counter { return v.Counters }).(CounterMapOutput)
 }
@@ -1451,13 +2845,13 @@ func (o CounterSetArrayOutput) Index(i pulumi.IntInput) CounterSetOutput {
 	}).(CounterSetOutput)
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSetPatch struct {
 	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 	//
-	// The maximum number of counters in all sets is 32.
+	// The maximum number of counters is 32.
 	Counters map[string]Counter `pulumi:"counters"`
 	// Name defines the name of the counter set. It must be a DNS label.
 	Name *string `pulumi:"name"`
@@ -1474,13 +2868,13 @@ type CounterSetPatchInput interface {
 	ToCounterSetPatchOutputWithContext(context.Context) CounterSetPatchOutput
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSetPatchArgs struct {
 	// Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 	//
-	// The maximum number of counters in all sets is 32.
+	// The maximum number of counters is 32.
 	Counters CounterMapInput `pulumi:"counters"`
 	// Name defines the name of the counter set. It must be a DNS label.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -1523,7 +2917,7 @@ func (i CounterSetPatchArray) ToCounterSetPatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(CounterSetPatchArrayOutput)
 }
 
-// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+// CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 //
 // The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
 type CounterSetPatchOutput struct{ *pulumi.OutputState }
@@ -1542,7 +2936,7 @@ func (o CounterSetPatchOutput) ToCounterSetPatchOutputWithContext(ctx context.Co
 
 // Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
 //
-// The maximum number of counters in all sets is 32.
+// The maximum number of counters is 32.
 func (o CounterSetPatchOutput) Counters() CounterMapOutput {
 	return o.ApplyT(func(v CounterSetPatch) map[string]Counter { return v.Counters }).(CounterMapOutput)
 }
@@ -1578,10 +2972,34 @@ type Device struct {
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 	AllNodes *bool `pulumi:"allNodes"`
+	// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+	//
+	// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+	AllowMultipleAllocations *bool `pulumi:"allowMultipleAllocations"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Attributes map[string]DeviceAttribute `pulumi:"attributes"`
+	// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+	//
+	// The maximum number of binding conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions []string `pulumi:"bindingConditions"`
+	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+	//
+	// The maximum number of binding failure conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
+	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindsToNode *bool `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -1590,7 +3008,7 @@ type Device struct {
 	//
 	// There can only be a single entry per counterSet.
 	//
-	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters []DeviceCounterConsumption `pulumi:"consumesCounters"`
 	// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
 	Name string `pulumi:"name"`
@@ -1606,7 +3024,7 @@ type Device struct {
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
 	// If specified, these are the driver-defined taints.
 	//
-	// The maximum number of taints is 4.
+	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
 	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 	Taints []DeviceTaint `pulumi:"taints"`
@@ -1629,10 +3047,34 @@ type DeviceArgs struct {
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
+	// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+	//
+	// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+	AllowMultipleAllocations pulumi.BoolPtrInput `pulumi:"allowMultipleAllocations"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Attributes DeviceAttributeMapInput `pulumi:"attributes"`
+	// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+	//
+	// The maximum number of binding conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
+	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+	//
+	// The maximum number of binding failure conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
+	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindsToNode pulumi.BoolPtrInput `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -1641,7 +3083,7 @@ type DeviceArgs struct {
 	//
 	// There can only be a single entry per counterSet.
 	//
-	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters DeviceCounterConsumptionArrayInput `pulumi:"consumesCounters"`
 	// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -1657,7 +3099,7 @@ type DeviceArgs struct {
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
 	// If specified, these are the driver-defined taints.
 	//
-	// The maximum number of taints is 4.
+	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
 	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 	Taints DeviceTaintArrayInput `pulumi:"taints"`
@@ -1722,11 +3164,47 @@ func (o DeviceOutput) AllNodes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v Device) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
 }
 
+// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+//
+// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+func (o DeviceOutput) AllowMultipleAllocations() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Device) *bool { return v.AllowMultipleAllocations }).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
 func (o DeviceOutput) Attributes() DeviceAttributeMapOutput {
 	return o.ApplyT(func(v Device) map[string]DeviceAttribute { return v.Attributes }).(DeviceAttributeMapOutput)
+}
+
+// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+//
+// The maximum number of binding conditions is 4.
+//
+// The conditions must be a valid condition type string.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceOutput) BindingConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v Device) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+//
+// The maximum number of binding failure conditions is 4.
+//
+// The conditions must be a valid condition type string.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceOutput) BindingFailureConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v Device) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceOutput) BindsToNode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Device) *bool { return v.BindsToNode }).(pulumi.BoolPtrOutput)
 }
 
 // Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
@@ -1740,7 +3218,7 @@ func (o DeviceOutput) Capacity() DeviceCapacityMapOutput {
 //
 // There can only be a single entry per counterSet.
 //
-// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+// The maximum number of device counter consumptions per device is 2.
 func (o DeviceOutput) ConsumesCounters() DeviceCounterConsumptionArrayOutput {
 	return o.ApplyT(func(v Device) []DeviceCounterConsumption { return v.ConsumesCounters }).(DeviceCounterConsumptionArrayOutput)
 }
@@ -1768,7 +3246,7 @@ func (o DeviceOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 
 // If specified, these are the driver-defined taints.
 //
-// The maximum number of taints is 4.
+// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
 // This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceOutput) Taints() DeviceTaintArrayOutput {
@@ -2588,7 +4066,15 @@ func (o DeviceAttributePatchOutput) Version() pulumi.StringPtrOutput {
 
 // DeviceCapacity describes a quantity associated with a device.
 type DeviceCapacity struct {
-	// Value defines how much of a certain device capacity is available.
+	// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+	//
+	// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+	//
+	// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+	RequestPolicy *CapacityRequestPolicy `pulumi:"requestPolicy"`
+	// Value defines how much of a certain capacity that device has.
+	//
+	// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 	Value string `pulumi:"value"`
 }
 
@@ -2605,7 +4091,15 @@ type DeviceCapacityInput interface {
 
 // DeviceCapacity describes a quantity associated with a device.
 type DeviceCapacityArgs struct {
-	// Value defines how much of a certain device capacity is available.
+	// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+	//
+	// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+	//
+	// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+	RequestPolicy CapacityRequestPolicyPtrInput `pulumi:"requestPolicy"`
+	// Value defines how much of a certain capacity that device has.
+	//
+	// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 	Value pulumi.StringInput `pulumi:"value"`
 }
 
@@ -2661,7 +4155,18 @@ func (o DeviceCapacityOutput) ToDeviceCapacityOutputWithContext(ctx context.Cont
 	return o
 }
 
-// Value defines how much of a certain device capacity is available.
+// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+//
+// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+//
+// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+func (o DeviceCapacityOutput) RequestPolicy() CapacityRequestPolicyPtrOutput {
+	return o.ApplyT(func(v DeviceCapacity) *CapacityRequestPolicy { return v.RequestPolicy }).(CapacityRequestPolicyPtrOutput)
+}
+
+// Value defines how much of a certain capacity that device has.
+//
+// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 func (o DeviceCapacityOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceCapacity) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -2688,7 +4193,15 @@ func (o DeviceCapacityMapOutput) MapIndex(k pulumi.StringInput) DeviceCapacityOu
 
 // DeviceCapacity describes a quantity associated with a device.
 type DeviceCapacityPatch struct {
-	// Value defines how much of a certain device capacity is available.
+	// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+	//
+	// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+	//
+	// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+	RequestPolicy *CapacityRequestPolicyPatch `pulumi:"requestPolicy"`
+	// Value defines how much of a certain capacity that device has.
+	//
+	// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 	Value *string `pulumi:"value"`
 }
 
@@ -2705,7 +4218,15 @@ type DeviceCapacityPatchInput interface {
 
 // DeviceCapacity describes a quantity associated with a device.
 type DeviceCapacityPatchArgs struct {
-	// Value defines how much of a certain device capacity is available.
+	// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+	//
+	// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+	//
+	// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+	RequestPolicy CapacityRequestPolicyPatchPtrInput `pulumi:"requestPolicy"`
+	// Value defines how much of a certain capacity that device has.
+	//
+	// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -2736,7 +4257,18 @@ func (o DeviceCapacityPatchOutput) ToDeviceCapacityPatchOutputWithContext(ctx co
 	return o
 }
 
-// Value defines how much of a certain device capacity is available.
+// RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+//
+// The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+//
+// If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+func (o DeviceCapacityPatchOutput) RequestPolicy() CapacityRequestPolicyPatchPtrOutput {
+	return o.ApplyT(func(v DeviceCapacityPatch) *CapacityRequestPolicyPatch { return v.RequestPolicy }).(CapacityRequestPolicyPatchPtrOutput)
+}
+
+// Value defines how much of a certain capacity that device has.
+//
+// This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
 func (o DeviceCapacityPatchOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceCapacityPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -3860,6 +5392,10 @@ type DeviceClassSpec struct {
 	//
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config []DeviceClassConfiguration `pulumi:"config"`
+	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+	//
+	// This is an alpha field.
+	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelector `pulumi:"selectors"`
 }
@@ -3881,6 +5417,10 @@ type DeviceClassSpecArgs struct {
 	//
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config DeviceClassConfigurationArrayInput `pulumi:"config"`
+	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+	//
+	// This is an alpha field.
+	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorArrayInput `pulumi:"selectors"`
 }
@@ -3919,6 +5459,13 @@ func (o DeviceClassSpecOutput) Config() DeviceClassConfigurationArrayOutput {
 	return o.ApplyT(func(v DeviceClassSpec) []DeviceClassConfiguration { return v.Config }).(DeviceClassConfigurationArrayOutput)
 }
 
+// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+//
+// This is an alpha field.
+func (o DeviceClassSpecOutput) ExtendedResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceClassSpec) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
+}
+
 // Each selector must be satisfied by a device which is claimed via this class.
 func (o DeviceClassSpecOutput) Selectors() DeviceSelectorArrayOutput {
 	return o.ApplyT(func(v DeviceClassSpec) []DeviceSelector { return v.Selectors }).(DeviceSelectorArrayOutput)
@@ -3930,6 +5477,10 @@ type DeviceClassSpecPatch struct {
 	//
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config []DeviceClassConfigurationPatch `pulumi:"config"`
+	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+	//
+	// This is an alpha field.
+	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelectorPatch `pulumi:"selectors"`
 }
@@ -3951,6 +5502,10 @@ type DeviceClassSpecPatchArgs struct {
 	//
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config DeviceClassConfigurationPatchArrayInput `pulumi:"config"`
+	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+	//
+	// This is an alpha field.
+	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorPatchArrayInput `pulumi:"selectors"`
 }
@@ -4040,6 +5595,13 @@ func (o DeviceClassSpecPatchOutput) Config() DeviceClassConfigurationPatchArrayO
 	return o.ApplyT(func(v DeviceClassSpecPatch) []DeviceClassConfigurationPatch { return v.Config }).(DeviceClassConfigurationPatchArrayOutput)
 }
 
+// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+//
+// This is an alpha field.
+func (o DeviceClassSpecPatchOutput) ExtendedResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceClassSpecPatch) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
+}
+
 // Each selector must be satisfied by a device which is claimed via this class.
 func (o DeviceClassSpecPatchOutput) Selectors() DeviceSelectorPatchArrayOutput {
 	return o.ApplyT(func(v DeviceClassSpecPatch) []DeviceSelectorPatch { return v.Selectors }).(DeviceSelectorPatchArrayOutput)
@@ -4081,6 +5643,18 @@ func (o DeviceClassSpecPatchPtrOutput) Config() DeviceClassConfigurationPatchArr
 	}).(DeviceClassConfigurationPatchArrayOutput)
 }
 
+// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+//
+// This is an alpha field.
+func (o DeviceClassSpecPatchPtrOutput) ExtendedResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceClassSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExtendedResourceName
+	}).(pulumi.StringPtrOutput)
+}
+
 // Each selector must be satisfied by a device which is claimed via this class.
 func (o DeviceClassSpecPatchPtrOutput) Selectors() DeviceSelectorPatchArrayOutput {
 	return o.ApplyT(func(v *DeviceClassSpecPatch) []DeviceSelectorPatch {
@@ -4093,6 +5667,14 @@ func (o DeviceClassSpecPatchPtrOutput) Selectors() DeviceSelectorPatchArrayOutpu
 
 // DeviceConstraint must have exactly one field set besides Requests.
 type DeviceConstraint struct {
+	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+	//
+	// This acts as the inverse of MatchAttribute.
+	//
+	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+	//
+	// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+	DistinctAttribute *string `pulumi:"distinctAttribute"`
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4118,6 +5700,14 @@ type DeviceConstraintInput interface {
 
 // DeviceConstraint must have exactly one field set besides Requests.
 type DeviceConstraintArgs struct {
+	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+	//
+	// This acts as the inverse of MatchAttribute.
+	//
+	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+	//
+	// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+	DistinctAttribute pulumi.StringPtrInput `pulumi:"distinctAttribute"`
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4182,6 +5772,17 @@ func (o DeviceConstraintOutput) ToDeviceConstraintOutputWithContext(ctx context.
 	return o
 }
 
+// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+//
+// This acts as the inverse of MatchAttribute.
+//
+// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+//
+// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+func (o DeviceConstraintOutput) DistinctAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceConstraint) *string { return v.DistinctAttribute }).(pulumi.StringPtrOutput)
+}
+
 // MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 //
 // For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4220,6 +5821,14 @@ func (o DeviceConstraintArrayOutput) Index(i pulumi.IntInput) DeviceConstraintOu
 
 // DeviceConstraint must have exactly one field set besides Requests.
 type DeviceConstraintPatch struct {
+	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+	//
+	// This acts as the inverse of MatchAttribute.
+	//
+	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+	//
+	// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+	DistinctAttribute *string `pulumi:"distinctAttribute"`
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4245,6 +5854,14 @@ type DeviceConstraintPatchInput interface {
 
 // DeviceConstraint must have exactly one field set besides Requests.
 type DeviceConstraintPatchArgs struct {
+	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+	//
+	// This acts as the inverse of MatchAttribute.
+	//
+	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+	//
+	// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+	DistinctAttribute pulumi.StringPtrInput `pulumi:"distinctAttribute"`
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4309,6 +5926,17 @@ func (o DeviceConstraintPatchOutput) ToDeviceConstraintPatchOutputWithContext(ct
 	return o
 }
 
+// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+//
+// This acts as the inverse of MatchAttribute.
+//
+// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+//
+// This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+func (o DeviceConstraintPatchOutput) DistinctAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceConstraintPatch) *string { return v.DistinctAttribute }).(pulumi.StringPtrOutput)
+}
+
 // MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 //
 // For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -4351,7 +5979,7 @@ type DeviceCounterConsumption struct {
 	CounterSet string `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
 	//
-	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of counters is 32.
 	Counters map[string]Counter `pulumi:"counters"`
 }
 
@@ -4372,7 +6000,7 @@ type DeviceCounterConsumptionArgs struct {
 	CounterSet pulumi.StringInput `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
 	//
-	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of counters is 32.
 	Counters CounterMapInput `pulumi:"counters"`
 }
 
@@ -4435,7 +6063,7 @@ func (o DeviceCounterConsumptionOutput) CounterSet() pulumi.StringOutput {
 
 // Counters defines the counters that will be consumed by the device.
 //
-// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+// The maximum number of counters is 32.
 func (o DeviceCounterConsumptionOutput) Counters() CounterMapOutput {
 	return o.ApplyT(func(v DeviceCounterConsumption) map[string]Counter { return v.Counters }).(CounterMapOutput)
 }
@@ -4466,7 +6094,7 @@ type DeviceCounterConsumptionPatch struct {
 	CounterSet *string `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
 	//
-	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of counters is 32.
 	Counters map[string]Counter `pulumi:"counters"`
 }
 
@@ -4487,7 +6115,7 @@ type DeviceCounterConsumptionPatchArgs struct {
 	CounterSet pulumi.StringPtrInput `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
 	//
-	// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of counters is 32.
 	Counters CounterMapInput `pulumi:"counters"`
 }
 
@@ -4550,7 +6178,7 @@ func (o DeviceCounterConsumptionPatchOutput) CounterSet() pulumi.StringPtrOutput
 
 // Counters defines the counters that will be consumed by the device.
 //
-// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+// The maximum number of counters is 32.
 func (o DeviceCounterConsumptionPatchOutput) Counters() CounterMapOutput {
 	return o.ApplyT(func(v DeviceCounterConsumptionPatch) map[string]Counter { return v.Counters }).(CounterMapOutput)
 }
@@ -4581,10 +6209,34 @@ type DevicePatch struct {
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 	AllNodes *bool `pulumi:"allNodes"`
+	// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+	//
+	// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+	AllowMultipleAllocations *bool `pulumi:"allowMultipleAllocations"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Attributes map[string]DeviceAttribute `pulumi:"attributes"`
+	// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+	//
+	// The maximum number of binding conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions []string `pulumi:"bindingConditions"`
+	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+	//
+	// The maximum number of binding failure conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
+	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindsToNode *bool `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -4593,7 +6245,7 @@ type DevicePatch struct {
 	//
 	// There can only be a single entry per counterSet.
 	//
-	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters []DeviceCounterConsumptionPatch `pulumi:"consumesCounters"`
 	// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
 	Name *string `pulumi:"name"`
@@ -4609,7 +6261,7 @@ type DevicePatch struct {
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
 	// If specified, these are the driver-defined taints.
 	//
-	// The maximum number of taints is 4.
+	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
 	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 	Taints []DeviceTaintPatch `pulumi:"taints"`
@@ -4632,10 +6284,34 @@ type DevicePatchArgs struct {
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
+	// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+	//
+	// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+	AllowMultipleAllocations pulumi.BoolPtrInput `pulumi:"allowMultipleAllocations"`
 	// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
 	Attributes DeviceAttributeMapInput `pulumi:"attributes"`
+	// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+	//
+	// The maximum number of binding conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
+	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+	//
+	// The maximum number of binding failure conditions is 4.
+	//
+	// The conditions must be a valid condition type string.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
+	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindsToNode pulumi.BoolPtrInput `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
 	// The maximum number of attributes and capacities combined is 32.
@@ -4644,7 +6320,7 @@ type DevicePatchArgs struct {
 	//
 	// There can only be a single entry per counterSet.
 	//
-	// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters DeviceCounterConsumptionPatchArrayInput `pulumi:"consumesCounters"`
 	// Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -4660,7 +6336,7 @@ type DevicePatchArgs struct {
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
 	// If specified, these are the driver-defined taints.
 	//
-	// The maximum number of taints is 4.
+	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
 	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 	Taints DeviceTaintPatchArrayInput `pulumi:"taints"`
@@ -4725,11 +6401,47 @@ func (o DevicePatchOutput) AllNodes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DevicePatch) *bool { return v.AllNodes }).(pulumi.BoolPtrOutput)
 }
 
+// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+//
+// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+func (o DevicePatchOutput) AllowMultipleAllocations() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DevicePatch) *bool { return v.AllowMultipleAllocations }).(pulumi.BoolPtrOutput)
+}
+
 // Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 //
 // The maximum number of attributes and capacities combined is 32.
 func (o DevicePatchOutput) Attributes() DeviceAttributeMapOutput {
 	return o.ApplyT(func(v DevicePatch) map[string]DeviceAttribute { return v.Attributes }).(DeviceAttributeMapOutput)
+}
+
+// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+//
+// The maximum number of binding conditions is 4.
+//
+// The conditions must be a valid condition type string.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DevicePatchOutput) BindingConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DevicePatch) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+//
+// The maximum number of binding failure conditions is 4.
+//
+// The conditions must be a valid condition type string.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DevicePatchOutput) BindingFailureConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DevicePatch) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DevicePatchOutput) BindsToNode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DevicePatch) *bool { return v.BindsToNode }).(pulumi.BoolPtrOutput)
 }
 
 // Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
@@ -4743,7 +6455,7 @@ func (o DevicePatchOutput) Capacity() DeviceCapacityMapOutput {
 //
 // There can only be a single entry per counterSet.
 //
-// The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+// The maximum number of device counter consumptions per device is 2.
 func (o DevicePatchOutput) ConsumesCounters() DeviceCounterConsumptionPatchArrayOutput {
 	return o.ApplyT(func(v DevicePatch) []DeviceCounterConsumptionPatch { return v.ConsumesCounters }).(DeviceCounterConsumptionPatchArrayOutput)
 }
@@ -4771,7 +6483,7 @@ func (o DevicePatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 
 // If specified, these are the driver-defined taints.
 //
-// The maximum number of taints is 4.
+// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
 // This is an alpha field and requires enabling the DRADeviceTaints feature gate.
 func (o DevicePatchOutput) Taints() DeviceTaintPatchArrayOutput {
@@ -4946,11 +6658,25 @@ type DeviceRequestAllocationResult struct {
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
+	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions []string `pulumi:"bindingConditions"`
+	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
+	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+	//
+	// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+	//
+	// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+	ConsumedCapacity map[string]string `pulumi:"consumedCapacity"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver string `pulumi:"driver"`
 	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
 	//
@@ -4960,6 +6686,8 @@ type DeviceRequestAllocationResult struct {
 	//
 	// Multiple devices may have been allocated per request.
 	Request string `pulumi:"request"`
+	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+	ShareID *string `pulumi:"shareID"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -4985,11 +6713,25 @@ type DeviceRequestAllocationResultArgs struct {
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
+	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
+	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
+	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+	//
+	// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+	//
+	// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+	ConsumedCapacity pulumi.StringMapInput `pulumi:"consumedCapacity"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device pulumi.StringInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
 	//
@@ -4999,6 +6741,8 @@ type DeviceRequestAllocationResultArgs struct {
 	//
 	// Multiple devices may have been allocated per request.
 	Request pulumi.StringInput `pulumi:"request"`
+	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -5066,6 +6810,29 @@ func (o DeviceRequestAllocationResultOutput) AdminAccess() pulumi.BoolPtrOutput 
 	return o.ApplyT(func(v DeviceRequestAllocationResult) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
 }
 
+// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceRequestAllocationResultOutput) BindingConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceRequestAllocationResultOutput) BindingFailureConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
+}
+
+// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+//
+// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+//
+// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+func (o DeviceRequestAllocationResultOutput) ConsumedCapacity() pulumi.StringMapOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) map[string]string { return v.ConsumedCapacity }).(pulumi.StringMapOutput)
+}
+
 // Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 func (o DeviceRequestAllocationResultOutput) Device() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Device }).(pulumi.StringOutput)
@@ -5073,7 +6840,7 @@ func (o DeviceRequestAllocationResultOutput) Device() pulumi.StringOutput {
 
 // Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o DeviceRequestAllocationResultOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Driver }).(pulumi.StringOutput)
 }
@@ -5090,6 +6857,11 @@ func (o DeviceRequestAllocationResultOutput) Pool() pulumi.StringOutput {
 // Multiple devices may have been allocated per request.
 func (o DeviceRequestAllocationResultOutput) Request() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) string { return v.Request }).(pulumi.StringOutput)
+}
+
+// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+func (o DeviceRequestAllocationResultOutput) ShareID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) *string { return v.ShareID }).(pulumi.StringPtrOutput)
 }
 
 // A copy of all tolerations specified in the request at the time when the device got allocated.
@@ -5127,11 +6899,25 @@ type DeviceRequestAllocationResultPatch struct {
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess *bool `pulumi:"adminAccess"`
+	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions []string `pulumi:"bindingConditions"`
+	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
+	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+	//
+	// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+	//
+	// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+	ConsumedCapacity map[string]string `pulumi:"consumedCapacity"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device *string `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver *string `pulumi:"driver"`
 	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
 	//
@@ -5141,6 +6927,8 @@ type DeviceRequestAllocationResultPatch struct {
 	//
 	// Multiple devices may have been allocated per request.
 	Request *string `pulumi:"request"`
+	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+	ShareID *string `pulumi:"shareID"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -5166,11 +6954,25 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	//
 	// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
+	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
+	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+	//
+	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
+	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+	//
+	// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+	//
+	// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+	ConsumedCapacity pulumi.StringMapInput `pulumi:"consumedCapacity"`
 	// Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 	Device pulumi.StringPtrInput `pulumi:"device"`
 	// Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
 	//
@@ -5180,6 +6982,8 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	//
 	// Multiple devices may have been allocated per request.
 	Request pulumi.StringPtrInput `pulumi:"request"`
+	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -5247,6 +7051,29 @@ func (o DeviceRequestAllocationResultPatchOutput) AdminAccess() pulumi.BoolPtrOu
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *bool { return v.AdminAccess }).(pulumi.BoolPtrOutput)
 }
 
+// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceRequestAllocationResultPatchOutput) BindingConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
+}
+
+// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+//
+// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+func (o DeviceRequestAllocationResultPatchOutput) BindingFailureConditions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
+}
+
+// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+//
+// The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+//
+// This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+func (o DeviceRequestAllocationResultPatchOutput) ConsumedCapacity() pulumi.StringMapOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) map[string]string { return v.ConsumedCapacity }).(pulumi.StringMapOutput)
+}
+
 // Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
 func (o DeviceRequestAllocationResultPatchOutput) Device() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Device }).(pulumi.StringPtrOutput)
@@ -5254,7 +7081,7 @@ func (o DeviceRequestAllocationResultPatchOutput) Device() pulumi.StringPtrOutpu
 
 // Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o DeviceRequestAllocationResultPatchOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
@@ -5271,6 +7098,11 @@ func (o DeviceRequestAllocationResultPatchOutput) Pool() pulumi.StringPtrOutput 
 // Multiple devices may have been allocated per request.
 func (o DeviceRequestAllocationResultPatchOutput) Request() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.Request }).(pulumi.StringPtrOutput)
+}
+
+// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+func (o DeviceRequestAllocationResultPatchOutput) ShareID() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.ShareID }).(pulumi.StringPtrOutput)
 }
 
 // A copy of all tolerations specified in the request at the time when the device got allocated.
@@ -5662,6 +7494,12 @@ type DeviceSubRequest struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity *CapacityRequirements `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
@@ -5717,6 +7555,12 @@ type DeviceSubRequestArgs struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity CapacityRequirementsPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
@@ -5814,6 +7658,15 @@ func (o DeviceSubRequestOutput) AllocationMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequest) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
 }
 
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o DeviceSubRequestOutput) Capacity() CapacityRequirementsPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequest) *CapacityRequirements { return v.Capacity }).(CapacityRequirementsPtrOutput)
+}
+
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o DeviceSubRequestOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
@@ -5891,6 +7744,12 @@ type DeviceSubRequestPatch struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity *CapacityRequirementsPatch `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
@@ -5946,6 +7805,12 @@ type DeviceSubRequestPatchArgs struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity CapacityRequirementsPatchPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
@@ -6043,6 +7908,15 @@ func (o DeviceSubRequestPatchOutput) AllocationMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequestPatch) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
 }
 
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o DeviceSubRequestPatchOutput) Capacity() CapacityRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) *CapacityRequirementsPatch { return v.Capacity }).(CapacityRequirementsPatchPtrOutput)
+}
+
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o DeviceSubRequestPatchOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
@@ -6104,7 +7978,9 @@ func (o DeviceSubRequestPatchArrayOutput) Index(i pulumi.IntInput) DeviceSubRequ
 
 // The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
 type DeviceTaint struct {
-	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+	//
+	// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 	Effect string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key string `pulumi:"key"`
@@ -6127,7 +8003,9 @@ type DeviceTaintInput interface {
 
 // The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
 type DeviceTaintArgs struct {
-	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+	//
+	// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 	Effect pulumi.StringInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringInput `pulumi:"key"`
@@ -6189,7 +8067,9 @@ func (o DeviceTaintOutput) ToDeviceTaintOutputWithContext(ctx context.Context) D
 	return o
 }
 
-// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+//
+// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 func (o DeviceTaintOutput) Effect() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceTaint) string { return v.Effect }).(pulumi.StringOutput)
 }
@@ -6231,7 +8111,9 @@ func (o DeviceTaintArrayOutput) Index(i pulumi.IntInput) DeviceTaintOutput {
 
 // The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
 type DeviceTaintPatch struct {
-	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+	//
+	// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 	Effect *string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key *string `pulumi:"key"`
@@ -6254,7 +8136,9 @@ type DeviceTaintPatchInput interface {
 
 // The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
 type DeviceTaintPatchArgs struct {
-	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+	// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+	//
+	// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 	Effect pulumi.StringPtrInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringPtrInput `pulumi:"key"`
@@ -6316,7 +8200,9 @@ func (o DeviceTaintPatchOutput) ToDeviceTaintPatchOutputWithContext(ctx context.
 	return o
 }
 
-// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+//
+// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
 func (o DeviceTaintPatchOutput) Effect() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Effect }).(pulumi.StringPtrOutput)
 }
@@ -6649,6 +8535,12 @@ type ExactDeviceRequest struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity *CapacityRequirements `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
@@ -6703,6 +8595,12 @@ type ExactDeviceRequestArgs struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity CapacityRequirementsPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
@@ -6828,6 +8726,15 @@ func (o ExactDeviceRequestOutput) AllocationMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequest) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
 }
 
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o ExactDeviceRequestOutput) Capacity() CapacityRequirementsPtrOutput {
+	return o.ApplyT(func(v ExactDeviceRequest) *CapacityRequirements { return v.Capacity }).(CapacityRequirementsPtrOutput)
+}
+
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o ExactDeviceRequestOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
@@ -6919,6 +8826,20 @@ func (o ExactDeviceRequestPtrOutput) AllocationMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o ExactDeviceRequestPtrOutput) Capacity() CapacityRequirementsPtrOutput {
+	return o.ApplyT(func(v *ExactDeviceRequest) *CapacityRequirements {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(CapacityRequirementsPtrOutput)
+}
+
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o ExactDeviceRequestPtrOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ExactDeviceRequest) *int {
@@ -6992,6 +8913,12 @@ type ExactDeviceRequestPatch struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode *string `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity *CapacityRequirementsPatch `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
@@ -7046,6 +8973,12 @@ type ExactDeviceRequestPatchArgs struct {
 	//
 	// More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 	AllocationMode pulumi.StringPtrInput `pulumi:"allocationMode"`
+	// Capacity define resource requirements against each capacity.
+	//
+	// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+	//
+	// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+	Capacity CapacityRequirementsPatchPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
@@ -7171,6 +9104,15 @@ func (o ExactDeviceRequestPatchOutput) AllocationMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequestPatch) *string { return v.AllocationMode }).(pulumi.StringPtrOutput)
 }
 
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o ExactDeviceRequestPatchOutput) Capacity() CapacityRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v ExactDeviceRequestPatch) *CapacityRequirementsPatch { return v.Capacity }).(CapacityRequirementsPatchPtrOutput)
+}
+
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o ExactDeviceRequestPatchOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
@@ -7260,6 +9202,20 @@ func (o ExactDeviceRequestPatchPtrOutput) AllocationMode() pulumi.StringPtrOutpu
 		}
 		return v.AllocationMode
 	}).(pulumi.StringPtrOutput)
+}
+
+// Capacity define resource requirements against each capacity.
+//
+// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+//
+// Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+func (o ExactDeviceRequestPatchPtrOutput) Capacity() CapacityRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v *ExactDeviceRequestPatch) *CapacityRequirementsPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(CapacityRequirementsPatchPtrOutput)
 }
 
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
@@ -7708,7 +9664,7 @@ type OpaqueDeviceConfiguration struct {
 	//
 	// An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver string `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
 	//
@@ -7733,7 +9689,7 @@ type OpaqueDeviceConfigurationArgs struct {
 	//
 	// An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
 	//
@@ -7823,7 +9779,7 @@ func (o OpaqueDeviceConfigurationOutput) ToOpaqueDeviceConfigurationPtrOutputWit
 //
 // An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o OpaqueDeviceConfigurationOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v OpaqueDeviceConfiguration) string { return v.Driver }).(pulumi.StringOutput)
 }
@@ -7863,7 +9819,7 @@ func (o OpaqueDeviceConfigurationPtrOutput) Elem() OpaqueDeviceConfigurationOutp
 //
 // An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o OpaqueDeviceConfigurationPtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OpaqueDeviceConfiguration) *string {
 		if v == nil {
@@ -7891,7 +9847,7 @@ type OpaqueDeviceConfigurationPatch struct {
 	//
 	// An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver *string `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
 	//
@@ -7916,7 +9872,7 @@ type OpaqueDeviceConfigurationPatchArgs struct {
 	//
 	// An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
 	//
@@ -8006,7 +9962,7 @@ func (o OpaqueDeviceConfigurationPatchOutput) ToOpaqueDeviceConfigurationPatchPt
 //
 // An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o OpaqueDeviceConfigurationPatchOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OpaqueDeviceConfigurationPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
@@ -8046,7 +10002,7 @@ func (o OpaqueDeviceConfigurationPatchPtrOutput) Elem() OpaqueDeviceConfiguratio
 //
 // An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
 func (o OpaqueDeviceConfigurationPatchPtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OpaqueDeviceConfigurationPatch) *string {
 		if v == nil {
@@ -10444,11 +12400,13 @@ type ResourceSliceSpec struct {
 	AllNodes *bool `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
-	// Must not have more than 128 entries.
+	// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+	//
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 	Devices []Device `pulumi:"devices"`
 	// Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 	Driver string `pulumi:"driver"`
 	// NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
 	//
@@ -10470,9 +12428,11 @@ type ResourceSliceSpec struct {
 	Pool ResourcePool `pulumi:"pool"`
 	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 	//
-	// The names of the SharedCounters must be unique in the ResourceSlice.
+	// The names of the counter sets must be unique in the ResourcePool.
 	//
-	// The maximum number of counters in all sets is 32.
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+	//
+	// The maximum number of counter sets is 8.
 	SharedCounters []CounterSet `pulumi:"sharedCounters"`
 }
 
@@ -10495,11 +12455,13 @@ type ResourceSliceSpecArgs struct {
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
-	// Must not have more than 128 entries.
+	// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+	//
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 	Devices DeviceArrayInput `pulumi:"devices"`
 	// Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
 	//
@@ -10521,9 +12483,11 @@ type ResourceSliceSpecArgs struct {
 	Pool ResourcePoolInput `pulumi:"pool"`
 	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 	//
-	// The names of the SharedCounters must be unique in the ResourceSlice.
+	// The names of the counter sets must be unique in the ResourcePool.
 	//
-	// The maximum number of counters in all sets is 32.
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+	//
+	// The maximum number of counter sets is 8.
 	SharedCounters CounterSetArrayInput `pulumi:"sharedCounters"`
 }
 
@@ -10563,14 +12527,16 @@ func (o ResourceSliceSpecOutput) AllNodes() pulumi.BoolPtrOutput {
 
 // Devices lists some or all of the devices in this pool.
 //
-// Must not have more than 128 entries.
+// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+//
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 func (o ResourceSliceSpecOutput) Devices() DeviceArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) []Device { return v.Devices }).(DeviceArrayOutput)
 }
 
 // Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 func (o ResourceSliceSpecOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) string { return v.Driver }).(pulumi.StringOutput)
 }
@@ -10607,9 +12573,11 @@ func (o ResourceSliceSpecOutput) Pool() ResourcePoolOutput {
 
 // SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 //
-// The names of the SharedCounters must be unique in the ResourceSlice.
+// The names of the counter sets must be unique in the ResourcePool.
 //
-// The maximum number of counters in all sets is 32.
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+//
+// The maximum number of counter sets is 8.
 func (o ResourceSliceSpecOutput) SharedCounters() CounterSetArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) []CounterSet { return v.SharedCounters }).(CounterSetArrayOutput)
 }
@@ -10622,11 +12590,13 @@ type ResourceSliceSpecPatch struct {
 	AllNodes *bool `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
-	// Must not have more than 128 entries.
+	// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+	//
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 	Devices []DevicePatch `pulumi:"devices"`
 	// Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 	Driver *string `pulumi:"driver"`
 	// NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
 	//
@@ -10648,9 +12618,11 @@ type ResourceSliceSpecPatch struct {
 	Pool *ResourcePoolPatch `pulumi:"pool"`
 	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 	//
-	// The names of the SharedCounters must be unique in the ResourceSlice.
+	// The names of the counter sets must be unique in the ResourcePool.
 	//
-	// The maximum number of counters in all sets is 32.
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+	//
+	// The maximum number of counter sets is 8.
 	SharedCounters []CounterSetPatch `pulumi:"sharedCounters"`
 }
 
@@ -10673,11 +12645,13 @@ type ResourceSliceSpecPatchArgs struct {
 	AllNodes pulumi.BoolPtrInput `pulumi:"allNodes"`
 	// Devices lists some or all of the devices in this pool.
 	//
-	// Must not have more than 128 entries.
+	// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+	//
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 	Devices DevicePatchArrayInput `pulumi:"devices"`
 	// Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 	//
-	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+	// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
 	//
@@ -10699,9 +12673,11 @@ type ResourceSliceSpecPatchArgs struct {
 	Pool ResourcePoolPatchPtrInput `pulumi:"pool"`
 	// SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 	//
-	// The names of the SharedCounters must be unique in the ResourceSlice.
+	// The names of the counter sets must be unique in the ResourcePool.
 	//
-	// The maximum number of counters in all sets is 32.
+	// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+	//
+	// The maximum number of counter sets is 8.
 	SharedCounters CounterSetPatchArrayInput `pulumi:"sharedCounters"`
 }
 
@@ -10792,14 +12768,16 @@ func (o ResourceSliceSpecPatchOutput) AllNodes() pulumi.BoolPtrOutput {
 
 // Devices lists some or all of the devices in this pool.
 //
-// Must not have more than 128 entries.
+// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+//
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 func (o ResourceSliceSpecPatchOutput) Devices() DevicePatchArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) []DevicePatch { return v.Devices }).(DevicePatchArrayOutput)
 }
 
 // Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 func (o ResourceSliceSpecPatchOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
 }
@@ -10836,9 +12814,11 @@ func (o ResourceSliceSpecPatchOutput) Pool() ResourcePoolPatchPtrOutput {
 
 // SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 //
-// The names of the SharedCounters must be unique in the ResourceSlice.
+// The names of the counter sets must be unique in the ResourcePool.
 //
-// The maximum number of counters in all sets is 32.
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+//
+// The maximum number of counter sets is 8.
 func (o ResourceSliceSpecPatchOutput) SharedCounters() CounterSetPatchArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) []CounterSetPatch { return v.SharedCounters }).(CounterSetPatchArrayOutput)
 }
@@ -10881,7 +12861,9 @@ func (o ResourceSliceSpecPatchPtrOutput) AllNodes() pulumi.BoolPtrOutput {
 
 // Devices lists some or all of the devices in this pool.
 //
-// Must not have more than 128 entries.
+// Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+//
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
 func (o ResourceSliceSpecPatchPtrOutput) Devices() DevicePatchArrayOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) []DevicePatch {
 		if v == nil {
@@ -10893,7 +12875,7 @@ func (o ResourceSliceSpecPatchPtrOutput) Devices() DevicePatchArrayOutput {
 
 // Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 //
-// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
 func (o ResourceSliceSpecPatchPtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) *string {
 		if v == nil {
@@ -10955,9 +12937,11 @@ func (o ResourceSliceSpecPatchPtrOutput) Pool() ResourcePoolPatchPtrOutput {
 
 // SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 //
-// The names of the SharedCounters must be unique in the ResourceSlice.
+// The names of the counter sets must be unique in the ResourcePool.
 //
-// The maximum number of counters in all sets is 32.
+// Only one of Devices and SharedCounters can be set in a ResourceSlice.
+//
+// The maximum number of counter sets is 8.
 func (o ResourceSliceSpecPatchPtrOutput) SharedCounters() CounterSetPatchArrayOutput {
 	return o.ApplyT(func(v *ResourceSliceSpecPatch) []CounterSetPatch {
 		if v == nil {
@@ -10980,6 +12964,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPtrInput)(nil)).Elem(), CELDeviceSelectorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPatchInput)(nil)).Elem(), CELDeviceSelectorPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CELDeviceSelectorPatchPtrInput)(nil)).Elem(), CELDeviceSelectorPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyInput)(nil)).Elem(), CapacityRequestPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyPtrInput)(nil)).Elem(), CapacityRequestPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyPatchInput)(nil)).Elem(), CapacityRequestPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyPatchPtrInput)(nil)).Elem(), CapacityRequestPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyRangeInput)(nil)).Elem(), CapacityRequestPolicyRangeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyRangePtrInput)(nil)).Elem(), CapacityRequestPolicyRangeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyRangePatchInput)(nil)).Elem(), CapacityRequestPolicyRangePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequestPolicyRangePatchPtrInput)(nil)).Elem(), CapacityRequestPolicyRangePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequirementsInput)(nil)).Elem(), CapacityRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequirementsPtrInput)(nil)).Elem(), CapacityRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequirementsPatchInput)(nil)).Elem(), CapacityRequirementsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapacityRequirementsPatchPtrInput)(nil)).Elem(), CapacityRequirementsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CounterInput)(nil)).Elem(), CounterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CounterMapInput)(nil)).Elem(), CounterMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CounterPatchInput)(nil)).Elem(), CounterPatchArgs{})
@@ -11112,6 +13108,18 @@ func init() {
 	pulumi.RegisterOutputType(CELDeviceSelectorPtrOutput{})
 	pulumi.RegisterOutputType(CELDeviceSelectorPatchOutput{})
 	pulumi.RegisterOutputType(CELDeviceSelectorPatchPtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyPtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyPatchOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyRangeOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyRangePtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyRangePatchOutput{})
+	pulumi.RegisterOutputType(CapacityRequestPolicyRangePatchPtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequirementsOutput{})
+	pulumi.RegisterOutputType(CapacityRequirementsPtrOutput{})
+	pulumi.RegisterOutputType(CapacityRequirementsPatchOutput{})
+	pulumi.RegisterOutputType(CapacityRequirementsPatchPtrOutput{})
 	pulumi.RegisterOutputType(CounterOutput{})
 	pulumi.RegisterOutputType(CounterMapOutput{})
 	pulumi.RegisterOutputType(CounterPatchOutput{})

@@ -90,7 +90,7 @@ export class VolumeAttributesClassPatch extends pulumi.CustomResource {
             resourceInputs["parameters"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:VolumeAttributesClassPatch" }, { type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttributesClassPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(VolumeAttributesClassPatch.__pulumiType, name, resourceInputs, opts);
     }

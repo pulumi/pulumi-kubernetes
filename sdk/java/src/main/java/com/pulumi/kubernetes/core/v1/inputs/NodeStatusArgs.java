@@ -121,6 +121,21 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * DeclaredFeatures represents the features related to feature gates that are declared by the node.
+     * 
+     */
+    @Import(name="declaredFeatures")
+    private @Nullable Output<List<String>> declaredFeatures;
+
+    /**
+     * @return DeclaredFeatures represents the features related to feature gates that are declared by the node.
+     * 
+     */
+    public Optional<Output<List<String>>> declaredFeatures() {
+        return Optional.ofNullable(this.declaredFeatures);
+    }
+
+    /**
      * Features describes the set of features implemented by the CRI implementation.
      * 
      */
@@ -234,6 +249,7 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.conditions = $.conditions;
         this.config = $.config;
         this.daemonEndpoints = $.daemonEndpoints;
+        this.declaredFeatures = $.declaredFeatures;
         this.features = $.features;
         this.images = $.images;
         this.nodeInfo = $.nodeInfo;
@@ -405,6 +421,37 @@ public final class NodeStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder daemonEndpoints(NodeDaemonEndpointsArgs daemonEndpoints) {
             return daemonEndpoints(Output.of(daemonEndpoints));
+        }
+
+        /**
+         * @param declaredFeatures DeclaredFeatures represents the features related to feature gates that are declared by the node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder declaredFeatures(@Nullable Output<List<String>> declaredFeatures) {
+            $.declaredFeatures = declaredFeatures;
+            return this;
+        }
+
+        /**
+         * @param declaredFeatures DeclaredFeatures represents the features related to feature gates that are declared by the node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder declaredFeatures(List<String> declaredFeatures) {
+            return declaredFeatures(Output.of(declaredFeatures));
+        }
+
+        /**
+         * @param declaredFeatures DeclaredFeatures represents the features related to feature gates that are declared by the node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder declaredFeatures(String... declaredFeatures) {
+            return declaredFeatures(List.of(declaredFeatures));
         }
 
         /**

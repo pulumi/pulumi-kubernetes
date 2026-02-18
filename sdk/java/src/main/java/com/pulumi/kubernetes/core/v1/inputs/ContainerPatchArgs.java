@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerRestartRulePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourcePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LifecyclePatchArgs;
@@ -77,14 +78,14 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     @Import(name="envFrom")
     private @Nullable Output<List<EnvFromSourcePatchArgs>> envFrom;
 
     /**
-     * @return List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * @return List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * 
      */
     public Optional<Output<List<EnvFromSourcePatchArgs>>> envFrom() {
@@ -197,14 +198,14 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Resources resize policy for the container.
+     * Resources resize policy for the container. This field cannot be set on ephemeral containers.
      * 
      */
     @Import(name="resizePolicy")
     private @Nullable Output<List<ContainerResizePolicyPatchArgs>> resizePolicy;
 
     /**
-     * @return Resources resize policy for the container.
+     * @return Resources resize policy for the container. This field cannot be set on ephemeral containers.
      * 
      */
     public Optional<Output<List<ContainerResizePolicyPatchArgs>>> resizePolicy() {
@@ -227,18 +228,33 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
      * 
      */
     @Import(name="restartPolicy")
     private @Nullable Output<String> restartPolicy;
 
     /**
-     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
      * 
      */
     public Optional<Output<String>> restartPolicy() {
         return Optional.ofNullable(this.restartPolicy);
+    }
+
+    /**
+     * Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+     * 
+     */
+    @Import(name="restartPolicyRules")
+    private @Nullable Output<List<ContainerRestartRulePatchArgs>> restartPolicyRules;
+
+    /**
+     * @return Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+     * 
+     */
+    public Optional<Output<List<ContainerRestartRulePatchArgs>>> restartPolicyRules() {
+        return Optional.ofNullable(this.restartPolicyRules);
     }
 
     /**
@@ -408,6 +424,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
         this.restartPolicy = $.restartPolicy;
+        this.restartPolicyRules = $.restartPolicyRules;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
         this.stdin = $.stdin;
@@ -532,7 +549,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -543,7 +560,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -553,7 +570,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+         * @param envFrom List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except &#39;=&#39;. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
          * 
          * @return builder
          * 
@@ -720,7 +737,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resizePolicy Resources resize policy for the container.
+         * @param resizePolicy Resources resize policy for the container. This field cannot be set on ephemeral containers.
          * 
          * @return builder
          * 
@@ -731,7 +748,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resizePolicy Resources resize policy for the container.
+         * @param resizePolicy Resources resize policy for the container. This field cannot be set on ephemeral containers.
          * 
          * @return builder
          * 
@@ -741,7 +758,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param resizePolicy Resources resize policy for the container.
+         * @param resizePolicy Resources resize policy for the container. This field cannot be set on ephemeral containers.
          * 
          * @return builder
          * 
@@ -772,7 +789,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
          * 
          * @return builder
          * 
@@ -783,13 +800,44 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Additionally, setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
          * 
          * @return builder
          * 
          */
         public Builder restartPolicy(String restartPolicy) {
             return restartPolicy(Output.of(restartPolicy));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(@Nullable Output<List<ContainerRestartRulePatchArgs>> restartPolicyRules) {
+            $.restartPolicyRules = restartPolicyRules;
+            return this;
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(List<ContainerRestartRulePatchArgs> restartPolicyRules) {
+            return restartPolicyRules(Output.of(restartPolicyRules));
+        }
+
+        /**
+         * @param restartPolicyRules Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod&#39;s RestartPolicy.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicyRules(ContainerRestartRulePatchArgs... restartPolicyRules) {
+            return restartPolicyRules(List.of(restartPolicyRules));
         }
 
         /**

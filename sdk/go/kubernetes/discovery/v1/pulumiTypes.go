@@ -536,7 +536,7 @@ func (o EndpointConditionsPatchPtrOutput) Terminating() pulumi.BoolPtrOutput {
 
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHints struct {
-	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForNodes []ForNode `pulumi:"forNodes"`
 	// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForZones []ForZone `pulumi:"forZones"`
@@ -555,7 +555,7 @@ type EndpointHintsInput interface {
 
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHintsArgs struct {
-	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForNodes ForNodeArrayInput `pulumi:"forNodes"`
 	// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForZones ForZoneArrayInput `pulumi:"forZones"`
@@ -639,7 +639,7 @@ func (o EndpointHintsOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Con
 	}).(EndpointHintsPtrOutput)
 }
 
-// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 func (o EndpointHintsOutput) ForNodes() ForNodeArrayOutput {
 	return o.ApplyT(func(v EndpointHints) []ForNode { return v.ForNodes }).(ForNodeArrayOutput)
 }
@@ -673,7 +673,7 @@ func (o EndpointHintsPtrOutput) Elem() EndpointHintsOutput {
 	}).(EndpointHintsOutput)
 }
 
-// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 func (o EndpointHintsPtrOutput) ForNodes() ForNodeArrayOutput {
 	return o.ApplyT(func(v *EndpointHints) []ForNode {
 		if v == nil {
@@ -695,7 +695,7 @@ func (o EndpointHintsPtrOutput) ForZones() ForZoneArrayOutput {
 
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHintsPatch struct {
-	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForNodes []ForNodePatch `pulumi:"forNodes"`
 	// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForZones []ForZonePatch `pulumi:"forZones"`
@@ -714,7 +714,7 @@ type EndpointHintsPatchInput interface {
 
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHintsPatchArgs struct {
-	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+	// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForNodes ForNodePatchArrayInput `pulumi:"forNodes"`
 	// forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 	ForZones ForZonePatchArrayInput `pulumi:"forZones"`
@@ -798,7 +798,7 @@ func (o EndpointHintsPatchOutput) ToEndpointHintsPatchPtrOutputWithContext(ctx c
 	}).(EndpointHintsPatchPtrOutput)
 }
 
-// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 func (o EndpointHintsPatchOutput) ForNodes() ForNodePatchArrayOutput {
 	return o.ApplyT(func(v EndpointHintsPatch) []ForNodePatch { return v.ForNodes }).(ForNodePatchArrayOutput)
 }
@@ -832,7 +832,7 @@ func (o EndpointHintsPatchPtrOutput) Elem() EndpointHintsPatchOutput {
 	}).(EndpointHintsPatchOutput)
 }
 
-// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+// forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
 func (o EndpointHintsPatchPtrOutput) ForNodes() ForNodePatchArrayOutput {
 	return o.ApplyT(func(v *EndpointHintsPatch) []ForNodePatch {
 		if v == nil {

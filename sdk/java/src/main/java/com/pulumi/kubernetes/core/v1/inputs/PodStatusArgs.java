@@ -8,11 +8,14 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.HostIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodExtendedResourceClaimStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimStatusArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -25,6 +28,21 @@ import javax.annotation.Nullable;
 public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PodStatusArgs Empty = new PodStatusArgs();
+
+    /**
+     * AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+     * 
+     */
+    @Import(name="allocatedResources")
+    private @Nullable Output<Map<String,String>> allocatedResources;
+
+    /**
+     * @return AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+     * 
+     */
+    public Optional<Output<Map<String,String>>> allocatedResources() {
+        return Optional.ofNullable(this.allocatedResources);
+    }
 
     /**
      * Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -69,6 +87,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<List<ContainerStatusArgs>>> ephemeralContainerStatuses() {
         return Optional.ofNullable(this.ephemeralContainerStatuses);
+    }
+
+    /**
+     * Status of extended resource claim backed by DRA.
+     * 
+     */
+    @Import(name="extendedResourceClaimStatus")
+    private @Nullable Output<PodExtendedResourceClaimStatusArgs> extendedResourceClaimStatus;
+
+    /**
+     * @return Status of extended resource claim backed by DRA.
+     * 
+     */
+    public Optional<Output<PodExtendedResourceClaimStatusArgs>> extendedResourceClaimStatus() {
+        return Optional.ofNullable(this.extendedResourceClaimStatus);
     }
 
     /**
@@ -147,14 +180,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     @Import(name="observedGeneration")
     private @Nullable Output<Integer> observedGeneration;
 
     /**
-     * @return If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+     * @return If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
      * 
      */
     public Optional<Output<Integer>> observedGeneration() {
@@ -275,6 +308,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+     * 
+     */
+    @Import(name="resources")
+    private @Nullable Output<ResourceRequirementsArgs> resources;
+
+    /**
+     * @return Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+     * 
+     */
+    public Optional<Output<ResourceRequirementsArgs>> resources() {
+        return Optional.ofNullable(this.resources);
+    }
+
+    /**
      * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
      */
@@ -292,9 +340,11 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     private PodStatusArgs() {}
 
     private PodStatusArgs(PodStatusArgs $) {
+        this.allocatedResources = $.allocatedResources;
         this.conditions = $.conditions;
         this.containerStatuses = $.containerStatuses;
         this.ephemeralContainerStatuses = $.ephemeralContainerStatuses;
+        this.extendedResourceClaimStatus = $.extendedResourceClaimStatus;
         this.hostIP = $.hostIP;
         this.hostIPs = $.hostIPs;
         this.initContainerStatuses = $.initContainerStatuses;
@@ -308,6 +358,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.reason = $.reason;
         this.resize = $.resize;
         this.resourceClaimStatuses = $.resourceClaimStatuses;
+        this.resources = $.resources;
         this.startTime = $.startTime;
     }
 
@@ -327,6 +378,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(PodStatusArgs defaults) {
             $ = new PodStatusArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param allocatedResources AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResources(@Nullable Output<Map<String,String>> allocatedResources) {
+            $.allocatedResources = allocatedResources;
+            return this;
+        }
+
+        /**
+         * @param allocatedResources AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResources(Map<String,String> allocatedResources) {
+            return allocatedResources(Output.of(allocatedResources));
         }
 
         /**
@@ -420,6 +492,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ephemeralContainerStatuses(ContainerStatusArgs... ephemeralContainerStatuses) {
             return ephemeralContainerStatuses(List.of(ephemeralContainerStatuses));
+        }
+
+        /**
+         * @param extendedResourceClaimStatus Status of extended resource claim backed by DRA.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceClaimStatus(@Nullable Output<PodExtendedResourceClaimStatusArgs> extendedResourceClaimStatus) {
+            $.extendedResourceClaimStatus = extendedResourceClaimStatus;
+            return this;
+        }
+
+        /**
+         * @param extendedResourceClaimStatus Status of extended resource claim backed by DRA.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder extendedResourceClaimStatus(PodExtendedResourceClaimStatusArgs extendedResourceClaimStatus) {
+            return extendedResourceClaimStatus(Output.of(extendedResourceClaimStatus));
         }
 
         /**
@@ -548,7 +641,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
          * 
          * @return builder
          * 
@@ -559,7 +652,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+         * @param observedGeneration If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
          * 
          * @return builder
          * 
@@ -741,6 +834,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder resourceClaimStatuses(PodResourceClaimStatusArgs... resourceClaimStatuses) {
             return resourceClaimStatuses(List.of(resourceClaimStatuses));
+        }
+
+        /**
+         * @param resources Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resources(@Nullable Output<ResourceRequirementsArgs> resources) {
+            $.resources = resources;
+            return this;
+        }
+
+        /**
+         * @param resources Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resources(ResourceRequirementsArgs resources) {
+            return resources(Output.of(resources));
         }
 
         /**

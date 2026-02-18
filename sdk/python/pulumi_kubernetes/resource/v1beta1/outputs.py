@@ -26,6 +26,10 @@ __all__ = [
     'BasicDevicePatch',
     'CELDeviceSelector',
     'CELDeviceSelectorPatch',
+    'CapacityRequestPolicy',
+    'CapacityRequestPolicyRange',
+    'CapacityRequirements',
+    'CapacityRequirementsPatch',
     'Counter',
     'CounterSet',
     'CounterSetPatch',
@@ -87,12 +91,16 @@ __all__ = [
 class AllocatedDeviceStatus(dict):
     """
     AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+
+    The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     """
     @staticmethod
     def __key_warning(key: str):
         suggest = None
         if key == "networkData":
             suggest = "network_data"
+        elif key == "shareID":
+            suggest = "share_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in AllocatedDeviceStatus. Access the value via the '{suggest}' property getter instead.")
@@ -111,13 +119,16 @@ class AllocatedDeviceStatus(dict):
                  pool: _builtins.str,
                  conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
                  data: Optional[Any] = None,
-                 network_data: Optional['outputs.NetworkDeviceData'] = None):
+                 network_data: Optional['outputs.NetworkDeviceData'] = None,
+                 share_id: Optional[_builtins.str] = None):
         """
         AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+
+        The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param _builtins.str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
@@ -128,6 +139,7 @@ class AllocatedDeviceStatus(dict):
                
                The length of the raw data must be smaller or equal to 10 Ki.
         :param 'NetworkDeviceDataArgs' network_data: NetworkData contains network-related information specific to the device.
+        :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device.
         """
         pulumi.set(__self__, "device", device)
         pulumi.set(__self__, "driver", driver)
@@ -138,6 +150,8 @@ class AllocatedDeviceStatus(dict):
             pulumi.set(__self__, "data", data)
         if network_data is not None:
             pulumi.set(__self__, "network_data", network_data)
+        if share_id is not None:
+            pulumi.set(__self__, "share_id", share_id)
 
     @_builtins.property
     @pulumi.getter
@@ -153,7 +167,7 @@ class AllocatedDeviceStatus(dict):
         """
         Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -195,17 +209,29 @@ class AllocatedDeviceStatus(dict):
         """
         return pulumi.get(self, "network_data")
 
+    @_builtins.property
+    @pulumi.getter(name="shareID")
+    def share_id(self) -> Optional[_builtins.str]:
+        """
+        ShareID uniquely identifies an individual allocation share of the device.
+        """
+        return pulumi.get(self, "share_id")
+
 
 @pulumi.output_type
 class AllocatedDeviceStatusPatch(dict):
     """
     AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+
+    The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
     """
     @staticmethod
     def __key_warning(key: str):
         suggest = None
         if key == "networkData":
             suggest = "network_data"
+        elif key == "shareID":
+            suggest = "share_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in AllocatedDeviceStatusPatch. Access the value via the '{suggest}' property getter instead.")
@@ -224,9 +250,12 @@ class AllocatedDeviceStatusPatch(dict):
                  device: Optional[_builtins.str] = None,
                  driver: Optional[_builtins.str] = None,
                  network_data: Optional['outputs.NetworkDeviceDataPatch'] = None,
-                 pool: Optional[_builtins.str] = None):
+                 pool: Optional[_builtins.str] = None,
+                 share_id: Optional[_builtins.str] = None):
         """
         AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+
+        The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.
                
                Must not contain more than 8 entries.
@@ -236,11 +265,12 @@ class AllocatedDeviceStatusPatch(dict):
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param 'NetworkDeviceDataPatchArgs' network_data: NetworkData contains network-related information specific to the device.
         :param _builtins.str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
+        :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device.
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
@@ -254,6 +284,8 @@ class AllocatedDeviceStatusPatch(dict):
             pulumi.set(__self__, "network_data", network_data)
         if pool is not None:
             pulumi.set(__self__, "pool", pool)
+        if share_id is not None:
+            pulumi.set(__self__, "share_id", share_id)
 
     @_builtins.property
     @pulumi.getter
@@ -289,7 +321,7 @@ class AllocatedDeviceStatusPatch(dict):
         """
         Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -311,6 +343,14 @@ class AllocatedDeviceStatusPatch(dict):
         """
         return pulumi.get(self, "pool")
 
+    @_builtins.property
+    @pulumi.getter(name="shareID")
+    def share_id(self) -> Optional[_builtins.str]:
+        """
+        ShareID uniquely identifies an individual allocation share of the device.
+        """
+        return pulumi.get(self, "share_id")
+
 
 @pulumi.output_type
 class AllocationResult(dict):
@@ -320,7 +360,9 @@ class AllocationResult(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "nodeSelector":
+        if key == "allocationTimestamp":
+            suggest = "allocation_timestamp"
+        elif key == "nodeSelector":
             suggest = "node_selector"
 
         if suggest:
@@ -335,17 +377,33 @@ class AllocationResult(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 allocation_timestamp: Optional[_builtins.str] = None,
                  devices: Optional['outputs.DeviceAllocationResult'] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+        :param _builtins.str allocation_timestamp: AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
         :param 'DeviceAllocationResultArgs' devices: Devices is the result of allocating devices.
         :param '_core.v1.NodeSelectorArgs' node_selector: NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
         """
+        if allocation_timestamp is not None:
+            pulumi.set(__self__, "allocation_timestamp", allocation_timestamp)
         if devices is not None:
             pulumi.set(__self__, "devices", devices)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+
+    @_builtins.property
+    @pulumi.getter(name="allocationTimestamp")
+    def allocation_timestamp(self) -> Optional[_builtins.str]:
+        """
+        AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+        """
+        return pulumi.get(self, "allocation_timestamp")
 
     @_builtins.property
     @pulumi.getter
@@ -372,7 +430,9 @@ class AllocationResultPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "nodeSelector":
+        if key == "allocationTimestamp":
+            suggest = "allocation_timestamp"
+        elif key == "nodeSelector":
             suggest = "node_selector"
 
         if suggest:
@@ -387,17 +447,33 @@ class AllocationResultPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 allocation_timestamp: Optional[_builtins.str] = None,
                  devices: Optional['outputs.DeviceAllocationResultPatch'] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelectorPatch'] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+        :param _builtins.str allocation_timestamp: AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
         :param 'DeviceAllocationResultPatchArgs' devices: Devices is the result of allocating devices.
         :param '_core.v1.NodeSelectorPatchArgs' node_selector: NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
         """
+        if allocation_timestamp is not None:
+            pulumi.set(__self__, "allocation_timestamp", allocation_timestamp)
         if devices is not None:
             pulumi.set(__self__, "devices", devices)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+
+    @_builtins.property
+    @pulumi.getter(name="allocationTimestamp")
+    def allocation_timestamp(self) -> Optional[_builtins.str]:
+        """
+        AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+        """
+        return pulumi.get(self, "allocation_timestamp")
 
     @_builtins.property
     @pulumi.getter
@@ -426,6 +502,14 @@ class BasicDevice(dict):
         suggest = None
         if key == "allNodes":
             suggest = "all_nodes"
+        elif key == "allowMultipleAllocations":
+            suggest = "allow_multiple_allocations"
+        elif key == "bindingConditions":
+            suggest = "binding_conditions"
+        elif key == "bindingFailureConditions":
+            suggest = "binding_failure_conditions"
+        elif key == "bindsToNode":
+            suggest = "binds_to_node"
         elif key == "consumesCounters":
             suggest = "consumes_counters"
         elif key == "nodeName":
@@ -446,7 +530,11 @@ class BasicDevice(dict):
 
     def __init__(__self__, *,
                  all_nodes: Optional[_builtins.bool] = None,
+                 allow_multiple_allocations: Optional[_builtins.bool] = None,
                  attributes: Optional[Mapping[str, 'outputs.DeviceAttribute']] = None,
+                 binding_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binding_failure_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binds_to_node: Optional[_builtins.bool] = None,
                  capacity: Optional[Mapping[str, 'outputs.DeviceCapacity']] = None,
                  consumes_counters: Optional[Sequence['outputs.DeviceCounterConsumption']] = None,
                  node_name: Optional[_builtins.str] = None,
@@ -457,9 +545,29 @@ class BasicDevice(dict):
         :param _builtins.bool all_nodes: AllNodes indicates that all nodes have access to the device.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param _builtins.bool allow_multiple_allocations: AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+               
+               If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
         :param Mapping[str, 'DeviceAttributeArgs'] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
+        :param Sequence[_builtins.str] binding_conditions: BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+               
+               The maximum number of binding conditions is 4.
+               
+               The conditions must be a valid condition type string.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Sequence[_builtins.str] binding_failure_conditions: BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+               
+               The maximum number of binding failure conditions is 4.
+               
+               The conditions must be a valid condition type string.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param _builtins.bool binds_to_node: BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param Mapping[str, 'DeviceCapacityArgs'] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -467,7 +575,7 @@ class BasicDevice(dict):
                
                There can only be a single entry per counterSet.
                
-               The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+               The maximum number of device counter consumptions per device is 2.
         :param _builtins.str node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -478,14 +586,22 @@ class BasicDevice(dict):
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
         :param Sequence['DeviceTaintArgs'] taints: If specified, these are the driver-defined taints.
                
-               The maximum number of taints is 4.
+               The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
                
                This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
+        if allow_multiple_allocations is not None:
+            pulumi.set(__self__, "allow_multiple_allocations", allow_multiple_allocations)
         if attributes is not None:
             pulumi.set(__self__, "attributes", attributes)
+        if binding_conditions is not None:
+            pulumi.set(__self__, "binding_conditions", binding_conditions)
+        if binding_failure_conditions is not None:
+            pulumi.set(__self__, "binding_failure_conditions", binding_failure_conditions)
+        if binds_to_node is not None:
+            pulumi.set(__self__, "binds_to_node", binds_to_node)
         if capacity is not None:
             pulumi.set(__self__, "capacity", capacity)
         if consumes_counters is not None:
@@ -508,6 +624,16 @@ class BasicDevice(dict):
         return pulumi.get(self, "all_nodes")
 
     @_builtins.property
+    @pulumi.getter(name="allowMultipleAllocations")
+    def allow_multiple_allocations(self) -> Optional[_builtins.bool]:
+        """
+        AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+
+        If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+        """
+        return pulumi.get(self, "allow_multiple_allocations")
+
+    @_builtins.property
     @pulumi.getter
     def attributes(self) -> Optional[Mapping[str, 'outputs.DeviceAttribute']]:
         """
@@ -516,6 +642,44 @@ class BasicDevice(dict):
         The maximum number of attributes and capacities combined is 32.
         """
         return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingConditions")
+    def binding_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+
+        The maximum number of binding conditions is 4.
+
+        The conditions must be a valid condition type string.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingFailureConditions")
+    def binding_failure_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+
+        The maximum number of binding failure conditions is 4.
+
+        The conditions must be a valid condition type string.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_failure_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindsToNode")
+    def binds_to_node(self) -> Optional[_builtins.bool]:
+        """
+        BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binds_to_node")
 
     @_builtins.property
     @pulumi.getter
@@ -535,7 +699,7 @@ class BasicDevice(dict):
 
         There can only be a single entry per counterSet.
 
-        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        The maximum number of device counter consumptions per device is 2.
         """
         return pulumi.get(self, "consumes_counters")
 
@@ -567,7 +731,7 @@ class BasicDevice(dict):
         """
         If specified, these are the driver-defined taints.
 
-        The maximum number of taints is 4.
+        The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
         This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
@@ -584,6 +748,14 @@ class BasicDevicePatch(dict):
         suggest = None
         if key == "allNodes":
             suggest = "all_nodes"
+        elif key == "allowMultipleAllocations":
+            suggest = "allow_multiple_allocations"
+        elif key == "bindingConditions":
+            suggest = "binding_conditions"
+        elif key == "bindingFailureConditions":
+            suggest = "binding_failure_conditions"
+        elif key == "bindsToNode":
+            suggest = "binds_to_node"
         elif key == "consumesCounters":
             suggest = "consumes_counters"
         elif key == "nodeName":
@@ -604,7 +776,11 @@ class BasicDevicePatch(dict):
 
     def __init__(__self__, *,
                  all_nodes: Optional[_builtins.bool] = None,
+                 allow_multiple_allocations: Optional[_builtins.bool] = None,
                  attributes: Optional[Mapping[str, 'outputs.DeviceAttribute']] = None,
+                 binding_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binding_failure_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binds_to_node: Optional[_builtins.bool] = None,
                  capacity: Optional[Mapping[str, 'outputs.DeviceCapacity']] = None,
                  consumes_counters: Optional[Sequence['outputs.DeviceCounterConsumptionPatch']] = None,
                  node_name: Optional[_builtins.str] = None,
@@ -615,9 +791,29 @@ class BasicDevicePatch(dict):
         :param _builtins.bool all_nodes: AllNodes indicates that all nodes have access to the device.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
+        :param _builtins.bool allow_multiple_allocations: AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+               
+               If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
         :param Mapping[str, 'DeviceAttributeArgs'] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
+        :param Sequence[_builtins.str] binding_conditions: BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+               
+               The maximum number of binding conditions is 4.
+               
+               The conditions must be a valid condition type string.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Sequence[_builtins.str] binding_failure_conditions: BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+               
+               The maximum number of binding failure conditions is 4.
+               
+               The conditions must be a valid condition type string.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param _builtins.bool binds_to_node: BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param Mapping[str, 'DeviceCapacityArgs'] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -625,7 +821,7 @@ class BasicDevicePatch(dict):
                
                There can only be a single entry per counterSet.
                
-               The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+               The maximum number of device counter consumptions per device is 2.
         :param _builtins.str node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -636,14 +832,22 @@ class BasicDevicePatch(dict):
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
         :param Sequence['DeviceTaintPatchArgs'] taints: If specified, these are the driver-defined taints.
                
-               The maximum number of taints is 4.
+               The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
                
                This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
+        if allow_multiple_allocations is not None:
+            pulumi.set(__self__, "allow_multiple_allocations", allow_multiple_allocations)
         if attributes is not None:
             pulumi.set(__self__, "attributes", attributes)
+        if binding_conditions is not None:
+            pulumi.set(__self__, "binding_conditions", binding_conditions)
+        if binding_failure_conditions is not None:
+            pulumi.set(__self__, "binding_failure_conditions", binding_failure_conditions)
+        if binds_to_node is not None:
+            pulumi.set(__self__, "binds_to_node", binds_to_node)
         if capacity is not None:
             pulumi.set(__self__, "capacity", capacity)
         if consumes_counters is not None:
@@ -666,6 +870,16 @@ class BasicDevicePatch(dict):
         return pulumi.get(self, "all_nodes")
 
     @_builtins.property
+    @pulumi.getter(name="allowMultipleAllocations")
+    def allow_multiple_allocations(self) -> Optional[_builtins.bool]:
+        """
+        AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+
+        If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+        """
+        return pulumi.get(self, "allow_multiple_allocations")
+
+    @_builtins.property
     @pulumi.getter
     def attributes(self) -> Optional[Mapping[str, 'outputs.DeviceAttribute']]:
         """
@@ -674,6 +888,44 @@ class BasicDevicePatch(dict):
         The maximum number of attributes and capacities combined is 32.
         """
         return pulumi.get(self, "attributes")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingConditions")
+    def binding_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+
+        The maximum number of binding conditions is 4.
+
+        The conditions must be a valid condition type string.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingFailureConditions")
+    def binding_failure_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+
+        The maximum number of binding failure conditions is 4.
+
+        The conditions must be a valid condition type string.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_failure_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindsToNode")
+    def binds_to_node(self) -> Optional[_builtins.bool]:
+        """
+        BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binds_to_node")
 
     @_builtins.property
     @pulumi.getter
@@ -693,7 +945,7 @@ class BasicDevicePatch(dict):
 
         There can only be a single entry per counterSet.
 
-        The total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).
+        The maximum number of device counter consumptions per device is 2.
         """
         return pulumi.get(self, "consumes_counters")
 
@@ -725,7 +977,7 @@ class BasicDevicePatch(dict):
         """
         If specified, these are the driver-defined taints.
 
-        The maximum number of taints is 4.
+        The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
         This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         """
@@ -749,6 +1001,8 @@ class CELDeviceSelector(dict):
                   (e.g. device.attributes["dra.example.com"] evaluates to an object with all
                   of the attributes which were prefixed by "dra.example.com".
                 - capacity (map[string]object): the device's capacities, grouped by prefix.
+                - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+                  (v1.34+ with the DRAConsumableCapacity feature enabled).
                
                Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
                
@@ -785,6 +1039,8 @@ class CELDeviceSelector(dict):
            (e.g. device.attributes["dra.example.com"] evaluates to an object with all
            of the attributes which were prefixed by "dra.example.com".
          - capacity (map[string]object): the device's capacities, grouped by prefix.
+         - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+           (v1.34+ with the DRAConsumableCapacity feature enabled).
 
         Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 
@@ -827,6 +1083,8 @@ class CELDeviceSelectorPatch(dict):
                   (e.g. device.attributes["dra.example.com"] evaluates to an object with all
                   of the attributes which were prefixed by "dra.example.com".
                 - capacity (map[string]object): the device's capacities, grouped by prefix.
+                - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+                  (v1.34+ with the DRAConsumableCapacity feature enabled).
                
                Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
                
@@ -864,6 +1122,8 @@ class CELDeviceSelectorPatch(dict):
            (e.g. device.attributes["dra.example.com"] evaluates to an object with all
            of the attributes which were prefixed by "dra.example.com".
          - capacity (map[string]object): the device's capacities, grouped by prefix.
+         - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+           (v1.34+ with the DRAConsumableCapacity feature enabled).
 
         Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
 
@@ -887,6 +1147,262 @@ class CELDeviceSelectorPatch(dict):
         The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         return pulumi.get(self, "expression")
+
+
+@pulumi.output_type
+class CapacityRequestPolicy(dict):
+    """
+    CapacityRequestPolicy defines how requests consume device capacity.
+
+    Must not set more than one ValidRequestValues.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "validRange":
+            suggest = "valid_range"
+        elif key == "validValues":
+            suggest = "valid_values"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CapacityRequestPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CapacityRequestPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CapacityRequestPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default: Optional[_builtins.str] = None,
+                 valid_range: Optional['outputs.CapacityRequestPolicyRange'] = None,
+                 valid_values: Optional[Sequence[_builtins.str]] = None):
+        """
+        CapacityRequestPolicy defines how requests consume device capacity.
+
+        Must not set more than one ValidRequestValues.
+        :param _builtins.str default: Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+        :param 'CapacityRequestPolicyRangeArgs' valid_range: ValidRange defines an acceptable quantity value range in consuming requests.
+               
+               If this field is set, Default must be defined and it must fall within the defined ValidRange.
+               
+               If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+               
+               If the request doesn't contain this capacity entry, Default value is used.
+        :param Sequence[_builtins.str] valid_values: ValidValues defines a set of acceptable quantity values in consuming requests.
+               
+               Must not contain more than 10 entries. Must be sorted in ascending order.
+               
+               If this field is set, Default must be defined and it must be included in ValidValues list.
+               
+               If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+               
+               If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+        """
+        if default is not None:
+            pulumi.set(__self__, "default", default)
+        if valid_range is not None:
+            pulumi.set(__self__, "valid_range", valid_range)
+        if valid_values is not None:
+            pulumi.set(__self__, "valid_values", valid_values)
+
+    @_builtins.property
+    @pulumi.getter
+    def default(self) -> Optional[_builtins.str]:
+        """
+        Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+        """
+        return pulumi.get(self, "default")
+
+    @_builtins.property
+    @pulumi.getter(name="validRange")
+    def valid_range(self) -> Optional['outputs.CapacityRequestPolicyRange']:
+        """
+        ValidRange defines an acceptable quantity value range in consuming requests.
+
+        If this field is set, Default must be defined and it must fall within the defined ValidRange.
+
+        If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+
+        If the request doesn't contain this capacity entry, Default value is used.
+        """
+        return pulumi.get(self, "valid_range")
+
+    @_builtins.property
+    @pulumi.getter(name="validValues")
+    def valid_values(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        ValidValues defines a set of acceptable quantity values in consuming requests.
+
+        Must not contain more than 10 entries. Must be sorted in ascending order.
+
+        If this field is set, Default must be defined and it must be included in ValidValues list.
+
+        If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+
+        If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
+        """
+        return pulumi.get(self, "valid_values")
+
+
+@pulumi.output_type
+class CapacityRequestPolicyRange(dict):
+    """
+    CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+
+      - If the requested amount is less than Min, it is rounded up to the Min value.
+      - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+        it will be rounded up to the next value equal to Min + (n * Step).
+      - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+      - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+        and the device cannot be allocated.
+    """
+    def __init__(__self__, *,
+                 min: _builtins.str,
+                 max: Optional[_builtins.str] = None,
+                 step: Optional[_builtins.str] = None):
+        """
+        CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+
+          - If the requested amount is less than Min, it is rounded up to the Min value.
+          - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+            it will be rounded up to the next value equal to Min + (n * Step).
+          - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+          - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+            and the device cannot be allocated.
+        :param _builtins.str min: Min specifies the minimum capacity allowed for a consumption request.
+               
+               Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+        :param _builtins.str max: Max defines the upper limit for capacity that can be requested.
+               
+               Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+        :param _builtins.str step: Step defines the step size between valid capacity amounts within the range.
+               
+               Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+        """
+        pulumi.set(__self__, "min", min)
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if step is not None:
+            pulumi.set(__self__, "step", step)
+
+    @_builtins.property
+    @pulumi.getter
+    def min(self) -> _builtins.str:
+        """
+        Min specifies the minimum capacity allowed for a consumption request.
+
+        Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+        """
+        return pulumi.get(self, "min")
+
+    @_builtins.property
+    @pulumi.getter
+    def max(self) -> Optional[_builtins.str]:
+        """
+        Max defines the upper limit for capacity that can be requested.
+
+        Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+        """
+        return pulumi.get(self, "max")
+
+    @_builtins.property
+    @pulumi.getter
+    def step(self) -> Optional[_builtins.str]:
+        """
+        Step defines the step size between valid capacity amounts within the range.
+
+        Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+        """
+        return pulumi.get(self, "step")
+
+
+@pulumi.output_type
+class CapacityRequirements(dict):
+    """
+    CapacityRequirements defines the capacity requirements for a specific device request.
+    """
+    def __init__(__self__, *,
+                 requests: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        CapacityRequirements defines the capacity requirements for a specific device request.
+        :param Mapping[str, _builtins.str] requests: Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+               
+               This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+               
+               When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+               
+               For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+                 (i.e., the whole device is claimed).
+               - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+               
+               If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+        """
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+
+    @_builtins.property
+    @pulumi.getter
+    def requests(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+
+        This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+
+        When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+
+        For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+          (i.e., the whole device is claimed).
+        - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+
+        If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+        """
+        return pulumi.get(self, "requests")
+
+
+@pulumi.output_type
+class CapacityRequirementsPatch(dict):
+    """
+    CapacityRequirements defines the capacity requirements for a specific device request.
+    """
+    def __init__(__self__, *,
+                 requests: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        CapacityRequirements defines the capacity requirements for a specific device request.
+        :param Mapping[str, _builtins.str] requests: Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+               
+               This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+               
+               When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+               
+               For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+                 (i.e., the whole device is claimed).
+               - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+               
+               If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+        """
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+
+    @_builtins.property
+    @pulumi.getter
+    def requests(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+
+        This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+
+        When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+
+        For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+          (i.e., the whole device is claimed).
+        - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+
+        If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+        """
+        return pulumi.get(self, "requests")
 
 
 @pulumi.output_type
@@ -914,7 +1430,7 @@ class Counter(dict):
 @pulumi.output_type
 class CounterSet(dict):
     """
-    CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+    CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
     The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
     """
@@ -922,7 +1438,7 @@ class CounterSet(dict):
                  counters: Mapping[str, 'outputs.Counter'],
                  name: _builtins.str):
         """
-        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
         The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
@@ -955,7 +1471,7 @@ class CounterSet(dict):
 @pulumi.output_type
 class CounterSetPatch(dict):
     """
-    CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+    CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
     The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
     """
@@ -963,7 +1479,7 @@ class CounterSetPatch(dict):
                  counters: Optional[Mapping[str, 'outputs.Counter']] = None,
                  name: Optional[_builtins.str] = None):
         """
-        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+        CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
         The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
@@ -1272,21 +1788,62 @@ class DeviceCapacity(dict):
     """
     DeviceCapacity describes a quantity associated with a device.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "requestPolicy":
+            suggest = "request_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceCapacity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceCapacity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceCapacity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
-                 value: _builtins.str):
+                 value: _builtins.str,
+                 request_policy: Optional['outputs.CapacityRequestPolicy'] = None):
         """
         DeviceCapacity describes a quantity associated with a device.
-        :param _builtins.str value: Value defines how much of a certain device capacity is available.
+        :param _builtins.str value: Value defines how much of a certain capacity that device has.
+               
+               This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
+        :param 'CapacityRequestPolicyArgs' request_policy: RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+               
+               The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+               
+               If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
         """
         pulumi.set(__self__, "value", value)
+        if request_policy is not None:
+            pulumi.set(__self__, "request_policy", request_policy)
 
     @_builtins.property
     @pulumi.getter
     def value(self) -> _builtins.str:
         """
-        Value defines how much of a certain device capacity is available.
+        Value defines how much of a certain capacity that device has.
+
+        This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
         """
         return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter(name="requestPolicy")
+    def request_policy(self) -> Optional['outputs.CapacityRequestPolicy']:
+        """
+        RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+
+        The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+
+        If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+        """
+        return pulumi.get(self, "request_policy")
 
 
 @pulumi.output_type
@@ -1599,18 +2156,41 @@ class DeviceClassSpec(dict):
     """
     DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extendedResourceName":
+            suggest = "extended_resource_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceClassSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceClassSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceClassSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config: Optional[Sequence['outputs.DeviceClassConfiguration']] = None,
+                 extended_resource_name: Optional[_builtins.str] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelector']] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
         :param Sequence['DeviceClassConfigurationArgs'] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
+        :param _builtins.str extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+               
+               This is an alpha field.
         :param Sequence['DeviceSelectorArgs'] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
             pulumi.set(__self__, "config", config)
+        if extended_resource_name is not None:
+            pulumi.set(__self__, "extended_resource_name", extended_resource_name)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
 
@@ -1623,6 +2203,16 @@ class DeviceClassSpec(dict):
         They are passed to the driver, but are not considered while allocating the claim.
         """
         return pulumi.get(self, "config")
+
+    @_builtins.property
+    @pulumi.getter(name="extendedResourceName")
+    def extended_resource_name(self) -> Optional[_builtins.str]:
+        """
+        ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+
+        This is an alpha field.
+        """
+        return pulumi.get(self, "extended_resource_name")
 
     @_builtins.property
     @pulumi.getter
@@ -1638,18 +2228,41 @@ class DeviceClassSpecPatch(dict):
     """
     DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "extendedResourceName":
+            suggest = "extended_resource_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceClassSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceClassSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceClassSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config: Optional[Sequence['outputs.DeviceClassConfigurationPatch']] = None,
+                 extended_resource_name: Optional[_builtins.str] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelectorPatch']] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
         :param Sequence['DeviceClassConfigurationPatchArgs'] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
+        :param _builtins.str extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+               
+               This is an alpha field.
         :param Sequence['DeviceSelectorPatchArgs'] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
             pulumi.set(__self__, "config", config)
+        if extended_resource_name is not None:
+            pulumi.set(__self__, "extended_resource_name", extended_resource_name)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
 
@@ -1662,6 +2275,16 @@ class DeviceClassSpecPatch(dict):
         They are passed to the driver, but are not considered while allocating the claim.
         """
         return pulumi.get(self, "config")
+
+    @_builtins.property
+    @pulumi.getter(name="extendedResourceName")
+    def extended_resource_name(self) -> Optional[_builtins.str]:
+        """
+        ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+
+        This is an alpha field.
+        """
+        return pulumi.get(self, "extended_resource_name")
 
     @_builtins.property
     @pulumi.getter
@@ -1680,7 +2303,9 @@ class DeviceConstraint(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "matchAttribute":
+        if key == "distinctAttribute":
+            suggest = "distinct_attribute"
+        elif key == "matchAttribute":
             suggest = "match_attribute"
 
         if suggest:
@@ -1695,10 +2320,18 @@ class DeviceConstraint(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 distinct_attribute: Optional[_builtins.str] = None,
                  match_attribute: Optional[_builtins.str] = None,
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+        :param _builtins.str distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+               
+               This acts as the inverse of MatchAttribute.
+               
+               This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+               
+               This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
         :param _builtins.str match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -1708,10 +2341,26 @@ class DeviceConstraint(dict):
                
                References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
+        if distinct_attribute is not None:
+            pulumi.set(__self__, "distinct_attribute", distinct_attribute)
         if match_attribute is not None:
             pulumi.set(__self__, "match_attribute", match_attribute)
         if requests is not None:
             pulumi.set(__self__, "requests", requests)
+
+    @_builtins.property
+    @pulumi.getter(name="distinctAttribute")
+    def distinct_attribute(self) -> Optional[_builtins.str]:
+        """
+        DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+
+        This acts as the inverse of MatchAttribute.
+
+        This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+
+        This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+        """
+        return pulumi.get(self, "distinct_attribute")
 
     @_builtins.property
     @pulumi.getter(name="matchAttribute")
@@ -1744,7 +2393,9 @@ class DeviceConstraintPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "matchAttribute":
+        if key == "distinctAttribute":
+            suggest = "distinct_attribute"
+        elif key == "matchAttribute":
             suggest = "match_attribute"
 
         if suggest:
@@ -1759,10 +2410,18 @@ class DeviceConstraintPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 distinct_attribute: Optional[_builtins.str] = None,
                  match_attribute: Optional[_builtins.str] = None,
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+        :param _builtins.str distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+               
+               This acts as the inverse of MatchAttribute.
+               
+               This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+               
+               This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
         :param _builtins.str match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -1772,10 +2431,26 @@ class DeviceConstraintPatch(dict):
                
                References to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.
         """
+        if distinct_attribute is not None:
+            pulumi.set(__self__, "distinct_attribute", distinct_attribute)
         if match_attribute is not None:
             pulumi.set(__self__, "match_attribute", match_attribute)
         if requests is not None:
             pulumi.set(__self__, "requests", requests)
+
+    @_builtins.property
+    @pulumi.getter(name="distinctAttribute")
+    def distinct_attribute(self) -> Optional[_builtins.str]:
+        """
+        DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+
+        This acts as the inverse of MatchAttribute.
+
+        This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+
+        This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+        """
+        return pulumi.get(self, "distinct_attribute")
 
     @_builtins.property
     @pulumi.getter(name="matchAttribute")
@@ -1830,7 +2505,7 @@ class DeviceCounterConsumption(dict):
         :param _builtins.str counter_set: CounterSet is the name of the set from which the counters defined will be consumed.
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the counters that will be consumed by the device.
                
-               The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+               The maximum number of counters is 32.
         """
         pulumi.set(__self__, "counter_set", counter_set)
         pulumi.set(__self__, "counters", counters)
@@ -1849,7 +2524,7 @@ class DeviceCounterConsumption(dict):
         """
         Counters defines the counters that will be consumed by the device.
 
-        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        The maximum number of counters is 32.
         """
         return pulumi.get(self, "counters")
 
@@ -1884,7 +2559,7 @@ class DeviceCounterConsumptionPatch(dict):
         :param _builtins.str counter_set: CounterSet is the name of the set from which the counters defined will be consumed.
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the counters that will be consumed by the device.
                
-               The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+               The maximum number of counters is 32.
         """
         if counter_set is not None:
             pulumi.set(__self__, "counter_set", counter_set)
@@ -1905,7 +2580,7 @@ class DeviceCounterConsumptionPatch(dict):
         """
         Counters defines the counters that will be consumed by the device.
 
-        The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        The maximum number of counters is 32.
         """
         return pulumi.get(self, "counters")
 
@@ -1977,6 +2652,7 @@ class DeviceRequest(dict):
                  name: _builtins.str,
                  admin_access: Optional[_builtins.bool] = None,
                  allocation_mode: Optional[_builtins.str] = None,
+                 capacity: Optional['outputs.CapacityRequirements'] = None,
                  count: Optional[_builtins.int] = None,
                  device_class_name: Optional[_builtins.str] = None,
                  first_available: Optional[Sequence['outputs.DeviceSubRequest']] = None,
@@ -2008,6 +2684,11 @@ class DeviceRequest(dict):
                This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param 'CapacityRequirementsArgs' capacity: Capacity define resource requirements against each capacity.
+               
+               If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+               
+               Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
                
                This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
@@ -2041,6 +2722,8 @@ class DeviceRequest(dict):
             pulumi.set(__self__, "admin_access", admin_access)
         if allocation_mode is not None:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
         if device_class_name is not None:
@@ -2096,6 +2779,18 @@ class DeviceRequest(dict):
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         return pulumi.get(self, "allocation_mode")
+
+    @_builtins.property
+    @pulumi.getter
+    def capacity(self) -> Optional['outputs.CapacityRequirements']:
+        """
+        Capacity define resource requirements against each capacity.
+
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+        """
+        return pulumi.get(self, "capacity")
 
     @_builtins.property
     @pulumi.getter
@@ -2170,6 +2865,14 @@ class DeviceRequestAllocationResult(dict):
         suggest = None
         if key == "adminAccess":
             suggest = "admin_access"
+        elif key == "bindingConditions":
+            suggest = "binding_conditions"
+        elif key == "bindingFailureConditions":
+            suggest = "binding_failure_conditions"
+        elif key == "consumedCapacity":
+            suggest = "consumed_capacity"
+        elif key == "shareID":
+            suggest = "share_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResult. Access the value via the '{suggest}' property getter instead.")
@@ -2188,13 +2891,17 @@ class DeviceRequestAllocationResult(dict):
                  pool: _builtins.str,
                  request: _builtins.str,
                  admin_access: Optional[_builtins.bool] = None,
+                 binding_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binding_failure_conditions: Optional[Sequence[_builtins.str]] = None,
+                 consumed_capacity: Optional[Mapping[str, _builtins.str]] = None,
+                 share_id: Optional[_builtins.str] = None,
                  tolerations: Optional[Sequence['outputs.DeviceToleration']] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param _builtins.str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
@@ -2204,6 +2911,18 @@ class DeviceRequestAllocationResult(dict):
         :param _builtins.bool admin_access: AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        :param Sequence[_builtins.str] binding_conditions: BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Sequence[_builtins.str] binding_failure_conditions: BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Mapping[str, _builtins.str] consumed_capacity: ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+               
+               The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+               
+               This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+        :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
         :param Sequence['DeviceTolerationArgs'] tolerations: A copy of all tolerations specified in the request at the time when the device got allocated.
                
                The maximum number of tolerations is 16.
@@ -2216,6 +2935,14 @@ class DeviceRequestAllocationResult(dict):
         pulumi.set(__self__, "request", request)
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
+        if binding_conditions is not None:
+            pulumi.set(__self__, "binding_conditions", binding_conditions)
+        if binding_failure_conditions is not None:
+            pulumi.set(__self__, "binding_failure_conditions", binding_failure_conditions)
+        if consumed_capacity is not None:
+            pulumi.set(__self__, "consumed_capacity", consumed_capacity)
+        if share_id is not None:
+            pulumi.set(__self__, "share_id", share_id)
         if tolerations is not None:
             pulumi.set(__self__, "tolerations", tolerations)
 
@@ -2233,7 +2960,7 @@ class DeviceRequestAllocationResult(dict):
         """
         Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -2268,6 +2995,46 @@ class DeviceRequestAllocationResult(dict):
         return pulumi.get(self, "admin_access")
 
     @_builtins.property
+    @pulumi.getter(name="bindingConditions")
+    def binding_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingFailureConditions")
+    def binding_failure_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_failure_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="consumedCapacity")
+    def consumed_capacity(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+
+        The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+
+        This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+        """
+        return pulumi.get(self, "consumed_capacity")
+
+    @_builtins.property
+    @pulumi.getter(name="shareID")
+    def share_id(self) -> Optional[_builtins.str]:
+        """
+        ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+        """
+        return pulumi.get(self, "share_id")
+
+    @_builtins.property
     @pulumi.getter
     def tolerations(self) -> Optional[Sequence['outputs.DeviceToleration']]:
         """
@@ -2290,6 +3057,14 @@ class DeviceRequestAllocationResultPatch(dict):
         suggest = None
         if key == "adminAccess":
             suggest = "admin_access"
+        elif key == "bindingConditions":
+            suggest = "binding_conditions"
+        elif key == "bindingFailureConditions":
+            suggest = "binding_failure_conditions"
+        elif key == "consumedCapacity":
+            suggest = "consumed_capacity"
+        elif key == "shareID":
+            suggest = "share_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResultPatch. Access the value via the '{suggest}' property getter instead.")
@@ -2304,26 +3079,42 @@ class DeviceRequestAllocationResultPatch(dict):
 
     def __init__(__self__, *,
                  admin_access: Optional[_builtins.bool] = None,
+                 binding_conditions: Optional[Sequence[_builtins.str]] = None,
+                 binding_failure_conditions: Optional[Sequence[_builtins.str]] = None,
+                 consumed_capacity: Optional[Mapping[str, _builtins.str]] = None,
                  device: Optional[_builtins.str] = None,
                  driver: Optional[_builtins.str] = None,
                  pool: Optional[_builtins.str] = None,
                  request: Optional[_builtins.str] = None,
+                 share_id: Optional[_builtins.str] = None,
                  tolerations: Optional[Sequence['outputs.DeviceTolerationPatch']] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
         :param _builtins.bool admin_access: AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        :param Sequence[_builtins.str] binding_conditions: BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Sequence[_builtins.str] binding_failure_conditions: BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+               
+               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        :param Mapping[str, _builtins.str] consumed_capacity: ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+               
+               The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+               
+               This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param _builtins.str pool: This name together with the driver name and the device name field identify which device was allocated (`<driver name>/<pool name>/<device name>`).
                
                Must not be longer than 253 characters and may contain one or more DNS sub-domains separated by slashes.
         :param _builtins.str request: Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.
                
                Multiple devices may have been allocated per request.
+        :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
         :param Sequence['DeviceTolerationPatchArgs'] tolerations: A copy of all tolerations specified in the request at the time when the device got allocated.
                
                The maximum number of tolerations is 16.
@@ -2332,6 +3123,12 @@ class DeviceRequestAllocationResultPatch(dict):
         """
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
+        if binding_conditions is not None:
+            pulumi.set(__self__, "binding_conditions", binding_conditions)
+        if binding_failure_conditions is not None:
+            pulumi.set(__self__, "binding_failure_conditions", binding_failure_conditions)
+        if consumed_capacity is not None:
+            pulumi.set(__self__, "consumed_capacity", consumed_capacity)
         if device is not None:
             pulumi.set(__self__, "device", device)
         if driver is not None:
@@ -2340,6 +3137,8 @@ class DeviceRequestAllocationResultPatch(dict):
             pulumi.set(__self__, "pool", pool)
         if request is not None:
             pulumi.set(__self__, "request", request)
+        if share_id is not None:
+            pulumi.set(__self__, "share_id", share_id)
         if tolerations is not None:
             pulumi.set(__self__, "tolerations", tolerations)
 
@@ -2352,6 +3151,38 @@ class DeviceRequestAllocationResultPatch(dict):
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         """
         return pulumi.get(self, "admin_access")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingConditions")
+    def binding_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="bindingFailureConditions")
+    def binding_failure_conditions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        """
+        return pulumi.get(self, "binding_failure_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="consumedCapacity")
+    def consumed_capacity(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+
+        The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+
+        This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+        """
+        return pulumi.get(self, "consumed_capacity")
 
     @_builtins.property
     @pulumi.getter
@@ -2367,7 +3198,7 @@ class DeviceRequestAllocationResultPatch(dict):
         """
         Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -2390,6 +3221,14 @@ class DeviceRequestAllocationResultPatch(dict):
         Multiple devices may have been allocated per request.
         """
         return pulumi.get(self, "request")
+
+    @_builtins.property
+    @pulumi.getter(name="shareID")
+    def share_id(self) -> Optional[_builtins.str]:
+        """
+        ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+        """
+        return pulumi.get(self, "share_id")
 
     @_builtins.property
     @pulumi.getter
@@ -2435,6 +3274,7 @@ class DeviceRequestPatch(dict):
     def __init__(__self__, *,
                  admin_access: Optional[_builtins.bool] = None,
                  allocation_mode: Optional[_builtins.str] = None,
+                 capacity: Optional['outputs.CapacityRequirementsPatch'] = None,
                  count: Optional[_builtins.int] = None,
                  device_class_name: Optional[_builtins.str] = None,
                  first_available: Optional[Sequence['outputs.DeviceSubRequestPatch']] = None,
@@ -2464,6 +3304,11 @@ class DeviceRequestPatch(dict):
                This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param 'CapacityRequirementsPatchArgs' capacity: Capacity define resource requirements against each capacity.
+               
+               If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+               
+               Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
                
                This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
@@ -2499,6 +3344,8 @@ class DeviceRequestPatch(dict):
             pulumi.set(__self__, "admin_access", admin_access)
         if allocation_mode is not None:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
         if device_class_name is not None:
@@ -2546,6 +3393,18 @@ class DeviceRequestPatch(dict):
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         return pulumi.get(self, "allocation_mode")
+
+    @_builtins.property
+    @pulumi.getter
+    def capacity(self) -> Optional['outputs.CapacityRequirementsPatch']:
+        """
+        Capacity define resource requirements against each capacity.
+
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+        """
+        return pulumi.get(self, "capacity")
 
     @_builtins.property
     @pulumi.getter
@@ -2696,6 +3555,7 @@ class DeviceSubRequest(dict):
                  device_class_name: _builtins.str,
                  name: _builtins.str,
                  allocation_mode: Optional[_builtins.str] = None,
+                 capacity: Optional['outputs.CapacityRequirements'] = None,
                  count: Optional[_builtins.int] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelector']] = None,
                  tolerations: Optional[Sequence['outputs.DeviceToleration']] = None):
@@ -2724,6 +3584,11 @@ class DeviceSubRequest(dict):
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param 'CapacityRequirementsArgs' capacity: Capacity define resource requirements against each capacity.
+               
+               If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+               
+               Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
         :param Sequence['DeviceSelectorArgs'] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
         :param Sequence['DeviceTolerationArgs'] tolerations: If specified, the request's tolerations.
@@ -2740,6 +3605,8 @@ class DeviceSubRequest(dict):
         pulumi.set(__self__, "name", name)
         if allocation_mode is not None:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
         if selectors is not None:
@@ -2788,6 +3655,18 @@ class DeviceSubRequest(dict):
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         return pulumi.get(self, "allocation_mode")
+
+    @_builtins.property
+    @pulumi.getter
+    def capacity(self) -> Optional['outputs.CapacityRequirements']:
+        """
+        Capacity define resource requirements against each capacity.
+
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+        """
+        return pulumi.get(self, "capacity")
 
     @_builtins.property
     @pulumi.getter
@@ -2850,6 +3729,7 @@ class DeviceSubRequestPatch(dict):
 
     def __init__(__self__, *,
                  allocation_mode: Optional[_builtins.str] = None,
+                 capacity: Optional['outputs.CapacityRequirementsPatch'] = None,
                  count: Optional[_builtins.int] = None,
                  device_class_name: Optional[_builtins.str] = None,
                  name: Optional[_builtins.str] = None,
@@ -2872,6 +3752,11 @@ class DeviceSubRequestPatch(dict):
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
                
                More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+        :param 'CapacityRequirementsPatchArgs' capacity: Capacity define resource requirements against each capacity.
+               
+               If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+               
+               Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
         :param _builtins.str device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
                
@@ -2894,6 +3779,8 @@ class DeviceSubRequestPatch(dict):
         """
         if allocation_mode is not None:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
         if device_class_name is not None:
@@ -2924,6 +3811,18 @@ class DeviceSubRequestPatch(dict):
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
         """
         return pulumi.get(self, "allocation_mode")
+
+    @_builtins.property
+    @pulumi.getter
+    def capacity(self) -> Optional['outputs.CapacityRequirementsPatch']:
+        """
+        Capacity define resource requirements against each capacity.
+
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+        """
+        return pulumi.get(self, "capacity")
 
     @_builtins.property
     @pulumi.getter
@@ -3009,7 +3908,9 @@ class DeviceTaint(dict):
                  value: Optional[_builtins.str] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
-        :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+               
+               Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param _builtins.str key: The taint key to be applied to a device. Must be a label name.
         :param _builtins.str time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
         :param _builtins.str value: The taint value corresponding to the taint key. Must be a label value.
@@ -3025,7 +3926,9 @@ class DeviceTaint(dict):
     @pulumi.getter
     def effect(self) -> _builtins.str:
         """
-        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+
+        Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         """
         return pulumi.get(self, "effect")
 
@@ -3083,7 +3986,9 @@ class DeviceTaintPatch(dict):
                  value: Optional[_builtins.str] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
-        :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+               
+               Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param _builtins.str key: The taint key to be applied to a device. Must be a label name.
         :param _builtins.str time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
         :param _builtins.str value: The taint value corresponding to the taint key. Must be a label value.
@@ -3101,7 +4006,9 @@ class DeviceTaintPatch(dict):
     @pulumi.getter
     def effect(self) -> Optional[_builtins.str]:
         """
-        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+
+        Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         """
         return pulumi.get(self, "effect")
 
@@ -3476,7 +4383,7 @@ class OpaqueDeviceConfiguration(dict):
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param Any parameters: Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
                
                The length of the raw data must be smaller or equal to 10 Ki.
@@ -3492,7 +4399,7 @@ class OpaqueDeviceConfiguration(dict):
 
         An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -3521,7 +4428,7 @@ class OpaqueDeviceConfigurationPatch(dict):
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         :param Any parameters: Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
                
                The length of the raw data must be smaller or equal to 10 Ki.
@@ -3539,7 +4446,7 @@ class OpaqueDeviceConfigurationPatch(dict):
 
         An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         """
         return pulumi.get(self, "driver")
 
@@ -4435,14 +5342,16 @@ class ResourceSliceSpec(dict):
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
         :param _builtins.str driver: Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
         :param 'ResourcePoolArgs' pool: Pool describes the pool that this ResourceSlice belongs to.
         :param _builtins.bool all_nodes: AllNodes indicates that all nodes have access to the resources in the pool.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param Sequence['DeviceArgs'] devices: Devices lists some or all of the devices in this pool.
                
-               Must not have more than 128 entries.
+               Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+               
+               Only one of Devices and SharedCounters can be set in a ResourceSlice.
         :param _builtins.str node_name: NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
                
                This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
@@ -4458,9 +5367,11 @@ class ResourceSliceSpec(dict):
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param Sequence['CounterSetArgs'] shared_counters: SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
                
-               The names of the SharedCounters must be unique in the ResourceSlice.
+               The names of the counter sets must be unique in the ResourcePool.
                
-               The maximum number of SharedCounters is 32.
+               Only one of Devices and SharedCounters can be set in a ResourceSlice.
+               
+               The maximum number of counter sets is 8.
         """
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "pool", pool)
@@ -4483,7 +5394,7 @@ class ResourceSliceSpec(dict):
         """
         Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
         """
         return pulumi.get(self, "driver")
 
@@ -4511,7 +5422,9 @@ class ResourceSliceSpec(dict):
         """
         Devices lists some or all of the devices in this pool.
 
-        Must not have more than 128 entries.
+        Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+
+        Only one of Devices and SharedCounters can be set in a ResourceSlice.
         """
         return pulumi.get(self, "devices")
 
@@ -4555,9 +5468,11 @@ class ResourceSliceSpec(dict):
         """
         SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 
-        The names of the SharedCounters must be unique in the ResourceSlice.
+        The names of the counter sets must be unique in the ResourcePool.
 
-        The maximum number of SharedCounters is 32.
+        Only one of Devices and SharedCounters can be set in a ResourceSlice.
+
+        The maximum number of counter sets is 8.
         """
         return pulumi.get(self, "shared_counters")
 
@@ -4608,10 +5523,12 @@ class ResourceSliceSpecPatch(dict):
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
         :param Sequence['DevicePatchArgs'] devices: Devices lists some or all of the devices in this pool.
                
-               Must not have more than 128 entries.
+               Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+               
+               Only one of Devices and SharedCounters can be set in a ResourceSlice.
         :param _builtins.str driver: Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
                
-               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+               Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
         :param _builtins.str node_name: NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.
                
                This field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
@@ -4628,9 +5545,11 @@ class ResourceSliceSpecPatch(dict):
         :param 'ResourcePoolPatchArgs' pool: Pool describes the pool that this ResourceSlice belongs to.
         :param Sequence['CounterSetPatchArgs'] shared_counters: SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
                
-               The names of the SharedCounters must be unique in the ResourceSlice.
+               The names of the counter sets must be unique in the ResourcePool.
                
-               The maximum number of SharedCounters is 32.
+               Only one of Devices and SharedCounters can be set in a ResourceSlice.
+               
+               The maximum number of counter sets is 8.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
@@ -4665,7 +5584,9 @@ class ResourceSliceSpecPatch(dict):
         """
         Devices lists some or all of the devices in this pool.
 
-        Must not have more than 128 entries.
+        Must not have more than 128 entries. If any device uses taints or consumes counters the limit is 64.
+
+        Only one of Devices and SharedCounters can be set in a ResourceSlice.
         """
         return pulumi.get(self, "devices")
 
@@ -4675,7 +5596,7 @@ class ResourceSliceSpecPatch(dict):
         """
         Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
 
-        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+        Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
         """
         return pulumi.get(self, "driver")
 
@@ -4727,9 +5648,11 @@ class ResourceSliceSpecPatch(dict):
         """
         SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.
 
-        The names of the SharedCounters must be unique in the ResourceSlice.
+        The names of the counter sets must be unique in the ResourcePool.
 
-        The maximum number of SharedCounters is 32.
+        Only one of Devices and SharedCounters can be set in a ResourceSlice.
+
+        The maximum number of counter sets is 8.
         """
         return pulumi.get(self, "shared_counters")
 

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class EnvVarPatch
     {
         /// <summary>
-        /// Name of the environment variable. Must be a C_IDENTIFIER.
+        /// Name of the environment variable. May consist of any printable ASCII characters except '='.
         /// </summary>
         public readonly string Name;
         /// <summary>

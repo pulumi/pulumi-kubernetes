@@ -12,5 +12,8 @@ from .CertificateSigningRequestPatch import *
 from .ClusterTrustBundle import *
 from .ClusterTrustBundleList import *
 from .ClusterTrustBundlePatch import *
+from .PodCertificateRequest import *
+from .PodCertificateRequestList import *
+from .PodCertificateRequestPatch import *
 from ._inputs import *
 from . import outputs

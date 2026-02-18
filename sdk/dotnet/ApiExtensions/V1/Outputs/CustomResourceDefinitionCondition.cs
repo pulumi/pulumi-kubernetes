@@ -25,6 +25,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// </summary>
         public readonly string Message;
         /// <summary>
+        /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        /// </summary>
+        public readonly int ObservedGeneration;
+        /// <summary>
         /// reason is a unique, one-word, CamelCase reason for the condition's last transition.
         /// </summary>
         public readonly string Reason;
@@ -43,6 +47,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 
             string message,
 
+            int observedGeneration,
+
             string reason,
 
             string status,
@@ -51,6 +57,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         {
             LastTransitionTime = lastTransitionTime;
             Message = message;
+            ObservedGeneration = observedGeneration;
             Reason = reason;
             Status = status;
             Type = type;

@@ -119,7 +119,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GitRepoVolumeSourceArgs>? GitRepo { get; set; }
 
         /// <summary>
-        /// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        /// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
         /// </summary>
         [Input("glusterfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GlusterfsVolumeSourceArgs>? Glusterfs { get; set; }
@@ -141,7 +141,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ImageVolumeSourceArgs>? Image { get; set; }
 
         /// <summary>
-        /// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        /// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         /// </summary>
         [Input("iscsi")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ISCSIVolumeSourceArgs>? Iscsi { get; set; }
@@ -189,7 +189,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.QuobyteVolumeSourceArgs>? Quobyte { get; set; }
 
         /// <summary>
-        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
         /// </summary>
         [Input("rbd")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.RBDVolumeSourceArgs>? Rbd { get; set; }

@@ -16,7 +16,7 @@ public final class CounterSetPatch {
     /**
      * @return Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
      * 
-     * The maximum number of counters in all sets is 32.
+     * The maximum number of counters is 32.
      * 
      */
     private @Nullable Map<String,Counter> counters;
@@ -30,7 +30,7 @@ public final class CounterSetPatch {
     /**
      * @return Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
      * 
-     * The maximum number of counters in all sets is 32.
+     * The maximum number of counters is 32.
      * 
      */
     public Map<String,Counter> counters() {
