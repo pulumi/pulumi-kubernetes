@@ -161,6 +161,7 @@ func (jia *jobInitAwaiter) Await() (*unstructured.Unstructured, error) {
 func (jia *jobInitAwaiter) Read() error {
 	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return fmt.Errorf("Could not make client to get Job %q: %w", jia.config.currentOutputs.GetName(), err)
 	}
 	// Get live version of Job.

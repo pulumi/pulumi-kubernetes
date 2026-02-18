@@ -28,10 +28,8 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 	objects := []map[string]any{obj.Object}
 	var curr map[string]any
 
-	for {
-		if len(objects) == 0 {
-			break
-		}
+	for len(objects) != 0 {
+
 		curr, objects = objects[0], objects[1:]
 		for _, v := range curr {
 			switch field := v.(type) {

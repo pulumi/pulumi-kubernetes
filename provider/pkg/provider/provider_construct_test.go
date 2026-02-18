@@ -31,6 +31,8 @@ import (
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
+const defaultNamespace = "default"
+
 var _ = gk.Describe("RPC:Construct", func() {
 	var opts []NewProviderOption
 	var k *kubeProvider
@@ -57,7 +59,7 @@ var _ = gk.Describe("RPC:Construct", func() {
 	gk.JustBeforeEach(func() {
 		k = pctx.NewProvider(opts...)
 		k.clientSet = &clients.DynamicClientSet{}
-		k.defaultNamespace = "default"
+		k.defaultNamespace = defaultNamespace
 		k.helmDriver = "memory"
 		k.helmSettings = helmcli.New()
 	})

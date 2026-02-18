@@ -34,8 +34,8 @@ var coreV1ServiceMD string
 //go:embed upstream/ingress.md
 var networkingV1IngressMD string
 
-// ApiVersionToExample contains Markdown-formatted examples corresponding to a k8s apiVersion.
-var ApiVersionToExample = map[string]string{
+// APIVersionToExample contains Markdown-formatted examples corresponding to a k8s apiVersion.
+var APIVersionToExample = map[string]string{
 	"kubernetes:apps/v1:Deployment":           appsV1DeploymentMD,
 	"kubernetes:apps/v1:StatefulSet":          appsV1StatefulSetMD,
 	"kubernetes:batch/v1:Job":                 batchV1JobMD,

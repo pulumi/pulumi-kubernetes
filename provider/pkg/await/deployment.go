@@ -902,6 +902,7 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, err = clients.ResourceClient(
 		kinds.Deployment, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		err = fmt.Errorf("Could not make client to watch Deployment %q: %w",
 			dia.config.currentOutputs.GetName(), err)
 
@@ -910,6 +911,7 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	replicaSetClient, err = clients.ResourceClient(
 		kinds.ReplicaSet, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		err = fmt.Errorf("Could not make client to watch ReplicaSets associated with Deployment %q: %w",
 			dia.config.currentOutputs.GetName(), err)
 
@@ -918,6 +920,7 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		err = fmt.Errorf("Could not make client to watch Pods associated with Deployment %q: %w",
 			dia.config.currentOutputs.GetName(), err)
 
@@ -926,6 +929,7 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	pvcClient, err = clients.ResourceClient(
 		kinds.PersistentVolumeClaim, dia.config.currentOutputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		err = fmt.Errorf("Could not make client to watch PVCs associated with Deployment %q: %w",
 			dia.config.currentOutputs.GetName(), err)
 

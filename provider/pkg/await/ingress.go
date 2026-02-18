@@ -523,18 +523,21 @@ func (iia *ingressInitAwaiter) makeClients() (
 	ingressClient, err = clients.ResourceClient(
 		kinds.Ingress, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
 	}
 	endpointsClient, err = clients.ResourceClient(
 		kinds.Endpoints, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Endpoints associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
 	}
 	servicesClient, err = clients.ResourceClient(
 		kinds.Service, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, nil, fmt.Errorf("Could not make client to watch Services associated with Ingress %q: %w",
 			iia.config.currentOutputs.GetName(), err)
 	}

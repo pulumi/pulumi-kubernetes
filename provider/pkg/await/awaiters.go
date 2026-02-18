@@ -262,9 +262,10 @@ func untilCoreV1PersistentVolumeInitialized(c awaitConfig) (*unstructured.Unstru
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		phase, _ := openapi.Pluck(pv.Object, "status", "phase")
 		logger.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), phase)
-		if phase == available {
+		switch phase {
+		case available:
 			c.logger.LogStatus(diag.Info, "✅ PV marked available")
-		} else if phase == bound {
+		case bound:
 			c.logger.LogStatus(diag.Info, "✅ PV has been bound")
 		}
 		return phase == available || phase == bound

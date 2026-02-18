@@ -26,7 +26,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/clientcmd"
-	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"sigs.k8s.io/yaml"
 
@@ -412,13 +411,13 @@ func Test_parseKubeconfigString(t *testing.T) {
 	tests := []struct {
 		name           string
 		pathOrContents string
-		want           *clientapi.Config
+		want           *clientcmdapi.Config
 		wantErr        string
 	}{
 		{
 			name:           "empty",
 			pathOrContents: "",
-			want:           &clientapi.Config{},
+			want:           &clientcmdapi.Config{},
 		},
 		{
 			name:           "invalid",
@@ -467,13 +466,13 @@ func Test_parseKubeconfigPropertyValue(t *testing.T) {
 	tests := []struct {
 		name       string
 		kubeconfig resource.PropertyValue
-		want       *clientapi.Config
+		want       *clientcmdapi.Config
 		wantErr    string
 	}{
 		{
 			name:       "null",
 			kubeconfig: resource.NewNullProperty(),
-			want:       &clientapi.Config{},
+			want:       &clientcmdapi.Config{},
 		},
 		{
 			name:       "invalid",
@@ -483,7 +482,7 @@ func Test_parseKubeconfigPropertyValue(t *testing.T) {
 		{
 			name:       "empty",
 			kubeconfig: resource.NewStringProperty(""),
-			want:       &clientapi.Config{},
+			want:       &clientcmdapi.Config{},
 		},
 		{
 			name:       "string",
@@ -520,13 +519,13 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 	validConfig, _ := clientcmd.Load([]byte(validKubeconfig))
 
 	type args struct {
-		config    *clientapi.Config
+		config    *clientcmdapi.Config
 		overrides resource.PropertyMap
 	}
 	tests := []struct {
 		name string
 		args args
-		want *clientapi.Cluster
+		want *clientcmdapi.Cluster
 		ok   bool
 	}{
 		{
@@ -535,16 +534,16 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 				config:    nil,
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-			want: &clientapi.Cluster{},
+			want: &clientcmdapi.Cluster{},
 			ok:   false,
 		},
 		{
 			name: "empty",
 			args: args{
-				config:    &clientapi.Config{},
+				config:    &clientcmdapi.Config{},
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-			want: &clientapi.Cluster{},
+			want: &clientcmdapi.Cluster{},
 			ok:   false,
 		},
 		{
@@ -553,7 +552,7 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 				config:    validConfig,
 				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-			want: &clientapi.Cluster{
+			want: &clientcmdapi.Cluster{
 				Server:                   "https://kubernetes.docker.internal:6443",
 				CertificateAuthorityData: certAuthData,
 				Extensions:               map[string]runtime.Object{},
@@ -568,7 +567,7 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 					resource.PropertyKey("context"): {V: "foo"},
 				},
 			},
-			want: &clientapi.Cluster{},
+			want: &clientcmdapi.Cluster{},
 			ok:   false,
 		},
 		{
@@ -579,7 +578,7 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 					resource.PropertyKey("cluster"): {V: "foo"},
 				},
 			},
-			want: &clientapi.Cluster{},
+			want: &clientcmdapi.Cluster{},
 			ok:   false,
 		},
 	}

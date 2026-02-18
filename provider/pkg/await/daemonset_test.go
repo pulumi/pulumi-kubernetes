@@ -49,7 +49,7 @@ func TestAwaitDaemonSetCreation(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
@@ -94,8 +94,8 @@ func TestAwaitDaemonSetCreation(t *testing.T) {
 			w := watch.NewRaceFreeFake()
 			clientset.PrependWatchReactor("daemonsets", testcore.DefaultWatchReactor(w, nil))
 			go func() {
-				clock.BlockUntil(1) // Timeout sleeper
-				for e := range tt.events(*clock, tt.given) {
+				_ = clock.BlockUntilContext(context.Background(), 1) // Timeout sleeper
+				for e := range tt.events(clock, tt.given) {
 					w.Action(e.Type, e.Object)
 					// The Fake's ObjectStore doesn't stay in sync with watch
 					// events. We manually update it so subsequent Get
@@ -121,7 +121,7 @@ func TestAwaitDaemonSetUpdate(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
@@ -167,8 +167,8 @@ func TestAwaitDaemonSetUpdate(t *testing.T) {
 			w := watch.NewRaceFreeFake()
 			clientset.PrependWatchReactor("daemonsets", testcore.DefaultWatchReactor(w, nil))
 			go func() {
-				clock.BlockUntil(1) // Timeout sleeper
-				for e := range tt.events(*clock, tt.given) {
+				_ = clock.BlockUntilContext(context.Background(), 1) // Timeout sleeper
+				for e := range tt.events(clock, tt.given) {
 					w.Action(e.Type, e.Object)
 					_ = clientset.Tracker().Update(_dsGVR, e.Object, "default")
 				}
@@ -195,7 +195,7 @@ func TestAwaitDaemonSetRead(t *testing.T) {
 	tests := []struct {
 		name   string
 		given  *unstructured.Unstructured
-		events func(clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
+		events func(*clockwork.FakeClock, *unstructured.Unstructured) <-chan watch.Event
 
 		want    v1.DaemonSetStatus
 		wantErr string
@@ -419,7 +419,7 @@ func assertDaemonSetStatus(
 // dsCreateEventsWithoutTimeout simulates a brand new DaemonSet which is
 // created without pods and then rolled out within 2 minutes.
 func dsCreateEventsWithoutTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -436,7 +436,7 @@ func dsCreateEventsWithoutTimeout(
 // dsCreateEventsWithTimeout simulates a brand new DaemonSet which is
 // created without pods and then takes an hour to roll out.
 func dsCreateEventsWithTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -453,7 +453,7 @@ func dsCreateEventsWithTimeout(
 // dsUpdateEventsWithoutTimeout simulates a DaemonSet rollout which takes one
 // minute to complete.
 func dsUpdateEventsWithoutTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)
@@ -471,7 +471,7 @@ func dsUpdateEventsWithoutTimeout(
 // dsUpdateEventsWithTimeout simulates a DaemonSet rollout which takes one hour
 // to complete.
 func dsUpdateEventsWithTimeout(
-	clock clockwork.FakeClock,
+	clock *clockwork.FakeClock,
 	ds *unstructured.Unstructured,
 ) <-chan watch.Event {
 	events := make(chan watch.Event, 1)

@@ -20,7 +20,6 @@ import (
 	"time"
 
 	corev1 "k8s.io/api/core/v1"
-	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -98,7 +97,7 @@ func makeServiceInitAwaiter(c awaitConfig) *serviceInitAwaiter {
 		t = specTypeString
 	} else {
 		// The default value if `.spec.type` is not present.
-		t = string(v1.ServiceTypeClusterIP)
+		t = string(corev1.ServiceTypeClusterIP)
 	}
 
 	return &serviceInitAwaiter{
@@ -297,7 +296,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 
 	sia.service = service
 
-	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) {
+	if sia.serviceType == string(corev1.ServiceTypeLoadBalancer) {
 		// If it's type `LoadBalancer`, check whether an IP was allocated.
 		lbIngress, _ := openapi.Pluck(service.Object, "status", "loadBalancer", "ingress")
 		status, _ := openapi.Pluck(service.Object, "status")
@@ -375,7 +374,7 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 				"field '.spec.selector' may not match labels on any Pods") //nolint:goconst
 	}
 
-	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) && !sia.serviceReady {
+	if sia.serviceType == string(corev1.ServiceTypeLoadBalancer) && !sia.serviceReady {
 		messages = append(messages,
 			"Service was not allocated an IP address; does your cloud provider support this?")
 	}
@@ -386,12 +385,12 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 // isHeadlessService checks if the Service has a defined .spec.clusterIP
 func (sia *serviceInitAwaiter) isHeadlessService() bool {
 	clusterIP, _ := openapi.Pluck(sia.service.Object, "spec", "clusterIP")
-	return clusterIP == v1.ClusterIPNone
+	return clusterIP == corev1.ClusterIPNone
 }
 
 // isExternalNameService checks if the Service type is "ExternalName"
 func (sia *serviceInitAwaiter) isExternalNameService() bool {
-	return sia.serviceType == string(v1.ServiceTypeExternalName)
+	return sia.serviceType == string(corev1.ServiceTypeExternalName)
 }
 
 func (sia *serviceInitAwaiter) isWithoutSelector() bool {
@@ -431,12 +430,14 @@ func (sia *serviceInitAwaiter) makeClients() (
 	serviceClient, err = clients.ResourceClient(
 		kinds.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, fmt.Errorf("Could not make client to read Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
 	}
 	endpointClient, err = clients.ResourceClient(
 		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, fmt.Errorf("Could not make client to read Endpoints associated with Service %q: %w",
 			sia.config.currentOutputs.GetName(), err)
 	}

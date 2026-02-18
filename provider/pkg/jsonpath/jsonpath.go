@@ -74,16 +74,16 @@ func Parse(raw string) (*Parsed, error) {
 
 	// Split only on "=" and preserve "==".
 	placeholder := "�"
-	normalized := strings.Replace(raw, "==", placeholder, -1)
+	normalized := strings.ReplaceAll(raw, "==", placeholder)
 	parts := strings.Split(normalized, "=")
 
 	var value string
-	path := strings.Replace(parts[0], placeholder, "==", -1)
+	path := strings.ReplaceAll(parts[0], placeholder, "==")
 	if len(parts) > 2 {
 		return nil, fmt.Errorf("format should be {.path}=value or {.path}, got %q", raw)
 	}
 	if len(parts) == 2 {
-		value = strings.Replace(parts[1], placeholder, "==", -1)
+		value = strings.ReplaceAll(parts[1], placeholder, "==")
 		if value == "" {
 			return nil, fmt.Errorf("%s= requires a value", path)
 		}

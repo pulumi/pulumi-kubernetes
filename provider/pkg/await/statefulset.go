@@ -527,12 +527,14 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	statefulSetClient, err = clients.ResourceClient(
 		kinds.StatefulSet, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, fmt.Errorf("Could not make client to watch StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
 	}
 	podClient, err = clients.ResourceClient(
 		kinds.Pod, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return nil, nil, fmt.Errorf("Could not make client to watch Pods associated with StatefulSet %q: %w",
 			sia.config.currentOutputs.GetName(), err)
 	}

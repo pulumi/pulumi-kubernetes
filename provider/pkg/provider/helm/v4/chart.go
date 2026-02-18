@@ -326,7 +326,7 @@ func setKubeVersionAndAPIVersions(clientSet *clients.DynamicClientSet, cmd *kube
 	if err != nil {
 		return fmt.Errorf("could not get server version from Kubernetes: %w", err)
 	}
-	cmd.Install.KubeVersion = &chartutil.KubeVersion{
+	cmd.KubeVersion = &chartutil.KubeVersion{
 		Version: kubeVersion.GitVersion,
 		Major:   kubeVersion.Major,
 		Minor:   kubeVersion.Minor,
@@ -342,7 +342,7 @@ func setKubeVersionAndAPIVersions(clientSet *clients.DynamicClientSet, cmd *kube
 			return fmt.Errorf("could not get apiVersions from Kubernetes: %w", err)
 		}
 	}
-	cmd.Install.APIVersions = apiVersions
+	cmd.APIVersions = apiVersions
 
 	return nil
 }

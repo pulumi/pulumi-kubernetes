@@ -35,7 +35,7 @@ func (c *CaseMapping) Add(name, pascal string) error {
 
 	// Ensure the pascal case name is actually pascal case, otherwise capitalize the first letter. We also
 	// handle Kubernetes versions and pascal case accordingly.
-	if !(pascal[0] >= 'A' && pascal[0] <= 'Z') {
+	if pascal[0] < 'A' || pascal[0] > 'Z' {
 		pascal = pascalCaseVersions(pascal)
 	}
 
