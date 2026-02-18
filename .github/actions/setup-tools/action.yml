@@ -18,7 +18,7 @@ runs:
       env:
         MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
-        version: 2026.2.10
+        version: 2026.2.15
         cache_save: ${{ inputs.cache }}
         github_token: ${{ inputs.github_token }}
 
