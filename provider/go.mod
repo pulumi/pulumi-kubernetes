@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/provider/v4
 
-go 1.24.7
+go 1.25.0
 
 replace github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
 
