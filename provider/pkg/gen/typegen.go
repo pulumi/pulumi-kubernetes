@@ -305,11 +305,11 @@ func fmtComment(comment any) string {
 		// upstream, manually replace these with working links.
 		// Upstream issue: https://github.com/kubernetes/kubernetes/issues/81526
 		// Upstream PR: https://github.com/kubernetes/kubernetes/pull/74245
-		commentstr = strings.Replace(
+		commentstr = strings.ReplaceAll(
 			commentstr,
 			`https://git.k8s.io/community/contributors/devel/api-conventions.md`,
 			`https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md`,
-			-1)
+		)
 
 		return commentstr
 	}
@@ -691,7 +691,7 @@ func createKinds(
 
 		apiVersion := d.apiVersion(canonicalGroups)
 		schemaPkgName := func(gv string) string {
-			pkgName := strings.Replace(gv, ".k8s.io", "", -1)
+			pkgName := strings.ReplaceAll(gv, ".k8s.io", "")
 			parts := strings.Split(pkgName, "/")
 			contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
 			g, v := parts[0], parts[1]

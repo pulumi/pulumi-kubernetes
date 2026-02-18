@@ -185,6 +185,7 @@ func (pia *podInitAwaiter) Read() error {
 	podClient, err := clients.ResourceClient(
 		kinds.Pod, pia.config.currentOutputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
+		//nolint:staticcheck // Capitalized since this is expected to be user-facing.
 		return fmt.Errorf("Could not make client to get Pod %q: %w", pia.config.currentOutputs.GetName(), err)
 	}
 	// Get live version of Pod.

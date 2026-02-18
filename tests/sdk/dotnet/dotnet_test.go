@@ -198,7 +198,7 @@ func TestDotnet_HelmLocal(t *testing.T) {
 					case dependentRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
 						dependentFound = true
 					}
-					assert.Falsef(t, dependentFound && !(configmapFound && serviceFound && deploymentFound),
+					assert.Falsef(t, dependentFound && (!configmapFound || !serviceFound || !deploymentFound),
 						"dependent ConfigMap created before all chart resources were ready")
 					fmt.Println(e.ResOutputsEvent.Metadata.URN)
 				}

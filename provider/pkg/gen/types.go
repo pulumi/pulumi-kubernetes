@@ -126,9 +126,9 @@ func (gv GroupVersion) GVConstName() string {
 
 	group, version := parts[0], parts[1]
 	groupName := strings.Title(strings.SplitN(group, ".", 2)[0]) //nolint:staticcheck // Not unicode input.
-	version = strings.Replace(version, "v", "V", -1)
-	version = strings.Replace(version, "alpha", "A", -1)
-	version = strings.Replace(version, "beta", "B", -1)
+	version = strings.ReplaceAll(version, "v", "V")
+	version = strings.ReplaceAll(version, "alpha", "A")
+	version = strings.ReplaceAll(version, "beta", "B")
 
 	return groupName + version
 }

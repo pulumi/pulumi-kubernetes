@@ -8,8 +8,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"gopkg.in/yaml.v3"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 //go:generate go run generate.go yaml .
@@ -122,6 +123,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		contract.AssertNoErrorf(src.Close(), "unexpected error while encoding YAML")
 
+		//nolint:gosec // we control the input
 		cmd := exec.Command("pulumi", "convert", "--generate-only", "--language", "typescript", "--out",
 			filepath.Join(dir, "example-nodejs"))
 		cmd.Stderr = os.Stderr
@@ -136,6 +138,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		typescript := string(content)
 
+		//nolint:gosec // we control the input
 		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "python", "--out",
 			filepath.Join(dir, "example-py"))
 		cmd.Stderr = os.Stderr
@@ -150,6 +153,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		python := string(content)
 
+		//nolint:gosec // we control the input
 		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "csharp", "--out",
 			filepath.Join(dir, "example-dotnet"))
 		cmd.Stderr = os.Stderr
@@ -164,6 +168,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		csharp := string(content)
 
+		//nolint:gosec // we control the input
 		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "go", "--out",
 			filepath.Join(dir, "example-go"))
 		cmd.Stderr = os.Stderr
@@ -178,6 +183,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		golang := string(content)
 
+		//nolint:gosec // we control the input
 		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "java", "--out",
 			filepath.Join(dir, "example-java"))
 		cmd.Stderr = os.Stderr
