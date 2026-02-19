@@ -28,6 +28,7 @@ class ConfigMapPatchArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None):
         """
         The set of arguments for constructing a ConfigMapPatch resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
@@ -143,6 +144,7 @@ class ConfigMapPatch(pulumi.CustomResource):
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ConfigMap holds configuration data for pods to consume.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -166,6 +168,7 @@ class ConfigMapPatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ConfigMap holds configuration data for pods to consume.
+
 
         :param str resource_name: The name of the resource.
         :param ConfigMapPatchArgs args: The arguments to use to populate this resource's properties.

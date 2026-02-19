@@ -30,6 +30,7 @@ class StatusArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Status resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.int] code: Suggested HTTP return code for this status, 0 if not set.
         :param pulumi.Input['StatusDetailsArgs'] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
@@ -155,6 +156,7 @@ class Status(pulumi.CustomResource):
         """
         Status is a return value for calls that don't return other objects.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -173,6 +175,7 @@ class Status(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Status is a return value for calls that don't return other objects.
+
 
         :param str resource_name: The name of the resource.
         :param StatusArgs args: The arguments to use to populate this resource's properties.

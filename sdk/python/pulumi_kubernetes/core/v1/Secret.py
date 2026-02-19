@@ -29,6 +29,7 @@ class SecretInitArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Secret resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] data: Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
         :param pulumi.Input[_builtins.bool] immutable: Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
@@ -164,6 +165,7 @@ class Secret(pulumi.CustomResource):
         https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -192,6 +194,7 @@ class Secret(pulumi.CustomResource):
         For more information on securing Kubernetes Secrets, see the following links:
         https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
+
 
         :param str resource_name: The name of the resource.
         :param SecretInitArgs args: The arguments to use to populate this resource's properties.

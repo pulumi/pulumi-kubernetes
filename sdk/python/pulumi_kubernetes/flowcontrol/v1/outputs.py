@@ -88,6 +88,7 @@ class ExemptPriorityLevelConfiguration(dict):
                  nominal_concurrency_shares: Optional[_builtins.int] = None):
         """
         ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+
         :param _builtins.int lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
                
                LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
@@ -154,6 +155,7 @@ class ExemptPriorityLevelConfigurationPatch(dict):
                  nominal_concurrency_shares: Optional[_builtins.int] = None):
         """
         ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+
         :param _builtins.int lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
                
                LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
@@ -200,6 +202,7 @@ class FlowDistinguisherMethod(dict):
                  type: _builtins.str):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
         :param _builtins.str type: `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
         """
         pulumi.set(__self__, "type", type)
@@ -222,6 +225,7 @@ class FlowDistinguisherMethodPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         FlowDistinguisherMethod specifies the method of a flow distinguisher.
+
         :param _builtins.str type: `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
         """
         if type is not None:
@@ -266,6 +270,7 @@ class FlowSchema(dict):
                  status: Optional['outputs.FlowSchemaStatus'] = None):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -354,6 +359,7 @@ class FlowSchemaCondition(dict):
                  type: Optional[_builtins.str] = None):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
+
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -442,6 +448,7 @@ class FlowSchemaConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
+
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -533,6 +540,7 @@ class FlowSchemaSpec(dict):
                  rules: Optional[Sequence['outputs.PolicyRulesWithSubjects']] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
         :param 'PriorityLevelConfigurationReferenceArgs' priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
         :param 'FlowDistinguisherMethodArgs' distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
         :param _builtins.int matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
@@ -612,6 +620,7 @@ class FlowSchemaSpecPatch(dict):
                  rules: Optional[Sequence['outputs.PolicyRulesWithSubjectsPatch']] = None):
         """
         FlowSchemaSpec describes how the FlowSchema's specification looks like.
+
         :param 'FlowDistinguisherMethodPatchArgs' distinguisher_method: `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
         :param _builtins.int matching_precedence: `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
         :param 'PriorityLevelConfigurationReferencePatchArgs' priority_level_configuration: `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
@@ -668,6 +677,7 @@ class FlowSchemaStatus(dict):
                  conditions: Optional[Sequence['outputs.FlowSchemaCondition']] = None):
         """
         FlowSchemaStatus represents the current state of a FlowSchema.
+
         :param Sequence['FlowSchemaConditionArgs'] conditions: `conditions` is a list of the current states of FlowSchema.
         """
         if conditions is not None:
@@ -691,6 +701,7 @@ class FlowSchemaStatusPatch(dict):
                  conditions: Optional[Sequence['outputs.FlowSchemaConditionPatch']] = None):
         """
         FlowSchemaStatus represents the current state of a FlowSchema.
+
         :param Sequence['FlowSchemaConditionPatchArgs'] conditions: `conditions` is a list of the current states of FlowSchema.
         """
         if conditions is not None:
@@ -714,6 +725,7 @@ class GroupSubject(dict):
                  name: _builtins.str):
         """
         GroupSubject holds detailed information for group-kind subject.
+
         :param _builtins.str name: name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
         """
         pulumi.set(__self__, "name", name)
@@ -736,6 +748,7 @@ class GroupSubjectPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         GroupSubject holds detailed information for group-kind subject.
+
         :param _builtins.str name: name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
         """
         if name is not None:
@@ -760,6 +773,7 @@ class LimitResponse(dict):
                  queuing: Optional['outputs.QueuingConfiguration'] = None):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
         :param _builtins.str type: `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
         :param 'QueuingConfigurationArgs' queuing: `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
         """
@@ -794,6 +808,7 @@ class LimitResponsePatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         LimitResponse defines how to handle requests that can not be executed right now.
+
         :param 'QueuingConfigurationPatchArgs' queuing: `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
         :param _builtins.str type: `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
         """
@@ -858,6 +873,7 @@ class LimitedPriorityLevelConfiguration(dict):
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
           - How are requests for this priority level limited?
           - What should be done with requests that exceed the limit?
+
         :param _builtins.int borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
                
                BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
@@ -972,6 +988,7 @@ class LimitedPriorityLevelConfigurationPatch(dict):
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
           - How are requests for this priority level limited?
           - What should be done with requests that exceed the limit?
+
         :param _builtins.int borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
                
                BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
@@ -1074,6 +1091,7 @@ class NonResourcePolicyRule(dict):
                  verbs: Sequence[_builtins.str]):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
         :param Sequence[_builtins.str] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
                  - "/healthz" is legal
                  - "/hea*" is illegal
@@ -1136,6 +1154,7 @@ class NonResourcePolicyRulePatch(dict):
                  verbs: Optional[Sequence[_builtins.str]] = None):
         """
         NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+
         :param Sequence[_builtins.str] non_resource_urls: `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
                  - "/healthz" is legal
                  - "/hea*" is illegal
@@ -1203,6 +1222,7 @@ class PolicyRulesWithSubjects(dict):
                  resource_rules: Optional[Sequence['outputs.ResourcePolicyRule']] = None):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
         :param Sequence['SubjectArgs'] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
         :param Sequence['NonResourcePolicyRuleArgs'] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
         :param Sequence['ResourcePolicyRuleArgs'] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
@@ -1268,6 +1288,7 @@ class PolicyRulesWithSubjectsPatch(dict):
                  subjects: Optional[Sequence['outputs.SubjectPatch']] = None):
         """
         PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+
         :param Sequence['NonResourcePolicyRulePatchArgs'] non_resource_rules: `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
         :param Sequence['ResourcePolicyRulePatchArgs'] resource_rules: `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
         :param Sequence['SubjectPatchArgs'] subjects: subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
@@ -1334,6 +1355,7 @@ class PriorityLevelConfiguration(dict):
                  status: Optional['outputs.PriorityLevelConfigurationStatus'] = None):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1422,6 +1444,7 @@ class PriorityLevelConfigurationCondition(dict):
                  type: Optional[_builtins.str] = None):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
+
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -1510,6 +1533,7 @@ class PriorityLevelConfigurationConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
+
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -1577,6 +1601,7 @@ class PriorityLevelConfigurationReference(dict):
                  name: _builtins.str):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
         :param _builtins.str name: `name` is the name of the priority level configuration being referenced Required.
         """
         pulumi.set(__self__, "name", name)
@@ -1599,6 +1624,7 @@ class PriorityLevelConfigurationReferencePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+
         :param _builtins.str name: `name` is the name of the priority level configuration being referenced Required.
         """
         if name is not None:
@@ -1624,6 +1650,7 @@ class PriorityLevelConfigurationSpec(dict):
                  limited: Optional['outputs.LimitedPriorityLevelConfiguration'] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
         :param _builtins.str type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
         :param 'ExemptPriorityLevelConfigurationArgs' exempt: `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
         :param 'LimitedPriorityLevelConfigurationArgs' limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
@@ -1670,6 +1697,7 @@ class PriorityLevelConfigurationSpecPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+
         :param 'ExemptPriorityLevelConfigurationPatchArgs' exempt: `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
         :param 'LimitedPriorityLevelConfigurationPatchArgs' limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         :param _builtins.str type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
@@ -1715,6 +1743,7 @@ class PriorityLevelConfigurationStatus(dict):
                  conditions: Optional[Sequence['outputs.PriorityLevelConfigurationCondition']] = None):
         """
         PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+
         :param Sequence['PriorityLevelConfigurationConditionArgs'] conditions: `conditions` is the current state of "request-priority".
         """
         if conditions is not None:
@@ -1738,6 +1767,7 @@ class PriorityLevelConfigurationStatusPatch(dict):
                  conditions: Optional[Sequence['outputs.PriorityLevelConfigurationConditionPatch']] = None):
         """
         PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+
         :param Sequence['PriorityLevelConfigurationConditionPatchArgs'] conditions: `conditions` is the current state of "request-priority".
         """
         if conditions is not None:
@@ -1782,6 +1812,7 @@ class QueuingConfiguration(dict):
                  queues: Optional[_builtins.int] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
         :param _builtins.int hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         :param _builtins.int queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         :param _builtins.int queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
@@ -1848,6 +1879,7 @@ class QueuingConfigurationPatch(dict):
                  queues: Optional[_builtins.int] = None):
         """
         QueuingConfiguration holds the configuration parameters for queuing
+
         :param _builtins.int hand_size: `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
         :param _builtins.int queue_length_limit: `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
         :param _builtins.int queues: `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
@@ -1916,6 +1948,7 @@ class ResourcePolicyRule(dict):
                  namespaces: Optional[Sequence[_builtins.str]] = None):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+
         :param Sequence[_builtins.str] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param Sequence[_builtins.str] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
         :param Sequence[_builtins.str] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
@@ -2003,6 +2036,7 @@ class ResourcePolicyRulePatch(dict):
                  verbs: Optional[Sequence[_builtins.str]] = None):
         """
         ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+
         :param Sequence[_builtins.str] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param _builtins.bool cluster_scope: `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
         :param Sequence[_builtins.str] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
@@ -2071,6 +2105,7 @@ class ServiceAccountSubject(dict):
                  namespace: _builtins.str):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
         :param _builtins.str name: `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
         :param _builtins.str namespace: `namespace` is the namespace of matching ServiceAccount objects. Required.
         """
@@ -2104,6 +2139,7 @@ class ServiceAccountSubjectPatch(dict):
                  namespace: Optional[_builtins.str] = None):
         """
         ServiceAccountSubject holds detailed information for service-account-kind subject.
+
         :param _builtins.str name: `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
         :param _builtins.str namespace: `namespace` is the namespace of matching ServiceAccount objects. Required.
         """
@@ -2158,6 +2194,7 @@ class Subject(dict):
                  user: Optional['outputs.UserSubject'] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
         :param _builtins.str kind: `kind` indicates which one of the other fields is non-empty. Required
         :param 'GroupSubjectArgs' group: `group` matches based on user group name.
         :param 'ServiceAccountSubjectArgs' service_account: `serviceAccount` matches ServiceAccounts.
@@ -2233,6 +2270,7 @@ class SubjectPatch(dict):
                  user: Optional['outputs.UserSubjectPatch'] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+
         :param 'GroupSubjectPatchArgs' group: `group` matches based on user group name.
         :param _builtins.str kind: `kind` indicates which one of the other fields is non-empty. Required
         :param 'ServiceAccountSubjectPatchArgs' service_account: `serviceAccount` matches ServiceAccounts.
@@ -2289,6 +2327,7 @@ class UserSubject(dict):
                  name: _builtins.str):
         """
         UserSubject holds detailed information for user-kind subject.
+
         :param _builtins.str name: `name` is the username that matches, or "*" to match all usernames. Required.
         """
         pulumi.set(__self__, "name", name)
@@ -2311,6 +2350,7 @@ class UserSubjectPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         UserSubject holds detailed information for user-kind subject.
+
         :param _builtins.str name: `name` is the username that matches, or "*" to match all usernames. Required.
         """
         if name is not None:

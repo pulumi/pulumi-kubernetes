@@ -61,6 +61,7 @@ class AuditSink(dict):
                  spec: Optional['outputs.AuditSinkSpec'] = None):
         """
         AuditSink represents a cluster level audit sink
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'AuditSinkSpecArgs' spec: Spec defines the audit configuration spec
@@ -114,6 +115,7 @@ class AuditSinkSpec(dict):
                  webhook: 'outputs.Webhook'):
         """
         AuditSinkSpec holds the spec for the audit sink
+
         :param 'PolicyArgs' policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param 'WebhookArgs' webhook: Webhook to send events required
         """
@@ -147,6 +149,7 @@ class AuditSinkSpecPatch(dict):
                  webhook: Optional['outputs.WebhookPatch'] = None):
         """
         AuditSinkSpec holds the spec for the audit sink
+
         :param 'PolicyPatchArgs' policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param 'WebhookPatchArgs' webhook: Webhook to send events required
         """
@@ -182,6 +185,7 @@ class Policy(dict):
                  stages: Optional[Sequence[_builtins.str]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
         :param _builtins.str level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param Sequence[_builtins.str] stages: Stages is a list of stages for which events are created.
         """
@@ -216,6 +220,7 @@ class PolicyPatch(dict):
                  stages: Optional[Sequence[_builtins.str]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
         :param _builtins.str level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param Sequence[_builtins.str] stages: Stages is a list of stages for which events are created.
         """
@@ -253,6 +258,7 @@ class ServiceReference(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: `name` is the name of the service. Required
         :param _builtins.str namespace: `namespace` is the namespace of the service. Required
         :param _builtins.str path: `path` is an optional URL path which will be sent in any request to this service.
@@ -310,6 +316,7 @@ class ServiceReferencePatch(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: `name` is the name of the service. Required
         :param _builtins.str namespace: `namespace` is the namespace of the service. Required
         :param _builtins.str path: `path` is an optional URL path which will be sent in any request to this service.
@@ -384,6 +391,7 @@ class Webhook(dict):
                  throttle: Optional['outputs.WebhookThrottleConfig'] = None):
         """
         Webhook holds the configuration of the webhook
+
         :param 'WebhookClientConfigArgs' client_config: ClientConfig holds the connection parameters for the webhook required
         :param 'WebhookThrottleConfigArgs' throttle: Throttle holds the options for throttling the webhook
         """
@@ -436,6 +444,7 @@ class WebhookClientConfig(dict):
                  url: Optional[_builtins.str] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
         :param _builtins.str ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param 'ServiceReferenceArgs' service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -524,6 +533,7 @@ class WebhookClientConfigPatch(dict):
                  url: Optional[_builtins.str] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
         :param _builtins.str ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param 'ServiceReferencePatchArgs' service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -611,6 +621,7 @@ class WebhookPatch(dict):
                  throttle: Optional['outputs.WebhookThrottleConfigPatch'] = None):
         """
         Webhook holds the configuration of the webhook
+
         :param 'WebhookClientConfigPatchArgs' client_config: ClientConfig holds the connection parameters for the webhook required
         :param 'WebhookThrottleConfigPatchArgs' throttle: Throttle holds the options for throttling the webhook
         """
@@ -646,6 +657,7 @@ class WebhookThrottleConfig(dict):
                  qps: Optional[_builtins.int] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
         :param _builtins.int burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param _builtins.int qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
@@ -681,6 +693,7 @@ class WebhookThrottleConfigPatch(dict):
                  qps: Optional[_builtins.int] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
         :param _builtins.int burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param _builtins.int qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """

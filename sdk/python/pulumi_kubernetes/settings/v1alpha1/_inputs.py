@@ -60,6 +60,7 @@ class PodPresetSpecPatchArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.VolumePatchArgs']]]] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.EnvVarPatchArgs']]] env: Env defines the collection of EnvVar to inject into containers.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.EnvFromSourcePatchArgs']]] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Selector is a label query over a set of resources, in this case pods. Required.
@@ -173,6 +174,7 @@ class PodPresetSpecArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.VolumeArgs']]]] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.EnvVarArgs']]] env: Env defines the collection of EnvVar to inject into containers.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.EnvFromSourceArgs']]] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Selector is a label query over a set of resources, in this case pods. Required.
@@ -275,6 +277,7 @@ class PodPresetArgs:
                  spec: Optional[pulumi.Input['PodPresetSpecArgs']] = None):
         """
         PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """

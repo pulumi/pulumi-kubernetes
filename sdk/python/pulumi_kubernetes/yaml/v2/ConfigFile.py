@@ -24,6 +24,7 @@ class ConfigFileArgs:
                  skip_await: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ConfigFile resource.
+
         :param pulumi.Input[_builtins.str] file: Path or URL to a Kubernetes manifest file. File must exist.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic.
@@ -132,6 +133,7 @@ class ConfigFile(pulumi.ComponentResource):
         ```
         {% /examples %}}
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] file: Path or URL to a Kubernetes manifest file. File must exist.
@@ -194,6 +196,7 @@ class ConfigFile(pulumi.ComponentResource):
         )
         ```
         {% /examples %}}
+
 
         :param str resource_name: The name of the resource.
         :param ConfigFileArgs args: The arguments to use to populate this resource's properties.

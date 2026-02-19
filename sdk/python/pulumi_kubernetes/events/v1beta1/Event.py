@@ -42,6 +42,7 @@ class EventInitArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Event resource.
+
         :param pulumi.Input[_builtins.str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -322,6 +323,7 @@ class Event(pulumi.CustomResource):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the regarding object.
@@ -349,6 +351,7 @@ class Event(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
 
         :param str resource_name: The name of the resource.
         :param EventInitArgs args: The arguments to use to populate this resource's properties.

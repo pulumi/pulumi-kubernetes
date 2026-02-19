@@ -28,6 +28,7 @@ class DeviceTaintRuleInitArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a DeviceTaintRule resource.
+
         :param pulumi.Input['DeviceTaintRuleSpecArgs'] spec: Spec specifies the selector and one taint.
                
                Changing the spec automatically increments the metadata.generation number.
@@ -108,6 +109,7 @@ class DeviceTaintRule(pulumi.CustomResource):
         """
         DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -125,6 +127,7 @@ class DeviceTaintRule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+
 
         :param str resource_name: The name of the resource.
         :param DeviceTaintRuleInitArgs args: The arguments to use to populate this resource's properties.

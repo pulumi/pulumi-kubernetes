@@ -194,6 +194,7 @@ class AllocatedDeviceStatusArgs:
         AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
 
         The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.
+
         :param pulumi.Input[_builtins.str] device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param pulumi.Input[_builtins.str] driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
@@ -342,6 +343,7 @@ class AllocationResultArgs:
                  node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+
         :param pulumi.Input[_builtins.str] allocation_timestamp: AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
                
                This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
@@ -439,6 +441,7 @@ class CELDeviceSelectorPatchArgs:
                  expression: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CELDeviceSelector contains a CEL expression for selecting a device.
+
         :param pulumi.Input[_builtins.str] expression: Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
                
                The expression's input is an object named "device", which carries the following properties:
@@ -562,6 +565,7 @@ class CELDeviceSelectorArgs:
                  expression: pulumi.Input[_builtins.str]):
         """
         CELDeviceSelector contains a CEL expression for selecting a device.
+
         :param pulumi.Input[_builtins.str] expression: Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
                
                The expression's input is an object named "device", which carries the following properties:
@@ -684,6 +688,7 @@ class CapacityRequestPolicyRangeArgs:
           - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
           - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
             and the device cannot be allocated.
+
         :param pulumi.Input[_builtins.str] min: Min specifies the minimum capacity allowed for a consumption request.
                
                Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
@@ -786,6 +791,7 @@ class CapacityRequestPolicyArgs:
         CapacityRequestPolicy defines how requests consume device capacity.
 
         Must not set more than one ValidRequestValues.
+
         :param pulumi.Input[_builtins.str] default: Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
         :param pulumi.Input['CapacityRequestPolicyRangeArgs'] valid_range: ValidRange defines an acceptable quantity value range in consuming requests.
                
@@ -887,6 +893,7 @@ class CapacityRequirementsPatchArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         CapacityRequirements defines the capacity requirements for a specific device request.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] requests: Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
                
                This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
@@ -950,6 +957,7 @@ class CapacityRequirementsArgs:
                  requests: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         CapacityRequirements defines the capacity requirements for a specific device request.
+
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] requests: Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
                
                This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[<domain>].<name>.compareTo(quantity(<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
@@ -1014,6 +1022,7 @@ class CounterSetPatchArgs:
         CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
         The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+
         :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
                
                The maximum number of counters is 32.
@@ -1077,6 +1086,7 @@ class CounterSetArgs:
         CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
 
         The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+
         :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the set of counters for this CounterSet The name of each counter must be unique in that set and must be a DNS label.
                
                The maximum number of counters is 32.
@@ -1127,6 +1137,7 @@ class CounterArgs:
                  value: pulumi.Input[_builtins.str]):
         """
         Counter describes a quantity associated with a device.
+
         :param pulumi.Input[_builtins.str] value: Value defines how much of a certain device counter is available.
         """
         pulumi.set(__self__, "value", value)
@@ -1171,6 +1182,7 @@ class DeviceAllocationConfigurationArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceAllocationConfiguration gets embedded in an AllocationResult.
+
         :param pulumi.Input[_builtins.str] source: Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
         :param pulumi.Input['OpaqueDeviceConfigurationArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
@@ -1244,6 +1256,7 @@ class DeviceAllocationResultArgs:
                  results: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRequestAllocationResultArgs']]]] = None):
         """
         DeviceAllocationResult is the result of allocating devices.
+
         :param pulumi.Input[Sequence[pulumi.Input['DeviceAllocationConfigurationArgs']]] config: This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
                
                This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
@@ -1311,6 +1324,7 @@ class DeviceAttributeArgs:
                  version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         DeviceAttribute must have exactly one field set.
+
         :param pulumi.Input[_builtins.bool] bool: BoolValue is a true/false value.
         :param pulumi.Input[_builtins.int] int: IntValue is a number.
         :param pulumi.Input[_builtins.str] string: StringValue is a string. Must not be longer than 64 characters.
@@ -1400,6 +1414,7 @@ class DeviceCapacityArgs:
                  request_policy: Optional[pulumi.Input['CapacityRequestPolicyArgs']] = None):
         """
         DeviceCapacity describes a quantity associated with a device.
+
         :param pulumi.Input[_builtins.str] value: Value defines how much of a certain capacity that device has.
                
                This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
@@ -1466,6 +1481,7 @@ class DeviceClaimConfigurationPatchArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+
         :param pulumi.Input['OpaqueDeviceConfigurationPatchArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
                
@@ -1525,6 +1541,7 @@ class DeviceClaimConfigurationArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+
         :param pulumi.Input['OpaqueDeviceConfigurationArgs'] opaque: Opaque provides driver-specific configuration parameters.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
                
@@ -1587,6 +1604,7 @@ class DeviceClaimPatchArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRequestPatchArgs']]]] = None):
         """
         DeviceClaim defines how to request devices with a ResourceClaim.
+
         :param pulumi.Input[Sequence[pulumi.Input['DeviceClaimConfigurationPatchArgs']]] config: This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceConstraintPatchArgs']]] constraints: These constraints must be satisfied by the set of devices that get allocated for the claim.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceRequestPatchArgs']]] requests: Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
@@ -1660,6 +1678,7 @@ class DeviceClaimArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRequestArgs']]]] = None):
         """
         DeviceClaim defines how to request devices with a ResourceClaim.
+
         :param pulumi.Input[Sequence[pulumi.Input['DeviceClaimConfigurationArgs']]] config: This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceConstraintArgs']]] constraints: These constraints must be satisfied by the set of devices that get allocated for the claim.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceRequestArgs']]] requests: Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
@@ -1723,6 +1742,7 @@ class DeviceClassConfigurationPatchArgs:
                  opaque: Optional[pulumi.Input['OpaqueDeviceConfigurationPatchArgs']] = None):
         """
         DeviceClassConfiguration is used in DeviceClass.
+
         :param pulumi.Input['OpaqueDeviceConfigurationPatchArgs'] opaque: Opaque provides driver-specific configuration parameters.
         """
         if opaque is not None:
@@ -1756,6 +1776,7 @@ class DeviceClassConfigurationArgs:
                  opaque: Optional[pulumi.Input['OpaqueDeviceConfigurationArgs']] = None):
         """
         DeviceClassConfiguration is used in DeviceClass.
+
         :param pulumi.Input['OpaqueDeviceConfigurationArgs'] opaque: Opaque provides driver-specific configuration parameters.
         """
         if opaque is not None:
@@ -1803,6 +1824,7 @@ class DeviceClassSpecPatchArgs:
                  selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+
         :param pulumi.Input[Sequence[pulumi.Input['DeviceClassConfigurationPatchArgs']]] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
@@ -1888,6 +1910,7 @@ class DeviceClassSpecArgs:
                  selectors: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]]] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+
         :param pulumi.Input[Sequence[pulumi.Input['DeviceClassConfigurationArgs']]] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
@@ -1982,6 +2005,7 @@ class DeviceClassArgs:
         DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param pulumi.Input['DeviceClassSpecArgs'] spec: Spec defines what can be allocated and how to configure it.
                
                This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
@@ -2089,6 +2113,7 @@ class DeviceConstraintPatchArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+
         :param pulumi.Input[_builtins.str] distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
                
                This acts as the inverse of MatchAttribute.
@@ -2198,6 +2223,7 @@ class DeviceConstraintArgs:
                  requests: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+
         :param pulumi.Input[_builtins.str] distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
                
                This acts as the inverse of MatchAttribute.
@@ -2292,6 +2318,7 @@ class DeviceCounterConsumptionPatchArgs:
                  counters: Optional[pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]] = None):
         """
         DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+
         :param pulumi.Input[_builtins.str] counter_set: CounterSet is the name of the set from which the counters defined will be consumed.
         :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the counters that will be consumed by the device.
                
@@ -2351,6 +2378,7 @@ class DeviceCounterConsumptionArgs:
                  counters: pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]]):
         """
         DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+
         :param pulumi.Input[_builtins.str] counter_set: CounterSet is the name of the set from which the counters defined will be consumed.
         :param pulumi.Input[Mapping[str, pulumi.Input['CounterArgs']]] counters: Counters defines the counters that will be consumed by the device.
                
@@ -2492,6 +2520,7 @@ class DevicePatchArgs:
                  taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]]] = None):
         """
         Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+
         :param pulumi.Input[_builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the device.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -2827,6 +2856,7 @@ class DeviceRequestAllocationResultArgs:
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
+
         :param pulumi.Input[_builtins.str] device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param pulumi.Input[_builtins.str] driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
@@ -3049,6 +3079,7 @@ class DeviceRequestPatchArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices. With FirstAvailable it is also possible to provide a prioritized list of requests.
+
         :param pulumi.Input['ExactDeviceRequestPatchArgs'] exactly: Exactly specifies the details for a single request that must be met exactly for the request to be satisfied.
                
                One of Exactly or FirstAvailable must be set.
@@ -3146,6 +3177,7 @@ class DeviceRequestArgs:
                  first_available: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceSubRequestArgs']]]] = None):
         """
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices. With FirstAvailable it is also possible to provide a prioritized list of requests.
+
         :param pulumi.Input[_builtins.str] name: Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.
                
                References using the name in the DeviceRequest will uniquely identify a request when the Exactly field is set. When the FirstAvailable field is set, a reference to the name of the DeviceRequest will match whatever subrequest is chosen by the scheduler.
@@ -3224,6 +3256,7 @@ class DeviceSelectorPatchArgs:
                  cel: Optional[pulumi.Input['CELDeviceSelectorPatchArgs']] = None):
         """
         DeviceSelector must have exactly one field set.
+
         :param pulumi.Input['CELDeviceSelectorPatchArgs'] cel: CEL contains a CEL expression for selecting a device.
         """
         if cel is not None:
@@ -3257,6 +3290,7 @@ class DeviceSelectorArgs:
                  cel: Optional[pulumi.Input['CELDeviceSelectorArgs']] = None):
         """
         DeviceSelector must have exactly one field set.
+
         :param pulumi.Input['CELDeviceSelectorArgs'] cel: CEL contains a CEL expression for selecting a device.
         """
         if cel is not None:
@@ -3354,6 +3388,7 @@ class DeviceSubRequestPatchArgs:
         DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
 
         DeviceSubRequest is similar to ExactDeviceRequest, but doesn't expose the AdminAccess field as that one is only supported when requesting a specific device.
+
         :param pulumi.Input[_builtins.str] allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
@@ -3601,6 +3636,7 @@ class DeviceSubRequestArgs:
         DeviceSubRequest describes a request for device provided in the claim.spec.devices.requests[].firstAvailable array. Each is typically a request for a single resource like a device, but can also ask for several identical devices.
 
         DeviceSubRequest is similar to ExactDeviceRequest, but doesn't expose the AdminAccess field as that one is only supported when requesting a specific device.
+
         :param pulumi.Input[_builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
                
                A class is required. Which classes are available depends on the cluster.
@@ -3799,6 +3835,7 @@ class DeviceTaintPatchArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+
         :param pulumi.Input[_builtins.str] effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
@@ -3898,6 +3935,7 @@ class DeviceTaintArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+
         :param pulumi.Input[_builtins.str] effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
@@ -3998,6 +4036,7 @@ class DeviceTolerationPatchArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
         :param pulumi.Input[_builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
         :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
@@ -4111,6 +4150,7 @@ class DeviceTolerationArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+
         :param pulumi.Input[_builtins.str] effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
         :param pulumi.Input[_builtins.str] key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. Must be a label name.
         :param pulumi.Input[_builtins.str] operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
@@ -4295,6 +4335,7 @@ class DeviceArgs:
                  taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]]] = None):
         """
         Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+
         :param pulumi.Input[_builtins.str] name: Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
         :param pulumi.Input[_builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the device.
                
@@ -4625,6 +4666,7 @@ class ExactDeviceRequestPatchArgs:
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationPatchArgs']]]] = None):
         """
         ExactDeviceRequest is a request for one or more identical devices.
+
         :param pulumi.Input[_builtins.bool] admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
                
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
@@ -4871,6 +4913,7 @@ class ExactDeviceRequestArgs:
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTolerationArgs']]]] = None):
         """
         ExactDeviceRequest is a request for one or more identical devices.
+
         :param pulumi.Input[_builtins.str] device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
                
                A DeviceClassName is required.
@@ -5069,6 +5112,7 @@ class NetworkDeviceDataArgs:
                  ips: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         NetworkDeviceData provides network-related details for the allocated device. This information may be filled by drivers or other components to configure or identify the device within a network context.
+
         :param pulumi.Input[_builtins.str] hardware_address: HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
                
                Must not be longer than 128 characters.
@@ -5151,6 +5195,7 @@ class OpaqueDeviceConfigurationPatchArgs:
                  parameters: Optional[Any] = None):
         """
         OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+
         :param pulumi.Input[_builtins.str] driver: Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
@@ -5222,6 +5267,7 @@ class OpaqueDeviceConfigurationArgs:
                  parameters: Any):
         """
         OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+
         :param pulumi.Input[_builtins.str] driver: Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
@@ -5295,6 +5341,7 @@ class ResourceClaimConsumerReferenceArgs:
                  api_group: Optional[pulumi.Input[_builtins.str]] = None):
         """
         ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+
         :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
         :param pulumi.Input[_builtins.str] resource: Resource is the type of resource being referenced, for example "pods".
         :param pulumi.Input[_builtins.str] uid: UID identifies exactly one incarnation of the resource.
@@ -5370,6 +5417,7 @@ class ResourceClaimSpecPatchArgs:
                  devices: Optional[pulumi.Input['DeviceClaimPatchArgs']] = None):
         """
         ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+
         :param pulumi.Input['DeviceClaimPatchArgs'] devices: Devices defines how to request devices.
         """
         if devices is not None:
@@ -5403,6 +5451,7 @@ class ResourceClaimSpecArgs:
                  devices: Optional[pulumi.Input['DeviceClaimArgs']] = None):
         """
         ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+
         :param pulumi.Input['DeviceClaimArgs'] devices: Devices defines how to request devices.
         """
         if devices is not None:
@@ -5452,6 +5501,7 @@ class ResourceClaimStatusArgs:
                  reserved_for: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+
         :param pulumi.Input['AllocationResultArgs'] allocation: Allocation is set once the claim has been allocated successfully.
         :param pulumi.Input[Sequence[pulumi.Input['AllocatedDeviceStatusArgs']]] devices: Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]] reserved_for: ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
@@ -5532,6 +5582,7 @@ class ResourceClaimTemplateSpecPatchArgs:
                  spec: Optional[pulumi.Input['ResourceClaimSpecPatchArgs']] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         :param pulumi.Input['ResourceClaimSpecPatchArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         """
@@ -5585,6 +5636,7 @@ class ResourceClaimTemplateSpecArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
         """
@@ -5653,6 +5705,7 @@ class ResourceClaimTemplateArgs:
         ResourceClaimTemplate is used to produce ResourceClaim objects.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
                
                This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
@@ -5758,6 +5811,7 @@ class ResourceClaimArgs:
         ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec describes what is being requested and how to configure it. The spec is immutable.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -5866,6 +5920,7 @@ class ResourcePoolPatchArgs:
                  resource_slice_count: Optional[pulumi.Input[_builtins.int]] = None):
         """
         ResourcePool describes the pool that ResourceSlices belong to.
+
         :param pulumi.Input[_builtins.int] generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
@@ -5957,6 +6012,7 @@ class ResourcePoolArgs:
                  resource_slice_count: pulumi.Input[_builtins.int]):
         """
         ResourcePool describes the pool that ResourceSlices belong to.
+
         :param pulumi.Input[_builtins.int] generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
@@ -6088,6 +6144,7 @@ class ResourceSliceSpecPatchArgs:
                  shared_counters: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetPatchArgs']]]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+
         :param pulumi.Input[_builtins.bool] all_nodes: AllNodes indicates that all nodes have access to the resources in the pool.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -6333,6 +6390,7 @@ class ResourceSliceSpecArgs:
                  shared_counters: Optional[pulumi.Input[Sequence[pulumi.Input['CounterSetArgs']]]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+
         :param pulumi.Input[_builtins.str] driver: Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters. This field is immutable.
@@ -6554,6 +6612,7 @@ class ResourceSliceArgs:
         For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param pulumi.Input['ResourceSliceSpecArgs'] spec: Contains the information published by the driver.
                
                Changing the spec automatically increments the metadata.generation number.

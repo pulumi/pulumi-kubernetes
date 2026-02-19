@@ -41,6 +41,7 @@ class StorageVersionMigrationSpecPatchArgs:
                  resource: Optional[pulumi.Input['_meta.v1.GroupResourcePatchArgs']] = None):
         """
         Spec of the storage version migration.
+
         :param pulumi.Input['_meta.v1.GroupResourcePatchArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
         if resource is not None:
@@ -74,6 +75,7 @@ class StorageVersionMigrationSpecArgs:
                  resource: pulumi.Input['_meta.v1.GroupResourceArgs']):
         """
         Spec of the storage version migration.
+
         :param pulumi.Input['_meta.v1.GroupResourceArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
         pulumi.set(__self__, "resource", resource)
@@ -111,6 +113,7 @@ class StorageVersionMigrationStatusArgs:
                  resource_version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Status of the storage version migration.
+
         :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: The latest available observations of the migration's current state.
         :param pulumi.Input[_builtins.str] resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
         """
@@ -179,6 +182,7 @@ class StorageVersionMigrationArgs:
                  status: Optional[pulumi.Input['StorageVersionMigrationStatusArgs']] = None):
         """
         StorageVersionMigration represents a migration of stored data to the latest storage version.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

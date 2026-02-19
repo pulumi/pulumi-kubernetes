@@ -54,6 +54,7 @@ class Lease(dict):
                  spec: Optional['outputs.LeaseSpec'] = None):
         """
         Lease defines a lease concept.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -130,6 +131,7 @@ class LeaseCandidate(dict):
                  spec: Optional['outputs.LeaseCandidateSpec'] = None):
         """
         LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -216,6 +218,7 @@ class LeaseCandidateSpec(dict):
                  renew_time: Optional[_builtins.str] = None):
         """
         LeaseCandidateSpec is a specification of a Lease.
+
         :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
         :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
         :param _builtins.str strategy: Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
@@ -321,6 +324,7 @@ class LeaseCandidateSpecPatch(dict):
                  strategy: Optional[_builtins.str] = None):
         """
         LeaseCandidateSpec is a specification of a Lease.
+
         :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
         :param _builtins.str emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
         :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
@@ -428,6 +432,7 @@ class LeaseSpec(dict):
                  renew_time: Optional[_builtins.str] = None):
         """
         LeaseSpec is a specification of a Lease.
+
         :param _builtins.str acquire_time: acquireTime is a time when the current lease was acquired.
         :param _builtins.str holder_identity: holderIdentity contains the identity of the holder of a current lease.
         :param _builtins.int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
@@ -524,6 +529,7 @@ class LeaseSpecPatch(dict):
                  renew_time: Optional[_builtins.str] = None):
         """
         LeaseSpec is a specification of a Lease.
+
         :param _builtins.str acquire_time: acquireTime is a time when the current lease was acquired.
         :param _builtins.str holder_identity: holderIdentity contains the identity of the holder of a current lease.
         :param _builtins.int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.

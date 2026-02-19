@@ -41,6 +41,7 @@ class PostRendererArgs:
                  args: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Specification defining the post-renderer to use.
+
         :param pulumi.Input[_builtins.str] command: Path to an executable to be used for post rendering.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] args: Arguments to pass to the post-renderer command.
         """
@@ -113,6 +114,7 @@ class RepositoryOptsArgs:
                  username: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Specification defining the Helm chart repository to use.
+
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] ca_file: The Repository's CA File
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] cert_file: The repository's cert file
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] key_file: The repository's cert key file

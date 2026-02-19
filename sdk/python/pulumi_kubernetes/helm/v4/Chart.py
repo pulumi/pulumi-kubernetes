@@ -38,6 +38,7 @@ class ChartArgs:
                  version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Chart resource.
+
         :param pulumi.Input[_builtins.str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[_builtins.bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[_builtins.bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
@@ -471,6 +472,7 @@ class Chart(pulumi.ComponentResource):
         )
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] chart: Chart name to be installed. A path may be used.
@@ -663,6 +665,7 @@ class Chart(pulumi.ComponentResource):
             )
         )
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ChartArgs args: The arguments to use to populate this resource's properties.

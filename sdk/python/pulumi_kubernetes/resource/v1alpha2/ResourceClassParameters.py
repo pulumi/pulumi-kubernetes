@@ -30,6 +30,7 @@ class ResourceClassParametersInitArgs:
                  vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input['VendorParametersArgs']]]] = None):
         """
         The set of arguments for constructing a ResourceClassParameters resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['ResourceFilterArgs']]] filters: Filters describes additional contraints that must be met when using the class.
         :param pulumi.Input['ResourceClassParametersReferenceArgs'] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
@@ -139,6 +140,7 @@ class ResourceClassParameters(pulumi.CustomResource):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -156,6 +158,7 @@ class ResourceClassParameters(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+
 
         :param str resource_name: The name of the resource.
         :param ResourceClassParametersInitArgs args: The arguments to use to populate this resource's properties.

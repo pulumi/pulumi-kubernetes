@@ -50,6 +50,7 @@ class EventSeriesPatchArgs:
                  state: Optional[pulumi.Input[_builtins.str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
         :param pulumi.Input[_builtins.int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[_builtins.str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[_builtins.str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -123,6 +124,7 @@ class EventSeriesArgs:
                  state: pulumi.Input[_builtins.str]):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
         :param pulumi.Input[_builtins.int] count: Number of occurrences in this series up to the last heartbeat time
         :param pulumi.Input[_builtins.str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[_builtins.str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -260,6 +262,7 @@ class EventArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
         :param pulumi.Input[_builtins.str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

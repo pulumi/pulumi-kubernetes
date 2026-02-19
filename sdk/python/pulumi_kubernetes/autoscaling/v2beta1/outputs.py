@@ -83,6 +83,7 @@ class ContainerResourceMetricSource(dict):
                  target_average_value: Optional[_builtins.str] = None):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.str name: name is the name of the resource in question.
         :param _builtins.int target_average_utilization: targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
@@ -159,6 +160,7 @@ class ContainerResourceMetricSourcePatch(dict):
                  target_average_value: Optional[_builtins.str] = None):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.str name: name is the name of the resource in question.
         :param _builtins.int target_average_utilization: targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
@@ -237,6 +239,7 @@ class ContainerResourceMetricStatus(dict):
                  current_average_utilization: Optional[_builtins.int] = None):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
         :param _builtins.str name: name is the name of the resource in question.
@@ -312,6 +315,7 @@ class ContainerResourceMetricStatusPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.int current_average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
@@ -387,6 +391,7 @@ class CrossVersionObjectReference(dict):
                  api_version: Optional[_builtins.str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param _builtins.str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param _builtins.str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param _builtins.str api_version: API version of the referent
@@ -449,6 +454,7 @@ class CrossVersionObjectReferencePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param _builtins.str api_version: API version of the referent
         :param _builtins.str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param _builtins.str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -520,6 +526,7 @@ class ExternalMetricSource(dict):
                  target_value: Optional[_builtins.str] = None):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster). Exactly one "target" type should be set.
+
         :param _builtins.str metric_name: metricName is the name of the metric in question.
         :param '_meta.v1.LabelSelectorArgs' metric_selector: metricSelector is used to identify a specific time series within a given metric.
         :param _builtins.str target_average_value: targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
@@ -601,6 +608,7 @@ class ExternalMetricSourcePatch(dict):
                  target_value: Optional[_builtins.str] = None):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster). Exactly one "target" type should be set.
+
         :param _builtins.str metric_name: metricName is the name of the metric in question.
         :param '_meta.v1.LabelSelectorPatchArgs' metric_selector: metricSelector is used to identify a specific time series within a given metric.
         :param _builtins.str target_average_value: targetAverageValue is the target per-pod value of global metric (as a quantity). Mutually exclusive with TargetValue.
@@ -683,6 +691,7 @@ class ExternalMetricStatus(dict):
                  metric_selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
         :param _builtins.str current_value: currentValue is the current value of the metric (as a quantity)
         :param _builtins.str metric_name: metricName is the name of a metric used for autoscaling in metric system.
         :param _builtins.str current_average_value: currentAverageValue is the current value of metric averaged over autoscaled pods.
@@ -763,6 +772,7 @@ class ExternalMetricStatusPatch(dict):
                  metric_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
         :param _builtins.str current_average_value: currentAverageValue is the current value of metric averaged over autoscaled pods.
         :param _builtins.str current_value: currentValue is the current value of the metric (as a quantity)
         :param _builtins.str metric_name: metricName is the name of a metric used for autoscaling in metric system.
@@ -840,6 +850,7 @@ class HorizontalPodAutoscaler(dict):
                  status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None):
         """
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -928,6 +939,7 @@ class HorizontalPodAutoscalerCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
         :param _builtins.str status: status is the status of the condition (True, False, Unknown)
         :param _builtins.str type: type describes the current condition
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
@@ -1014,6 +1026,7 @@ class HorizontalPodAutoscalerConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
         :param _builtins.str message: message is a human-readable explanation containing details about the transition
         :param _builtins.str reason: reason is the reason for the condition's last transition.
@@ -1105,6 +1118,7 @@ class HorizontalPodAutoscalerSpec(dict):
                  min_replicas: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param 'CrossVersionObjectReferenceArgs' scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param Sequence['MetricSpecArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
@@ -1183,6 +1197,7 @@ class HorizontalPodAutoscalerSpecPatch(dict):
                  scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param Sequence['MetricSpecPatchArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond.
         :param _builtins.int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
@@ -1269,6 +1284,7 @@ class HorizontalPodAutoscalerStatus(dict):
                  observed_generation: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
         :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param _builtins.int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param _builtins.int desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
@@ -1374,6 +1390,7 @@ class HorizontalPodAutoscalerStatusPatch(dict):
                  observed_generation: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
         :param Sequence['HorizontalPodAutoscalerConditionPatchArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param Sequence['MetricStatusPatchArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param _builtins.int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
@@ -1474,6 +1491,7 @@ class MetricSpec(dict):
                  resource: Optional['outputs.ResourceMetricSource'] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param _builtins.str type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         :param 'ContainerResourceMetricSourceArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param 'ExternalMetricSourceArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1573,6 +1591,7 @@ class MetricSpecPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param 'ContainerResourceMetricSourcePatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param 'ExternalMetricSourcePatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricSourcePatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1673,6 +1692,7 @@ class MetricStatus(dict):
                  resource: Optional['outputs.ResourceMetricStatus'] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
         :param _builtins.str type: type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         :param 'ContainerResourceMetricStatusArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1772,6 +1792,7 @@ class MetricStatusPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
         :param 'ContainerResourceMetricStatusPatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusPatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricStatusPatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1875,6 +1896,7 @@ class ObjectMetricSource(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param _builtins.str metric_name: metricName is the name of the metric in question.
         :param 'CrossVersionObjectReferenceArgs' target: target is the described Kubernetes object.
         :param _builtins.str target_value: targetValue is the target value of the metric (as a quantity).
@@ -1964,6 +1986,7 @@ class ObjectMetricSourcePatch(dict):
                  target_value: Optional[_builtins.str] = None):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param _builtins.str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str metric_name: metricName is the name of the metric in question.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
@@ -2056,6 +2079,7 @@ class ObjectMetricStatus(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param _builtins.str current_value: currentValue is the current value of the metric (as a quantity).
         :param _builtins.str metric_name: metricName is the name of the metric in question.
         :param 'CrossVersionObjectReferenceArgs' target: target is the described Kubernetes object.
@@ -2145,6 +2169,7 @@ class ObjectMetricStatusPatch(dict):
                  target: Optional['outputs.CrossVersionObjectReferencePatch'] = None):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param _builtins.str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str current_value: currentValue is the current value of the metric (as a quantity).
         :param _builtins.str metric_name: metricName is the name of the metric in question.
@@ -2233,6 +2258,7 @@ class PodsMetricSource(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param _builtins.str metric_name: metricName is the name of the metric in question
         :param _builtins.str target_average_value: targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param '_meta.v1.LabelSelectorArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
@@ -2297,6 +2323,7 @@ class PodsMetricSourcePatch(dict):
                  target_average_value: Optional[_builtins.str] = None):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param _builtins.str metric_name: metricName is the name of the metric in question
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping When unset, just the metricName will be used to gather metrics.
         :param _builtins.str target_average_value: targetAverageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -2363,6 +2390,7 @@ class PodsMetricStatus(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str metric_name: metricName is the name of the metric in question
         :param '_meta.v1.LabelSelectorArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
@@ -2427,6 +2455,7 @@ class PodsMetricStatusPatch(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str metric_name: metricName is the name of the metric in question
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set in the PodsMetricSource, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
@@ -2493,6 +2522,7 @@ class ResourceMetricSource(dict):
                  target_average_value: Optional[_builtins.str] = None):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str name: name is the name of the resource in question.
         :param _builtins.int target_average_utilization: targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str target_average_value: targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
@@ -2558,6 +2588,7 @@ class ResourceMetricSourcePatch(dict):
                  target_average_value: Optional[_builtins.str] = None):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str name: name is the name of the resource in question.
         :param _builtins.int target_average_utilization: targetAverageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str target_average_value: targetAverageValue is the target value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type.
@@ -2624,6 +2655,7 @@ class ResourceMetricStatus(dict):
                  current_average_utilization: Optional[_builtins.int] = None):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
         :param _builtins.str name: name is the name of the resource in question.
         :param _builtins.int current_average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
@@ -2688,6 +2720,7 @@ class ResourceMetricStatusPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.int current_average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.  It will only be present if `targetAverageValue` was set in the corresponding metric specification.
         :param _builtins.str current_average_value: currentAverageValue is the current value of the average of the resource metric across all relevant pods, as a raw value (instead of as a percentage of the request), similar to the "pods" metric source type. It will always be set, regardless of the corresponding metric specification.
         :param _builtins.str name: name is the name of the resource in question.

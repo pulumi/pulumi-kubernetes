@@ -161,6 +161,7 @@ class RepositoryOpts(dict):
                  username: Optional[_builtins.str] = None):
         """
         Specification defining the Helm chart repository to use.
+
         :param _builtins.str ca_file: The Repository's CA File
         :param _builtins.str cert_file: The repository's cert file
         :param _builtins.str key_file: The repository's cert key file

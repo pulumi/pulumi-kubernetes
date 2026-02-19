@@ -59,6 +59,7 @@ class RepositoryOptsArgs:
                  username: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Specification defining the Helm chart repository to use.
+
         :param pulumi.Input[_builtins.str] ca_file: The Repository's CA File
         :param pulumi.Input[_builtins.str] cert_file: The repository's cert file
         :param pulumi.Input[_builtins.str] key_file: The repository's cert key file

@@ -29,6 +29,7 @@ class DeviceClassPatchArgs:
                  spec: Optional[pulumi.Input['DeviceClassSpecPatchArgs']] = None):
         """
         The set of arguments for constructing a DeviceClassPatch resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object metadata
@@ -122,6 +123,7 @@ class DeviceClassPatch(pulumi.CustomResource):
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -149,6 +151,7 @@ class DeviceClassPatch(pulumi.CustomResource):
         DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
 
         :param str resource_name: The name of the resource.
         :param DeviceClassPatchArgs args: The arguments to use to populate this resource's properties.

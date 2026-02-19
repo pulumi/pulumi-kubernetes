@@ -92,6 +92,7 @@ class AllowedCSIDriverPatchArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
         :param pulumi.Input[_builtins.str] name: Name is the registered name of the CSI driver
         """
         if name is not None:
@@ -125,6 +126,7 @@ class AllowedCSIDriverArgs:
                  name: pulumi.Input[_builtins.str]):
         """
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+
         :param pulumi.Input[_builtins.str] name: Name is the registered name of the CSI driver
         """
         pulumi.set(__self__, "name", name)
@@ -157,6 +159,7 @@ class AllowedFlexVolumePatchArgs:
                  driver: Optional[pulumi.Input[_builtins.str]] = None):
         """
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
         :param pulumi.Input[_builtins.str] driver: driver is the name of the Flexvolume driver.
         """
         if driver is not None:
@@ -190,6 +193,7 @@ class AllowedFlexVolumeArgs:
                  driver: pulumi.Input[_builtins.str]):
         """
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+
         :param pulumi.Input[_builtins.str] driver: driver is the name of the Flexvolume driver.
         """
         pulumi.set(__self__, "driver", driver)
@@ -229,6 +233,7 @@ class AllowedHostPathPatchArgs:
                  read_only: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
         :param pulumi.Input[_builtins.str] path_prefix: pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
                
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
@@ -288,6 +293,7 @@ class AllowedHostPathArgs:
                  read_only: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
+
         :param pulumi.Input[_builtins.str] path_prefix: pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
                
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
@@ -345,6 +351,7 @@ class FSGroupStrategyOptionsPatchArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
@@ -398,6 +405,7 @@ class FSGroupStrategyOptionsArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
@@ -451,6 +459,7 @@ class HostPortRangePatchArgs:
                  min: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
         :param pulumi.Input[_builtins.int] max: max is the end of the range, inclusive.
         :param pulumi.Input[_builtins.int] min: min is the start of the range, inclusive.
         """
@@ -504,6 +513,7 @@ class HostPortRangeArgs:
                  min: pulumi.Input[_builtins.int]):
         """
         HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
+
         :param pulumi.Input[_builtins.int] max: max is the end of the range, inclusive.
         :param pulumi.Input[_builtins.int] min: min is the start of the range, inclusive.
         """
@@ -555,6 +565,7 @@ class IDRangePatchArgs:
                  min: Optional[pulumi.Input[_builtins.int]] = None):
         """
         IDRange provides a min/max of an allowed range of IDs.
+
         :param pulumi.Input[_builtins.int] max: max is the end of the range, inclusive.
         :param pulumi.Input[_builtins.int] min: min is the start of the range, inclusive.
         """
@@ -608,6 +619,7 @@ class IDRangeArgs:
                  min: pulumi.Input[_builtins.int]):
         """
         IDRange provides a min/max of an allowed range of IDs.
+
         :param pulumi.Input[_builtins.int] max: max is the end of the range, inclusive.
         :param pulumi.Input[_builtins.int] min: min is the start of the range, inclusive.
         """
@@ -664,6 +676,7 @@ class PodDisruptionBudgetSpecPatchArgs:
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget.
@@ -737,6 +750,7 @@ class PodDisruptionBudgetSpecArgs:
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label query over pods whose evictions are managed by the disruption budget.
@@ -825,6 +839,7 @@ class PodDisruptionBudgetStatusArgs:
                  observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
         :param pulumi.Input[_builtins.int] current_healthy: current number of healthy pods
         :param pulumi.Input[_builtins.int] desired_healthy: minimum desired number of healthy pods
         :param pulumi.Input[_builtins.int] disruptions_allowed: Number of pod disruptions that are currently allowed.
@@ -946,6 +961,7 @@ class PodDisruptionBudgetArgs:
                  status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
@@ -1154,6 +1170,7 @@ class PodSecurityPolicySpecPatchArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced.
+
         :param pulumi.Input[_builtins.bool] allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
         :param pulumi.Input[Sequence[pulumi.Input['AllowedCSIDriverPatchArgs']]] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
@@ -1659,6 +1676,7 @@ class PodSecurityPolicySpecArgs:
                  volumes: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         PodSecurityPolicySpec defines the policy enforced.
+
         :param pulumi.Input['FSGroupStrategyOptionsArgs'] fs_group: fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
         :param pulumi.Input['RunAsUserStrategyOptionsArgs'] run_as_user: runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param pulumi.Input['SELinuxStrategyOptionsArgs'] se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
@@ -2056,6 +2074,7 @@ class PodSecurityPolicyArgs:
                  spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None):
         """
         PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2139,6 +2158,7 @@ class RunAsGroupStrategyOptionsPatchArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         """
@@ -2192,6 +2212,7 @@ class RunAsGroupStrategyOptionsArgs:
                  ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None):
         """
         RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -2244,6 +2265,7 @@ class RunAsUserStrategyOptionsPatchArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         """
@@ -2297,6 +2319,7 @@ class RunAsUserStrategyOptionsArgs:
                  ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None):
         """
         RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
@@ -2349,6 +2372,7 @@ class RuntimeClassStrategyOptionsPatchArgs:
                  default_runtime_class_name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param pulumi.Input[_builtins.str] default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
@@ -2402,6 +2426,7 @@ class RuntimeClassStrategyOptionsArgs:
                  default_runtime_class_name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param pulumi.Input[_builtins.str] default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
@@ -2454,6 +2479,7 @@ class SELinuxStrategyOptionsPatchArgs:
                  se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsPatchArgs']] = None):
         """
         SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param pulumi.Input['_core.v1.SELinuxOptionsPatchArgs'] se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
@@ -2507,6 +2533,7 @@ class SELinuxStrategyOptionsArgs:
                  se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsArgs']] = None):
         """
         SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
+
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param pulumi.Input['_core.v1.SELinuxOptionsArgs'] se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
@@ -2559,6 +2586,7 @@ class SupplementalGroupsStrategyOptionsPatchArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
@@ -2612,6 +2640,7 @@ class SupplementalGroupsStrategyOptionsArgs:
                  rule: Optional[pulumi.Input[_builtins.str]] = None):
         """
         SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
+
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[_builtins.str] rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """

@@ -58,6 +58,7 @@ class CronJob(dict):
                  status: Optional['outputs.CronJobStatus'] = None):
         """
         CronJob represents the configuration of a single cron job.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -156,6 +157,7 @@ class CronJobSpec(dict):
                  suspend: Optional[_builtins.bool] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
+
         :param 'JobTemplateSpecArgs' job_template: Specifies the job that will be created when executing a CronJob.
         :param _builtins.str schedule: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
         :param _builtins.str concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -274,6 +276,7 @@ class CronJobSpecPatch(dict):
                  suspend: Optional[_builtins.bool] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
+
         :param _builtins.str concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
         :param _builtins.int failed_jobs_history_limit: The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
         :param 'JobTemplateSpecPatchArgs' job_template: Specifies the job that will be created when executing a CronJob.
@@ -381,6 +384,7 @@ class CronJobStatus(dict):
                  last_schedule_time: Optional[_builtins.str] = None):
         """
         CronJobStatus represents the current state of a cron job.
+
         :param Sequence['_core.v1.ObjectReferenceArgs'] active: A list of pointers to currently running jobs.
         :param _builtins.str last_schedule_time: Information when was the last time the job was successfully scheduled.
         """
@@ -433,6 +437,7 @@ class CronJobStatusPatch(dict):
                  last_schedule_time: Optional[_builtins.str] = None):
         """
         CronJobStatus represents the current state of a cron job.
+
         :param Sequence['_core.v1.ObjectReferencePatchArgs'] active: A list of pointers to currently running jobs.
         :param _builtins.str last_schedule_time: Information when was the last time the job was successfully scheduled.
         """
@@ -468,6 +473,7 @@ class JobTemplateSpec(dict):
                  spec: Optional['_batch.v1.outputs.JobSpec'] = None):
         """
         JobTemplateSpec describes the data a Job should have when created from a template
+
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param '_batch.v1.JobSpecArgs' spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
@@ -503,6 +509,7 @@ class JobTemplateSpecPatch(dict):
                  spec: Optional['_batch.v1.outputs.JobSpecPatch'] = None):
         """
         JobTemplateSpec describes the data a Job should have when created from a template
+
         :param '_meta.v1.ObjectMetaPatchArgs' metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param '_batch.v1.JobSpecPatchArgs' spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """

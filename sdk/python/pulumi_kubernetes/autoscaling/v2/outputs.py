@@ -75,6 +75,7 @@ class ContainerResourceMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
@@ -119,6 +120,7 @@ class ContainerResourceMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param _builtins.str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
@@ -166,6 +168,7 @@ class ContainerResourceMetricStatus(dict):
                  name: _builtins.str):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param _builtins.str name: name is the name of the resource in question.
@@ -210,6 +213,7 @@ class ContainerResourceMetricStatusPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param _builtins.str container: container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param _builtins.str name: name is the name of the resource in question.
@@ -274,6 +278,7 @@ class CrossVersionObjectReference(dict):
                  api_version: Optional[_builtins.str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param _builtins.str kind: kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param _builtins.str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.str api_version: apiVersion is the API version of the referent
@@ -336,6 +341,7 @@ class CrossVersionObjectReferencePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param _builtins.str api_version: apiVersion is the API version of the referent
         :param _builtins.str kind: kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param _builtins.str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -382,6 +388,7 @@ class ExternalMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -415,6 +422,7 @@ class ExternalMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -450,6 +458,7 @@ class ExternalMetricStatus(dict):
                  metric: 'outputs.MetricIdentifier'):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
@@ -483,6 +492,7 @@ class ExternalMetricStatusPatch(dict):
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
@@ -536,6 +546,7 @@ class HPAScalingPolicy(dict):
                  value: _builtins.int):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
         :param _builtins.int period_seconds: periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param _builtins.str type: type is used to specify the scaling policy.
         :param _builtins.int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -597,6 +608,7 @@ class HPAScalingPolicyPatch(dict):
                  value: Optional[_builtins.int] = None):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
         :param _builtins.int period_seconds: periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param _builtins.str type: type is used to specify the scaling policy.
         :param _builtins.int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -672,6 +684,7 @@ class HPAScalingRules(dict):
         Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
         The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+
         :param Sequence['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
         :param _builtins.str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
         :param _builtins.int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -766,6 +779,7 @@ class HPAScalingRulesPatch(dict):
         Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
         The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+
         :param Sequence['HPAScalingPolicyPatchArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
         :param _builtins.str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
         :param _builtins.int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -851,6 +865,7 @@ class HorizontalPodAutoscaler(dict):
                  status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None):
         """
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -938,6 +953,7 @@ class HorizontalPodAutoscalerBehavior(dict):
                  scale_up: Optional['outputs.HPAScalingRules'] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
         :param 'HPAScalingRulesArgs' scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param 'HPAScalingRulesArgs' scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -998,6 +1014,7 @@ class HorizontalPodAutoscalerBehaviorPatch(dict):
                  scale_up: Optional['outputs.HPAScalingRulesPatch'] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
         :param 'HPAScalingRulesPatchArgs' scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param 'HPAScalingRulesPatchArgs' scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -1059,6 +1076,7 @@ class HorizontalPodAutoscalerCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
         :param _builtins.str status: status is the status of the condition (True, False, Unknown)
         :param _builtins.str type: type describes the current condition
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
@@ -1145,6 +1163,7 @@ class HorizontalPodAutoscalerConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
         :param _builtins.str message: message is a human-readable explanation containing details about the transition
         :param _builtins.str reason: reason is the reason for the condition's last transition.
@@ -1237,6 +1256,7 @@ class HorizontalPodAutoscalerSpec(dict):
                  min_replicas: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param 'CrossVersionObjectReferenceArgs' scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param 'HorizontalPodAutoscalerBehaviorArgs' behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -1327,6 +1347,7 @@ class HorizontalPodAutoscalerSpecPatch(dict):
                  scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param 'HorizontalPodAutoscalerBehaviorPatchArgs' behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param Sequence['MetricSpecPatchArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
@@ -1424,6 +1445,7 @@ class HorizontalPodAutoscalerStatus(dict):
                  observed_generation: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
         :param _builtins.int desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
         :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param Sequence['MetricStatusArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
@@ -1531,6 +1553,7 @@ class HorizontalPodAutoscalerStatusPatch(dict):
                  observed_generation: Optional[_builtins.int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
         :param Sequence['HorizontalPodAutoscalerConditionPatchArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param Sequence['MetricStatusPatchArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param _builtins.int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
@@ -1610,6 +1633,7 @@ class MetricIdentifier(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
         :param _builtins.str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1644,6 +1668,7 @@ class MetricIdentifierPatch(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
         :param _builtins.str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1700,6 +1725,7 @@ class MetricSpec(dict):
                  resource: Optional['outputs.ResourceMetricSource'] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param _builtins.str type: type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         :param 'ContainerResourceMetricSourceArgs' container_resource: containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricSourceArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1799,6 +1825,7 @@ class MetricSpecPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param 'ContainerResourceMetricSourcePatchArgs' container_resource: containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricSourcePatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricSourcePatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1899,6 +1926,7 @@ class MetricStatus(dict):
                  resource: Optional['outputs.ResourceMetricStatus'] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
         :param _builtins.str type: type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         :param 'ContainerResourceMetricStatusArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -1998,6 +2026,7 @@ class MetricStatusPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
         :param 'ContainerResourceMetricStatusPatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusPatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricStatusPatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -2098,6 +2127,7 @@ class MetricTarget(dict):
                  value: Optional[_builtins.str] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
         :param _builtins.str type: type represents whether the metric type is Utilization, Value, or AverageValue
         :param _builtins.int average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param _builtins.str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -2175,6 +2205,7 @@ class MetricTargetPatch(dict):
                  value: Optional[_builtins.str] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
         :param _builtins.int average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param _builtins.str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str type: type represents whether the metric type is Utilization, Value, or AverageValue
@@ -2252,6 +2283,7 @@ class MetricValueStatus(dict):
                  value: Optional[_builtins.str] = None):
         """
         MetricValueStatus holds the current value for a metric
+
         :param _builtins.int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str value: value is the current value of the metric (as a quantity).
@@ -2318,6 +2350,7 @@ class MetricValueStatusPatch(dict):
                  value: Optional[_builtins.str] = None):
         """
         MetricValueStatus holds the current value for a metric
+
         :param _builtins.int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str value: value is the current value of the metric (as a quantity).
@@ -2382,6 +2415,7 @@ class ObjectMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param 'CrossVersionObjectReferenceArgs' described_object: describedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
@@ -2443,6 +2477,7 @@ class ObjectMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param 'CrossVersionObjectReferencePatchArgs' described_object: describedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
@@ -2507,6 +2542,7 @@ class ObjectMetricStatus(dict):
                  metric: 'outputs.MetricIdentifier'):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'CrossVersionObjectReferenceArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
@@ -2568,6 +2604,7 @@ class ObjectMetricStatusPatch(dict):
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'CrossVersionObjectReferencePatchArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
@@ -2614,6 +2651,7 @@ class PodsMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -2647,6 +2685,7 @@ class PodsMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -2682,6 +2721,7 @@ class PodsMetricStatus(dict):
                  metric: 'outputs.MetricIdentifier'):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2715,6 +2755,7 @@ class PodsMetricStatusPatch(dict):
                  metric: Optional['outputs.MetricIdentifierPatch'] = None):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
@@ -2750,6 +2791,7 @@ class ResourceMetricSource(dict):
                  target: 'outputs.MetricTarget'):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
@@ -2783,6 +2825,7 @@ class ResourceMetricSourcePatch(dict):
                  target: Optional['outputs.MetricTargetPatch'] = None):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param _builtins.str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
@@ -2818,6 +2861,7 @@ class ResourceMetricStatus(dict):
                  name: _builtins.str):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param _builtins.str name: name is the name of the resource in question.
         """
@@ -2851,6 +2895,7 @@ class ResourceMetricStatusPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param _builtins.str name: name is the name of the resource in question.
         """

@@ -51,6 +51,7 @@ class LeaseCandidate(dict):
                  spec: Optional['outputs.LeaseCandidateSpec'] = None):
         """
         LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -139,6 +140,7 @@ class LeaseCandidateSpec(dict):
                  renew_time: Optional[_builtins.str] = None):
         """
         LeaseCandidateSpec is a specification of a Lease.
+
         :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
         :param Sequence[_builtins.str] preferred_strategies: PreferredStrategies indicates the list of strategies for picking the leader for coordinated leader election. The list is ordered, and the first strategy supersedes all other strategies. The list is used by coordinated leader election to make a decision about the final election strategy. This follows as - If all clients have strategy X as the first element in this list, strategy X will be used. - If a candidate has strategy [X] and another candidate has strategy [Y, X], Y supersedes X and strategy Y
                  will be used.
@@ -255,6 +257,7 @@ class LeaseCandidateSpecPatch(dict):
                  renew_time: Optional[_builtins.str] = None):
         """
         LeaseCandidateSpec is a specification of a Lease.
+
         :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
         :param _builtins.str emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
         :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. This field is immutable.

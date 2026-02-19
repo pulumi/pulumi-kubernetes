@@ -58,6 +58,7 @@ class APIService(dict):
                  status: Optional['outputs.APIServiceStatus'] = None):
         """
         APIService represents a server for a particular GroupVersion. Name must be "version.group".
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -146,6 +147,7 @@ class APIServiceCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         APIServiceCondition describes the state of an APIService at a particular point
+
         :param _builtins.str status: Status is the status of the condition. Can be True, False, Unknown.
         :param _builtins.str type: Type is the type of the condition.
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
@@ -232,6 +234,7 @@ class APIServiceConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         APIServiceCondition describes the state of an APIService at a particular point
+
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param _builtins.str message: Human-readable message indicating details about last transition.
         :param _builtins.str reason: Unique, one-word, CamelCase reason for the condition's last transition.
@@ -328,6 +331,7 @@ class APIServiceSpec(dict):
                  version: Optional[_builtins.str] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
+
         :param _builtins.int group_priority_minimum: GroupPriorityMinimum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMinimum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
         :param _builtins.int version_priority: VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         :param _builtins.str ca_bundle: CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -444,6 +448,7 @@ class APIServiceSpecPatch(dict):
                  version_priority: Optional[_builtins.int] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
+
         :param _builtins.str ca_bundle: CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
         :param _builtins.str group: Group is the API group name this server hosts
         :param _builtins.int group_priority_minimum: GroupPriorityMinimum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMinimum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
@@ -533,6 +538,7 @@ class APIServiceStatus(dict):
                  conditions: Optional[Sequence['outputs.APIServiceCondition']] = None):
         """
         APIServiceStatus contains derived information about an API server
+
         :param Sequence['APIServiceConditionArgs'] conditions: Current service state of apiService.
         """
         if conditions is not None:
@@ -556,6 +562,7 @@ class APIServiceStatusPatch(dict):
                  conditions: Optional[Sequence['outputs.APIServiceConditionPatch']] = None):
         """
         APIServiceStatus contains derived information about an API server
+
         :param Sequence['APIServiceConditionPatchArgs'] conditions: Current service state of apiService.
         """
         if conditions is not None:
@@ -581,6 +588,7 @@ class ServiceReference(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: Name is the name of the service
         :param _builtins.str namespace: Namespace is the namespace of the service
         :param _builtins.int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
@@ -628,6 +636,7 @@ class ServiceReferencePatch(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: Name is the name of the service
         :param _builtins.str namespace: Namespace is the namespace of the service
         :param _builtins.int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).

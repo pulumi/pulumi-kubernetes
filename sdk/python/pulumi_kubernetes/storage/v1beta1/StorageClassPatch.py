@@ -33,6 +33,7 @@ class StorageClassPatchArgs:
                  volume_binding_mode: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a StorageClassPatch resource.
+
         :param pulumi.Input[_builtins.bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -214,6 +215,7 @@ class StorageClassPatch(pulumi.CustomResource):
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -243,6 +245,7 @@ class StorageClassPatch(pulumi.CustomResource):
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+
 
         :param str resource_name: The name of the resource.
         :param StorageClassPatchArgs args: The arguments to use to populate this resource's properties.

@@ -28,6 +28,7 @@ class RoleListArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a RoleList resource.
+
         :param pulumi.Input[Sequence[pulumi.Input['RoleArgs']]] items: Items is a list of Roles
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -104,6 +105,7 @@ class RoleList(pulumi.CustomResource):
         """
         RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -119,6 +121,7 @@ class RoleList(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
+
 
         :param str resource_name: The name of the resource.
         :param RoleListArgs args: The arguments to use to populate this resource's properties.

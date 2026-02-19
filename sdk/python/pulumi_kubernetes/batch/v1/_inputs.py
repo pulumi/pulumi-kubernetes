@@ -119,6 +119,7 @@ class CronJobSpecPatchArgs:
                  time_zone: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
+
         :param pulumi.Input[_builtins.str] concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are:
                
                - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -298,6 +299,7 @@ class CronJobSpecArgs:
                  time_zone: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
+
         :param pulumi.Input['JobTemplateSpecArgs'] job_template: Specifies the job that will be created when executing a CronJob.
         :param pulumi.Input[_builtins.str] schedule: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
         :param pulumi.Input[_builtins.str] concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are:
@@ -448,6 +450,7 @@ class CronJobStatusArgs:
                  last_successful_time: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CronJobStatus represents the current state of a cron job.
+
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]] active: A list of pointers to currently running jobs.
         :param pulumi.Input[_builtins.str] last_schedule_time: Information when was the last time the job was successfully scheduled.
         :param pulumi.Input[_builtins.str] last_successful_time: Information when was the last time the job successfully completed.
@@ -531,6 +534,7 @@ class CronJobArgs:
                  status: Optional[pulumi.Input['CronJobStatusArgs']] = None):
         """
         CronJob represents the configuration of a single cron job.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -649,6 +653,7 @@ class JobConditionArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         JobCondition describes current state of a job.
+
         :param pulumi.Input[_builtins.str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[_builtins.str] type: Type of job condition, Complete or Failed.
         :param pulumi.Input[_builtins.str] last_probe_time: Last time the condition was checked.
@@ -841,6 +846,7 @@ class JobSpecPatchArgs:
                  ttl_seconds_after_finished: Optional[pulumi.Input[_builtins.int]] = None):
         """
         JobSpec describes how the job execution will look like.
+
         :param pulumi.Input[_builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
         :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         :param pulumi.Input[_builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
@@ -1207,6 +1213,7 @@ class JobSpecArgs:
                  ttl_seconds_after_finished: Optional[pulumi.Input[_builtins.int]] = None):
         """
         JobSpec describes how the job execution will look like.
+
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[_builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
         :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
@@ -1551,6 +1558,7 @@ class JobStatusArgs:
                  uncounted_terminated_pods: Optional[pulumi.Input['UncountedTerminatedPodsArgs']] = None):
         """
         JobStatus represents the current state of a Job.
+
         :param pulumi.Input[_builtins.int] active: The number of pending and running pods which are not terminating (without a deletionTimestamp). The value is zero for finished jobs.
         :param pulumi.Input[_builtins.str] completed_indexes: completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
         :param pulumi.Input[_builtins.str] completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
@@ -1769,6 +1777,7 @@ class JobTemplateSpecPatchArgs:
                  spec: Optional[pulumi.Input['JobSpecPatchArgs']] = None):
         """
         JobTemplateSpec describes the data a Job should have when created from a template
+
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['JobSpecPatchArgs'] spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
@@ -1822,6 +1831,7 @@ class JobTemplateSpecArgs:
                  spec: Optional[pulumi.Input['JobSpecArgs']] = None):
         """
         JobTemplateSpec describes the data a Job should have when created from a template
+
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['JobSpecArgs'] spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
@@ -1930,6 +1940,7 @@ class JobArgs:
         Pulumi will continue to wait for readiness on the next update. If you would prefer
         to schedule a replacement for an unready resource on the next update, you can add the
         "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2041,6 +2052,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]] = None):
         """
         PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+
         :param pulumi.Input[_builtins.str] container_name: Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
         :param pulumi.Input[_builtins.str] operator: Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
                
@@ -2138,6 +2150,7 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
                  container_name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+
         :param pulumi.Input[_builtins.str] operator: Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
                
                - In: the requirement is satisfied if at least one container exit code
@@ -2220,6 +2233,7 @@ class PodFailurePolicyOnPodConditionsPatternPatchArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+
         :param pulumi.Input[_builtins.str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         :param pulumi.Input[_builtins.str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
         """
@@ -2273,6 +2287,7 @@ class PodFailurePolicyOnPodConditionsPatternArgs:
                  status: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+
         :param pulumi.Input[_builtins.str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
         :param pulumi.Input[_builtins.str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         """
@@ -2320,6 +2335,7 @@ class PodFailurePolicyPatchArgs:
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]] = None):
         """
         PodFailurePolicy describes how failed pods influence the backoffLimit.
+
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
         """
         if rules is not None:
@@ -2373,6 +2389,7 @@ class PodFailurePolicyRulePatchArgs:
                  on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]] = None):
         """
         PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+
         :param pulumi.Input[_builtins.str] action: Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
                
                - FailJob: indicates that the pod's job is marked as Failed and all
@@ -2476,6 +2493,7 @@ class PodFailurePolicyRuleArgs:
                  on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]] = None):
         """
         PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
+
         :param pulumi.Input[_builtins.str] action: Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
                
                - FailJob: indicates that the pod's job is marked as Failed and all
@@ -2558,6 +2576,7 @@ class PodFailurePolicyArgs:
                  rules: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]):
         """
         PodFailurePolicy describes how failed pods influence the backoffLimit.
+
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
         """
         pulumi.set(__self__, "rules", rules)
@@ -2590,6 +2609,7 @@ class SuccessPolicyPatchArgs:
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]]] = None):
         """
         SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+
         :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         if rules is not None:
@@ -2628,6 +2648,7 @@ class SuccessPolicyRulePatchArgs:
                  succeeded_indexes: Optional[pulumi.Input[_builtins.str]] = None):
         """
         SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+
         :param pulumi.Input[_builtins.int] succeeded_count: succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
         :param pulumi.Input[_builtins.str] succeeded_indexes: succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
         """
@@ -2681,6 +2702,7 @@ class SuccessPolicyRuleArgs:
                  succeeded_indexes: Optional[pulumi.Input[_builtins.str]] = None):
         """
         SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.
+
         :param pulumi.Input[_builtins.int] succeeded_count: succeededCount specifies the minimal required size of the actual set of the succeeded indexes for the Job. When succeededCount is used along with succeededIndexes, the check is constrained only to the set of indexes specified by succeededIndexes. For example, given that succeededIndexes is "1-4", succeededCount is "3", and completed indexes are "1", "3", and "5", the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules. When this field is null, this doesn't default to any value and is never evaluated at any time. When specified it needs to be a positive integer.
         :param pulumi.Input[_builtins.str] succeeded_indexes: succeededIndexes specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job. The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required. The indexes are represented as intervals separated by commas. The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen. The number are listed in represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". When this field is null, this field doesn't default to any value and is never evaluated at any time.
         """
@@ -2729,6 +2751,7 @@ class SuccessPolicyArgs:
                  rules: pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]]):
         """
         SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+
         :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         pulumi.set(__self__, "rules", rules)
@@ -2766,6 +2789,7 @@ class UncountedTerminatedPodsArgs:
                  succeeded: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] failed: failed holds UIDs of failed Pods.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] succeeded: succeeded holds UIDs of succeeded Pods.
         """

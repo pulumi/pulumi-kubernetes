@@ -64,6 +64,7 @@ class CertificateSigningRequest(dict):
                  status: Optional['outputs.CertificateSigningRequestStatus'] = None):
         """
         Describes a certificate signing request
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'CertificateSigningRequestSpecArgs' spec: The certificate request itself and any additional information.
@@ -345,6 +346,7 @@ class CertificateSigningRequestSpec(dict):
                  username: Optional[_builtins.str] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
         :param _builtins.str request: Base64-encoded PKCS#10 CSR data
         :param Mapping[str, Sequence[_builtins.str]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param Sequence[_builtins.str] groups: Group information about the requesting user. See user.Info interface for details.
@@ -470,6 +472,7 @@ class CertificateSigningRequestSpecPatch(dict):
                  username: Optional[_builtins.str] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+
         :param Mapping[str, Sequence[_builtins.str]] extra: Extra information about the requesting user. See user.Info interface for details.
         :param Sequence[_builtins.str] groups: Group information about the requesting user. See user.Info interface for details.
         :param _builtins.str request: Base64-encoded PKCS#10 CSR data
@@ -663,6 +666,7 @@ class ClusterTrustBundle(dict):
         ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 
         It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+
         :param 'ClusterTrustBundleSpecArgs' spec: spec contains the signer (if any) and trust anchors.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -738,6 +742,7 @@ class ClusterTrustBundleSpec(dict):
                  signer_name: Optional[_builtins.str] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
+
         :param _builtins.str trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
                
                The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
@@ -815,6 +820,7 @@ class ClusterTrustBundleSpecPatch(dict):
                  trust_bundle: Optional[_builtins.str] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
+
         :param _builtins.str signer_name: signerName indicates the associated signer, if any.
                
                In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
@@ -898,6 +904,7 @@ class PodCertificateRequest(dict):
         PodCertificateRequest encodes a pod requesting a certificate from a given signer.
 
         Kubelets use this API to implement podCertificate projected volumes
+
         :param 'PodCertificateRequestSpecArgs' spec: spec contains the details about the certificate being requested.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1011,6 +1018,7 @@ class PodCertificateRequestSpec(dict):
                  unverified_user_annotations: Optional[Mapping[str, _builtins.str]] = None):
         """
         PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+
         :param _builtins.str node_name: nodeName is the name of the node the pod is assigned to.
         :param _builtins.str node_uid: nodeUID is the UID of the node the pod is assigned to.
         :param _builtins.str pkix_public_key: pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
@@ -1230,6 +1238,7 @@ class PodCertificateRequestSpecPatch(dict):
                  unverified_user_annotations: Optional[Mapping[str, _builtins.str]] = None):
         """
         PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+
         :param _builtins.int max_expiration_seconds: maxExpirationSeconds is the maximum lifetime permitted for the certificate.
                
                If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
@@ -1438,6 +1447,7 @@ class PodCertificateRequestStatus(dict):
                  not_before: Optional[_builtins.str] = None):
         """
         PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+
         :param _builtins.str begin_refresh_at: beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
                
                This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
@@ -1562,6 +1572,7 @@ class PodCertificateRequestStatusPatch(dict):
                  not_before: Optional[_builtins.str] = None):
         """
         PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+
         :param _builtins.str begin_refresh_at: beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
                
                This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.

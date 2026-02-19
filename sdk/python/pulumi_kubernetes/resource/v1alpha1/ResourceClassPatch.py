@@ -31,6 +31,7 @@ class ResourceClassPatchArgs:
                  suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None):
         """
         The set of arguments for constructing a ResourceClassPatch resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] driver_name: DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
                
@@ -156,6 +157,7 @@ class ResourceClassPatch(pulumi.CustomResource):
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -185,6 +187,7 @@ class ResourceClassPatch(pulumi.CustomResource):
         ResourceClass is used by administrators to influence how resources are allocated.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
 
         :param str resource_name: The name of the resource.
         :param ResourceClassPatchArgs args: The arguments to use to populate this resource's properties.

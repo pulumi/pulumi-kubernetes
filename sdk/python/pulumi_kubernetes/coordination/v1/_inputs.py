@@ -69,6 +69,7 @@ class LeaseSpecPatchArgs:
                  strategy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         LeaseSpec is a specification of a Lease.
+
         :param pulumi.Input[_builtins.str] acquire_time: acquireTime is a time when the current lease was acquired.
         :param pulumi.Input[_builtins.str] holder_identity: holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         :param pulumi.Input[_builtins.int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
@@ -222,6 +223,7 @@ class LeaseSpecArgs:
                  strategy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         LeaseSpec is a specification of a Lease.
+
         :param pulumi.Input[_builtins.str] acquire_time: acquireTime is a time when the current lease was acquired.
         :param pulumi.Input[_builtins.str] holder_identity: holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         :param pulumi.Input[_builtins.int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
@@ -360,6 +362,7 @@ class LeaseArgs:
                  spec: Optional[pulumi.Input['LeaseSpecArgs']] = None):
         """
         Lease defines a lease concept.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

@@ -55,6 +55,7 @@ class PriorityClass(dict):
                  preemption_policy: Optional[_builtins.str] = None):
         """
         PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+
         :param _builtins.int value: value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str description: description is an arbitrary string that usually provides guidelines on when this priority class should be used.

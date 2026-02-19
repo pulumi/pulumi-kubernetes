@@ -59,6 +59,7 @@ class ClusterTrustBundle(dict):
         ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 
         It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+
         :param 'ClusterTrustBundleSpecArgs' spec: spec contains the signer (if any) and trust anchors.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -134,6 +135,7 @@ class ClusterTrustBundleSpec(dict):
                  signer_name: Optional[_builtins.str] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
+
         :param _builtins.str trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
                
                The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
@@ -211,6 +213,7 @@ class ClusterTrustBundleSpecPatch(dict):
                  trust_bundle: Optional[_builtins.str] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
+
         :param _builtins.str signer_name: signerName indicates the associated signer, if any.
                
                In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
