@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
     public class DeviceTaintRuleSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        /// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
         /// </summary>
         [Input("deviceSelector")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.DeviceTaintSelectorArgs>? DeviceSelector { get; set; }

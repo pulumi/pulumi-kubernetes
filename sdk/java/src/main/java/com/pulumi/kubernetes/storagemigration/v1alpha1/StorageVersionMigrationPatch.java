@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.storagemigration.v1alpha1;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -13,6 +14,7 @@ import com.pulumi.kubernetes.storagemigration.v1alpha1.StorageVersionMigrationPa
 import com.pulumi.kubernetes.storagemigration.v1alpha1.outputs.StorageVersionMigrationSpecPatch;
 import com.pulumi.kubernetes.storagemigration.v1alpha1.outputs.StorageVersionMigrationStatusPatch;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -142,6 +144,9 @@ public class StorageVersionMigrationPatch extends com.pulumi.resources.CustomRes
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:storagemigration.k8s.io/v1beta1:StorageVersionMigrationPatch").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

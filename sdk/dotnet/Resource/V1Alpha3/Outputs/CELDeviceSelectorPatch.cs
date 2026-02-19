@@ -44,8 +44,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
         /// 
         ///     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool &amp;&amp; dra.anotherBool)
-        /// 
-        /// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         /// </summary>
         public readonly string Expression;
 

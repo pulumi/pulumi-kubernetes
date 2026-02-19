@@ -23,10 +23,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// </summary>
         public readonly string Device;
         /// <summary>
-        /// If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-        /// </summary>
-        public readonly string DeviceClassName;
-        /// <summary>
         /// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
         /// </summary>
         public readonly string Driver;
@@ -36,28 +32,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
         /// </summary>
         public readonly string Pool;
-        /// <summary>
-        /// Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-        /// </summary>
-        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceSelector> Selectors;
 
         [OutputConstructor]
         private DeviceTaintSelector(
             string device,
 
-            string deviceClassName,
-
             string driver,
 
-            string pool,
-
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceSelector> selectors)
+            string pool)
         {
             Device = device;
-            DeviceClassName = deviceClassName;
             Driver = driver;
             Pool = pool;
-            Selectors = selectors;
         }
     }
 }

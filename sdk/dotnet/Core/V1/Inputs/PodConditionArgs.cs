@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        /// If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         /// </summary>
         [Input("observedGeneration")]
         public Input<int>? ObservedGeneration { get; set; }

@@ -25,6 +25,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionConditionPatch> Conditions;
         /// <summary>
+        /// The generation observed by the CRD controller.
+        /// </summary>
+        public readonly int ObservedGeneration;
+        /// <summary>
         /// storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         /// </summary>
         public readonly ImmutableArray<string> StoredVersions;
@@ -35,10 +39,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionConditionPatch> conditions,
 
+            int observedGeneration,
+
             ImmutableArray<string> storedVersions)
         {
             AcceptedNames = acceptedNames;
             Conditions = conditions;
+            ObservedGeneration = observedGeneration;
             StoredVersions = storedVersions;
         }
     }

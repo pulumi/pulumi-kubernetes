@@ -5,9 +5,7 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceSelectorPatchArgs;
 import java.lang.String;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -38,21 +36,6 @@ public final class DeviceTaintSelectorPatchArgs extends com.pulumi.resources.Res
      */
     public Optional<Output<String>> device() {
         return Optional.ofNullable(this.device);
-    }
-
-    /**
-     * If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-     * 
-     */
-    @Import(name="deviceClassName")
-    private @Nullable Output<String> deviceClassName;
-
-    /**
-     * @return If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-     * 
-     */
-    public Optional<Output<String>> deviceClassName() {
-        return Optional.ofNullable(this.deviceClassName);
     }
 
     /**
@@ -89,29 +72,12 @@ public final class DeviceTaintSelectorPatchArgs extends com.pulumi.resources.Res
         return Optional.ofNullable(this.pool);
     }
 
-    /**
-     * Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-     * 
-     */
-    @Import(name="selectors")
-    private @Nullable Output<List<DeviceSelectorPatchArgs>> selectors;
-
-    /**
-     * @return Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-     * 
-     */
-    public Optional<Output<List<DeviceSelectorPatchArgs>>> selectors() {
-        return Optional.ofNullable(this.selectors);
-    }
-
     private DeviceTaintSelectorPatchArgs() {}
 
     private DeviceTaintSelectorPatchArgs(DeviceTaintSelectorPatchArgs $) {
         this.device = $.device;
-        this.deviceClassName = $.deviceClassName;
         this.driver = $.driver;
         this.pool = $.pool;
-        this.selectors = $.selectors;
     }
 
     public static Builder builder() {
@@ -158,27 +124,6 @@ public final class DeviceTaintSelectorPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param deviceClassName If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder deviceClassName(@Nullable Output<String> deviceClassName) {
-            $.deviceClassName = deviceClassName;
-            return this;
-        }
-
-        /**
-         * @param deviceClassName If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder deviceClassName(String deviceClassName) {
-            return deviceClassName(Output.of(deviceClassName));
-        }
-
-        /**
          * @param driver If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
          * 
          * @return builder
@@ -222,37 +167,6 @@ public final class DeviceTaintSelectorPatchArgs extends com.pulumi.resources.Res
          */
         public Builder pool(String pool) {
             return pool(Output.of(pool));
-        }
-
-        /**
-         * @param selectors Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder selectors(@Nullable Output<List<DeviceSelectorPatchArgs>> selectors) {
-            $.selectors = selectors;
-            return this;
-        }
-
-        /**
-         * @param selectors Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder selectors(List<DeviceSelectorPatchArgs> selectors) {
-            return selectors(Output.of(selectors));
-        }
-
-        /**
-         * @param selectors Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder selectors(DeviceSelectorPatchArgs... selectors) {
-            return selectors(List.of(selectors));
         }
 
         public DeviceTaintSelectorPatchArgs build() {

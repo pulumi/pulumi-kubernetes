@@ -24,12 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         public Input<string>? Device { get; set; }
 
         /// <summary>
-        /// If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-        /// </summary>
-        [Input("deviceClassName")]
-        public Input<string>? DeviceClassName { get; set; }
-
-        /// <summary>
         /// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
         /// </summary>
         [Input("driver")]
@@ -42,18 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// </summary>
         [Input("pool")]
         public Input<string>? Pool { get; set; }
-
-        [Input("selectors")]
-        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.DeviceSelectorArgs>? _selectors;
-
-        /// <summary>
-        /// Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-        /// </summary>
-        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.DeviceSelectorArgs> Selectors
-        {
-            get => _selectors ?? (_selectors = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.DeviceSelectorArgs>());
-            set => _selectors = value;
-        }
 
         public DeviceTaintSelectorArgs()
         {

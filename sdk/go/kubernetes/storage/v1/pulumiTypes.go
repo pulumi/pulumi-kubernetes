@@ -308,7 +308,7 @@ func (o CSIDriverPatchTypeOutput) Spec() CSIDriverSpecPatchPtrOutput {
 
 // CSIDriverSpec is the specification of a CSIDriver.
 type CSIDriverSpec struct {
-	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
 	// This field is immutable.
 	AttachRequired *bool `pulumi:"attachRequired"`
@@ -320,7 +320,7 @@ type CSIDriverSpec struct {
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
 	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 	//
-	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 	//
 	// This field is mutable.
 	NodeAllocatableUpdatePeriodSeconds *int `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
@@ -347,6 +347,16 @@ type CSIDriverSpec struct {
 	//
 	// Default is "false".
 	SeLinuxMount *bool `pulumi:"seLinuxMount"`
+	// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+	//
+	// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+	//
+	// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+	//
+	// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+	//
+	// Default behavior if unset is to pass tokens in the VolumeContext field.
+	ServiceAccountTokenInSecrets *bool `pulumi:"serviceAccountTokenInSecrets"`
 	// storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
 	//
 	// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -388,7 +398,7 @@ type CSIDriverSpecInput interface {
 
 // CSIDriverSpec is the specification of a CSIDriver.
 type CSIDriverSpecArgs struct {
-	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
 	// This field is immutable.
 	AttachRequired pulumi.BoolPtrInput `pulumi:"attachRequired"`
@@ -400,7 +410,7 @@ type CSIDriverSpecArgs struct {
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
 	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 	//
-	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 	//
 	// This field is mutable.
 	NodeAllocatableUpdatePeriodSeconds pulumi.IntPtrInput `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
@@ -427,6 +437,16 @@ type CSIDriverSpecArgs struct {
 	//
 	// Default is "false".
 	SeLinuxMount pulumi.BoolPtrInput `pulumi:"seLinuxMount"`
+	// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+	//
+	// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+	//
+	// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+	//
+	// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+	//
+	// Default behavior if unset is to pass tokens in the VolumeContext field.
+	ServiceAccountTokenInSecrets pulumi.BoolPtrInput `pulumi:"serviceAccountTokenInSecrets"`
 	// storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
 	//
 	// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -482,7 +502,7 @@ func (o CSIDriverSpecOutput) ToCSIDriverSpecOutputWithContext(ctx context.Contex
 	return o
 }
 
-// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 //
 // This field is immutable.
 func (o CSIDriverSpecOutput) AttachRequired() pulumi.BoolPtrOutput {
@@ -500,7 +520,7 @@ func (o CSIDriverSpecOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 
 // nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 //
-// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 //
 // This field is mutable.
 func (o CSIDriverSpecOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
@@ -540,6 +560,19 @@ func (o CSIDriverSpecOutput) SeLinuxMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.SeLinuxMount }).(pulumi.BoolPtrOutput)
 }
 
+// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+//
+// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+//
+// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+//
+// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+//
+// Default behavior if unset is to pass tokens in the VolumeContext field.
+func (o CSIDriverSpecOutput) ServiceAccountTokenInSecrets() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.ServiceAccountTokenInSecrets }).(pulumi.BoolPtrOutput)
+}
+
 // storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
 //
 // The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -577,7 +610,7 @@ func (o CSIDriverSpecOutput) VolumeLifecycleModes() pulumi.StringArrayOutput {
 
 // CSIDriverSpec is the specification of a CSIDriver.
 type CSIDriverSpecPatch struct {
-	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
 	// This field is immutable.
 	AttachRequired *bool `pulumi:"attachRequired"`
@@ -589,7 +622,7 @@ type CSIDriverSpecPatch struct {
 	FsGroupPolicy *string `pulumi:"fsGroupPolicy"`
 	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 	//
-	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 	//
 	// This field is mutable.
 	NodeAllocatableUpdatePeriodSeconds *int `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
@@ -616,6 +649,16 @@ type CSIDriverSpecPatch struct {
 	//
 	// Default is "false".
 	SeLinuxMount *bool `pulumi:"seLinuxMount"`
+	// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+	//
+	// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+	//
+	// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+	//
+	// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+	//
+	// Default behavior if unset is to pass tokens in the VolumeContext field.
+	ServiceAccountTokenInSecrets *bool `pulumi:"serviceAccountTokenInSecrets"`
 	// storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
 	//
 	// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -657,7 +700,7 @@ type CSIDriverSpecPatchInput interface {
 
 // CSIDriverSpec is the specification of a CSIDriver.
 type CSIDriverSpecPatchArgs struct {
-	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+	// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 	//
 	// This field is immutable.
 	AttachRequired pulumi.BoolPtrInput `pulumi:"attachRequired"`
@@ -669,7 +712,7 @@ type CSIDriverSpecPatchArgs struct {
 	FsGroupPolicy pulumi.StringPtrInput `pulumi:"fsGroupPolicy"`
 	// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 	//
-	// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+	// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 	//
 	// This field is mutable.
 	NodeAllocatableUpdatePeriodSeconds pulumi.IntPtrInput `pulumi:"nodeAllocatableUpdatePeriodSeconds"`
@@ -696,6 +739,16 @@ type CSIDriverSpecPatchArgs struct {
 	//
 	// Default is "false".
 	SeLinuxMount pulumi.BoolPtrInput `pulumi:"seLinuxMount"`
+	// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+	//
+	// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+	//
+	// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+	//
+	// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+	//
+	// Default behavior if unset is to pass tokens in the VolumeContext field.
+	ServiceAccountTokenInSecrets pulumi.BoolPtrInput `pulumi:"serviceAccountTokenInSecrets"`
 	// storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
 	//
 	// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -802,7 +855,7 @@ func (o CSIDriverSpecPatchOutput) ToCSIDriverSpecPatchPtrOutputWithContext(ctx c
 	}).(CSIDriverSpecPatchPtrOutput)
 }
 
-// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 //
 // This field is immutable.
 func (o CSIDriverSpecPatchOutput) AttachRequired() pulumi.BoolPtrOutput {
@@ -820,7 +873,7 @@ func (o CSIDriverSpecPatchOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 
 // nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 //
-// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 //
 // This field is mutable.
 func (o CSIDriverSpecPatchOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
@@ -858,6 +911,19 @@ func (o CSIDriverSpecPatchOutput) RequiresRepublish() pulumi.BoolPtrOutput {
 // Default is "false".
 func (o CSIDriverSpecPatchOutput) SeLinuxMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.SeLinuxMount }).(pulumi.BoolPtrOutput)
+}
+
+// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+//
+// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+//
+// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+//
+// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+//
+// Default behavior if unset is to pass tokens in the VolumeContext field.
+func (o CSIDriverSpecPatchOutput) ServiceAccountTokenInSecrets() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.ServiceAccountTokenInSecrets }).(pulumi.BoolPtrOutput)
 }
 
 // storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
@@ -919,7 +985,7 @@ func (o CSIDriverSpecPatchPtrOutput) Elem() CSIDriverSpecPatchOutput {
 	}).(CSIDriverSpecPatchOutput)
 }
 
-// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+// attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
 //
 // This field is immutable.
 func (o CSIDriverSpecPatchPtrOutput) AttachRequired() pulumi.BoolPtrOutput {
@@ -947,7 +1013,7 @@ func (o CSIDriverSpecPatchPtrOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 
 // nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 //
-// This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 //
 // This field is mutable.
 func (o CSIDriverSpecPatchPtrOutput) NodeAllocatableUpdatePeriodSeconds() pulumi.IntPtrOutput {
@@ -1004,6 +1070,24 @@ func (o CSIDriverSpecPatchPtrOutput) SeLinuxMount() pulumi.BoolPtrOutput {
 			return nil
 		}
 		return v.SeLinuxMount
+	}).(pulumi.BoolPtrOutput)
+}
+
+// serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+//
+// When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+//
+// When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+//
+// This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+//
+// Default behavior if unset is to pass tokens in the VolumeContext field.
+func (o CSIDriverSpecPatchPtrOutput) ServiceAccountTokenInSecrets() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CSIDriverSpecPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceAccountTokenInSecrets
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -4056,11 +4140,332 @@ func (o VolumeAttachmentStatusPatchPtrOutput) DetachError() VolumeErrorPatchPtrO
 	}).(VolumeErrorPatchPtrOutput)
 }
 
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters map[string]string `pulumi:"parameters"`
+}
+
+// VolumeAttributesClassTypeInput is an input type that accepts VolumeAttributesClassTypeArgs and VolumeAttributesClassTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassTypeInput` via:
+//
+//	VolumeAttributesClassTypeArgs{...}
+type VolumeAttributesClassTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput
+	ToVolumeAttributesClassTypeOutputWithContext(context.Context) VolumeAttributesClassTypeOutput
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName pulumi.StringInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters pulumi.StringMapInput `pulumi:"parameters"`
+}
+
+func (VolumeAttributesClassTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassTypeArgs) ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput {
+	return i.ToVolumeAttributesClassTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassTypeArgs) ToVolumeAttributesClassTypeOutputWithContext(ctx context.Context) VolumeAttributesClassTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassTypeOutput)
+}
+
+// VolumeAttributesClassTypeArrayInput is an input type that accepts VolumeAttributesClassTypeArray and VolumeAttributesClassTypeArrayOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassTypeArrayInput` via:
+//
+//	VolumeAttributesClassTypeArray{ VolumeAttributesClassTypeArgs{...} }
+type VolumeAttributesClassTypeArrayInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput
+	ToVolumeAttributesClassTypeArrayOutputWithContext(context.Context) VolumeAttributesClassTypeArrayOutput
+}
+
+type VolumeAttributesClassTypeArray []VolumeAttributesClassTypeInput
+
+func (VolumeAttributesClassTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassTypeArray) ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput {
+	return i.ToVolumeAttributesClassTypeArrayOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassTypeArray) ToVolumeAttributesClassTypeArrayOutputWithContext(ctx context.Context) VolumeAttributesClassTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassTypeArrayOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassTypeOutput) ToVolumeAttributesClassTypeOutput() VolumeAttributesClassTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeOutput) ToVolumeAttributesClassTypeOutputWithContext(ctx context.Context) VolumeAttributesClassTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Name of the CSI driver This field is immutable.
+func (o VolumeAttributesClassTypeOutput) DriverName() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) string { return v.DriverName }).(pulumi.StringOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+//
+// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+func (o VolumeAttributesClassTypeOutput) Parameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeAttributesClassType) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
+}
+
+type VolumeAttributesClassTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeAttributesClassType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) ToVolumeAttributesClassTypeArrayOutput() VolumeAttributesClassTypeArrayOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) ToVolumeAttributesClassTypeArrayOutputWithContext(ctx context.Context) VolumeAttributesClassTypeArrayOutput {
+	return o
+}
+
+func (o VolumeAttributesClassTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttributesClassTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeAttributesClassType {
+		return vs[0].([]VolumeAttributesClassType)[vs[1].(int)]
+	}).(VolumeAttributesClassTypeOutput)
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of VolumeAttributesClass objects.
+	Items []VolumeAttributesClassType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// VolumeAttributesClassListTypeInput is an input type that accepts VolumeAttributesClassListTypeArgs and VolumeAttributesClassListTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassListTypeInput` via:
+//
+//	VolumeAttributesClassListTypeArgs{...}
+type VolumeAttributesClassListTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput
+	ToVolumeAttributesClassListTypeOutputWithContext(context.Context) VolumeAttributesClassListTypeOutput
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of VolumeAttributesClass objects.
+	Items VolumeAttributesClassTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (VolumeAttributesClassListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassListType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassListTypeArgs) ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput {
+	return i.ToVolumeAttributesClassListTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassListTypeArgs) ToVolumeAttributesClassListTypeOutputWithContext(ctx context.Context) VolumeAttributesClassListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassListTypeOutput)
+}
+
+// VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+type VolumeAttributesClassListTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassListType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassListTypeOutput) ToVolumeAttributesClassListTypeOutput() VolumeAttributesClassListTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassListTypeOutput) ToVolumeAttributesClassListTypeOutputWithContext(ctx context.Context) VolumeAttributesClassListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of VolumeAttributesClass objects.
+func (o VolumeAttributesClassListTypeOutput) Items() VolumeAttributesClassTypeArrayOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) []VolumeAttributesClassType { return v.Items }).(VolumeAttributesClassTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName *string `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters map[string]string `pulumi:"parameters"`
+}
+
+// VolumeAttributesClassPatchTypeInput is an input type that accepts VolumeAttributesClassPatchTypeArgs and VolumeAttributesClassPatchTypeOutput values.
+// You can construct a concrete instance of `VolumeAttributesClassPatchTypeInput` via:
+//
+//	VolumeAttributesClassPatchTypeArgs{...}
+type VolumeAttributesClassPatchTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput
+	ToVolumeAttributesClassPatchTypeOutputWithContext(context.Context) VolumeAttributesClassPatchTypeOutput
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Name of the CSI driver This field is immutable.
+	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+	//
+	// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+	Parameters pulumi.StringMapInput `pulumi:"parameters"`
+}
+
+func (VolumeAttributesClassPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassPatchType)(nil)).Elem()
+}
+
+func (i VolumeAttributesClassPatchTypeArgs) ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput {
+	return i.ToVolumeAttributesClassPatchTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttributesClassPatchTypeArgs) ToVolumeAttributesClassPatchTypeOutputWithContext(ctx context.Context) VolumeAttributesClassPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttributesClassPatchTypeOutput)
+}
+
+// VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+type VolumeAttributesClassPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttributesClassPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttributesClassPatchType)(nil)).Elem()
+}
+
+func (o VolumeAttributesClassPatchTypeOutput) ToVolumeAttributesClassPatchTypeOutput() VolumeAttributesClassPatchTypeOutput {
+	return o
+}
+
+func (o VolumeAttributesClassPatchTypeOutput) ToVolumeAttributesClassPatchTypeOutputWithContext(ctx context.Context) VolumeAttributesClassPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttributesClassPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Name of the CSI driver This field is immutable.
+func (o VolumeAttributesClassPatchTypeOutput) DriverName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.DriverName }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttributesClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttributesClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+//
+// This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+func (o VolumeAttributesClassPatchTypeOutput) Parameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v VolumeAttributesClassPatchType) map[string]string { return v.Parameters }).(pulumi.StringMapOutput)
+}
+
 // VolumeError captures an error encountered during a volume operation.
 type VolumeError struct {
 	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 	//
-	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 	ErrorCode *int `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
@@ -4083,7 +4488,7 @@ type VolumeErrorInput interface {
 type VolumeErrorArgs struct {
 	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 	//
-	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 	ErrorCode pulumi.IntPtrInput `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
@@ -4171,7 +4576,7 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context
 
 // errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 //
-// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 func (o VolumeErrorOutput) ErrorCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v VolumeError) *int { return v.ErrorCode }).(pulumi.IntPtrOutput)
 }
@@ -4212,7 +4617,7 @@ func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
 
 // errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 //
-// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 func (o VolumeErrorPtrOutput) ErrorCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *VolumeError) *int {
 		if v == nil {
@@ -4246,7 +4651,7 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 type VolumeErrorPatch struct {
 	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 	//
-	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 	ErrorCode *int `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message *string `pulumi:"message"`
@@ -4269,7 +4674,7 @@ type VolumeErrorPatchInput interface {
 type VolumeErrorPatchArgs struct {
 	// errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 	//
-	// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+	// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 	ErrorCode pulumi.IntPtrInput `pulumi:"errorCode"`
 	// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
 	Message pulumi.StringPtrInput `pulumi:"message"`
@@ -4357,7 +4762,7 @@ func (o VolumeErrorPatchOutput) ToVolumeErrorPatchPtrOutputWithContext(ctx conte
 
 // errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 //
-// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 func (o VolumeErrorPatchOutput) ErrorCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v VolumeErrorPatch) *int { return v.ErrorCode }).(pulumi.IntPtrOutput)
 }
@@ -4398,7 +4803,7 @@ func (o VolumeErrorPatchPtrOutput) Elem() VolumeErrorPatchOutput {
 
 // errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 //
-// This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+// This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 func (o VolumeErrorPatchPtrOutput) ErrorCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *VolumeErrorPatch) *int {
 		if v == nil {
@@ -4753,6 +5158,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPtrInput)(nil)).Elem(), VolumeAttachmentStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPatchInput)(nil)).Elem(), VolumeAttachmentStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPatchPtrInput)(nil)).Elem(), VolumeAttachmentStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassTypeInput)(nil)).Elem(), VolumeAttributesClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassTypeArrayInput)(nil)).Elem(), VolumeAttributesClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassListTypeInput)(nil)).Elem(), VolumeAttributesClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttributesClassPatchTypeInput)(nil)).Elem(), VolumeAttributesClassPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPtrInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPatchInput)(nil)).Elem(), VolumeErrorPatchArgs{})
@@ -4805,6 +5214,10 @@ func init() {
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPtrOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPatchOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassTypeArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassListTypeOutput{})
+	pulumi.RegisterOutputType(VolumeAttributesClassPatchTypeOutput{})
 	pulumi.RegisterOutputType(VolumeErrorOutput{})
 	pulumi.RegisterOutputType(VolumeErrorPtrOutput{})
 	pulumi.RegisterOutputType(VolumeErrorPatchOutput{})

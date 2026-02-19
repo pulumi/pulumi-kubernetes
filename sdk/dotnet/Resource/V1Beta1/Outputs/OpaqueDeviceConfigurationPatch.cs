@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
         /// 
-        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+        /// Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
         /// </summary>
         public readonly string Driver;
         /// <summary>

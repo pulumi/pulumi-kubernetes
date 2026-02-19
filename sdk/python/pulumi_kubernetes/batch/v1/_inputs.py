@@ -750,7 +750,7 @@ class JobSpecPatchArgsDict(TypedDict):
     """
     backoff_limit: NotRequired[pulumi.Input[_builtins.int]]
     """
-    Specifies the number of retries before marking this job failed. Defaults to 6
+    Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
     """
     backoff_limit_per_index: NotRequired[pulumi.Input[_builtins.int]]
     """
@@ -773,8 +773,6 @@ class JobSpecPatchArgsDict(TypedDict):
     managed_by: NotRequired[pulumi.Input[_builtins.str]]
     """
     ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-
-    This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
     """
     manual_selector: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -799,7 +797,7 @@ class JobSpecPatchArgsDict(TypedDict):
     - Failed means to wait until a previously created Pod is fully terminated (has phase
       Failed or Succeeded) before creating a replacement Pod.
 
-    When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+    When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
     """
     selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
     """
@@ -844,7 +842,7 @@ class JobSpecPatchArgs:
         """
         JobSpec describes how the job execution will look like.
         :param pulumi.Input[_builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
-        :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
+        :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         :param pulumi.Input[_builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         :param pulumi.Input[_builtins.str] completion_mode: completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
                
@@ -855,8 +853,6 @@ class JobSpecPatchArgs:
                More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         :param pulumi.Input[_builtins.int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[_builtins.str] managed_by: ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-               
-               This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         :param pulumi.Input[_builtins.bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param pulumi.Input[_builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         :param pulumi.Input[_builtins.int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -866,7 +862,7 @@ class JobSpecPatchArgs:
                - Failed means to wait until a previously created Pod is fully terminated (has phase
                  Failed or Succeeded) before creating a replacement Pod.
                
-               When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+               When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['SuccessPolicyPatchArgs'] success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
         :param pulumi.Input[_builtins.bool] suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -922,7 +918,7 @@ class JobSpecPatchArgs:
     @pulumi.getter(name="backoffLimit")
     def backoff_limit(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the number of retries before marking this job failed. Defaults to 6
+        Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         """
         return pulumi.get(self, "backoff_limit")
 
@@ -977,8 +973,6 @@ class JobSpecPatchArgs:
     def managed_by(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-
-        This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         """
         return pulumi.get(self, "managed_by")
 
@@ -1043,7 +1037,7 @@ class JobSpecPatchArgs:
         - Failed means to wait until a previously created Pod is fully terminated (has phase
           Failed or Succeeded) before creating a replacement Pod.
 
-        When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+        When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
         """
         return pulumi.get(self, "pod_replacement_policy")
 
@@ -1126,7 +1120,7 @@ class JobSpecArgsDict(TypedDict):
     """
     backoff_limit: NotRequired[pulumi.Input[_builtins.int]]
     """
-    Specifies the number of retries before marking this job failed. Defaults to 6
+    Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
     """
     backoff_limit_per_index: NotRequired[pulumi.Input[_builtins.int]]
     """
@@ -1149,8 +1143,6 @@ class JobSpecArgsDict(TypedDict):
     managed_by: NotRequired[pulumi.Input[_builtins.str]]
     """
     ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-
-    This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
     """
     manual_selector: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -1175,7 +1167,7 @@ class JobSpecArgsDict(TypedDict):
     - Failed means to wait until a previously created Pod is fully terminated (has phase
       Failed or Succeeded) before creating a replacement Pod.
 
-    When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+    When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
     """
     selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
     """
@@ -1217,7 +1209,7 @@ class JobSpecArgs:
         JobSpec describes how the job execution will look like.
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[_builtins.int] active_deadline_seconds: Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
-        :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6
+        :param pulumi.Input[_builtins.int] backoff_limit: Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         :param pulumi.Input[_builtins.int] backoff_limit_per_index: Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
         :param pulumi.Input[_builtins.str] completion_mode: completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
                
@@ -1228,8 +1220,6 @@ class JobSpecArgs:
                More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         :param pulumi.Input[_builtins.int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[_builtins.str] managed_by: ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-               
-               This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         :param pulumi.Input[_builtins.bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param pulumi.Input[_builtins.int] max_failed_indexes: Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
         :param pulumi.Input[_builtins.int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -1239,7 +1229,7 @@ class JobSpecArgs:
                - Failed means to wait until a previously created Pod is fully terminated (has phase
                  Failed or Succeeded) before creating a replacement Pod.
                
-               When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+               When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input['SuccessPolicyArgs'] success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
         :param pulumi.Input[_builtins.bool] suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -1305,7 +1295,7 @@ class JobSpecArgs:
     @pulumi.getter(name="backoffLimit")
     def backoff_limit(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the number of retries before marking this job failed. Defaults to 6
+        Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
         """
         return pulumi.get(self, "backoff_limit")
 
@@ -1360,8 +1350,6 @@ class JobSpecArgs:
     def managed_by(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-
-        This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
         """
         return pulumi.get(self, "managed_by")
 
@@ -1426,7 +1414,7 @@ class JobSpecArgs:
         - Failed means to wait until a previously created Pod is fully terminated (has phase
           Failed or Succeeded) before creating a replacement Pod.
 
-        When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+        When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
         """
         return pulumi.get(self, "pod_replacement_policy")
 
@@ -2269,39 +2257,28 @@ class PodFailurePolicyOnPodConditionsPatternArgsDict(TypedDict):
     """
     PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
     """
-    status: pulumi.Input[_builtins.str]
-    """
-    Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
-    """
     type: pulumi.Input[_builtins.str]
     """
     Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+    """
+    status: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
     """
 
 @pulumi.input_type
 class PodFailurePolicyOnPodConditionsPatternArgs:
     def __init__(__self__, *,
-                 status: pulumi.Input[_builtins.str],
-                 type: pulumi.Input[_builtins.str]):
+                 type: pulumi.Input[_builtins.str],
+                 status: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
-        :param pulumi.Input[_builtins.str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         :param pulumi.Input[_builtins.str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+        :param pulumi.Input[_builtins.str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         """
-        pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[_builtins.str]:
-        """
-        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "status", value)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @_builtins.property
     @pulumi.getter
@@ -2314,6 +2291,18 @@ class PodFailurePolicyOnPodConditionsPatternArgs:
     @type.setter
     def type(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "status", value)
 
 
 class PodFailurePolicyPatchArgsDict(TypedDict):
@@ -2592,7 +2581,7 @@ class SuccessPolicyPatchArgsDict(TypedDict):
     """
     rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgsDict']]]]
     """
-    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
     """
 
 @pulumi.input_type
@@ -2601,7 +2590,7 @@ class SuccessPolicyPatchArgs:
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]]] = None):
         """
         SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
-        :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         if rules is not None:
             pulumi.set(__self__, "rules", rules)
@@ -2610,7 +2599,7 @@ class SuccessPolicyPatchArgs:
     @pulumi.getter
     def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]]]:
         """
-        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         return pulumi.get(self, "rules")
 
@@ -2731,7 +2720,7 @@ class SuccessPolicyArgsDict(TypedDict):
     """
     rules: pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgsDict']]]
     """
-    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
     """
 
 @pulumi.input_type
@@ -2740,7 +2729,7 @@ class SuccessPolicyArgs:
                  rules: pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]]):
         """
         SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
-        :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        :param pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]] rules: rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         pulumi.set(__self__, "rules", rules)
 
@@ -2748,7 +2737,7 @@ class SuccessPolicyArgs:
     @pulumi.getter
     def rules(self) -> pulumi.Input[Sequence[pulumi.Input['SuccessPolicyRuleArgs']]]:
         """
-        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+        rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
         """
         return pulumi.get(self, "rules")
 

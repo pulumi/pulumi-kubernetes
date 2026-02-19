@@ -21,14 +21,14 @@ public final class DeviceTaintRuleSpecPatchArgs extends com.pulumi.resources.Res
     public static final DeviceTaintRuleSpecPatchArgs Empty = new DeviceTaintRuleSpecPatchArgs();
 
     /**
-     * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+     * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
      * 
      */
     @Import(name="deviceSelector")
     private @Nullable Output<DeviceTaintSelectorPatchArgs> deviceSelector;
 
     /**
-     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
      * 
      */
     public Optional<Output<DeviceTaintSelectorPatchArgs>> deviceSelector() {
@@ -76,7 +76,7 @@ public final class DeviceTaintRuleSpecPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param deviceSelector DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+         * @param deviceSelector DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class DeviceTaintRuleSpecPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param deviceSelector DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+         * @param deviceSelector DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
          * 
          * @return builder
          * 

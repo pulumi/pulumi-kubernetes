@@ -21,14 +21,14 @@ public final class GlusterfsVolumeSourcePatchArgs extends com.pulumi.resources.R
     public static final GlusterfsVolumeSourcePatchArgs Empty = new GlusterfsVolumeSourcePatchArgs();
 
     /**
-     * endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+     * endpoints is the endpoint name that details Glusterfs topology.
      * 
      */
     @Import(name="endpoints")
     private @Nullable Output<String> endpoints;
 
     /**
-     * @return endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+     * @return endpoints is the endpoint name that details Glusterfs topology.
      * 
      */
     public Optional<Output<String>> endpoints() {
@@ -92,7 +92,7 @@ public final class GlusterfsVolumeSourcePatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param endpoints endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+         * @param endpoints endpoints is the endpoint name that details Glusterfs topology.
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class GlusterfsVolumeSourcePatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param endpoints endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+         * @param endpoints endpoints is the endpoint name that details Glusterfs topology.
          * 
          * @return builder
          * 

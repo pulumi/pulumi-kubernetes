@@ -43,6 +43,12 @@ func NewStorageVersionMigrationPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("storagemigration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("StorageVersionMigration")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:storagemigration.k8s.io/v1beta1:StorageVersionMigrationPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource StorageVersionMigrationPatch
 	err := ctx.RegisterResource("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch", name, args, &resource, opts...)

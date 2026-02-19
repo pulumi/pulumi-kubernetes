@@ -579,11 +579,6 @@ func createKinds(
 	var kinds []KindConfig
 
 	for _, d := range definitions {
-		// Skip if there are no properties on the type.
-		if _, exists := d.data["properties"]; !exists {
-			continue
-		}
-
 		defaultAPIVersion := d.defaultAPIVersion()
 		isTopLevel := d.isTopLevel()
 		isList := false
@@ -592,7 +587,10 @@ func createKinds(
 		var requiredInputProperties []Property
 		var optionalInputProperties []Property
 
-		propMap := d.data["properties"].(map[string]any)
+		propMap, _ := d.data["properties"].(map[string]any)
+		if propMap == nil {
+			propMap = map[string]any{}
+		}
 		var propNames []string
 		for propName := range propMap {
 			propNames = append(propNames, propName)
@@ -681,10 +679,6 @@ func createKinds(
 			} else if propName != "status" {
 				optionalInputProperties = append(optionalInputProperties, property)
 			}
-		}
-
-		if len(properties) == 0 {
-			continue
 		}
 
 		comment, deprecationComment := extractDeprecationComment(d.data["description"], d.gvk)

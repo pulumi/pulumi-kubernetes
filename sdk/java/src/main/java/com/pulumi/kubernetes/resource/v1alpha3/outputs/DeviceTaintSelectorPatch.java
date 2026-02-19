@@ -4,9 +4,7 @@
 package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceSelectorPatch;
 import java.lang.String;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -21,11 +19,6 @@ public final class DeviceTaintSelectorPatch {
      */
     private @Nullable String device;
     /**
-     * @return If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-     * 
-     */
-    private @Nullable String deviceClassName;
-    /**
      * @return If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
      * 
      */
@@ -37,11 +30,6 @@ public final class DeviceTaintSelectorPatch {
      * 
      */
     private @Nullable String pool;
-    /**
-     * @return Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-     * 
-     */
-    private @Nullable List<DeviceSelectorPatch> selectors;
 
     private DeviceTaintSelectorPatch() {}
     /**
@@ -52,13 +40,6 @@ public final class DeviceTaintSelectorPatch {
      */
     public Optional<String> device() {
         return Optional.ofNullable(this.device);
-    }
-    /**
-     * @return If DeviceClassName is set, the selectors defined there must be satisfied by a device to be selected. This field corresponds to class.metadata.name.
-     * 
-     */
-    public Optional<String> deviceClassName() {
-        return Optional.ofNullable(this.deviceClassName);
     }
     /**
      * @return If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
@@ -76,13 +57,6 @@ public final class DeviceTaintSelectorPatch {
     public Optional<String> pool() {
         return Optional.ofNullable(this.pool);
     }
-    /**
-     * @return Selectors contains the same selection criteria as a ResourceClaim. Currently, CEL expressions are supported. All of these selectors must be satisfied.
-     * 
-     */
-    public List<DeviceSelectorPatch> selectors() {
-        return this.selectors == null ? List.of() : this.selectors;
-    }
 
     public static Builder builder() {
         return new Builder();
@@ -94,30 +68,20 @@ public final class DeviceTaintSelectorPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String device;
-        private @Nullable String deviceClassName;
         private @Nullable String driver;
         private @Nullable String pool;
-        private @Nullable List<DeviceSelectorPatch> selectors;
         public Builder() {}
         public Builder(DeviceTaintSelectorPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.device = defaults.device;
-    	      this.deviceClassName = defaults.deviceClassName;
     	      this.driver = defaults.driver;
     	      this.pool = defaults.pool;
-    	      this.selectors = defaults.selectors;
         }
 
         @CustomType.Setter
         public Builder device(@Nullable String device) {
 
             this.device = device;
-            return this;
-        }
-        @CustomType.Setter
-        public Builder deviceClassName(@Nullable String deviceClassName) {
-
-            this.deviceClassName = deviceClassName;
             return this;
         }
         @CustomType.Setter
@@ -132,22 +96,11 @@ public final class DeviceTaintSelectorPatch {
             this.pool = pool;
             return this;
         }
-        @CustomType.Setter
-        public Builder selectors(@Nullable List<DeviceSelectorPatch> selectors) {
-
-            this.selectors = selectors;
-            return this;
-        }
-        public Builder selectors(DeviceSelectorPatch... selectors) {
-            return selectors(List.of(selectors));
-        }
         public DeviceTaintSelectorPatch build() {
             final var _resultValue = new DeviceTaintSelectorPatch();
             _resultValue.device = device;
-            _resultValue.deviceClassName = deviceClassName;
             _resultValue.driver = driver;
             _resultValue.pool = pool;
-            _resultValue.selectors = selectors;
             return _resultValue;
         }
     }

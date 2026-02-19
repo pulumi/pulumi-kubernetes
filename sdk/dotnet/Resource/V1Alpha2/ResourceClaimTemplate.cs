@@ -78,6 +78,7 @@ namespace Pulumi.Kubernetes.Resource.V1Alpha2
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1:ResourceClaimTemplate" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate" },

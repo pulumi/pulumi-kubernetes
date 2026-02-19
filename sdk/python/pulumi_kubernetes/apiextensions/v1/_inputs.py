@@ -478,6 +478,10 @@ class CustomResourceDefinitionConditionArgsDict(TypedDict):
     """
     message is a human-readable message indicating details about last transition.
     """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+    """
     reason: NotRequired[pulumi.Input[_builtins.str]]
     """
     reason is a unique, one-word, CamelCase reason for the condition's last transition.
@@ -490,6 +494,7 @@ class CustomResourceDefinitionConditionArgs:
                  type: pulumi.Input[_builtins.str],
                  last_transition_time: Optional[pulumi.Input[_builtins.str]] = None,
                  message: Optional[pulumi.Input[_builtins.str]] = None,
+                 observed_generation: Optional[pulumi.Input[_builtins.int]] = None,
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
@@ -497,6 +502,7 @@ class CustomResourceDefinitionConditionArgs:
         :param pulumi.Input[_builtins.str] type: type is the type of the condition. Types include Established, NamesAccepted and Terminating.
         :param pulumi.Input[_builtins.str] last_transition_time: lastTransitionTime last time the condition transitioned from one status to another.
         :param pulumi.Input[_builtins.str] message: message is a human-readable message indicating details about last transition.
+        :param pulumi.Input[_builtins.int] observed_generation: observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
         :param pulumi.Input[_builtins.str] reason: reason is a unique, one-word, CamelCase reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
@@ -505,6 +511,8 @@ class CustomResourceDefinitionConditionArgs:
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
 
@@ -555,6 +563,18 @@ class CustomResourceDefinitionConditionArgs:
     @message.setter
     def message(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "message", value)
+
+    @_builtins.property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @observed_generation.setter
+    def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "observed_generation", value)
 
     @_builtins.property
     @pulumi.getter
@@ -1111,23 +1131,31 @@ class CustomResourceDefinitionStatusArgsDict(TypedDict):
     """
     conditions indicate state for particular aspects of a CustomResourceDefinition
     """
+    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    The generation observed by the CRD controller.
+    """
 
 @pulumi.input_type
 class CustomResourceDefinitionStatusArgs:
     def __init__(__self__, *,
                  accepted_names: pulumi.Input['CustomResourceDefinitionNamesArgs'],
                  stored_versions: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]] = None):
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]] = None,
+                 observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
         :param pulumi.Input['CustomResourceDefinitionNamesArgs'] accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
+        :param pulumi.Input[_builtins.int] observed_generation: The generation observed by the CRD controller.
         """
         pulumi.set(__self__, "accepted_names", accepted_names)
         pulumi.set(__self__, "stored_versions", stored_versions)
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
 
     @_builtins.property
     @pulumi.getter(name="acceptedNames")
@@ -1164,6 +1192,18 @@ class CustomResourceDefinitionStatusArgs:
     @conditions.setter
     def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
+
+    @_builtins.property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The generation observed by the CRD controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @observed_generation.setter
+    def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "observed_generation", value)
 
 
 class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):

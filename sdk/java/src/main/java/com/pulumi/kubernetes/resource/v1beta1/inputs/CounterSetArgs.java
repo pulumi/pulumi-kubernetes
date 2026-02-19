@@ -13,7 +13,7 @@ import java.util.Objects;
 
 
 /**
- * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+ * CounterSet defines a named set of counters that are available to be used by devices defined in the ResourcePool.
  * 
  * The counters are not allocatable by themselves, but can be referenced by devices. When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
  * 

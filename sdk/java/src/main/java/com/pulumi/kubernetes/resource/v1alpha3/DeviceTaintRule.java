@@ -11,7 +11,9 @@ import com.pulumi.kubernetes.Utilities;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha3.DeviceTaintRuleArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTaintRuleSpec;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTaintRuleStatus;
 import java.lang.String;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -79,6 +81,20 @@ public class DeviceTaintRule extends com.pulumi.resources.CustomResource {
      */
     public Output<DeviceTaintRuleSpec> spec() {
         return this.spec;
+    }
+    /**
+     * Status provides information about what was requested in the spec.
+     * 
+     */
+    @Export(name="status", refs={DeviceTaintRuleStatus.class}, tree="[0]")
+    private Output</* @Nullable */ DeviceTaintRuleStatus> status;
+
+    /**
+     * @return Status provides information about what was requested in the spec.
+     * 
+     */
+    public Output<Optional<DeviceTaintRuleStatus>> status() {
+        return Codegen.optional(this.status);
     }
 
     /**

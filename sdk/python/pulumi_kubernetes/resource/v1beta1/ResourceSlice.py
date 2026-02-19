@@ -181,7 +181,7 @@ class ResourceSlice(pulumi.CustomResource):
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:ResourceSlice")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceSlice"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:ResourceSlice")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ResourceSlice, __self__).__init__(
             'kubernetes:resource.k8s.io/v1beta1:ResourceSlice',

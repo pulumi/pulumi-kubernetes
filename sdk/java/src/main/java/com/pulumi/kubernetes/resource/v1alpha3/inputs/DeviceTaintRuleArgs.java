@@ -9,6 +9,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceTaintRuleSpecArgs;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.DeviceTaintRuleStatusArgs;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -87,6 +88,21 @@ public final class DeviceTaintRuleArgs extends com.pulumi.resources.ResourceArgs
         return this.spec;
     }
 
+    /**
+     * Status provides information about what was requested in the spec.
+     * 
+     */
+    @Import(name="status")
+    private @Nullable Output<DeviceTaintRuleStatusArgs> status;
+
+    /**
+     * @return Status provides information about what was requested in the spec.
+     * 
+     */
+    public Optional<Output<DeviceTaintRuleStatusArgs>> status() {
+        return Optional.ofNullable(this.status);
+    }
+
     private DeviceTaintRuleArgs() {}
 
     private DeviceTaintRuleArgs(DeviceTaintRuleArgs $) {
@@ -94,6 +110,7 @@ public final class DeviceTaintRuleArgs extends com.pulumi.resources.ResourceArgs
         this.kind = $.kind;
         this.metadata = $.metadata;
         this.spec = $.spec;
+        this.status = $.status;
     }
 
     public static Builder builder() {
@@ -200,6 +217,27 @@ public final class DeviceTaintRuleArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder spec(DeviceTaintRuleSpecArgs spec) {
             return spec(Output.of(spec));
+        }
+
+        /**
+         * @param status Status provides information about what was requested in the spec.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(@Nullable Output<DeviceTaintRuleStatusArgs> status) {
+            $.status = status;
+            return this;
+        }
+
+        /**
+         * @param status Status provides information about what was requested in the spec.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(DeviceTaintRuleStatusArgs status) {
+            return status(Output.of(status));
         }
 
         public DeviceTaintRuleArgs build() {

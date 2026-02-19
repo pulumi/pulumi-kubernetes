@@ -23,11 +23,43 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// </summary>
         public readonly bool AllNodes;
         /// <summary>
+        /// AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+        /// 
+        /// If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+        /// </summary>
+        public readonly bool AllowMultipleAllocations;
+        /// <summary>
         /// Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
         /// 
         /// The maximum number of attributes and capacities combined is 32.
         /// </summary>
         public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceAttribute> Attributes;
+        /// <summary>
+        /// BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+        /// 
+        /// The maximum number of binding conditions is 4.
+        /// 
+        /// The conditions must be a valid condition type string.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public readonly ImmutableArray<string> BindingConditions;
+        /// <summary>
+        /// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
+        /// 
+        /// The maximum number of binding failure conditions is 4.
+        /// 
+        /// The conditions must be a valid condition type string.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public readonly ImmutableArray<string> BindingFailureConditions;
+        /// <summary>
+        /// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+        /// 
+        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// </summary>
+        public readonly bool BindsToNode;
         /// <summary>
         /// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
         /// 
@@ -39,7 +71,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// There can only be a single entry per counterSet.
         /// 
-        /// The total number of device counter consumption entries must be &lt;= 32. In addition, the total number in the entire ResourceSlice must be &lt;= 1024 (for example, 64 devices with 16 counters each).
+        /// The maximum number of device counter consumptions per device is 2.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceCounterConsumptionPatch> ConsumesCounters;
         /// <summary>
@@ -59,7 +91,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// <summary>
         /// If specified, these are the driver-defined taints.
         /// 
-        /// The maximum number of taints is 4.
+        /// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
         /// 
         /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
@@ -69,7 +101,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         private BasicDevicePatch(
             bool allNodes,
 
+            bool allowMultipleAllocations,
+
             ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceAttribute> attributes,
+
+            ImmutableArray<string> bindingConditions,
+
+            ImmutableArray<string> bindingFailureConditions,
+
+            bool bindsToNode,
 
             ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceCapacity> capacity,
 
@@ -82,7 +122,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceTaintPatch> taints)
         {
             AllNodes = allNodes;
+            AllowMultipleAllocations = allowMultipleAllocations;
             Attributes = attributes;
+            BindingConditions = bindingConditions;
+            BindingFailureConditions = bindingFailureConditions;
+            BindsToNode = bindsToNode;
             Capacity = capacity;
             ConsumesCounters = consumesCounters;
             NodeName = nodeName;

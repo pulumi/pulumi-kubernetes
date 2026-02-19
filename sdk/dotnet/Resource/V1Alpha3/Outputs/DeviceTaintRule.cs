@@ -34,6 +34,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// Changing the spec automatically increments the metadata.generation number.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleSpec Spec;
+        /// <summary>
+        /// Status provides information about what was requested in the spec.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleStatus Status;
 
         [OutputConstructor]
         private DeviceTaintRule(
@@ -43,12 +47,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta metadata,
 
-            Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleSpec spec)
+            Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleSpec spec,
+
+            Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintRuleStatus status)
         {
             ApiVersion = apiVersion;
             Kind = kind;
             Metadata = metadata;
             Spec = spec;
+            Status = status;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class GlusterfsVolumeSourcePatch
     {
         /// <summary>
-        /// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        /// endpoints is the endpoint name that details Glusterfs topology.
         /// </summary>
         public readonly string Endpoints;
         /// <summary>

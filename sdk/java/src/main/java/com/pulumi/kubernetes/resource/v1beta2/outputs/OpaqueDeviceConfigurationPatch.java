@@ -17,7 +17,7 @@ public final class OpaqueDeviceConfigurationPatch {
      * 
      * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     private @Nullable String driver;
@@ -35,7 +35,7 @@ public final class OpaqueDeviceConfigurationPatch {
      * 
      * An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
      * 
-     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+     * Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. It should use only lower case characters.
      * 
      */
     public Optional<String> driver() {

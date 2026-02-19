@@ -35,6 +35,21 @@ export type ClusterTrustBundlePatch = import("./clusterTrustBundlePatch").Cluste
 export const ClusterTrustBundlePatch: typeof import("./clusterTrustBundlePatch").ClusterTrustBundlePatch = null as any;
 utilities.lazyLoad(exports, ["ClusterTrustBundlePatch"], () => require("./clusterTrustBundlePatch"));
 
+export { PodCertificateRequestArgs } from "./podCertificateRequest";
+export type PodCertificateRequest = import("./podCertificateRequest").PodCertificateRequest;
+export const PodCertificateRequest: typeof import("./podCertificateRequest").PodCertificateRequest = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequest"], () => require("./podCertificateRequest"));
+
+export { PodCertificateRequestListArgs } from "./podCertificateRequestList";
+export type PodCertificateRequestList = import("./podCertificateRequestList").PodCertificateRequestList;
+export const PodCertificateRequestList: typeof import("./podCertificateRequestList").PodCertificateRequestList = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequestList"], () => require("./podCertificateRequestList"));
+
+export { PodCertificateRequestPatchArgs } from "./podCertificateRequestPatch";
+export type PodCertificateRequestPatch = import("./podCertificateRequestPatch").PodCertificateRequestPatch;
+export const PodCertificateRequestPatch: typeof import("./podCertificateRequestPatch").PodCertificateRequestPatch = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequestPatch"], () => require("./podCertificateRequestPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -52,6 +67,12 @@ const _module = {
                 return new ClusterTrustBundleList(name, <any>undefined, { urn })
             case "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch":
                 return new ClusterTrustBundlePatch(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequest":
+                return new PodCertificateRequest(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequestList":
+                return new PodCertificateRequestList(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequestPatch":
+                return new PodCertificateRequestPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

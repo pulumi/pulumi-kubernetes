@@ -28,6 +28,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public Input<string>? Message { get; set; }
 
         /// <summary>
+        /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        /// </summary>
+        [Input("observedGeneration")]
+        public Input<int>? ObservedGeneration { get; set; }
+
+        /// <summary>
         /// reason is a unique, one-word, CamelCase reason for the condition's last transition.
         /// </summary>
         [Input("reason")]

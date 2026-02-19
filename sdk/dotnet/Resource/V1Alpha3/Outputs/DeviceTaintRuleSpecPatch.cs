@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
     public sealed class DeviceTaintRuleSpecPatch
     {
         /// <summary>
-        /// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        /// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.DeviceTaintSelectorPatch DeviceSelector;
         /// <summary>

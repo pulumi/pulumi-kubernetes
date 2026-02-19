@@ -22,14 +22,14 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
     public static final EndpointHintsArgs Empty = new EndpointHintsArgs();
 
     /**
-     * forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     @Import(name="forNodes")
     private @Nullable Output<List<ForNodeArgs>> forNodes;
 
     /**
-     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     public Optional<Output<List<ForNodeArgs>>> forNodes() {
@@ -77,7 +77,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 
@@ -88,7 +88,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 
@@ -98,7 +98,7 @@ public final class EndpointHintsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+         * @param forNodes forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
          * 
          * @return builder
          * 

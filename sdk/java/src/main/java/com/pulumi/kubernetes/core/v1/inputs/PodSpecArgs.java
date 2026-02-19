@@ -21,6 +21,7 @@ import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TolerationArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TopologySpreadConstraintArgs;
 import com.pulumi.kubernetes.core.v1.inputs.VolumeArgs;
+import com.pulumi.kubernetes.core.v1.inputs.WorkloadReferenceArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -190,14 +191,14 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     @Import(name="hostNetwork")
     private @Nullable Output<Boolean> hostNetwork;
 
     /**
-     * @return Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * @return Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     public Optional<Output<Boolean>> hostNetwork() {
@@ -247,6 +248,25 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> hostname() {
         return Optional.ofNullable(this.hostname);
+    }
+
+    /**
+     * HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    @Import(name="hostnameOverride")
+    private @Nullable Output<String> hostnameOverride;
+
+    /**
+     * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<String>> hostnameOverride() {
+        return Optional.ofNullable(this.hostnameOverride);
     }
 
     /**
@@ -314,7 +334,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     @Import(name="os")
@@ -325,7 +345,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     public Optional<Output<PodOSArgs>> os() {
@@ -410,7 +430,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
      * 
      * This field is immutable.
      * 
@@ -421,7 +441,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
      * 
      * This field is immutable.
      * 
@@ -431,7 +451,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -442,7 +462,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<ResourceRequirementsArgs> resources;
 
     /**
-     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -667,6 +687,21 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.volumes);
     }
 
+    /**
+     * WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    @Import(name="workloadRef")
+    private @Nullable Output<WorkloadReferenceArgs> workloadRef;
+
+    /**
+     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    public Optional<Output<WorkloadReferenceArgs>> workloadRef() {
+        return Optional.ofNullable(this.workloadRef);
+    }
+
     private PodSpecArgs() {}
 
     private PodSpecArgs(PodSpecArgs $) {
@@ -684,6 +719,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.hostPID = $.hostPID;
         this.hostUsers = $.hostUsers;
         this.hostname = $.hostname;
+        this.hostnameOverride = $.hostnameOverride;
         this.imagePullSecrets = $.imagePullSecrets;
         this.initContainers = $.initContainers;
         this.nodeName = $.nodeName;
@@ -710,6 +746,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.tolerations = $.tolerations;
         this.topologySpreadConstraints = $.topologySpreadConstraints;
         this.volumes = $.volumes;
+        this.workloadRef = $.workloadRef;
     }
 
     public static Builder builder() {
@@ -971,7 +1008,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostNetwork Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+         * @param hostNetwork Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
          * 
          * @return builder
          * 
@@ -982,7 +1019,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostNetwork Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+         * @param hostNetwork Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
          * 
          * @return builder
          * 
@@ -1052,6 +1089,31 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder hostname(String hostname) {
             return hostname(Output.of(hostname));
+        }
+
+        /**
+         * @param hostnameOverride HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+         * 
+         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder hostnameOverride(@Nullable Output<String> hostnameOverride) {
+            $.hostnameOverride = hostnameOverride;
+            return this;
+        }
+
+        /**
+         * @param hostnameOverride HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+         * 
+         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder hostnameOverride(String hostnameOverride) {
+            return hostnameOverride(Output.of(hostnameOverride));
         }
 
         /**
@@ -1163,7 +1225,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
          * 
-         * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+         * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
          * 
          * @return builder
          * 
@@ -1178,7 +1240,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
          * 
-         * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+         * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
          * 
          * @return builder
          * 
@@ -1305,7 +1367,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
          * 
          * This field is immutable.
          * 
@@ -1320,7 +1382,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
          * 
          * This field is immutable.
          * 
@@ -1334,7 +1396,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
          * 
-         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
          * 
          * This field is immutable.
          * 
@@ -1346,7 +1408,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resources Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+         * @param resources Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
          * 
          * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
          * 
@@ -1361,7 +1423,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param resources Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+         * @param resources Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
          * 
          * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
          * 
@@ -1712,6 +1774,27 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder volumes(VolumeArgs... volumes) {
             return volumes(List.of(volumes));
+        }
+
+        /**
+         * @param workloadRef WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder workloadRef(@Nullable Output<WorkloadReferenceArgs> workloadRef) {
+            $.workloadRef = workloadRef;
+            return this;
+        }
+
+        /**
+         * @param workloadRef WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder workloadRef(WorkloadReferenceArgs workloadRef) {
+            return workloadRef(Output.of(workloadRef));
         }
 
         public PodSpecArgs build() {

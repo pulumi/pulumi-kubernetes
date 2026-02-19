@@ -80,6 +80,8 @@ export class MutatingAdmissionPolicyBinding extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBinding" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(MutatingAdmissionPolicyBinding.__pulumiType, name, resourceInputs, opts);
     }
 }

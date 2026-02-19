@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// <summary>
         /// Counters defines the counters that will be consumed by the device.
         /// 
-        /// The maximum number counters in a device is 32. In addition, the maximum number of all counters in all devices is 1024 (for example, 64 devices with 16 counters each).
+        /// The maximum number of counters is 32.
         /// </summary>
         public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.Counter> Counters;
 

@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class DeviceTaintRuleSpecPatch {
     /**
-     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
      * 
      */
     private @Nullable DeviceTaintSelectorPatch deviceSelector;
@@ -25,7 +25,7 @@ public final class DeviceTaintRuleSpecPatch {
 
     private DeviceTaintRuleSpecPatch() {}
     /**
-     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+     * @return DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
      * 
      */
     public Optional<DeviceTaintSelectorPatch> deviceSelector() {

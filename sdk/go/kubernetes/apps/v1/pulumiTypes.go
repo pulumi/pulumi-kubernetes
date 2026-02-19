@@ -3570,7 +3570,7 @@ type DeploymentStatus struct {
 	Replicas *int `pulumi:"replicas"`
 	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas *int `pulumi:"unavailableReplicas"`
@@ -3605,7 +3605,7 @@ type DeploymentStatusArgs struct {
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas pulumi.IntPtrInput `pulumi:"unavailableReplicas"`
@@ -3723,7 +3723,7 @@ func (o DeploymentStatusOutput) Replicas() pulumi.IntPtrOutput {
 
 // Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o DeploymentStatusOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
@@ -3824,7 +3824,7 @@ func (o DeploymentStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o DeploymentStatusPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
@@ -3870,7 +3870,7 @@ type DeploymentStatusPatch struct {
 	Replicas *int `pulumi:"replicas"`
 	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas *int `pulumi:"unavailableReplicas"`
@@ -3905,7 +3905,7 @@ type DeploymentStatusPatchArgs struct {
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 	// Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
 	UnavailableReplicas pulumi.IntPtrInput `pulumi:"unavailableReplicas"`
@@ -4023,7 +4023,7 @@ func (o DeploymentStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 
 // Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o DeploymentStatusPatchOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatusPatch) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
@@ -4124,7 +4124,7 @@ func (o DeploymentStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o DeploymentStatusPatchPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatusPatch) *int {
 		if v == nil {
@@ -5463,7 +5463,7 @@ type ReplicaSetStatus struct {
 	Replicas int `pulumi:"replicas"`
 	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 }
 
@@ -5494,7 +5494,7 @@ type ReplicaSetStatusArgs struct {
 	Replicas pulumi.IntInput `pulumi:"replicas"`
 	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 }
 
@@ -5608,7 +5608,7 @@ func (o ReplicaSetStatusOutput) Replicas() pulumi.IntOutput {
 
 // The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o ReplicaSetStatusOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5699,7 +5699,7 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o ReplicaSetStatusPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5725,7 +5725,7 @@ type ReplicaSetStatusPatch struct {
 	Replicas *int `pulumi:"replicas"`
 	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas *int `pulumi:"terminatingReplicas"`
 }
 
@@ -5756,7 +5756,7 @@ type ReplicaSetStatusPatchArgs struct {
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 	//
-	// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+	// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 	TerminatingReplicas pulumi.IntPtrInput `pulumi:"terminatingReplicas"`
 }
 
@@ -5870,7 +5870,7 @@ func (o ReplicaSetStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 
 // The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o ReplicaSetStatusPatchOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.TerminatingReplicas }).(pulumi.IntPtrOutput)
 }
@@ -5961,7 +5961,7 @@ func (o ReplicaSetStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
 //
-// This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
+// This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
 func (o ReplicaSetStatusPatchPtrOutput) TerminatingReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
@@ -5973,7 +5973,7 @@ func (o ReplicaSetStatusPatchPtrOutput) TerminatingReplicas() pulumi.IntPtrOutpu
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSet struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge interface{} `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -5992,7 +5992,7 @@ type RollingUpdateDaemonSetInput interface {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetArgs struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -6076,7 +6076,7 @@ func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutputWithConte
 	}).(RollingUpdateDaemonSetPtrOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSet) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
@@ -6110,7 +6110,7 @@ func (o RollingUpdateDaemonSetPtrOutput) Elem() RollingUpdateDaemonSetOutput {
 	}).(RollingUpdateDaemonSetOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPtrOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSet) interface{} {
 		if v == nil {
@@ -6132,7 +6132,7 @@ func (o RollingUpdateDaemonSetPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetPatch struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge interface{} `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -6151,7 +6151,7 @@ type RollingUpdateDaemonSetPatchInput interface {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetPatchArgs struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -6235,7 +6235,7 @@ func (o RollingUpdateDaemonSetPatchOutput) ToRollingUpdateDaemonSetPatchPtrOutpu
 	}).(RollingUpdateDaemonSetPatchPtrOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPatchOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSetPatch) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
@@ -6269,7 +6269,7 @@ func (o RollingUpdateDaemonSetPatchPtrOutput) Elem() RollingUpdateDaemonSetPatch
 	}).(RollingUpdateDaemonSetPatchOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPatchPtrOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSetPatch) interface{} {
 		if v == nil {
@@ -6609,7 +6609,7 @@ func (o RollingUpdateDeploymentPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
 type RollingUpdateStatefulSetStrategy struct {
-	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
 	Partition *int `pulumi:"partition"`
@@ -6628,7 +6628,7 @@ type RollingUpdateStatefulSetStrategyInput interface {
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
 type RollingUpdateStatefulSetStrategyArgs struct {
-	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
@@ -6712,7 +6712,7 @@ func (o RollingUpdateStatefulSetStrategyOutput) ToRollingUpdateStatefulSetStrate
 	}).(RollingUpdateStatefulSetStrategyPtrOutput)
 }
 
-// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 func (o RollingUpdateStatefulSetStrategyOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateStatefulSetStrategy) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
@@ -6746,7 +6746,7 @@ func (o RollingUpdateStatefulSetStrategyPtrOutput) Elem() RollingUpdateStatefulS
 	}).(RollingUpdateStatefulSetStrategyOutput)
 }
 
-// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 func (o RollingUpdateStatefulSetStrategyPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateStatefulSetStrategy) interface{} {
 		if v == nil {
@@ -6768,7 +6768,7 @@ func (o RollingUpdateStatefulSetStrategyPtrOutput) Partition() pulumi.IntPtrOutp
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
 type RollingUpdateStatefulSetStrategyPatch struct {
-	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
 	Partition *int `pulumi:"partition"`
@@ -6787,7 +6787,7 @@ type RollingUpdateStatefulSetStrategyPatchInput interface {
 
 // RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
 type RollingUpdateStatefulSetStrategyPatchArgs struct {
-	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+	// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 	// Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
@@ -6871,7 +6871,7 @@ func (o RollingUpdateStatefulSetStrategyPatchOutput) ToRollingUpdateStatefulSetS
 	}).(RollingUpdateStatefulSetStrategyPatchPtrOutput)
 }
 
-// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 func (o RollingUpdateStatefulSetStrategyPatchOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateStatefulSetStrategyPatch) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
@@ -6905,7 +6905,7 @@ func (o RollingUpdateStatefulSetStrategyPatchPtrOutput) Elem() RollingUpdateStat
 	}).(RollingUpdateStatefulSetStrategyPatchOutput)
 }
 
-// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable.
+// The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
 func (o RollingUpdateStatefulSetStrategyPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateStatefulSetStrategyPatch) interface{} {
 		if v == nil {

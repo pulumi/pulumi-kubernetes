@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class SuccessPolicyPatch {
     /**
-     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
      * 
      */
     private @Nullable List<SuccessPolicyRulePatch> rules;
 
     private SuccessPolicyPatch() {}
     /**
-     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SucceededCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+     * @return rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded &gt;= .spec.completions`. Once any of the rules are met, the &#34;SuccessCriteriaMet&#34; condition is added, and the lingering pods are removed. The terminal state for such a Job has the &#34;Complete&#34; condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
      * 
      */
     public List<SuccessPolicyRulePatch> rules() {

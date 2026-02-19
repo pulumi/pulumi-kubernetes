@@ -42,14 +42,14 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies the number of retries before marking this job failed. Defaults to 6
+     * Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     @Import(name="backoffLimit")
     private @Nullable Output<Integer> backoffLimit;
 
     /**
-     * @return Specifies the number of retries before marking this job failed. Defaults to 6
+     * @return Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * 
      */
     public Optional<Output<Integer>> backoffLimit() {
@@ -116,16 +116,12 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
      * 
-     * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
-     * 
      */
     @Import(name="managedBy")
     private @Nullable Output<String> managedBy;
 
     /**
      * @return ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-     * 
-     * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
      * 
      */
     public Optional<Output<String>> managedBy() {
@@ -198,7 +194,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     @Import(name="podReplacementPolicy")
@@ -210,7 +206,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * 
      */
     public Optional<Output<String>> podReplacementPolicy() {
@@ -353,7 +349,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6
+         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
          * 
          * @return builder
          * 
@@ -364,7 +360,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6
+         * @param backoffLimit Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
          * 
          * @return builder
          * 
@@ -451,8 +447,6 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
          * 
-         * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
-         * 
          * @return builder
          * 
          */
@@ -463,8 +457,6 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param managedBy ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don&#39;t have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first &#34;/&#34; must be a valid subdomain as defined by RFC 1123. All characters trailing the first &#34;/&#34; must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
-         * 
-         * This field is beta-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -563,7 +555,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          * - Failed means to wait until a previously created Pod is fully terminated (has phase
          *   Failed or Succeeded) before creating a replacement Pod.
          * 
-         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
          * 
          * @return builder
          * 
@@ -579,7 +571,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          * - Failed means to wait until a previously created Pod is fully terminated (has phase
          *   Failed or Succeeded) before creating a replacement Pod.
          * 
-         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
          * 
          * @return builder
          * 

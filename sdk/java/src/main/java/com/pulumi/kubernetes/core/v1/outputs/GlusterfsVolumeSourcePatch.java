@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class GlusterfsVolumeSourcePatch {
     /**
-     * @return endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+     * @return endpoints is the endpoint name that details Glusterfs topology.
      * 
      */
     private @Nullable String endpoints;
@@ -30,7 +30,7 @@ public final class GlusterfsVolumeSourcePatch {
 
     private GlusterfsVolumeSourcePatch() {}
     /**
-     * @return endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+     * @return endpoints is the endpoint name that details Glusterfs topology.
      * 
      */
     public Optional<String> endpoints() {

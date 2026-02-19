@@ -35,6 +35,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// </summary>
         public readonly string AllocationMode;
         /// <summary>
+        /// Capacity define resource requirements against each capacity.
+        /// 
+        /// If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+        /// 
+        /// Applies to each device allocation. If Count &gt; 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value &gt;= the requested amount, but which cannot be allocated to this request.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.CapacityRequirements Capacity;
+        /// <summary>
         /// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
         /// </summary>
         public readonly int Count;
@@ -73,6 +81,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         private DeviceSubRequest(
             string allocationMode,
 
+            Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.CapacityRequirements capacity,
+
             int count,
 
             string deviceClassName,
@@ -84,6 +94,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.DeviceToleration> tolerations)
         {
             AllocationMode = allocationMode;
+            Capacity = capacity;
             Count = count;
             DeviceClassName = deviceClassName;
             Name = name;

@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.apiextensions.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionConditionPatch;
 import com.pulumi.kubernetes.apiextensions.v1.outputs.CustomResourceDefinitionNamesPatch;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,11 @@ public final class CustomResourceDefinitionStatusPatch {
      * 
      */
     private @Nullable List<CustomResourceDefinitionConditionPatch> conditions;
+    /**
+     * @return The generation observed by the CRD controller.
+     * 
+     */
+    private @Nullable Integer observedGeneration;
     /**
      * @return storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * 
@@ -46,6 +52,13 @@ public final class CustomResourceDefinitionStatusPatch {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
+     * @return The generation observed by the CRD controller.
+     * 
+     */
+    public Optional<Integer> observedGeneration() {
+        return Optional.ofNullable(this.observedGeneration);
+    }
+    /**
      * @return storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * 
      */
@@ -64,12 +77,14 @@ public final class CustomResourceDefinitionStatusPatch {
     public static final class Builder {
         private @Nullable CustomResourceDefinitionNamesPatch acceptedNames;
         private @Nullable List<CustomResourceDefinitionConditionPatch> conditions;
+        private @Nullable Integer observedGeneration;
         private @Nullable List<String> storedVersions;
         public Builder() {}
         public Builder(CustomResourceDefinitionStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.acceptedNames = defaults.acceptedNames;
     	      this.conditions = defaults.conditions;
+    	      this.observedGeneration = defaults.observedGeneration;
     	      this.storedVersions = defaults.storedVersions;
         }
 
@@ -89,6 +104,12 @@ public final class CustomResourceDefinitionStatusPatch {
             return conditions(List.of(conditions));
         }
         @CustomType.Setter
+        public Builder observedGeneration(@Nullable Integer observedGeneration) {
+
+            this.observedGeneration = observedGeneration;
+            return this;
+        }
+        @CustomType.Setter
         public Builder storedVersions(@Nullable List<String> storedVersions) {
 
             this.storedVersions = storedVersions;
@@ -101,6 +122,7 @@ public final class CustomResourceDefinitionStatusPatch {
             final var _resultValue = new CustomResourceDefinitionStatusPatch();
             _resultValue.acceptedNames = acceptedNames;
             _resultValue.conditions = conditions;
+            _resultValue.observedGeneration = observedGeneration;
             _resultValue.storedVersions = storedVersions;
             return _resultValue;
         }

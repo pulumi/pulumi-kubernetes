@@ -82,6 +82,8 @@ export class StorageVersionMigration extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:storagemigration.k8s.io/v1beta1:StorageVersionMigration" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(StorageVersionMigration.__pulumiType, name, resourceInputs, opts);
     }
 }

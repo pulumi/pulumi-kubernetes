@@ -61,6 +61,10 @@ export class DeviceTaintRulePatch extends pulumi.CustomResource {
      * Changing the spec automatically increments the metadata.generation number.
      */
     declare public readonly spec: pulumi.Output<outputs.resource.v1alpha3.DeviceTaintRuleSpecPatch>;
+    /**
+     * Status provides information about what was requested in the spec.
+     */
+    declare public /*out*/ readonly status: pulumi.Output<outputs.resource.v1alpha3.DeviceTaintRuleStatusPatch>;
 
     /**
      * Create a DeviceTaintRulePatch resource with the given unique name, arguments, and options.
@@ -77,11 +81,13 @@ export class DeviceTaintRulePatch extends pulumi.CustomResource {
             resourceInputs["kind"] = "DeviceTaintRule";
             resourceInputs["metadata"] = args?.metadata;
             resourceInputs["spec"] = args?.spec;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(DeviceTaintRulePatch.__pulumiType, name, resourceInputs, opts);

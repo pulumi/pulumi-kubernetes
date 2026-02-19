@@ -16,7 +16,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
     public class DeviceTaintPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        /// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+        /// 
+        /// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         /// </summary>
         [Input("effect")]
         public Input<string>? Effect { get; set; }

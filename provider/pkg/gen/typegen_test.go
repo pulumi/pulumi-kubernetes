@@ -836,6 +836,49 @@ func TestGVKFromRef(t *testing.T) {
 	}
 }
 
+func TestCreateKinds_EmptyObjectTypes(t *testing.T) {
+	// Kubernetes v1.35+ introduces types like BasicSchedulingPolicy that are valid empty
+	// object types (no properties). These must still be included as KindConfigs so that
+	// other types can reference them via $ref.
+	definitions := []definition{
+		{
+			gvk:  schema.GroupVersionKind{Group: "io.k8s.api.scheduling", Version: "v1alpha1", Kind: "BasicSchedulingPolicy"},
+			name: "io.k8s.api.scheduling.v1alpha1.BasicSchedulingPolicy",
+			data: map[string]any{
+				"description": "BasicSchedulingPolicy indicates standard scheduling behavior.",
+				"type":        "object",
+			},
+		},
+		{
+			gvk:  schema.GroupVersionKind{Group: "io.k8s.api.scheduling", Version: "v1alpha1", Kind: "GangSchedulingPolicy"},
+			name: "io.k8s.api.scheduling.v1alpha1.GangSchedulingPolicy",
+			data: map[string]any{
+				"description": "GangSchedulingPolicy specifies gang scheduling.",
+				"type":        "object",
+				"properties": map[string]any{
+					"minCount": map[string]any{"type": "integer"},
+				},
+			},
+		},
+	}
+
+	kinds := createKinds(definitions, map[string]string{}, map[string][]any{}, false)
+
+	kindNames := make([]string, len(kinds))
+	for i, k := range kinds {
+		kindNames[i] = k.Kind()
+	}
+	assert.Contains(t, kindNames, "BasicSchedulingPolicy", "empty object types should be included")
+	assert.Contains(t, kindNames, "GangSchedulingPolicy")
+
+	// The empty type should have zero properties.
+	for _, k := range kinds {
+		if k.Kind() == "BasicSchedulingPolicy" {
+			assert.Empty(t, k.Properties(), "empty object type should have no properties")
+		}
+	}
+}
+
 func TestReservedPropertyNames(t *testing.T) {
 	tests := []struct {
 		name               string

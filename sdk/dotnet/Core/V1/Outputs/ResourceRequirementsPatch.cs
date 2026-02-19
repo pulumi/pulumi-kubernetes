@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// <summary>
         /// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
         /// 
-        /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        /// This field depends on the DynamicResourceAllocation feature gate.
         /// 
         /// This field is immutable. It can only be set for containers.
         /// </summary>

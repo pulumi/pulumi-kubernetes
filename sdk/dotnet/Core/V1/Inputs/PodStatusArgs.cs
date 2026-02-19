@@ -15,6 +15,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class PodStatusArgs : global::Pulumi.ResourceArgs
     {
+        [Input("allocatedResources")]
+        private InputMap<string>? _allocatedResources;
+
+        /// <summary>
+        /// AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+        /// </summary>
+        public InputMap<string> AllocatedResources
+        {
+            get => _allocatedResources ?? (_allocatedResources = new InputMap<string>());
+            set => _allocatedResources = value;
+        }
+
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodConditionArgs>? _conditions;
 
@@ -50,6 +62,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _ephemeralContainerStatuses ?? (_ephemeralContainerStatuses = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>());
             set => _ephemeralContainerStatuses = value;
         }
+
+        /// <summary>
+        /// Status of extended resource claim backed by DRA.
+        /// </summary>
+        [Input("extendedResourceClaimStatus")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodExtendedResourceClaimStatusArgs>? ExtendedResourceClaimStatus { get; set; }
 
         /// <summary>
         /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
@@ -94,7 +112,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? NominatedNodeName { get; set; }
 
         /// <summary>
-        /// If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+        /// If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         /// </summary>
         [Input("observedGeneration")]
         public Input<int>? ObservedGeneration { get; set; }
@@ -156,6 +174,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _resourceClaimStatuses ?? (_resourceClaimStatuses = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodResourceClaimStatusArgs>());
             set => _resourceClaimStatuses = value;
         }
+
+        /// <summary>
+        /// Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
+        /// </summary>
+        [Input("resources")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs>? Resources { get; set; }
 
         /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.

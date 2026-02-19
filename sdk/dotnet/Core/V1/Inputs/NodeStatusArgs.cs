@@ -75,6 +75,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("daemonEndpoints")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeDaemonEndpointsArgs>? DaemonEndpoints { get; set; }
 
+        [Input("declaredFeatures")]
+        private InputList<string>? _declaredFeatures;
+
+        /// <summary>
+        /// DeclaredFeatures represents the features related to feature gates that are declared by the node.
+        /// </summary>
+        public InputList<string> DeclaredFeatures
+        {
+            get => _declaredFeatures ?? (_declaredFeatures = new InputList<string>());
+            set => _declaredFeatures = value;
+        }
+
         /// <summary>
         /// Features describes the set of features implemented by the CRI implementation.
         /// </summary>

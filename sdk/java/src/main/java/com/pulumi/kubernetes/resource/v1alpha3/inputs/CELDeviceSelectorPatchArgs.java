@@ -48,8 +48,6 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      * 
      *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
      * 
-     * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
-     * 
      */
     @Import(name="expression")
     private @Nullable Output<String> expression;
@@ -82,8 +80,6 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
      * 
      *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
-     * 
-     * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
      * 
      */
     public Optional<Output<String>> expression() {
@@ -143,8 +139,6 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          * 
          *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
          * 
-         * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
-         * 
          * @return builder
          * 
          */
@@ -181,8 +175,6 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
          * 
          *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
-         * 
-         * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
          * 
          * @return builder
          * 

@@ -5,20 +5,47 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.CapacityRequestPolicy;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class DeviceCapacity {
     /**
-     * @return Value defines how much of a certain device capacity is available.
+     * @return RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+     * 
+     * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+     * 
+     * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+     * 
+     */
+    private @Nullable CapacityRequestPolicy requestPolicy;
+    /**
+     * @return Value defines how much of a certain capacity that device has.
+     * 
+     * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
      * 
      */
     private String value;
 
     private DeviceCapacity() {}
     /**
-     * @return Value defines how much of a certain device capacity is available.
+     * @return RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+     * 
+     * The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+     * 
+     * If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device&#39;s defined capacity. If request is also unset, default is the full capacity value.
+     * 
+     */
+    public Optional<CapacityRequestPolicy> requestPolicy() {
+        return Optional.ofNullable(this.requestPolicy);
+    }
+    /**
+     * @return Value defines how much of a certain capacity that device has.
+     * 
+     * This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
      * 
      */
     public String value() {
@@ -34,13 +61,21 @@ public final class DeviceCapacity {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable CapacityRequestPolicy requestPolicy;
         private String value;
         public Builder() {}
         public Builder(DeviceCapacity defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.requestPolicy = defaults.requestPolicy;
     	      this.value = defaults.value;
         }
 
+        @CustomType.Setter
+        public Builder requestPolicy(@Nullable CapacityRequestPolicy requestPolicy) {
+
+            this.requestPolicy = requestPolicy;
+            return this;
+        }
         @CustomType.Setter
         public Builder value(String value) {
             if (value == null) {
@@ -51,6 +86,7 @@ public final class DeviceCapacity {
         }
         public DeviceCapacity build() {
             final var _resultValue = new DeviceCapacity();
+            _resultValue.requestPolicy = requestPolicy;
             _resultValue.value = value;
             return _resultValue;
         }

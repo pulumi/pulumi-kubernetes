@@ -7,6 +7,8 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class PodFailurePolicyOnPodConditionsPattern {
@@ -14,7 +16,7 @@ public final class PodFailurePolicyOnPodConditionsPattern {
      * @return Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
      * 
      */
-    private String status;
+    private @Nullable String status;
     /**
      * @return Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
      * 
@@ -26,8 +28,8 @@ public final class PodFailurePolicyOnPodConditionsPattern {
      * @return Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
      * 
      */
-    public String status() {
-        return this.status;
+    public Optional<String> status() {
+        return Optional.ofNullable(this.status);
     }
     /**
      * @return Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
@@ -46,7 +48,7 @@ public final class PodFailurePolicyOnPodConditionsPattern {
     }
     @CustomType.Builder
     public static final class Builder {
-        private String status;
+        private @Nullable String status;
         private String type;
         public Builder() {}
         public Builder(PodFailurePolicyOnPodConditionsPattern defaults) {
@@ -56,10 +58,8 @@ public final class PodFailurePolicyOnPodConditionsPattern {
         }
 
         @CustomType.Setter
-        public Builder status(String status) {
-            if (status == null) {
-              throw new MissingRequiredPropertyException("PodFailurePolicyOnPodConditionsPattern", "status");
-            }
+        public Builder status(@Nullable String status) {
+
             this.status = status;
             return this;
         }

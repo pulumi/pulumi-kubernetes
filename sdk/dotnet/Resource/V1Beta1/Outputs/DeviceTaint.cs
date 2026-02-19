@@ -17,7 +17,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
     public sealed class DeviceTaint
     {
         /// <summary>
-        /// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+        /// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+        /// 
+        /// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         /// </summary>
         public readonly string Effect;
         /// <summary>

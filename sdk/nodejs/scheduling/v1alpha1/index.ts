@@ -20,6 +20,21 @@ export type PriorityClassPatch = import("./priorityClassPatch").PriorityClassPat
 export const PriorityClassPatch: typeof import("./priorityClassPatch").PriorityClassPatch = null as any;
 utilities.lazyLoad(exports, ["PriorityClassPatch"], () => require("./priorityClassPatch"));
 
+export { WorkloadArgs } from "./workload";
+export type Workload = import("./workload").Workload;
+export const Workload: typeof import("./workload").Workload = null as any;
+utilities.lazyLoad(exports, ["Workload"], () => require("./workload"));
+
+export { WorkloadListArgs } from "./workloadList";
+export type WorkloadList = import("./workloadList").WorkloadList;
+export const WorkloadList: typeof import("./workloadList").WorkloadList = null as any;
+utilities.lazyLoad(exports, ["WorkloadList"], () => require("./workloadList"));
+
+export { WorkloadPatchArgs } from "./workloadPatch";
+export type WorkloadPatch = import("./workloadPatch").WorkloadPatch;
+export const WorkloadPatch: typeof import("./workloadPatch").WorkloadPatch = null as any;
+utilities.lazyLoad(exports, ["WorkloadPatch"], () => require("./workloadPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -31,6 +46,12 @@ const _module = {
                 return new PriorityClassList(name, <any>undefined, { urn })
             case "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch":
                 return new PriorityClassPatch(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1alpha1:Workload":
+                return new Workload(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadList":
+                return new WorkloadList(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadPatch":
+                return new WorkloadPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

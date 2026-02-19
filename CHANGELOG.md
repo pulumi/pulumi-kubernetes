@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Changed
+
+- [#4156](https://github.com/pulumi/pulumi-kubernetes/pull/4156) Upgrade Kubernetes schema and libraries to v1.35.1
+
 ### Fixed
 
 - [#4122](https://github.com/pulumi/pulumi-kubernetes/pull/4122) Implements a new provider config option, `alwaysRender`, which sets `Diff_Some`to true when used in combination with `renderYAMLtoDirectory`. 

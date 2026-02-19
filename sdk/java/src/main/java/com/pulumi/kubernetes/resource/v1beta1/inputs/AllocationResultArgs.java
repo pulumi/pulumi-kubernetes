@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSelectorArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceAllocationResultArgs;
+import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -19,6 +20,25 @@ import javax.annotation.Nullable;
 public final class AllocationResultArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final AllocationResultArgs Empty = new AllocationResultArgs();
+
+    /**
+     * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * 
+     */
+    @Import(name="allocationTimestamp")
+    private @Nullable Output<String> allocationTimestamp;
+
+    /**
+     * @return AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+     * 
+     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * 
+     */
+    public Optional<Output<String>> allocationTimestamp() {
+        return Optional.ofNullable(this.allocationTimestamp);
+    }
 
     /**
      * Devices is the result of allocating devices.
@@ -53,6 +73,7 @@ public final class AllocationResultArgs extends com.pulumi.resources.ResourceArg
     private AllocationResultArgs() {}
 
     private AllocationResultArgs(AllocationResultArgs $) {
+        this.allocationTimestamp = $.allocationTimestamp;
         this.devices = $.devices;
         this.nodeSelector = $.nodeSelector;
     }
@@ -73,6 +94,31 @@ public final class AllocationResultArgs extends com.pulumi.resources.ResourceArg
 
         public Builder(AllocationResultArgs defaults) {
             $ = new AllocationResultArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param allocationTimestamp AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocationTimestamp(@Nullable Output<String> allocationTimestamp) {
+            $.allocationTimestamp = allocationTimestamp;
+            return this;
+        }
+
+        /**
+         * @param allocationTimestamp AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+         * 
+         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocationTimestamp(String allocationTimestamp) {
+            return allocationTimestamp(Output.of(allocationTimestamp));
         }
 
         /**

@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EndpointHintsPatch {
     /**
-     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     private @Nullable List<ForNodePatch> forNodes;
@@ -25,7 +25,7 @@ public final class EndpointHintsPatch {
 
     private EndpointHintsPatch() {}
     /**
-     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+     * @return forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * 
      */
     public List<ForNodePatch> forNodes() {

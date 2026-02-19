@@ -8,6 +8,8 @@ import typing
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
+    import pulumi_kubernetes.resource.v1 as __v1
+    v1 = __v1
     import pulumi_kubernetes.resource.v1alpha1 as __v1alpha1
     v1alpha1 = __v1alpha1
     import pulumi_kubernetes.resource.v1alpha2 as __v1alpha2
@@ -19,6 +21,7 @@ if typing.TYPE_CHECKING:
     import pulumi_kubernetes.resource.v1beta2 as __v1beta2
     v1beta2 = __v1beta2
 else:
+    v1 = _utilities.lazy_import('pulumi_kubernetes.resource.v1')
     v1alpha1 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha1')
     v1alpha2 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha2')
     v1alpha3 = _utilities.lazy_import('pulumi_kubernetes.resource.v1alpha3')

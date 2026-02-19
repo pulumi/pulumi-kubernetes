@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTaintRuleSpec;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.DeviceTaintRuleStatus;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,6 +37,11 @@ public final class DeviceTaintRule {
      * 
      */
     private DeviceTaintRuleSpec spec;
+    /**
+     * @return Status provides information about what was requested in the spec.
+     * 
+     */
+    private @Nullable DeviceTaintRuleStatus status;
 
     private DeviceTaintRule() {}
     /**
@@ -68,6 +74,13 @@ public final class DeviceTaintRule {
     public DeviceTaintRuleSpec spec() {
         return this.spec;
     }
+    /**
+     * @return Status provides information about what was requested in the spec.
+     * 
+     */
+    public Optional<DeviceTaintRuleStatus> status() {
+        return Optional.ofNullable(this.status);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -82,6 +95,7 @@ public final class DeviceTaintRule {
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
         private DeviceTaintRuleSpec spec;
+        private @Nullable DeviceTaintRuleStatus status;
         public Builder() {}
         public Builder(DeviceTaintRule defaults) {
     	      Objects.requireNonNull(defaults);
@@ -89,6 +103,7 @@ public final class DeviceTaintRule {
     	      this.kind = defaults.kind;
     	      this.metadata = defaults.metadata;
     	      this.spec = defaults.spec;
+    	      this.status = defaults.status;
         }
 
         @CustomType.Setter
@@ -117,12 +132,19 @@ public final class DeviceTaintRule {
             this.spec = spec;
             return this;
         }
+        @CustomType.Setter
+        public Builder status(@Nullable DeviceTaintRuleStatus status) {
+
+            this.status = status;
+            return this;
+        }
         public DeviceTaintRule build() {
             final var _resultValue = new DeviceTaintRule();
             _resultValue.apiVersion = apiVersion;
             _resultValue.kind = kind;
             _resultValue.metadata = metadata;
             _resultValue.spec = spec;
+            _resultValue.status = status;
             return _resultValue;
         }
     }

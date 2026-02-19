@@ -19,6 +19,7 @@ import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TolerationPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraintPatch;
 import com.pulumi.kubernetes.core.v1.outputs.VolumePatch;
+import com.pulumi.kubernetes.core.v1.outputs.WorkloadReferencePatch;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -81,7 +82,7 @@ public final class PodSpecPatch {
      */
     private @Nullable Boolean hostIPC;
     /**
-     * @return Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * @return Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     private @Nullable Boolean hostNetwork;
@@ -100,6 +101,13 @@ public final class PodSpecPatch {
      * 
      */
     private @Nullable String hostname;
+    /**
+     * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    private @Nullable String hostnameOverride;
     /**
      * @return ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
      * 
@@ -125,7 +133,7 @@ public final class PodSpecPatch {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     private @Nullable PodOSPatch os;
@@ -157,14 +165,14 @@ public final class PodSpecPatch {
     /**
      * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
      * 
      * This field is immutable.
      * 
      */
     private @Nullable List<PodResourceClaimPatch> resourceClaims;
     /**
-     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -244,6 +252,11 @@ public final class PodSpecPatch {
      * 
      */
     private @Nullable List<VolumePatch> volumes;
+    /**
+     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    private @Nullable WorkloadReferencePatch workloadRef;
 
     private PodSpecPatch() {}
     /**
@@ -317,7 +330,7 @@ public final class PodSpecPatch {
         return Optional.ofNullable(this.hostIPC);
     }
     /**
-     * @return Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * @return Host networking requested for this pod. Use the host&#39;s network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * 
      */
     public Optional<Boolean> hostNetwork() {
@@ -343,6 +356,15 @@ public final class PodSpecPatch {
      */
     public Optional<String> hostname() {
         return Optional.ofNullable(this.hostname);
+    }
+    /**
+     * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * 
+     */
+    public Optional<String> hostnameOverride() {
+        return Optional.ofNullable(this.hostnameOverride);
     }
     /**
      * @return ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
@@ -377,7 +399,7 @@ public final class PodSpecPatch {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     public Optional<PodOSPatch> os() {
@@ -421,7 +443,7 @@ public final class PodSpecPatch {
     /**
      * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
      * 
      * This field is immutable.
      * 
@@ -430,7 +452,7 @@ public final class PodSpecPatch {
         return this.resourceClaims == null ? List.of() : this.resourceClaims;
     }
     /**
-     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34; and &#34;memory&#34; resource names only. ResourceClaims are not supported.
+     * @return Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for &#34;cpu&#34;, &#34;memory&#34; and &#34;hugepages-&#34; resource names only. ResourceClaims are not supported.
      * 
      * This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
      * 
@@ -540,6 +562,13 @@ public final class PodSpecPatch {
     public List<VolumePatch> volumes() {
         return this.volumes == null ? List.of() : this.volumes;
     }
+    /**
+     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    public Optional<WorkloadReferencePatch> workloadRef() {
+        return Optional.ofNullable(this.workloadRef);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -564,6 +593,7 @@ public final class PodSpecPatch {
         private @Nullable Boolean hostPID;
         private @Nullable Boolean hostUsers;
         private @Nullable String hostname;
+        private @Nullable String hostnameOverride;
         private @Nullable List<LocalObjectReferencePatch> imagePullSecrets;
         private @Nullable List<ContainerPatch> initContainers;
         private @Nullable String nodeName;
@@ -590,6 +620,7 @@ public final class PodSpecPatch {
         private @Nullable List<TolerationPatch> tolerations;
         private @Nullable List<TopologySpreadConstraintPatch> topologySpreadConstraints;
         private @Nullable List<VolumePatch> volumes;
+        private @Nullable WorkloadReferencePatch workloadRef;
         public Builder() {}
         public Builder(PodSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -607,6 +638,7 @@ public final class PodSpecPatch {
     	      this.hostPID = defaults.hostPID;
     	      this.hostUsers = defaults.hostUsers;
     	      this.hostname = defaults.hostname;
+    	      this.hostnameOverride = defaults.hostnameOverride;
     	      this.imagePullSecrets = defaults.imagePullSecrets;
     	      this.initContainers = defaults.initContainers;
     	      this.nodeName = defaults.nodeName;
@@ -633,6 +665,7 @@ public final class PodSpecPatch {
     	      this.tolerations = defaults.tolerations;
     	      this.topologySpreadConstraints = defaults.topologySpreadConstraints;
     	      this.volumes = defaults.volumes;
+    	      this.workloadRef = defaults.workloadRef;
         }
 
         @CustomType.Setter
@@ -726,6 +759,12 @@ public final class PodSpecPatch {
         public Builder hostname(@Nullable String hostname) {
 
             this.hostname = hostname;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder hostnameOverride(@Nullable String hostnameOverride) {
+
+            this.hostnameOverride = hostnameOverride;
             return this;
         }
         @CustomType.Setter
@@ -908,6 +947,12 @@ public final class PodSpecPatch {
         public Builder volumes(VolumePatch... volumes) {
             return volumes(List.of(volumes));
         }
+        @CustomType.Setter
+        public Builder workloadRef(@Nullable WorkloadReferencePatch workloadRef) {
+
+            this.workloadRef = workloadRef;
+            return this;
+        }
         public PodSpecPatch build() {
             final var _resultValue = new PodSpecPatch();
             _resultValue.activeDeadlineSeconds = activeDeadlineSeconds;
@@ -924,6 +969,7 @@ public final class PodSpecPatch {
             _resultValue.hostPID = hostPID;
             _resultValue.hostUsers = hostUsers;
             _resultValue.hostname = hostname;
+            _resultValue.hostnameOverride = hostnameOverride;
             _resultValue.imagePullSecrets = imagePullSecrets;
             _resultValue.initContainers = initContainers;
             _resultValue.nodeName = nodeName;
@@ -950,6 +996,7 @@ public final class PodSpecPatch {
             _resultValue.tolerations = tolerations;
             _resultValue.topologySpreadConstraints = topologySpreadConstraints;
             _resultValue.volumes = volumes;
+            _resultValue.workloadRef = workloadRef;
             return _resultValue;
         }
     }

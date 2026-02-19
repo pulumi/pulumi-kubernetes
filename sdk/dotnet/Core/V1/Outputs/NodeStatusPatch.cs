@@ -41,6 +41,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeDaemonEndpointsPatch DaemonEndpoints;
         /// <summary>
+        /// DeclaredFeatures represents the features related to feature gates that are declared by the node.
+        /// </summary>
+        public readonly ImmutableArray<string> DeclaredFeatures;
+        /// <summary>
         /// Features describes the set of features implemented by the CRI implementation.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeFeaturesPatch Features;
@@ -83,6 +87,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeDaemonEndpointsPatch daemonEndpoints,
 
+            ImmutableArray<string> declaredFeatures,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeFeaturesPatch features,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerImagePatch> images,
@@ -103,6 +109,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Conditions = conditions;
             Config = config;
             DaemonEndpoints = daemonEndpoints;
+            DeclaredFeatures = declaredFeatures;
             Features = features;
             Images = images;
             NodeInfo = nodeInfo;
