@@ -95,6 +95,7 @@ class ControllerRevision(dict):
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+
         :param _builtins.int revision: Revision indicates the revision of the state represented by Data.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Any data: Data is the serialized representation of the state.
@@ -182,6 +183,7 @@ class DaemonSet(dict):
                  status: Optional['outputs.DaemonSetStatus'] = None):
         """
         DaemonSet represents the configuration of a daemon set.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -270,6 +272,7 @@ class DaemonSetCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         DaemonSetCondition describes the state of a DaemonSet at a certain point.
+
         :param _builtins.str status: Status of the condition, one of True, False, Unknown.
         :param _builtins.str type: Type of DaemonSet condition.
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
@@ -356,6 +359,7 @@ class DaemonSetConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         DaemonSetCondition describes the state of a DaemonSet at a certain point.
+
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param _builtins.str message: A human readable message indicating details about the transition.
         :param _builtins.str reason: The reason for the condition's last transition.
@@ -448,6 +452,7 @@ class DaemonSetSpec(dict):
                  update_strategy: Optional['outputs.DaemonSetUpdateStrategy'] = None):
         """
         DaemonSetSpec is the specification of a daemon set.
+
         :param '_meta.v1.LabelSelectorArgs' selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param '_core.v1.PodTemplateSpecArgs' template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         :param _builtins.int min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
@@ -538,6 +543,7 @@ class DaemonSetSpecPatch(dict):
                  update_strategy: Optional['outputs.DaemonSetUpdateStrategyPatch'] = None):
         """
         DaemonSetSpec is the specification of a daemon set.
+
         :param _builtins.int min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
         :param _builtins.int revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -647,6 +653,7 @@ class DaemonSetStatus(dict):
                  updated_number_scheduled: Optional[_builtins.int] = None):
         """
         DaemonSetStatus represents the current status of a daemon set.
+
         :param _builtins.int current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param _builtins.int desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param _builtins.int number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
@@ -807,6 +814,7 @@ class DaemonSetStatusPatch(dict):
                  updated_number_scheduled: Optional[_builtins.int] = None):
         """
         DaemonSetStatus represents the current status of a daemon set.
+
         :param _builtins.int collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         :param Sequence['DaemonSetConditionPatchArgs'] conditions: Represents the latest available observations of a DaemonSet's current state.
         :param _builtins.int current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
@@ -947,6 +955,7 @@ class DaemonSetUpdateStrategy(dict):
                  type: Optional[_builtins.str] = None):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
         :param 'RollingUpdateDaemonSetArgs' rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param _builtins.str type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
         """
@@ -999,6 +1008,7 @@ class DaemonSetUpdateStrategyPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
         :param 'RollingUpdateDaemonSetPatchArgs' rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param _builtins.str type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
         """
@@ -1098,6 +1108,7 @@ class Deployment(dict):
         If the Deployment has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1189,6 +1200,7 @@ class DeploymentCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         DeploymentCondition describes the state of a deployment at a certain point.
+
         :param _builtins.str status: Status of the condition, one of True, False, Unknown.
         :param _builtins.str type: Type of deployment condition.
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
@@ -1289,6 +1301,7 @@ class DeploymentConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         DeploymentCondition describes the state of a deployment at a certain point.
+
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param _builtins.str last_update_time: The last time this condition was updated.
         :param _builtins.str message: A human readable message indicating details about the transition.
@@ -1395,6 +1408,7 @@ class DeploymentSpec(dict):
                  strategy: Optional['outputs.DeploymentStrategy'] = None):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
         :param '_meta.v1.LabelSelectorArgs' selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
         :param '_core.v1.PodTemplateSpecArgs' template: Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -1521,6 +1535,7 @@ class DeploymentSpecPatch(dict):
                  template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None):
         """
         DeploymentSpec is the specification of the desired behavior of the Deployment.
+
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param _builtins.bool paused: Indicates that the deployment is paused.
         :param _builtins.int progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
@@ -1658,6 +1673,7 @@ class DeploymentStatus(dict):
                  updated_replicas: Optional[_builtins.int] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
+
         :param _builtins.int available_replicas: Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         :param _builtins.int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param Sequence['DeploymentConditionArgs'] conditions: Represents the latest available observations of a deployment's current state.
@@ -1810,6 +1826,7 @@ class DeploymentStatusPatch(dict):
                  updated_replicas: Optional[_builtins.int] = None):
         """
         DeploymentStatus is the most recently observed status of the Deployment.
+
         :param _builtins.int available_replicas: Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
         :param _builtins.int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param Sequence['DeploymentConditionPatchArgs'] conditions: Represents the latest available observations of a deployment's current state.
@@ -1943,6 +1960,7 @@ class DeploymentStrategy(dict):
                  type: Optional[_builtins.str] = None):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
         :param 'RollingUpdateDeploymentArgs' rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param _builtins.str type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
@@ -1995,6 +2013,7 @@ class DeploymentStrategyPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         DeploymentStrategy describes how to replace existing pods with new ones.
+
         :param 'RollingUpdateDeploymentPatchArgs' rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param _builtins.str type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
@@ -2050,6 +2069,7 @@ class ReplicaSet(dict):
                  status: Optional['outputs.ReplicaSetStatus'] = None):
         """
         ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2138,6 +2158,7 @@ class ReplicaSetCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         ReplicaSetCondition describes the state of a replica set at a certain point.
+
         :param _builtins.str status: Status of the condition, one of True, False, Unknown.
         :param _builtins.str type: Type of replica set condition.
         :param _builtins.str last_transition_time: The last time the condition transitioned from one status to another.
@@ -2224,6 +2245,7 @@ class ReplicaSetConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         ReplicaSetCondition describes the state of a replica set at a certain point.
+
         :param _builtins.str last_transition_time: The last time the condition transitioned from one status to another.
         :param _builtins.str message: A human readable message indicating details about the transition.
         :param _builtins.str reason: The reason for the condition's last transition.
@@ -2311,6 +2333,7 @@ class ReplicaSetSpec(dict):
                  template: Optional['_core.v1.outputs.PodTemplateSpec'] = None):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param _builtins.int replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
@@ -2386,6 +2409,7 @@ class ReplicaSetSpecPatch(dict):
                  template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None):
         """
         ReplicaSetSpec is the specification of a ReplicaSet.
+
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param _builtins.int replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2473,6 +2497,7 @@ class ReplicaSetStatus(dict):
                  terminating_replicas: Optional[_builtins.int] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
+
         :param _builtins.int replicas: Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         :param _builtins.int available_replicas: The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         :param Sequence['ReplicaSetConditionArgs'] conditions: Represents the latest available observations of a replica set's current state.
@@ -2596,6 +2621,7 @@ class ReplicaSetStatusPatch(dict):
                  terminating_replicas: Optional[_builtins.int] = None):
         """
         ReplicaSetStatus represents the current status of a ReplicaSet.
+
         :param _builtins.int available_replicas: The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
         :param Sequence['ReplicaSetConditionPatchArgs'] conditions: Represents the latest available observations of a replica set's current state.
         :param _builtins.int fully_labeled_replicas: The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
@@ -2709,6 +2735,7 @@ class RollingUpdateDaemonSet(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
         :param Union[_builtins.int, _builtins.str] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2763,6 +2790,7 @@ class RollingUpdateDaemonSetPatch(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
+
         :param Union[_builtins.int, _builtins.str] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2817,6 +2845,7 @@ class RollingUpdateDeployment(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of rolling update.
+
         :param Union[_builtins.int, _builtins.str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2871,6 +2900,7 @@ class RollingUpdateDeploymentPatch(dict):
                  max_unavailable: Optional[Any] = None):
         """
         Spec to control the desired behavior of rolling update.
+
         :param Union[_builtins.int, _builtins.str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2923,6 +2953,7 @@ class RollingUpdateStatefulSetStrategy(dict):
                  partition: Optional[_builtins.int] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
         :param _builtins.int partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
         """
@@ -2975,6 +3006,7 @@ class RollingUpdateStatefulSetStrategyPatch(dict):
                  partition: Optional[_builtins.int] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
         :param Union[_builtins.int, _builtins.str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
         :param _builtins.int partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
         """
@@ -3064,6 +3096,7 @@ class StatefulSet(dict):
         If the StatefulSet has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -3152,6 +3185,7 @@ class StatefulSetCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         StatefulSetCondition describes the state of a statefulset at a certain point.
+
         :param _builtins.str status: Status of the condition, one of True, False, Unknown.
         :param _builtins.str type: Type of statefulset condition.
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
@@ -3238,6 +3272,7 @@ class StatefulSetConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         StatefulSetCondition describes the state of a statefulset at a certain point.
+
         :param _builtins.str last_transition_time: Last time the condition transitioned from one status to another.
         :param _builtins.str message: A human readable message indicating details about the transition.
         :param _builtins.str reason: The reason for the condition's last transition.
@@ -3305,6 +3340,7 @@ class StatefulSetOrdinals(dict):
                  start: Optional[_builtins.int] = None):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
         :param _builtins.int start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
                  [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
                If unset, defaults to 0. Replica indices will be in the range:
@@ -3334,6 +3370,7 @@ class StatefulSetOrdinalsPatch(dict):
                  start: Optional[_builtins.int] = None):
         """
         StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
         :param _builtins.int start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
                  [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
                If unset, defaults to 0. Replica indices will be in the range:
@@ -3383,6 +3420,7 @@ class StatefulSetPersistentVolumeClaimRetentionPolicy(dict):
                  when_scaled: Optional[_builtins.str] = None):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
         :param _builtins.str when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
         :param _builtins.str when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
         """
@@ -3437,6 +3475,7 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyPatch(dict):
                  when_scaled: Optional[_builtins.str] = None):
         """
         StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+
         :param _builtins.str when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
         :param _builtins.str when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
         """
@@ -3510,6 +3549,7 @@ class StatefulSetSpec(dict):
                  volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param '_core.v1.PodTemplateSpecArgs' template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -3680,6 +3720,7 @@ class StatefulSetSpecPatch(dict):
                  volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaimPatch']] = None):
         """
         A StatefulSetSpec is the specification of a StatefulSet.
+
         :param _builtins.int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param 'StatefulSetOrdinalsPatchArgs' ordinals: ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
         :param 'StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs' persistent_volume_claim_retention_policy: persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
@@ -3853,6 +3894,7 @@ class StatefulSetStatus(dict):
                  updated_replicas: Optional[_builtins.int] = None):
         """
         StatefulSetStatus represents the current state of a StatefulSet.
+
         :param _builtins.int replicas: replicas is the number of Pods created by the StatefulSet controller.
         :param _builtins.int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
         :param _builtins.int collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -4014,6 +4056,7 @@ class StatefulSetStatusPatch(dict):
                  updated_replicas: Optional[_builtins.int] = None):
         """
         StatefulSetStatus represents the current state of a StatefulSet.
+
         :param _builtins.int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
         :param _builtins.int collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         :param Sequence['StatefulSetConditionPatchArgs'] conditions: Represents the latest available observations of a statefulset's current state.
@@ -4154,6 +4197,7 @@ class StatefulSetUpdateStrategy(dict):
                  type: Optional[_builtins.str] = None):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
         :param 'RollingUpdateStatefulSetStrategyArgs' rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param _builtins.str type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """
@@ -4206,6 +4250,7 @@ class StatefulSetUpdateStrategyPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+
         :param 'RollingUpdateStatefulSetStrategyPatchArgs' rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param _builtins.str type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """

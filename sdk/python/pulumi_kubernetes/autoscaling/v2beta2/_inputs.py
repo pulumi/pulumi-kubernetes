@@ -115,6 +115,7 @@ class ContainerResourceMetricSourcePatchArgs:
                  target: Optional[pulumi.Input['MetricTargetPatchArgs']] = None):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param pulumi.Input[_builtins.str] container: container is the name of the container in the pods of the scaling target
         :param pulumi.Input[_builtins.str] name: name is the name of the resource in question.
         :param pulumi.Input['MetricTargetPatchArgs'] target: target specifies the target value for the given metric
@@ -188,6 +189,7 @@ class ContainerResourceMetricSourceArgs:
                  target: pulumi.Input['MetricTargetArgs']):
         """
         ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param pulumi.Input[_builtins.str] container: container is the name of the container in the pods of the scaling target
         :param pulumi.Input[_builtins.str] name: name is the name of the resource in question.
         :param pulumi.Input['MetricTargetArgs'] target: target specifies the target value for the given metric
@@ -258,6 +260,7 @@ class ContainerResourceMetricStatusArgs:
                  name: pulumi.Input[_builtins.str]):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param pulumi.Input[_builtins.str] container: Container is the name of the container in the pods of the scaling target
         :param pulumi.Input['MetricValueStatusArgs'] current: current contains the current value for the given metric
         :param pulumi.Input[_builtins.str] name: Name is the name of the resource in question.
@@ -328,6 +331,7 @@ class CrossVersionObjectReferencePatchArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param pulumi.Input[_builtins.str] api_version: API version of the referent
         :param pulumi.Input[_builtins.str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param pulumi.Input[_builtins.str] name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -401,6 +405,7 @@ class CrossVersionObjectReferenceArgs:
                  api_version: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
+
         :param pulumi.Input[_builtins.str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
         :param pulumi.Input[_builtins.str] name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param pulumi.Input[_builtins.str] api_version: API version of the referent
@@ -467,6 +472,7 @@ class ExternalMetricSourcePatchArgs:
                  target: Optional[pulumi.Input['MetricTargetPatchArgs']] = None):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
         :param pulumi.Input['MetricIdentifierPatchArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetPatchArgs'] target: target specifies the target value for the given metric
         """
@@ -520,6 +526,7 @@ class ExternalMetricSourceArgs:
                  target: pulumi.Input['MetricTargetArgs']):
         """
         ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetArgs'] target: target specifies the target value for the given metric
         """
@@ -571,6 +578,7 @@ class ExternalMetricStatusArgs:
                  metric: pulumi.Input['MetricIdentifierArgs']):
         """
         ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+
         :param pulumi.Input['MetricValueStatusArgs'] current: current contains the current value for the given metric
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         """
@@ -627,6 +635,7 @@ class HPAScalingPolicyPatchArgs:
                  value: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
         :param pulumi.Input[_builtins.int] period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param pulumi.Input[_builtins.str] type: Type is used to specify the scaling policy.
         :param pulumi.Input[_builtins.int] value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -700,6 +709,7 @@ class HPAScalingPolicyArgs:
                  value: pulumi.Input[_builtins.int]):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+
         :param pulumi.Input[_builtins.int] period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         :param pulumi.Input[_builtins.str] type: Type is used to specify the scaling policy.
         :param pulumi.Input[_builtins.int] value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
@@ -770,6 +780,7 @@ class HPAScalingRulesPatchArgs:
                  stabilization_window_seconds: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
         :param pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyPatchArgs']]] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param pulumi.Input[_builtins.str] select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
         :param pulumi.Input[_builtins.int] stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -843,6 +854,7 @@ class HPAScalingRulesArgs:
                  stabilization_window_seconds: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+
         :param pulumi.Input[Sequence[pulumi.Input['HPAScalingPolicyArgs']]] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param pulumi.Input[_builtins.str] select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
         :param pulumi.Input[_builtins.int] stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
@@ -914,6 +926,7 @@ class HorizontalPodAutoscalerBehaviorPatchArgs:
                  scale_up: Optional[pulumi.Input['HPAScalingRulesPatchArgs']] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
         :param pulumi.Input['HPAScalingRulesPatchArgs'] scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param pulumi.Input['HPAScalingRulesPatchArgs'] scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -976,6 +989,7 @@ class HorizontalPodAutoscalerBehaviorArgs:
                  scale_up: Optional[pulumi.Input['HPAScalingRulesArgs']] = None):
         """
         HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+
         :param pulumi.Input['HPAScalingRulesArgs'] scale_down: scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
         :param pulumi.Input['HPAScalingRulesArgs'] scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
@@ -1050,6 +1064,7 @@ class HorizontalPodAutoscalerConditionArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
+
         :param pulumi.Input[_builtins.str] status: status is the status of the condition (True, False, Unknown)
         :param pulumi.Input[_builtins.str] type: type describes the current condition
         :param pulumi.Input[_builtins.str] last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
@@ -1161,6 +1176,7 @@ class HorizontalPodAutoscalerSpecPatchArgs:
                  scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferencePatchArgs']] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param pulumi.Input['HorizontalPodAutoscalerBehaviorPatchArgs'] behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
         :param pulumi.Input[_builtins.int] max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param pulumi.Input[Sequence[pulumi.Input['MetricSpecPatchArgs']]] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
@@ -1274,6 +1290,7 @@ class HorizontalPodAutoscalerSpecArgs:
                  min_replicas: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+
         :param pulumi.Input[_builtins.int] max_replicas: maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
         :param pulumi.Input['CrossVersionObjectReferenceArgs'] scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         :param pulumi.Input['HorizontalPodAutoscalerBehaviorArgs'] behavior: behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -1390,6 +1407,7 @@ class HorizontalPodAutoscalerStatusArgs:
                  observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+
         :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[_builtins.int] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param pulumi.Input[_builtins.int] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
@@ -1515,6 +1533,7 @@ class HorizontalPodAutoscalerArgs:
                  status: Optional[pulumi.Input['HorizontalPodAutoscalerStatusArgs']] = None):
         """
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1613,6 +1632,7 @@ class MetricIdentifierPatchArgs:
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
         :param pulumi.Input[_builtins.str] name: name is the name of the given metric
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1666,6 +1686,7 @@ class MetricIdentifierArgs:
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
         """
         MetricIdentifier defines the name and optionally selector for a metric
+
         :param pulumi.Input[_builtins.str] name: name is the name of the given metric
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
@@ -1738,6 +1759,7 @@ class MetricSpecPatchArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param pulumi.Input['ContainerResourceMetricSourcePatchArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param pulumi.Input['ExternalMetricSourcePatchArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param pulumi.Input['ObjectMetricSourcePatchArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1871,6 +1893,7 @@ class MetricSpecArgs:
                  resource: Optional[pulumi.Input['ResourceMetricSourceArgs']] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+
         :param pulumi.Input[_builtins.str] type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         :param pulumi.Input['ContainerResourceMetricSourceArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param pulumi.Input['ExternalMetricSourceArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -2003,6 +2026,7 @@ class MetricStatusArgs:
                  resource: Optional[pulumi.Input['ResourceMetricStatusArgs']] = None):
         """
         MetricStatus describes the last-read state of a single metric.
+
         :param pulumi.Input[_builtins.str] type: type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         :param pulumi.Input['ContainerResourceMetricStatusArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param pulumi.Input['ExternalMetricStatusArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -2125,6 +2149,7 @@ class MetricTargetPatchArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
         :param pulumi.Input[_builtins.int] average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param pulumi.Input[_builtins.str] average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param pulumi.Input[_builtins.str] type: type represents whether the metric type is Utilization, Value, or AverageValue
@@ -2218,6 +2243,7 @@ class MetricTargetArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         MetricTarget defines the target value, average value, or average utilization of a specific metric
+
         :param pulumi.Input[_builtins.str] type: type represents whether the metric type is Utilization, Value, or AverageValue
         :param pulumi.Input[_builtins.int] average_utilization: averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
         :param pulumi.Input[_builtins.str] average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
@@ -2305,6 +2331,7 @@ class MetricValueStatusArgs:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         MetricValueStatus holds the current value for a metric
+
         :param pulumi.Input[_builtins.int] average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param pulumi.Input[_builtins.str] average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param pulumi.Input[_builtins.str] value: value is the current value of the metric (as a quantity).
@@ -2375,6 +2402,7 @@ class ObjectMetricSourcePatchArgs:
                  target: Optional[pulumi.Input['MetricTargetPatchArgs']] = None):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param pulumi.Input['MetricIdentifierPatchArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetPatchArgs'] target: target specifies the target value for the given metric
         """
@@ -2441,6 +2469,7 @@ class ObjectMetricSourceArgs:
                  target: pulumi.Input['MetricTargetArgs']):
         """
         ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetArgs'] target: target specifies the target value for the given metric
         """
@@ -2504,6 +2533,7 @@ class ObjectMetricStatusArgs:
                  metric: pulumi.Input['MetricIdentifierArgs']):
         """
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
+
         :param pulumi.Input['MetricValueStatusArgs'] current: current contains the current value for the given metric
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         """
@@ -2565,6 +2595,7 @@ class PodsMetricSourcePatchArgs:
                  target: Optional[pulumi.Input['MetricTargetPatchArgs']] = None):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param pulumi.Input['MetricIdentifierPatchArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetPatchArgs'] target: target specifies the target value for the given metric
         """
@@ -2618,6 +2649,7 @@ class PodsMetricSourceArgs:
                  target: pulumi.Input['MetricTargetArgs']):
         """
         PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         :param pulumi.Input['MetricTargetArgs'] target: target specifies the target value for the given metric
         """
@@ -2669,6 +2701,7 @@ class PodsMetricStatusArgs:
                  metric: pulumi.Input['MetricIdentifierArgs']):
         """
         PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+
         :param pulumi.Input['MetricValueStatusArgs'] current: current contains the current value for the given metric
         :param pulumi.Input['MetricIdentifierArgs'] metric: metric identifies the target metric by name and selector
         """
@@ -2720,6 +2753,7 @@ class ResourceMetricSourcePatchArgs:
                  target: Optional[pulumi.Input['MetricTargetPatchArgs']] = None):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param pulumi.Input[_builtins.str] name: name is the name of the resource in question.
         :param pulumi.Input['MetricTargetPatchArgs'] target: target specifies the target value for the given metric
         """
@@ -2773,6 +2807,7 @@ class ResourceMetricSourceArgs:
                  target: pulumi.Input['MetricTargetArgs']):
         """
         ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
+
         :param pulumi.Input[_builtins.str] name: name is the name of the resource in question.
         :param pulumi.Input['MetricTargetArgs'] target: target specifies the target value for the given metric
         """
@@ -2824,6 +2859,7 @@ class ResourceMetricStatusArgs:
                  name: pulumi.Input[_builtins.str]):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+
         :param pulumi.Input['MetricValueStatusArgs'] current: current contains the current value for the given metric
         :param pulumi.Input[_builtins.str] name: Name is the name of the resource in question.
         """

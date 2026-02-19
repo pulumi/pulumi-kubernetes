@@ -76,6 +76,7 @@ class HTTPIngressPath(dict):
                  path_type: Optional[_builtins.str] = None):
         """
         HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+
         :param 'IngressBackendArgs' backend: Backend defines the referenced service endpoint to which the traffic will be forwarded to.
         :param _builtins.str path: Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         :param _builtins.str path_type: PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -159,6 +160,7 @@ class HTTPIngressPathPatch(dict):
                  path_type: Optional[_builtins.str] = None):
         """
         HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+
         :param 'IngressBackendPatchArgs' backend: Backend defines the referenced service endpoint to which the traffic will be forwarded to.
         :param _builtins.str path: Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         :param _builtins.str path_type: PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
@@ -224,6 +226,7 @@ class HTTPIngressRuleValue(dict):
                  paths: Sequence['outputs.HTTPIngressPath']):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+
         :param Sequence['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
         """
         pulumi.set(__self__, "paths", paths)
@@ -246,6 +249,7 @@ class HTTPIngressRuleValuePatch(dict):
                  paths: Optional[Sequence['outputs.HTTPIngressPathPatch']] = None):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
+
         :param Sequence['HTTPIngressPathPatchArgs'] paths: A collection of paths that map requests to backends.
         """
         if paths is not None:
@@ -289,6 +293,7 @@ class IPAddress(dict):
                  spec: Optional['outputs.IPAddressSpec'] = None):
         """
         IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -362,6 +367,7 @@ class IPAddressSpec(dict):
                  parent_ref: 'outputs.ParentReference'):
         """
         IPAddressSpec describe the attributes in an IP Address.
+
         :param 'ParentReferenceArgs' parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
         pulumi.set(__self__, "parent_ref", parent_ref)
@@ -401,6 +407,7 @@ class IPAddressSpecPatch(dict):
                  parent_ref: Optional['outputs.ParentReferencePatch'] = None):
         """
         IPAddressSpec describe the attributes in an IP Address.
+
         :param 'ParentReferencePatchArgs' parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
         if parent_ref is not None:
@@ -473,6 +480,7 @@ class Ingress(dict):
         If the Ingress has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -561,6 +569,7 @@ class IngressBackend(dict):
                  resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
+
         :param _builtins.str service_name: Specifies the name of the referenced service.
         :param Union[_builtins.int, _builtins.str] service_port: Specifies the port of the referenced service.
         :param '_core.v1.TypedLocalObjectReferenceArgs' resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -625,6 +634,7 @@ class IngressBackendPatch(dict):
                  service_port: Optional[Any] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
+
         :param '_core.v1.TypedLocalObjectReferencePatchArgs' resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         :param _builtins.str service_name: Specifies the name of the referenced service.
         :param Union[_builtins.int, _builtins.str] service_port: Specifies the port of the referenced service.
@@ -690,6 +700,7 @@ class IngressClass(dict):
                  spec: Optional['outputs.IngressClassSpec'] = None):
         """
         IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -747,6 +758,7 @@ class IngressClassSpec(dict):
                  parameters: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
+
         :param _builtins.str controller: Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         :param '_core.v1.TypedLocalObjectReferenceArgs' parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
@@ -782,6 +794,7 @@ class IngressClassSpecPatch(dict):
                  parameters: Optional['_core.v1.outputs.TypedLocalObjectReferencePatch'] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
+
         :param _builtins.str controller: Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         :param '_core.v1.TypedLocalObjectReferencePatchArgs' parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
@@ -817,6 +830,7 @@ class IngressRule(dict):
                  http: Optional['outputs.HTTPIngressRuleValue'] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+
         :param _builtins.str host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
                	  IP in the Spec of the parent Ingress.
                2. The `:` delimiter is not respected because ports are not allowed.
@@ -858,6 +872,7 @@ class IngressRulePatch(dict):
                  http: Optional['outputs.HTTPIngressRuleValuePatch'] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
+
         :param _builtins.str host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
                	  IP in the Spec of the parent Ingress.
                2. The `:` delimiter is not respected because ports are not allowed.
@@ -918,6 +933,7 @@ class IngressSpec(dict):
                  tls: Optional[Sequence['outputs.IngressTLS']] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
+
         :param 'IngressBackendArgs' backend: A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
         :param _builtins.str ingress_class_name: IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
         :param Sequence['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
@@ -994,6 +1010,7 @@ class IngressSpecPatch(dict):
                  tls: Optional[Sequence['outputs.IngressTLSPatch']] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
+
         :param 'IngressBackendPatchArgs' backend: A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
         :param _builtins.str ingress_class_name: IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
         :param Sequence['IngressRulePatchArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
@@ -1067,6 +1084,7 @@ class IngressStatus(dict):
                  load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None):
         """
         IngressStatus describe the current state of the Ingress.
+
         :param '_core.v1.LoadBalancerStatusArgs' load_balancer: LoadBalancer contains the current status of the load-balancer.
         """
         if load_balancer is not None:
@@ -1107,6 +1125,7 @@ class IngressStatusPatch(dict):
                  load_balancer: Optional['_core.v1.outputs.LoadBalancerStatusPatch'] = None):
         """
         IngressStatus describe the current state of the Ingress.
+
         :param '_core.v1.LoadBalancerStatusPatchArgs' load_balancer: LoadBalancer contains the current status of the load-balancer.
         """
         if load_balancer is not None:
@@ -1148,6 +1167,7 @@ class IngressTLS(dict):
                  secret_name: Optional[_builtins.str] = None):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
+
         :param Sequence[_builtins.str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param _builtins.str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
@@ -1200,6 +1220,7 @@ class IngressTLSPatch(dict):
                  secret_name: Optional[_builtins.str] = None):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
+
         :param Sequence[_builtins.str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param _builtins.str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
@@ -1237,6 +1258,7 @@ class ParentReference(dict):
                  namespace: Optional[_builtins.str] = None):
         """
         ParentReference describes a reference to a parent object.
+
         :param _builtins.str name: Name is the name of the object being referenced.
         :param _builtins.str resource: Resource is the resource of the object being referenced.
         :param _builtins.str group: Group is the group of the object being referenced.
@@ -1294,6 +1316,7 @@ class ParentReferencePatch(dict):
                  resource: Optional[_builtins.str] = None):
         """
         ParentReference describes a reference to a parent object.
+
         :param _builtins.str group: Group is the group of the object being referenced.
         :param _builtins.str name: Name is the name of the object being referenced.
         :param _builtins.str namespace: Namespace is the namespace of the object being referenced.
@@ -1371,6 +1394,7 @@ class ServiceCIDR(dict):
                  status: Optional['outputs.ServiceCIDRStatus'] = None):
         """
         ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1438,6 +1462,7 @@ class ServiceCIDRSpec(dict):
                  cidrs: Optional[Sequence[_builtins.str]] = None):
         """
         ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+
         :param Sequence[_builtins.str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
         """
         if cidrs is not None:
@@ -1461,6 +1486,7 @@ class ServiceCIDRSpecPatch(dict):
                  cidrs: Optional[Sequence[_builtins.str]] = None):
         """
         ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+
         :param Sequence[_builtins.str] cidrs: CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
         """
         if cidrs is not None:
@@ -1484,6 +1510,7 @@ class ServiceCIDRStatus(dict):
                  conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
         """
         ServiceCIDRStatus describes the current state of the ServiceCIDR.
+
         :param Sequence['_meta.v1.ConditionArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
         """
         if conditions is not None:
@@ -1507,6 +1534,7 @@ class ServiceCIDRStatusPatch(dict):
                  conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None):
         """
         ServiceCIDRStatus describes the current state of the ServiceCIDR.
+
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
         """
         if conditions is not None:

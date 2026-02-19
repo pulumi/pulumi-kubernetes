@@ -112,6 +112,7 @@ class CustomResourceColumnDefinitionPatchArgs:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
         :param pulumi.Input[_builtins.str] json_path: JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
         :param pulumi.Input[_builtins.str] description: description is a human readable description of this column.
         :param pulumi.Input[_builtins.str] format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
@@ -245,6 +246,7 @@ class CustomResourceColumnDefinitionArgs:
                  priority: Optional[pulumi.Input[_builtins.int]] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
         :param pulumi.Input[_builtins.str] json_path: JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
         :param pulumi.Input[_builtins.str] name: name is a human readable name for the column.
         :param pulumi.Input[_builtins.str] type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
@@ -361,6 +363,7 @@ class CustomResourceConversionPatchArgs:
                  webhook_client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
         :param pulumi.Input[_builtins.str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
@@ -437,6 +440,7 @@ class CustomResourceConversionArgs:
                  webhook_client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
         :param pulumi.Input[_builtins.str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
@@ -521,6 +525,7 @@ class CustomResourceDefinitionConditionArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
+
         :param pulumi.Input[_builtins.str] status: status is the status of the condition. Can be True, False, Unknown.
         :param pulumi.Input[_builtins.str] type: type is the type of the condition. Types include Established, NamesAccepted and Terminating.
         :param pulumi.Input[_builtins.str] last_transition_time: lastTransitionTime last time the condition transitioned from one status to another.
@@ -637,6 +642,7 @@ class CustomResourceDefinitionNamesPatchArgs:
                  singular: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
         :param pulumi.Input[_builtins.str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param pulumi.Input[_builtins.str] list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -770,6 +776,7 @@ class CustomResourceDefinitionNamesArgs:
                  singular: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
         :param pulumi.Input[_builtins.str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param pulumi.Input[_builtins.str] plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -921,6 +928,7 @@ class CustomResourceDefinitionSpecPatchArgs:
                  versions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionPatchArgs']]]] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgs']]] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         :param pulumi.Input['CustomResourceConversionPatchArgs'] conversion: conversion defines conversion settings for the CRD.
         :param pulumi.Input[_builtins.str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
@@ -1134,6 +1142,7 @@ class CustomResourceDefinitionSpecArgs:
                  versions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
         :param pulumi.Input[_builtins.str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param pulumi.Input['CustomResourceDefinitionNamesArgs'] names: names specify the resource and kind names for the custom resource.
         :param pulumi.Input[_builtins.str] scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
@@ -1309,6 +1318,7 @@ class CustomResourceDefinitionStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+
         :param pulumi.Input['CustomResourceDefinitionNamesArgs'] accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
@@ -1405,6 +1415,7 @@ class CustomResourceDefinitionVersionPatchArgs:
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesPatchArgs']] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
         :param pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgs']]] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
         :param pulumi.Input[_builtins.bool] deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param pulumi.Input[_builtins.str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
@@ -1578,6 +1589,7 @@ class CustomResourceDefinitionVersionArgs:
                  subresources: Optional[pulumi.Input['CustomResourceSubresourcesArgs']] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
         :param pulumi.Input[_builtins.str] name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param pulumi.Input[_builtins.bool] served: served is a flag enabling/disabling this version from being served via REST APIs
         :param pulumi.Input[_builtins.bool] storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -1730,6 +1742,7 @@ class CustomResourceDefinitionArgs:
                  status: Optional[pulumi.Input['CustomResourceDefinitionStatusArgs']] = None):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+
         :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1828,6 +1841,7 @@ class CustomResourceSubresourceScalePatchArgs:
                  status_replicas_path: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
         :param pulumi.Input[_builtins.str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         :param pulumi.Input[_builtins.str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param pulumi.Input[_builtins.str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
@@ -1901,6 +1915,7 @@ class CustomResourceSubresourceScaleArgs:
                  label_selector_path: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
         :param pulumi.Input[_builtins.str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param pulumi.Input[_builtins.str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
         :param pulumi.Input[_builtins.str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -1967,6 +1982,7 @@ class CustomResourceSubresourcesPatchArgs:
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
         :param pulumi.Input['CustomResourceSubresourceScalePatchArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -2020,6 +2036,7 @@ class CustomResourceSubresourcesArgs:
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
         :param pulumi.Input['CustomResourceSubresourceScaleArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -2068,6 +2085,7 @@ class CustomResourceValidationPatchArgs:
                  open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsPatchArgs']] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
         :param pulumi.Input['JSONSchemaPropsPatchArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -2101,6 +2119,7 @@ class CustomResourceValidationArgs:
                  open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsArgs']] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
         :param pulumi.Input['JSONSchemaPropsArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -2350,6 +2369,7 @@ class JSONSchemaPropsPatchArgs:
                  x_kubernetes_preserve_unknown_fields: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be created using the v1 (or newer) CustomResourceDefinition API.
         :param pulumi.Input[_builtins.str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -3077,6 +3097,7 @@ class JSONSchemaPropsArgs:
                  x_kubernetes_preserve_unknown_fields: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be created using the v1 (or newer) CustomResourceDefinition API.
         :param pulumi.Input[_builtins.str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -3681,6 +3702,7 @@ class ServiceReferencePatchArgs:
                  port: Optional[pulumi.Input[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param pulumi.Input[_builtins.str] name: name is the name of the service. Required
         :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the service. Required
         :param pulumi.Input[_builtins.str] path: path is an optional URL path at which the webhook will be contacted.
@@ -3774,6 +3796,7 @@ class ServiceReferenceArgs:
                  port: Optional[pulumi.Input[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param pulumi.Input[_builtins.str] name: name is the name of the service. Required
         :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the service. Required
         :param pulumi.Input[_builtins.str] path: path is an optional URL path at which the webhook will be contacted.
@@ -3872,6 +3895,7 @@ class WebhookClientConfigPatchArgs:
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
         :param pulumi.Input[_builtins.str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferencePatchArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
                
@@ -3981,6 +4005,7 @@ class WebhookClientConfigArgs:
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
         :param pulumi.Input[_builtins.str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferenceArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
                

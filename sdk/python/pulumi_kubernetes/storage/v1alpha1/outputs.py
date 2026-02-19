@@ -64,6 +64,7 @@ class VolumeAttachment(dict):
         VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 
         VolumeAttachment objects are non-namespaced.
+
         :param 'VolumeAttachmentSpecArgs' spec: Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -150,6 +151,7 @@ class VolumeAttachmentSource(dict):
                  persistent_volume_name: Optional[_builtins.str] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
         :param '_core.v1.PersistentVolumeSpecArgs' inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param _builtins.str persistent_volume_name: Name of the persistent volume to attach.
         """
@@ -204,6 +206,7 @@ class VolumeAttachmentSourcePatch(dict):
                  persistent_volume_name: Optional[_builtins.str] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+
         :param '_core.v1.PersistentVolumeSpecPatchArgs' inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param _builtins.str persistent_volume_name: Name of the persistent volume to attach.
         """
@@ -257,6 +260,7 @@ class VolumeAttachmentSpec(dict):
                  source: 'outputs.VolumeAttachmentSource'):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
         :param _builtins.str attacher: Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         :param _builtins.str node_name: The node that the volume should be attached to.
         :param 'VolumeAttachmentSourceArgs' source: Source represents the volume that should be attached.
@@ -318,6 +322,7 @@ class VolumeAttachmentSpecPatch(dict):
                  source: Optional['outputs.VolumeAttachmentSourcePatch'] = None):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
         :param _builtins.str attacher: Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         :param _builtins.str node_name: The node that the volume should be attached to.
         :param 'VolumeAttachmentSourcePatchArgs' source: Source represents the volume that should be attached.
@@ -387,6 +392,7 @@ class VolumeAttachmentStatus(dict):
                  detach_error: Optional['outputs.VolumeError'] = None):
         """
         VolumeAttachmentStatus is the status of a VolumeAttachment request.
+
         :param _builtins.bool attached: Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param 'VolumeErrorArgs' attach_error: The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param Mapping[str, _builtins.str] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -466,6 +472,7 @@ class VolumeAttachmentStatusPatch(dict):
                  detach_error: Optional['outputs.VolumeErrorPatch'] = None):
         """
         VolumeAttachmentStatus is the status of a VolumeAttachment request.
+
         :param 'VolumeErrorPatchArgs' attach_error: The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param _builtins.bool attached: Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param Mapping[str, _builtins.str] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -545,6 +552,7 @@ class VolumeAttributesClass(dict):
                  parameters: Optional[Mapping[str, _builtins.str]] = None):
         """
         VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+
         :param _builtins.str driver_name: Name of the CSI driver This field is immutable.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -616,6 +624,7 @@ class VolumeError(dict):
                  time: Optional[_builtins.str] = None):
         """
         VolumeError captures an error encountered during a volume operation.
+
         :param _builtins.str message: String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
         :param _builtins.str time: Time the error was encountered.
         """
@@ -651,6 +660,7 @@ class VolumeErrorPatch(dict):
                  time: Optional[_builtins.str] = None):
         """
         VolumeError captures an error encountered during a volume operation.
+
         :param _builtins.str message: String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
         :param _builtins.str time: Time the error was encountered.
         """

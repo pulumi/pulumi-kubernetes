@@ -85,6 +85,7 @@ class CustomResourceColumnDefinition(dict):
                  priority: Optional[_builtins.int] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
         :param _builtins.str json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
         :param _builtins.str name: name is a human readable name for the column.
         :param _builtins.str type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
@@ -182,6 +183,7 @@ class CustomResourceColumnDefinitionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         CustomResourceColumnDefinition specifies a column for server side printing.
+
         :param _builtins.str description: description is a human readable description of this column.
         :param _builtins.str format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
         :param _builtins.str json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -261,6 +263,7 @@ class CustomResourceConversion(dict):
                  webhook: Optional['outputs.WebhookConversion'] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
         :param _builtins.str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         :param 'WebhookConversionArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
@@ -297,6 +300,7 @@ class CustomResourceConversionPatch(dict):
                  webhook: Optional['outputs.WebhookConversionPatch'] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
+
         :param _builtins.str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         :param 'WebhookConversionPatchArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
@@ -354,6 +358,7 @@ class CustomResourceDefinition(dict):
                  status: Optional['outputs.CustomResourceDefinitionStatus'] = None):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
+
         :param 'CustomResourceDefinitionSpecArgs' spec: spec describes how the user wants the resources to appear
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -444,6 +449,7 @@ class CustomResourceDefinitionCondition(dict):
                  reason: Optional[_builtins.str] = None):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
+
         :param _builtins.str status: status is the status of the condition. Can be True, False, Unknown.
         :param _builtins.str type: type is the type of the condition. Types include Established, NamesAccepted and Terminating.
         :param _builtins.str last_transition_time: lastTransitionTime last time the condition transitioned from one status to another.
@@ -544,6 +550,7 @@ class CustomResourceDefinitionConditionPatch(dict):
                  type: Optional[_builtins.str] = None):
         """
         CustomResourceDefinitionCondition contains details for the current condition of this pod.
+
         :param _builtins.str last_transition_time: lastTransitionTime last time the condition transitioned from one status to another.
         :param _builtins.str message: message is a human-readable message indicating details about last transition.
         :param _builtins.int observed_generation: observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -646,6 +653,7 @@ class CustomResourceDefinitionNames(dict):
                  singular: Optional[_builtins.str] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
         :param _builtins.str kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param _builtins.str plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
         :param Sequence[_builtins.str] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -746,6 +754,7 @@ class CustomResourceDefinitionNamesPatch(dict):
                  singular: Optional[_builtins.str] = None):
         """
         CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
         :param Sequence[_builtins.str] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
         :param _builtins.str kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
         :param _builtins.str list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
@@ -846,6 +855,7 @@ class CustomResourceDefinitionSpec(dict):
                  preserve_unknown_fields: Optional[_builtins.bool] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
         :param _builtins.str group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param 'CustomResourceDefinitionNamesArgs' names: names specify the resource and kind names for the custom resource.
         :param _builtins.str scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
@@ -942,6 +952,7 @@ class CustomResourceDefinitionSpecPatch(dict):
                  versions: Optional[Sequence['outputs.CustomResourceDefinitionVersionPatch']] = None):
         """
         CustomResourceDefinitionSpec describes how a user wants their resource to appear
+
         :param 'CustomResourceConversionPatchArgs' conversion: conversion defines conversion settings for the CRD.
         :param _builtins.str group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         :param 'CustomResourceDefinitionNamesPatchArgs' names: names specify the resource and kind names for the custom resource.
@@ -1044,6 +1055,7 @@ class CustomResourceDefinitionStatus(dict):
                  observed_generation: Optional[_builtins.int] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+
         :param 'CustomResourceDefinitionNamesArgs' accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
         :param Sequence[_builtins.str] stored_versions: storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
         :param Sequence['CustomResourceDefinitionConditionArgs'] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
@@ -1122,6 +1134,7 @@ class CustomResourceDefinitionStatusPatch(dict):
                  stored_versions: Optional[Sequence[_builtins.str]] = None):
         """
         CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+
         :param 'CustomResourceDefinitionNamesPatchArgs' accepted_names: acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
         :param Sequence['CustomResourceDefinitionConditionPatchArgs'] conditions: conditions indicate state for particular aspects of a CustomResourceDefinition
         :param _builtins.int observed_generation: The generation observed by the CRD controller.
@@ -1207,6 +1220,7 @@ class CustomResourceDefinitionVersion(dict):
                  subresources: Optional['outputs.CustomResourceSubresources'] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
         :param _builtins.str name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
         :param _builtins.bool served: served is a flag enabling/disabling this version from being served via REST APIs
         :param _builtins.bool storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
@@ -1344,6 +1358,7 @@ class CustomResourceDefinitionVersionPatch(dict):
                  subresources: Optional['outputs.CustomResourceSubresourcesPatch'] = None):
         """
         CustomResourceDefinitionVersion describes a version for CRD.
+
         :param Sequence['CustomResourceColumnDefinitionPatchArgs'] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
         :param _builtins.bool deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
         :param _builtins.str deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
@@ -1478,6 +1493,7 @@ class CustomResourceSubresourceScale(dict):
                  label_selector_path: Optional[_builtins.str] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
         :param _builtins.str spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param _builtins.str status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
         :param _builtins.str label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -1544,6 +1560,7 @@ class CustomResourceSubresourceScalePatch(dict):
                  status_replicas_path: Optional[_builtins.str] = None):
         """
         CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+
         :param _builtins.str label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         :param _builtins.str spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         :param _builtins.str status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
@@ -1590,6 +1607,7 @@ class CustomResourceSubresources(dict):
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
         :param 'CustomResourceSubresourceScaleArgs' scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -1625,6 +1643,7 @@ class CustomResourceSubresourcesPatch(dict):
                  status: Optional[Any] = None):
         """
         CustomResourceSubresources defines the status and scale subresources for CustomResources.
+
         :param 'CustomResourceSubresourceScalePatchArgs' scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
@@ -1676,6 +1695,7 @@ class CustomResourceValidation(dict):
                  open_apiv3_schema: Optional['outputs.JSONSchemaProps'] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
         :param 'JSONSchemaPropsArgs' open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -1716,6 +1736,7 @@ class CustomResourceValidationPatch(dict):
                  open_apiv3_schema: Optional['outputs.JSONSchemaPropsPatch'] = None):
         """
         CustomResourceValidation is a list of validation methods for CustomResources.
+
         :param 'JSONSchemaPropsPatchArgs' open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
         if open_apiv3_schema is not None:
@@ -1891,6 +1912,7 @@ class JSONSchemaProps(dict):
                  x_kubernetes_validations: Optional[Sequence['outputs.ValidationRule']] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
         :param _builtins.str format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -2415,6 +2437,7 @@ class JSONSchemaPropsPatch(dict):
                  x_kubernetes_validations: Optional[Sequence['outputs.ValidationRulePatch']] = None):
         """
         JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
         :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
         :param _builtins.str format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
                
@@ -2858,6 +2881,7 @@ class SelectableField(dict):
                  json_path: _builtins.str):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
         :param _builtins.str json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
         """
         pulumi.set(__self__, "json_path", json_path)
@@ -2897,6 +2921,7 @@ class SelectableFieldPatch(dict):
                  json_path: Optional[_builtins.str] = None):
         """
         SelectableField specifies the JSON path of a field that may be used with field selectors.
+
         :param _builtins.str json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
         """
         if json_path is not None:
@@ -2923,6 +2948,7 @@ class ServiceReference(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: name is the name of the service. Required
         :param _builtins.str namespace: namespace is the namespace of the service. Required
         :param _builtins.str path: path is an optional URL path at which the webhook will be contacted.
@@ -2980,6 +3006,7 @@ class ServiceReferencePatch(dict):
                  port: Optional[_builtins.int] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param _builtins.str name: name is the name of the service. Required
         :param _builtins.str namespace: namespace is the namespace of the service. Required
         :param _builtins.str path: path is an optional URL path at which the webhook will be contacted.
@@ -3062,6 +3089,7 @@ class ValidationRule(dict):
                  reason: Optional[_builtins.str] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
         :param _builtins.str rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
                
                If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
@@ -3241,6 +3269,7 @@ class ValidationRulePatch(dict):
                  rule: Optional[_builtins.str] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+
         :param _builtins.str field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
         :param _builtins.str message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         :param _builtins.str message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
@@ -3414,6 +3443,7 @@ class WebhookClientConfig(dict):
                  url: Optional[_builtins.str] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
         :param _builtins.str ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param 'ServiceReferenceArgs' service: service is a reference to the service for this webhook. Either service or url must be specified.
                
@@ -3502,6 +3532,7 @@ class WebhookClientConfigPatch(dict):
                  url: Optional[_builtins.str] = None):
         """
         WebhookClientConfig contains the information to make a TLS connection with the webhook.
+
         :param _builtins.str ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param 'ServiceReferencePatchArgs' service: service is a reference to the service for this webhook. Either service or url must be specified.
                
@@ -3591,6 +3622,7 @@ class WebhookConversion(dict):
                  client_config: Optional['outputs.WebhookClientConfig'] = None):
         """
         WebhookConversion describes how to call a conversion webhook
+
         :param Sequence[_builtins.str] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
         :param 'WebhookClientConfigArgs' client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         """
@@ -3644,6 +3676,7 @@ class WebhookConversionPatch(dict):
                  conversion_review_versions: Optional[Sequence[_builtins.str]] = None):
         """
         WebhookConversion describes how to call a conversion webhook
+
         :param 'WebhookClientConfigPatchArgs' client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         :param Sequence[_builtins.str] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
         """

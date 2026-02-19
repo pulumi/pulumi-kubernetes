@@ -79,6 +79,7 @@ class Event(dict):
                  type: Optional[_builtins.str] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+
         :param _builtins.str event_time: eventTime is the time when this Event was first observed. It is required.
         :param _builtins.str action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -295,6 +296,7 @@ class EventSeries(dict):
                  last_observed_time: _builtins.str):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+
         :param _builtins.int count: count is the number of occurrences in this series up to the last heartbeat time.
         :param _builtins.str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         """
@@ -345,6 +347,7 @@ class EventSeriesPatch(dict):
                  last_observed_time: Optional[_builtins.str] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+
         :param _builtins.int count: count is the number of occurrences in this series up to the last heartbeat time.
         :param _builtins.str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         """

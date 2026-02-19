@@ -64,6 +64,7 @@ class AuditSinkSpecPatchArgs:
                  webhook: Optional[pulumi.Input['WebhookPatchArgs']] = None):
         """
         AuditSinkSpec holds the spec for the audit sink
+
         :param pulumi.Input['PolicyPatchArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param pulumi.Input['WebhookPatchArgs'] webhook: Webhook to send events required
         """
@@ -117,6 +118,7 @@ class AuditSinkSpecArgs:
                  webhook: pulumi.Input['WebhookArgs']):
         """
         AuditSinkSpec holds the spec for the audit sink
+
         :param pulumi.Input['PolicyArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param pulumi.Input['WebhookArgs'] webhook: Webhook to send events required
         """
@@ -175,6 +177,7 @@ class AuditSinkArgs:
                  spec: Optional[pulumi.Input['AuditSinkSpecArgs']] = None):
         """
         AuditSink represents a cluster level audit sink
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['AuditSinkSpecArgs'] spec: Spec defines the audit configuration spec
@@ -254,6 +257,7 @@ class PolicyPatchArgs:
                  stages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
         :param pulumi.Input[_builtins.str] level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] stages: Stages is a list of stages for which events are created.
         """
@@ -307,6 +311,7 @@ class PolicyArgs:
                  stages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
+
         :param pulumi.Input[_builtins.str] level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] stages: Stages is a list of stages for which events are created.
         """
@@ -369,6 +374,7 @@ class ServiceReferencePatchArgs:
                  port: Optional[pulumi.Input[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param pulumi.Input[_builtins.str] name: `name` is the name of the service. Required
         :param pulumi.Input[_builtins.str] namespace: `namespace` is the namespace of the service. Required
         :param pulumi.Input[_builtins.str] path: `path` is an optional URL path which will be sent in any request to this service.
@@ -462,6 +468,7 @@ class ServiceReferenceArgs:
                  port: Optional[pulumi.Input[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
+
         :param pulumi.Input[_builtins.str] name: `name` is the name of the service. Required
         :param pulumi.Input[_builtins.str] namespace: `namespace` is the namespace of the service. Required
         :param pulumi.Input[_builtins.str] path: `path` is an optional URL path which will be sent in any request to this service.
@@ -560,6 +567,7 @@ class WebhookClientConfigPatchArgs:
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
         :param pulumi.Input[_builtins.str] ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferencePatchArgs'] service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -669,6 +677,7 @@ class WebhookClientConfigArgs:
                  url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
+
         :param pulumi.Input[_builtins.str] ca_bundle: `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input['ServiceReferenceArgs'] service: `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
                
@@ -761,6 +770,7 @@ class WebhookPatchArgs:
                  throttle: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']] = None):
         """
         Webhook holds the configuration of the webhook
+
         :param pulumi.Input['WebhookClientConfigPatchArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
         :param pulumi.Input['WebhookThrottleConfigPatchArgs'] throttle: Throttle holds the options for throttling the webhook
         """
@@ -814,6 +824,7 @@ class WebhookThrottleConfigPatchArgs:
                  qps: Optional[pulumi.Input[_builtins.int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
         :param pulumi.Input[_builtins.int] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param pulumi.Input[_builtins.int] qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
@@ -867,6 +878,7 @@ class WebhookThrottleConfigArgs:
                  qps: Optional[pulumi.Input[_builtins.int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
+
         :param pulumi.Input[_builtins.int] burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param pulumi.Input[_builtins.int] qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
@@ -920,6 +932,7 @@ class WebhookArgs:
                  throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None):
         """
         Webhook holds the configuration of the webhook
+
         :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
         :param pulumi.Input['WebhookThrottleConfigArgs'] throttle: Throttle holds the options for throttling the webhook
         """

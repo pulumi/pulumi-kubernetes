@@ -110,6 +110,7 @@ class AllocationResult(dict):
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+
         :param _builtins.str controller: Controller is the name of the DRA driver which handled the allocation. That driver is also responsible for deallocating the claim. It is empty when the claim can be deallocated without involving a driver.
                
                A driver may allocate devices provided by other drivers, so this driver name here can be different from the driver names listed for the results.
@@ -182,6 +183,7 @@ class AllocationResultPatch(dict):
                  node_selector: Optional['_core.v1.outputs.NodeSelectorPatch'] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+
         :param _builtins.str controller: Controller is the name of the DRA driver which handled the allocation. That driver is also responsible for deallocating the claim. It is empty when the claim can be deallocated without involving a driver.
                
                A driver may allocate devices provided by other drivers, so this driver name here can be different from the driver names listed for the results.
@@ -236,6 +238,7 @@ class BasicDevice(dict):
                  capacity: Optional[Mapping[str, _builtins.str]] = None):
         """
         BasicDevice defines one device instance.
+
         :param Mapping[str, 'DeviceAttributeArgs'] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -279,6 +282,7 @@ class BasicDevicePatch(dict):
                  capacity: Optional[Mapping[str, _builtins.str]] = None):
         """
         BasicDevice defines one device instance.
+
         :param Mapping[str, 'DeviceAttributeArgs'] attributes: Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -321,6 +325,7 @@ class CELDeviceSelector(dict):
                  expression: _builtins.str):
         """
         CELDeviceSelector contains a CEL expression for selecting a device.
+
         :param _builtins.str expression: Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
                
                The expression's input is an object named "device", which carries the following properties:
@@ -395,6 +400,7 @@ class CELDeviceSelectorPatch(dict):
                  expression: Optional[_builtins.str] = None):
         """
         CELDeviceSelector contains a CEL expression for selecting a device.
+
         :param _builtins.str expression: Expression is a CEL expression which evaluates a single device. It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not. Any other result is an error and causes allocation of devices to abort.
                
                The expression's input is an object named "device", which carries the following properties:
@@ -471,6 +477,7 @@ class Device(dict):
                  basic: Optional['outputs.BasicDevice'] = None):
         """
         Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+
         :param _builtins.str name: Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
         :param 'BasicDeviceArgs' basic: Basic defines one device instance.
         """
@@ -506,6 +513,7 @@ class DeviceAllocationConfiguration(dict):
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceAllocationConfiguration gets embedded in an AllocationResult.
+
         :param _builtins.str source: Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
         :param 'OpaqueDeviceConfigurationArgs' opaque: Opaque provides driver-specific configuration parameters.
         :param Sequence[_builtins.str] requests: Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
@@ -552,6 +560,7 @@ class DeviceAllocationConfigurationPatch(dict):
                  source: Optional[_builtins.str] = None):
         """
         DeviceAllocationConfiguration gets embedded in an AllocationResult.
+
         :param 'OpaqueDeviceConfigurationPatchArgs' opaque: Opaque provides driver-specific configuration parameters.
         :param Sequence[_builtins.str] requests: Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.
         :param _builtins.str source: Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
@@ -598,6 +607,7 @@ class DeviceAllocationResult(dict):
                  results: Optional[Sequence['outputs.DeviceRequestAllocationResult']] = None):
         """
         DeviceAllocationResult is the result of allocating devices.
+
         :param Sequence['DeviceAllocationConfigurationArgs'] config: This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
                
                This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
@@ -637,6 +647,7 @@ class DeviceAllocationResultPatch(dict):
                  results: Optional[Sequence['outputs.DeviceRequestAllocationResultPatch']] = None):
         """
         DeviceAllocationResult is the result of allocating devices.
+
         :param Sequence['DeviceAllocationConfigurationPatchArgs'] config: This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
                
                This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
@@ -678,6 +689,7 @@ class DeviceAttribute(dict):
                  version: Optional[_builtins.str] = None):
         """
         DeviceAttribute must have exactly one field set.
+
         :param _builtins.bool bool: BoolValue is a true/false value.
         :param _builtins.int int: IntValue is a number.
         :param _builtins.str string: StringValue is a string. Must not be longer than 64 characters.
@@ -736,6 +748,7 @@ class DeviceClaim(dict):
                  requests: Optional[Sequence['outputs.DeviceRequest']] = None):
         """
         DeviceClaim defines how to request devices with a ResourceClaim.
+
         :param Sequence['DeviceClaimConfigurationArgs'] config: This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
         :param Sequence['DeviceConstraintArgs'] constraints: These constraints must be satisfied by the set of devices that get allocated for the claim.
         :param Sequence['DeviceRequestArgs'] requests: Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
@@ -782,6 +795,7 @@ class DeviceClaimConfiguration(dict):
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+
         :param 'OpaqueDeviceConfigurationArgs' opaque: Opaque provides driver-specific configuration parameters.
         :param Sequence[_builtins.str] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
         """
@@ -817,6 +831,7 @@ class DeviceClaimConfigurationPatch(dict):
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+
         :param 'OpaqueDeviceConfigurationPatchArgs' opaque: Opaque provides driver-specific configuration parameters.
         :param Sequence[_builtins.str] requests: Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.
         """
@@ -853,6 +868,7 @@ class DeviceClaimPatch(dict):
                  requests: Optional[Sequence['outputs.DeviceRequestPatch']] = None):
         """
         DeviceClaim defines how to request devices with a ResourceClaim.
+
         :param Sequence['DeviceClaimConfigurationPatchArgs'] config: This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
         :param Sequence['DeviceConstraintPatchArgs'] constraints: These constraints must be satisfied by the set of devices that get allocated for the claim.
         :param Sequence['DeviceRequestPatchArgs'] requests: Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
@@ -922,6 +938,7 @@ class DeviceClass(dict):
         DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param 'DeviceClassSpecArgs' spec: Spec defines what can be allocated and how to configure it.
                
                This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
@@ -985,6 +1002,7 @@ class DeviceClassConfiguration(dict):
                  opaque: Optional['outputs.OpaqueDeviceConfiguration'] = None):
         """
         DeviceClassConfiguration is used in DeviceClass.
+
         :param 'OpaqueDeviceConfigurationArgs' opaque: Opaque provides driver-specific configuration parameters.
         """
         if opaque is not None:
@@ -1008,6 +1026,7 @@ class DeviceClassConfigurationPatch(dict):
                  opaque: Optional['outputs.OpaqueDeviceConfigurationPatch'] = None):
         """
         DeviceClassConfiguration is used in DeviceClass.
+
         :param 'OpaqueDeviceConfigurationPatchArgs' opaque: Opaque provides driver-specific configuration parameters.
         """
         if opaque is not None:
@@ -1050,6 +1069,7 @@ class DeviceClassSpec(dict):
                  suitable_nodes: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+
         :param Sequence['DeviceClassConfigurationArgs'] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
@@ -1126,6 +1146,7 @@ class DeviceClassSpecPatch(dict):
                  suitable_nodes: Optional['_core.v1.outputs.NodeSelectorPatch'] = None):
         """
         DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
+
         :param Sequence['DeviceClassConfigurationPatchArgs'] config: Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
                
                They are passed to the driver, but are not considered while allocating the claim.
@@ -1201,6 +1222,7 @@ class DeviceConstraint(dict):
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+
         :param _builtins.str match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -1261,6 +1283,7 @@ class DeviceConstraintPatch(dict):
                  requests: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceConstraint must have exactly one field set besides Requests.
+
         :param _builtins.str match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
@@ -1304,6 +1327,7 @@ class DevicePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
+
         :param 'BasicDevicePatchArgs' basic: Basic defines one device instance.
         :param _builtins.str name: Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
         """
@@ -1368,6 +1392,7 @@ class DeviceRequest(dict):
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
 
         A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
+
         :param _builtins.str device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
                
                A class is required. Which classes are available depends on the cluster.
@@ -1483,6 +1508,7 @@ class DeviceRequestAllocationResult(dict):
                  request: _builtins.str):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
+
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
@@ -1546,6 +1572,7 @@ class DeviceRequestAllocationResultPatch(dict):
                  request: Optional[_builtins.str] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
+
         :param _builtins.str device: Device references one device instance via its name in the driver's resource pool. It must be a DNS label.
         :param _builtins.str driver: Driver specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
                
@@ -1640,6 +1667,7 @@ class DeviceRequestPatch(dict):
         DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.
 
         A DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
+
         :param _builtins.bool admin_access: AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
         :param _builtins.str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
                
@@ -1754,6 +1782,7 @@ class DeviceSelector(dict):
                  cel: Optional['outputs.CELDeviceSelector'] = None):
         """
         DeviceSelector must have exactly one field set.
+
         :param 'CELDeviceSelectorArgs' cel: CEL contains a CEL expression for selecting a device.
         """
         if cel is not None:
@@ -1777,6 +1806,7 @@ class DeviceSelectorPatch(dict):
                  cel: Optional['outputs.CELDeviceSelectorPatch'] = None):
         """
         DeviceSelector must have exactly one field set.
+
         :param 'CELDeviceSelectorPatchArgs' cel: CEL contains a CEL expression for selecting a device.
         """
         if cel is not None:
@@ -1820,6 +1850,7 @@ class DeviceTaint(dict):
                  value: Optional[_builtins.str] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+
         :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
@@ -1898,6 +1929,7 @@ class DeviceTaintPatch(dict):
                  value: Optional[_builtins.str] = None):
         """
         The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
+
         :param _builtins.str effect: The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
@@ -1979,6 +2011,7 @@ class DeviceTaintRule(dict):
                  status: Optional['outputs.DeviceTaintRuleStatus'] = None):
         """
         DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+
         :param 'DeviceTaintRuleSpecArgs' spec: Spec specifies the selector and one taint.
                
                Changing the spec automatically increments the metadata.generation number.
@@ -2067,6 +2100,7 @@ class DeviceTaintRuleSpec(dict):
                  device_selector: Optional['outputs.DeviceTaintSelector'] = None):
         """
         DeviceTaintRuleSpec specifies the selector and one taint.
+
         :param 'DeviceTaintArgs' taint: The taint that gets applied to matching devices.
         :param 'DeviceTaintSelectorArgs' device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
         """
@@ -2118,6 +2152,7 @@ class DeviceTaintRuleSpecPatch(dict):
                  taint: Optional['outputs.DeviceTaintPatch'] = None):
         """
         DeviceTaintRuleSpec specifies the selector and one taint.
+
         :param 'DeviceTaintSelectorPatchArgs' device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
         :param 'DeviceTaintPatchArgs' taint: The taint that gets applied to matching devices.
         """
@@ -2152,6 +2187,7 @@ class DeviceTaintRuleStatus(dict):
                  conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
         """
         DeviceTaintRuleStatus provides information about an on-going pod eviction.
+
         :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
                
                The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
@@ -2193,6 +2229,7 @@ class DeviceTaintRuleStatusPatch(dict):
                  conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None):
         """
         DeviceTaintRuleStatus provides information about an on-going pod eviction.
+
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
                
                The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
@@ -2236,6 +2273,7 @@ class DeviceTaintSelector(dict):
                  pool: Optional[_builtins.str] = None):
         """
         DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+
         :param _builtins.str device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
                
                Setting also driver and pool may be required to avoid ambiguity, but is not required.
@@ -2291,6 +2329,7 @@ class DeviceTaintSelectorPatch(dict):
                  pool: Optional[_builtins.str] = None):
         """
         DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+
         :param _builtins.str device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
                
                Setting also driver and pool may be required to avoid ambiguity, but is not required.
@@ -2345,6 +2384,7 @@ class OpaqueDeviceConfiguration(dict):
                  parameters: Any):
         """
         OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+
         :param _builtins.str driver: Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
@@ -2386,6 +2426,7 @@ class OpaqueDeviceConfigurationPatch(dict):
                  parameters: Optional[Any] = None):
         """
         OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+
         :param _builtins.str driver: Driver is used to determine which kubelet plugin needs to be passed these configuration parameters.
                
                An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
@@ -2453,6 +2494,7 @@ class PodSchedulingContext(dict):
         PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 
         This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
+
         :param 'PodSchedulingContextSpecArgs' spec: Spec describes where resources for the Pod are needed.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2539,6 +2581,7 @@ class PodSchedulingContextSpec(dict):
                  selected_node: Optional[_builtins.str] = None):
         """
         PodSchedulingContextSpec describes where resources for the Pod are needed.
+
         :param Sequence[_builtins.str] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
@@ -2597,6 +2640,7 @@ class PodSchedulingContextSpecPatch(dict):
                  selected_node: Optional[_builtins.str] = None):
         """
         PodSchedulingContextSpec describes where resources for the Pod are needed.
+
         :param Sequence[_builtins.str] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
@@ -2652,6 +2696,7 @@ class PodSchedulingContextStatus(dict):
                  resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatus']] = None):
         """
         PodSchedulingContextStatus describes where resources for the Pod can be allocated.
+
         :param Sequence['ResourceClaimSchedulingStatusArgs'] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
         if resource_claims is not None:
@@ -2692,6 +2737,7 @@ class PodSchedulingContextStatusPatch(dict):
                  resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatusPatch']] = None):
         """
         PodSchedulingContextStatus describes where resources for the Pod can be allocated.
+
         :param Sequence['ResourceClaimSchedulingStatusPatchArgs'] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
         if resource_claims is not None:
@@ -2740,6 +2786,7 @@ class ResourceClaim(dict):
         ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param 'ResourceClaimSpecArgs' spec: Spec describes what is being requested and how to configure it. The spec is immutable.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2826,6 +2873,7 @@ class ResourceClaimConsumerReference(dict):
                  api_group: Optional[_builtins.str] = None):
         """
         ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str resource: Resource is the type of resource being referenced, for example "pods".
         :param _builtins.str uid: UID identifies exactly one incarnation of the resource.
@@ -2899,6 +2947,7 @@ class ResourceClaimConsumerReferencePatch(dict):
                  uid: Optional[_builtins.str] = None):
         """
         ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str resource: Resource is the type of resource being referenced, for example "pods".
@@ -2973,6 +3022,7 @@ class ResourceClaimSchedulingStatus(dict):
                  unsuitable_nodes: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+
         :param _builtins.str name: Name matches the pod.spec.resourceClaims[*].Name field.
         :param Sequence[_builtins.str] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
                
@@ -3028,6 +3078,7 @@ class ResourceClaimSchedulingStatusPatch(dict):
                  unsuitable_nodes: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+
         :param _builtins.str name: Name matches the pod.spec.resourceClaims[*].Name field.
         :param Sequence[_builtins.str] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
                
@@ -3067,6 +3118,7 @@ class ResourceClaimSpec(dict):
                  devices: Optional['outputs.DeviceClaim'] = None):
         """
         ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+
         :param _builtins.str controller: Controller is the name of the DRA driver that is meant to handle allocation of this claim. If empty, allocation is handled by the scheduler while scheduling a pod.
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
@@ -3110,6 +3162,7 @@ class ResourceClaimSpecPatch(dict):
                  devices: Optional['outputs.DeviceClaimPatch'] = None):
         """
         ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+
         :param _builtins.str controller: Controller is the name of the DRA driver that is meant to handle allocation of this claim. If empty, allocation is handled by the scheduler while scheduling a pod.
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
@@ -3173,6 +3226,7 @@ class ResourceClaimStatus(dict):
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReference']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+
         :param 'AllocationResultArgs' allocation: Allocation is set once the claim has been allocated successfully.
         :param _builtins.bool deallocation_requested: Indicates that a claim is to be deallocated. While this is set, no new consumers may be added to ReservedFor.
                
@@ -3259,6 +3313,7 @@ class ResourceClaimStatusPatch(dict):
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReferencePatch']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+
         :param 'AllocationResultPatchArgs' allocation: Allocation is set once the claim has been allocated successfully.
         :param _builtins.bool deallocation_requested: Indicates that a claim is to be deallocated. While this is set, no new consumers may be added to ReservedFor.
                
@@ -3348,6 +3403,7 @@ class ResourceClaimTemplate(dict):
         ResourceClaimTemplate is used to produce ResourceClaim objects.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param 'ResourceClaimTemplateSpecArgs' spec: Describes the ResourceClaim that is to be generated.
                
                This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
@@ -3408,6 +3464,7 @@ class ResourceClaimTemplateSpec(dict):
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param 'ResourceClaimSpecArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         :param '_meta.v1.ObjectMetaArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         """
@@ -3442,6 +3499,7 @@ class ResourceClaimTemplateSpecPatch(dict):
                  spec: Optional['outputs.ResourceClaimSpecPatch'] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param '_meta.v1.ObjectMetaPatchArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         :param 'ResourceClaimSpecPatchArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         """
@@ -3495,6 +3553,7 @@ class ResourcePool(dict):
                  resource_slice_count: _builtins.int):
         """
         ResourcePool describes the pool that ResourceSlices belong to.
+
         :param _builtins.int generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
@@ -3568,6 +3627,7 @@ class ResourcePoolPatch(dict):
                  resource_slice_count: Optional[_builtins.int] = None):
         """
         ResourcePool describes the pool that ResourceSlices belong to.
+
         :param _builtins.int generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
@@ -3651,6 +3711,7 @@ class ResourceSliceSpec(dict):
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+
         :param _builtins.str driver: Driver identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
                
                Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
@@ -3781,6 +3842,7 @@ class ResourceSliceSpecPatch(dict):
                  pool: Optional['outputs.ResourcePoolPatch'] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+
         :param _builtins.bool all_nodes: AllNodes indicates that all nodes have access to the resources in the pool.
                
                Exactly one of NodeName, NodeSelector and AllNodes must be set.

@@ -30,6 +30,7 @@ class ResourceClaimParametersInitArgs:
                  shareable: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ResourceClaimParameters resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['DriverRequestsArgs']]] driver_requests: DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
                
@@ -143,6 +144,7 @@ class ResourceClaimParameters(pulumi.CustomResource):
         """
         ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -162,6 +164,7 @@ class ResourceClaimParameters(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+
 
         :param str resource_name: The name of the resource.
         :param ResourceClaimParametersInitArgs args: The arguments to use to populate this resource's properties.

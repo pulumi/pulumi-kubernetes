@@ -25,6 +25,7 @@ class DirectoryArgs:
                  skip_await: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Directory resource.
+
         :param pulumi.Input[_builtins.str] directory: The directory containing the kustomization to apply. The value can be a local directory or a folder in a
                git repository.
                Example: ./helloWorld
@@ -127,6 +128,7 @@ class Directory(pulumi.ComponentResource):
         )
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] directory: The directory containing the kustomization to apply. The value can be a local directory or a folder in a
@@ -165,6 +167,7 @@ class Directory(pulumi.ComponentResource):
             directory="https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld",
         )
         ```
+
 
         :param str resource_name: The name of the resource.
         :param DirectoryArgs args: The arguments to use to populate this resource's properties.

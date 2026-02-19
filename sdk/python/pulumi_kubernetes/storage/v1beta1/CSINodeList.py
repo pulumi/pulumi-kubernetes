@@ -28,6 +28,7 @@ class CSINodeListArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a CSINodeList resource.
+
         :param pulumi.Input[Sequence[pulumi.Input['CSINodeArgs']]] items: items is the list of CSINode
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -104,6 +105,7 @@ class CSINodeList(pulumi.CustomResource):
         """
         CSINodeList is a collection of CSINode objects.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -119,6 +121,7 @@ class CSINodeList(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSINodeList is a collection of CSINode objects.
+
 
         :param str resource_name: The name of the resource.
         :param CSINodeListArgs args: The arguments to use to populate this resource's properties.

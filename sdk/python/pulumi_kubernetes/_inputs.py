@@ -56,6 +56,7 @@ class HelmReleaseSettingsArgs:
                  repository_config_path: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Options to configure the Helm Release resource.
+
         :param pulumi.Input[_builtins.str] driver: The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
         :param pulumi.Input[_builtins.str] plugins_path: The path to the helm plugins directory.
         :param pulumi.Input[_builtins.str] registry_config_path: The path to the registry config file.
@@ -169,6 +170,7 @@ class KubeClientSettingsArgs:
                  timeout: Optional[pulumi.Input[_builtins.int]] = None):
         """
         Options for tuning the Kubernetes client used by a Provider.
+
         :param pulumi.Input[_builtins.int] burst: Maximum burst for throttle. Default value is 120.
         :param pulumi.Input[_builtins.float] qps: Maximum queries per second (QPS) to the API server from this client. Default value is 50.
         :param pulumi.Input[_builtins.int] timeout: Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.

@@ -79,6 +79,7 @@ class Event(dict):
                  type: Optional[_builtins.str] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+
         :param _builtins.str event_time: Required. Time when this Event was first observed.
         :param _builtins.str action: What action was taken/failed regarding to the regarding object.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -292,6 +293,7 @@ class EventSeries(dict):
                  state: _builtins.str):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
         :param _builtins.int count: Number of occurrences in this series up to the last heartbeat time
         :param _builtins.str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param _builtins.str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
@@ -353,6 +355,7 @@ class EventSeriesPatch(dict):
                  state: Optional[_builtins.str] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+
         :param _builtins.int count: Number of occurrences in this series up to the last heartbeat time
         :param _builtins.str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param _builtins.str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18

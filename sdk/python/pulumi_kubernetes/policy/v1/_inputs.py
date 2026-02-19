@@ -64,6 +64,7 @@ class PodDisruptionBudgetSpecPatchArgs:
                  unhealthy_pod_eviction_policy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
@@ -181,6 +182,7 @@ class PodDisruptionBudgetSpecArgs:
                  unhealthy_pod_eviction_policy: Optional[pulumi.Input[_builtins.str]] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
@@ -313,6 +315,7 @@ class PodDisruptionBudgetStatusArgs:
                  observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+
         :param pulumi.Input[_builtins.int] current_healthy: current number of healthy pods
         :param pulumi.Input[_builtins.int] desired_healthy: minimum desired number of healthy pods
         :param pulumi.Input[_builtins.int] disruptions_allowed: Number of pod disruptions that are currently allowed.
@@ -468,6 +471,7 @@ class PodDisruptionBudgetArgs:
                  status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

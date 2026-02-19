@@ -52,6 +52,7 @@ class PodPreset(dict):
                  spec: Optional['outputs.PodPresetSpec'] = None):
         """
         PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -123,6 +124,7 @@ class PodPresetSpec(dict):
                  volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
         :param Sequence['_core.v1.EnvVarArgs'] env: Env defines the collection of EnvVar to inject into containers.
         :param Sequence['_core.v1.EnvFromSourceArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.
@@ -213,6 +215,7 @@ class PodPresetSpecPatch(dict):
                  volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None):
         """
         PodPresetSpec is a description of a pod preset.
+
         :param Sequence['_core.v1.EnvVarPatchArgs'] env: Env defines the collection of EnvVar to inject into containers.
         :param Sequence['_core.v1.EnvFromSourcePatchArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.

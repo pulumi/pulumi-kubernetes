@@ -78,6 +78,7 @@ class CertificateSigningRequestConditionArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
+
         :param pulumi.Input[_builtins.str] status: status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown".
         :param pulumi.Input[_builtins.str] type: type of the condition. Known conditions are "Approved", "Denied", and "Failed".
                
@@ -283,6 +284,7 @@ class CertificateSigningRequestSpecPatchArgs:
                  username: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
+
         :param pulumi.Input[_builtins.int] expiration_seconds: expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
                
                The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
@@ -588,6 +590,7 @@ class CertificateSigningRequestSpecArgs:
                  username: Optional[pulumi.Input[_builtins.str]] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
+
         :param pulumi.Input[_builtins.str] request: request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
         :param pulumi.Input[_builtins.str] signer_name: signerName indicates the requested signer, and is a qualified name.
                
@@ -838,6 +841,7 @@ class CertificateSigningRequestStatusArgs:
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
         CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
+
         :param pulumi.Input[_builtins.str] certificate: certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
                
                If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
@@ -957,6 +961,7 @@ class CertificateSigningRequestArgs:
          2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
 
         This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
+
         :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds

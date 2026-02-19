@@ -54,6 +54,7 @@ class StorageVersionMigration(dict):
                  status: Optional['outputs.StorageVersionMigrationStatus'] = None):
         """
         StorageVersionMigration represents a migration of stored data to the latest storage version.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -121,6 +122,7 @@ class StorageVersionMigrationSpec(dict):
                  resource: '_meta.v1.outputs.GroupResource'):
         """
         Spec of the storage version migration.
+
         :param '_meta.v1.GroupResourceArgs' resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
         pulumi.set(__self__, "resource", resource)
@@ -143,6 +145,7 @@ class StorageVersionMigrationSpecPatch(dict):
                  resource: Optional['_meta.v1.outputs.GroupResourcePatch'] = None):
         """
         Spec of the storage version migration.
+
         :param '_meta.v1.GroupResourcePatchArgs' resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
         if resource is not None:
@@ -184,6 +187,7 @@ class StorageVersionMigrationStatus(dict):
                  resource_version: Optional[_builtins.str] = None):
         """
         Status of the storage version migration.
+
         :param Sequence['_meta.v1.ConditionArgs'] conditions: The latest available observations of the migration's current state.
         :param _builtins.str resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
         """
@@ -236,6 +240,7 @@ class StorageVersionMigrationStatusPatch(dict):
                  resource_version: Optional[_builtins.str] = None):
         """
         Status of the storage version migration.
+
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: The latest available observations of the migration's current state.
         :param _builtins.str resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
         """

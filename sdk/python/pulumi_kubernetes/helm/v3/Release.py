@@ -58,6 +58,7 @@ class ReleaseArgs:
                  wait_for_jobs: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Release resource.
+
         :param pulumi.Input[_builtins.str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[_builtins.bool] allow_null_values: Whether to allow Null values in helm chart configs.
         :param pulumi.Input[_builtins.bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
@@ -788,6 +789,7 @@ class Release(pulumi.CustomResource):
         $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_null_values: Whether to allow Null values in helm chart configs.
@@ -995,6 +997,7 @@ class Release(pulumi.CustomResource):
         ```sh
         $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ReleaseArgs args: The arguments to use to populate this resource's properties.

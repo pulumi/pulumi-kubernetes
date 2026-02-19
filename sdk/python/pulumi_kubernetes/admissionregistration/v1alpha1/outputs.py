@@ -68,6 +68,7 @@ class ApplyConfiguration(dict):
                  expression: Optional[_builtins.str] = None):
         """
         ApplyConfiguration defines the desired configuration values of an object.
+
         :param _builtins.str expression: expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
                
                Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
@@ -145,6 +146,7 @@ class ApplyConfigurationPatch(dict):
                  expression: Optional[_builtins.str] = None):
         """
         ApplyConfiguration defines the desired configuration values of an object.
+
         :param _builtins.str expression: expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
                
                Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
@@ -240,6 +242,7 @@ class AuditAnnotation(dict):
                  value_expression: _builtins.str):
         """
         AuditAnnotation describes how to produce an audit annotation for an API request.
+
         :param _builtins.str key: key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
                
                The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
@@ -310,6 +313,7 @@ class AuditAnnotationPatch(dict):
                  value_expression: Optional[_builtins.str] = None):
         """
         AuditAnnotation describes how to produce an audit annotation for an API request.
+
         :param _builtins.str key: key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
                
                The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
@@ -382,6 +386,7 @@ class ExpressionWarning(dict):
                  warning: _builtins.str):
         """
         ExpressionWarning is a warning information that targets a specific expression.
+
         :param _builtins.str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
         :param _builtins.str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
         """
@@ -432,6 +437,7 @@ class ExpressionWarningPatch(dict):
                  warning: Optional[_builtins.str] = None):
         """
         ExpressionWarning is a warning information that targets a specific expression.
+
         :param _builtins.str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
         :param _builtins.str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
         """
@@ -466,6 +472,7 @@ class JSONPatch(dict):
                  expression: Optional[_builtins.str] = None):
         """
         JSONPatch defines a JSON Patch.
+
         :param _builtins.str expression: expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
                
                expression must return an array of JSONPatch values.
@@ -595,6 +602,7 @@ class JSONPatchPatch(dict):
                  expression: Optional[_builtins.str] = None):
         """
         JSONPatch defines a JSON Patch.
+
         :param _builtins.str expression: expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
                
                expression must return an array of JSONPatch values.
@@ -853,6 +861,7 @@ class MatchResources(dict):
                  resource_rules: Optional[Sequence['outputs.NamedRuleWithOperations']] = None):
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+
         :param Sequence['NamedRuleWithOperationsArgs'] exclude_resource_rules: ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         :param _builtins.str match_policy: matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
@@ -1021,6 +1030,7 @@ class MatchResourcesPatch(dict):
                  resource_rules: Optional[Sequence['outputs.NamedRuleWithOperationsPatch']] = None):
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+
         :param Sequence['NamedRuleWithOperationsPatchArgs'] exclude_resource_rules: ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         :param _builtins.str match_policy: matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
@@ -1180,6 +1190,7 @@ class MutatingAdmissionPolicy(dict):
                  spec: Optional['outputs.MutatingAdmissionPolicySpec'] = None):
         """
         MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -1264,6 +1275,7 @@ class MutatingAdmissionPolicyBinding(dict):
         For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
 
         Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -1343,6 +1355,7 @@ class MutatingAdmissionPolicyBindingSpec(dict):
                  policy_name: Optional[_builtins.str] = None):
         """
         MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+
         :param 'MatchResourcesArgs' match_resources: matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
         :param 'ParamRefArgs' param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         :param _builtins.str policy_name: policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
@@ -1411,6 +1424,7 @@ class MutatingAdmissionPolicyBindingSpecPatch(dict):
                  policy_name: Optional[_builtins.str] = None):
         """
         MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+
         :param 'MatchResourcesPatchArgs' match_resources: matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
         :param 'ParamRefPatchArgs' param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         :param _builtins.str policy_name: policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
@@ -1487,6 +1501,7 @@ class MutatingAdmissionPolicySpec(dict):
                  variables: Optional[Sequence['outputs.Variable']] = None):
         """
         MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+
         :param _builtins.str failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
                
                A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
@@ -1649,6 +1664,7 @@ class MutatingAdmissionPolicySpecPatch(dict):
                  variables: Optional[Sequence['outputs.VariablePatch']] = None):
         """
         MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
+
         :param _builtins.str failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
                
                A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
@@ -1803,6 +1819,7 @@ class Mutation(dict):
                  json_patch: Optional['outputs.JSONPatch'] = None):
         """
         Mutation specifies the CEL expression which is used to apply the Mutation.
+
         :param _builtins.str patch_type: patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
         :param 'ApplyConfigurationArgs' apply_configuration: applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
         :param 'JSONPatchArgs' json_patch: jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
@@ -1870,6 +1887,7 @@ class MutationPatch(dict):
                  patch_type: Optional[_builtins.str] = None):
         """
         Mutation specifies the CEL expression which is used to apply the Mutation.
+
         :param 'ApplyConfigurationPatchArgs' apply_configuration: applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
         :param 'JSONPatchPatchArgs' json_patch: jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
         :param _builtins.str patch_type: patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
@@ -1941,6 +1959,7 @@ class NamedRuleWithOperations(dict):
                  scope: Optional[_builtins.str] = None):
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+
         :param Sequence[_builtins.str] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         :param Sequence[_builtins.str] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         :param Sequence[_builtins.str] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
@@ -2057,6 +2076,7 @@ class NamedRuleWithOperationsPatch(dict):
                  scope: Optional[_builtins.str] = None):
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+
         :param Sequence[_builtins.str] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         :param Sequence[_builtins.str] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         :param Sequence[_builtins.str] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
@@ -2165,6 +2185,7 @@ class ParamKind(dict):
                  kind: Optional[_builtins.str] = None):
         """
         ParamKind is a tuple of Group Kind and Version.
+
         :param _builtins.str api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
         :param _builtins.str kind: Kind is the API kind the resources belong to. Required.
         """
@@ -2217,6 +2238,7 @@ class ParamKindPatch(dict):
                  kind: Optional[_builtins.str] = None):
         """
         ParamKind is a tuple of Group Kind and Version.
+
         :param _builtins.str api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
         :param _builtins.str kind: Kind is the API kind the resources belong to. Required.
         """
@@ -2271,6 +2293,7 @@ class ParamRef(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+
         :param _builtins.str name: `name` is the name of the resource being referenced.
                
                `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
@@ -2375,6 +2398,7 @@ class ParamRefPatch(dict):
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+
         :param _builtins.str name: `name` is the name of the resource being referenced.
                
                `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
@@ -2476,6 +2500,7 @@ class TypeChecking(dict):
                  expression_warnings: Optional[Sequence['outputs.ExpressionWarning']] = None):
         """
         TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+
         :param Sequence['ExpressionWarningArgs'] expression_warnings: The type checking warnings for each expression.
         """
         if expression_warnings is not None:
@@ -2516,6 +2541,7 @@ class TypeCheckingPatch(dict):
                  expression_warnings: Optional[Sequence['outputs.ExpressionWarningPatch']] = None):
         """
         TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+
         :param Sequence['ExpressionWarningPatchArgs'] expression_warnings: The type checking warnings for each expression.
         """
         if expression_warnings is not None:
@@ -2560,6 +2586,7 @@ class ValidatingAdmissionPolicy(dict):
                  status: Optional['outputs.ValidatingAdmissionPolicyStatus'] = None):
         """
         ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -2647,6 +2674,7 @@ class ValidatingAdmissionPolicyBinding(dict):
                  spec: Optional['outputs.ValidatingAdmissionPolicyBindingSpec'] = None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -2729,6 +2757,7 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
                  validation_actions: Optional[Sequence[_builtins.str]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+
         :param 'MatchResourcesArgs' match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         :param 'ParamRefArgs' param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param _builtins.str policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
@@ -2847,6 +2876,7 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
                  validation_actions: Optional[Sequence[_builtins.str]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+
         :param 'MatchResourcesPatchArgs' match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         :param 'ParamRefPatchArgs' param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param _builtins.str policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
@@ -2970,6 +3000,7 @@ class ValidatingAdmissionPolicySpec(dict):
                  variables: Optional[Sequence['outputs.Variable']] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+
         :param Sequence['ValidationArgs'] validations: Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         :param Sequence['AuditAnnotationArgs'] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
         :param _builtins.str failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
@@ -3111,6 +3142,7 @@ class ValidatingAdmissionPolicySpecPatch(dict):
                  variables: Optional[Sequence['outputs.VariablePatch']] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+
         :param Sequence['AuditAnnotationPatchArgs'] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
         :param _builtins.str failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         :param Sequence['MatchConditionPatchArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
@@ -3243,6 +3275,7 @@ class ValidatingAdmissionPolicyStatus(dict):
                  type_checking: Optional['outputs.TypeChecking'] = None):
         """
         ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+
         :param Sequence['_meta.v1.ConditionArgs'] conditions: The conditions represent the latest available observations of a policy's current state.
         :param _builtins.int observed_generation: The generation observed by the controller.
         :param 'TypeCheckingArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
@@ -3309,6 +3342,7 @@ class ValidatingAdmissionPolicyStatusPatch(dict):
                  type_checking: Optional['outputs.TypeCheckingPatch'] = None):
         """
         ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+
         :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: The conditions represent the latest available observations of a policy's current state.
         :param _builtins.int observed_generation: The generation observed by the controller.
         :param 'TypeCheckingPatchArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
@@ -3374,6 +3408,7 @@ class Validation(dict):
                  reason: Optional[_builtins.str] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
+
         :param _builtins.str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
                
                'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
@@ -3489,6 +3524,7 @@ class ValidationPatch(dict):
                  reason: Optional[_builtins.str] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
+
         :param _builtins.str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
                
                'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
@@ -3586,6 +3622,7 @@ class Variable(dict):
                  name: _builtins.str):
         """
         Variable is the definition of a variable that is used for composition.
+
         :param _builtins.str expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         :param _builtins.str name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
@@ -3619,6 +3656,7 @@ class VariablePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         Variable is the definition of a variable that is used for composition.
+
         :param _builtins.str expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         :param _builtins.str name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """

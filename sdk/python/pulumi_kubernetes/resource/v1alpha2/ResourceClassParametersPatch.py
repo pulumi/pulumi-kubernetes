@@ -30,6 +30,7 @@ class ResourceClassParametersPatchArgs:
                  vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input['VendorParametersPatchArgs']]]] = None):
         """
         The set of arguments for constructing a ResourceClassParametersPatch resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['ResourceFilterPatchArgs']]] filters: Filters describes additional contraints that must be met when using the class.
         :param pulumi.Input['ResourceClassParametersReferencePatchArgs'] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
@@ -145,6 +146,7 @@ class ResourceClassParametersPatch(pulumi.CustomResource):
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -168,6 +170,7 @@ class ResourceClassParametersPatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+
 
         :param str resource_name: The name of the resource.
         :param ResourceClassParametersPatchArgs args: The arguments to use to populate this resource's properties.

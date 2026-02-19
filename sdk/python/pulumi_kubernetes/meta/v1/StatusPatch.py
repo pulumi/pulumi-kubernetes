@@ -30,6 +30,7 @@ class StatusPatchArgs:
                  reason: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a StatusPatch resource.
+
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.int] code: Suggested HTTP return code for this status, 0 if not set.
         :param pulumi.Input['StatusDetailsPatchArgs'] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
@@ -161,6 +162,7 @@ class StatusPatch(pulumi.CustomResource):
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Status is a return value for calls that don't return other objects.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -185,6 +187,7 @@ class StatusPatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Status is a return value for calls that don't return other objects.
+
 
         :param str resource_name: The name of the resource.
         :param StatusPatchArgs args: The arguments to use to populate this resource's properties.

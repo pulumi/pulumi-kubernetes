@@ -26,6 +26,7 @@ class ConfigGroupArgs:
                  yaml: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a ConfigGroup resource.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         :param pulumi.Input[Sequence[Any]] objs: Objects representing Kubernetes resource configurations.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
@@ -216,6 +217,7 @@ class ConfigGroup(pulumi.ComponentResource):
         ```
         {% /examples %}}
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
@@ -329,6 +331,7 @@ class ConfigGroup(pulumi.ComponentResource):
         )
         ```
         {% /examples %}}
+
 
         :param str resource_name: The name of the resource.
         :param ConfigGroupArgs args: The arguments to use to populate this resource's properties.

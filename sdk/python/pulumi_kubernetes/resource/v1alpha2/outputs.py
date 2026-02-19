@@ -107,6 +107,7 @@ class AllocationResult(dict):
                  shareable: Optional[_builtins.bool] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+
         :param '_core.v1.NodeSelectorArgs' available_on_nodes: This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
                
                Setting this field is optional. If null, the resource is available everywhere.
@@ -181,6 +182,7 @@ class AllocationResultPatch(dict):
                  shareable: Optional[_builtins.bool] = None):
         """
         AllocationResult contains attributes of an allocated resource.
+
         :param '_core.v1.NodeSelectorPatchArgs' available_on_nodes: This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
                
                Setting this field is optional. If null, the resource is available everywhere.
@@ -254,6 +256,7 @@ class DriverAllocationResult(dict):
                  vendor_request_parameters: Optional[Any] = None):
         """
         DriverAllocationResult contains vendor parameters and the allocation result for one request.
+
         :param 'NamedResourcesAllocationResultArgs' named_resources: NamedResources describes the allocation result when using the named resources model.
         :param Any vendor_request_parameters: VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
         """
@@ -308,6 +311,7 @@ class DriverAllocationResultPatch(dict):
                  vendor_request_parameters: Optional[Any] = None):
         """
         DriverAllocationResult contains vendor parameters and the allocation result for one request.
+
         :param 'NamedResourcesAllocationResultPatchArgs' named_resources: NamedResources describes the allocation result when using the named resources model.
         :param Any vendor_request_parameters: VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
         """
@@ -363,6 +367,7 @@ class DriverRequests(dict):
                  vendor_parameters: Optional[Any] = None):
         """
         DriverRequests describes all resources that are needed from one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param Sequence['ResourceRequestArgs'] requests: Requests describes all resources that are needed from the driver.
         :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
@@ -429,6 +434,7 @@ class DriverRequestsPatch(dict):
                  vendor_parameters: Optional[Any] = None):
         """
         DriverRequests describes all resources that are needed from one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param Sequence['ResourceRequestPatchArgs'] requests: Requests describes all resources that are needed from the driver.
         :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
@@ -474,6 +480,7 @@ class NamedResourcesAllocationResult(dict):
                  name: _builtins.str):
         """
         NamedResourcesAllocationResult is used in AllocationResultModel.
+
         :param _builtins.str name: Name is the name of the selected resource instance.
         """
         pulumi.set(__self__, "name", name)
@@ -496,6 +503,7 @@ class NamedResourcesAllocationResultPatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         NamedResourcesAllocationResult is used in AllocationResultModel.
+
         :param _builtins.str name: Name is the name of the selected resource instance.
         """
         if name is not None:
@@ -545,6 +553,7 @@ class NamedResourcesAttribute(dict):
                  version: Optional[_builtins.str] = None):
         """
         NamedResourcesAttribute is a combination of an attribute name and its value.
+
         :param _builtins.str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
         :param _builtins.bool bool: BoolValue is a true/false value.
         :param _builtins.int int: IntValue is a 64-bit integer.
@@ -670,6 +679,7 @@ class NamedResourcesAttributePatch(dict):
                  version: Optional[_builtins.str] = None):
         """
         NamedResourcesAttribute is a combination of an attribute name and its value.
+
         :param _builtins.bool bool: BoolValue is a true/false value.
         :param _builtins.int int: IntValue is a 64-bit integer.
         :param 'NamedResourcesIntSlicePatchArgs' int_slice: IntSliceValue is an array of 64-bit integers.
@@ -770,6 +780,7 @@ class NamedResourcesFilter(dict):
                  selector: _builtins.str):
         """
         NamedResourcesFilter is used in ResourceFilterModel.
+
         :param _builtins.str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
                
                In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
@@ -802,6 +813,7 @@ class NamedResourcesFilterPatch(dict):
                  selector: Optional[_builtins.str] = None):
         """
         NamedResourcesFilter is used in ResourceFilterModel.
+
         :param _builtins.str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
                
                In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
@@ -836,6 +848,7 @@ class NamedResourcesInstance(dict):
                  attributes: Optional[Sequence['outputs.NamedResourcesAttribute']] = None):
         """
         NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+
         :param _builtins.str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
         :param Sequence['NamedResourcesAttributeArgs'] attributes: Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
         """
@@ -870,6 +883,7 @@ class NamedResourcesInstancePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+
         :param Sequence['NamedResourcesAttributePatchArgs'] attributes: Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
         :param _builtins.str name: Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
         """
@@ -904,6 +918,7 @@ class NamedResourcesIntSlice(dict):
                  ints: Sequence[_builtins.int]):
         """
         NamedResourcesIntSlice contains a slice of 64-bit integers.
+
         :param Sequence[_builtins.int] ints: Ints is the slice of 64-bit integers.
         """
         pulumi.set(__self__, "ints", ints)
@@ -926,6 +941,7 @@ class NamedResourcesIntSlicePatch(dict):
                  ints: Optional[Sequence[_builtins.int]] = None):
         """
         NamedResourcesIntSlice contains a slice of 64-bit integers.
+
         :param Sequence[_builtins.int] ints: Ints is the slice of 64-bit integers.
         """
         if ints is not None:
@@ -949,6 +965,7 @@ class NamedResourcesRequest(dict):
                  selector: _builtins.str):
         """
         NamedResourcesRequest is used in ResourceRequestModel.
+
         :param _builtins.str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
                
                In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
@@ -981,6 +998,7 @@ class NamedResourcesRequestPatch(dict):
                  selector: Optional[_builtins.str] = None):
         """
         NamedResourcesRequest is used in ResourceRequestModel.
+
         :param _builtins.str selector: Selector is a CEL expression which must evaluate to true if a resource instance is suitable. The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/
                
                In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of the instance under evaluation. For example:
@@ -1014,6 +1032,7 @@ class NamedResourcesResources(dict):
                  instances: Sequence['outputs.NamedResourcesInstance']):
         """
         NamedResourcesResources is used in ResourceModel.
+
         :param Sequence['NamedResourcesInstanceArgs'] instances: The list of all individual resources instances currently available.
         """
         pulumi.set(__self__, "instances", instances)
@@ -1036,6 +1055,7 @@ class NamedResourcesResourcesPatch(dict):
                  instances: Optional[Sequence['outputs.NamedResourcesInstancePatch']] = None):
         """
         NamedResourcesResources is used in ResourceModel.
+
         :param Sequence['NamedResourcesInstancePatchArgs'] instances: The list of all individual resources instances currently available.
         """
         if instances is not None:
@@ -1059,6 +1079,7 @@ class NamedResourcesStringSlice(dict):
                  strings: Sequence[_builtins.str]):
         """
         NamedResourcesStringSlice contains a slice of strings.
+
         :param Sequence[_builtins.str] strings: Strings is the slice of strings.
         """
         pulumi.set(__self__, "strings", strings)
@@ -1081,6 +1102,7 @@ class NamedResourcesStringSlicePatch(dict):
                  strings: Optional[Sequence[_builtins.str]] = None):
         """
         NamedResourcesStringSlice contains a slice of strings.
+
         :param Sequence[_builtins.str] strings: Strings is the slice of strings.
         """
         if strings is not None:
@@ -1129,6 +1151,7 @@ class PodSchedulingContext(dict):
         PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param 'PodSchedulingContextSpecArgs' spec: Spec describes where resources for the Pod are needed.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1215,6 +1238,7 @@ class PodSchedulingContextSpec(dict):
                  selected_node: Optional[_builtins.str] = None):
         """
         PodSchedulingContextSpec describes where resources for the Pod are needed.
+
         :param Sequence[_builtins.str] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
@@ -1273,6 +1297,7 @@ class PodSchedulingContextSpecPatch(dict):
                  selected_node: Optional[_builtins.str] = None):
         """
         PodSchedulingContextSpec describes where resources for the Pod are needed.
+
         :param Sequence[_builtins.str] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
@@ -1328,6 +1353,7 @@ class PodSchedulingContextStatus(dict):
                  resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatus']] = None):
         """
         PodSchedulingContextStatus describes where resources for the Pod can be allocated.
+
         :param Sequence['ResourceClaimSchedulingStatusArgs'] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
         if resource_claims is not None:
@@ -1368,6 +1394,7 @@ class PodSchedulingContextStatusPatch(dict):
                  resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatusPatch']] = None):
         """
         PodSchedulingContextStatus describes where resources for the Pod can be allocated.
+
         :param Sequence['ResourceClaimSchedulingStatusPatchArgs'] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
         if resource_claims is not None:
@@ -1416,6 +1443,7 @@ class ResourceClaim(dict):
         ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param 'ResourceClaimSpecArgs' spec: Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1502,6 +1530,7 @@ class ResourceClaimConsumerReference(dict):
                  api_group: Optional[_builtins.str] = None):
         """
         ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str resource: Resource is the type of resource being referenced, for example "pods".
         :param _builtins.str uid: UID identifies exactly one incarnation of the resource.
@@ -1575,6 +1604,7 @@ class ResourceClaimConsumerReferencePatch(dict):
                  uid: Optional[_builtins.str] = None):
         """
         ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str resource: Resource is the type of resource being referenced, for example "pods".
@@ -1657,6 +1687,7 @@ class ResourceClaimParameters(dict):
                  shareable: Optional[_builtins.bool] = None):
         """
         ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Sequence['DriverRequestsArgs'] driver_requests: DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
                
@@ -1758,6 +1789,7 @@ class ResourceClaimParametersReference(dict):
                  api_group: Optional[_builtins.str] = None):
         """
         ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+
         :param _builtins.str kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -1820,6 +1852,7 @@ class ResourceClaimParametersReferencePatch(dict):
                  name: Optional[_builtins.str] = None):
         """
         ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         :param _builtins.str kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         :param _builtins.str name: Name is the name of resource being referenced.
@@ -1883,6 +1916,7 @@ class ResourceClaimSchedulingStatus(dict):
                  unsuitable_nodes: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+
         :param _builtins.str name: Name matches the pod.spec.resourceClaims[*].Name field.
         :param Sequence[_builtins.str] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
                
@@ -1939,6 +1973,7 @@ class ResourceClaimSchedulingStatusPatch(dict):
                  unsuitable_nodes: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+
         :param _builtins.str name: Name matches the pod.spec.resourceClaims[*].Name field.
         :param Sequence[_builtins.str] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
                
@@ -2000,6 +2035,7 @@ class ResourceClaimSpec(dict):
                  parameters_ref: Optional['outputs.ResourceClaimParametersReference'] = None):
         """
         ResourceClaimSpec defines how a resource is to be allocated.
+
         :param _builtins.str resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
         :param _builtins.str allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
         :param 'ResourceClaimParametersReferenceArgs' parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
@@ -2071,6 +2107,7 @@ class ResourceClaimSpecPatch(dict):
                  resource_class_name: Optional[_builtins.str] = None):
         """
         ResourceClaimSpec defines how a resource is to be allocated.
+
         :param _builtins.str allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
         :param 'ResourceClaimParametersReferencePatchArgs' parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
                
@@ -2144,6 +2181,7 @@ class ResourceClaimStatus(dict):
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReference']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+
         :param 'AllocationResultArgs' allocation: Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
         :param _builtins.bool deallocation_requested: DeallocationRequested indicates that a ResourceClaim is to be deallocated.
                
@@ -2236,6 +2274,7 @@ class ResourceClaimStatusPatch(dict):
                  reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReferencePatch']] = None):
         """
         ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+
         :param 'AllocationResultPatchArgs' allocation: Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
         :param _builtins.bool deallocation_requested: DeallocationRequested indicates that a ResourceClaim is to be deallocated.
                
@@ -2324,6 +2363,7 @@ class ResourceClaimTemplate(dict):
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
         """
         ResourceClaimTemplate is used to produce ResourceClaim objects.
+
         :param 'ResourceClaimTemplateSpecArgs' spec: Describes the ResourceClaim that is to be generated.
                
                This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
@@ -2384,6 +2424,7 @@ class ResourceClaimTemplateSpec(dict):
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param 'ResourceClaimSpecArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         :param '_meta.v1.ObjectMetaArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         """
@@ -2418,6 +2459,7 @@ class ResourceClaimTemplateSpecPatch(dict):
                  spec: Optional['outputs.ResourceClaimSpecPatch'] = None):
         """
         ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
         :param '_meta.v1.ObjectMetaPatchArgs' metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         :param 'ResourceClaimSpecPatchArgs' spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         """
@@ -2487,6 +2529,7 @@ class ResourceClass(dict):
         ResourceClass is used by administrators to influence how resources are allocated.
 
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+
         :param _builtins.str driver_name: DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
                
                Resource drivers have a unique name in forward domain order (acme.example.com).
@@ -2609,6 +2652,7 @@ class ResourceClassParameters(dict):
                  vendor_parameters: Optional[Sequence['outputs.VendorParameters']] = None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
+
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Sequence['ResourceFilterArgs'] filters: Filters describes additional contraints that must be met when using the class.
         :param 'ResourceClassParametersReferenceArgs' generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
@@ -2707,6 +2751,7 @@ class ResourceClassParametersReference(dict):
                  namespace: Optional[_builtins.str] = None):
         """
         ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+
         :param _builtins.str kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
         :param _builtins.str name: Name is the name of resource being referenced.
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -2781,6 +2826,7 @@ class ResourceClassParametersReferencePatch(dict):
                  namespace: Optional[_builtins.str] = None):
         """
         ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+
         :param _builtins.str api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         :param _builtins.str kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
         :param _builtins.str name: Name is the name of resource being referenced.
@@ -2857,6 +2903,7 @@ class ResourceFilter(dict):
                  named_resources: Optional['outputs.NamedResourcesFilter'] = None):
         """
         ResourceFilter is a filter for resources from one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param 'NamedResourcesFilterArgs' named_resources: NamedResources describes a resource filter using the named resources model.
         """
@@ -2911,6 +2958,7 @@ class ResourceFilterPatch(dict):
                  named_resources: Optional['outputs.NamedResourcesFilterPatch'] = None):
         """
         ResourceFilter is a filter for resources from one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param 'NamedResourcesFilterPatchArgs' named_resources: NamedResources describes a resource filter using the named resources model.
         """
@@ -2966,6 +3014,7 @@ class ResourceHandle(dict):
                  structured_data: Optional['outputs.StructuredResourceHandle'] = None):
         """
         ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
+
         :param _builtins.str data: Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
                
                The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
@@ -3036,6 +3085,7 @@ class ResourceHandlePatch(dict):
                  structured_data: Optional['outputs.StructuredResourceHandlePatch'] = None):
         """
         ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
+
         :param _builtins.str data: Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
                
                The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
@@ -3105,6 +3155,7 @@ class ResourceRequest(dict):
                  vendor_parameters: Optional[Any] = None):
         """
         ResourceRequest is a request for resources from one particular driver.
+
         :param 'NamedResourcesRequestArgs' named_resources: NamedResources describes a request for resources with the named resources model.
         :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
         """
@@ -3159,6 +3210,7 @@ class ResourceRequestPatch(dict):
                  vendor_parameters: Optional[Any] = None):
         """
         ResourceRequest is a request for resources from one particular driver.
+
         :param 'NamedResourcesRequestPatchArgs' named_resources: NamedResources describes a request for resources with the named resources model.
         :param Any vendor_parameters: VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
         """
@@ -3221,6 +3273,7 @@ class ResourceSlice(dict):
                  node_name: Optional[_builtins.str] = None):
         """
         ResourceSlice provides information about available resources on individual nodes.
+
         :param _builtins.str driver_name: DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -3326,6 +3379,7 @@ class StructuredResourceHandle(dict):
                  vendor_class_parameters: Optional[Any] = None):
         """
         StructuredResourceHandle is the in-tree representation of the allocation result.
+
         :param Sequence['DriverAllocationResultArgs'] results: Results lists all allocated driver resources.
         :param _builtins.str node_name: NodeName is the name of the node providing the necessary resources if the resources are local to a node.
         :param Any vendor_claim_parameters: VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
@@ -3405,6 +3459,7 @@ class StructuredResourceHandlePatch(dict):
                  vendor_class_parameters: Optional[Any] = None):
         """
         StructuredResourceHandle is the in-tree representation of the allocation result.
+
         :param _builtins.str node_name: NodeName is the name of the node providing the necessary resources if the resources are local to a node.
         :param Sequence['DriverAllocationResultPatchArgs'] results: Results lists all allocated driver resources.
         :param Any vendor_claim_parameters: VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
@@ -3479,6 +3534,7 @@ class VendorParameters(dict):
                  parameters: Optional[Any] = None):
         """
         VendorParameters are opaque parameters for one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param Any parameters: Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
         """
@@ -3531,6 +3587,7 @@ class VendorParametersPatch(dict):
                  parameters: Optional[Any] = None):
         """
         VendorParameters are opaque parameters for one particular driver.
+
         :param _builtins.str driver_name: DriverName is the name used by the DRA driver kubelet plugin.
         :param Any parameters: Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
         """
