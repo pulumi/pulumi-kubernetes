@@ -24,6 +24,6 @@ import (
 )
 
 func NewSimpleLogClient(ctx context.Context, objects ...runtime.Object) (*clients.LogClient, *kubefake.Clientset) {
-	clientset := kubefake.NewSimpleClientset(objects...)
+	clientset := kubefake.NewClientset(objects...)
 	return clients.NewLogClient(ctx, clientset.CoreV1()), clientset
 }
