@@ -588,10 +588,10 @@ github.com/pulumi/inflector v0.2.1 h1:bqyiish3tq//vLeLiEstSFE5K7RNjy/ce47ed4QATu
 github.com/pulumi/inflector v0.2.1/go.mod h1:HUFCjcPTz96YtTuUlwG3i3EZG4WlniBvR9bd+iJxCUY=
 github.com/pulumi/providertest v0.6.0 h1:ZnefsbhkPE+BpKienHgb38P/6SEtXjjOXGGdMEUIOgk=
 github.com/pulumi/providertest v0.6.0/go.mod h1:OBpIGSQrw1FW9VNaHBtKCRxEoTISvx8JsxECmRqRgRQ=
-github.com/pulumi/pulumi/pkg/v3 v3.221.0 h1:0mfTZOj5RkkOlYhFUgVdRtPX2CIQNUscjcLMQiQKshQ=
-github.com/pulumi/pulumi/pkg/v3 v3.221.0/go.mod h1:qC8yKzKvIvFG0YQ6ElETi52hC0K1xCHjDUST6ZNlkug=
-github.com/pulumi/pulumi/sdk/v3 v3.221.0 h1:2cT5HvWkfT4AV7kpVZGie9U2NI2aSxTxwjBzRd1MqKk=
-github.com/pulumi/pulumi/sdk/v3 v3.221.0/go.mod h1:UGWJOz25OiFIN0QH79UFij8mffH94TYebKUgy9Wvug0=
+github.com/pulumi/pulumi/pkg/v3 v3.222.0 h1:Om20ZsLUqKDfcm6LQg2zZnHqVP7H/iPhxe8m2ZH0Ol0=
+github.com/pulumi/pulumi/pkg/v3 v3.222.0/go.mod h1:N0lcv+SWVj41N4Me8YHLtFy2Vo4iyBMtqqSdBaV5zFg=
+github.com/pulumi/pulumi/sdk/v3 v3.222.0 h1:aHuJcnq3b339p0DhkMBN0EaQOSvojnwpbP1W1QWv8pI=
+github.com/pulumi/pulumi/sdk/v3 v3.222.0/go.mod h1:UGWJOz25OiFIN0QH79UFij8mffH94TYebKUgy9Wvug0=
 github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13 h1:4U7DFIlSggj/4iLbis2Bckayed+OhaYKE7bncZwQCYI=
 github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13/go.mod h1:NUa1zA74DF002WrM6iF111A6UjX9knPpXufVRvBwNyg=
 github.com/redis/go-redis/extra/rediscmd/v9 v9.0.5 h1:EaDatTxkdHG+U3Bk4EUr+DZ7fOGwTfezUiUJMaIcaho=
