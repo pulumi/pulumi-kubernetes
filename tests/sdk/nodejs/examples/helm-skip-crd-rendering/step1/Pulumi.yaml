@@ -1,3 +1,0 @@
-name: dotnet-helm-skip-crd-rendering
-description: Deploys a simple Helm chart with skipping crd rendering option set
-runtime: nodejs

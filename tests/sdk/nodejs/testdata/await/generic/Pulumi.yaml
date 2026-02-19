@@ -1,3 +1,0 @@
-name: generic-await-logic
-runtime: nodejs
-description: Tests that we await custom and generic ready conditions.

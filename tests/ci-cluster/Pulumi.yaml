@@ -1,3 +1,0 @@
-name: k8s-ci-cluster
-description: GKE cluster for pulumi-kubernetes CI
-runtime: nodejs
