@@ -3,9 +3,7 @@
 
 ## Unreleased
 
-### Changed
-
-- [#4156](https://github.com/pulumi/pulumi-kubernetes/pull/4156) Upgrade Kubernetes schema and libraries to v1.35.1
+## 4.26.0 (February 19, 2026)
 
 ### Fixed
 
@@ -25,6 +23,8 @@
 ### Changed
 
 - Upgraded `helm.sh/helm` to v3.18.6. (https://github.com/pulumi/pulumi-kubernetes/issues/3969)
+
+- [#4156](https://github.com/pulumi/pulumi-kubernetes/pull/4156) Upgrade Kubernetes schema and libraries to v1.35.1
 
 ## 4.24.0 (November 5, 2025)
 
