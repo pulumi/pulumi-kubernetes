@@ -120,7 +120,7 @@ jobs:
           2. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
           3. Build provider and SDKs with \`make k8sprovider build\`
 
-          Closes #${{ steps.create-issue.outputs.issue_number }}.
+          Closes #${{ steps.create-issue.outputs.issue_number }}."
                     
           gh pr create -t "$title" -b "$body"
         env:
