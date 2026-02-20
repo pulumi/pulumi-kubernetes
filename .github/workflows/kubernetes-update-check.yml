@@ -1,0 +1,130 @@
+name: kubernetes-update
+on:
+  push:
+    branches:
+      - 'guin/automate-upgrades'
+  schedule:
+    - cron: 35 12 * * 4
+  workflow_dispatch: {}
+env:
+  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
+  PROVIDER: kubernetes
+  TF_APPEND_USER_AGENT: pulumi
+
+jobs:
+  kubernetes-update-check:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: kubernetes-update-check
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          lfs: true
+      - name: Get Kubernetes Version
+        id: get-kubernetes-version
+        run: |
+          git config --local user.email 'bot@pulumi.com'
+          
+          git config --local user.name 'pulumi-bot'
+          
+          git checkout -b update-kubernetes/${{ github.run_id }}-${{ github.run_number }}
+          
+          KUBE_VERSION=$(gh repo view kubernetes/kubernetes --json latestRelease --jq .latestRelease.tagName | sed 's/^v//')
+          echo "kube_version=$KUBE_VERSION" >> $GITHUB_OUTPUT
+
+          CURRENT_VERSION=$(grep "^KUBE_VERSION" Makefile | sed 's/.*= *v//')
+          if [ "$CURRENT_VERSION" = "$KUBE_VERSION" ]; then
+            echo "No update needed"
+          else
+            echo "Updating to Kubernetes version $KUBE_VERSION"
+            echo "needs_update=1" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Fetch secrets from ESC
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        env:
+          ESC_ACTION_ENVIRONMENT: github-secrets/${{ github.repository_owner }}-${{ github.event.repository.name }}
+          ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
+          ESC_ACTION_OIDC_AUTH: "true"
+          ESC_ACTION_OIDC_ORGANIZATION: pulumi
+          ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
+        id: esc-secrets
+        uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        id: app-auth
+        with:
+          app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
+          private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - name: Setup Tools
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        uses: ./.github/actions/setup-tools
+        with:
+          github_token: ${{ steps.app-auth.outputs.token }}
+      - name: Create Issue # TODO: link to playbook and such in issue body
+        id: create-issue
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        run: |
+          KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
+          ISSUE_URL=$(gh issue create \
+            --title "Update Kubernetes version to v${KUBE_VERSION}" \
+            --body "Automated request to update Kubernetes version to v${KUBE_VERSION}")
+          ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
+          echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+      - name: Update Kubernetes Version
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        id: update-files
+        run: |
+          KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
+          
+          # Update Makefile line 14
+          sed -i "s/^KUBE_VERSION.*=.*/KUBE_VERSION    ?= v${KUBE_VERSION}/" Makefile
+          
+          # Run make commands
+          make openapi_file
+          make schema
+          
+          # Update k8s.io client libraries (convert e.g. v1.30.0 -> v0.30.0)
+          CLIENT_VERSION=$(echo "v${KUBE_VERSION}" | sed 's/^v1\./v0./')
+          echo "client_version=$CLIENT_VERSION" >> "$GITHUB_OUTPUT"
+          cd provider
+          K8S_DEPS=$(cat go.mod | grep "^\sk8s.io" | grep -v "// indirect" | awk '{print $1}')
+          for dep in $K8S_DEPS; do
+            go get -u ${dep}@${CLIENT_VERSION} || true
+          done
+          cd ..
+          find . -name go.mod -execdir go mod tidy \;
+          
+          # Add CHANGELOG entry at end of ## Unreleased section (before next ## heading)
+          sed -i '/^## Unreleased$/,/^## [0-9]/{/^## [0-9]/i\\### Changed\n\n- Upgrade Kubernetes schema and libraries to v'"${KUBE_VERSION}"'.\n
+          }' CHANGELOG.md
+
+          git add .
+          git commit -m "Update Kubernetes to v${KUBE_VERSION}"
+          git push origin update-kubernetes/${{ github.run_id }}-${{ github.run_number }}
+
+      - name: Create PR
+        id: create-pr
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        run: |
+          version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
+          title="Automated upgrade: bump Kubernetes to v${version}"
+          body="## Automated Changes
+          
+          - Updated KUBE_VERSION in Makefile to ${version}
+          - Ran \`make openapi_file\` and \`make schema\`
+          - Updated k8s.io/* client libraries to ${{ steps.update-files.outputs.client_version }}
+          
+          ## Manual Steps Required
+          
+          Please complete the following before merging:
+          1. Update the \`github.com/pulumi/cloud-ready-checks\` dependency by pointing it to the updated version/commit
+          2. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
+          3. Build provider and SDKs with \`make k8sprovider build\`
+
+          Closes #${{ steps.create-issue.outputs.issue_number }}."
+                    
+          gh pr create -t "$title" -b "$body"
+        env:
+          GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
