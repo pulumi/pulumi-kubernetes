@@ -44,7 +44,7 @@ jobs:
           github_token: ${{ steps.app-auth.outputs.token }}
       - name: Get Kubernetes Version
         id: get-kubernetes-version
-        run: >-
+        run: |
           git config --local user.email 'bot@pulumi.com'
           
           git config --local user.name 'pulumi-bot'
