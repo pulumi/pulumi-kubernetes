@@ -62,7 +62,7 @@ jobs:
           fi
       - name: Create Issue
         id: create-issue
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           ISSUE_URL=$(gh issue create \
@@ -71,7 +71,7 @@ jobs:
           ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
           echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
       - name: Update Kubernetes Version
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: update-files
         run: >-
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
@@ -83,7 +83,7 @@ jobs:
           make openapi_file
           make schema
           
-          # Update k8s.io client libraries (convert v1.30.0 -> v0.30.0)
+          # Update k8s.io client libraries (convert e.g. v1.30.0 -> v0.30.0)
           CLIENT_VERSION=$(echo "v${KUBE_VERSION}" | sed 's/^v1\./v0./')
           K8S_DEPS=$(cat go.mod | grep "^\sk8s.io" | grep -v "// indirect" | awk '{print $1}')
           for dep in $K8S_DEPS; do
@@ -99,7 +99,7 @@ jobs:
 
       - name: Create PR
         id: create-pr
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: >
           version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           title="Automated upgrade: bump Kubernetes to v${version}"
