@@ -58,9 +58,10 @@ jobs:
           if [ "$CURRENT_VERSION" = "$KUBE_VERSION" ]; then
             echo "No update needed"
           else
+            echo "Updating to Kubernetes version $KUBE_VERSION"
             echo "needs_update=1" >> "$GITHUB_OUTPUT"
           fi
-      - name: Create Issue
+      - name: Create Issue # TODO: link to playbook and such in issue body
         id: create-issue
 #        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
@@ -73,7 +74,7 @@ jobs:
       - name: Update Kubernetes Version
 #        if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: update-files
-        run: >-
+        run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           
           # Update Makefile line 14
@@ -100,7 +101,7 @@ jobs:
       - name: Create PR
         id: create-pr
 #        if: steps.get-kubernetes-version.outputs.needs_update != 0
-        run: >
+        run: |
           version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           title="Automated upgrade: bump Kubernetes to v${version}"
           body="## Automated Changes
