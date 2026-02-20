@@ -86,10 +86,13 @@ jobs:
           
           # Update k8s.io client libraries (convert e.g. v1.30.0 -> v0.30.0)
           CLIENT_VERSION=$(echo "v${KUBE_VERSION}" | sed 's/^v1\./v0./')
+          echo "client_version=$CLIENT_VERSION" >> "$GITHUB_OUTPUT"
+          cd provider
           K8S_DEPS=$(cat go.mod | grep "^\sk8s.io" | grep -v "// indirect" | awk '{print $1}')
           for dep in $K8S_DEPS; do
             go get -u ${dep}@${CLIENT_VERSION} || true
           done
+          cd ..
           find . -name go.mod -execdir go mod tidy \;
           
           # Check for changes and commit
@@ -108,7 +111,7 @@ jobs:
           
           - Updated KUBE_VERSION in Makefile to ${version}
           - Ran \`make openapi_file\` and \`make schema\`
-          - Updated k8s.io/* client libraries to ${CLIENT_VERSION}
+          - Updated k8s.io/* client libraries to ${{ steps.update-files.outputs.client_version }}
           
           ## Manual Steps Required
           
