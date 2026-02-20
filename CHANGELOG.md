@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Upgrade Kubernetes schema and libraries to v1.35.1.
+
 ## 4.26.0 (February 19, 2026)
 
 ### Fixed

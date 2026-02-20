@@ -17,7 +17,7 @@ require (
 	github.com/pulumi/pulumi/sdk/v3 v3.222.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/exp v0.0.0-20260212183809-81e46e3db34a
+	golang.org/x/exp v0.0.0-20260218203240-3dfff04db8fa
 	google.golang.org/protobuf v1.36.11
 	helm.sh/helm/v3 v3.18.6
 	k8s.io/apimachinery v0.35.1
