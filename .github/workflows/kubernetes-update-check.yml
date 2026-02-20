@@ -2,6 +2,9 @@
 
 name: kubernetes-update
 on:
+  push:
+    branches:
+      - 'guin/automate-upgrades'
   schedule:
     - cron: 35 12 * * 4
   workflow_dispatch: {}
@@ -14,6 +17,7 @@ jobs:
   kubernetes-update-check:
     runs-on: ubuntu-latest
     permissions: write-all
+    name: kubernetes-update-check
     steps:
       - name: Checkout Repo
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -85,24 +89,30 @@ jobs:
           find . -name go.mod -execdir go mod tidy \;
           
           # Check for changes and commit
-          git update-index -q --refresh
-          if ! git diff-files --quiet; then 
-            git add .
-            git commit -m "Update Kubernetes to v${KUBE_VERSION}"
-            git push origin update-kubernetes/${{ github.run_id }}-${{ github.run_number }}
-            echo "changes=1" >> "$GITHUB_OUTPUT"
-          else
-            echo "changes=0" >> "$GITHUB_OUTPUT"
-          fi
+
+          git add .
+          git commit -m "Update Kubernetes to v${KUBE_VERSION}"
+          git push origin update-kubernetes/${{ github.run_id }}-${{ github.run_number }}
+
       - name: Create PR
         id: create-pr
         if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: >
-          ver="${{ steps.get-kubernetes-version.outputs.kube_version }}"
+          version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
+          title="Automated upgrade: bump Kubernetes to v${version}"
+          body="## Automated Changes
           
-          msg="Automated upgrade: bump Kubernetes to v${ver}"
+          - Updated KUBE_VERSION in Makefile to ${version}
+          - Ran \`make openapi_file\` and \`make schema\`
+          - Updated k8s.io/* client libraries to ${CLIENT_VERSION}
+          
+          ## Manual Steps Required
+          
+          Please complete the following before merging:
+          1. Update the \`github.com/pulumi/cloud-ready-checks\` dependency by pointing it to the updated version/commit
+          2. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
+          3. Build provider and SDKs with \`make k8sprovider build\`"
                     
-          gh pr create -t "$msg" -b "$msg"
+          gh pr create -t "$title" -b "$body"
         env:
           GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
-    name: kubernetes-update-check
