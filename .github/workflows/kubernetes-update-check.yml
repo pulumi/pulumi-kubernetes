@@ -21,25 +21,6 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           lfs: true
-      - env:
-          ESC_ACTION_ENVIRONMENT: github-secrets/${{ github.repository_owner }}-${{ github.event.repository.name }}
-          ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
-          ESC_ACTION_OIDC_AUTH: "true"
-          ESC_ACTION_OIDC_ORGANIZATION: pulumi
-          ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
-        id: esc-secrets
-        name: Fetch secrets from ESC
-        uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
-      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
-        id: app-auth
-        with:
-          app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-          private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-      - name: Setup Tools
-        uses: ./.github/actions/setup-tools
-        with:
-          github_token: ${{ steps.app-auth.outputs.token }}
       - name: Get Kubernetes Version
         id: get-kubernetes-version
         run: |
@@ -59,9 +40,31 @@ jobs:
             echo "Updating to Kubernetes version $KUBE_VERSION"
             echo "needs_update=1" >> "$GITHUB_OUTPUT"
           fi
+      - name: Fetch secrets from ESC
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        env:
+          ESC_ACTION_ENVIRONMENT: github-secrets/${{ github.repository_owner }}-${{ github.event.repository.name }}
+          ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
+          ESC_ACTION_OIDC_AUTH: "true"
+          ESC_ACTION_OIDC_ORGANIZATION: pulumi
+          ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
+        id: esc-secrets
+        uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        id: app-auth
+        with:
+          app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
+          private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - name: Setup Tools
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        uses: ./.github/actions/setup-tools
+        with:
+          github_token: ${{ steps.app-auth.outputs.token }}
       - name: Create Issue # TODO: link to playbook and such in issue body
         id: create-issue
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           ISSUE_URL=$(gh issue create \
@@ -70,7 +73,7 @@ jobs:
           ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
           echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
       - name: Update Kubernetes Version
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: update-files
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
@@ -93,7 +96,9 @@ jobs:
           cd ..
           find . -name go.mod -execdir go mod tidy \;
           
-          # Check for changes and commit
+          # Add CHANGELOG entry at end of ## Unreleased section (before next ## heading)
+          sed -i '/^## Unreleased$/,/^## [0-9]/{/^## [0-9]/i\\### Changed\n\n- Upgrade Kubernetes schema and libraries to v'"${KUBE_VERSION}"'.\n
+          }' CHANGELOG.md
 
           git add .
           git commit -m "Update Kubernetes to v${KUBE_VERSION}"
@@ -101,7 +106,7 @@ jobs:
 
       - name: Create PR
         id: create-pr
-        if: steps.get-kubernetes-version.outputs.needs_update != 0
+#        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           title="Automated upgrade: bump Kubernetes to v${version}"
