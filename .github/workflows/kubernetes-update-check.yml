@@ -61,12 +61,15 @@ jobs:
             echo "needs_update=1" >> "$GITHUB_OUTPUT"
           fi
       - name: Create Issue
+        id: create-issue
         if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
-          gh issue create \
+          ISSUE_URL=$(gh issue create \
             --title "Update Kubernetes version to v${KUBE_VERSION}" \
-            --body "Automated request to update Kubernetes version to v${KUBE_VERSION}"
+            --body "Automated request to update Kubernetes version to v${KUBE_VERSION}")
+          ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
+          echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
       - name: Update Kubernetes Version
         if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: update-files
@@ -111,7 +114,9 @@ jobs:
           Please complete the following before merging:
           1. Update the \`github.com/pulumi/cloud-ready-checks\` dependency by pointing it to the updated version/commit
           2. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
-          3. Build provider and SDKs with \`make k8sprovider build\`"
+          3. Build provider and SDKs with \`make k8sprovider build\`
+
+          Closes #${{ steps.create-issue.outputs.issue_number }}.
                     
           gh pr create -t "$title" -b "$body"
         env:
