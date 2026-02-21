@@ -12,9 +12,9 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/providertest v0.6.0
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
-	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.24.0
-	github.com/pulumi/pulumi/pkg/v3 v3.222.0
-	github.com/pulumi/pulumi/sdk/v3 v3.222.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.26.0
+	github.com/pulumi/pulumi/pkg/v3 v3.223.0
+	github.com/pulumi/pulumi/sdk/v3 v3.223.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20260212183809-81e46e3db34a
