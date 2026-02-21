@@ -1,10 +1,7 @@
 name: kubernetes-update
 on:
-  push:
-    branches:
-      - 'guin/automate-upgrades'
   schedule:
-    - cron: 35 12 * * 4
+    - cron: 35 12 * * 4 # Thursdays at 12:35
   workflow_dispatch: {}
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
@@ -41,7 +38,7 @@ jobs:
             echo "needs_update=1" >> "$GITHUB_OUTPUT"
           fi
       - name: Fetch secrets from ESC
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         env:
           ESC_ACTION_ENVIRONMENT: github-secrets/${{ github.repository_owner }}-${{ github.event.repository.name }}
           ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
@@ -51,29 +48,30 @@ jobs:
         id: esc-secrets
         uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
       - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: app-auth
         with:
           app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
           private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
       - name: Setup Tools
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         uses: ./.github/actions/setup-tools
         with:
           github_token: ${{ steps.app-auth.outputs.token }}
-      - name: Create Issue # TODO: link to playbook and such in issue body
+      - name: Create Issue
         id: create-issue
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           ISSUE_URL=$(gh issue create \
             --title "Update Kubernetes version to v${KUBE_VERSION}" \
-            --body "Automated request to update Kubernetes version to v${KUBE_VERSION}")
+            --body "Follow [playbook](https://github.com/pulumi/platform-providers-team/blob/main/playbooks/Release%3A%20Native%20Providers.md#kubernetes-supporting-newer-kubernetes-releases) to update Kubernetes version to v${KUBE_VERSION}")
+            --label needs-triage
           ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
           echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
       - name: Update Kubernetes Version
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         id: update-files
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
@@ -106,7 +104,7 @@ jobs:
 
       - name: Create PR
         id: create-pr
-#        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
         run: |
           version="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           title="Automated upgrade: bump Kubernetes to v${version}"
