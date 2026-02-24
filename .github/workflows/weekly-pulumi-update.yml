@@ -109,9 +109,7 @@ jobs:
 
         msg="Automated upgrade: bump pulumi/pulumi to ${ver}"
 
-        # See https://github.com/cli/cli/issues/6485#issuecomment-2560935183 for --head workaround
-
-        gh pr create -t "$msg" -b "$msg" --head "$(git branch --show-current)"
+        gh pr create -t "$msg" -b "$msg"
       env:
         GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
     name: weekly-pulumi-update
