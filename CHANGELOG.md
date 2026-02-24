@@ -3,6 +3,9 @@
 
 ## Unreleased
 
+### Fixed
+- https://github.com/pulumi/pulumi-kubernetes/pull/4181 implements a fix where updating a persistent volume claim to a storage class with a bind mode of WaitForFirstConsumer no longer results in a timeout.
+
 ## 4.26.0 (February 19, 2026)
 
 ### Fixed
