@@ -1,0 +1,87 @@
+name: pvc
+runtime: yaml
+description: |
+  Tests PVC with WaitForFirstConsumer (https://github.com/pulumi/pulumi-kubernetes/issues/895)
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+
+  provider:
+    type: pulumi:providers:kubernetes
+    properties:
+      namespace: ${ns.metadata.name}
+
+  sc:
+    type: kubernetes:storage.k8s.io/v1:StorageClass
+    properties:
+      volumeBindingMode: WaitForFirstConsumer
+      provisioner: kubernetes.io/no-provisioner
+      reclaimPolicy: Delete
+    options:
+      provider: ${provider}
+
+  pv:
+    type: kubernetes:core/v1:PersistentVolume
+    properties:
+      spec:
+        capacity:
+          storage: 1Mi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+        persistentVolumeReclaimPolicy: Delete
+        storageClassName: ${sc.metadata.name}
+        hostPath:
+          path: /tmp/foo
+          type: DirectoryOrCreate
+    options:
+      provider: ${provider}
+
+  pvc:
+    type: kubernetes:core/v1:PersistentVolumeClaim
+    properties:
+      metadata:
+        # Add a small change to the PVC to trigger Update condition
+        labels: {
+          hello: update
+        }
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: ${sc.metadata.name}
+        resources:
+          requests:
+            storage: 1Mi
+    options:
+      provider: ${provider}
+
+  # Add a deployment to consume the PVC.
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+              - name: nginx
+                image: nginx:stable-alpine3.17-slim
+                volumeMounts:
+                  - name: local
+                    mountPath: /usr/share/nginx/html
+            volumes:
+              - name: local
+                persistentVolumeClaim:
+                  claimName: ${pvc.metadata.name}
+    options:
+      provider: ${provider}
+
+outputs:
+  status: ${pvc.status.phase}
