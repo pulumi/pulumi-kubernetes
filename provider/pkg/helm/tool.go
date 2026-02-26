@@ -27,6 +27,8 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -36,9 +38,6 @@ import (
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/client-go/util/homedir"
-
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
@@ -85,10 +84,8 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 					return "", err
 				}
 				c := i.GetRegistryClient()
-				// Login can fail for harmless reasons like already being
-				// logged in. Optimistically ignore those errors.
 				if err := c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password)); err != nil {
-					logger.V(6).Infof("[helm] %s", fmt.Sprintf("login error: %s", err))
+					return "", fmt.Errorf("registry login: %w", err)
 				}
 			}
 			return i.LocateChart(name, settings)
@@ -222,11 +219,12 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	}
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L76-L81
-	registryClient, err := newRegistryClient(cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
+	registryClient, registryCleanup, err := NewRegistryClient(cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
 		client.InsecureSkipTLSverify, client.PlainHTTP, client.Username, client.Password)
 	if err != nil {
 		return nil, fmt.Errorf("missing registry client: %w", err)
 	}
+	defer registryCleanup()
 	client.SetRegistryClient(registryClient)
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L88-L94
@@ -366,17 +364,19 @@ func defaultKeyring() string {
 	return filepath.Join(homedir.HomeDir(), ".gnupg", "pubring.gpg")
 }
 
-// newRegistryClient returns a new registry client
-// https://github.com/helm/helm/blob/01adbab466b6133936cac0c56a99274715f7c085/pkg/cmd/root.go#L345-L360
-func newRegistryClient(settings *cli.EnvSettings,
+// NewRegistryClient returns a new registry client and a cleanup function. If
+// username and password are provided, credentials are written to a temporary
+// directory (cleaned up by the returned function) so they never contaminate the
+// host's ambient credential store (e.g. Docker Desktop's keychain). Otherwise,
+// the default credentials file is used for ambient auth.
+func NewRegistryClient(settings *cli.EnvSettings,
 	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
-) (*registry.Client, error) {
+) (*registry.Client, func(), error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
 		registry.ClientOptDebug(settings.Debug),
 		registry.ClientOptEnableCache(true),
 		registry.ClientOptWriter(logStream),
-		registry.ClientOptCredentialsFile(settings.RegistryConfig),
 	}
 	if plainHTTP {
 		opts = append(opts, registry.ClientOptPlainHTTP())
@@ -385,25 +385,54 @@ func newRegistryClient(settings *cli.EnvSettings,
 	if certFile != "" && keyFile != "" || caFile != "" || insecureSkipVerify {
 		tlsConf, err := newTLSConfig(certFile, keyFile, caFile, insecureSkipVerify)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
-		tlsOpt := registry.ClientOptHTTPClient(&http.Client{
+		opts = append(opts, registry.ClientOptHTTPClient(&http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: tlsConf,
 				Proxy:           http.ProxyFromEnvironment,
 			},
-		})
-		opts = append(opts, tlsOpt)
+		}))
 	}
 
-	opts = append(opts, registry.ClientOptBasicAuth(username, password))
+	cleanup := func() {} // no-op by default
+	if username != "" && password != "" {
+		// Create a temporary directory for credential storage. This
+		// prevents Login() from persisting pulumi-set credentials to the host's
+		// native credential store (e.g. macOS Keychain via Docker Desktop).
 
-	registryClient, err := registry.NewClient(opts...)
+		// See: https://github.com/pulumi/pulumi-kubernetes/issues/2911
+		tmpDir, err := os.MkdirTemp("", "pulumi-helm-registry-*")
+		if err != nil {
+			return nil, nil, fmt.Errorf("creating temp registry config dir: %w", err)
+		}
+
+		// registry.NewClient uses DetectDefaultNativeStore, which falls through
+		// to the system keychain if the config file has no auth configured.
+		// To prevent this, we pre-populate the Helm config file with a placeholder
+		// auth entry so IsAuthConfigured() returns true and native store
+		// detection is skipped.
+		placeholder := []byte(`{"auths":{"_":{}}}`)
+		helmCfg := filepath.Join(tmpDir, "helm.json")
+		if err := os.WriteFile(helmCfg, placeholder, 0o600); err != nil {
+			os.RemoveAll(tmpDir)
+			return nil, nil, fmt.Errorf("writing temp helm config: %w", err)
+		}
+		opts = append(opts, registry.ClientOptCredentialsFile(helmCfg))
+
+	} else {
+		// No explicit credentials — fall back to ambient credentials from
+		// the registry config file (e.g. helm registry login).
+		opts = append(opts, registry.ClientOptCredentialsFile(settings.RegistryConfig))
+	}
+
+	client, err := registry.NewClient(opts...)
 	if err != nil {
-		return nil, err
+		cleanup()
+		return nil, nil, err
 	}
 
-	return registryClient, nil
+	return client, cleanup, nil
 }
 
 // checkIfInstallable validates if a chart can be installed
