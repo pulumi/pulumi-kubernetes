@@ -38,6 +38,8 @@ import (
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/client-go/util/homedir"
+	"oras.land/oras-go/v2/registry/remote/auth"
+	"oras.land/oras-go/v2/registry/remote/credentials"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
@@ -77,17 +79,6 @@ func NewTool(settings *cli.EnvSettings) *Tool {
 			return actionConfig.Init(settings.RESTClientGetter(), namespaceOverride, helmDriver, debug)
 		},
 		locateChart: func(i *action.Install, name string, settings *cli.EnvSettings) (string, error) {
-			// Perform a login against the registry if necessary.
-			if i.Username != "" && i.Password != "" {
-				u, err := url.Parse(name)
-				if err != nil {
-					return "", err
-				}
-				c := i.GetRegistryClient()
-				if err := c.Login(u.Host, registry.LoginOptBasicAuth(i.Username, i.Password)); err != nil {
-					return "", fmt.Errorf("registry login: %w", err)
-				}
-			}
 			return i.LocateChart(name, settings)
 		},
 		execute: func(
@@ -220,7 +211,7 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L76-L81
 	registryClient, registryCleanup, err := NewRegistryClient(cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
-		client.InsecureSkipTLSverify, client.PlainHTTP, client.Username, client.Password)
+		client.InsecureSkipTLSverify, client.PlainHTTP, cmd.Chart, client.Username, client.Password)
 	if err != nil {
 		return nil, fmt.Errorf("missing registry client: %w", err)
 	}
@@ -366,11 +357,14 @@ func defaultKeyring() string {
 
 // NewRegistryClient returns a new registry client and a cleanup function. If
 // username and password are provided, credentials are written to a temporary
-// directory (cleaned up by the returned function) so they never contaminate the
+// file (cleaned up by the returned function) so they never contaminate the
 // host's ambient credential store (e.g. Docker Desktop's keychain). Otherwise,
 // the default credentials file is used for ambient auth.
+//
+// See: https://github.com/pulumi/pulumi-kubernetes/issues/2911
 func NewRegistryClient(settings *cli.EnvSettings,
-	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool, username, password string,
+	certFile, keyFile, caFile string, insecureSkipVerify, plainHTTP bool,
+	chartURL, username, password string,
 ) (*registry.Client, func(), error) {
 	logStream := debugStream()
 	opts := []registry.ClientOption{
@@ -397,29 +391,45 @@ func NewRegistryClient(settings *cli.EnvSettings,
 
 	cleanup := func() {} // no-op by default
 	if username != "" && password != "" {
-		// Create a temporary directory for credential storage. This
-		// prevents Login() from persisting pulumi-set credentials to the host's
-		// native credential store (e.g. macOS Keychain via Docker Desktop).
-
-		// See: https://github.com/pulumi/pulumi-kubernetes/issues/2911
+		// Write credentials to a temporary file so they are never
+		// persisted to the host's credential store (e.g. macOS Keychain
+		// via Docker Desktop). We use credentials.NewStore with
+		// DetectDefaultNativeStore disabled so the store writes plaintext
+		// to our temp file instead of the system keychain.
 		tmpDir, err := os.MkdirTemp("", "pulumi-helm-registry-*")
 		if err != nil {
 			return nil, nil, fmt.Errorf("creating temp registry config dir: %w", err)
 		}
+		cleanup = func() { os.RemoveAll(tmpDir) }
 
-		// registry.NewClient uses DetectDefaultNativeStore, which falls through
-		// to the system keychain if the config file has no auth configured.
-		// To prevent this, we pre-populate the Helm config file with a placeholder
-		// auth entry so IsAuthConfigured() returns true and native store
-		// detection is skipped.
-		placeholder := []byte(`{"auths":{"_":{}}}`)
-		helmCfg := filepath.Join(tmpDir, "helm.json")
-		if err := os.WriteFile(helmCfg, placeholder, 0o600); err != nil {
-			os.RemoveAll(tmpDir)
-			return nil, nil, fmt.Errorf("writing temp helm config: %w", err)
+		helmCfg := filepath.Join(tmpDir, "config.json")
+		store, err := credentials.NewStore(helmCfg, credentials.StoreOptions{
+			AllowPlaintextPut:        true,
+			DetectDefaultNativeStore: false,
+		})
+		if err != nil {
+			cleanup()
+			return nil, nil, fmt.Errorf("creating temp credential store: %w", err)
 		}
-		opts = append(opts, registry.ClientOptCredentialsFile(helmCfg))
 
+		// Parse the registry host from the chart URL and pre-populate
+		// the credential store. This allows the ORAS fetch path to find
+		// credentials without needing Login().
+		u, err := url.Parse(chartURL)
+		if err != nil {
+			cleanup()
+			return nil, nil, fmt.Errorf("parsing chart URL: %w", err)
+		}
+		err = store.Put(context.Background(), u.Host, auth.Credential{
+			Username: username,
+			Password: password,
+		})
+		if err != nil {
+			cleanup()
+			return nil, nil, fmt.Errorf("writing credentials to temp store: %w", err)
+		}
+
+		opts = append(opts, registry.ClientOptCredentialsFile(helmCfg))
 	} else {
 		// No explicit credentials — fall back to ambient credentials from
 		// the registry config file (e.g. helm registry login).
