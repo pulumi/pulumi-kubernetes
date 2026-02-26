@@ -11,13 +11,14 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ecr"
-	"github.com/pulumi/providertest/pulumitest"
-	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/stretchr/testify/require"
 	"oras.land/oras-go/v2"
 	"oras.land/oras-go/v2/content/memory"
 	"oras.land/oras-go/v2/registry/remote"
 	"oras.land/oras-go/v2/registry/remote/auth"
+
+	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
 )
 
 func TestHelmWithPrivateOCIRegistry(t *testing.T) {

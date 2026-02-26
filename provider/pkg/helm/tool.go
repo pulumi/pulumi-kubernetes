@@ -27,8 +27,6 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -40,6 +38,9 @@ import (
 	"k8s.io/client-go/util/homedir"
 	"oras.land/oras-go/v2/registry/remote/auth"
 	"oras.land/oras-go/v2/registry/remote/credentials"
+
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
@@ -210,8 +211,11 @@ func (cmd *TemplateCommand) Execute(ctx context.Context) (*release.Release, erro
 	}
 
 	// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/template.go#L76-L81
-	registryClient, registryCleanup, err := NewRegistryClient(cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
-		client.InsecureSkipTLSverify, client.PlainHTTP, cmd.Chart, client.Username, client.Password)
+	registryClient, registryCleanup, err := NewRegistryClient(
+		cmd.tool.EnvSettings, client.CertFile, client.KeyFile, client.CaFile,
+		client.InsecureSkipTLSverify, client.PlainHTTP,
+		cmd.Chart, client.Username, client.Password,
+	)
 	if err != nil {
 		return nil, fmt.Errorf("missing registry client: %w", err)
 	}
@@ -355,7 +359,10 @@ func defaultKeyring() string {
 	return filepath.Join(homedir.HomeDir(), ".gnupg", "pubring.gpg")
 }
 
-// NewRegistryClient returns a new registry client and a cleanup function. If
+// NewRegistryClient is a re-implementation of
+// https://github.com/helm/helm/blob/635b8cf33d25a86131635c32f35b2a76256e40cb/cmd/helm/root.go#L261-L274
+//
+// It returns a new registry client and a cleanup function. If
 // username and password are provided, credentials are written to a temporary
 // file (cleaned up by the returned function) so they never contaminate the
 // host's ambient credential store (e.g. Docker Desktop's keychain). Otherwise,
