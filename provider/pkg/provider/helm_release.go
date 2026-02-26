@@ -1496,16 +1496,19 @@ func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, set
 		return nil, "", err
 	}
 
+	// If explicit credentials are provided, build an authenticated registry
+	// client using a temp credential store. This avoids persisting credentials
+	// to the host's credential store (e.g. macOS Keychain).
 	if cpo.Username != "" && cpo.Password != "" {
-		u, err := url.Parse(chartName)
+		authClient, cleanup, err := helm.NewRegistryClient(settings,
+			cpo.CertFile, cpo.KeyFile, cpo.CaFile,
+			cpo.InsecureSkipTLSverify, cpo.PlainHTTP,
+			chartName, cpo.Username, cpo.Password)
 		if err != nil {
-			return nil, "", err
+			return nil, "", fmt.Errorf("creating authenticated registry client: %w", err)
 		}
-		// Login can fail for harmless reasons like already being
-		// logged in. Optimistically ignore those errors.
-		if err := registryClient.Login(u.Host, registry.LoginOptBasicAuth(cpo.Username, cpo.Password)); err != nil {
-			logger.V(6).Infof("[helm] %s", fmt.Sprintf("login error: %s", err))
-		}
+		defer cleanup()
+		registryClient = authClient
 	}
 
 	logger.V(9).Infof("Chart name: %q", chartName)
