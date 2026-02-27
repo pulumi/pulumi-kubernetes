@@ -8,6 +8,7 @@ replace (
 )
 
 require (
+	github.com/aws/aws-sdk-go v1.50.36
 	github.com/onsi/gomega v1.38.2
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/providertest v0.6.0
@@ -22,6 +23,7 @@ require (
 	helm.sh/helm/v3 v3.18.6
 	k8s.io/apimachinery v0.35.1
 	k8s.io/client-go v0.35.1
+	oras.land/oras-go/v2 v2.6.0
 )
 
 require (
@@ -54,7 +56,6 @@ require (
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
-	github.com/aws/aws-sdk-go v1.50.36 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.26.1 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.27.11 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.11 // indirect
@@ -297,7 +298,6 @@ require (
 	k8s.io/kubectl v0.35.1 // indirect
 	k8s.io/utils v0.0.0-20260210185600-b8788abfbbc2 // indirect
 	lukechampine.com/frand v1.5.1 // indirect
-	oras.land/oras-go/v2 v2.6.0 // indirect
 	sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.34.0 // indirect
 	sigs.k8s.io/cli-utils v0.37.2 // indirect
 	sigs.k8s.io/controller-runtime v0.20.4 // indirect

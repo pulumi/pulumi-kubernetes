@@ -272,6 +272,7 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 		r.settings.Debug)
 	registryClient, err := registry.NewClient(
 		registry.ClientOptDebug(r.settings.Debug),
+		registry.ClientOptEnableCache(true), // Cache auth.
 		registry.ClientOptCredentialsFile(r.settings.RegistryConfig),
 	)
 	if err != nil {
@@ -551,7 +552,6 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 
 	if cmd := newRelease.Postrender; cmd != "" {
 		pr, err := postrender.NewExec(cmd)
-
 		if err != nil {
 			return err
 		}
@@ -676,7 +676,6 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 
 	if cmd := newRelease.Postrender; cmd != "" {
 		pr, err := postrender.NewExec(cmd)
-
 		if err != nil {
 			return err
 		}
@@ -809,7 +808,6 @@ func (r *helmReleaseProvider) Diff(
 			"Failed to check for changes in Helm release %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes: %w",
 			oldRelease.Namespace, oldRelease.Name, err)
-
 	}
 
 	// Pack up PB, ship response back.
@@ -842,7 +840,6 @@ func (r *helmReleaseProvider) Diff(
 				"Failed to check for changes in helm release %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff: %w",
 				oldRelease.Namespace, oldRelease.Name, err)
-
 		}
 
 		for k, v := range detailedDiff {
@@ -1319,7 +1316,6 @@ func (r *helmReleaseProvider) importRelease(
 	release *Release,
 	hr *release.Release,
 ) error {
-
 	// note: setReleaseAttributes pre-populates some of the inputs
 
 	// Attempt to resolve the chart's origin in either a local or remote repository.
@@ -1491,12 +1487,28 @@ func searchHelmRepositories(settings *cli.EnvSettings, name, version string) (*r
 
 func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, settings *cli.EnvSettings,
 	newRelease *Release) (*helmchart.Chart, string,
-	error) {
+	error,
+) {
 	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.Name)
 
 	chartName, err := chartPathOptionsFromRelease(cpo, newRelease)
 	if err != nil {
 		return nil, "", err
+	}
+
+	// If explicit credentials are provided, build an authenticated registry
+	// client using a temp credential store. This avoids persisting credentials
+	// to the host's credential store (e.g. macOS Keychain).
+	if cpo.Username != "" && cpo.Password != "" {
+		authClient, cleanup, err := helm.NewRegistryClient(settings,
+			cpo.CertFile, cpo.KeyFile, cpo.CaFile,
+			cpo.InsecureSkipTLSverify, cpo.PlainHTTP,
+			chartName, cpo.Username, cpo.Password)
+		if err != nil {
+			return nil, "", fmt.Errorf("creating authenticated registry client: %w", err)
+		}
+		defer cleanup()
+		registryClient = authClient
 	}
 
 	logger.V(9).Infof("Chart name: %q", chartName)
@@ -1553,7 +1565,8 @@ func localChart(name string, verify bool, keyring string) (string, bool, error) 
 // local charts. Helm prefers a local chart over a remote chart with the same name, even if the local chart
 // directory is not well-formed. Pulumi adds additional checks of the local chart directory.
 func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, name string,
-	settings *cli.EnvSettings) (string, error) {
+	settings *cli.EnvSettings,
+) (string, error) {
 	name = strings.TrimSpace(name)
 	version := strings.TrimSpace(cpo.Version)
 
@@ -1625,7 +1638,7 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 		dl.Options = append(dl.Options, getter.WithBasicAuth(cpo.Username, cpo.Password))
 	}
 
-	if err := os.MkdirAll(settings.RepositoryCache, 0755); err != nil {
+	if err := os.MkdirAll(settings.RepositoryCache, 0o755); err != nil {
 		return "", err
 	}
 
@@ -1649,7 +1662,8 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 }
 
 func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *cli.EnvSettings,
-	registryClient *registry.Client, dependencyUpdate bool) (bool, error) {
+	registryClient *registry.Client, dependencyUpdate bool,
+) (bool, error) {
 	p := getter.All(settings)
 
 	if req := c.Metadata.Dependencies; req != nil {
