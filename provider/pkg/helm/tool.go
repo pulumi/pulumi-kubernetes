@@ -397,7 +397,7 @@ func NewRegistryClient(settings *cli.EnvSettings,
 	}
 
 	cleanup := func() {} // no-op by default
-	if username != "" && password != "" {
+	if username != "" && password != "" && registry.IsOCI(chartURL) {
 		// Write credentials to a temporary file so they are never
 		// persisted to the host's credential store (e.g. macOS Keychain
 		// via Docker Desktop). We use credentials.NewStore with
