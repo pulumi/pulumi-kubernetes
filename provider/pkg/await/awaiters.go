@@ -300,6 +300,13 @@ func untilCoreV1PersistentVolumeClaimReady(c awaitConfig) (*unstructured.Unstruc
 		phase, _, _ := unstructured.NestedString(pvc.Object, "status", "phase")
 		logger.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), phase)
 
+		// Only during Create do we need to await ClaimPending to change to ClaimBound.
+		// In an Update, the claim is already bound, and will never change phase.
+		if c.lastOutputs != nil && phase == string(corev1.ClaimBound) {
+			// We are not in Create, and our PVC is bound already.
+			return true
+		}
+
 		if bindMode == string(storagev1.VolumeBindingWaitForFirstConsumer) {
 			return phase == string(corev1.ClaimPending)
 		}

@@ -104,6 +104,10 @@ func TestAwaitPVC(t *testing.T) {
 	// Adding a Deployment to consume the PVC should succeed.
 	test.UpdateSource(t, "testdata/await/pvc/step2")
 	up = test.Up(t)
+
+	// Updating the PVC should also succeed.
+	test.UpdateSource(t, "testdata/await/pvc/step3")
+	up = test.Up(t)
 }
 
 func TestAwaitService(t *testing.T) {
