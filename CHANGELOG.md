@@ -3,13 +3,16 @@
 
 ## Unreleased
 
+## 4.27.0 (March 2, 2026)
+
 ### Fixed
-- https://github.com/pulumi/pulumi-kubernetes/pull/4181 implements a fix where updating a persistent volume claim to a storage class with a bind mode of WaitForFirstConsumer no longer results in a timeout.
+
+- [#4181](https://github.com/pulumi/pulumi-kubernetes/pull/4181) Fix PVC timeout when updating to a storage class with WaitForFirstConsumer bind mode.
 
 ### Added
 
-- https://github.com/pulumi/pulumi-kubernetes/pull/3661 - support for OCI login inside the provider process. Providing a username/password to `Chart v4` and `Release v3` will now login to private OCI
-  registries as expected. 
+- [#3661](https://github.com/pulumi/pulumi-kubernetes/pull/3661) Support for OCI login inside the provider process. Providing a username/password to `Chart v4` and `Release v3` will now login to private OCI
+  registries as expected.
   (https://github.com/pulumi/pulumi-kubernetes/issues/2911 and https://github.com/pulumi/pulumi-kubernetes/issues/1914)
 
 ## 4.26.0 (February 19, 2026)
