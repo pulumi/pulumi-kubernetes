@@ -1,3 +1,0 @@
-name: kustomize-test-unconfigured-provider
-description: Test kustomize support using an unconfigured provider
-runtime: python
