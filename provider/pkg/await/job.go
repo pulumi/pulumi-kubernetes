@@ -25,9 +25,8 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/job"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 
@@ -235,7 +234,7 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 	return nil
 }
 
-func (jia *jobInitAwaiter) processPodMessages(messages checkerlog.Messages) {
+func (jia *jobInitAwaiter) processPodMessages(messages logging.Messages) {
 	for _, message := range messages {
 		jia.errors.Add(message)
 

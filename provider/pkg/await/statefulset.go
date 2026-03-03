@@ -27,8 +27,8 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
+	checkpod "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/pod"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
