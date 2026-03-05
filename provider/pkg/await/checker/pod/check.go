@@ -153,7 +153,7 @@ func containerTerminatedError(status corev1.ContainerStatus) error {
 	if len(state.Message) > 0 {
 		return fmt.Errorf("[%s] %s", state.Reason, trimImagePullMsg(state.Message))
 	}
-	return fmt.Errorf("Container %q completed with exit code %d", status.Name, state.ExitCode)
+	return fmt.Errorf("container %q completed with exit code %d", status.Name, state.ExitCode)
 }
 
 func containerLastTerminationState(status corev1.ContainerStatus) error {
@@ -162,7 +162,7 @@ func containerLastTerminationState(status corev1.ContainerStatus) error {
 		return nil
 	}
 
-	err := fmt.Errorf("Container %q terminated at %s (%s: exit code %d)",
+	err := fmt.Errorf("container %q terminated at %s (%s: exit code %d)",
 		status.Name, terminated.FinishedAt.UTC().Format(time.RFC3339Nano), terminated.Reason, terminated.ExitCode,
 	)
 

@@ -33,11 +33,11 @@ func mustConvertObjToUnstructured(obj interface{}) *unstructured.Unstructured {
 		panic(err)
 	}
 
-	if uns, ok := uncastObj.(*unstructured.Unstructured); !ok {
+	uns, ok := uncastObj.(*unstructured.Unstructured)
+	if !ok {
 		panic(fmt.Sprintf("failed to cast obj to Unstructured: %#v", uncastObj))
-	} else {
-		return uns
 	}
+	return uns
 }
 
 // MustLoadState loads a JSON-encoded k8s event from the provided string, and returns a corresponding
