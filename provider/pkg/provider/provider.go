@@ -51,7 +51,7 @@ import (
 	"k8s.io/utils/ptr"
 	"sigs.k8s.io/yaml"
 
-	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
+	checkjob "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/job"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"

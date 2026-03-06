@@ -1,0 +1,544 @@
+[
+    {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T20:52:55Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "415749",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "352cccb7-978b-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": [
+            "echo foo"
+          ],
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "phase": "Pending",
+      "qosClass": "BestEffort"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T20:52:55Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "415750",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "352cccb7-978b-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": [
+            "echo foo"
+          ],
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "phase": "Pending",
+      "qosClass": "BestEffort"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T20:52:55Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "415752",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "352cccb7-978b-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": [
+            "echo foo"
+          ],
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "reason": "ContainerCreating"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T20:52:55Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T20:52:55Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "415757",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "352cccb7-978b-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": [
+            "echo foo"
+          ],
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "docker://17eb58f0fe6ca764adf2d127503a87c38cc4faa16009d66eab8d33f63d0ad9b5",
+          "image": "nginx:1.13-alpine",
+          "imageID": "docker-pullable://nginx@sha256:9d46fd628d54ebe1633ee3cf0fe2acfcc419cfae541c63056530e39cd5620366",
+          "lastState": {
+            "terminated": {
+              "containerID": "docker://17eb58f0fe6ca764adf2d127503a87c38cc4faa16009d66eab8d33f63d0ad9b5",
+              "exitCode": 127,
+              "finishedAt": "2019-06-25T20:52:57Z",
+              "message": "OCI runtime create failed: container_linux.go:345: starting container process caused \"exec: \\\"echo foo\\\": executable file not found in $PATH\": unknown",
+              "reason": "ContainerCannotRun",
+              "startedAt": "2019-06-25T20:52:57Z"
+            }
+          },
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "message": "failed to start container \"17eb58f0fe6ca764adf2d127503a87c38cc4faa16009d66eab8d33f63d0ad9b5\": Error response from daemon: OCI runtime create failed: container_linux.go:345: starting container process caused \"exec: \\\"echo foo\\\": executable file not found in $PATH\": unknown",
+              "reason": "RunContainerError"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Running",
+      "podIP": "10.1.3.230",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T20:52:55Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T20:52:55Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "415764",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "352cccb7-978b-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": [
+            "echo foo"
+          ],
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T20:52:55Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "docker://12a0e6de476b459c53094e9bd25cc7df5c587a4140eee5008c29dee3d92c94c1",
+          "image": "nginx:1.13-alpine",
+          "imageID": "docker-pullable://nginx@sha256:9d46fd628d54ebe1633ee3cf0fe2acfcc419cfae541c63056530e39cd5620366",
+          "lastState": {
+            "terminated": {
+              "containerID": "docker://12a0e6de476b459c53094e9bd25cc7df5c587a4140eee5008c29dee3d92c94c1",
+              "exitCode": 127,
+              "finishedAt": "2019-06-25T20:52:57Z",
+              "message": "OCI runtime create failed: container_linux.go:345: starting container process caused \"exec: \\\"echo foo\\\": executable file not found in $PATH\": unknown",
+              "reason": "ContainerCannotRun",
+              "startedAt": "2019-06-25T20:52:57Z"
+            }
+          },
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 1,
+          "state": {
+            "waiting": {
+              "message": "failed to start container \"12a0e6de476b459c53094e9bd25cc7df5c587a4140eee5008c29dee3d92c94c1\": Error response from daemon: OCI runtime create failed: container_linux.go:345: starting container process caused \"exec: \\\"echo foo\\\": executable file not found in $PATH\": unknown",
+              "reason": "RunContainerError"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Running",
+      "podIP": "10.1.3.230",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T20:52:55Z"
+    }
+  }
+]

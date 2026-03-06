@@ -18,7 +18,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
@@ -84,11 +83,11 @@ func (l *dedupLogger) enqueueMessage(severity diag.Severity, s string) {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 
-	l.messages.Add(logging.Message{S: s, Severity: severity})
+	l.messages.Add(Message{S: s, Severity: severity})
 }
 
 // getNewMessages returns the list of new messages since last calling GetNewMessages.
-func (l *dedupLogger) getNewMessages() []logging.Message {
+func (l *dedupLogger) getNewMessages() []Message {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 

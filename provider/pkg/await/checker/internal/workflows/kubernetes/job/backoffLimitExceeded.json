@@ -1,0 +1,201 @@
+[
+  {
+    "apiVersion": "batch/v1",
+    "kind": "Job",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"foo\"},\"spec\":{\"backoffLimit\":0,\"template\":{\"spec\":{\"containers\":[{\"command\":[\"perly\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"image\":\"perl\",\"name\":\"pi\"}],\"restartPolicy\":\"Never\"}}}}\n"
+      },
+      "creationTimestamp": "2019-09-19T23:04:06Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "249424",
+      "selfLink": "/apis/batch/v1/namespaces/default/jobs/foo",
+      "uid": "c7e98c66-db31-11e9-8586-025000000001"
+    },
+    "spec": {
+      "backoffLimit": 0,
+      "completions": 1,
+      "parallelism": 1,
+      "selector": {
+        "matchLabels": {
+          "controller-uid": "c7e98c66-db31-11e9-8586-025000000001"
+        }
+      },
+      "template": {
+        "metadata": {
+          "creationTimestamp": null,
+          "labels": {
+            "controller-uid": "c7e98c66-db31-11e9-8586-025000000001",
+            "job-name": "foo"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "command": [
+                "perly",
+                "-Mbignum=bpi",
+                "-wle",
+                "print bpi(2000)"
+              ],
+              "image": "perl",
+              "imagePullPolicy": "Always",
+              "name": "pi",
+              "resources": {},
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File"
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "restartPolicy": "Never",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "terminationGracePeriodSeconds": 30
+        }
+      }
+    },
+    "status": {}
+  },
+  {
+    "apiVersion": "batch/v1",
+    "kind": "Job",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"foo\"},\"spec\":{\"backoffLimit\":0,\"template\":{\"spec\":{\"containers\":[{\"command\":[\"perly\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"image\":\"perl\",\"name\":\"pi\"}],\"restartPolicy\":\"Never\"}}}}\n"
+      },
+      "creationTimestamp": "2019-09-19T23:04:06Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "249429",
+      "selfLink": "/apis/batch/v1/namespaces/default/jobs/foo",
+      "uid": "c7e98c66-db31-11e9-8586-025000000001"
+    },
+    "spec": {
+      "backoffLimit": 0,
+      "completions": 1,
+      "parallelism": 1,
+      "selector": {
+        "matchLabels": {
+          "controller-uid": "c7e98c66-db31-11e9-8586-025000000001"
+        }
+      },
+      "template": {
+        "metadata": {
+          "creationTimestamp": null,
+          "labels": {
+            "controller-uid": "c7e98c66-db31-11e9-8586-025000000001",
+            "job-name": "foo"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "command": [
+                "perly",
+                "-Mbignum=bpi",
+                "-wle",
+                "print bpi(2000)"
+              ],
+              "image": "perl",
+              "imagePullPolicy": "Always",
+              "name": "pi",
+              "resources": {},
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File"
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "restartPolicy": "Never",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "terminationGracePeriodSeconds": 30
+        }
+      }
+    },
+    "status": {
+      "active": 1,
+      "startTime": "2019-09-19T23:04:06Z"
+    }
+  },
+  {
+    "apiVersion": "batch/v1",
+    "kind": "Job",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"foo\"},\"spec\":{\"backoffLimit\":0,\"template\":{\"spec\":{\"containers\":[{\"command\":[\"perly\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"image\":\"perl\",\"name\":\"pi\"}],\"restartPolicy\":\"Never\"}}}}\n"
+      },
+      "creationTimestamp": "2019-09-19T23:04:06Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "249443",
+      "selfLink": "/apis/batch/v1/namespaces/default/jobs/foo",
+      "uid": "c7e98c66-db31-11e9-8586-025000000001"
+    },
+    "spec": {
+      "backoffLimit": 0,
+      "completions": 1,
+      "parallelism": 1,
+      "selector": {
+        "matchLabels": {
+          "controller-uid": "c7e98c66-db31-11e9-8586-025000000001"
+        }
+      },
+      "template": {
+        "metadata": {
+          "creationTimestamp": null,
+          "labels": {
+            "controller-uid": "c7e98c66-db31-11e9-8586-025000000001",
+            "job-name": "foo"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "command": [
+                "perly",
+                "-Mbignum=bpi",
+                "-wle",
+                "print bpi(2000)"
+              ],
+              "image": "perl",
+              "imagePullPolicy": "Always",
+              "name": "pi",
+              "resources": {},
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File"
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "restartPolicy": "Never",
+          "schedulerName": "default-scheduler",
+          "securityContext": {},
+          "terminationGracePeriodSeconds": 30
+        }
+      }
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2019-09-19T23:04:09Z",
+          "lastTransitionTime": "2019-09-19T23:04:09Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "startTime": "2019-09-19T23:04:06Z"
+    }
+  }
+]

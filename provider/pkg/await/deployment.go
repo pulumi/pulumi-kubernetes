@@ -27,14 +27,14 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 
+	checkpod "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 )
 
@@ -808,13 +808,13 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 	dia.checkPersistentVolumeClaimStatus()
 }
 
-func (dia *deploymentInitAwaiter) aggregatePodErrors() checkerlog.Messages {
+func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
 	rs, exists := dia.replicaSets[dia.replicaSetGeneration]
 	if !exists {
 		return nil
 	}
 
-	var messages checkerlog.Messages
+	var messages logging.Messages
 	for _, unstructuredPod := range dia.pods {
 		// Filter down to only Pods owned by the active ReplicaSet.
 		if !isOwnedBy(unstructuredPod, rs) {
