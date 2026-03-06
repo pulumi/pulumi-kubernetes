@@ -25,14 +25,14 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/pod"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 )
 
 var _ condition.Observer = (*Aggregator[*corev1.Event])(nil)
