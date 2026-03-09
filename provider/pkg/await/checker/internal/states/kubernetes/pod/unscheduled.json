@@ -1,0 +1,84 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "creationTimestamp": "2019-06-25T20:35:02Z",
+    "labels": {
+      "app.kubernetes.io/managed-by": "pulumi"
+    },
+    "name": "foo",
+    "namespace": "default",
+    "resourceVersion": "414329",
+    "selfLink": "/api/v1/namespaces/default/pods/foo",
+    "uid": "b52ea04f-9788-11e9-a3c5-025000000001"
+  },
+  "spec": {
+    "containers": [
+      {
+        "image": "nginx:1.13-alpine",
+        "imagePullPolicy": "IfNotPresent",
+        "name": "nginx",
+        "resources": {
+          "requests": {
+            "memory": "128Gi"
+          }
+        },
+        "terminationMessagePath": "/dev/termination-log",
+        "terminationMessagePolicy": "File",
+        "volumeMounts": [
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "default-token-544qd",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "dnsPolicy": "ClusterFirst",
+    "enableServiceLinks": true,
+    "priority": 0,
+    "restartPolicy": "Always",
+    "schedulerName": "default-scheduler",
+    "securityContext": {},
+    "serviceAccount": "default",
+    "serviceAccountName": "default",
+    "terminationGracePeriodSeconds": 30,
+    "tolerations": [
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      },
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      }
+    ],
+    "volumes": [
+      {
+        "name": "default-token-544qd",
+        "secret": {
+          "defaultMode": 420,
+          "secretName": "default-token-544qd"
+        }
+      }
+    ]
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2019-06-25T20:35:02Z",
+        "message": "0/1 nodes are available: 1 Insufficient memory.",
+        "reason": "Unschedulable",
+        "status": "False",
+        "type": "PodScheduled"
+      }
+    ],
+    "phase": "Pending",
+    "qosClass": "Burstable"
+  }
+}

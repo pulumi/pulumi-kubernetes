@@ -1,0 +1,187 @@
+[
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"crashloop\",\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"command\":[\"bash\",\"-c\",\"echo \\\"see ya!\\\" \\u0026\\u0026 exit 1\"],\"image\":\"bash\",\"name\":\"crash\",\"terminationMessagePolicy\":\"FallbackToLogsOnError\"}]}}\n"
+      },
+      "creationTimestamp": "2024-07-03T17:45:57Z",
+      "name": "crashloop",
+      "namespace": "default",
+      "resourceVersion": "2430274",
+      "uid": "0c5eddea-a859-4ee2-bb6a-4f4d0b786d85"
+    },
+    "spec": {
+      "containers": [
+        {
+          "command": ["bash", "-c", "echo \"see ya!\" \u0026\u0026 exit 1"],
+          "image": "bash",
+          "imagePullPolicy": "Always",
+          "name": "crash",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "FallbackToLogsOnError",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "kube-api-access-dn8md",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "orbstack",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "kube-api-access-dn8md",
+          "projected": {
+            "defaultMode": 420,
+            "sources": [
+              {
+                "serviceAccountToken": {
+                  "expirationSeconds": 3607,
+                  "path": "token"
+                }
+              },
+              {
+                "configMap": {
+                  "items": [
+                    {
+                      "key": "ca.crt",
+                      "path": "ca.crt"
+                    }
+                  ],
+                  "name": "kube-root-ca.crt"
+                }
+              },
+              {
+                "downwardAPI": {
+                  "items": [
+                    {
+                      "fieldRef": {
+                        "apiVersion": "v1",
+                        "fieldPath": "metadata.namespace"
+                      },
+                      "path": "namespace"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2024-07-03T17:46:00Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2024-07-03T17:45:57Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2024-07-03T17:45:57Z",
+          "message": "containers with unready status: [crash]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2024-07-03T17:45:57Z",
+          "message": "containers with unready status: [crash]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2024-07-03T17:45:57Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "docker://1025601c3c247cb80bdfb48819266d5b19969a307fa0d2e526b2899cb1571fbf",
+          "image": "bash:latest",
+          "imageID": "docker-pullable://bash@sha256:4b5f0dfc184cd521d6cd01d0dc8096cdb216b1d7f0a2d23f6e7577be97997434",
+          "lastState": {
+            "terminated": {
+              "containerID": "docker://1025601c3c247cb80bdfb48819266d5b19969a307fa0d2e526b2899cb1571fbf",
+              "exitCode": 1,
+              "finishedAt": "2024-07-03T17:47:36Z",
+              "message": "see ya!\n",
+              "reason": "Error",
+              "startedAt": "2024-07-03T17:47:36Z"
+            }
+          },
+          "name": "crash",
+          "ready": false,
+          "restartCount": 4,
+          "started": false,
+          "state": {
+            "waiting": {
+              "message": "back-off 1m20s restarting failed container=crash pod=crashloop_default(0c5eddea-a859-4ee2-bb6a-4f4d0b786d85)",
+              "reason": "CrashLoopBackOff"
+            }
+          }
+        }
+      ],
+      "hostIP": "198.19.249.2",
+      "hostIPs": [
+        {
+          "ip": "198.19.249.2"
+        },
+        {
+          "ip": "fd07:b51a:cc66::2"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "192.168.194.99",
+      "podIPs": [
+        {
+          "ip": "192.168.194.99"
+        },
+        {
+          "ip": "fd07:b51a:cc66:a::15b"
+        }
+      ],
+      "qosClass": "BestEffort",
+      "startTime": "2024-07-03T17:45:57Z"
+    }
+  }
+]

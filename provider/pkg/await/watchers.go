@@ -25,14 +25,14 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 
-	"github.com/pulumi/cloud-ready-checks/pkg/checker"
-	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/condition"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 )
 
 var _ condition.Observer = (*Aggregator[*corev1.Event])(nil)
@@ -54,7 +54,7 @@ type PodAggregator struct {
 	lister lister
 
 	// Messages
-	messages chan checkerlog.Messages
+	messages chan logging.Messages
 }
 
 // lister lists resources matching a label selector.
@@ -68,7 +68,7 @@ func NewPodAggregator(owner *unstructured.Unstructured, lister lister) *PodAggre
 		owner:    owner,
 		lister:   lister,
 		checker:  pod.NewPodChecker(),
-		messages: make(chan checkerlog.Messages),
+		messages: make(chan logging.Messages),
 	}
 	return pa
 }
@@ -111,8 +111,8 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 }
 
 // Read lists existing Pods and returns any related warning/error messages.
-func (pa *PodAggregator) Read(ctx context.Context) checkerlog.Messages {
-	var messages checkerlog.Messages
+func (pa *PodAggregator) Read(ctx context.Context) logging.Messages {
+	var messages logging.Messages
 	checkPod := func(object runtime.Object) error {
 		obj := object.(*unstructured.Unstructured)
 		pod, err := clients.PodFromUnstructured(obj)
@@ -156,7 +156,7 @@ func (pa *PodAggregator) stopping() bool {
 
 // ResultChan returns a reference to the message channel used by the PodAggregator to
 // communicate warning/error messages to a resource awaiter.
-func (pa *PodAggregator) ResultChan() <-chan checkerlog.Messages {
+func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 	return pa.messages
 }
 
@@ -224,7 +224,7 @@ func NewEventAggregator(
 				e.Reason,
 				e.Message,
 			)
-			m := checkerlog.WarningMessage(msg)
+			m := logging.WarningMessage(msg)
 			switch e.Type {
 			case corev1.EventTypeWarning:
 				logger.LogStatus(diag.Warning, m.S)
