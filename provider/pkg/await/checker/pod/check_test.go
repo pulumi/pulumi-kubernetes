@@ -18,11 +18,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/internal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/internal"
 )
 
 //
