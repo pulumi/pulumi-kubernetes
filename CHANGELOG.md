@@ -5,6 +5,10 @@
 
 ## 4.28.0 (March 12, 2026)
 
+### Fixed
+
+- [#4215](https://github.com/pulumi/pulumi-kubernetes/pull/4215) When a kubeconfig uses an exec-based credential plugin (`aws eks get-token`, `gke-gcloud-auth-plugin`, `kubelogin`, etc.) and the cluster is unreachable due to an authentication failure, the plugin's stderr output is now included in the error message. Previously, actionable diagnostics such as "credentials have expired" were silently discarded.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.2.

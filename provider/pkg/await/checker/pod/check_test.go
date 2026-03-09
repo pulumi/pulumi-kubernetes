@@ -262,7 +262,6 @@ func Test_Pod_Checker(t *testing.T) {
 					break
 				}
 			}
-			fmt.Println(details)
 			assert.Equal(t, tt.expectReady, ready)
 			if tt.expectMessage != "" {
 				assert.Contains(t, details.String(), tt.expectMessage)
