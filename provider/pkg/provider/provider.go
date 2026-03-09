@@ -915,6 +915,15 @@ func (k *kubeProvider) Configure(
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load schema information from the API server: %v", err)
+			errStr := err.Error()
+			if strings.Contains(errStr, "exec plugin") ||
+				strings.Contains(errStr, "ExecCredential") ||
+				strings.Contains(errStr, "401 Unauthorized") {
+				if execStderr := execCredentialStderr(k.canceler.context, kubeconfig, overrides); execStderr != "" {
+					k.clusterUnreachableReason += fmt.Sprintf(
+						"\n\nexec credential plugin output:\n%s", execStderr)
+				}
+			}
 		}
 	}
 
