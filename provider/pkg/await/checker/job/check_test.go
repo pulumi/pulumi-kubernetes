@@ -18,10 +18,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/internal"
 	"github.com/stretchr/testify/require"
 	batchv1 "k8s.io/api/batch/v1"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/internal"
 )
 
 func Test_jobStarted(t *testing.T) {

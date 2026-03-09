@@ -17,11 +17,12 @@ package job
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 )
 
 func NewJobChecker() *checker.StateChecker {
