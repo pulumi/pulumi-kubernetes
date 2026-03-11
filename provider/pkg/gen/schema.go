@@ -632,7 +632,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 
 	nodeDeps := map[string]string{
 		"shell-quote": "^1.6.1",
-		"glob":        "^10.3.10",
+		"glob":        "^12.0.0",
 	}
 	if gen.pulumiKubernetesDependency != "" {
 		nodeDeps["@pulumi/kubernetes"] = gen.pulumiKubernetesDependency
