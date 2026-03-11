@@ -66,8 +66,8 @@ jobs:
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           ISSUE_URL=$(gh issue create \
             --title "Update Kubernetes version to v${KUBE_VERSION}" \
-            --body "Follow [playbook](https://github.com/pulumi/platform-providers-team/blob/main/playbooks/Release%3A%20Native%20Providers.md#kubernetes-supporting-newer-kubernetes-releases) to update Kubernetes version to v${KUBE_VERSION}")
-            --label needs-triage
+            --body "Follow [playbook](https://github.com/pulumi/platform-providers-team/blob/main/playbooks/Release%3A%20Native%20Providers.md#kubernetes-supporting-newer-kubernetes-releases) to update Kubernetes version to v${KUBE_VERSION}" \
+            --label needs-triage)
           ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed -n 's/.*\/\([0-9]*\)$/\1/p')
           echo "issue_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
       - name: Update Kubernetes Version
