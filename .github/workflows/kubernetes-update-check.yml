@@ -117,9 +117,8 @@ jobs:
           ## Manual Steps Required
           
           Please complete the following before merging:
-          1. Update the \`github.com/pulumi/cloud-ready-checks\` dependency by pointing it to the updated version/commit
-          2. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
-          3. Build provider and SDKs with \`make k8sprovider build\`
+          1. If this is a _minor_ upgrade, update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
+          2. Build provider and SDKs with \`make k8sprovider build\`
 
           Closes #${{ steps.create-issue.outputs.issue_number }}."
                     
