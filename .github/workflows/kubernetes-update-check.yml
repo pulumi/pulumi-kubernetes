@@ -3,9 +3,6 @@ on:
   schedule:
     - cron: 35 12 * * 4 # Thursdays at 12:35
   workflow_dispatch: {}
-  push:
-    branches:
-      - 'guin/improve-upgrade-pr'
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
