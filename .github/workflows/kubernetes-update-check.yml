@@ -36,6 +36,12 @@ jobs:
           else
             echo "Updating to Kubernetes version $KUBE_VERSION"
             echo "needs_update=1" >> "$GITHUB_OUTPUT"
+
+            CURRENT_PATCH=$(echo "$CURRENT_VERSION" | cut -d. -f3)
+            NEW_PATCH=$(echo "$KUBE_VERSION" | cut -d. -f3)
+            if [ "$CURRENT_PATCH" != "$NEW_PATCH" ]; then
+              echo "is_patch_update=1" >> "$GITHUB_OUTPUT"
+            fi
           fi
       - name: Fetch secrets from ESC
         if: steps.get-kubernetes-version.outputs.needs_update != 0
@@ -94,8 +100,10 @@ jobs:
           cd ..
           find . -name go.mod -execdir go mod tidy \;
 
-          # Build provider and SDKs
-          make k8sprovider build
+          # Build provider and SDKs (only for patch upgrades; minor upgrades need manual review)
+          if [ "${{ steps.get-kubernetes-version.outputs.is_patch_update }}" = "1" ]; then
+            make k8sprovider build
+          fi
 
           # Add CHANGELOG entry at end of ## Unreleased section (before next ## heading)
           sed -i '/^## Unreleased$/,/^## [0-9]/{/^## [0-9]/i\\### Changed\n\n- Upgrade Kubernetes schema and libraries to v'"${KUBE_VERSION}"'.\n
@@ -119,8 +127,8 @@ jobs:
           
           ## Manual Steps Required
           
-          Please complete the following before merging:
-          1. If this is a _minor_ upgrade, update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
+          If this is a **minor** upgrade, please complete the following before merging:
+          1. Update \`deprecations.go\` with additions, deprecations, and removals based on the [Deprecated API Migration Guide](https://kubernetes.io/docs/reference/using-api/deprecation-guide/)
           2. Build provider and SDKs with \`make k8sprovider build\`
 
           Closes #${{ steps.create-issue.outputs.issue_number }}."
