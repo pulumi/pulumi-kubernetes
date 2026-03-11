@@ -93,7 +93,10 @@ jobs:
           done
           cd ..
           find . -name go.mod -execdir go mod tidy \;
-          
+
+          # Build provider and SDKs
+          make k8sprovider build
+
           # Add CHANGELOG entry at end of ## Unreleased section (before next ## heading)
           sed -i '/^## Unreleased$/,/^## [0-9]/{/^## [0-9]/i\\### Changed\n\n- Upgrade Kubernetes schema and libraries to v'"${KUBE_VERSION}"'.\n
           }' CHANGELOG.md
