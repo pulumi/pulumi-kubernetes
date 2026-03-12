@@ -23,6 +23,26 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 )
 
+// Version constants used by tests.
+var (
+	v18  = cluster.ServerVersion{Major: 1, Minor: 8}
+	v19  = cluster.ServerVersion{Major: 1, Minor: 9}
+	v114 = cluster.ServerVersion{Major: 1, Minor: 14}
+	v116 = cluster.ServerVersion{Major: 1, Minor: 16}
+	v117 = cluster.ServerVersion{Major: 1, Minor: 17}
+	v118 = cluster.ServerVersion{Major: 1, Minor: 18}
+	v120 = cluster.ServerVersion{Major: 1, Minor: 20}
+	v121 = cluster.ServerVersion{Major: 1, Minor: 21}
+	v122 = cluster.ServerVersion{Major: 1, Minor: 22}
+	v124 = cluster.ServerVersion{Major: 1, Minor: 24}
+	v125 = cluster.ServerVersion{Major: 1, Minor: 25}
+	v126 = cluster.ServerVersion{Major: 1, Minor: 26}
+	v127 = cluster.ServerVersion{Major: 1, Minor: 27}
+	v129 = cluster.ServerVersion{Major: 1, Minor: 29}
+	v132 = cluster.ServerVersion{Major: 1, Minor: 32}
+	v133 = cluster.ServerVersion{Major: 1, Minor: 33}
+)
+
 func TestDeprecatedApiVersion(t *testing.T) {
 	tests := []struct {
 		gvk     schema.GroupVersionKind
@@ -76,7 +96,7 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(StorageV1, CSINode), &v120, false},
 		{toGVK(AppsV1, Deployment), &v18, false},
 		{toGVK(AppsV1, Deployment), &v19, false},
-		{toGVK(StorageV1A1, VolumeAttributesClass), &v133, true},
+		{toGVK(StorageV1A1, VolumeAttributesClass), &v133, false},
 		{toGVK(StorageV1B1, VolumeAttributesClass), &v133, false},
 	}
 	for _, tt := range tests {
@@ -168,7 +188,7 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(ApiregistrationV1B1, APIServiceList), wantStr(ApiregistrationV1, APIServiceList)},
 		{toGVK(AppsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(AppsV1B2, Deployment), wantStr(AppsV1, Deployment)},
-		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), wantStr(AutoscalingV1, HorizontalPodAutoscaler)},
+		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), wantStr(AutoscalingV2, HorizontalPodAutoscaler)},
 		{toGVK(BatchV2A1, CronJob), wantStr(BatchV1, CronJob)},
 		{toGVK(BatchV1B1, CronJob), wantStr(BatchV1, CronJob)},
 		{toGVK(CoordinationV1B1, Lease), wantStr(CoordinationV1, Lease)},
@@ -176,8 +196,8 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(ExtensionsV1B1, DaemonSet), wantStr(AppsV1, DaemonSet)},
 		{toGVK(ExtensionsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(ExtensionsV1B1, DeploymentList), wantStr(AppsV1, DeploymentList)},
-		{toGVK(ExtensionsV1B1, Ingress), wantStr(NetworkingV1B1, Ingress)},
-		{toGVK(ExtensionsV1B1, IngressList), wantStr(NetworkingV1B1, IngressList)},
+		{toGVK(ExtensionsV1B1, Ingress), wantStr(NetworkingV1, Ingress)},
+		{toGVK(ExtensionsV1B1, IngressList), wantStr(NetworkingV1, IngressList)},
 		{toGVK(ExtensionsV1B1, NetworkPolicy), wantStr(NetworkingV1, NetworkPolicy)},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), wantStr(PolicyV1B1, PodSecurityPolicy)},
 		{toGVK(ExtensionsV1B1, ReplicaSet), wantStr(AppsV1, ReplicaSet)},
@@ -219,8 +239,8 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(DiscoveryV1B1, EndpointSlice), &v125},
 		{toGVK(ExtensionsV1B1, Deployment), &v116},
 		{toGVK(ExtensionsV1B1, DeploymentList), &v116},
-		{toGVK(ExtensionsV1B1, Ingress), &v120},
-		{toGVK(ExtensionsV1B1, IngressList), &v120},
+		{toGVK(ExtensionsV1B1, Ingress), &v122},
+		{toGVK(ExtensionsV1B1, IngressList), &v122},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), &v116},
 		{toGVK(FlowcontrolV1B1, FlowSchema), &v126},
 		{toGVK(FlowcontrolV1B1, PriorityLevelConfiguration), &v126},
@@ -234,8 +254,8 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(RbacV1A1, ClusterRole), &v120},
 		{toGVK(RbacV1B1, ClusterRole), &v122},
 		{toGVK(SchedulingV1A1, PriorityClass), &v117},
-		{toGVK(SchedulingV1B1, PriorityClass), &v117},
-		{toGVK(StorageV1A1, CSIStorageCapacity), &v127},
+		{toGVK(SchedulingV1B1, PriorityClass), &v122},
+		{toGVK(StorageV1A1, CSIStorageCapacity), &v124},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
