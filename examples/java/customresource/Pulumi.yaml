@@ -1,7 +1,0 @@
-name: example
-runtime: java
-description: An example for com.pulumi.kubernetes.apiextensions.CustomResource
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: ""

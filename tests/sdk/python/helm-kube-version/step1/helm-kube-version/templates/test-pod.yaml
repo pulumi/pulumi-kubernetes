@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: kube-version-test
-  namespace: {{ .Release.Namespace }}
-spec:
-  containers:
-  - name: kube-version-test
-    image: nginx

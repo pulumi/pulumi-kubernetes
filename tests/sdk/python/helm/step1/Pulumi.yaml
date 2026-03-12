@@ -1,3 +1,0 @@
-name: helm
-description: A program that tests Helm chart creation
-runtime: python
