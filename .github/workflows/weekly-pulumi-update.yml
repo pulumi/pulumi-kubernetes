@@ -112,4 +112,9 @@ jobs:
         gh pr create -t "$msg" -b "$msg"
       env:
         GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+    - name: Enable auto-merge
+      if: steps.create-pr.outcome == 'success'
+      run: gh pr merge --auto --squash --delete-branch
+      env:
+        GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
     name: weekly-pulumi-update
