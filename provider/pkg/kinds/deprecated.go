@@ -95,8 +95,11 @@ func init() {
 	// apiextensions.k8s.io (from k8s.io/apiextensions-apiserver, not in client-go scheme)
 	addManualEntry("apiextensions.k8s.io", "v1beta1", "CustomResourceDefinition",
 		1, 7, 1, 22, &schema.GroupVersionKind{Group: "apiextensions.k8s.io", Version: "v1", Kind: "CustomResourceDefinition"})
+	crdListReplacement := &schema.GroupVersionKind{
+		Group: "apiextensions.k8s.io", Version: "v1", Kind: "CustomResourceDefinitionList",
+	}
 	addManualEntry("apiextensions.k8s.io", "v1beta1", "CustomResourceDefinitionList",
-		1, 7, 1, 22, &schema.GroupVersionKind{Group: "apiextensions.k8s.io", Version: "v1", Kind: "CustomResourceDefinitionList"})
+		1, 7, 1, 22, crdListReplacement)
 	addManualEntry("apiextensions.k8s.io", "v1", "CustomResourceDefinition", 1, 16, 0, 0, nil)
 	addManualEntry("apiextensions.k8s.io", "v1", "CustomResourceDefinitionList", 1, 16, 0, 0, nil)
 
@@ -203,7 +206,11 @@ func setReplacement(group, version, kind string, replacement schema.GroupVersion
 	}
 }
 
-func addManualEntry(group, version, kind string, introMajor, introMinor, removedMajor, removedMinor int, replacement *schema.GroupVersionKind) {
+func addManualEntry(
+	group, version, kind string,
+	introMajor, introMinor, removedMajor, removedMinor int,
+	replacement *schema.GroupVersionKind,
+) {
 	gvk := schema.GroupVersionKind{Group: group, Version: version, Kind: kind}
 	deprecations[gvk] = deprecationInfo{
 		IntroducedMajor: introMajor,

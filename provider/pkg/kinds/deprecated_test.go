@@ -37,7 +37,6 @@ var (
 	v124 = cluster.ServerVersion{Major: 1, Minor: 24}
 	v125 = cluster.ServerVersion{Major: 1, Minor: 25}
 	v126 = cluster.ServerVersion{Major: 1, Minor: 26}
-	v127 = cluster.ServerVersion{Major: 1, Minor: 27}
 	v129 = cluster.ServerVersion{Major: 1, Minor: 29}
 	v132 = cluster.ServerVersion{Major: 1, Minor: 32}
 	v133 = cluster.ServerVersion{Major: 1, Minor: 33}
