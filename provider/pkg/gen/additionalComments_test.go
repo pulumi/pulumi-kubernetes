@@ -32,8 +32,8 @@ func TestAPIVersionComment(t *testing.T) {
 		},
 		{
 			gvk: schema.GroupVersionKind{Group: "io.k8s.api.extensions", Version: "v1beta1", Kind: "Ingress"},
-			expected: "extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1beta1/Ingress " +
-				"and not supported by Kubernetes v1.20+ clusters.",
+			expected: "extensions/v1beta1/Ingress is deprecated by networking.k8s.io/v1/Ingress " +
+				"and not supported by Kubernetes v1.22+ clusters.",
 		},
 		{
 			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.batch", Version: "v1beta1", Kind: "CronJob"},
@@ -46,7 +46,13 @@ func TestAPIVersionComment(t *testing.T) {
 				Kind:    "VolumeAttributesClass",
 			},
 			expected: "storage.k8s.io/v1alpha1/VolumeAttributesClass is deprecated by " +
-				"storage.k8s.io/v1beta1/VolumeAttributesClass.",
+				"storage.k8s.io/v1/VolumeAttributesClass and not supported by Kubernetes v1.35+ clusters.",
+		},
+		{
+			// The OpenAPI definition uses "io.k8s.api.storage" which gets truncated to "storage",
+			// but the scheme registers under "storage.k8s.io". Verify the lookup still works.
+			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.storage", Version: "v1beta1", Kind: "CSINode"},
+			expected: "storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode and not supported by Kubernetes v1.22+ clusters.",
 		},
 		{
 			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.core", Version: "v1", Kind: "Pod"},
