@@ -51,7 +51,7 @@ func TestAPIVersionComment(t *testing.T) {
 		{
 			// The OpenAPI definition uses "io.k8s.api.storage" which gets truncated to "storage",
 			// but the scheme registers under "storage.k8s.io". Verify the lookup still works.
-			gvk:      schema.GroupVersionKind{Group: "io.k8s.api.storage", Version: "v1beta1", Kind: "CSINode"},
+			gvk: schema.GroupVersionKind{Group: "io.k8s.api.storage", Version: "v1beta1", Kind: "CSINode"},
 			expected: "storage/v1beta1/CSINode is deprecated by storage.k8s.io/v1/CSINode" +
 				" and not supported by Kubernetes v1.22+ clusters.",
 		},
