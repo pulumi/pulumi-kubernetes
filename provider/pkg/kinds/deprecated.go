@@ -178,10 +178,10 @@ func init() {
 		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "DeviceClass"})
 	setReplacement("resource.k8s.io", "v1beta1", "DeviceClassList",
 		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "DeviceClassList"})
-	setReplacement("resource.k8s.io", "v1beta1", "DeviceTaintRule",
-		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "DeviceTaintRule"})
-	setReplacement("resource.k8s.io", "v1beta1", "DeviceTaintRuleList",
-		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "DeviceTaintRuleList"})
+	// NOTE: DeviceTaintRule only exists in v1alpha3 in k8s.io/api v0.35.2.
+	// It has not been promoted to v1beta1 or v1beta2 yet, so there is no
+	// replacement to point to. The v1alpha3 introduced/removed data is
+	// picked up automatically by the scheme iteration above.
 	setReplacement("resource.k8s.io", "v1beta1", "ResourceClaim",
 		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "ResourceClaim"})
 	setReplacement("resource.k8s.io", "v1beta1", "ResourceClaimList",
@@ -198,12 +198,17 @@ func init() {
 
 // setReplacement adds a replacement GVK to an existing deprecation entry
 // (populated by the scheme iteration) without overwriting its other fields.
+// Panics if the GVK is not already in the deprecations map, since a missing
+// entry indicates a bug in the caller (e.g., referencing a GVK that doesn't
+// exist in the scheme).
 func setReplacement(group, version, kind string, replacement schema.GroupVersionKind) {
 	gvk := schema.GroupVersionKind{Group: group, Version: version, Kind: kind}
-	if info, ok := deprecations[gvk]; ok {
-		info.Replacement = &replacement
-		deprecations[gvk] = info
+	info, ok := deprecations[gvk]
+	if !ok {
+		panic(fmt.Sprintf("setReplacement: %s not found in deprecations map; use addManualEntry instead", gvk))
 	}
+	info.Replacement = &replacement
+	deprecations[gvk] = info
 }
 
 func addManualEntry(

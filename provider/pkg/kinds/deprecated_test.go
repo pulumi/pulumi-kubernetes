@@ -266,6 +266,50 @@ func TestRemovedInVersion(t *testing.T) {
 	}
 }
 
+// TestSetReplacementPanicsOnMissingEntry verifies that setReplacement panics
+// when called with a GVK not in the deprecations map, rather than silently
+// no-oping (which previously caused DeviceTaintRule to have no deprecation data).
+func TestSetReplacementPanicsOnMissingEntry(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("setReplacement did not panic for a missing GVK")
+		}
+	}()
+	setReplacement("nonexistent.k8s.io", "v1", "FakeKind",
+		schema.GroupVersionKind{Group: "nonexistent.k8s.io", Version: "v2", Kind: "FakeKind"})
+}
+
+// TestDeviceTaintRuleV1Alpha3HasDeprecationData verifies that DeviceTaintRule
+// in v1alpha3 is picked up by the scheme iteration with introduced/removed data.
+func TestDeviceTaintRuleV1Alpha3HasDeprecationData(t *testing.T) {
+	gvk := schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1alpha3", Kind: "DeviceTaintRule"}
+	info, ok := deprecations[gvk]
+	if !ok {
+		t.Fatalf("DeviceTaintRule v1alpha3 not found in deprecations map")
+	}
+	if info.IntroducedMajor == 0 && info.IntroducedMinor == 0 {
+		t.Error("DeviceTaintRule v1alpha3 has no IntroducedIn data")
+	}
+	if info.RemovedMajor == 0 && info.RemovedMinor == 0 {
+		t.Error("DeviceTaintRule v1alpha3 has no RemovedIn data")
+	}
+}
+
+// TestAllSetReplacementTargetsExist verifies that every GVK with a replacement
+// pointer actually has the replacement target's group/version/kind set (not zero-value).
+func TestAllReplacementsAreValid(t *testing.T) {
+	for gvk, info := range deprecations {
+		if info.Replacement != nil {
+			if info.Replacement.Kind == "" {
+				t.Errorf("%s has a replacement with empty Kind", gvk)
+			}
+			if info.Replacement.Version == "" {
+				t.Errorf("%s has a replacement with empty Version", gvk)
+			}
+		}
+	}
+}
+
 func TestRemovedApiVersion(t *testing.T) {
 	type args struct {
 		gvk     schema.GroupVersionKind
