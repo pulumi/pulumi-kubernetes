@@ -155,23 +155,6 @@ func init() {
 	addManualEntry("scheduling.k8s.io", "v1alpha1", "PriorityClassList",
 		1, 10, 1, 17, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1", Kind: "PriorityClassList"})
 
-	// Also index under truncated group names for compatibility with callers
-	// that receive groups from OpenAPI definition names (e.g., "io.k8s.api.storage"
-	// gets truncated to "storage" by APIVersionComment in additionalComments.go).
-	// The scheme uses "storage.k8s.io" but the caller looks up "storage".
-	extras := make(map[schema.GroupVersionKind]deprecationInfo)
-	for gvk, info := range deprecations {
-		if idx := strings.Index(gvk.Group, "."); idx > 0 {
-			shortGVK := schema.GroupVersionKind{Group: gvk.Group[:idx], Version: gvk.Version, Kind: gvk.Kind}
-			if _, exists := deprecations[shortGVK]; !exists {
-				extras[shortGVK] = info
-			}
-		}
-	}
-	for gvk, info := range extras {
-		deprecations[gvk] = info
-	}
-
 	// resource.k8s.io/v1beta1 — has lifecycle data but no APILifecycleReplacement.
 	// The replacement is v1beta2.
 	setReplacement("resource.k8s.io", "v1beta1", "DeviceClass",
@@ -194,6 +177,24 @@ func init() {
 		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "ResourceSlice"})
 	setReplacement("resource.k8s.io", "v1beta1", "ResourceSliceList",
 		schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta2", Kind: "ResourceSliceList"})
+
+	// Also index under truncated group names for compatibility with callers
+	// that receive groups from OpenAPI definition names (e.g., "io.k8s.api.storage"
+	// gets truncated to "storage" by APIVersionComment in additionalComments.go).
+	// The scheme uses "storage.k8s.io" but the caller looks up "storage".
+	// This runs after setReplacement so that aliases inherit patched Replacement data.
+	extras := make(map[schema.GroupVersionKind]deprecationInfo)
+	for gvk, info := range deprecations {
+		if idx := strings.Index(gvk.Group, "."); idx > 0 {
+			shortGVK := schema.GroupVersionKind{Group: gvk.Group[:idx], Version: gvk.Version, Kind: gvk.Kind}
+			if _, exists := deprecations[shortGVK]; !exists {
+				extras[shortGVK] = info
+			}
+		}
+	}
+	for gvk, info := range extras {
+		deprecations[gvk] = info
+	}
 }
 
 // setReplacement adds a replacement GVK to an existing deprecation entry

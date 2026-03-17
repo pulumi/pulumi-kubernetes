@@ -310,6 +310,34 @@ func TestAllReplacementsAreValid(t *testing.T) {
 	}
 }
 
+// TestShortGroupAliasesInheritReplacement verifies that truncated-group aliases
+// (e.g., "resource" for "resource.k8s.io") carry the same Replacement pointer
+// as the canonical full-group entry.
+func TestShortGroupAliasesInheritReplacement(t *testing.T) {
+	// DeviceClass resource.k8s.io/v1beta1 has a setReplacement pointing to v1beta2.
+	// The short alias "resource/v1beta1/DeviceClass" should also have it.
+	full := schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta1", Kind: "DeviceClass"}
+	short := schema.GroupVersionKind{Group: "resource", Version: "v1beta1", Kind: "DeviceClass"}
+
+	fullInfo, ok := deprecations[full]
+	if !ok {
+		t.Fatalf("%s not found in deprecations map", full)
+	}
+	if fullInfo.Replacement == nil {
+		t.Fatalf("%s has no replacement", full)
+	}
+
+	shortInfo, ok := deprecations[short]
+	if !ok {
+		t.Fatalf("%s (short-group alias) not found in deprecations map", short)
+	}
+	if shortInfo.Replacement == nil {
+		t.Errorf("%s (short-group alias) has Replacement == nil; expected it to inherit from %s", short, full)
+	} else if *shortInfo.Replacement != *fullInfo.Replacement {
+		t.Errorf("%s replacement = %s, want %s", short, *shortInfo.Replacement, *fullInfo.Replacement)
+	}
+}
+
 func TestRemovedApiVersion(t *testing.T) {
 	type args struct {
 		gvk     schema.GroupVersionKind
