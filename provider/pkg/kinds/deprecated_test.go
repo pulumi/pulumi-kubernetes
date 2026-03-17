@@ -23,6 +23,25 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
 )
 
+// Version constants used by tests.
+var (
+	v18  = cluster.ServerVersion{Major: 1, Minor: 8}
+	v19  = cluster.ServerVersion{Major: 1, Minor: 9}
+	v114 = cluster.ServerVersion{Major: 1, Minor: 14}
+	v116 = cluster.ServerVersion{Major: 1, Minor: 16}
+	v117 = cluster.ServerVersion{Major: 1, Minor: 17}
+	v118 = cluster.ServerVersion{Major: 1, Minor: 18}
+	v120 = cluster.ServerVersion{Major: 1, Minor: 20}
+	v121 = cluster.ServerVersion{Major: 1, Minor: 21}
+	v122 = cluster.ServerVersion{Major: 1, Minor: 22}
+	v124 = cluster.ServerVersion{Major: 1, Minor: 24}
+	v125 = cluster.ServerVersion{Major: 1, Minor: 25}
+	v126 = cluster.ServerVersion{Major: 1, Minor: 26}
+	v129 = cluster.ServerVersion{Major: 1, Minor: 29}
+	v132 = cluster.ServerVersion{Major: 1, Minor: 32}
+	v133 = cluster.ServerVersion{Major: 1, Minor: 33}
+)
+
 func TestDeprecatedApiVersion(t *testing.T) {
 	tests := []struct {
 		gvk     schema.GroupVersionKind
@@ -76,7 +95,7 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(StorageV1, CSINode), &v120, false},
 		{toGVK(AppsV1, Deployment), &v18, false},
 		{toGVK(AppsV1, Deployment), &v19, false},
-		{toGVK(StorageV1A1, VolumeAttributesClass), &v133, true},
+		{toGVK(StorageV1A1, VolumeAttributesClass), &v133, false},
 		{toGVK(StorageV1B1, VolumeAttributesClass), &v133, false},
 	}
 	for _, tt := range tests {
@@ -168,7 +187,7 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(ApiregistrationV1B1, APIServiceList), wantStr(ApiregistrationV1, APIServiceList)},
 		{toGVK(AppsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(AppsV1B2, Deployment), wantStr(AppsV1, Deployment)},
-		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), wantStr(AutoscalingV1, HorizontalPodAutoscaler)},
+		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), wantStr(AutoscalingV2, HorizontalPodAutoscaler)},
 		{toGVK(BatchV2A1, CronJob), wantStr(BatchV1, CronJob)},
 		{toGVK(BatchV1B1, CronJob), wantStr(BatchV1, CronJob)},
 		{toGVK(CoordinationV1B1, Lease), wantStr(CoordinationV1, Lease)},
@@ -176,8 +195,8 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(ExtensionsV1B1, DaemonSet), wantStr(AppsV1, DaemonSet)},
 		{toGVK(ExtensionsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(ExtensionsV1B1, DeploymentList), wantStr(AppsV1, DeploymentList)},
-		{toGVK(ExtensionsV1B1, Ingress), wantStr(NetworkingV1B1, Ingress)},
-		{toGVK(ExtensionsV1B1, IngressList), wantStr(NetworkingV1B1, IngressList)},
+		{toGVK(ExtensionsV1B1, Ingress), wantStr(NetworkingV1, Ingress)},
+		{toGVK(ExtensionsV1B1, IngressList), wantStr(NetworkingV1, IngressList)},
 		{toGVK(ExtensionsV1B1, NetworkPolicy), wantStr(NetworkingV1, NetworkPolicy)},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), wantStr(PolicyV1B1, PodSecurityPolicy)},
 		{toGVK(ExtensionsV1B1, ReplicaSet), wantStr(AppsV1, ReplicaSet)},
@@ -219,8 +238,8 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(DiscoveryV1B1, EndpointSlice), &v125},
 		{toGVK(ExtensionsV1B1, Deployment), &v116},
 		{toGVK(ExtensionsV1B1, DeploymentList), &v116},
-		{toGVK(ExtensionsV1B1, Ingress), &v120},
-		{toGVK(ExtensionsV1B1, IngressList), &v120},
+		{toGVK(ExtensionsV1B1, Ingress), &v122},
+		{toGVK(ExtensionsV1B1, IngressList), &v122},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), &v116},
 		{toGVK(FlowcontrolV1B1, FlowSchema), &v126},
 		{toGVK(FlowcontrolV1B1, PriorityLevelConfiguration), &v126},
@@ -234,8 +253,8 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(RbacV1A1, ClusterRole), &v120},
 		{toGVK(RbacV1B1, ClusterRole), &v122},
 		{toGVK(SchedulingV1A1, PriorityClass), &v117},
-		{toGVK(SchedulingV1B1, PriorityClass), &v117},
-		{toGVK(StorageV1A1, CSIStorageCapacity), &v127},
+		{toGVK(SchedulingV1B1, PriorityClass), &v122},
+		{toGVK(StorageV1A1, CSIStorageCapacity), &v124},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {
@@ -244,6 +263,78 @@ func TestRemovedInVersion(t *testing.T) {
 				t.Errorf("RemovedInVersion() got = %v, want %v", got, tt.wantVersion)
 			}
 		})
+	}
+}
+
+// TestSetReplacementPanicsOnMissingEntry verifies that setReplacement panics
+// when called with a GVK not in the deprecations map, rather than silently
+// no-oping (which previously caused DeviceTaintRule to have no deprecation data).
+func TestSetReplacementPanicsOnMissingEntry(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("setReplacement did not panic for a missing GVK")
+		}
+	}()
+	setReplacement("nonexistent.k8s.io", "v1", "FakeKind",
+		schema.GroupVersionKind{Group: "nonexistent.k8s.io", Version: "v2", Kind: "FakeKind"})
+}
+
+// TestDeviceTaintRuleV1Alpha3HasDeprecationData verifies that DeviceTaintRule
+// in v1alpha3 is picked up by the scheme iteration with introduced/removed data.
+func TestDeviceTaintRuleV1Alpha3HasDeprecationData(t *testing.T) {
+	gvk := schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1alpha3", Kind: "DeviceTaintRule"}
+	info, ok := deprecations[gvk]
+	if !ok {
+		t.Fatalf("DeviceTaintRule v1alpha3 not found in deprecations map")
+	}
+	if info.IntroducedMajor == 0 && info.IntroducedMinor == 0 {
+		t.Error("DeviceTaintRule v1alpha3 has no IntroducedIn data")
+	}
+	if info.RemovedMajor == 0 && info.RemovedMinor == 0 {
+		t.Error("DeviceTaintRule v1alpha3 has no RemovedIn data")
+	}
+}
+
+// TestAllSetReplacementTargetsExist verifies that every GVK with a replacement
+// pointer actually has the replacement target's group/version/kind set (not zero-value).
+func TestAllReplacementsAreValid(t *testing.T) {
+	for gvk, info := range deprecations {
+		if info.Replacement != nil {
+			if info.Replacement.Kind == "" {
+				t.Errorf("%s has a replacement with empty Kind", gvk)
+			}
+			if info.Replacement.Version == "" {
+				t.Errorf("%s has a replacement with empty Version", gvk)
+			}
+		}
+	}
+}
+
+// TestShortGroupAliasesInheritReplacement verifies that truncated-group aliases
+// (e.g., "resource" for "resource.k8s.io") carry the same Replacement pointer
+// as the canonical full-group entry.
+func TestShortGroupAliasesInheritReplacement(t *testing.T) {
+	// DeviceClass resource.k8s.io/v1beta1 has a setReplacement pointing to v1beta2.
+	// The short alias "resource/v1beta1/DeviceClass" should also have it.
+	full := schema.GroupVersionKind{Group: "resource.k8s.io", Version: "v1beta1", Kind: "DeviceClass"}
+	short := schema.GroupVersionKind{Group: "resource", Version: "v1beta1", Kind: "DeviceClass"}
+
+	fullInfo, ok := deprecations[full]
+	if !ok {
+		t.Fatalf("%s not found in deprecations map", full)
+	}
+	if fullInfo.Replacement == nil {
+		t.Fatalf("%s has no replacement", full)
+	}
+
+	shortInfo, ok := deprecations[short]
+	if !ok {
+		t.Fatalf("%s (short-group alias) not found in deprecations map", short)
+	}
+	if shortInfo.Replacement == nil {
+		t.Errorf("%s (short-group alias) has Replacement == nil; expected it to inherit from %s", short, full)
+	} else if *shortInfo.Replacement != *fullInfo.Replacement {
+		t.Errorf("%s replacement = %s, want %s", short, *shortInfo.Replacement, *fullInfo.Replacement)
 	}
 }
 
