@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
+
 	"strings"
 	"sync"
 	"time"
@@ -1016,9 +1016,6 @@ func patchForce(inputs, live *unstructured.Unstructured, enablePatchForce, previ
 	}
 	if enablePatchForce {
 		return true
-	}
-	if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
-		return enabled == "true"
 	}
 	if preview {
 		// Always force on preview if no previous state to avoid erroneous conflict errors for resource replacements.
