@@ -1046,6 +1046,156 @@ func TestDeletion(t *testing.T) {
 	}
 }
 
+func TestPatchForce(t *testing.T) {
+	t.Parallel()
+
+	makeInputs := func(annotations map[string]string) *unstructured.Unstructured {
+		obj := &unstructured.Unstructured{}
+		obj.SetAnnotations(annotations)
+		return obj
+	}
+	makeLive := func(managers []metav1.ManagedFieldsEntry) *unstructured.Unstructured {
+		obj := &unstructured.Unstructured{}
+		obj.SetManagedFields(managers)
+		return obj
+	}
+
+	tests := []struct {
+		name             string
+		inputs           *unstructured.Unstructured
+		live             *unstructured.Unstructured
+		enablePatchForce bool
+		preview          bool
+		want             bool
+	}{
+		{
+			name:   "default is false",
+			inputs: makeInputs(nil),
+			live:   makeLive([]metav1.ManagedFieldsEntry{{Manager: "other", Operation: metav1.ManagedFieldsOperationApply}}),
+			want:   false,
+		},
+		{
+			name:   "annotation true",
+			inputs: makeInputs(map[string]string{"pulumi.com/patchForce": "true"}),
+			live:   makeLive([]metav1.ManagedFieldsEntry{{Manager: "other", Operation: metav1.ManagedFieldsOperationApply}}),
+			want:   true,
+		},
+		{
+			name:             "enablePatchForce config",
+			inputs:           makeInputs(nil),
+			live:             makeLive([]metav1.ManagedFieldsEntry{{Manager: "other", Operation: metav1.ManagedFieldsOperationApply}}),
+			enablePatchForce: true,
+			want:             true,
+		},
+		{
+			name:             "annotation takes precedence over config",
+			inputs:           makeInputs(map[string]string{"pulumi.com/patchForce": "true"}),
+			live:             makeLive([]metav1.ManagedFieldsEntry{{Manager: "other", Operation: metav1.ManagedFieldsOperationApply}}),
+			enablePatchForce: false,
+			want:             true,
+		},
+		{
+			name:    "preview with no live object",
+			inputs:  makeInputs(nil),
+			live:    nil,
+			preview: true,
+			want:    true,
+		},
+		{
+			name:   "live object with no managed fields",
+			inputs: makeInputs(nil),
+			live:   makeLive(nil),
+			want:   true,
+		},
+		{
+			name:   "preview with CSA field manager",
+			inputs: makeInputs(nil),
+			live: makeLive([]metav1.ManagedFieldsEntry{
+				{Manager: "pulumi-kubernetes", Operation: metav1.ManagedFieldsOperationUpdate},
+			}),
+			preview: true,
+			want:    true,
+		},
+		{
+			name:   "preview with non-pulumi field manager",
+			inputs: makeInputs(nil),
+			live: makeLive([]metav1.ManagedFieldsEntry{
+				{Manager: "kubectl", Operation: metav1.ManagedFieldsOperationUpdate},
+			}),
+			preview: true,
+			want:    false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := patchForce(tt.inputs, tt.live, tt.enablePatchForce, tt.preview)
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
+	// Verify that enablePatchForce on the provider config resolves SSA conflicts.
+	// Without enablePatchForce, a conflict error is returned. With it, the conflict is forced through.
+	client, _, _, clientset := fake.NewSimpleDynamicClient()
+
+	pod := validPodUnstructured.DeepCopy()
+	pod.SetNamespace("default")
+	// Skip await so the test doesn't hang waiting for readiness.
+	annotations := pod.GetAnnotations()
+	if annotations == nil {
+		annotations = map[string]string{}
+	}
+	annotations["pulumi.com/skipAwait"] = "true"
+	pod.SetAnnotations(annotations)
+
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type(""),
+		"testresource",
+	)
+
+	// First, verify that without enablePatchForce, a conflict is returned.
+	pconfig := ProviderConfig{
+		Context:          context.Background(),
+		Host:             &fakehost.HostClient{},
+		URN:              urn,
+		FieldManager:     "test",
+		ClientSet:        client,
+		DedupLogger:      logging.NewLogger(context.Background(), &fakehost.HostClient{}, urn),
+		ServerSideApply:  true,
+		EnablePatchForce: false,
+		Factories:        informers.NewFactories(t.Context()),
+	}
+	clientset.PrependReactor("patch", "pods", func(_ kubetesting.Action) (bool, runtime.Object, error) {
+		return true, nil, apierrors.NewApplyConflict(nil, "conflict")
+	})
+	_, err := Creation(CreateConfig{
+		ProviderConfig: pconfig,
+		Inputs:         pod,
+	})
+	assert.Error(t, err, "expected conflict error without enablePatchForce")
+
+	// Now, enable patchForce. The reactor simulates the server accepting the forced apply.
+	clientset.ReactionChain = clientset.ReactionChain[:0] // Clear reactors.
+	clientset.PrependReactor("patch", "pods", func(_ kubetesting.Action) (bool, runtime.Object, error) {
+		applied := pod.DeepCopy()
+		applied.SetResourceVersion("1")
+		return true, applied, nil
+	})
+
+	pconfig.EnablePatchForce = true
+	_, err = Creation(CreateConfig{
+		ProviderConfig: pconfig,
+		Inputs:         pod,
+	})
+	assert.NoError(t, err, "expected no error with enablePatchForce")
+}
+
 func TestAwaitSSAConflict(t *testing.T) {
 	client, _, _, clientset := fake.NewSimpleDynamicClient()
 

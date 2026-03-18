@@ -167,6 +167,10 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					Description: "If present and set to false, disable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"enablePatchForce": {
+					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enablePatchForce` parameter.\n2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.\n3. The `pulumi.com/patchForce` annotation.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"enableReplaceCRD": {
 					Description:        "Obsolete. This option has no effect.",
 					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
@@ -264,6 +268,15 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 						},
 					},
 					Description: "If present and set to false, disable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"enablePatchForce": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_PATCH_FORCE",
+						},
+					},
+					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enablePatchForce` parameter.\n2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.\n3. The `pulumi.com/patchForce` annotation.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableConfigMapMutable": {
