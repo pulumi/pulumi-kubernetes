@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- [#2280](https://github.com/pulumi/pulumi-kubernetes/issues/2280) Add `enablePatchForce` provider config option to force SSA patch conflicts on a per-stack basis.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.3.
