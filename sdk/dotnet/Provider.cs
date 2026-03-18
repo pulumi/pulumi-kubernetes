@@ -92,6 +92,18 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableConfigMapMutable { get; set; }
 
         /// <summary>
+        /// If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+        /// See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enablePatchForce` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+        /// 3. The `pulumi.com/patchForce` annotation.
+        /// </summary>
+        [Input("enablePatchForce", json: true)]
+        public Input<bool>? EnablePatchForce { get; set; }
+
+        /// <summary>
         /// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
         /// This feature is in developer preview, and is disabled by default.
         /// 
@@ -173,6 +185,7 @@ namespace Pulumi.Kubernetes
         {
             DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
+            EnablePatchForce = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_PATCH_FORCE");
             EnableSecretMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SECRET_MUTABLE");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");

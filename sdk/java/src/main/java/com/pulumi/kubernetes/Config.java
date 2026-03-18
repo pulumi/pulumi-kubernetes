@@ -63,6 +63,19 @@ public final class Config {
         return Codegen.booleanProp("enableConfigMapMutable").config(config).get();
     }
 /**
+ * If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+ * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+ * 
+ * This config can be specified in the following ways using this precedence:
+ * 1. This `enablePatchForce` parameter.
+ * 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+ * 3. The `pulumi.com/patchForce` annotation.
+ * 
+ */
+    public Optional<Boolean> enablePatchForce() {
+        return Codegen.booleanProp("enablePatchForce").config(config).get();
+    }
+/**
  * Obsolete. This option has no effect.
  * 
  */

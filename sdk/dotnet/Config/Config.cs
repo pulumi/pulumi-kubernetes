@@ -101,6 +101,22 @@ namespace Pulumi.Kubernetes
             set => _enableConfigMapMutable.Set(value);
         }
 
+        private static readonly __Value<bool?> _enablePatchForce = new __Value<bool?>(() => __config.GetBoolean("enablePatchForce"));
+        /// <summary>
+        /// If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+        /// See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enablePatchForce` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+        /// 3. The `pulumi.com/patchForce` annotation.
+        /// </summary>
+        public static bool? EnablePatchForce
+        {
+            get => _enablePatchForce.Get();
+            set => _enablePatchForce.Set(value);
+        }
+
         private static readonly __Value<bool?> _enableReplaceCRD = new __Value<bool?>(() => __config.GetBoolean("enableReplaceCRD"));
         /// <summary>
         /// Obsolete. This option has no effect.

@@ -128,6 +128,33 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+     * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `enablePatchForce` parameter.
+     * 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+     * 3. The `pulumi.com/patchForce` annotation.
+     * 
+     */
+    @Import(name="enablePatchForce", json=true)
+    private @Nullable Output<Boolean> enablePatchForce;
+
+    /**
+     * @return If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+     * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `enablePatchForce` parameter.
+     * 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+     * 3. The `pulumi.com/patchForce` annotation.
+     * 
+     */
+    public Optional<Output<Boolean>> enablePatchForce() {
+        return Optional.ofNullable(this.enablePatchForce);
+    }
+
+    /**
      * BETA FEATURE - If present and set to true, allow Secrets to be mutated.
      * This feature is in developer preview, and is disabled by default.
      * 
@@ -322,6 +349,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.context = $.context;
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
+        this.enablePatchForce = $.enablePatchForce;
         this.enableSecretMutable = $.enableSecretMutable;
         this.enableServerSideApply = $.enableServerSideApply;
         this.helmReleaseSettings = $.helmReleaseSettings;
@@ -494,6 +522,39 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder enableConfigMapMutable(Boolean enableConfigMapMutable) {
             return enableConfigMapMutable(Output.of(enableConfigMapMutable));
+        }
+
+        /**
+         * @param enablePatchForce If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+         * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `enablePatchForce` parameter.
+         * 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+         * 3. The `pulumi.com/patchForce` annotation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enablePatchForce(@Nullable Output<Boolean> enablePatchForce) {
+            $.enablePatchForce = enablePatchForce;
+            return this;
+        }
+
+        /**
+         * @param enablePatchForce If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+         * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `enablePatchForce` parameter.
+         * 2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+         * 3. The `pulumi.com/patchForce` annotation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enablePatchForce(Boolean enablePatchForce) {
+            return enablePatchForce(Output.of(enablePatchForce));
         }
 
         /**
@@ -745,6 +806,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         public ProviderArgs build() {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
+            $.enablePatchForce = Codegen.booleanProp("enablePatchForce").output().arg($.enablePatchForce).env("PULUMI_K8S_ENABLE_PATCH_FORCE").getNullable();
             $.enableSecretMutable = Codegen.booleanProp("enableSecretMutable").output().arg($.enableSecretMutable).env("PULUMI_K8S_ENABLE_SECRET_MUTABLE").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();
