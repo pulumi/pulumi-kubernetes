@@ -168,7 +168,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enablePatchForce": {
-					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enablePatchForce` parameter.\n2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.\n3. The `pulumi.com/patchForce` annotation.",
+					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. The `pulumi.com/patchForce` annotation on the resource.\n2. This `enablePatchForce` parameter.\n3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
@@ -276,7 +276,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 							"PULUMI_K8S_ENABLE_PATCH_FORCE",
 						},
 					},
-					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enablePatchForce` parameter.\n2. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.\n3. The `pulumi.com/patchForce` annotation.",
+					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. The `pulumi.com/patchForce` annotation on the resource.\n2. This `enablePatchForce` parameter.\n3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableConfigMapMutable": {
