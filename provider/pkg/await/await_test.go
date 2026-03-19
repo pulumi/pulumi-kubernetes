@@ -1081,8 +1081,8 @@ func TestPatchForce(t *testing.T) {
 			want:   true,
 		},
 		{
-			name:             "enablePatchForce config",
-			inputs:           makeInputs(nil),
+			name:   "enablePatchForce config",
+			inputs: makeInputs(nil),
 			live: makeLive([]metav1.ManagedFieldsEntry{
 				{Manager: "other", Operation: metav1.ManagedFieldsOperationApply},
 			}),
@@ -1090,8 +1090,8 @@ func TestPatchForce(t *testing.T) {
 			want:             true,
 		},
 		{
-			name:             "annotation takes precedence over config",
-			inputs:           makeInputs(map[string]string{"pulumi.com/patchForce": "true"}),
+			name:   "annotation takes precedence over config",
+			inputs: makeInputs(map[string]string{"pulumi.com/patchForce": "true"}),
 			live: makeLive([]metav1.ManagedFieldsEntry{
 				{Manager: "other", Operation: metav1.ManagedFieldsOperationApply},
 			}),
