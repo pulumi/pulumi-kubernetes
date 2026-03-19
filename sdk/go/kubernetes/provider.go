@@ -33,6 +33,11 @@ func NewProvider(ctx *pulumi.Context,
 			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))
 		}
 	}
+	if args.EnablePatchForce == nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_PATCH_FORCE"); d != nil {
+			args.EnablePatchForce = pulumi.BoolPtr(d.(bool))
+		}
+	}
 	if args.EnableSecretMutable == nil {
 		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_SECRET_MUTABLE"); d != nil {
 			args.EnableSecretMutable = pulumi.BoolPtr(d.(bool))
@@ -100,6 +105,14 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
+	// If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+	// See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. The `pulumi.com/patchForce` annotation on the resource.
+	// 2. This `enablePatchForce` parameter.
+	// 3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+	EnablePatchForce *bool `pulumi:"enablePatchForce"`
 	// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//
@@ -163,6 +176,14 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
+	// If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+	// See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. The `pulumi.com/patchForce` annotation on the resource.
+	// 2. This `enablePatchForce` parameter.
+	// 3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+	EnablePatchForce pulumi.BoolPtrInput
 	// BETA FEATURE - If present and set to true, allow Secrets to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//

@@ -138,6 +138,7 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
 	serverSideApplyMode         bool
+	enablePatchForce            bool
 
 	helmDriver               string
 	helmPluginsPath          string
@@ -610,6 +611,22 @@ func (k *kubeProvider) Configure(
 	}
 	if enableServerSideApply() {
 		k.serverSideApplyMode = true
+	}
+
+	enablePatchForce := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enablePatchForce"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if enablePatchForce() {
+		k.enablePatchForce = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -1705,6 +1722,7 @@ func (k *kubeProvider) Create(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnablePatchForce:  k.enablePatchForce,
 			Factories:         k.factories,
 		},
 		Inputs:  newInputs,
@@ -2212,6 +2230,7 @@ func (k *kubeProvider) Update(
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnablePatchForce:  k.enablePatchForce,
 			Factories:         k.factories,
 		},
 		OldInputs:     oldLivePruned,
@@ -2378,6 +2397,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
+			EnablePatchForce:  k.enablePatchForce,
 			Factories:         k.factories,
 		},
 		Inputs:  oldInputs,

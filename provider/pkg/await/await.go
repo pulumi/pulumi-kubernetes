@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
 	"strings"
 	"sync"
 	"time"
@@ -81,6 +80,7 @@ type ProviderConfig struct {
 	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
 	ServerSideApply   bool
+	EnablePatchForce  bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -187,7 +187,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
-				force := patchForce(c.Inputs, nil, c.Preview)
+				force := patchForce(c.Inputs, nil, c.EnablePatchForce, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
@@ -640,7 +640,7 @@ func ssaUpdate(
 	if err != nil {
 		return nil, err
 	}
-	force := patchForce(c.Inputs, liveOldObj, c.Preview)
+	force := patchForce(c.Inputs, liveOldObj, c.EnablePatchForce, c.Preview)
 	options := metav1.PatchOptions{
 		FieldManager: c.FieldManager,
 		Force:        &force,
@@ -1009,12 +1009,12 @@ func clearStatus(context context.Context, host host.HostClient, urn resource.URN
 }
 
 // patchForce decides whether to overwrite patch conflicts.
-func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
+func patchForce(inputs, live *unstructured.Unstructured, enablePatchForce, preview bool) bool {
 	if metadata.IsAnnotationTrue(inputs, metadata.AnnotationPatchForce) {
 		return true
 	}
-	if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
-		return enabled == "true"
+	if enablePatchForce {
+		return true
 	}
 	if preview {
 		// Always force on preview if no previous state to avoid erroneous conflict errors for resource replacements.

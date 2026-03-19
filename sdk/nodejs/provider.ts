@@ -43,6 +43,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["context"] = args?.context;
             resourceInputs["deleteUnreachable"] = pulumi.output((args?.deleteUnreachable) ?? utilities.getEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args?.enableConfigMapMutable) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
+            resourceInputs["enablePatchForce"] = pulumi.output((args?.enablePatchForce) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_PATCH_FORCE")).apply(JSON.stringify);
             resourceInputs["enableSecretMutable"] = pulumi.output((args?.enableSecretMutable) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SECRET_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableServerSideApply"] = pulumi.output((args?.enableServerSideApply) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY")).apply(JSON.stringify);
             resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
@@ -96,6 +97,16 @@ export interface ProviderArgs {
      * 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
      */
     enableConfigMapMutable?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+     * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+     *
+     * This config can be specified in the following ways using this precedence:
+     * 1. The `pulumi.com/patchForce` annotation on the resource.
+     * 2. This `enablePatchForce` parameter.
+     * 3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+     */
+    enablePatchForce?: pulumi.Input<boolean>;
     /**
      * BETA FEATURE - If present and set to true, allow Secrets to be mutated.
      * This feature is in developer preview, and is disabled by default.

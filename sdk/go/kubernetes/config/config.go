@@ -50,6 +50,17 @@ func GetEnableConfigMapMutable(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableConfigMapMutable")
 }
 
+// If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+// See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+//
+// This config can be specified in the following ways using this precedence:
+// 1. The `pulumi.com/patchForce` annotation on the resource.
+// 2. This `enablePatchForce` parameter.
+// 3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+func GetEnablePatchForce(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:enablePatchForce")
+}
+
 // Obsolete. This option has no effect.
 //
 // Deprecated: This option is deprecated, and will be removed in a future release.

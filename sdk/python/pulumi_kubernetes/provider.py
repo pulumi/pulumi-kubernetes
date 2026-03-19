@@ -26,6 +26,7 @@ class ProviderArgs:
                  context: Optional[pulumi.Input[_builtins.str]] = None,
                  delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
@@ -54,6 +55,13 @@ class ProviderArgs:
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        :param pulumi.Input[_builtins.bool] enable_patch_force: If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+               See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+               
+               This config can be specified in the following ways using this precedence:
+               1. The `pulumi.com/patchForce` annotation on the resource.
+               2. This `enablePatchForce` parameter.
+               3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
         :param pulumi.Input[_builtins.bool] enable_secret_mutable: BETA FEATURE - If present and set to true, allow Secrets to be mutated.
                This feature is in developer preview, and is disabled by default.
                
@@ -99,6 +107,10 @@ class ProviderArgs:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
             pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
+        if enable_patch_force is None:
+            enable_patch_force = _utilities.get_env_bool('PULUMI_K8S_ENABLE_PATCH_FORCE')
+        if enable_patch_force is not None:
+            pulumi.set(__self__, "enable_patch_force", enable_patch_force)
         if enable_secret_mutable is None:
             enable_secret_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SECRET_MUTABLE')
         if enable_secret_mutable is not None:
@@ -212,6 +224,24 @@ class ProviderArgs:
     @enable_config_map_mutable.setter
     def enable_config_map_mutable(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "enable_config_map_mutable", value)
+
+    @_builtins.property
+    @pulumi.getter(name="enablePatchForce")
+    def enable_patch_force(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+        See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+
+        This config can be specified in the following ways using this precedence:
+        1. The `pulumi.com/patchForce` annotation on the resource.
+        2. This `enablePatchForce` parameter.
+        3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
+        """
+        return pulumi.get(self, "enable_patch_force")
+
+    @enable_patch_force.setter
+    def enable_patch_force(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enable_patch_force", value)
 
     @_builtins.property
     @pulumi.getter(name="enableSecretMutable")
@@ -364,6 +394,7 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[_builtins.str]] = None,
                  delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
@@ -396,6 +427,13 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        :param pulumi.Input[_builtins.bool] enable_patch_force: If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
+               See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
+               
+               This config can be specified in the following ways using this precedence:
+               1. The `pulumi.com/patchForce` annotation on the resource.
+               2. This `enablePatchForce` parameter.
+               3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
         :param pulumi.Input[_builtins.bool] enable_secret_mutable: BETA FEATURE - If present and set to true, allow Secrets to be mutated.
                This feature is in developer preview, and is disabled by default.
                
@@ -456,6 +494,7 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[_builtins.str]] = None,
                  delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
@@ -485,6 +524,9 @@ class Provider(pulumi.ProviderResource):
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
+            if enable_patch_force is None:
+                enable_patch_force = _utilities.get_env_bool('PULUMI_K8S_ENABLE_PATCH_FORCE')
+            __props__.__dict__["enable_patch_force"] = pulumi.Output.from_input(enable_patch_force).apply(pulumi.runtime.to_json) if enable_patch_force is not None else None
             if enable_secret_mutable is None:
                 enable_secret_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SECRET_MUTABLE')
             __props__.__dict__["enable_secret_mutable"] = pulumi.Output.from_input(enable_secret_mutable).apply(pulumi.runtime.to_json) if enable_secret_mutable is not None else None
