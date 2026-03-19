@@ -429,16 +429,48 @@ func (k *kubeProvider) parameterizeRequestArgs(
 	return &pulumirpc.ParameterizeResponse{Name: packageName, Version: args.PackageVersion}, nil
 }
 
-// parameterizeRequestValue is a placeholder for the extension parameterization implementation. This allows the
-// provider to reconstruct the necessary types for the CRD schemas generated from the CRD manifests. This is where we
-// handle field name denormalization and other necessary transformations to be able to translate the typed SDKs back to
-// the original
-// CR schema.
+// parameterizeRequestValue reconstructs the CRD schema from the saved
+// parameterization state. The engine calls this path on subsequent runs (e.g.,
+// `pulumi up` after the initial `pulumi package add`) by replaying the
+// parameters that were persisted in Pulumi.yaml.
+//
+// The Value.Value bytes contain the marshaled OpenAPI spec that was originally
+// stored as the Parameter field in the ParameterizationSpec during the Args
+// path. We unmarshal it, regenerate the Pulumi schema, and cache it.
 func (k *kubeProvider) parameterizeRequestValue(
-	_ *pulumirpc.ParameterizeRequest_Value,
+	p *pulumirpc.ParameterizeRequest_Value,
 ) (*pulumirpc.ParameterizeResponse, error) {
-	// TODO(rquitales): Implement the logic to generate the CRD schema from the CRD manifests once extension
-	// parameterization is implemented. We will need to handle the mapping of normalized field names (to conform to
-	// language requirements) to the original k8s field names.
-	return nil, nil
+	v := p.Value
+	if v == nil {
+		return nil, errors.New("parameterize value is nil")
+	}
+
+	packageName := v.GetName()
+	packageVersion := v.GetVersion()
+	paramBytes := v.GetValue()
+
+	if packageName == "" {
+		return nil, errors.New("parameterize value: package name must be provided")
+	}
+	if packageVersion == "" {
+		return nil, errors.New("parameterize value: package version must be provided")
+	}
+	if len(paramBytes) == 0 {
+		return nil, errors.New("parameterize value: parameter bytes must be provided")
+	}
+
+	logger.V(9).Infof("Reconstructing CRD schema for %s@%s from saved parameters", packageName, packageVersion)
+
+	// Deserialize the OpenAPI spec from the saved parameter bytes.
+	var swagger spec.Swagger
+	if err := json.Unmarshal(paramBytes, &swagger); err != nil {
+		return nil, fmt.Errorf("parameterize value: error unmarshalling saved OpenAPI spec: %w", err)
+	}
+
+	crdsPackageSpec := generateSchema(&swagger, packageVersion, k.name, k.version)
+	if crdsPackageSpec != nil {
+		k.crdSchemas.add(packageName, packageVersion, crdsPackageSpec)
+	}
+
+	return &pulumirpc.ParameterizeResponse{Name: packageName, Version: packageVersion}, nil
 }
