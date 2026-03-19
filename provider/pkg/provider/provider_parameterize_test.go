@@ -21,6 +21,118 @@ import (
 	"k8s.io/apimachinery/pkg/api/equality"
 )
 
+func TestParseCrdArgsWithName(t *testing.T) {
+	args, err := parseCrdArgs([]string{"-n", "gateway-api", "-v", "1.2.1", "-c", "crds.yaml"})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if args.PackageName != "gateway-api" {
+		t.Errorf("expected package name %q, got %q", "gateway-api", args.PackageName)
+	}
+	if args.PackageVersion != "1.2.1" {
+		t.Errorf("expected version %q, got %q", "1.2.1", args.PackageVersion)
+	}
+}
+
+func TestParseCrdArgsWithoutName(t *testing.T) {
+	args, err := parseCrdArgs([]string{"-v", "1.0.0", "-c", "crds.yaml"})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if args.PackageName != "" {
+		t.Errorf("expected empty package name, got %q", args.PackageName)
+	}
+}
+
+func TestDerivePackageName(t *testing.T) {
+	tests := []struct {
+		name     string
+		crds     []*extensionv1.CustomResourceDefinition
+		expected string
+	}{
+		{
+			"gateway API group",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
+			},
+			"gateway-networking",
+		},
+		{
+			"cert-manager group",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
+			},
+			"cert-manager",
+		},
+		{
+			"multiple groups",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
+			},
+			"gateway-networking-cert-manager",
+		},
+		{
+			"deduplicates same group",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
+			},
+			"gateway-networking",
+		},
+		{
+			"no groups falls back to default",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: ""}},
+			},
+			defaultPackageName,
+		},
+		{
+			"x-k8s.io suffix",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "multicluster.x-k8s.io"}},
+			},
+			"multicluster",
+		},
+		{
+			"plain group without known suffix",
+			[]*extensionv1.CustomResourceDefinition{
+				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "example.com"}},
+			},
+			"example-com",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := derivePackageName(tt.crds)
+			if got != tt.expected {
+				t.Errorf("derivePackageName() = %q, want %q", got, tt.expected)
+			}
+		})
+	}
+}
+
+func TestStripK8sSuffix(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"gateway.networking.k8s.io", "gateway.networking"},
+		{"cert-manager.io", "cert-manager"},
+		{"multicluster.x-k8s.io", "multicluster"},
+		{"example.com", "example.com"},
+		{"storage", "storage"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.input, func(t *testing.T) {
+			got := stripK8sSuffix(tt.input)
+			if got != tt.expected {
+				t.Errorf("stripK8sSuffix(%q) = %q, want %q", tt.input, got, tt.expected)
+			}
+		})
+	}
+}
+
 func TestSetCRDDefaults(t *testing.T) {
 	tests := []struct {
 		name     string
