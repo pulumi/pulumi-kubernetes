@@ -40,11 +40,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 )
 
-// TODO(rquitales): Remove the hardcoded package name once upstream extension
-// parameterization is implemented and can be passed. For now, we can only
-// "parameterize" with one package, but it is intended to not be a upper bound
-// on the number of packages that can be parameterized.
-const crdPackageName = "mycrd"
+// defaultPackageName is used when the user does not specify a package name
+// and one cannot be derived from the CRD groups.
+const defaultPackageName = "crds"
 
 const definitionPrefix = "#/definitions/"
 
@@ -83,21 +81,25 @@ func (c *parameterizedPackageMap) add(name, version string, schema *pulumischema
 // ParameterizedArgs is the struct that holds the arguments for the Kubernetes Provider parameterization.
 // Currently, this is only used for generating types from CRD manifests.
 type ParameterizedArgs struct {
+	PackageName      string
 	PackageVersion   string
 	CRDManifestPaths []string
 }
 
 // String returns a string representation of the ParameterizedArgs. This is used for logging purposes.
 func (p ParameterizedArgs) String() string {
-	return fmt.Sprintf("version: %s, crd-manifests: %v", p.PackageVersion, strings.Join(p.CRDManifestPaths, ", "))
+	return fmt.Sprintf("name: %s, version: %s, crd-manifests: %v",
+		p.PackageName, p.PackageVersion, strings.Join(p.CRDManifestPaths, ", "))
 }
 
 // parseCrdArgs parses the user provided arguments for provider parameterization.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
+	var crdPackageName string
 	var crdPackageVersion string
 	var yamlPaths []string
 
 	flags := pflag.NewFlagSet("crdargs", pflag.PanicOnError)
+	flags.StringVarP(&crdPackageName, "name", "n", "", "The name of the CRD package.")
 	flags.StringVarP(&crdPackageVersion, "version", "v", "", "The version of the CRD package.")
 	flags.StringArrayVarP(&yamlPaths, "crd-manifests", "c", nil, "The paths to the CRD manifests.")
 	err := flags.Parse(args)
@@ -114,9 +116,48 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}
 
 	return &ParameterizedArgs{
+		PackageName:      crdPackageName,
 		PackageVersion:   crdPackageVersion,
 		CRDManifestPaths: yamlPaths,
 	}, nil
+}
+
+// derivePackageName produces a package name from the CRD groups found in the
+// manifests. For example, a set of CRDs in "gateway.networking.k8s.io" yields
+// "gateway-networking". If multiple groups are present, they are joined with
+// a hyphen. Falls back to defaultPackageName if no groups can be extracted.
+func derivePackageName(crds []*extensionv1.CustomResourceDefinition) string {
+	seen := make(map[string]bool)
+	var parts []string
+	for _, crd := range crds {
+		group := crd.Spec.Group
+		if group == "" || seen[group] {
+			continue
+		}
+		seen[group] = true
+
+		// Strip common k8s suffixes to get the meaningful prefix.
+		// "gateway.networking.k8s.io" → "gateway-networking"
+		// "cert-manager.io" → "cert-manager"
+		short := stripK8sSuffix(group)
+		short = strings.ReplaceAll(short, ".", "-")
+		parts = append(parts, short)
+	}
+	if len(parts) == 0 {
+		return defaultPackageName
+	}
+	return strings.Join(parts, "-")
+}
+
+// stripK8sSuffix removes common Kubernetes API group suffixes like ".k8s.io",
+// ".io", and ".x-k8s.io" to produce a human-readable short name.
+func stripK8sSuffix(group string) string {
+	for _, suffix := range []string{".x-k8s.io", ".k8s.io", ".io"} {
+		if strings.HasSuffix(group, suffix) {
+			return strings.TrimSuffix(group, suffix)
+		}
+	}
+	return group
 }
 
 // fillDefaultNames sets the default names for the CRD if they are not specified.
@@ -340,6 +381,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 
 	logger.V(9).Infof("Parameterized Pulumi Kubernetes provider with user specified args: %s", args)
 
+	var allCRDs []*extensionv1.CustomResourceDefinition
 	var allCRDSpecs []*spec.Swagger
 
 	// We need to iterate through all filepaths provided by the user to generate the CRD schemas. Within each file, we
@@ -349,6 +391,8 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		if err != nil {
 			return nil, fmt.Errorf("error reading CRD manifest: %w", err)
 		}
+
+		allCRDs = append(allCRDs, crds...)
 
 		for _, crd := range crds {
 			crdVersionSpecs, err := crdToOpenAPI(crd)
@@ -370,13 +414,19 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		return nil, fmt.Errorf("error merging OpenAPI specs for all provided CRDs: %w", err)
 	}
 
+	// Determine the package name: user-specified > derived from CRD groups > default.
+	packageName := args.PackageName
+	if packageName == "" {
+		packageName = derivePackageName(allCRDs)
+	}
+
 	crdsPackageSpec := generateSchema(mergedSpecs, args.PackageVersion, k.name, k.version)
 
 	if crdsPackageSpec != nil {
-		k.crdSchemas.add(crdPackageName, args.PackageVersion, crdsPackageSpec)
+		k.crdSchemas.add(packageName, args.PackageVersion, crdsPackageSpec)
 	}
 
-	return &pulumirpc.ParameterizeResponse{Name: crdPackageName, Version: args.PackageVersion}, nil
+	return &pulumirpc.ParameterizeResponse{Name: packageName, Version: args.PackageVersion}, nil
 }
 
 // parameterizeRequestValue is a placeholder for the extension parameterization implementation. This allows the
