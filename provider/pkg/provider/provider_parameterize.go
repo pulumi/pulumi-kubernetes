@@ -203,8 +203,9 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 	return openAPIManifests, nil
 }
 
-// flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into a single object as
-// definitions.
+// flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into
+// top-level definitions. This includes both direct object properties and objects nested inside
+// arrays (e.g., spec.listeners, spec.rules[].backendRefs).
 func flattenOpenAPI(sw *spec.Swagger) error {
 	// Create a stack of definition names to be processed.
 	definitionStack := make([]string, 0, len(sw.Definitions))
@@ -227,7 +228,41 @@ func flattenOpenAPI(sw *spec.Swagger) error {
 				continue
 			}
 
-			// If the property is not an object, we can skip it.
+			// Handle arrays whose items are objects — e.g., spec.listeners, spec.rules.
+			if propertySchema.Type.Contains("array") {
+				itemSchema := propertySchema.Items
+				if itemSchema == nil || itemSchema.Schema == nil {
+					continue
+				}
+				inner := itemSchema.Schema
+				if inner.Ref.GetURL() != nil {
+					continue
+				}
+				if !inner.Type.Contains("object") || inner.Properties == nil {
+					continue
+				}
+				if inner.AdditionalProperties != nil {
+					continue
+				}
+
+				nestedDefinitionName := definitionName + cgstrings.UppercaseFirst(propertyName)
+				sw.Definitions[nestedDefinitionName] = *inner
+				definitionStack = append(definitionStack, nestedDefinitionName)
+
+				ref, err := makeDefinitionRef(nestedDefinitionName)
+				if err != nil {
+					return err
+				}
+				propertySchema.Items = &spec.SchemaOrArray{
+					Schema: &spec.Schema{
+						SchemaProps: spec.SchemaProps{Ref: ref},
+					},
+				}
+				definition.Properties[propertyName] = propertySchema
+				continue
+			}
+
+			// Handle direct object properties.
 			if !propertySchema.Type.Contains("object") {
 				continue
 			}
@@ -250,23 +285,25 @@ func flattenOpenAPI(sw *spec.Swagger) error {
 			// Add nested object to the stack to be recursively flattened.
 			definitionStack = append(definitionStack, nestedDefinitionName)
 
-			// Reset the property to be a reference to the nested object.
-			refName := definitionPrefix + nestedDefinitionName
-			ref, err := jsonreference.New(refName)
+			ref, err := makeDefinitionRef(nestedDefinitionName)
 			if err != nil {
-				return fmt.Errorf("error creating OpenAPI json reference for nested object: %w", err)
+				return err
 			}
-
 			definition.Properties[propertyName] = spec.Schema{
-				SchemaProps: spec.SchemaProps{
-					Ref: spec.Ref{
-						Ref: ref,
-					},
-				},
+				SchemaProps: spec.SchemaProps{Ref: ref},
 			}
 		}
 	}
 	return nil
+}
+
+// makeDefinitionRef creates a spec.Ref pointing to #/definitions/<name>.
+func makeDefinitionRef(name string) (spec.Ref, error) {
+	ref, err := jsonreference.New(definitionPrefix + name)
+	if err != nil {
+		return spec.Ref{}, fmt.Errorf("error creating OpenAPI json reference for nested object: %w", err)
+	}
+	return spec.Ref{Ref: ref}, nil
 }
 
 // readCRDManifestFile reads the CRD manifest from the given file path.
