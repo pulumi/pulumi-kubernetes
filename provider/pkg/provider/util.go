@@ -3,13 +3,18 @@
 package provider
 
 import (
+	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
+	"os/exec"
 	"os/user"
 	"path/filepath"
 	"reflect"
 	"strings"
+	"time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -223,6 +228,57 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 	}
 
 	return activeCluster, true
+}
+
+// execStderrMaxBytes caps the amount of stderr output returned to the caller.
+const execStderrMaxBytes = 64 * 1024
+
+// execCredentialStderr re-runs the exec credential plugin from the active kubeconfig context with
+// stderr captured and returns its output. This is called only on the failure path to surface
+// actionable errors (e.g. expired credentials) that client-go silently discards.
+func execCredentialStderr(
+	ctx context.Context, kubeconfigClient clientcmd.ClientConfig, overrides *clientcmd.ConfigOverrides,
+) string {
+	if kubeconfigClient == nil {
+		return ""
+	}
+	rawConfig, err := kubeconfigClient.RawConfig()
+	if err != nil {
+		return ""
+	}
+
+	contextName := rawConfig.CurrentContext
+	if overrides != nil && overrides.CurrentContext != "" {
+		contextName = overrides.CurrentContext
+	}
+
+	kctx, ok := rawConfig.Contexts[contextName]
+	if !ok || kctx == nil {
+		return ""
+	}
+	authInfo, ok := rawConfig.AuthInfos[kctx.AuthInfo]
+	if !ok || authInfo == nil || authInfo.Exec == nil || authInfo.Exec.Command == "" {
+		return ""
+	}
+
+	execCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+
+	var stderrBuf bytes.Buffer
+	cmd := exec.CommandContext(execCtx, authInfo.Exec.Command, authInfo.Exec.Args...) //nolint:gosec
+	cmd.Stdout = io.Discard
+	cmd.Stderr = &stderrBuf
+	cmd.Stdin = strings.NewReader("")
+	cmd.Env = os.Environ()
+	for _, e := range authInfo.Exec.Env {
+		cmd.Env = append(cmd.Env, e.Name+"="+e.Value)
+	}
+	_ = cmd.Run() // exit code doesn't matter; we only want whatever was written to stderr
+	out := strings.TrimSpace(stderrBuf.String())
+	if len(out) > execStderrMaxBytes {
+		out = out[:execStderrMaxBytes] + "\n[output truncated]"
+	}
+	return out
 }
 
 // --------------------------------------------------------------------------
