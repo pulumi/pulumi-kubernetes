@@ -66,18 +66,10 @@ func TestDerivePackageName(t *testing.T) {
 			"cert-manager",
 		},
 		{
-			"multiple groups",
+			"multiple groups uses first group",
 			[]*extensionv1.CustomResourceDefinition{
 				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
 				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
-			},
-			"gateway-networking-cert-manager",
-		},
-		{
-			"deduplicates same group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
 			},
 			"gateway-networking",
 		},
