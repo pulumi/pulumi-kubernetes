@@ -122,31 +122,23 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}, nil
 }
 
-// derivePackageName produces a package name from the CRD groups found in the
-// manifests. For example, a set of CRDs in "gateway.networking.k8s.io" yields
-// "gateway-networking". If multiple groups are present, they are joined with
-// a hyphen. Falls back to defaultPackageName if no groups can be extracted.
+// derivePackageName produces a package name from the first CRD group found in
+// the manifests. For example, CRDs in "gateway.networking.k8s.io" yield
+// "gateway-networking". Falls back to defaultPackageName if no groups can be
+// extracted. If CRDs span multiple groups, users should specify -n explicitly.
 func derivePackageName(crds []*extensionv1.CustomResourceDefinition) string {
-	seen := make(map[string]bool)
-	var parts []string
 	for _, crd := range crds {
 		group := crd.Spec.Group
-		if group == "" || seen[group] {
+		if group == "" {
 			continue
 		}
-		seen[group] = true
-
 		// Strip common k8s suffixes to get the meaningful prefix.
 		// "gateway.networking.k8s.io" → "gateway-networking"
 		// "cert-manager.io" → "cert-manager"
 		short := stripK8sSuffix(group)
-		short = strings.ReplaceAll(short, ".", "-")
-		parts = append(parts, short)
+		return strings.ReplaceAll(short, ".", "-")
 	}
-	if len(parts) == 0 {
-		return defaultPackageName
-	}
-	return strings.Join(parts, "-")
+	return defaultPackageName
 }
 
 // stripK8sSuffix removes common Kubernetes API group suffixes like ".k8s.io",
