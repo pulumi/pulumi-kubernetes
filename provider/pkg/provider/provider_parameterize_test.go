@@ -209,6 +209,16 @@ func TestSetCRDDefaults(t *testing.T) {
 
 func TestFlattenOpenAPIArrayOfObjects(t *testing.T) {
 	// Simulate a CRD with an array-of-objects property (like spec.listeners).
+	listenerSchema := spec.Schema{
+		SchemaProps: spec.SchemaProps{
+			Type: spec.StringOrArray{"object"},
+			Properties: map[string]spec.Schema{
+				"name":     {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
+				"port":     {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"integer"}}},
+				"protocol": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
+			},
+		},
+	}
 	sw := &spec.Swagger{
 		SwaggerProps: spec.SwaggerProps{
 			Definitions: spec.Definitions{
@@ -218,19 +228,8 @@ func TestFlattenOpenAPIArrayOfObjects(t *testing.T) {
 						Properties: map[string]spec.Schema{
 							"listeners": {
 								SchemaProps: spec.SchemaProps{
-									Type: spec.StringOrArray{"array"},
-									Items: &spec.SchemaOrArray{
-										Schema: &spec.Schema{
-											SchemaProps: spec.SchemaProps{
-												Type: spec.StringOrArray{"object"},
-												Properties: map[string]spec.Schema{
-													"name":     {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
-													"port":     {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"integer"}}},
-													"protocol": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
-												},
-											},
-										},
-									},
+									Type:  spec.StringOrArray{"array"},
+									Items: &spec.SchemaOrArray{Schema: &listenerSchema},
 								},
 							},
 							"gatewayClassName": {
@@ -289,6 +288,28 @@ func TestFlattenOpenAPIArrayOfObjects(t *testing.T) {
 
 func TestFlattenOpenAPINestedArrayOfObjects(t *testing.T) {
 	// Simulate rules[].backendRefs[] — nested array-of-objects inside array-of-objects.
+	backendRefSchema := spec.Schema{
+		SchemaProps: spec.SchemaProps{
+			Type: spec.StringOrArray{"object"},
+			Properties: map[string]spec.Schema{
+				"name": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
+				"port": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"integer"}}},
+			},
+		},
+	}
+	ruleSchema := spec.Schema{
+		SchemaProps: spec.SchemaProps{
+			Type: spec.StringOrArray{"object"},
+			Properties: map[string]spec.Schema{
+				"backendRefs": {
+					SchemaProps: spec.SchemaProps{
+						Type:  spec.StringOrArray{"array"},
+						Items: &spec.SchemaOrArray{Schema: &backendRefSchema},
+					},
+				},
+			},
+		},
+	}
 	sw := &spec.Swagger{
 		SwaggerProps: spec.SwaggerProps{
 			Definitions: spec.Definitions{
@@ -298,32 +319,8 @@ func TestFlattenOpenAPINestedArrayOfObjects(t *testing.T) {
 						Properties: map[string]spec.Schema{
 							"rules": {
 								SchemaProps: spec.SchemaProps{
-									Type: spec.StringOrArray{"array"},
-									Items: &spec.SchemaOrArray{
-										Schema: &spec.Schema{
-											SchemaProps: spec.SchemaProps{
-												Type: spec.StringOrArray{"object"},
-												Properties: map[string]spec.Schema{
-													"backendRefs": {
-														SchemaProps: spec.SchemaProps{
-															Type: spec.StringOrArray{"array"},
-															Items: &spec.SchemaOrArray{
-																Schema: &spec.Schema{
-																	SchemaProps: spec.SchemaProps{
-																		Type: spec.StringOrArray{"object"},
-																		Properties: map[string]spec.Schema{
-																			"name": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"string"}}},
-																			"port": {SchemaProps: spec.SchemaProps{Type: spec.StringOrArray{"integer"}}},
-																		},
-																	},
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-									},
+									Type:  spec.StringOrArray{"array"},
+									Items: &spec.SchemaOrArray{Schema: &ruleSchema},
 								},
 							},
 						},
