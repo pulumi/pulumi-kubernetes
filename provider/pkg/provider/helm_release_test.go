@@ -160,6 +160,19 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
+			// Confirm that a key absent from src leaves the dest value intact (i.e. our
+			// fix to excludeNulls does not accidentally introduce spurious empty-list keys).
+			name:     "key absent from src leaves dest list intact with allowNil=false",
+			allowNil: false,
+			dest: map[string]any{
+				"list": []any{"default"},
+			},
+			src:      map[string]any{},
+			expected: map[string]any{
+				"list": []any{"default"},
+			},
+		},
+		{
 			// Bug: excludeNulls returns nil (not []any{}) for an empty slice, causing the
 			// empty-list override to be indistinguishable from a missing key.
 			name:     "empty list overrides non-empty list with allowNil=false",
