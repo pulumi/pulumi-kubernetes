@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fixed `valueYamlFiles` entries containing an empty list (`[]`) being silently dropped when `allowNullValues` is false (the default), causing Helm to fall back to chart defaults instead of honouring the override.
+
 ### Added
 
 - [#2280](https://github.com/pulumi/pulumi-kubernetes/issues/2280) Add `enablePatchForce` provider config option to force SSA patch conflicts on a per-stack basis.
