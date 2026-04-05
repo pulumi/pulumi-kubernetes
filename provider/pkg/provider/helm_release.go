@@ -1418,7 +1418,7 @@ func excludeNulls(in any) any {
 		}
 		return out
 	case reflect.Slice, reflect.Array:
-		var out []any
+		out := make([]any, 0)
 		s := in.([]any)
 		for _, i := range s {
 			if i != nil {

@@ -160,6 +160,34 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
+			// Confirm that a key absent from src leaves the dest value intact (i.e. our
+			// fix to excludeNulls does not accidentally introduce spurious empty-list keys).
+			name:     "key absent from src leaves dest list intact with allowNil=false",
+			allowNil: false,
+			dest: map[string]any{
+				"list": []any{"default"},
+			},
+			src:      map[string]any{},
+			expected: map[string]any{
+				"list": []any{"default"},
+			},
+		},
+		{
+			// Bug: excludeNulls returns nil (not []any{}) for an empty slice, causing the
+			// empty-list override to be indistinguishable from a missing key.
+			name:     "empty list overrides non-empty list with allowNil=false",
+			allowNil: false,
+			dest: map[string]any{
+				"list": []any{1, 2, 3},
+			},
+			src: map[string]any{
+				"list": []any{},
+			},
+			expected: map[string]any{
+				"list": []any{},
+			},
+		},
+		{
 			name:     "allow nil doesn't clear objects",
 			allowNil: true,
 			dest: map[string]any{
@@ -330,6 +358,21 @@ images: ["bitnami/nginx"]
 						"repository": "bitnami/nginx",
 						"tag":        "latest", // Not removed.
 					},
+				},
+			},
+		},
+		{
+			// Bug: valueYamlFiles containing an empty list should override the chart default,
+			// but excludeNulls collapses []any{} to nil, making it disappear as if unset.
+			name: "valueYamlFiles with empty list is preserved (allowNullValues=false)",
+			given: resource.PropertyMap{
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: "items: []\n"}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"items": []any{},
 				},
 			},
 		},
