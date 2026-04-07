@@ -974,6 +974,18 @@ func Deletion(c DeleteConfig) error {
 
 	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
+		// If the API server forbids deletion (e.g. protected namespaces
+		// like kube-system) and we're using server-side apply, relinquish
+		// our managed fields instead of failing. This cleans up any fields
+		// Pulumi added while leaving the protected resource intact, and
+		// allows the resource to be removed from Pulumi state.
+		if apierrors.IsForbidden(err) && c.ServerSideApply {
+			logger.V(1).Infof(
+				"delete forbidden for %s/%s, relinquishing managed fields instead",
+				c.Outputs.GetNamespace(), c.Name,
+			)
+			return ssa.Relinquish(c.Context, client, c.Outputs, c.FieldManager)
+		}
 		return nilIfGVKDeleted(err)
 	}
 
