@@ -442,6 +442,136 @@ func TestCreation(t *testing.T) {
 	}
 }
 
+// TestCreationSSAExistingObject tests that server-side apply creation fails
+// when the target object already exists in the cluster. This prevents the
+// silent upsert behavior that enables dangerous create-then-delete scenarios
+// (see #2926, #2948).
+func TestCreationSSAExistingObject(t *testing.T) {
+	t.Parallel()
+
+	existingPod := validPodUnstructured.DeepCopy()
+
+	tests := []struct {
+		name        string
+		resType     tokens.Type
+		inputs      *unstructured.Unstructured
+		objects     []runtime.Object // pre-existing objects in the cluster
+		ssa         bool
+		preview     bool
+		expectError string // substring expected in error; empty means expect success
+	}{
+		{
+			// The core case: server-side apply create targeting an object
+			// that already exists should fail with guidance about
+			// import/Patch.
+			name:        "Server-side apply create fails when object already exists",
+			resType:     tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:      validPodUnstructured,
+			objects:     []runtime.Object{existingPod},
+			ssa:         true,
+			expectError: "already exists",
+		},
+		{
+			// Preview should also catch this — don't make users wait
+			// until `pulumi up` to find out.
+			name:        "Server-side apply preview also fails when object already exists",
+			resType:     tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:      validPodUnstructured,
+			objects:     []runtime.Object{existingPod},
+			ssa:         true,
+			preview:     true,
+			expectError: "already exists",
+		},
+		{
+			// When the object does NOT exist, creation should proceed
+			// normally.
+			name:    "Server-side apply create succeeds when object does not exist",
+			resType: tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:  withSkipAwait(validPodUnstructured),
+			objects: []runtime.Object{}, // empty cluster
+			ssa:     true,
+		},
+		{
+			// Patch resources are designed for existing objects — the
+			// check should not apply to them.
+			name:    "Patch resources skip the existence check",
+			resType: tokens.Type("kubernetes:core/v1:PodPatch"),
+			inputs:  withSkipAwait(validPodUnstructured),
+			objects: []runtime.Object{existingPod},
+			ssa:     true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			host := &fakehost.HostClient{}
+			client, disco, _, clientset := fake.NewSimpleDynamicClient(
+				fake.WithObjects(tt.objects...),
+			)
+			resources, err := openapi.GetResourceSchemasForClient(disco)
+			require.NoError(t, err)
+
+			// The fake client can't handle server-side apply patches, so
+			// intercept them and return the input as-is. This is the
+			// established pattern for server-side apply tests in this file.
+			if tt.ssa && tt.expectError == "" {
+				clientset.PrependReactor("patch", "*",
+					func(action kubetesting.Action) (bool, runtime.Object, error) {
+						patchAction := action.(kubetesting.PatchAction)
+						obj := &unstructured.Unstructured{}
+						if err := yaml.Unmarshal(patchAction.GetPatch(), &obj.Object); err != nil {
+							return true, nil, err
+						}
+						obj.SetResourceVersion("1")
+						// Add the object to the tracker so subsequent GETs
+						// (e.g. post-create readiness checks) can find it.
+						gvr := schema.GroupVersionResource{
+							Group:    action.GetResource().Group,
+							Version:  action.GetResource().Version,
+							Resource: action.GetResource().Resource,
+						}
+						_ = clientset.Tracker().Create(gvr, obj, action.GetNamespace())
+						return true, obj, nil
+					},
+				)
+			}
+
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.resType,
+				"testresource",
+			)
+			config := CreateConfig{
+				ProviderConfig: ProviderConfig{
+					Context:         context.Background(),
+					Host:            host,
+					URN:             urn,
+					FieldManager:    "test",
+					ClusterVersion:  testServerVersion,
+					ClientSet:       client,
+					DedupLogger:     logging.NewLogger(context.Background(), host, urn),
+					Resources:       resources,
+					ServerSideApply: tt.ssa,
+					awaiters:        map[string]awaitSpec{},
+					Factories:       informers.NewFactories(t.Context()),
+				},
+				Inputs:  tt.inputs,
+				Preview: tt.preview,
+			}
+
+			_, err = Creation(config)
+			if tt.expectError != "" {
+				require.Error(t, err)
+				require.Contains(t, err.Error(), tt.expectError)
+			} else {
+				require.NoError(t, err)
+			}
+		})
+	}
+}
+
 func TestUpdate(t *testing.T) {
 	type testCtx struct {
 		host   *fakehost.HostClient

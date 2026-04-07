@@ -186,6 +186,30 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
+			if c.ServerSideApply && !kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
+				// Check if the object already exists before applying. This
+				// prevents silent upsert of existing objects, which can lead
+				// to data loss when the engine later deletes a resource that
+				// points to the same cluster object (see #2926, #2948).
+				if name := c.Inputs.GetName(); name != "" {
+					_, getErr := client.Get(c.Context, name, metav1.GetOptions{})
+					if getErr == nil {
+						return fmt.Errorf(
+							"resource %s/%s (%s) already exists in the cluster. "+
+								"If you are renaming a Pulumi resource, use aliases "+
+								"to preserve the resource identity. Otherwise, use "+
+								"`pulumi import` to adopt this resource, or use a "+
+								"Patch resource to manage specific fields",
+							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(),
+						)
+					}
+					if !apierrors.IsNotFound(getErr) {
+						logger.V(1).Infof("pre-create GET for %s/%s failed: %v",
+							c.Inputs.GetNamespace(), name, getErr)
+					}
+				}
+			}
+
 			if c.ServerSideApply {
 				force := patchForce(c.Inputs, nil, c.EnablePatchForce, c.Preview)
 				options := metav1.PatchOptions{
