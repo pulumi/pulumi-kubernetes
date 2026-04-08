@@ -73,12 +73,12 @@ var _ condition.Satisfier = (*legacyReadyCondition)(nil)
 // --------------------------------------------------------------------------
 
 type ProviderConfig struct {
-	Context           context.Context
-	Host              host.HostClient
-	URN               resource.URN
-	InitialAPIVersion string
-	FieldManager      string
-	ClusterVersion    *cluster.ServerVersion
+	Context               context.Context
+	Host                  host.HostClient
+	URN                   resource.URN
+	InitialAPIVersion     string
+	FieldManager          string
+	ClusterVersion        *cluster.ServerVersion
 	ServerSideApply       bool
 	EnablePatchForce      bool
 	UpsertExistingObjects bool

@@ -557,14 +557,14 @@ func TestCreationSSAExistingObject(t *testing.T) {
 			)
 			config := CreateConfig{
 				ProviderConfig: ProviderConfig{
-					Context:         context.Background(),
-					Host:            host,
-					URN:             urn,
-					FieldManager:    "test",
-					ClusterVersion:  testServerVersion,
-					ClientSet:       client,
-					DedupLogger:     logging.NewLogger(context.Background(), host, urn),
-					Resources:       resources,
+					Context:               context.Background(),
+					Host:                  host,
+					URN:                   urn,
+					FieldManager:          "test",
+					ClusterVersion:        testServerVersion,
+					ClientSet:             client,
+					DedupLogger:           logging.NewLogger(context.Background(), host, urn),
+					Resources:             resources,
 					ServerSideApply:       tt.ssa,
 					UpsertExistingObjects: tt.upsertExistingObjects,
 					awaiters:              map[string]awaitSpec{},
