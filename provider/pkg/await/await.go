@@ -197,10 +197,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					if getErr == nil {
 						return fmt.Errorf(
 							"resource %s/%s (%s) already exists in the cluster. "+
-								"If you are renaming a Pulumi resource, use aliases "+
-								"to preserve the resource identity. Otherwise, use "+
-								"`pulumi import` to adopt this resource, or use a "+
-								"Patch resource to manage specific fields",
+								"To resolve this, you can: "+
+								"(1) use aliases if renaming a Pulumi resource; "+
+								"(2) use deleteBeforeReplace if replacing a resource with an explicit name; "+
+								"(3) use `pulumi import` to adopt this resource; "+
+								"(4) use a Patch resource to manage specific fields",
 							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(),
 						)
 					}
