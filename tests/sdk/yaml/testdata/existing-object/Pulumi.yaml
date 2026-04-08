@@ -1,0 +1,11 @@
+name: existing-object
+runtime: yaml
+description: |
+  Attempts to create the built-in "default" namespace. Should fail
+  because it already exists in the cluster.
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: default
