@@ -30,3 +30,4 @@ resources:
             restartPolicy: Never
     options:
       provider: ${provider}
+      deleteBeforeReplace: true

@@ -24,7 +24,7 @@ import * as k8s from "@pulumi/kubernetes";
 // 7. Statically-named Namespace can be changed to an auto-named Namespace.
 
 // Create provider with SSA enabled.
-const provider = new k8s.Provider("k8s", {enableServerSideApply: true});
+const provider = new k8s.Provider("k8s", {enableServerSideApply: true, upsertExistingObjects: true});
 
 // Create a randomly-named Namespace.
 const ns = new k8s.core.v1.Namespace("test", undefined, {provider});

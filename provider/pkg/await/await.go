@@ -206,8 +206,12 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 						)
 					}
 					if !apierrors.IsNotFound(getErr) {
-						logger.V(1).Infof("pre-create GET for %s/%s failed: %v",
-							c.Inputs.GetNamespace(), name, getErr)
+						return fmt.Errorf(
+							"pre-create existence check for %s/%s (%s) failed: %w — "+
+								"cannot confirm the object does not already exist; "+
+								"set upsertExistingObjects=true on the provider to skip this check",
+							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(), getErr,
+						)
 					}
 				}
 			}

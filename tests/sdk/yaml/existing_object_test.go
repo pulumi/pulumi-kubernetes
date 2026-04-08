@@ -40,4 +40,3 @@ func TestExistingObjectBlocksCreate(t *testing.T) {
 	assert.Contains(t, upErr.Error(), "already exists",
 		"error should mention that the resource already exists")
 }
-
