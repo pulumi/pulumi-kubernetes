@@ -54,6 +54,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["skipUpdateUnreachable"] = pulumi.output((args?.skipUpdateUnreachable) ?? utilities.getEnvBoolean("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["suppressDeprecationWarnings"] = pulumi.output((args?.suppressDeprecationWarnings) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
             resourceInputs["suppressHelmHookWarnings"] = pulumi.output((args?.suppressHelmHookWarnings) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
+            resourceInputs["upsertExistingObjects"] = pulumi.output((args?.upsertExistingObjects) ?? utilities.getEnvBoolean("PULUMI_K8S_UPSERT_EXISTING_OBJECTS")).apply(JSON.stringify);
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -165,4 +166,14 @@ export interface ProviderArgs {
      * If present and set to true, suppress unsupported Helm hook warnings from the CLI.
      */
     suppressHelmHookWarnings?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+     * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+     * Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+     *
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `upsertExistingObjects` parameter.
+     * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+     */
+    upsertExistingObjects?: pulumi.Input<boolean>;
 }

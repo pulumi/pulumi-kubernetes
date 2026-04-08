@@ -340,6 +340,33 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.suppressHelmHookWarnings);
     }
 
+    /**
+     * If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+     * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+     * Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `upsertExistingObjects` parameter.
+     * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+     * 
+     */
+    @Import(name="upsertExistingObjects", json=true)
+    private @Nullable Output<Boolean> upsertExistingObjects;
+
+    /**
+     * @return If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+     * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+     * Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+     * 
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `upsertExistingObjects` parameter.
+     * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+     * 
+     */
+    public Optional<Output<Boolean>> upsertExistingObjects() {
+        return Optional.ofNullable(this.upsertExistingObjects);
+    }
+
     private ProviderArgs() {}
 
     private ProviderArgs(ProviderArgs $) {
@@ -360,6 +387,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.skipUpdateUnreachable = $.skipUpdateUnreachable;
         this.suppressDeprecationWarnings = $.suppressDeprecationWarnings;
         this.suppressHelmHookWarnings = $.suppressHelmHookWarnings;
+        this.upsertExistingObjects = $.upsertExistingObjects;
     }
 
     public static Builder builder() {
@@ -803,6 +831,39 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
             return suppressHelmHookWarnings(Output.of(suppressHelmHookWarnings));
         }
 
+        /**
+         * @param upsertExistingObjects If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+         * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+         * Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `upsertExistingObjects` parameter.
+         * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder upsertExistingObjects(@Nullable Output<Boolean> upsertExistingObjects) {
+            $.upsertExistingObjects = upsertExistingObjects;
+            return this;
+        }
+
+        /**
+         * @param upsertExistingObjects If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+         * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+         * Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+         * 
+         * This config can be specified in the following ways using this precedence:
+         * 1. This `upsertExistingObjects` parameter.
+         * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder upsertExistingObjects(Boolean upsertExistingObjects) {
+            return upsertExistingObjects(Output.of(upsertExistingObjects));
+        }
+
         public ProviderArgs build() {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
@@ -813,6 +874,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
             $.skipUpdateUnreachable = Codegen.booleanProp("skipUpdateUnreachable").output().arg($.skipUpdateUnreachable).env("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE").getNullable();
             $.suppressDeprecationWarnings = Codegen.booleanProp("suppressDeprecationWarnings").output().arg($.suppressDeprecationWarnings).env("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").getNullable();
             $.suppressHelmHookWarnings = Codegen.booleanProp("suppressHelmHookWarnings").output().arg($.suppressHelmHookWarnings).env("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").getNullable();
+            $.upsertExistingObjects = Codegen.booleanProp("upsertExistingObjects").output().arg($.upsertExistingObjects).env("PULUMI_K8S_UPSERT_EXISTING_OBJECTS").getNullable();
             return $;
         }
     }
