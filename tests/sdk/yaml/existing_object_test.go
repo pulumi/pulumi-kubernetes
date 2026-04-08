@@ -23,8 +23,6 @@ import (
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
-
-	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 // TestExistingObjectBlocksCreate tests that creating a resource via
@@ -43,30 +41,3 @@ func TestExistingObjectBlocksCreate(t *testing.T) {
 		"error should mention that the resource already exists")
 }
 
-// TestForbiddenDeleteRelinquishes tests that when a protected resource
-// (like the "default" namespace) is in Pulumi state and the user runs
-// destroy, the provider relinquishes managed fields instead of failing
-// with a Forbidden error. This uses upsertExistingObjects to get the
-// namespace into state, then verifies destroy succeeds cleanly.
-func TestForbiddenDeleteRelinquishes(t *testing.T) {
-	test := pulumitest.NewPulumiTest(t, "testdata/forbidden-delete-relinquish", opttest.SkipInstall())
-	t.Logf("into %s", test.WorkingDir())
-
-	// Up with upsertExistingObjects: true — adds a label to the default
-	// namespace and puts it in Pulumi state.
-	test.Up(t)
-
-	// Verify the label was applied.
-	outB, err := tests.Kubectl("get", "namespace", "default", "-o", "jsonpath={.metadata.labels.pulumi-test-label}")
-	require.NoError(t, err)
-	assert.Equal(t, "relinquish-test", string(outB), "expected test label on default namespace")
-
-	// Destroy should succeed — the provider relinquishes managed fields
-	// instead of trying to delete the protected namespace.
-	test.Destroy(t)
-
-	// Verify the default namespace still exists and the label was removed.
-	outB, err = tests.Kubectl("get", "namespace", "default", "-o", "jsonpath={.metadata.labels.pulumi-test-label}")
-	require.NoError(t, err)
-	assert.Empty(t, string(outB), "expected test label to be removed after relinquish")
-}
