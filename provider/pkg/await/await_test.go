@@ -452,13 +452,14 @@ func TestCreationSSAExistingObject(t *testing.T) {
 	existingPod := validPodUnstructured.DeepCopy()
 
 	tests := []struct {
-		name        string
-		resType     tokens.Type
-		inputs      *unstructured.Unstructured
-		objects     []runtime.Object // pre-existing objects in the cluster
-		ssa         bool
-		preview     bool
-		expectError string // substring expected in error; empty means expect success
+		name                  string
+		resType               tokens.Type
+		inputs                *unstructured.Unstructured
+		objects               []runtime.Object // pre-existing objects in the cluster
+		ssa                   bool
+		preview               bool
+		upsertExistingObjects bool
+		expectError           string // substring expected in error; empty means expect success
 	}{
 		{
 			// The core case: server-side apply create targeting an object
@@ -500,6 +501,17 @@ func TestCreationSSAExistingObject(t *testing.T) {
 			objects: []runtime.Object{existingPod},
 			ssa:     true,
 		},
+		{
+			// When upsertExistingObjects is set, the existence check
+			// is skipped and the create proceeds even if the object
+			// already exists.
+			name:                  "upsertExistingObjects skips the existence check",
+			resType:               tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:                withSkipAwait(validPodUnstructured),
+			objects:               []runtime.Object{existingPod},
+			ssa:                   true,
+			upsertExistingObjects: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -511,9 +523,9 @@ func TestCreationSSAExistingObject(t *testing.T) {
 			resources, err := openapi.GetResourceSchemasForClient(disco)
 			require.NoError(t, err)
 
-			// The fake client can't handle server-side apply patches, so
-			// intercept them and return the input as-is. This is the
-			// established pattern for server-side apply tests in this file.
+			// The fake client can't handle server-side apply patches,
+			// so intercept them and return the input as-is. This is
+			// the established pattern for these tests in this file.
 			if tt.ssa && tt.expectError == "" {
 				clientset.PrependReactor("patch", "*",
 					func(action kubetesting.Action) (bool, runtime.Object, error) {
@@ -553,9 +565,10 @@ func TestCreationSSAExistingObject(t *testing.T) {
 					ClientSet:       client,
 					DedupLogger:     logging.NewLogger(context.Background(), host, urn),
 					Resources:       resources,
-					ServerSideApply: tt.ssa,
-					awaiters:        map[string]awaitSpec{},
-					Factories:       informers.NewFactories(t.Context()),
+					ServerSideApply:       tt.ssa,
+					UpsertExistingObjects: tt.upsertExistingObjects,
+					awaiters:              map[string]awaitSpec{},
+					Factories:             informers.NewFactories(t.Context()),
 				},
 				Inputs:  tt.inputs,
 				Preview: tt.preview,
@@ -965,7 +978,6 @@ func TestDeletion(t *testing.T) {
 			require.Truef(t, apierrors.IsNotFound(err), "expected notfound, got an object")
 		}
 	}
-
 	tests := []struct {
 		name      string
 		client    client

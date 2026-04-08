@@ -79,8 +79,9 @@ type ProviderConfig struct {
 	InitialAPIVersion string
 	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
-	ServerSideApply   bool
-	EnablePatchForce  bool
+	ServerSideApply       bool
+	EnablePatchForce      bool
+	UpsertExistingObjects bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -186,7 +187,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply && !kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
+			if c.ServerSideApply && !c.UpsertExistingObjects && !kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
 				// Check if the object already exists before applying. This
 				// prevents silent upsert of existing objects, which can lead
 				// to data loss when the engine later deletes a resource that
