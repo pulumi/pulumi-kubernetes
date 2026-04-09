@@ -195,23 +195,20 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if name := c.Inputs.GetName(); name != "" {
 					_, getErr := client.Get(c.Context, name, metav1.GetOptions{})
 					if getErr == nil {
-						return fmt.Errorf(
+						msg := fmt.Sprintf(
 							"resource %s/%s (%s) already exists in the cluster. "+
-								"To resolve this, you can: "+
-								"(1) use aliases if renaming a Pulumi resource; "+
-								"(2) use deleteBeforeReplace if replacing a resource with an explicit name; "+
-								"(3) use `pulumi import` to adopt this resource; "+
-								"(4) use a Patch resource to manage specific fields",
+								"To resolve this, you can:\n"+
+								"  1. Use aliases if renaming a Pulumi resource.\n"+
+								"  2. Use deleteBeforeReplace if replacing a resource with an explicit name.\n"+
+								"  3. Use a Patch resource to manage specific fields on existing objects.\n"+
+								"  4. Set upsertExistingObjects on the provider to update existing objects.",
 							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(),
 						)
-					}
-					if !apierrors.IsNotFound(getErr) {
-						return fmt.Errorf(
-							"pre-create existence check for %s/%s (%s) failed: %w — "+
-								"cannot confirm the object does not already exist; "+
-								"set upsertExistingObjects=true on the provider to skip this check",
-							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(), getErr,
-						)
+						if c.Preview {
+							_ = c.Host.Log(c.Context, diag.Warning, c.URN, msg)
+						} else {
+							return fmt.Errorf("%s", msg)
+						}
 					}
 				}
 			}

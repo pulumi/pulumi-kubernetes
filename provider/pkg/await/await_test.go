@@ -473,15 +473,15 @@ func TestCreationSSAExistingObject(t *testing.T) {
 			expectError: "already exists",
 		},
 		{
-			// Preview should also catch this — don't make users wait
-			// until `pulumi up` to find out.
-			name:        "Server-side apply preview also fails when object already exists",
-			resType:     tokens.Type("kubernetes:core/v1:Pod"),
-			inputs:      validPodUnstructured,
-			objects:     []runtime.Object{existingPod},
-			ssa:         true,
-			preview:     true,
-			expectError: "already exists",
+			// Preview skips the existence check because the engine may
+			// have planned a delete-before-create for a replacement that
+			// hasn't executed yet. The check runs on the actual `up`.
+			name:    "Server-side apply preview skips the existence check",
+			resType: tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:  withSkipAwait(validPodUnstructured),
+			objects: []runtime.Object{existingPod},
+			ssa:     true,
+			preview: true,
 		},
 		{
 			// When the object does NOT exist, creation should proceed
@@ -1285,9 +1285,7 @@ func TestPatchForce(t *testing.T) {
 func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 	// Verify that enablePatchForce on the provider config resolves SSA conflicts.
 	// Without enablePatchForce, a conflict error is returned. With it, the conflict is forced through.
-	client, disco, _, clientset := fake.NewSimpleDynamicClient(fake.WithObjects())
-	resources, err := openapi.GetResourceSchemasForClient(disco)
-	require.NoError(t, err)
+	client, _, _, clientset := fake.NewSimpleDynamicClient()
 
 	pod := validPodUnstructured.DeepCopy()
 	pod.SetNamespace("default")
@@ -1303,7 +1301,7 @@ func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 		tokens.QName("teststack"),
 		tokens.PackageName("testproj"),
 		tokens.Type(""),
-		tokens.Type("kubernetes:core/v1:Pod"),
+		tokens.Type(""),
 		"testresource",
 	)
 
@@ -1314,9 +1312,7 @@ func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 		URN:              urn,
 		FieldManager:     "test",
 		ClientSet:        client,
-		ClusterVersion:   testServerVersion,
 		DedupLogger:      logging.NewLogger(context.Background(), &fakehost.HostClient{}, urn),
-		Resources:        resources,
 		ServerSideApply:  true,
 		EnablePatchForce: false,
 		Factories:        informers.NewFactories(t.Context()),
@@ -1324,16 +1320,14 @@ func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 	clientset.PrependReactor("patch", "pods", func(_ kubetesting.Action) (bool, runtime.Object, error) {
 		return true, nil, apierrors.NewApplyConflict(nil, "conflict")
 	})
-	_, err = Creation(CreateConfig{
+	_, err := Creation(CreateConfig{
 		ProviderConfig: pconfig,
 		Inputs:         pod,
 	})
 	assert.Error(t, err, "expected conflict error without enablePatchForce")
 
 	// Now, enable patchForce. The reactor simulates the server accepting the forced apply.
-	// Only clear patch reactors — preserve the default object tracker so GET still works.
-	clientset.ReactionChain = clientset.ReactionChain[:0]
-	clientset.AddReactor("*", "*", kubetesting.ObjectReaction(clientset.Tracker()))
+	clientset.ReactionChain = clientset.ReactionChain[:0] // Clear reactors.
 	clientset.PrependReactor("patch", "pods", func(_ kubetesting.Action) (bool, runtime.Object, error) {
 		applied := pod.DeepCopy()
 		applied.SetResourceVersion("1")
