@@ -44,6 +44,9 @@ type schemaGenerator struct {
 	// listed as a language dependency. The value is the version of the Pulumi Kubernetes provider
 	// to depend on.
 	pulumiKubernetesDependency string
+
+	// pkgName overrides the package name. Defaults to "kubernetes" when empty.
+	pkgName string
 }
 
 type schemaGeneratorOption interface {
@@ -110,6 +113,23 @@ func WithPulumiKubernetesDependency(version string) schemaGeneratorOption {
 	return &withPulumiKubernetesDependency{pulumiVersion: version}
 }
 
+type withPackageNameOption struct {
+	pkgName string
+}
+
+func (o *withPackageNameOption) apply(sg *schemaGenerator) {
+	sg.pkgName = o.pkgName
+}
+
+// WithPackageName overrides the package name used for the generated schema.
+// When set, all resource/type tokens use this name as their prefix instead of
+// "kubernetes", and the Go import base path is adjusted accordingly. This is
+// used by CRD parameterization so the generated SDK can coexist alongside the
+// base @pulumi/kubernetes provider.
+func WithPackageName(name string) schemaGeneratorOption {
+	return &withPackageNameOption{pkgName: name}
+}
+
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
 func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema.PackageSpec {
 	gen := &schemaGenerator{}
@@ -117,8 +137,13 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		o.apply(gen)
 	}
 
+	pkgName := gen.pkgName
+	if pkgName == "" {
+		pkgName = "kubernetes"
+	}
+
 	pkg := pschema.PackageSpec{
-		Name:        "kubernetes",
+		Name:        pkgName,
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
 		DisplayName: "Kubernetes",
 		License:     "Apache-2.0",
@@ -316,11 +341,11 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 				},
 				"kubeClientSettings": {
 					Description: "Options for tuning the Kubernetes client used by a Provider.",
-					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:KubeClientSettings"},
+					TypeSpec:    pschema.TypeSpec{Ref: fmt.Sprintf("#/types/%s:index:KubeClientSettings", pkgName)},
 				},
 				"helmReleaseSettings": {
 					Description: "Options to configure the Helm Release resource.",
-					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:HelmReleaseSettings"},
+					TypeSpec:    pschema.TypeSpec{Ref: fmt.Sprintf("#/types/%s:index:HelmReleaseSettings", pkgName)},
 				},
 				"suppressHelmHookWarnings": {
 					DefaultInfo: &pschema.DefaultSpec{
@@ -344,6 +369,10 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	pkg.Parameterization = gen.parameterization
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	if pkgName != "kubernetes" {
+		goIdent := strings.ReplaceAll(pkgName, "-", "")
+		goImportPath = fmt.Sprintf("github.com/pulumi/pulumi-kubernetes-%s/sdk/v4/go/%s", pkgName, goIdent)
+	}
 
 	csharpNamespaces := map[string]string{
 		"apiextensions": "ApiExtensions",
@@ -377,7 +406,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
-	groupsSlice := createGroups(definitions, gen.allowHyphens)
+	groupsSlice := createGroups(definitions, gen.allowHyphens, pkgName)
 
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {
@@ -385,7 +414,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		}
 		for _, version := range group.Versions() {
 			for _, kind := range version.Kinds() {
-				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
+				tok := fmt.Sprintf(`%s:%s:%s`, pkgName, kind.apiVersion, kind.kind)
 				var patchTok string
 
 				// Generate patch variants for non-list resources.

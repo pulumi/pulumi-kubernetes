@@ -86,7 +86,7 @@ func TestCreateGroups_IdentifyListKinds(t *testing.T) {
 				}
 			}
 
-			configGroups := createGroups(definitions, true)
+			configGroups := createGroups(definitions, true, "kubernetes")
 
 			// Loop through all parsed kinds and ensure they are accounted for.
 			for _, g := range configGroups {
@@ -658,7 +658,7 @@ func TestMakeSchemaTypeSpec(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := makeSchemaTypeSpec(tt.prop, tt.canonicalGroups)
+			actual := makeSchemaTypeSpec(tt.prop, tt.canonicalGroups, "kubernetes")
 			assert.Equal(t, tt.expectedTypeSpec, actual)
 		})
 	}
@@ -862,7 +862,7 @@ func TestCreateKinds_EmptyObjectTypes(t *testing.T) {
 		},
 	}
 
-	kinds := createKinds(definitions, map[string]string{}, map[string][]any{}, false)
+	kinds := createKinds(definitions, map[string]string{}, map[string][]any{}, false, "kubernetes")
 
 	kindNames := make([]string, len(kinds))
 	for i, k := range kinds {
@@ -960,7 +960,7 @@ func TestReservedPropertyNames(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			kinds := createKinds([]definition{tt.definition}, map[string]string{}, map[string][]any{}, false)
+			kinds := createKinds([]definition{tt.definition}, map[string]string{}, map[string][]any{}, false, "kubernetes")
 			require.Len(t, kinds, 1)
 			properties := slices.Sorted(fxs.Map(kinds[0].Properties(), func(p Property) string { return p.Name() }))
 			assert.Equal(t, tt.expectedProperties, properties)
