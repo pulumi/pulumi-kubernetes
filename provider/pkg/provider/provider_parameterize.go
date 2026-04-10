@@ -78,6 +78,19 @@ func (c *parameterizedPackageMap) add(name, version string, schema *pulumischema
 	c.crdSchemas[c.mapKey(name, version)] = schema
 }
 
+// hasPackage returns true if any schema has been registered under the given
+// package name (regardless of version).
+func (c *parameterizedPackageMap) hasPackage(name string) bool {
+	c.Lock()
+	defer c.Unlock()
+	for key := range c.crdSchemas {
+		if strings.HasPrefix(key, name+"@") {
+			return true
+		}
+	}
+	return false
+}
+
 // ParameterizedArgs is the struct that holds the arguments for the Kubernetes Provider parameterization.
 // Currently, this is only used for generating types from CRD manifests.
 type ParameterizedArgs struct {
@@ -346,9 +359,14 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 }
 
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
+// packageName is the user-facing name of the parameterized package (e.g.,
+// "gateway-networking"). It becomes the PackageSpec.Name, the prefix of all
+// resource and type tokens, and the root of the per-language import paths, so
+// that the generated SDK can coexist alongside the base @pulumi/kubernetes SDK
+// without module-path collisions.
 func generateSchema(
 	swagger *spec.Swagger,
-	packageVersion, baseProvName, baseProvVersion string,
+	packageName, packageVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that
 	// we can generate typed SDKs that contain valid field names, for example,
@@ -364,13 +382,16 @@ func generateSchema(
 		log.Fatalf("error unmarshalling OpenAPI spec: %v", err)
 	}
 
-	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema, gen.WithParameterization(&pulumischema.ParameterizationSpec{
-		BaseProvider: pulumischema.BaseProviderSpec{
-			Name:    baseProvName,
-			Version: baseProvVersion,
-		},
-		Parameter: marshaledOpenAPISchema,
-	}))
+	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
+		gen.WithPackageName(packageName),
+		gen.WithParameterization(&pulumischema.ParameterizationSpec{
+			BaseProvider: pulumischema.BaseProviderSpec{
+				Name:    baseProvName,
+				Version: baseProvVersion,
+			},
+			Parameter: marshaledOpenAPISchema,
+		}),
+	)
 
 	pSchema.Version = packageVersion
 
@@ -449,7 +470,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		packageName = derivePackageName(allCRDs)
 	}
 
-	crdsPackageSpec := generateSchema(mergedSpecs, args.PackageVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(mergedSpecs, packageName, args.PackageVersion, k.name, k.version)
 
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(packageName, args.PackageVersion, crdsPackageSpec)
@@ -496,7 +517,7 @@ func (k *kubeProvider) parameterizeRequestValue(
 		return nil, fmt.Errorf("parameterize value: error unmarshalling saved OpenAPI spec: %w", err)
 	}
 
-	crdsPackageSpec := generateSchema(&swagger, packageVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(&swagger, packageName, packageVersion, k.name, k.version)
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(packageName, packageVersion, crdsPackageSpec)
 	}
