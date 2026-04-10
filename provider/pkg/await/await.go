@@ -73,14 +73,15 @@ var _ condition.Satisfier = (*legacyReadyCondition)(nil)
 // --------------------------------------------------------------------------
 
 type ProviderConfig struct {
-	Context           context.Context
-	Host              host.HostClient
-	URN               resource.URN
-	InitialAPIVersion string
-	FieldManager      string
-	ClusterVersion    *cluster.ServerVersion
-	ServerSideApply   bool
-	EnablePatchForce  bool
+	Context               context.Context
+	Host                  host.HostClient
+	URN                   resource.URN
+	InitialAPIVersion     string
+	FieldManager          string
+	ClusterVersion        *cluster.ServerVersion
+	ServerSideApply       bool
+	EnablePatchForce      bool
+	UpsertExistingObjects bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -183,6 +184,32 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
 						"Retry #%d; creation failed: %v", i, err))
 					return err
+				}
+			}
+
+			if c.ServerSideApply && !c.UpsertExistingObjects && !kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
+				// Check if the object already exists before applying. This
+				// prevents silent upsert of existing objects, which can lead
+				// to data loss when the engine later deletes a resource that
+				// points to the same cluster object (see #2926, #2948).
+				if name := c.Inputs.GetName(); name != "" {
+					_, getErr := client.Get(c.Context, name, metav1.GetOptions{})
+					if getErr == nil {
+						msg := fmt.Sprintf(
+							"resource %s/%s (%s) already exists in the cluster. "+
+								"To resolve this, you can:\n"+
+								"  1. Use aliases if renaming a Pulumi resource.\n"+
+								"  2. Use deleteBeforeReplace if replacing a resource with an explicit name.\n"+
+								"  3. Use a Patch resource to manage specific fields on existing objects.\n"+
+								"  4. Set upsertExistingObjects on the provider to update existing objects.",
+							c.Inputs.GetNamespace(), name, c.Inputs.GetKind(),
+						)
+						if c.Preview {
+							_ = c.Host.Log(c.Context, diag.Warning, c.URN, msg)
+						} else {
+							return fmt.Errorf("%s", msg)
+						}
+					}
 				}
 			}
 
