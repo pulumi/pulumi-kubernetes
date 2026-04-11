@@ -836,6 +836,34 @@ func TestDeletion(t *testing.T) {
 		}
 	}
 
+	field := []byte(`{
+			"f:metadata": {
+				"f:generateName": {},
+				"f:labels": {},
+				"f:ownerReferences": {}
+			}
+		}`)
+
+	original := validPodUnstructured.DeepCopy()
+	original.SetManagedFields([]metav1.ManagedFieldsEntry{{
+		Manager:    "pulumi-kubernetes-123",
+		Operation:  "Update",
+		FieldsType: "FieldsV1",
+		FieldsV1: &metav1.FieldsV1{
+			Raw: field,
+		},
+	}})
+
+	upserted := validPodUnstructured.DeepCopy()
+	upserted.SetManagedFields([]metav1.ManagedFieldsEntry{{
+		Manager:    "pulumi-kubernetes-XYZ",
+		Operation:  "Update",
+		FieldsType: "FieldsV1",
+		FieldsV1: &metav1.FieldsV1{
+			Raw: field,
+		},
+	}})
+
 	tests := []struct {
 		name      string
 		client    client
@@ -957,6 +985,19 @@ func TestDeletion(t *testing.T) {
 				outputs: validPodUnstructured,
 			},
 			reaction:  []reactionF{cancelAwait},
+			condition: awaitNoop,
+			expect:    []expectF{succeeded()},
+		},
+		{
+			name: "Field manager mismatch",
+			args: args{
+				resType:         tokens.Type("kubernetes:core/v1:Pod"),
+				name:            "foo",
+				objects:         []runtime.Object{original},
+				inputs:          original,
+				outputs:         original,
+				serverSideApply: true,
+			},
 			condition: awaitNoop,
 			expect:    []expectF{succeeded()},
 		},
