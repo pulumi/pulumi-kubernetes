@@ -138,3 +138,14 @@ func GetSuppressDeprecationWarnings(ctx *pulumi.Context) bool {
 func GetSuppressHelmHookWarnings(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:suppressHelmHookWarnings")
 }
+
+// If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
+// By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
+// Enabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.
+//
+// This config can be specified in the following ways using this precedence:
+// 1. This `upsertExistingObjects` parameter.
+// 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
+func GetUpsertExistingObjects(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:upsertExistingObjects")
+}

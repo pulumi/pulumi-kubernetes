@@ -7,6 +7,8 @@
 
 - [#2280](https://github.com/pulumi/pulumi-kubernetes/issues/2280) Add `enablePatchForce` provider config option to force SSA patch conflicts on a per-stack basis.
 
+- [#2926](https://github.com/pulumi/pulumi-kubernetes/issues/2926) Use client-side create for new resources instead of server-side apply upsert. When a resource already exists in the cluster, the API server now returns an AlreadyExists error instead of silently updating the existing object. This prevents data loss from create-then-delete scenarios (e.g. renaming a Pulumi resource or replacing an explicitly-named resource). A new provider config option `upsertExistingObjects` (default `false`) restores the previous upsert behavior for users who intentionally adopt existing cluster resources. To manage fields on existing objects without owning their lifecycle, use Patch resources (e.g. `NamespacePatch`).
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.3.
