@@ -1,0 +1,17 @@
+name: csa-create-ssa-update
+runtime: yaml
+description: Test that CSA create transitions to SSA update.
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+  cm:
+    type: kubernetes:core/v1:ConfigMap
+    properties:
+      metadata:
+        name: csa-ssa-transition-test
+        namespace: ${ns.metadata.name}
+      data:
+        key: step2
+outputs:
+  namespace: ${ns.metadata.name}
+  configmap: ${cm.metadata.name}

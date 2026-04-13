@@ -1,0 +1,9 @@
+name: existing-object
+runtime: yaml
+description: Creates the built-in default namespace.
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: default
