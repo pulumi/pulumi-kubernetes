@@ -82,3 +82,25 @@ func TestCSACreateToSSAUpdate(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, "step2", string(outB))
 }
+
+// TestRenameDoesNotDeleteObject verifies that renaming a Pulumi resource
+// while keeping the same metadata.name does not cause data loss.
+func TestRenameDoesNotDeleteObject(t *testing.T) {
+	ctx := context.Background()
+
+	test := pulumitest.NewPulumiTest(t, "testdata/rename-no-delete", opttest.SkipInstall())
+	t.Logf("into %s", test.WorkingDir())
+	t.Cleanup(func() { test.Destroy(t) })
+	result := test.Up(t)
+	namespace := result.Outputs["namespace"].Value.(string)
+
+	test.UpdateSource(t, "testdata/rename-no-delete/step2")
+	_, upErr := test.CurrentStack().Up(ctx)
+	require.Error(t, upErr, "expected Up to fail on rename targeting same object")
+	assert.Contains(t, upErr.Error(), "already exists")
+
+	outB, err := tests.Kubectl("get", "configmap", "rename-test",
+		"-n", namespace, "-o", "jsonpath={.data.key}")
+	require.NoError(t, err, "ConfigMap should still exist after failed rename")
+	assert.Equal(t, "value", string(outB))
+}
