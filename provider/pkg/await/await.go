@@ -79,8 +79,9 @@ type ProviderConfig struct {
 	InitialAPIVersion string
 	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
-	ServerSideApply   bool
-	EnablePatchForce  bool
+	ServerSideApply       bool
+	EnablePatchForce      bool
+	UpsertExistingObjects bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -186,7 +187,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply {
+			if c.ServerSideApply && c.UpsertExistingObjects {
 				force := patchForce(c.Inputs, nil, c.EnablePatchForce, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,

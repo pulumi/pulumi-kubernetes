@@ -442,6 +442,121 @@ func TestCreation(t *testing.T) {
 	}
 }
 
+// TestCreationBlocksUpsert tests that server-side apply creation uses
+// client-side create (which returns AlreadyExists) when
+// upsertExistingObjects is false (the default). This prevents silent
+// upsert of existing objects that can lead to data loss.
+func TestCreationBlocksUpsert(t *testing.T) {
+	t.Parallel()
+
+	existingPod := validPodUnstructured.DeepCopy()
+
+	tests := []struct {
+		name                  string
+		resType               tokens.Type
+		inputs                *unstructured.Unstructured
+		objects               []runtime.Object
+		ssa                   bool
+		upsertExistingObjects bool
+		expectError           string
+	}{
+		{
+			// Default behavior: server-side apply with upsertExistingObjects
+			// off uses client-side create, which returns AlreadyExists.
+			name:        "Create fails when object already exists",
+			resType:     tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:      validPodUnstructured,
+			objects:     []runtime.Object{existingPod},
+			ssa:         true,
+			expectError: "already exists",
+		},
+		{
+			// When upsertExistingObjects is on, server-side apply is used
+			// for creates and the existing object is updated silently.
+			name:                  "Create succeeds with upsertExistingObjects",
+			resType:               tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:                withSkipAwait(validPodUnstructured),
+			objects:               []runtime.Object{existingPod},
+			ssa:                   true,
+			upsertExistingObjects: true,
+		},
+		{
+			// New objects are created normally.
+			name:    "Create succeeds when object does not exist",
+			resType: tokens.Type("kubernetes:core/v1:Pod"),
+			inputs:  withSkipAwait(validPodUnstructured),
+			objects: []runtime.Object{},
+			ssa:     true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			host := &fakehost.HostClient{}
+			client, disco, _, clientset := fake.NewSimpleDynamicClient(
+				fake.WithObjects(tt.objects...),
+			)
+			resources, err := openapi.GetResourceSchemasForClient(disco)
+			require.NoError(t, err)
+
+			// The fake client can't handle server-side apply patches,
+			// so intercept them and return the input as-is.
+			if tt.ssa && tt.expectError == "" {
+				clientset.PrependReactor("patch", "*",
+					func(action kubetesting.Action) (bool, runtime.Object, error) {
+						patchAction := action.(kubetesting.PatchAction)
+						obj := &unstructured.Unstructured{}
+						if err := yaml.Unmarshal(patchAction.GetPatch(), &obj.Object); err != nil {
+							return true, nil, err
+						}
+						obj.SetResourceVersion("1")
+						gvr := schema.GroupVersionResource{
+							Group:    action.GetResource().Group,
+							Version:  action.GetResource().Version,
+							Resource: action.GetResource().Resource,
+						}
+						_ = clientset.Tracker().Create(gvr, obj, action.GetNamespace())
+						return true, obj, nil
+					},
+				)
+			}
+
+			urn := resource.NewURN(
+				tokens.QName("teststack"),
+				tokens.PackageName("testproj"),
+				tokens.Type(""),
+				tt.resType,
+				"testresource",
+			)
+			config := CreateConfig{
+				ProviderConfig: ProviderConfig{
+					Context:               context.Background(),
+					Host:                  host,
+					URN:                   urn,
+					FieldManager:          "test",
+					ClusterVersion:        testServerVersion,
+					ClientSet:             client,
+					DedupLogger:           logging.NewLogger(context.Background(), host, urn),
+					Resources:             resources,
+					ServerSideApply:       tt.ssa,
+					UpsertExistingObjects: tt.upsertExistingObjects,
+					awaiters:              map[string]awaitSpec{},
+					Factories:             informers.NewFactories(t.Context()),
+				},
+				Inputs: tt.inputs,
+			}
+
+			_, err = Creation(config)
+			if tt.expectError != "" {
+				require.Error(t, err)
+				require.Contains(t, err.Error(), tt.expectError)
+			} else {
+				require.NoError(t, err)
+			}
+		})
+	}
+}
+
 func TestUpdate(t *testing.T) {
 	type testCtx struct {
 		host   *fakehost.HostClient
@@ -1171,9 +1286,10 @@ func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 		FieldManager:     "test",
 		ClientSet:        client,
 		DedupLogger:      logging.NewLogger(context.Background(), &fakehost.HostClient{}, urn),
-		ServerSideApply:  true,
-		EnablePatchForce: false,
-		Factories:        informers.NewFactories(t.Context()),
+		ServerSideApply:       true,
+		EnablePatchForce:      false,
+		UpsertExistingObjects: true, // Use server-side apply path; this test is about SSA conflicts.
+		Factories:             informers.NewFactories(t.Context()),
 	}
 	clientset.PrependReactor("patch", "pods", func(_ kubetesting.Action) (bool, runtime.Object, error) {
 		return true, nil, apierrors.NewApplyConflict(nil, "conflict")
@@ -1218,9 +1334,10 @@ func TestAwaitSSAConflict(t *testing.T) {
 		Host:            &fakehost.HostClient{},
 		URN:             urn,
 		FieldManager:    "test",
-		ClientSet:       client,
-		ServerSideApply: true,
-		Factories:       informers.NewFactories(t.Context()),
+		ClientSet:             client,
+		ServerSideApply:       true,
+		UpsertExistingObjects: true, // Use server-side apply path; this test is about SSA conflicts.
+		Factories:             informers.NewFactories(t.Context()),
 	}
 	config := CreateConfig{
 		ProviderConfig: pconfig,

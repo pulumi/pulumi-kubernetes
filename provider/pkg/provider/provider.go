@@ -139,6 +139,7 @@ type kubeProvider struct {
 	suppressHelmHookWarnings    bool
 	serverSideApplyMode         bool
 	enablePatchForce            bool
+	upsertExistingObjects       bool
 
 	helmDriver               string
 	helmPluginsPath          string
@@ -627,6 +628,19 @@ func (k *kubeProvider) Configure(
 	}
 	if enablePatchForce() {
 		k.enablePatchForce = true
+	}
+
+	upsertExistingObjects := func() bool {
+		if enabled, exists := vars["kubernetes:config:upsertExistingObjects"]; exists {
+			return enabled == trueStr
+		}
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_UPSERT_EXISTING_OBJECTS"); exists {
+			return enabled == trueStr
+		}
+		return false
+	}
+	if upsertExistingObjects() {
+		k.upsertExistingObjects = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -1721,9 +1735,10 @@ func (k *kubeProvider) Create(
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		Inputs:  newInputs,
 		Timeout: req.Timeout,
@@ -2229,9 +2244,10 @@ func (k *kubeProvider) Update(
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		OldInputs:     oldLivePruned,
 		OldOutputs:    oldLive,
@@ -2396,9 +2412,10 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		Inputs:  oldInputs,
 		Outputs: current,
