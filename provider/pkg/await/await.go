@@ -73,12 +73,12 @@ var _ condition.Satisfier = (*legacyReadyCondition)(nil)
 // --------------------------------------------------------------------------
 
 type ProviderConfig struct {
-	Context           context.Context
-	Host              host.HostClient
-	URN               resource.URN
-	InitialAPIVersion string
-	FieldManager      string
-	ClusterVersion    *cluster.ServerVersion
+	Context               context.Context
+	Host                  host.HostClient
+	URN                   resource.URN
+	InitialAPIVersion     string
+	FieldManager          string
+	ClusterVersion        *cluster.ServerVersion
 	ServerSideApply       bool
 	EnablePatchForce      bool
 	UpsertExistingObjects bool
@@ -187,7 +187,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply && c.UpsertExistingObjects {
+			if c.ServerSideApply && (c.UpsertExistingObjects || kinds.IsPatchResource(c.URN, c.Inputs.GetKind())) {
 				force := patchForce(c.Inputs, nil, c.EnablePatchForce, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,

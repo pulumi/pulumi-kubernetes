@@ -1280,12 +1280,12 @@ func TestAwaitSSAConflictResolvedByEnablePatchForce(t *testing.T) {
 
 	// First, verify that without enablePatchForce, a conflict is returned.
 	pconfig := ProviderConfig{
-		Context:          context.Background(),
-		Host:             &fakehost.HostClient{},
-		URN:              urn,
-		FieldManager:     "test",
-		ClientSet:        client,
-		DedupLogger:      logging.NewLogger(context.Background(), &fakehost.HostClient{}, urn),
+		Context:               context.Background(),
+		Host:                  &fakehost.HostClient{},
+		URN:                   urn,
+		FieldManager:          "test",
+		ClientSet:             client,
+		DedupLogger:           logging.NewLogger(context.Background(), &fakehost.HostClient{}, urn),
 		ServerSideApply:       true,
 		EnablePatchForce:      false,
 		UpsertExistingObjects: true, // Use server-side apply path; this test is about SSA conflicts.
@@ -1330,10 +1330,10 @@ func TestAwaitSSAConflict(t *testing.T) {
 		"testresource",
 	)
 	pconfig := ProviderConfig{
-		Context:         context.Background(),
-		Host:            &fakehost.HostClient{},
-		URN:             urn,
-		FieldManager:    "test",
+		Context:               context.Background(),
+		Host:                  &fakehost.HostClient{},
+		URN:                   urn,
+		FieldManager:          "test",
 		ClientSet:             client,
 		ServerSideApply:       true,
 		UpsertExistingObjects: true, // Use server-side apply path; this test is about SSA conflicts.
