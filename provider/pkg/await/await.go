@@ -239,8 +239,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 				err = handleSSAErr(err, c.FieldManager)
 			} else {
+				// Use the static field manager name for client-side creates
+				// so that fixCSAFieldManagers can transfer ownership to the
+				// SSA field manager on the first update.
 				options := metav1.CreateOptions{
-					FieldManager: c.FieldManager,
+					FieldManager: "pulumi-kubernetes",
 				}
 				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
