@@ -18,11 +18,9 @@ import { k8sProvider } from "./cluster";
 import * as config from "./config";
 
 const appName = "istio";
-const namespace = new k8s.core.v1.Namespace(
-    `${appName}-system`,
-    { metadata: { name: `${appName}-system` } },
-    { provider: k8sProvider }
-);
+
+// The istio-system Namespace is declared by yaml/istio.yaml; declaring it here
+// as well races with the ConfigFile and fails under client-side create.
 
 const adminBinding = new k8s.rbac.v1.ClusterRoleBinding(
     "cluster-admin-binding",
