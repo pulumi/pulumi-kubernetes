@@ -274,6 +274,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	err := retrier.Do(apierrors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
 		if apierrors.IsAlreadyExists(err) {
+			//nolint:staticcheck // Punctuation because this is user-facing.
 			return nil, fmt.Errorf("%w\n\n"+
 				"The resource already exists in the cluster. This can happen when:\n\n"+
 				"  - Renaming a Pulumi resource: use an alias to preserve the identity,\n"+
