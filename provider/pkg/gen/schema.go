@@ -171,6 +171,10 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. The `pulumi.com/patchForce` annotation on the resource.\n2. This `enablePatchForce` parameter.\n3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"upsertExistingObjects": {
+					Description: "If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.\nBy default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.\nEnabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.\n\nThis config can be specified in the following ways using this precedence:\n1. This `upsertExistingObjects` parameter.\n2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"enableReplaceCRD": {
 					Description:        "Obsolete. This option has no effect.",
 					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
@@ -277,6 +281,15 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 						},
 					},
 					Description: "If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.\n\nThis config can be specified in the following ways using this precedence:\n1. The `pulumi.com/patchForce` annotation on the resource.\n2. This `enablePatchForce` parameter.\n3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"upsertExistingObjects": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_UPSERT_EXISTING_OBJECTS",
+						},
+					},
+					Description: "If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.\nBy default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.\nEnabling this option restores the previous upsert behavior for users who intentionally adopt existing cluster resources into Pulumi.\n\nThis config can be specified in the following ways using this precedence:\n1. This `upsertExistingObjects` parameter.\n2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableConfigMapMutable": {

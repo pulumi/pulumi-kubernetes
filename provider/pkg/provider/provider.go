@@ -139,6 +139,7 @@ type kubeProvider struct {
 	suppressHelmHookWarnings    bool
 	serverSideApplyMode         bool
 	enablePatchForce            bool
+	upsertExistingObjects       bool
 
 	helmDriver               string
 	helmPluginsPath          string
@@ -627,6 +628,19 @@ func (k *kubeProvider) Configure(
 	}
 	if enablePatchForce() {
 		k.enablePatchForce = true
+	}
+
+	upsertExistingObjects := func() bool {
+		if enabled, exists := vars["kubernetes:config:upsertExistingObjects"]; exists {
+			return enabled == trueStr
+		}
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_UPSERT_EXISTING_OBJECTS"); exists {
+			return enabled == trueStr
+		}
+		return false
+	}
+	if upsertExistingObjects() {
+		k.upsertExistingObjects = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -1712,18 +1726,19 @@ func (k *kubeProvider) Create(
 	}
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:           k.canceler.context,
-			Host:              k.host,
-			URN:               urn,
-			InitialAPIVersion: initialAPIVersion,
-			FieldManager:      fieldManager,
-			ClusterVersion:    &k.k8sVersion,
-			ClientSet:         k.clientSet,
-			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			Context:               k.canceler.context,
+			Host:                  k.host,
+			URN:                   urn,
+			InitialAPIVersion:     initialAPIVersion,
+			FieldManager:          fieldManager,
+			ClusterVersion:        &k.k8sVersion,
+			ClientSet:             k.clientSet,
+			DedupLogger:           logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:             resources,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		Inputs:  newInputs,
 		Timeout: req.Timeout,
@@ -2220,18 +2235,19 @@ func (k *kubeProvider) Update(
 	}
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:           k.canceler.context,
-			Host:              k.host,
-			URN:               urn,
-			InitialAPIVersion: initialAPIVersion,
-			FieldManager:      fieldManager,
-			ClusterVersion:    &k.k8sVersion,
-			ClientSet:         k.clientSet,
-			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			Context:               k.canceler.context,
+			Host:                  k.host,
+			URN:                   urn,
+			InitialAPIVersion:     initialAPIVersion,
+			FieldManager:          fieldManager,
+			ClusterVersion:        &k.k8sVersion,
+			ClientSet:             k.clientSet,
+			DedupLogger:           logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:             resources,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		OldInputs:     oldLivePruned,
 		OldOutputs:    oldLive,
@@ -2387,18 +2403,19 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:           k.canceler.context,
-			Host:              k.host,
-			URN:               urn,
-			InitialAPIVersion: initialAPIVersion,
-			FieldManager:      fieldManager,
-			ClusterVersion:    &k.k8sVersion,
-			ClientSet:         k.clientSet,
-			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:         resources,
-			ServerSideApply:   k.serverSideApplyMode,
-			EnablePatchForce:  k.enablePatchForce,
-			Factories:         k.factories,
+			Context:               k.canceler.context,
+			Host:                  k.host,
+			URN:                   urn,
+			InitialAPIVersion:     initialAPIVersion,
+			FieldManager:          fieldManager,
+			ClusterVersion:        &k.k8sVersion,
+			ClientSet:             k.clientSet,
+			DedupLogger:           logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:             resources,
+			ServerSideApply:       k.serverSideApplyMode,
+			EnablePatchForce:      k.enablePatchForce,
+			UpsertExistingObjects: k.upsertExistingObjects,
+			Factories:             k.factories,
 		},
 		Inputs:  oldInputs,
 		Outputs: current,

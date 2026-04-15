@@ -73,14 +73,15 @@ var _ condition.Satisfier = (*legacyReadyCondition)(nil)
 // --------------------------------------------------------------------------
 
 type ProviderConfig struct {
-	Context           context.Context
-	Host              host.HostClient
-	URN               resource.URN
-	InitialAPIVersion string
-	FieldManager      string
-	ClusterVersion    *cluster.ServerVersion
-	ServerSideApply   bool
-	EnablePatchForce  bool
+	Context               context.Context
+	Host                  host.HostClient
+	URN                   resource.URN
+	InitialAPIVersion     string
+	FieldManager          string
+	ClusterVersion        *cluster.ServerVersion
+	ServerSideApply       bool
+	EnablePatchForce      bool
+	UpsertExistingObjects bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -186,7 +187,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			if c.ServerSideApply {
+			if c.ServerSideApply && (c.UpsertExistingObjects || kinds.IsPatchResource(c.URN, c.Inputs.GetKind())) {
 				force := patchForce(c.Inputs, nil, c.EnablePatchForce, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
@@ -238,8 +239,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 				err = handleSSAErr(err, c.FieldManager)
 			} else {
+				// Use the static field manager name for client-side creates
+				// so that fixCSAFieldManagers can transfer ownership to the
+				// SSA field manager on the first update.
 				options := metav1.CreateOptions{
-					FieldManager: c.FieldManager,
+					FieldManager: "pulumi-kubernetes",
 				}
 				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
@@ -269,6 +273,21 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 	err := retrier.Do(apierrors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
+		if apierrors.IsAlreadyExists(err) {
+			//nolint:staticcheck // Punctuation because this is user-facing.
+			return nil, fmt.Errorf("%w\n\n"+
+				"The resource already exists in the cluster. This can happen when:\n\n"+
+				"  - Renaming a Pulumi resource: use an alias to preserve the identity,\n"+
+				"    or use deleteBeforeReplace if the resource needs replacement.\n"+
+				"  - Managing an existing resource: use a Patch resource (e.g. NamespacePatch)\n"+
+				"    to manage specific fields without owning the resource lifecycle.\n"+
+				"  - Adopting a resource into Pulumi: use `pulumi import`. Note that\n"+
+				"    protected resources (e.g. kube-system) cannot be deleted on destroy.\n"+
+				"  - Intentional upsert: set upsertExistingObjects on the provider to allow\n"+
+				"    server-side apply to update existing objects on create.",
+				err,
+			)
+		}
 		return nil, err
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
