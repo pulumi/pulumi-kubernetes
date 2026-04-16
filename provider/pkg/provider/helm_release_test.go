@@ -48,22 +48,19 @@ func Test_MergeMaps(t *testing.T) {
 
 	for _, test := range []struct {
 		name     string
-		allowNil bool
 		dest     map[string]any
 		src      map[string]any
 		expected map[string]any
 	}{
 		{
 			name:     "Precedence",
-			allowNil: false,
 			dest:     m,
 			src:      override,
 			expected: override, // Expect the override to take precedence
 		},
 		{
-			name:     "Merge maps",
-			allowNil: false,
-			dest:     m,
+			name: "Merge maps",
+			dest: m,
 			src: map[string]any{
 				"a": map[string]any{
 					"b": map[string]any{
@@ -89,31 +86,8 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name:     "Dest Has Nil Values- disallow nil",
-			allowNil: false,
-			dest:     m,
-			src: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"c": any(nil),
-						"e": (*any)(nil),
-					},
-				},
-			},
-			expected: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"d": []any{
-							"1", "2",
-						},
-					},
-				},
-			},
-		},
-		{
-			name:     "Dest Has Nil Values- allow nil",
-			allowNil: true,
-			dest:     m,
+			name: "Nils in src are preserved",
+			dest: m,
 			src: map[string]any{
 				"a": map[string]any{
 					"b": map[string]any{
@@ -135,8 +109,7 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name:     "allow nil can clear values",
-			allowNil: true,
+			name: "Nil in src can clear a scalar value",
 			dest: map[string]any{
 				"string": "foo",
 			},
@@ -148,8 +121,7 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name:     "allow nil can clear lists",
-			allowNil: true,
+			name: "Empty list in src can clear a list",
 			dest: map[string]any{
 				"list": []any{1, 2, 3},
 			},
@@ -161,8 +133,7 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name:     "allow nil doesn't clear objects",
-			allowNil: true,
+			name: "Empty map in src does not clear an object",
 			dest: map[string]any{
 				"object": map[string]any{"foo": "bar"},
 			},
@@ -174,8 +145,7 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name:     "allow nil can clear keys",
-			allowNil: true,
+			name: "Nil in src can clear a key under a merged object",
 			dest: map[string]any{
 				"livenessProbe": map[string]any{
 					"httpGet": map[string]any{
@@ -203,7 +173,7 @@ func Test_MergeMaps(t *testing.T) {
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			merged, err := mergeMaps(test.dest, test.src, test.allowNil)
+			merged, err := mergeMaps(test.dest, test.src)
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, merged)
 		})
@@ -313,7 +283,7 @@ images: ["bitnami/nginx"]
 			},
 		},
 		{
-			name: "valueYamlFiles with string literal and allowNullValues=false",
+			name: "explicit null in values overrides valueYamlFiles",
 			given: resource.PropertyMap{
 				"values": resource.NewObjectProperty(resource.PropertyMap{
 					"image": resource.NewObjectProperty(resource.PropertyMap{
@@ -329,7 +299,7 @@ images: ["bitnami/nginx"]
 				Values: map[string]any{
 					"image": map[string]any{
 						"repository": "bitnami/nginx",
-						"tag":        "latest", // Not removed.
+						"tag":        nil, // Cleared by the user's explicit null.
 					},
 				},
 			},

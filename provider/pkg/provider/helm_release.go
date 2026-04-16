@@ -28,7 +28,6 @@ import (
 	"time"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	"helm.sh/helm/v3/pkg/action"
 	helmchart "helm.sh/helm/v3/pkg/chart"
@@ -68,7 +67,8 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
-	// When combinging Values with mergeMaps, allow Nulls
+	// Deprecated: nulls in Values are preserved by default. This field has no effect and will be
+	// removed in a future release.
 	AllowNullValues bool `json:"allowNullValues,omitempty"`
 	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
 	Atomic bool `json:"atomic,omitempty"`
@@ -321,7 +321,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values, err = mergeMaps(values, release.Values, release.AllowNullValues)
+	release.Values, err = mergeMaps(values, release.Values)
 	if err != nil {
 		return nil, err
 	}
@@ -369,6 +369,11 @@ func (r *helmReleaseProvider) Check(
 	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
+	}
+
+	if newRelease.AllowNullValues {
+		_ = r.host.Log(ctx, diag.Warning, urn,
+			"`allowNullValues` is deprecated and has no effect; null values in Helm chart values are preserved by default.")
 	}
 
 	if !news.ContainsUnknowns() {
@@ -1233,7 +1238,7 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	}
 	var err error
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values, err = mergeMaps(release.Values, r.Config, release.AllowNullValues)
+	release.Values, err = mergeMaps(release.Values, r.Config)
 	if err != nil {
 		return err
 	}
@@ -1355,7 +1360,7 @@ func isChartInstallable(ch *helmchart.Chart) error {
 func getValues(release *Release) (map[string]any, error) {
 	var err error
 	base := map[string]any{}
-	base, err = mergeMaps(base, release.Values, release.AllowNullValues)
+	base, err = mergeMaps(base, release.Values)
 	if err != nil {
 		return nil, err
 	}
@@ -1384,50 +1389,11 @@ func logValues(values map[string]any) error {
 	return nil
 }
 
-// Merges a and b map, preferring values from b map
-func mergeMaps(a, b map[string]any, allowNullValues bool) (map[string]any, error) {
-	if allowNullValues {
-		// Use upstream's behavior.
-		return helm.MergeMaps(a, b), nil
-	}
-
-	a = excludeNulls(a).(map[string]any)
-	b = excludeNulls(b).(map[string]any)
-	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
-		return nil, err
-	}
-	return a, nil
-}
-
-func excludeNulls(in any) any {
-	switch reflect.TypeOf(in).Kind() {
-	case reflect.Map:
-		out := map[string]any{}
-		m := in.(map[string]any)
-		for k, v := range m {
-			val := reflect.ValueOf(v)
-			if val.IsValid() {
-				switch val.Kind() {
-				case reflect.Map, reflect.Ptr, reflect.UnsafePointer, reflect.Interface, reflect.Slice:
-					if val.IsNil() {
-						continue
-					}
-				}
-				out[k] = excludeNulls(v)
-			}
-		}
-		return out
-	case reflect.Slice, reflect.Array:
-		var out []any
-		s := in.([]any)
-		for _, i := range s {
-			if i != nil {
-				out = append(out, excludeNulls(i))
-			}
-		}
-		return out
-	}
-	return in
+// Merges a and b map, preferring values from b map. Null values in b are
+// preserved, matching Helm CLI's behavior — nulls delete the corresponding
+// key from the merged result.
+func mergeMaps(a, b map[string]any) (map[string]any, error) {
+	return helm.MergeMaps(a, b), nil
 }
 
 // searchProgramDirectory implements a best-effort search for a chart in the program directory.
