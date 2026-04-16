@@ -37,7 +37,7 @@ jobs:
     name: comment-notification
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         lfs: true
         persist-credentials: false
@@ -62,7 +62,7 @@ jobs:
       pull-requests: write # For schema check comment.
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         lfs: true
         persist-credentials: false
@@ -76,7 +76,7 @@ jobs:
       id: esc-secrets
       name: Fetch secrets from ESC
       uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
-    - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+    - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
       id: app-auth
       with:
         app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
@@ -96,7 +96,7 @@ jobs:
         github_token: ${{ steps.app-auth.outputs.token }}
     - if: github.event_name == 'pull_request'
       name: Install Schema Tools
-      uses: jaxxstorm/action-install-gh-release@6096f2a2bbfee498ced520b6922ac2c06e990ed2 # v2.1.0
+      uses: jaxxstorm/action-install-gh-release@25e24d2d23ae098373794ef1d6faecb48ee52da8 # v3.0.0
       with:
         repo: pulumi/schema-tools
     - name: Build K8sgen
@@ -200,7 +200,7 @@ jobs:
         github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
         pulumi-gen-${{ env.PROVIDER}}
     - name: Upload artifacts
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
@@ -209,7 +209,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
+      uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
       env:
         CODECOV_TOKEN: ${{ steps.esc-secrets.outputs.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
@@ -241,7 +241,7 @@ jobs:
       id-token: write # For ESC secrets.
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         lfs: true
         persist-credentials: false
@@ -255,7 +255,7 @@ jobs:
       id: esc-secrets
       name: Fetch secrets from ESC
       uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
-    - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+    - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
       id: app-auth
       with:
         app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
@@ -273,7 +273,7 @@ jobs:
       with:
         github_token: ${{ steps.app-auth.outputs.token }}
     - name: Download provider
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -344,7 +344,7 @@ jobs:
     - name: Tar SDK folder
       run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
     - name: Upload artifacts
-      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
       with:
         name: ${{ matrix.language  }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
@@ -380,7 +380,7 @@ jobs:
       id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         lfs: true
         persist-credentials: false
@@ -394,7 +394,7 @@ jobs:
       id: esc-secrets
       name: Fetch secrets from ESC
       uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
-    - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+    - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
       id: app-auth
       with:
         app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
@@ -412,7 +412,7 @@ jobs:
       with:
         github_token: ${{ steps.app-auth.outputs.token }}
     - name: Download provider
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin
@@ -424,7 +424,7 @@ jobs:
         -exec chmod +x {} \;
     - name: Download SDK
       if: ${{ matrix.language != 'yaml' }}
-      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
       with:
         name: ${{ matrix.language }}-sdk.tar.gz
         path: ${{ github.workspace}}/sdk/
@@ -475,7 +475,7 @@ jobs:
         version: v2.5.0
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup KinD cluster
-      uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+      uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
       with:
         cluster_name: kind-integration-tests-${{ matrix.language }}
         node_image: kindest/node:v1.29.2
@@ -500,7 +500,7 @@ jobs:
     name: sentinel
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         lfs: true
         persist-credentials: false
