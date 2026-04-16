@@ -385,3 +385,39 @@ func TestCheckConfig_AlwaysRenderRequiresRenderYamlToDirectory(t *testing.T) {
 		})
 	}
 }
+
+// TestPropMapToUnstructuredPreservesNulls covers pulumi/pulumi-kubernetes#3746,
+// where the apiserver requires an explicit null to clear a server-defaulted
+// field (see kubernetes/kubernetes#100151).
+func TestPropMapToUnstructuredPreservesNulls(t *testing.T) {
+	pm := resource.PropertyMap{
+		"apiVersion": resource.NewStringProperty("apps/v1"),
+		"kind":       resource.NewStringProperty("StatefulSet"),
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"name": resource.NewStringProperty("example"),
+		}),
+		"spec": resource.NewObjectProperty(resource.PropertyMap{
+			"updateStrategy": resource.NewObjectProperty(resource.PropertyMap{
+				"type":          resource.NewStringProperty("OnDelete"),
+				"rollingUpdate": resource.NewNullProperty(),
+			}),
+		}),
+	}
+
+	uns := propMapToUnstructured(pm)
+
+	// Property should be present in the unstructured map with a nil value,
+	// not absent. Absence vs null-presence is the distinction the apiserver
+	// uses to decide whether to clear a server-defaulted field.
+	updateStrategy, _, err := unstructured.NestedMap(uns.Object, "spec", "updateStrategy")
+	require.NoError(t, err)
+	rollingUpdate, hasRollingUpdate := updateStrategy["rollingUpdate"]
+	require.True(t, hasRollingUpdate, "rollingUpdate key should be present in updateStrategy")
+	assert.Nil(t, rollingUpdate, "rollingUpdate value should be nil")
+
+	// The unstructured Object must round-trip to YAML with the null intact.
+	out, err := yaml.Marshal(uns.Object)
+	require.NoError(t, err)
+	assert.Contains(t, string(out), "rollingUpdate: null",
+		"serialized payload must contain explicit null to clear server-defaulted field:\n%s", out)
+}
