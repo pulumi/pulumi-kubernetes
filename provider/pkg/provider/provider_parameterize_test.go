@@ -15,11 +15,17 @@
 package provider
 
 import (
+	"context"
+	"encoding/json"
+	"strings"
 	"testing"
 
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/kube-openapi/pkg/validation/spec"
+
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 func TestParseCrdArgsWithName(t *testing.T) {
@@ -358,4 +364,199 @@ func definitionNames(sw *spec.Swagger) []string {
 		names = append(names, k)
 	}
 	return names
+}
+
+// TestParameterizeRoundTrip is the back-to-back proof that the parameterization
+// pipeline works end-to-end. It simulates what the engine does on two
+// successive pulumi runs:
+//
+//  1. First run: engine invokes Parameterize(Args) with the CLI args that
+//     `pulumi package add kubernetes -- -v 1.2.1 -c crds.yaml` produces. The
+//     provider generates a schema and persists its Parameter bytes in Pulumi.yaml.
+//  2. Subsequent run: engine invokes Parameterize(Value) with those saved
+//     bytes, and the provider must reconstruct an identical schema without
+//     needing the original CRD file on disk.
+//
+// Both paths are asserted to produce a schema with:
+//   - the derived package name ("gateway-networking") as PackageSpec.Name,
+//   - resource/type tokens prefixed with "gateway-networking:" (not "kubernetes:"),
+//   - $refs that don't leak the base "kubernetes:" prefix,
+//   - a parameterized Go import base path so the SDK can coexist with the base.
+//
+// This is the regression guard against the classes of bug that came up during
+// development: the Parameterize(Value) stub returning nil, the rewriter
+// missing token keys, and identity-leak bugs where some corner of the schema
+// kept the base provider's name.
+func TestParameterizeRoundTrip(t *testing.T) {
+	k := &kubeProvider{
+		name:    "kubernetes",
+		version: "4.0.0-dev",
+	}
+
+	const (
+		wantPkg     = "gateway-networking"
+		wantVersion = "1.2.1"
+	)
+
+	// --- Args path: first-ever run ---
+	argsResp, err := k.Parameterize(context.Background(), &pulumirpc.ParameterizeRequest{
+		Parameters: &pulumirpc.ParameterizeRequest_Args{
+			Args: &pulumirpc.ParameterizeRequest_ParametersArgs{
+				Args: []string{
+					"-v", wantVersion,
+					"-c", "testdata/parameterize/gateway-like-crd.yaml",
+				},
+			},
+		},
+	})
+	if err != nil {
+		t.Fatalf("Parameterize(Args) failed: %v", err)
+	}
+	if argsResp.Name != wantPkg {
+		t.Errorf("response name: got %q, want %q", argsResp.Name, wantPkg)
+	}
+	if argsResp.Version != wantVersion {
+		t.Errorf("response version: got %q, want %q", argsResp.Version, wantVersion)
+	}
+
+	originalSchema := k.crdSchemas.get(wantPkg, wantVersion)
+	if originalSchema == nil {
+		t.Fatalf("no schema cached for %s@%s after Parameterize(Args)", wantPkg, wantVersion)
+	}
+	assertParameterizedIdentity(t, originalSchema, wantPkg)
+
+	// Grab the parameter bytes the engine would persist in Pulumi.yaml.
+	if originalSchema.Parameterization == nil {
+		t.Fatal("schema.Parameterization is nil")
+	}
+	paramBytes := originalSchema.Parameterization.Parameter
+	if len(paramBytes) == 0 {
+		t.Fatal("schema.Parameterization.Parameter is empty")
+	}
+
+	// --- Clear the cache to simulate a fresh provider process ---
+	k.crdSchemas = parameterizedPackageMap{}
+
+	// --- Value path: subsequent run, engine replays saved parameters ---
+	valueResp, err := k.Parameterize(context.Background(), &pulumirpc.ParameterizeRequest{
+		Parameters: &pulumirpc.ParameterizeRequest_Value{
+			Value: &pulumirpc.ParameterizeRequest_ParametersValue{
+				Name:    wantPkg,
+				Version: wantVersion,
+				Value:   paramBytes,
+			},
+		},
+	})
+	if err != nil {
+		t.Fatalf("Parameterize(Value) failed: %v", err)
+	}
+	if valueResp.Name != wantPkg || valueResp.Version != wantVersion {
+		t.Errorf("Value response: got %s@%s, want %s@%s",
+			valueResp.Name, valueResp.Version, wantPkg, wantVersion)
+	}
+
+	rebuilt := k.crdSchemas.get(wantPkg, wantVersion)
+	if rebuilt == nil {
+		t.Fatalf("no schema cached for %s@%s after Parameterize(Value)", wantPkg, wantVersion)
+	}
+	assertParameterizedIdentity(t, rebuilt, wantPkg)
+
+	// Both runs must produce the same resource and type sets. We don't require
+	// byte-identical schemas (some maps may iterate differently on the margins),
+	// but the set of tokens must be identical.
+	if diff := stringSetDiff(mapKeys(originalSchema.Resources), mapKeys(rebuilt.Resources)); diff != "" {
+		t.Errorf("Resources set differs between Args and Value runs: %s", diff)
+	}
+	if diff := stringSetDiff(mapKeys(originalSchema.Types), mapKeys(rebuilt.Types)); diff != "" {
+		t.Errorf("Types set differs between Args and Value runs: %s", diff)
+	}
+}
+
+// assertParameterizedIdentity verifies the fingerprint of a parameterized
+// package: name, token prefixes, ref prefixes, and Go import base path.
+func assertParameterizedIdentity(t *testing.T, schema *pulumischema.PackageSpec, pkg string) {
+	t.Helper()
+
+	if schema.Name != pkg {
+		t.Errorf("PackageSpec.Name: got %q, want %q", schema.Name, pkg)
+	}
+
+	prefix := pkg + ":"
+	for tok := range schema.Resources {
+		if !strings.HasPrefix(tok, prefix) {
+			t.Errorf("resource token %q must be prefixed with %q", tok, prefix)
+		}
+	}
+	for tok := range schema.Types {
+		if !strings.HasPrefix(tok, prefix) {
+			t.Errorf("type token %q must be prefixed with %q", tok, prefix)
+		}
+	}
+
+	// Walk the JSON representation for lingering base-provider refs. A
+	// byte-level scan is the most thorough check — it catches refs nested in
+	// OneOf, Items, AdditionalProperties, etc., without needing to walk the
+	// struct by hand.
+	data, err := json.Marshal(schema)
+	if err != nil {
+		t.Fatalf("marshalling schema: %v", err)
+	}
+	for _, leaked := range []string{
+		`"#/types/kubernetes:`,
+		`"#/resources/kubernetes:`,
+	} {
+		if strings.Contains(string(data), leaked) {
+			t.Errorf("schema still contains base-provider ref prefix %q — identity rewrite is incomplete", leaked)
+		}
+	}
+
+	// Go import base path should name the parameterized package.
+	goLangBytes, ok := schema.Language["go"]
+	if !ok {
+		t.Fatal("schema.Language[\"go\"] missing")
+	}
+	var goLang map[string]any
+	if err := json.Unmarshal(goLangBytes, &goLang); err != nil {
+		t.Fatalf("unmarshalling Go language settings: %v", err)
+	}
+	importPath, _ := goLang["importBasePath"].(string)
+	if !strings.Contains(importPath, pkg) {
+		t.Errorf("Go importBasePath %q does not mention parameterized package %q", importPath, pkg)
+	}
+	if strings.Contains(importPath, "/go/kubernetes") {
+		t.Errorf("Go importBasePath %q still points at the base kubernetes SDK path", importPath)
+	}
+}
+
+func mapKeys[V any](m map[string]V) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+// stringSetDiff returns "" when a and b represent the same set, or a
+// human-readable description of the symmetric difference otherwise.
+func stringSetDiff(a, b []string) string {
+	seen := make(map[string]int, len(a)+len(b))
+	for _, s := range a {
+		seen[s] |= 1
+	}
+	for _, s := range b {
+		seen[s] |= 2
+	}
+	var onlyA, onlyB []string
+	for s, bits := range seen {
+		switch bits {
+		case 1:
+			onlyA = append(onlyA, s)
+		case 2:
+			onlyB = append(onlyB, s)
+		}
+	}
+	if len(onlyA) == 0 && len(onlyB) == 0 {
+		return ""
+	}
+	return "only in first: " + strings.Join(onlyA, ",") + "; only in second: " + strings.Join(onlyB, ",")
 }
