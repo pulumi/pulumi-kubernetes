@@ -22,6 +22,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 )
 
 func Test_MergeMaps(t *testing.T) {
@@ -361,4 +362,93 @@ images: ["bitnami/nginx"]
 			assert.Equal(t, tt.want, actual)
 		})
 	}
+}
+
+// decodeReleaseThroughWire simulates the full path a real user request takes:
+// PropertyMap -> marshal to structpb -> unmarshal with the options the
+// provider's Check/Create/Update methods use -> decodeRelease.
+//
+// This lets tests exercise the actual behavior users see, including the
+// null-stripping that happens at SkipNulls unmarshal time.
+func decodeReleaseThroughWire(t *testing.T, userInputs resource.PropertyMap) *Release {
+	t.Helper()
+
+	wire, err := plugin.MarshalProperties(userInputs, plugin.MarshalOptions{
+		Label:        "userInputs",
+		KeepUnknowns: true,
+		KeepSecrets:  true,
+	})
+	require.NoError(t, err)
+
+	news, err := plugin.UnmarshalProperties(wire, plugin.MarshalOptions{
+		Label:        "news",
+		KeepUnknowns: true,
+		SkipNulls:    false,
+		KeepSecrets:  true,
+	})
+	require.NoError(t, err)
+
+	release, err := decodeRelease(news, "")
+	require.NoError(t, err)
+	return release
+}
+
+// TestDecodeRelease_AllowNullValuesThroughWire reproduces the bug reported
+// in pulumi/pulumi-kubernetes#2034, #3178, and #3234: users set
+// `allowNullValues: true` expecting the null in `values.image.tag` to be
+// preserved through Helm's value merge. Instead, `SkipNulls: true` on
+// UnmarshalProperties strips the null before AllowNullValues gets a chance
+// to preserve it.
+func TestDecodeRelease_AllowNullValuesThroughWire(t *testing.T) {
+	release := decodeReleaseThroughWire(t, resource.PropertyMap{
+		"allowNullValues": resource.NewBoolProperty(true),
+		"chart":           resource.NewStringProperty("nginx"),
+		"values": resource.NewObjectProperty(resource.PropertyMap{
+			"image": resource.NewObjectProperty(resource.PropertyMap{
+				"tag": resource.NewNullProperty(),
+			}),
+		}),
+	})
+
+	require.True(t, release.AllowNullValues, "allowNullValues flag should be decoded as true")
+	require.Contains(t, release.Values, "image", "image key should be present in values")
+
+	image, ok := release.Values["image"].(map[string]any)
+	require.True(t, ok, "image should be a map")
+
+	tag, hasTag := image["tag"]
+	assert.True(t, hasTag, "tag key should be present in image values (got %v)", image)
+	assert.Nil(t, tag, "tag value should be nil (the user's explicit null)")
+}
+
+// TestDecodeRelease_NullWithoutAllowNullValuesThroughWire covers the common
+// case: a user sets a Helm chart value to null WITHOUT setting
+// `allowNullValues: true`. They expect the standard Helm convention to work
+// (null deletes the key), same as `helm install --set key=null`.
+//
+// This test fails because there are two places nulls get stripped:
+// SkipNulls at UnmarshalProperties, and `excludeNulls` in `mergeMaps` (which
+// only runs when AllowNullValues is false). For this test to pass, both
+// strippers must go: SkipNulls must be false, and the mergeMaps default must
+// preserve nulls without requiring an opt-in flag.
+func TestDecodeRelease_NullWithoutAllowNullValuesThroughWire(t *testing.T) {
+	release := decodeReleaseThroughWire(t, resource.PropertyMap{
+		// NOTE: allowNullValues is intentionally NOT set — we want the
+		// default behavior to preserve nulls, same as Helm CLI.
+		"chart": resource.NewStringProperty("nginx"),
+		"values": resource.NewObjectProperty(resource.PropertyMap{
+			"image": resource.NewObjectProperty(resource.PropertyMap{
+				"tag": resource.NewNullProperty(),
+			}),
+		}),
+	})
+
+	require.Contains(t, release.Values, "image", "image key should be present in values")
+
+	image, ok := release.Values["image"].(map[string]any)
+	require.True(t, ok, "image should be a map")
+
+	tag, hasTag := image["tag"]
+	assert.True(t, hasTag, "tag key should be present in image values (got %v)", image)
+	assert.Nil(t, tag, "tag value should be nil (the user's explicit null)")
 }
