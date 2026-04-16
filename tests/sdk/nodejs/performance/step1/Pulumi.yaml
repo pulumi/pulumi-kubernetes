@@ -1,3 +1,0 @@
-name: performance-tests
-description: Regression tests related to performance of large resource inputs.
-runtime: nodejs

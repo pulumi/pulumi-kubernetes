@@ -1,3 +1,0 @@
-name: dotnet_kustomize
-description: Test kustomize support.
-runtime: dotnet

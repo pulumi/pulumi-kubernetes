@@ -1,3 +1,0 @@
-# file used for basis of kubectl patch ...
-spec:
-  replicas: 3
