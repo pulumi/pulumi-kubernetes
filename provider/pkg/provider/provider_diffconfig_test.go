@@ -56,11 +56,11 @@ var _ = gk.Describe("RPC:DiffConfig", func() {
 		k = pctx.NewProvider(opts...)
 
 		req.Olds, err = plugin.MarshalProperties(olds, plugin.MarshalOptions{
-			Label: "olds", KeepUnknowns: true, SkipNulls: true,
+			Label: "olds", KeepUnknowns: true, SkipNulls: false,
 		})
 		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 		req.News, err = plugin.MarshalProperties(news, plugin.MarshalOptions{
-			Label: "news", KeepUnknowns: true, SkipNulls: true,
+			Label: "news", KeepUnknowns: true, SkipNulls: false,
 		})
 		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 	})

@@ -340,7 +340,7 @@ func (r *helmReleaseProvider) Check(
 	// an update.
 	oldResInputs := req.GetOlds()
 	olds, err := plugin.UnmarshalProperties(oldResInputs, plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -352,7 +352,7 @@ func (r *helmReleaseProvider) Check(
 	news, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -396,7 +396,7 @@ func (r *helmReleaseProvider) Check(
 	newInputs, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.newInputs", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -409,7 +409,7 @@ func (r *helmReleaseProvider) Check(
 	autonamedInputs, err := plugin.MarshalProperties(news, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.autonamedInputs", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  r.enableSecrets,
 	})
 	if err != nil {
@@ -729,7 +729,7 @@ func (r *helmReleaseProvider) Diff(
 	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
 	// we received back from the API server.
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -739,7 +739,7 @@ func (r *helmReleaseProvider) Diff(
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -898,7 +898,7 @@ func (r *helmReleaseProvider) Create(
 	news, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.properties", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -933,7 +933,7 @@ func (r *helmReleaseProvider) Create(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -962,7 +962,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	logger.V(9).Infof("%s Starting", label)
 
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1026,7 +1026,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label), false), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -1034,7 +1034,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	}
 
 	inputs, err := plugin.MarshalProperties(oldInputs, plugin.MarshalOptions{
-		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets, //nolint:goconst
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: false, KeepSecrets: r.enableSecrets, //nolint:goconst
 	})
 	if err != nil {
 		return nil, err
@@ -1064,7 +1064,7 @@ func (r *helmReleaseProvider) Update(
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.olds", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1073,7 +1073,7 @@ func (r *helmReleaseProvider) Update(
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1112,7 +1112,7 @@ func (r *helmReleaseProvider) Update(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -1141,7 +1141,7 @@ func (r *helmReleaseProvider) Delete(
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	olds, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err

@@ -55,7 +55,7 @@ var _ = gk.Describe("RPC:CheckConfig", func() {
 		k = pctx.NewProvider(opts...)
 
 		req.News, err = plugin.MarshalProperties(news, plugin.MarshalOptions{
-			Label: "news", KeepUnknowns: true, SkipNulls: true,
+			Label: "news", KeepUnknowns: true, SkipNulls: false,
 		})
 		gm.Expect(err).ShouldNot(gm.HaveOccurred())
 	})
