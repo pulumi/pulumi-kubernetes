@@ -54,79 +54,22 @@ func TestParseCrdArgsWithoutName(t *testing.T) {
 func TestDerivePackageName(t *testing.T) {
 	tests := []struct {
 		name     string
-		crds     []*extensionv1.CustomResourceDefinition
+		paths    []string
 		expected string
 	}{
-		{
-			"gateway API group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
-			},
-			"gateway-networking",
-		},
-		{
-			"cert-manager group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
-			},
-			"cert-manager",
-		},
-		{
-			"multiple groups uses first group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
-			},
-			"gateway-networking",
-		},
-		{
-			"no groups falls back to default",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: ""}},
-			},
-			defaultPackageName,
-		},
-		{
-			"x-k8s.io suffix",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "multicluster.x-k8s.io"}},
-			},
-			"multicluster",
-		},
-		{
-			"plain group without known suffix",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "example.com"}},
-			},
-			"example-com",
-		},
+		{"single yaml file", []string{"/tmp/gateway-api.yaml"}, "gateway-api"},
+		{"single yml file", []string{"/tmp/cert-manager.yml"}, "cert-manager"},
+		{"multiple files uses first", []string{"/tmp/gateway-api.yaml", "/tmp/cert-manager.yaml"}, "gateway-api"},
+		{"no paths falls back to default", nil, defaultPackageName},
+		{"empty string path falls back to default", []string{""}, defaultPackageName},
+		{"nested path uses base name", []string{"/home/user/crds/istio-crds.yaml"}, "istio-crds"},
+		{"no extension", []string{"/tmp/my-crds"}, "my-crds"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := derivePackageName(tt.crds)
+			got := derivePackageName(tt.paths)
 			if got != tt.expected {
 				t.Errorf("derivePackageName() = %q, want %q", got, tt.expected)
-			}
-		})
-	}
-}
-
-func TestStripK8sSuffix(t *testing.T) {
-	tests := []struct {
-		input    string
-		expected string
-	}{
-		{"gateway.networking.k8s.io", "gateway.networking"},
-		{"cert-manager.io", "cert-manager"},
-		{"multicluster.x-k8s.io", "multicluster"},
-		{"example.com", "example.com"},
-		{"storage", "storage"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.input, func(t *testing.T) {
-			got := stripK8sSuffix(tt.input)
-			if got != tt.expected {
-				t.Errorf("stripK8sSuffix(%q) = %q, want %q", tt.input, got, tt.expected)
 			}
 		})
 	}
@@ -378,8 +321,8 @@ func definitionNames(sw *spec.Swagger) []string {
 //     needing the original CRD file on disk.
 //
 // Both paths are asserted to produce a schema with:
-//   - the derived package name ("gateway-networking") as PackageSpec.Name,
-//   - resource/type tokens prefixed with "gateway-networking:" (not "kubernetes:"),
+//   - the derived package name ("gateway-like-crd") as PackageSpec.Name,
+//   - resource/type tokens prefixed with "gateway-like-crd:" (not "kubernetes:"),
 //   - $refs that don't leak the base "kubernetes:" prefix,
 //   - a parameterized Go import base path so the SDK can coexist with the base.
 //
@@ -394,7 +337,7 @@ func TestParameterizeRoundTrip(t *testing.T) {
 	}
 
 	const (
-		wantPkg     = "gateway-networking"
+		wantPkg     = "gateway-like-crd"
 		wantVersion = "1.2.1"
 	)
 

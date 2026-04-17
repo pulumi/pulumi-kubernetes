@@ -22,6 +22,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -135,34 +136,20 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}, nil
 }
 
-// derivePackageName produces a package name from the first CRD group found in
-// the manifests. For example, CRDs in "gateway.networking.k8s.io" yield
-// "gateway-networking". Falls back to defaultPackageName if no groups can be
-// extracted. If CRDs span multiple groups, users should specify -n explicitly.
-func derivePackageName(crds []*extensionv1.CustomResourceDefinition) string {
-	for _, crd := range crds {
-		group := crd.Spec.Group
-		if group == "" {
-			continue
+// derivePackageName produces a package name from the first CRD manifest file
+// path. The file's base name (without extension) is used directly, e.g.
+// "gateway-api-crds.yaml" → "gateway-api-crds". Falls back to
+// defaultPackageName if no paths are provided.
+func derivePackageName(paths []string) string {
+	for _, p := range paths {
+		base := filepath.Base(p)
+		ext := filepath.Ext(base)
+		name := strings.TrimSuffix(base, ext)
+		if name != "" {
+			return name
 		}
-		// Strip common k8s suffixes to get the meaningful prefix.
-		// "gateway.networking.k8s.io" → "gateway-networking"
-		// "cert-manager.io" → "cert-manager"
-		short := stripK8sSuffix(group)
-		return strings.ReplaceAll(short, ".", "-")
 	}
 	return defaultPackageName
-}
-
-// stripK8sSuffix removes common Kubernetes API group suffixes like ".k8s.io",
-// ".io", and ".x-k8s.io" to produce a human-readable short name.
-func stripK8sSuffix(group string) string {
-	for _, suffix := range []string{".x-k8s.io", ".k8s.io", ".io"} {
-		if strings.HasSuffix(group, suffix) {
-			return strings.TrimSuffix(group, suffix)
-		}
-	}
-	return group
 }
 
 // fillDefaultNames sets the default names for the CRD if they are not specified.
@@ -464,10 +451,10 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		return nil, fmt.Errorf("error merging OpenAPI specs for all provided CRDs: %w", err)
 	}
 
-	// Determine the package name: user-specified > derived from CRD groups > default.
+	// Determine the package name: user-specified > derived from file name > default.
 	packageName := args.PackageName
 	if packageName == "" {
-		packageName = derivePackageName(allCRDs)
+		packageName = derivePackageName(args.CRDManifestPaths)
 	}
 
 	crdsPackageSpec := generateSchema(mergedSpecs, packageName, args.PackageVersion, k.name, k.version)

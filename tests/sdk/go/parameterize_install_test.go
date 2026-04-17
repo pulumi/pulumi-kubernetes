@@ -55,17 +55,17 @@ func TestParameterizeGenSDK(t *testing.T) {
 	out, err := cmd.CombinedOutput()
 	require.NoError(t, err, "pulumi package gen-sdk: %s", out)
 
-	// Layout gen-sdk produces for Go with package name "gateway-pulumi-test":
-	//   sdks/go/                             <- go.mod (module root)
-	//   sdks/go/gatewaypulumitest/           <- Go package root (hyphens stripped)
-	//   sdks/go/gatewaypulumitest/gateway/v1 <- generated resources
+	// Layout gen-sdk produces for Go with package name "gateway-crd" (from file name):
+	//   sdks/go/                         <- go.mod (module root)
+	//   sdks/go/gatewaycrd/              <- Go package root (hyphens stripped)
+	//   sdks/go/gatewaycrd/gateway/v1    <- generated resources
 	goRoot := filepath.Join(sdkOut, "go")
-	gatewayGo := filepath.Join(goRoot, "gatewaypulumitest", "gateway", "v1", "gateway.go")
+	gatewayGo := filepath.Join(goRoot, "gatewaycrd", "gateway", "v1", "gateway.go")
 
 	gomod, err := os.ReadFile(filepath.Join(goRoot, "go.mod"))
 	require.NoError(t, err)
 	assert.Contains(t, string(gomod),
-		"module github.com/pulumi/pulumi-kubernetes-gateway-pulumi-test/sdk/v4/go",
+		"module github.com/pulumi/pulumi-kubernetes-gateway-crd/sdk/v4/go",
 		"go.mod must use the parameterized module path")
 	assert.NotContains(t, string(gomod),
 		"module github.com/pulumi/pulumi-kubernetes/sdk/v4/go\n",
@@ -75,7 +75,7 @@ func TestParameterizeGenSDK(t *testing.T) {
 	require.NoError(t, err)
 	gw := string(gwBytes)
 	assert.Contains(t, gw,
-		"github.com/pulumi/pulumi-kubernetes-gateway-pulumi-test/sdk/v4/go/gatewaypulumitest",
+		"github.com/pulumi/pulumi-kubernetes-gateway-crd/sdk/v4/go/gatewaycrd",
 		"gateway.go must import from the parameterized SDK path")
 	for _, line := range strings.Split(gw, "\n") {
 		if strings.Contains(line, `"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/`) {

@@ -6,8 +6,8 @@ package main
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 
-	gatewayv1 "github.com/pulumi/pulumi-kubernetes-gateway-pulumi-test/sdk/v4/go/gatewaypulumitest/gateway/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes-gateway-pulumi-test/sdk/v4/go/gatewaypulumitest/meta/v1"
+	gatewayv1 "github.com/pulumi/pulumi-kubernetes-gateway-crd/sdk/v4/go/gatewaycrd/gateway/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes-gateway-crd/sdk/v4/go/gatewaycrd/meta/v1"
 )
 
 func main() {
