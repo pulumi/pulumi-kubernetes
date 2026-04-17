@@ -30,6 +30,7 @@ import (
 
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -193,6 +194,41 @@ func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
 			t.Fatalf("failed to clear gRPC log: %s", err)
 		}
 	}
+}
+
+// TestHelmNullValues verifies that setting a Helm chart value to null deletes
+// the chart's default for that key (https://github.com/pulumi/pulumi-kubernetes/issues/2997).
+func TestHelmNullValues(t *testing.T) {
+	g := gm.NewWithT(t)
+
+	test := pulumitest.NewPulumiTest(t, "helm-release-null-values",
+		opttest.LocalProviderPath("kubernetes", "../../../bin"),
+	)
+	t.Logf("into %s", test.WorkingDir())
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	// Step 1: deploy with no overrides — both chart defaults should be present.
+	up1 := test.Up(t)
+	t.Log(up1.StdOut)
+	g.Expect(up1.Outputs).To(gm.HaveKey("configMapData"))
+	cmData1 := up1.Outputs["configMapData"].Value.(map[string]any)
+	g.Expect(cmData1).To(gm.HaveKeyWithValue("alpha", "default-alpha"))
+	g.Expect(cmData1).To(gm.HaveKeyWithValue("beta", "default-beta"))
+
+	// Step 2: set config.alpha=null to delete the chart default.
+	err := test.CurrentStack().SetConfig(context.Background(), "helm-release-null-values:nullAlpha", auto.ConfigValue{
+		Value: "true",
+	})
+	g.Expect(err).ToNot(gm.HaveOccurred())
+
+	up2 := test.Up(t)
+	t.Log(up2.StdOut)
+	g.Expect(up2.Outputs).To(gm.HaveKey("configMapData"))
+	cmData2 := up2.Outputs["configMapData"].Value.(map[string]any)
+	g.Expect(cmData2).ToNot(gm.HaveKey("alpha"), "alpha should be deleted by null")
+	g.Expect(cmData2).To(gm.HaveKeyWithValue("beta", "default-beta"))
 }
 
 func TestPreviewWithUnreachableCluster(t *testing.T) {
