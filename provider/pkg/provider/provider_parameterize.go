@@ -418,7 +418,6 @@ func (k *kubeProvider) parameterizeRequestArgs(
 
 	logger.V(9).Infof("Parameterized Pulumi Kubernetes provider with user specified args: %s", args)
 
-	var allCRDs []*extensionv1.CustomResourceDefinition
 	var allCRDSpecs []*spec.Swagger
 
 	// We need to iterate through all filepaths provided by the user to generate the CRD schemas. Within each file, we
@@ -428,8 +427,6 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		if err != nil {
 			return nil, fmt.Errorf("error reading CRD manifest: %w", err)
 		}
-
-		allCRDs = append(allCRDs, crds...)
 
 		for _, crd := range crds {
 			crdVersionSpecs, err := crdToOpenAPI(crd)
