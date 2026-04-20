@@ -210,6 +210,9 @@ func Test_equalNumbers(t *testing.T) {
 		{"a != b, float64, int64", args{a: float64(1), b: int64(2)}, false},
 		{"unsupported a", args{a: "", b: int64(1)}, false},
 		{"unsupported b", args{a: int64(1), b: ""}, false},
+		{"nil a", args{a: nil, b: int64(1)}, false},
+		{"nil b", args{a: int64(1), b: nil}, false},
+		{"both nil", args{a: nil, b: nil}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

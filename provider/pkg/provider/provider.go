@@ -2930,6 +2930,9 @@ func makePatchSlice(path []any, v any) any {
 // equalNumbers returns true if both a and b are number values (int64 or float64). Note that if a this will fail if
 // either value is not representable as a float64.
 func equalNumbers(a, b any) bool {
+	if a == nil || b == nil {
+		return false
+	}
 	aKind, bKind := reflect.TypeOf(a).Kind(), reflect.TypeOf(b).Kind()
 	if aKind == bKind {
 		return reflect.DeepEqual(a, b)
