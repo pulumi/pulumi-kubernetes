@@ -321,10 +321,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values, err = mergeMaps(values, release.Values)
-	if err != nil {
-		return nil, err
-	}
+	release.Values = helm.MergeMaps(values, release.Values)
 	return &release, nil
 }
 
@@ -1236,12 +1233,8 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	if release.Chart == "" {
 		release.Chart = r.Chart.Metadata.Name
 	}
-	var err error
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values, err = mergeMaps(release.Values, r.Config)
-	if err != nil {
-		return err
-	}
+	release.Values = helm.MergeMaps(release.Values, r.Config)
 	release.Version = r.Chart.Metadata.Version
 
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)
@@ -1358,12 +1351,7 @@ func isChartInstallable(ch *helmchart.Chart) error {
 }
 
 func getValues(release *Release) (map[string]any, error) {
-	var err error
-	base := map[string]any{}
-	base, err = mergeMaps(base, release.Values)
-	if err != nil {
-		return nil, err
-	}
+	base := helm.MergeMaps(map[string]any{}, release.Values)
 	return base, logValues(base)
 }
 
@@ -1389,12 +1377,6 @@ func logValues(values map[string]any) error {
 	return nil
 }
 
-// Merges a and b map, preferring values from b map. Null values in b are
-// preserved, matching Helm CLI's behavior — nulls delete the corresponding
-// key from the merged result.
-func mergeMaps(a, b map[string]any) (map[string]any, error) {
-	return helm.MergeMaps(a, b), nil
-}
 
 // searchProgramDirectory implements a best-effort search for a chart in the program directory.
 // It searches for a chart archive and for an unpacked chart directory, with and without a version suffix.
