@@ -1377,7 +1377,6 @@ func logValues(values map[string]any) error {
 	return nil
 }
 
-
 // searchProgramDirectory implements a best-effort search for a chart in the program directory.
 // It searches for a chart archive and for an unpacked chart directory, with and without a version suffix.
 // The search order is: "<name>-<version>/", "<name>-<version>.tgz", "<name>/", "<name>.tgz".

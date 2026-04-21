@@ -25,7 +25,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 )
 
-
 func TestDecodeRelease(t *testing.T) {
 	bitnamiImage := `
 image:
