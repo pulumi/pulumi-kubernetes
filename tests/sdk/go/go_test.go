@@ -1255,3 +1255,31 @@ func TestOptionPropagation(t *testing.T) {
 	err = pt.TestPreviewUpdateAndEdits()
 	require.NoError(t, err)
 }
+
+// TestHelmNullValuesYamlFiles verifies that valueYamlFiles with explicit nulls
+// can delete chart defaults in Go (https://github.com/pulumi/pulumi-kubernetes/issues/2997).
+func TestHelmNullValuesYamlFiles(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("helm-release-null-values", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Step 1: both chart defaults should be present.
+			cm := stackInfo.Outputs["configMapData"].(map[string]any)
+			assert.Equal(t, "default-alpha", cm["alpha"])
+			assert.Equal(t, "default-beta", cm["beta"])
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("helm-release-null-values", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Step 2: alpha deleted via valueYamlFiles null, beta remains.
+					cm := stackInfo.Outputs["configMapData"].(map[string]any)
+					assert.NotContains(t, cm, "alpha", "alpha should be deleted by null in override.yaml")
+					assert.Equal(t, "default-beta", cm["beta"])
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
