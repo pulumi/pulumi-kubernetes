@@ -1280,6 +1280,7 @@ func TestHelmNullValuesYamlFiles(t *testing.T) {
 				},
 			},
 		},
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &test)
 }

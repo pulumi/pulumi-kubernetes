@@ -221,6 +221,7 @@ func TestHelmNullValues(t *testing.T) {
 				},
 			},
 		},
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &test)
 }
