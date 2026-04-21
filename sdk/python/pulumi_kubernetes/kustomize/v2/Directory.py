@@ -215,7 +215,7 @@ class Directory(pulumi.ComponentResource):
 
     @_builtins.property
     @pulumi.getter
-    def resources(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def resources(self) -> pulumi.Output[Optional[Sequence[Any]]]:
         """
         Resources created by the Directory resource.
         """

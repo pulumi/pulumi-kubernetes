@@ -17,7 +17,7 @@ from pulumi import ResourceOptions
 
 from typing import Any
 
-
+# 1. Ensure we can create Kustomize v1 resources.
 def set_namespace(namespace):
     def f(obj: Any):
         if "metadata" in obj:
@@ -37,4 +37,14 @@ k8s.kustomize.Directory(
     "helloWorld",
     transformations=[set_namespace(ns)],
     opts=ResourceOptions(provider=provider),
+)
+
+# 2. Ensure that we can create Kustomize v2 resources.
+v2_ns = k8s.core.v1.Namespace("v2ns", opts=ResourceOptions(provider=provider))
+
+k8s.kustomize.v2.Directory(
+    "kustomizev2",
+    directory="helloWorld",
+    namespace=v2_ns.metadata["name"],
+    opts=ResourceOptions(provider=provider)
 )

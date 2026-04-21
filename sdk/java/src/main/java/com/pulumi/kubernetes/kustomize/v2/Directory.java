@@ -9,7 +9,8 @@ import com.pulumi.core.annotations.ResourceType;
 import com.pulumi.core.internal.Codegen;
 import com.pulumi.kubernetes.Utilities;
 import com.pulumi.kubernetes.kustomize.v2.DirectoryArgs;
-import java.lang.String;
+import java.lang.Object;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -65,14 +66,14 @@ public class Directory extends com.pulumi.resources.ComponentResource {
      * Resources created by the Directory resource.
      * 
      */
-    @Export(name="resources", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> resources;
+    @Export(name="resources", refs={List.class,Object.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<Object>> resources;
 
     /**
      * @return Resources created by the Directory resource.
      * 
      */
-    public Output<Optional<String>> resources() {
+    public Output<Optional<List<Object>>> resources() {
         return Codegen.optional(this.resources);
     }
 

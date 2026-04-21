@@ -3,6 +3,11 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#4295](https://github.com/pulumi/pulumi-kubernetes/pull/4295)Fix kustomize.v2.Directory resource output type in the schema to properly support array outputs.
+Previously, the resources field was incorrectly typed as a `string` in the schema. This fix updates the type to an array of `Any`, aligning the schema with the provider's Go implementation (`pulumi.ArrayOutput`). This resolves a regression that caused the Kustomize v2 resource to fail in the Python SDK.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.4.

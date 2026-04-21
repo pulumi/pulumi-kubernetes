@@ -73,7 +73,7 @@ type Directory struct {
 	pulumi.ResourceState
 
 	// Resources created by the Directory resource.
-	Resources pulumi.StringPtrOutput `pulumi:"resources"`
+	Resources pulumi.ArrayOutput `pulumi:"resources"`
 }
 
 // NewDirectory registers a new resource with the given unique name, arguments, and options.
@@ -212,8 +212,8 @@ func (o DirectoryOutput) ToDirectoryOutputWithContext(ctx context.Context) Direc
 }
 
 // Resources created by the Directory resource.
-func (o DirectoryOutput) Resources() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Directory) pulumi.StringPtrOutput { return v.Resources }).(pulumi.StringPtrOutput)
+func (o DirectoryOutput) Resources() pulumi.ArrayOutput {
+	return o.ApplyT(func(v *Directory) pulumi.ArrayOutput { return v.Resources }).(pulumi.ArrayOutput)
 }
 
 type DirectoryArrayOutput struct{ *pulumi.OutputState }

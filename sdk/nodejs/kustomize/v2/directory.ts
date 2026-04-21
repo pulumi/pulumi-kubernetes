@@ -43,7 +43,7 @@ export class Directory extends pulumi.ComponentResource {
     /**
      * Resources created by the Directory resource.
      */
-    declare public /*out*/ readonly resources: pulumi.Output<string>;
+    declare public /*out*/ readonly resources: pulumi.Output<any[]>;
 
     /**
      * Create a Directory resource with the given unique name, arguments, and options.

@@ -1287,7 +1287,10 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
 				TypeSpec: pschema.TypeSpec{
-					Type: "string",
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Ref: "pulumi.json#/Any",
+					},
 				},
 				Description: "Resources created by the Directory resource.",
 			},

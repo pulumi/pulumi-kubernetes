@@ -55,7 +55,7 @@ namespace Pulumi.Kubernetes.Kustomize.V2
         /// Resources created by the Directory resource.
         /// </summary>
         [Output("resources")]
-        public Output<string> Resources { get; private set; } = null!;
+        public Output<ImmutableArray<object>> Resources { get; private set; } = null!;
 
 
         /// <summary>
