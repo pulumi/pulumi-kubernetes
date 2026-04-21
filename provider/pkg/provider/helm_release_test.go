@@ -188,12 +188,10 @@ images: ["bitnami/nginx"]
 	}
 }
 
-// decodeReleaseThroughWire simulates the full path a real user request takes:
-// PropertyMap -> marshal to structpb -> unmarshal with the options the
-// provider's Check/Create/Update methods use -> decodeRelease.
-//
-// This lets tests exercise the actual behavior users see, including the
-// null-stripping that happens at SkipNulls unmarshal time.
+// decodeReleaseThroughWire simulates the production marshal/unmarshal path with
+// null preservation (SkipNulls: false), so tests exercise the actual behavior
+// users see after this fix.
+
 func decodeReleaseThroughWire(t *testing.T, userInputs resource.PropertyMap) *Release {
 	t.Helper()
 
