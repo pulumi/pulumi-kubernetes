@@ -1,0 +1,15 @@
+{
+    "dataSources": {},
+    "name": "helm",
+    "provider": {},
+    "resources": {
+        "helm_release": {
+            "fields": {
+                "disable_crd_hooks": {
+                    "name": "disableCRDHooks"
+                }
+            },
+            "tok": "kubernetes:helm.sh/v3:Release"
+        }
+    }
+}
