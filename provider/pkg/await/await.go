@@ -23,7 +23,7 @@ import (
 	"sync"
 	"time"
 
-	fluxssa "github.com/fluxcd/pkg/ssa"
+	fluxssa "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/fluxssa"
 	"github.com/jonboulle/clockwork"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"

@@ -28,8 +28,6 @@ import (
 	authorizationv1 "k8s.io/api/authorization/v1"
 	authorizationv1beta1 "k8s.io/api/authorization/v1beta1"
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
-	autoscalingv2beta1 "k8s.io/api/autoscaling/v2beta1"
-	autoscalingv2beta2 "k8s.io/api/autoscaling/v2beta2"
 	batchv1 "k8s.io/api/batch/v1"
 	batchv1beta1 "k8s.io/api/batch/v1beta1"
 	certificatesv1 "k8s.io/api/certificates/v1"
@@ -56,7 +54,6 @@ import (
 	rbacv1alpha1 "k8s.io/api/rbac/v1alpha1"
 	rbacv1beta1 "k8s.io/api/rbac/v1beta1"
 	schedulingv1 "k8s.io/api/scheduling/v1"
-	schedulingv1alpha1 "k8s.io/api/scheduling/v1alpha1"
 	schedulingv1beta1 "k8s.io/api/scheduling/v1beta1"
 	storagev1 "k8s.io/api/storage/v1"
 	storagev1alpha1 "k8s.io/api/storage/v1alpha1"
@@ -78,8 +75,6 @@ var groups = []runtime.SchemeBuilder{
 	authorizationv1beta1.SchemeBuilder,
 	authorizationv1.SchemeBuilder,
 	autoscalingv1.SchemeBuilder,
-	autoscalingv2beta1.SchemeBuilder,
-	autoscalingv2beta2.SchemeBuilder,
 	batchv1beta1.SchemeBuilder,
 	batchv1.SchemeBuilder,
 	certificatesv1.SchemeBuilder,
@@ -105,7 +100,6 @@ var groups = []runtime.SchemeBuilder{
 	rbacv1alpha1.SchemeBuilder,
 	rbacv1beta1.SchemeBuilder,
 	rbacv1.SchemeBuilder,
-	schedulingv1alpha1.SchemeBuilder,
 	schedulingv1beta1.SchemeBuilder,
 	schedulingv1.SchemeBuilder,
 	storagev1alpha1.SchemeBuilder,
