@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- [#4300](https://github.com/pulumi/pulumi-kubernetes/pull/4300) Add `images` output property to `helm.sh/v4:Chart`, `yaml/v2:ConfigFile`, `yaml/v2:ConfigGroup`, and `kustomize/v2:Directory`. Returns a sorted, deduplicated list of container image references extracted from all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods) managed by the component. Supports SBOM generation, airgap deployment, registry mirroring, and security audit workflows.
+
 ## 4.32.0 (June 5, 2026)
 
 ### Fixed
