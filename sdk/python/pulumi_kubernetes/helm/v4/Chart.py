@@ -51,7 +51,7 @@ class ChartArgs:
         :param pulumi.Input[_builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
-        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[_builtins.bool] verify: Verify the chart's integrity.
         :param pulumi.Input[_builtins.str] version: Specify the chart version to install. If this is not specified, the latest version is installed.
@@ -236,7 +236,7 @@ class ChartArgs:
     @pulumi.getter(name="valueYamlFiles")
     def value_yaml_files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
-        List of assets (raw yaml files). Content is read and merged with values.
+        List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
         """
         return pulumi.get(self, "value_yaml_files")
 
@@ -451,6 +451,25 @@ class Chart(pulumi.ComponentResource):
             }
         )
         ```
+        ### Delete a Chart Default Value
+
+        Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+        ```python
+        import pulumi
+        from pulumi_kubernetes.helm.v4 import Chart, RepositoryOptsArgs
+
+        nginx = Chart("nginx",
+            chart="nginx",
+            repository_opts=RepositoryOptsArgs(
+                repo="https://charts.bitnami.com/bitnami",
+            ),
+            value_yaml_files=[pulumi.FileAsset("./overrides.yaml")],
+        )
+
+        # -- Contents of overrides.yaml --
+        # containerPorts:
+        #   http: null
+        ```
         ### Chart Namespace
         ```python
         import pulumi
@@ -487,7 +506,7 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[_builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
-        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[_builtins.bool] verify: Verify the chart's integrity.
         :param pulumi.Input[_builtins.str] version: Specify the chart version to install. If this is not specified, the latest version is installed.
@@ -644,6 +663,25 @@ class Chart(pulumi.ComponentResource):
                 "notes": pulumi.FileAsset("./notes.txt")
             }
         )
+        ```
+        ### Delete a Chart Default Value
+
+        Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+        ```python
+        import pulumi
+        from pulumi_kubernetes.helm.v4 import Chart, RepositoryOptsArgs
+
+        nginx = Chart("nginx",
+            chart="nginx",
+            repository_opts=RepositoryOptsArgs(
+                repo="https://charts.bitnami.com/bitnami",
+            ),
+            value_yaml_files=[pulumi.FileAsset("./overrides.yaml")],
+        )
+
+        # -- Contents of overrides.yaml --
+        # containerPorts:
+        #   http: null
         ```
         ### Chart Namespace
         ```python

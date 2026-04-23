@@ -204,14 +204,14 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * List of assets (raw yaml files). Content is read and merged with values.
+     * List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
      * 
      */
     @Import(name="valueYamlFiles")
     private @Nullable Output<List<AssetOrArchive>> valueYamlFiles;
 
     /**
-     * @return List of assets (raw yaml files). Content is read and merged with values.
+     * @return List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
      * 
      */
     public Optional<Output<List<AssetOrArchive>>> valueYamlFiles() {
@@ -555,7 +555,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values.
+         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
          * 
          * @return builder
          * 
@@ -566,7 +566,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values.
+         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
          * 
          * @return builder
          * 
@@ -576,7 +576,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values.
+         * @param valueYamlFiles List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
          * 
          * @return builder
          * 

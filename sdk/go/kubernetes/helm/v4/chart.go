@@ -216,6 +216,38 @@ import (
 //	}
 //
 // ```
+// ### Delete a Chart Default Value
+//
+// Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+// ```go
+// package main
+//
+// import (
+//
+//	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helmv4.NewChart(ctx, "nginx", &helmv4.ChartArgs{
+//				Chart: pulumi.String("nginx"),
+//				RepositoryOpts: &helmv4.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+//				},
+//				ValueYamlFiles: pulumi.AssetOrArchiveArray{
+//					pulumi.NewFileAsset("./overrides.yaml"),
+//				},
+//			})
+//			return err
+//		})
+//	}
+//
+// // -- Contents of overrides.yaml --
+// // containerPorts:
+// //   http: null
+// ```
 // ### Chart Namespace
 // ```go
 // package main
@@ -303,7 +335,7 @@ type chartArgs struct {
 	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds *bool `pulumi:"skipCrds"`
-	// List of assets (raw yaml files). Content is read and merged with values.
+	// List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 	ValueYamlFiles []pulumi.AssetOrArchive `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
 	Values map[string]interface{} `pulumi:"values"`
@@ -339,7 +371,7 @@ type ChartArgs struct {
 	SkipAwait pulumi.BoolPtrInput
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds pulumi.BoolPtrInput
-	// List of assets (raw yaml files). Content is read and merged with values.
+	// List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 	ValueYamlFiles pulumi.AssetOrArchiveArrayInput
 	// Custom values set for the release.
 	Values pulumi.MapInput

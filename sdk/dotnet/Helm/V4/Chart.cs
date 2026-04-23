@@ -186,6 +186,31 @@ namespace Pulumi.Kubernetes.Helm.V4
     ///     return new Dictionary&lt;string, object?&gt;{};
     /// });
     /// ```
+    /// ### Delete a Chart Default Value
+    /// 
+    /// Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Helm.V4;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V4;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt;
+    /// {
+    ///     new Chart("nginx", new ChartArgs
+    ///     {
+    ///         Chart = "nginx",
+    ///         RepositoryOpts = new RepositoryOptsArgs
+    ///         {
+    ///             Repo = "https://charts.bitnami.com/bitnami",
+    ///         },
+    ///         ValueYamlFiles = { new FileAsset("./overrides.yaml") },
+    ///     });
+    /// });
+    /// 
+    /// // -- Contents of overrides.yaml --
+    /// // containerPorts:
+    /// //   http: null
+    /// ```
     /// ### Chart Namespace
     /// ```csharp
     /// using Pulumi;
@@ -330,7 +355,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         private InputList<AssetOrArchive>? _valueYamlFiles;
 
         /// <summary>
-        /// List of assets (raw yaml files). Content is read and merged with values.
+        /// List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
         /// </summary>
         public InputList<AssetOrArchive> ValueYamlFiles
         {

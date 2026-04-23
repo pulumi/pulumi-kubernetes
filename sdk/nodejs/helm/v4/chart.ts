@@ -153,6 +153,26 @@ import * as utilities from "../../utilities";
  *     },
  * });
  * ```
+ * ### Delete a Chart Default Value
+ *
+ * Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginx = new k8s.helm.v4.Chart("nginx", {
+ *     chart: "nginx",
+ *     repositoryOpts: {
+ *         repo: "https://charts.bitnami.com/bitnami",
+ *     },
+ *     valueYamlFiles: [new pulumi.asset.FileAsset("./overrides.yaml")],
+ * });
+ *
+ * // -- Contents of overrides.yaml --
+ * // containerPorts:
+ * //   http: null
+ * ```
  * ### Chart Namespace
  *
  * ```typescript
@@ -283,7 +303,7 @@ export interface ChartArgs {
      */
     skipCrds?: pulumi.Input<boolean>;
     /**
-     * List of assets (raw yaml files). Content is read and merged with values.
+     * List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
      */
     valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
     /**

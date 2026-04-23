@@ -597,6 +597,140 @@ func main() {
 ```
 {{% /example %}}
 {{% example %}}
+### Delete a Chart Default Value
+
+Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+
+```typescript
+import * as pulumi from "@pulumi/pulumi";
+import * as k8s from "@pulumi/kubernetes";
+
+const nginx = new k8s.helm.v3.Release("nginx", {
+    chart: "nginx",
+    repositoryOpts: {
+        repo: "https://charts.bitnami.com/bitnami",
+    },
+    valueYamlFiles: [new pulumi.asset.FileAsset("./overrides.yaml")],
+});
+
+// -- Contents of overrides.yaml --
+// containerPorts:
+//   http: null
+```
+```python
+import pulumi
+from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+nginx = Release(
+    "nginx",
+    ReleaseArgs(
+        chart="nginx",
+        repository_opts=RepositoryOptsArgs(
+            repo="https://charts.bitnami.com/bitnami",
+        ),
+        value_yaml_files=[pulumi.FileAsset("./overrides.yaml")],
+    ),
+)
+
+# -- Contents of overrides.yaml --
+# containerPorts:
+#   http: null
+```
+```csharp
+using Pulumi;
+using Pulumi.Kubernetes.Helm.V3;
+using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+
+return await Deployment.RunAsync(() =>
+{
+    new Release("nginx", new ReleaseArgs
+    {
+        Chart = "nginx",
+        RepositoryOpts = new RepositoryOptsArgs
+        {
+            Repo = "https://charts.bitnami.com/bitnami",
+        },
+        ValueYamlFiles = { new FileAsset("./overrides.yaml") },
+    });
+});
+
+// -- Contents of overrides.yaml --
+// containerPorts:
+//   http: null
+```
+```go
+package main
+
+import (
+	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		_, err := helmv3.NewRelease(ctx, "nginx", &helmv3.ReleaseArgs{
+			Chart: pulumi.String("nginx"),
+			RepositoryOpts: helmv3.RepositoryOptsArgs{
+				Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+			},
+			ValueYamlFiles: pulumi.AssetOrArchiveArray{
+				pulumi.NewFileAsset("./overrides.yaml"),
+			},
+		})
+		return err
+	})
+}
+
+// -- Contents of overrides.yaml --
+// containerPorts:
+//   http: null
+```
+```java
+package generated_program;
+
+import com.pulumi.Pulumi;
+import com.pulumi.asset.FileAsset;
+import com.pulumi.kubernetes.helm.v3.Release;
+import com.pulumi.kubernetes.helm.v3.ReleaseArgs;
+import com.pulumi.kubernetes.helm.v3.inputs.RepositoryOptsArgs;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(ctx -> {
+            new Release("nginx", ReleaseArgs.builder()
+                    .chart("nginx")
+                    .repositoryOpts(RepositoryOptsArgs.builder()
+                            .repo("https://charts.bitnami.com/bitnami")
+                            .build())
+                    .valueYamlFiles(new FileAsset("./overrides.yaml"))
+                    .build());
+        });
+    }
+}
+
+// -- Contents of overrides.yaml --
+// containerPorts:
+//   http: null
+```
+```yaml
+name: example
+runtime: yaml
+resources:
+  nginx:
+    type: kubernetes:helm.sh/v3:Release
+    properties:
+      chart: nginx
+      repositoryOpts:
+        repo: https://charts.bitnami.com/bitnami
+      valueYamlFiles:
+        - fn::fileAsset: overrides.yaml
+
+# -- Contents of overrides.yaml --
+# containerPorts:
+#   http: null
+```
+{{% /example %}}
+{{% example %}}
 ### Query Kubernetes Resource Installed By Helm Chart
 
 ```typescript

@@ -12,6 +12,7 @@ Previously, the resources field was incorrectly typed as a `string` in the schem
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.4.
+- Document `valueYamlFiles` as the cross-SDK path for clearing Helm chart default values via `key: null` in a yaml file. Added a "Delete a Chart Default Value" example to `helm.v3.Release` and `helm.v4.Chart`.
 
 ## 4.29.0 (April 15, 2026)
 

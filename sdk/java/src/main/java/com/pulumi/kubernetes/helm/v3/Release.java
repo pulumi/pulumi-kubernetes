@@ -32,6 +32,38 @@ import javax.annotation.Nullable;
  * You may also want to consider the `Chart` resource as an alternative method for managing helm charts. For more information about the trade-offs between these options see: [Choosing the right Helm resource for your use case](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/choosing-the-right-helm-resource-for-your-use-case)
  * 
  * ## Example Usage
+ * ### Delete a Chart Default Value
+ * 
+ * Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+ * <pre>
+ * {@code
+ * package generated_program;
+ * 
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.asset.FileAsset;
+ * import com.pulumi.kubernetes.helm.v3.Release;
+ * import com.pulumi.kubernetes.helm.v3.ReleaseArgs;
+ * import com.pulumi.kubernetes.helm.v3.inputs.RepositoryOptsArgs;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(ctx -> {
+ *             new Release("nginx", ReleaseArgs.builder()
+ *                     .chart("nginx")
+ *                     .repositoryOpts(RepositoryOptsArgs.builder()
+ *                             .repo("https://charts.bitnami.com/bitnami")
+ *                             .build())
+ *                     .valueYamlFiles(new FileAsset("./overrides.yaml"))
+ *                     .build());
+ *         });
+ *     }
+ * }
+ * 
+ * // -- Contents of overrides.yaml --
+ * // containerPorts:
+ * //   http: null
+ * }
+ * </pre>
  * 
  * ## Import
  * 
@@ -465,14 +497,14 @@ public class Release extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.timeout);
     }
     /**
-     * List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
+     * List of assets (raw yaml files). Content is read and merged with values (with values taking precedence). Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
      * 
      */
     @Export(name="valueYamlFiles", refs={List.class,AssetOrArchive.class}, tree="[0,1]")
     private Output</* @Nullable */ List<AssetOrArchive>> valueYamlFiles;
 
     /**
-     * @return List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
+     * @return List of assets (raw yaml files). Content is read and merged with values (with values taking precedence). Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
      * 
      */
     public Output<Optional<List<AssetOrArchive>>> valueYamlFiles() {

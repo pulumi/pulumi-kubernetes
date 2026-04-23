@@ -223,7 +223,11 @@ var helmV4ChartResource = pschema.ResourceSpec{
 					Ref: "pulumi.json#/Asset",
 				},
 			},
-			Description: "List of assets (raw yaml files). Content is read and merged with values.",
+			Description: "List of assets (raw yaml files). Content is read and merged with values. " +
+				"Set a key to `null` in a yaml file to delete the corresponding chart default — the standard " +
+				"`helm install --set key=null` pattern. This is the recommended path for clearing chart " +
+				"defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the " +
+				"inline `values` map.",
 		},
 		"values": {
 			TypeSpec: pschema.TypeSpec{
@@ -727,7 +731,10 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 					},
 				},
 				Description: "List of assets (raw yaml files). Content is read and merged with values " +
-					"(with values taking precedence).",
+					"(with values taking precedence). Set a key to `null` in a yaml file to delete the " +
+					"corresponding chart default — the standard `helm install --set key=null` pattern. This " +
+					"is the recommended path for clearing chart defaults from Pulumi, since some language " +
+					"SDKs cannot represent explicit `null` in the inline `values` map.",
 			},
 			"values": {
 				TypeSpec: pschema.TypeSpec{
@@ -1006,7 +1013,11 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 					Ref: "pulumi.json#/Asset",
 				},
 			},
-			Description: "List of assets (raw yaml files). Content is read and merged with values.",
+			Description: "List of assets (raw yaml files). Content is read and merged with values. " +
+				"Set a key to `null` in a yaml file to delete the corresponding chart default — the standard " +
+				"`helm install --set key=null` pattern. This is the recommended path for clearing chart " +
+				"defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the " +
+				"inline `values` map.",
 		},
 		"values": {
 			TypeSpec: pschema.TypeSpec{

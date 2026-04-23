@@ -230,6 +230,38 @@ import (
 // // metrics:
 // //     enabled: true
 // ```
+// ### Delete a Chart Default Value
+//
+// Helm charts typically guard template fields with truthy checks such as `{{- if .Values.foo }}`. The standard way to suppress one of those defaults is `helm install --set foo=null`, which leaves the field out of the rendered chart. To express the same intent from Pulumi, set the key to `null` in a yaml file and reference it via `valueYamlFiles`. This pattern works in every Pulumi language SDK.
+// ```go
+// package main
+//
+// import (
+//
+//	helmv3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helmv3.NewRelease(ctx, "nginx", &helmv3.ReleaseArgs{
+//				Chart: pulumi.String("nginx"),
+//				RepositoryOpts: helmv3.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+//				},
+//				ValueYamlFiles: pulumi.AssetOrArchiveArray{
+//					pulumi.NewFileAsset("./overrides.yaml"),
+//				},
+//			})
+//			return err
+//		})
+//	}
+//
+// // -- Contents of overrides.yaml --
+// // containerPorts:
+// //   http: null
+// ```
 // ### Query Kubernetes Resource Installed By Helm Chart
 // ```go
 // package main
@@ -359,7 +391,7 @@ type Release struct {
 	Status ReleaseStatusOutput `pulumi:"status"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrOutput `pulumi:"timeout"`
-	// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
+	// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence). Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 	ValueYamlFiles pulumi.AssetOrArchiveArrayOutput `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
 	Values pulumi.MapOutput `pulumi:"values"`
@@ -474,7 +506,7 @@ type releaseArgs struct {
 	SkipCrds *bool `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
-	// List of assets (raw yaml files). Content is read and merged with values.
+	// List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 	ValueYamlFiles []pulumi.AssetOrArchive `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
 	Values map[string]interface{} `pulumi:"values"`
@@ -547,7 +579,7 @@ type ReleaseArgs struct {
 	SkipCrds pulumi.BoolPtrInput
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput
-	// List of assets (raw yaml files). Content is read and merged with values.
+	// List of assets (raw yaml files). Content is read and merged with values. Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 	ValueYamlFiles pulumi.AssetOrArchiveArrayInput
 	// Custom values set for the release.
 	Values pulumi.MapInput
@@ -796,7 +828,7 @@ func (o ReleaseOutput) Timeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Release) pulumi.IntPtrOutput { return v.Timeout }).(pulumi.IntPtrOutput)
 }
 
-// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
+// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence). Set a key to `null` in a yaml file to delete the corresponding chart default — the standard `helm install --set key=null` pattern. This is the recommended path for clearing chart defaults from Pulumi, since some language SDKs cannot represent explicit `null` in the inline `values` map.
 func (o ReleaseOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
 	return o.ApplyT(func(v *Release) pulumi.AssetOrArchiveArrayOutput { return v.ValueYamlFiles }).(pulumi.AssetOrArchiveArrayOutput)
 }
