@@ -187,6 +187,10 @@ export class Chart extends pulumi.ComponentResource {
     }
 
     /**
+     * Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+     */
+    declare public /*out*/ readonly images: pulumi.Output<string[]>;
+    /**
      * Resources created by the Chart.
      */
     declare public /*out*/ readonly resources: pulumi.Output<any[]>;
@@ -221,8 +225,10 @@ export class Chart extends pulumi.ComponentResource {
             resourceInputs["values"] = args?.values;
             resourceInputs["verify"] = args?.verify;
             resourceInputs["version"] = args?.version;
+            resourceInputs["images"] = undefined /*out*/;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
+            resourceInputs["images"] = undefined /*out*/;
             resourceInputs["resources"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

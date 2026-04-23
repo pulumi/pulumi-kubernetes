@@ -255,6 +255,8 @@ import (
 type Chart struct {
 	pulumi.ResourceState
 
+	// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+	Images pulumi.StringArrayOutput `pulumi:"images"`
 	// Resources created by the Chart.
 	Resources pulumi.ArrayOutput `pulumi:"resources"`
 }
@@ -434,6 +436,11 @@ func (o ChartOutput) ToChartOutput() ChartOutput {
 
 func (o ChartOutput) ToChartOutputWithContext(ctx context.Context) ChartOutput {
 	return o
+}
+
+// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+func (o ChartOutput) Images() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Chart) pulumi.StringArrayOutput { return v.Images }).(pulumi.StringArrayOutput)
 }
 
 // Resources created by the Chart.

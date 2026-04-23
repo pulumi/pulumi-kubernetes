@@ -78,6 +78,8 @@ import (
 type ConfigFile struct {
 	pulumi.ResourceState
 
+	// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+	Images pulumi.StringArrayOutput `pulumi:"images"`
 	// Resources created by the ConfigFile.
 	Resources pulumi.ArrayOutput `pulumi:"resources"`
 }
@@ -205,6 +207,11 @@ func (o ConfigFileOutput) ToConfigFileOutput() ConfigFileOutput {
 
 func (o ConfigFileOutput) ToConfigFileOutputWithContext(ctx context.Context) ConfigFileOutput {
 	return o
+}
+
+// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+func (o ConfigFileOutput) Images() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ConfigFile) pulumi.StringArrayOutput { return v.Images }).(pulumi.StringArrayOutput)
 }
 
 // Resources created by the ConfigFile.

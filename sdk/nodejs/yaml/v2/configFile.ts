@@ -70,6 +70,10 @@ export class ConfigFile extends pulumi.ComponentResource {
     }
 
     /**
+     * Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+     */
+    declare public /*out*/ readonly images: pulumi.Output<string[]>;
+    /**
      * Resources created by the ConfigFile.
      */
     declare public /*out*/ readonly resources: pulumi.Output<any[]>;
@@ -91,8 +95,10 @@ export class ConfigFile extends pulumi.ComponentResource {
             resourceInputs["file"] = args?.file;
             resourceInputs["resourcePrefix"] = args?.resourcePrefix;
             resourceInputs["skipAwait"] = args?.skipAwait;
+            resourceInputs["images"] = undefined /*out*/;
             resourceInputs["resources"] = undefined /*out*/;
         } else {
+            resourceInputs["images"] = undefined /*out*/;
             resourceInputs["resources"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

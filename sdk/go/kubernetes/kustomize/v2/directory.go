@@ -72,6 +72,8 @@ import (
 type Directory struct {
 	pulumi.ResourceState
 
+	// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+	Images pulumi.StringArrayOutput `pulumi:"images"`
 	// Resources created by the Directory resource.
 	Resources pulumi.ArrayOutput `pulumi:"resources"`
 }
@@ -209,6 +211,11 @@ func (o DirectoryOutput) ToDirectoryOutput() DirectoryOutput {
 
 func (o DirectoryOutput) ToDirectoryOutputWithContext(ctx context.Context) DirectoryOutput {
 	return o
+}
+
+// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+func (o DirectoryOutput) Images() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Directory) pulumi.StringArrayOutput { return v.Images }).(pulumi.StringArrayOutput)
 }
 
 // Resources created by the Directory resource.

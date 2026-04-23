@@ -369,6 +369,7 @@ class ConfigGroup(pulumi.ComponentResource):
             __props__.__dict__["resource_prefix"] = resource_prefix
             __props__.__dict__["skip_await"] = skip_await
             __props__.__dict__["yaml"] = yaml
+            __props__.__dict__["images"] = None
             __props__.__dict__["resources"] = None
         super(ConfigGroup, __self__).__init__(
             'kubernetes:yaml/v2:ConfigGroup',
@@ -376,6 +377,14 @@ class ConfigGroup(pulumi.ComponentResource):
             __props__,
             opts,
             remote=True)
+
+    @_builtins.property
+    @pulumi.getter
+    def images(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+        """
+        return pulumi.get(self, "images")
 
     @_builtins.property
     @pulumi.getter

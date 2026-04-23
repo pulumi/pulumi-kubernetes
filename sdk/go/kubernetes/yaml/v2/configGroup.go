@@ -172,6 +172,8 @@ import (
 type ConfigGroup struct {
 	pulumi.ResourceState
 
+	// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+	Images pulumi.StringArrayOutput `pulumi:"images"`
 	// Resources created by the ConfigGroup.
 	Resources pulumi.ArrayOutput `pulumi:"resources"`
 }
@@ -304,6 +306,11 @@ func (o ConfigGroupOutput) ToConfigGroupOutput() ConfigGroupOutput {
 
 func (o ConfigGroupOutput) ToConfigGroupOutputWithContext(ctx context.Context) ConfigGroupOutput {
 	return o
+}
+
+// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+func (o ConfigGroupOutput) Images() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ConfigGroup) pulumi.StringArrayOutput { return v.Images }).(pulumi.StringArrayOutput)
 }
 
 // Resources created by the ConfigGroup.

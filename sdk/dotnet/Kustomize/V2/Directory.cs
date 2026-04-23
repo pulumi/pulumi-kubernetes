@@ -52,6 +52,12 @@ namespace Pulumi.Kubernetes.Kustomize.V2
     public partial class Directory : global::Pulumi.ComponentResource
     {
         /// <summary>
+        /// Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+        /// </summary>
+        [Output("images")]
+        public Output<ImmutableArray<string>> Images { get; private set; } = null!;
+
+        /// <summary>
         /// Resources created by the Directory resource.
         /// </summary>
         [Output("resources")]

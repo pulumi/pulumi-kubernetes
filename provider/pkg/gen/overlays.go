@@ -22,6 +22,20 @@ import (
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 )
 
+// imagesPropertySpec is the shared schema for the "images" output on all
+// component resources that create Kubernetes workloads.
+var imagesPropertySpec = pschema.PropertySpec{
+	TypeSpec: pschema.TypeSpec{
+		Type: "array",
+		Items: &pschema.TypeSpec{
+			Type: "string",
+		},
+	},
+	Description: "Sorted, deduplicated list of container image references " +
+		"used by all workload resources (Deployments, DaemonSets, " +
+		"StatefulSets, Jobs, CronJobs, Pods, etc.).",
+}
+
 var serviceSpec = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		Properties: map[string]pschema.PropertySpec{
@@ -157,6 +171,7 @@ var helmV4ChartResource = pschema.ResourceSpec{
 				},
 				Description: "Resources created by the Chart.",
 			},
+			"images": imagesPropertySpec,
 		},
 		Type: "object",
 	},
@@ -1294,6 +1309,7 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 				},
 				Description: "Resources created by the Directory resource.",
 			},
+			"images": imagesPropertySpec,
 		},
 		Type: "object",
 	},
@@ -1397,6 +1413,7 @@ var yamlConfigFileV2Resource = pschema.ResourceSpec{
 				},
 				Description: "Resources created by the ConfigFile.",
 			},
+			"images": imagesPropertySpec,
 		},
 		Type: "object",
 	},
@@ -1531,6 +1548,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 				},
 				Description: "Resources created by the ConfigGroup.",
 			},
+			"images": imagesPropertySpec,
 		},
 		Type: "object",
 	},
