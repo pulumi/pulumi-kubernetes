@@ -23,6 +23,7 @@ import (
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/images"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 )
 
@@ -39,7 +40,8 @@ type ConfigFileArgs struct {
 
 type ConfigFileState struct {
 	pulumi.ResourceState
-	Resources pulumi.ArrayOutput `pulumi:"resources"`
+	Resources pulumi.ArrayOutput      `pulumi:"resources"`
+	Images    pulumi.StringArrayOutput `pulumi:"images"`
 }
 
 var _ providerresource.ResourceProvider = &ConfigFileProvider{}
@@ -85,6 +87,8 @@ func (k *ConfigFileProvider) Construct(
 
 	// Parse the manifest(s) and register the resources.
 
+	var extractedImages []string
+
 	comp.Resources = pulumi.All(args.File, args.ResourcePrefix, args.SkipAwait).ApplyTWithContext(
 		ctx.Context(), func(_ context.Context, args []any) (pulumi.ArrayOutput, error) {
 			// make type assertions to get each value (or the zero value)
@@ -114,6 +118,9 @@ func (k *ConfigFileProvider) Construct(
 				return pulumi.ArrayOutput{}, err
 			}
 
+			// Extract container images from all workload resources.
+			extractedImages = images.FromObjects(objs)
+
 			// Register the objects as Pulumi resources.
 			registerOpts := RegisterOptions{
 				Objects:         objs,
@@ -125,7 +132,13 @@ func (k *ConfigFileProvider) Construct(
 		}).(pulumi.ArrayOutput)
 
 	// issue: https://github.com/pulumi/pulumi/issues/15527
+	// UnsafeAwaitOutput is a channel-based sync barrier that guarantees the
+	// ApplyTWithContext closure above has completed. extractedImages is safe
+	// to read after this call returns because the closure write happens-before
+	// the channel send that unblocks UnsafeAwaitOutput.
 	_, _ = internals.UnsafeAwaitOutput(ctx.Context(), comp.Resources)
+
+	comp.Images = pulumi.ToStringArray(extractedImages).ToStringArrayOutput()
 
 	return pulumiprovider.NewConstructResult(comp)
 }
