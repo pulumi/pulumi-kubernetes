@@ -2413,7 +2413,7 @@ type HorizontalPodAutoscalerType struct {
 	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-	Spec *HorizontalPodAutoscalerSpec `pulumi:"spec"`
+	Spec HorizontalPodAutoscalerSpec `pulumi:"spec"`
 	// status is the current information about the autoscaler.
 	Status *HorizontalPodAutoscalerStatus `pulumi:"status"`
 }
@@ -2438,7 +2438,7 @@ type HorizontalPodAutoscalerTypeArgs struct {
 	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-	Spec HorizontalPodAutoscalerSpecPtrInput `pulumi:"spec"`
+	Spec HorizontalPodAutoscalerSpecInput `pulumi:"spec"`
 	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPtrInput `pulumi:"status"`
 }
@@ -2511,8 +2511,8 @@ func (o HorizontalPodAutoscalerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput
 }
 
 // spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // status is the current information about the autoscaler.
@@ -3378,47 +3378,6 @@ func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecOutput)
 }
 
-func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return i.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecOutput).ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx)
-}
-
-// HorizontalPodAutoscalerSpecPtrInput is an input type that accepts HorizontalPodAutoscalerSpecArgs, HorizontalPodAutoscalerSpecPtr and HorizontalPodAutoscalerSpecPtrOutput values.
-// You can construct a concrete instance of `HorizontalPodAutoscalerSpecPtrInput` via:
-//
-//	        HorizontalPodAutoscalerSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type HorizontalPodAutoscalerSpecPtrInput interface {
-	pulumi.Input
-
-	ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput
-	ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Context) HorizontalPodAutoscalerSpecPtrOutput
-}
-
-type horizontalPodAutoscalerSpecPtrType HorizontalPodAutoscalerSpecArgs
-
-func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {
-	return (*horizontalPodAutoscalerSpecPtrType)(v)
-}
-
-func (*horizontalPodAutoscalerSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
-}
-
-func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return i.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecPtrOutput)
-}
-
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
 type HorizontalPodAutoscalerSpecOutput struct{ *pulumi.OutputState }
 
@@ -3432,16 +3391,6 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecOutput()
 
 func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecOutput {
 	return o
-}
-
-func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
-		return &v
-	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
 // behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -3467,80 +3416,6 @@ func (o HorizontalPodAutoscalerSpecOutput) MinReplicas() pulumi.IntPtrOutput {
 // scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
 func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectReferenceOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferenceOutput)
-}
-
-type HorizontalPodAutoscalerSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec {
-		if v != nil {
-			return *v
-		}
-		var ret HorizontalPodAutoscalerSpec
-		return ret
-	}).(HorizontalPodAutoscalerSpecOutput)
-}
-
-// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
-func (o HorizontalPodAutoscalerSpecPtrOutput) Behavior() HorizontalPodAutoscalerBehaviorPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerBehavior {
-		if v == nil {
-			return nil
-		}
-		return v.Behavior
-	}).(HorizontalPodAutoscalerBehaviorPtrOutput)
-}
-
-// maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
-func (o HorizontalPodAutoscalerSpecPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return &v.MaxReplicas
-	}).(pulumi.IntPtrOutput)
-}
-
-// metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
-func (o HorizontalPodAutoscalerSpecPtrOutput) Metrics() MetricSpecArrayOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) []MetricSpec {
-		if v == nil {
-			return nil
-		}
-		return v.Metrics
-	}).(MetricSpecArrayOutput)
-}
-
-// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-func (o HorizontalPodAutoscalerSpecPtrOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MinReplicas
-	}).(pulumi.IntPtrOutput)
-}
-
-// scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
-func (o HorizontalPodAutoscalerSpecPtrOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *CrossVersionObjectReference {
-		if v == nil {
-			return nil
-		}
-		return &v.ScaleTargetRef
-	}).(CrossVersionObjectReferencePtrOutput)
 }
 
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
@@ -7905,7 +7780,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerListTypeInput)(nil)).Elem(), HorizontalPodAutoscalerListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerPatchTypeInput)(nil)).Elem(), HorizontalPodAutoscalerPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPtrInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPatchInput)(nil)).Elem(), HorizontalPodAutoscalerSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPatchPtrInput)(nil)).Elem(), HorizontalPodAutoscalerSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerStatusInput)(nil)).Elem(), HorizontalPodAutoscalerStatusArgs{})
@@ -7997,7 +7871,6 @@ func init() {
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerListTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerPatchTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPatchOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerStatusOutput{})

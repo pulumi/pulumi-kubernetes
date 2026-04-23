@@ -15,6 +15,8 @@ public final class DeviceConstraint {
     /**
      * @return DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
      * 
+     * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+     * 
      * This acts as the inverse of MatchAttribute.
      * 
      * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -27,6 +29,8 @@ public final class DeviceConstraint {
      * @return MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
      * 
      * For example, if you specified &#34;dra.example.com/numa&#34; (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn&#39;t, then it also will not be chosen.
+     * 
+     * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
      * 
      * Must include the domain qualifier.
      * 
@@ -44,6 +48,8 @@ public final class DeviceConstraint {
     /**
      * @return DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
      * 
+     * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+     * 
      * This acts as the inverse of MatchAttribute.
      * 
      * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -58,6 +64,8 @@ public final class DeviceConstraint {
      * @return MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
      * 
      * For example, if you specified &#34;dra.example.com/numa&#34; (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn&#39;t, then it also will not be chosen.
+     * 
+     * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
      * 
      * Must include the domain qualifier.
      * 

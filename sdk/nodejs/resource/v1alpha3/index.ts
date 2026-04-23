@@ -80,6 +80,21 @@ export type ResourceClaimTemplatePatch = import("./resourceClaimTemplatePatch").
 export const ResourceClaimTemplatePatch: typeof import("./resourceClaimTemplatePatch").ResourceClaimTemplatePatch = null as any;
 utilities.lazyLoad(exports, ["ResourceClaimTemplatePatch"], () => require("./resourceClaimTemplatePatch"));
 
+export { ResourcePoolStatusRequestArgs } from "./resourcePoolStatusRequest";
+export type ResourcePoolStatusRequest = import("./resourcePoolStatusRequest").ResourcePoolStatusRequest;
+export const ResourcePoolStatusRequest: typeof import("./resourcePoolStatusRequest").ResourcePoolStatusRequest = null as any;
+utilities.lazyLoad(exports, ["ResourcePoolStatusRequest"], () => require("./resourcePoolStatusRequest"));
+
+export { ResourcePoolStatusRequestListArgs } from "./resourcePoolStatusRequestList";
+export type ResourcePoolStatusRequestList = import("./resourcePoolStatusRequestList").ResourcePoolStatusRequestList;
+export const ResourcePoolStatusRequestList: typeof import("./resourcePoolStatusRequestList").ResourcePoolStatusRequestList = null as any;
+utilities.lazyLoad(exports, ["ResourcePoolStatusRequestList"], () => require("./resourcePoolStatusRequestList"));
+
+export { ResourcePoolStatusRequestPatchArgs } from "./resourcePoolStatusRequestPatch";
+export type ResourcePoolStatusRequestPatch = import("./resourcePoolStatusRequestPatch").ResourcePoolStatusRequestPatch;
+export const ResourcePoolStatusRequestPatch: typeof import("./resourcePoolStatusRequestPatch").ResourcePoolStatusRequestPatch = null as any;
+utilities.lazyLoad(exports, ["ResourcePoolStatusRequestPatch"], () => require("./resourcePoolStatusRequestPatch"));
+
 export { ResourceSliceArgs } from "./resourceSlice";
 export type ResourceSlice = import("./resourceSlice").ResourceSlice;
 export const ResourceSlice: typeof import("./resourceSlice").ResourceSlice = null as any;
@@ -125,6 +140,12 @@ const _module = {
                 return new ResourceClaimTemplateList(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch":
                 return new ResourceClaimTemplatePatch(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequest":
+                return new ResourcePoolStatusRequest(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequestList":
+                return new ResourcePoolStatusRequestList(name, <any>undefined, { urn })
+            case "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequestPatch":
+                return new ResourcePoolStatusRequestPatch(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice":
                 return new ResourceSlice(name, <any>undefined, { urn })
             case "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch":

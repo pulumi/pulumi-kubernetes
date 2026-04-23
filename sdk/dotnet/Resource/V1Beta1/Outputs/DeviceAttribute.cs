@@ -21,32 +21,66 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// </summary>
         public readonly bool Bool;
         /// <summary>
+        /// BoolValues is a non-empty list of true/false values.
+        /// </summary>
+        public readonly ImmutableArray<bool> Bools;
+        /// <summary>
         /// IntValue is a number.
         /// </summary>
         public readonly int Int;
+        /// <summary>
+        /// IntValues is a non-empty list of numbers.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public readonly ImmutableArray<int> Ints;
         /// <summary>
         /// StringValue is a string. Must not be longer than 64 characters.
         /// </summary>
         public readonly string String;
         /// <summary>
+        /// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public readonly ImmutableArray<string> Strings;
+        /// <summary>
         /// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
         /// </summary>
         public readonly string Version;
+        /// <summary>
+        /// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public readonly ImmutableArray<string> Versions;
 
         [OutputConstructor]
         private DeviceAttribute(
             bool @bool,
 
+            ImmutableArray<bool> bools,
+
             int @int,
+
+            ImmutableArray<int> ints,
 
             string @string,
 
-            string version)
+            ImmutableArray<string> strings,
+
+            string version,
+
+            ImmutableArray<string> versions)
         {
             Bool = @bool;
+            Bools = bools;
             Int = @int;
+            Ints = ints;
             String = @string;
+            Strings = strings;
             Version = version;
+            Versions = versions;
         }
     }
 }

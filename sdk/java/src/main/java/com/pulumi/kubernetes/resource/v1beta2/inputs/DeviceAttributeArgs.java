@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -37,6 +38,21 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
+     * BoolValues is a non-empty list of true/false values.
+     * 
+     */
+    @Import(name="bools")
+    private @Nullable Output<List<Boolean>> bools;
+
+    /**
+     * @return BoolValues is a non-empty list of true/false values.
+     * 
+     */
+    public Optional<Output<List<Boolean>>> bools() {
+        return Optional.ofNullable(this.bools);
+    }
+
+    /**
      * IntValue is a number.
      * 
      */
@@ -49,6 +65,25 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
      */
     public Optional<Output<Integer>> int_() {
         return Optional.ofNullable(this.int_);
+    }
+
+    /**
+     * IntValues is a non-empty list of numbers.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    @Import(name="ints")
+    private @Nullable Output<List<Integer>> ints;
+
+    /**
+     * @return IntValues is a non-empty list of numbers.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public Optional<Output<List<Integer>>> ints() {
+        return Optional.ofNullable(this.ints);
     }
 
     /**
@@ -67,6 +102,25 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
+     * StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    @Import(name="strings")
+    private @Nullable Output<List<String>> strings;
+
+    /**
+     * @return StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public Optional<Output<List<String>>> strings() {
+        return Optional.ofNullable(this.strings);
+    }
+
+    /**
      * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
      * 
      */
@@ -81,13 +135,36 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
         return Optional.ofNullable(this.version);
     }
 
+    /**
+     * VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    @Import(name="versions")
+    private @Nullable Output<List<String>> versions;
+
+    /**
+     * @return VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public Optional<Output<List<String>>> versions() {
+        return Optional.ofNullable(this.versions);
+    }
+
     private DeviceAttributeArgs() {}
 
     private DeviceAttributeArgs(DeviceAttributeArgs $) {
         this.bool = $.bool;
+        this.bools = $.bools;
         this.int_ = $.int_;
+        this.ints = $.ints;
         this.string = $.string;
+        this.strings = $.strings;
         this.version = $.version;
+        this.versions = $.versions;
     }
 
     public static Builder builder() {
@@ -130,6 +207,37 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
+         * @param bools BoolValues is a non-empty list of true/false values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bools(@Nullable Output<List<Boolean>> bools) {
+            $.bools = bools;
+            return this;
+        }
+
+        /**
+         * @param bools BoolValues is a non-empty list of true/false values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bools(List<Boolean> bools) {
+            return bools(Output.of(bools));
+        }
+
+        /**
+         * @param bools BoolValues is a non-empty list of true/false values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bools(Boolean... bools) {
+            return bools(List.of(bools));
+        }
+
+        /**
          * @param int_ IntValue is a number.
          * 
          * @return builder
@@ -148,6 +256,43 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder int_(Integer int_) {
             return int_(Output.of(int_));
+        }
+
+        /**
+         * @param ints IntValues is a non-empty list of numbers.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ints(@Nullable Output<List<Integer>> ints) {
+            $.ints = ints;
+            return this;
+        }
+
+        /**
+         * @param ints IntValues is a non-empty list of numbers.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ints(List<Integer> ints) {
+            return ints(Output.of(ints));
+        }
+
+        /**
+         * @param ints IntValues is a non-empty list of numbers.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ints(Integer... ints) {
+            return ints(List.of(ints));
         }
 
         /**
@@ -172,6 +317,43 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
+         * @param strings StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder strings(@Nullable Output<List<String>> strings) {
+            $.strings = strings;
+            return this;
+        }
+
+        /**
+         * @param strings StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder strings(List<String> strings) {
+            return strings(Output.of(strings));
+        }
+
+        /**
+         * @param strings StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder strings(String... strings) {
+            return strings(List.of(strings));
+        }
+
+        /**
          * @param version VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
          * 
          * @return builder
@@ -190,6 +372,43 @@ public final class DeviceAttributeArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder version(String version) {
             return version(Output.of(version));
+        }
+
+        /**
+         * @param versions VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder versions(@Nullable Output<List<String>> versions) {
+            $.versions = versions;
+            return this;
+        }
+
+        /**
+         * @param versions VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder versions(List<String> versions) {
+            return versions(Output.of(versions));
+        }
+
+        /**
+         * @param versions VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+         * 
+         * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder versions(String... versions) {
+            return versions(List.of(versions));
         }
 
         public DeviceAttributeArgs build() {

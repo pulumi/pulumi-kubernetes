@@ -53,6 +53,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Message;
         /// <summary>
+        /// NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableResourceClaimStatus> NodeAllocatableResourceClaimStatuses;
+        /// <summary>
         /// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
         /// </summary>
         public readonly string NominatedNodeName;
@@ -121,6 +125,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string message,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableResourceClaimStatus> nodeAllocatableResourceClaimStatuses,
+
             string nominatedNodeName,
 
             int observedGeneration,
@@ -152,6 +158,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             HostIPs = hostIPs;
             InitContainerStatuses = initContainerStatuses;
             Message = message;
+            NodeAllocatableResourceClaimStatuses = nodeAllocatableResourceClaimStatuses;
             NominatedNodeName = nominatedNodeName;
             ObservedGeneration = observedGeneration;
             Phase = phase;

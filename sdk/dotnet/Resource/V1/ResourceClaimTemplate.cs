@@ -11,8 +11,6 @@ namespace Pulumi.Kubernetes.Resource.V1
 {
     /// <summary>
     /// ResourceClaimTemplate is used to produce ResourceClaim objects.
-    /// 
-    /// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
     /// </summary>
     [KubernetesResourceType("kubernetes:resource.k8s.io/v1:ResourceClaimTemplate")]
     public partial class ResourceClaimTemplate : KubernetesResource

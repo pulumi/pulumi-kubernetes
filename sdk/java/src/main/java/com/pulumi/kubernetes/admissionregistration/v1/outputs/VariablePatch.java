@@ -12,26 +12,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class VariablePatch {
     /**
-     * @return Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+     * @return expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
      * 
      */
     private @Nullable String expression;
     /**
-     * @return Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+     * @return name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
      * 
      */
     private @Nullable String name;
 
     private VariablePatch() {}
     /**
-     * @return Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+     * @return expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
      * 
      */
     public Optional<String> expression() {
         return Optional.ofNullable(this.expression);
     }
     /**
-     * @return Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+     * @return name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
      * 
      */
     public Optional<String> name() {

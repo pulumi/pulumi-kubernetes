@@ -31,8 +31,8 @@ class MutatingAdmissionPolicyBindingInitArgs:
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs'] spec: Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs'] spec: spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
@@ -71,7 +71,7 @@ class MutatingAdmissionPolicyBindingInitArgs:
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -83,7 +83,7 @@ class MutatingAdmissionPolicyBindingInitArgs:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]:
         """
-        Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 
@@ -115,8 +115,8 @@ class MutatingAdmissionPolicyBinding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Union['MutatingAdmissionPolicyBindingSpecArgs', 'MutatingAdmissionPolicyBindingSpecArgsDict']] spec: Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Union['MutatingAdmissionPolicyBindingSpecArgs', 'MutatingAdmissionPolicyBindingSpecArgsDict']] spec: spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         ...
     @overload
@@ -164,7 +164,7 @@ class MutatingAdmissionPolicyBinding(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'MutatingAdmissionPolicyBinding'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBinding")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBinding"), pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicyBinding")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(MutatingAdmissionPolicyBinding, __self__).__init__(
             'kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBinding',
@@ -214,7 +214,7 @@ class MutatingAdmissionPolicyBinding(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -222,7 +222,7 @@ class MutatingAdmissionPolicyBinding(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.MutatingAdmissionPolicyBindingSpec']:
         """
-        Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 

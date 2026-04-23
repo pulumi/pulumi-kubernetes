@@ -73,7 +73,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// 
         /// The maximum number of tolerations is 16.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// This is a beta field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.DeviceToleration> Tolerations;
 

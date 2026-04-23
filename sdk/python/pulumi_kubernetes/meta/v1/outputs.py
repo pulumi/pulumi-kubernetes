@@ -32,6 +32,8 @@ __all__ = [
     'ObjectMetaPatch',
     'OwnerReference',
     'OwnerReferencePatch',
+    'ShardInfo',
+    'ShardInfoPatch',
     'StatusCause',
     'StatusCausePatch',
     'StatusDetails',
@@ -511,6 +513,8 @@ class ListMeta(dict):
             suggest = "resource_version"
         elif key == "selfLink":
             suggest = "self_link"
+        elif key == "shardInfo":
+            suggest = "shard_info"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ListMeta. Access the value via the '{suggest}' property getter instead.")
@@ -527,7 +531,8 @@ class ListMeta(dict):
                  continue_: Optional[_builtins.str] = None,
                  remaining_item_count: Optional[_builtins.int] = None,
                  resource_version: Optional[_builtins.str] = None,
-                 self_link: Optional[_builtins.str] = None):
+                 self_link: Optional[_builtins.str] = None,
+                 shard_info: Optional['outputs.ShardInfo'] = None):
         """
         ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 
@@ -535,6 +540,9 @@ class ListMeta(dict):
         :param _builtins.int remaining_item_count: remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         :param _builtins.str resource_version: String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
         :param _builtins.str self_link: Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
+        :param 'ShardInfoArgs' shard_info: shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+               
+               This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
         """
         if continue_ is not None:
             pulumi.set(__self__, "continue_", continue_)
@@ -544,6 +552,8 @@ class ListMeta(dict):
             pulumi.set(__self__, "resource_version", resource_version)
         if self_link is not None:
             pulumi.set(__self__, "self_link", self_link)
+        if shard_info is not None:
+            pulumi.set(__self__, "shard_info", shard_info)
 
     @_builtins.property
     @pulumi.getter(name="continue")
@@ -576,6 +586,16 @@ class ListMeta(dict):
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
+
+    @_builtins.property
+    @pulumi.getter(name="shardInfo")
+    def shard_info(self) -> Optional['outputs.ShardInfo']:
+        """
+        shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+
+        This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+        """
+        return pulumi.get(self, "shard_info")
 
 
 @pulumi.output_type
@@ -594,6 +614,8 @@ class ListMetaPatch(dict):
             suggest = "resource_version"
         elif key == "selfLink":
             suggest = "self_link"
+        elif key == "shardInfo":
+            suggest = "shard_info"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ListMetaPatch. Access the value via the '{suggest}' property getter instead.")
@@ -610,7 +632,8 @@ class ListMetaPatch(dict):
                  continue_: Optional[_builtins.str] = None,
                  remaining_item_count: Optional[_builtins.int] = None,
                  resource_version: Optional[_builtins.str] = None,
-                 self_link: Optional[_builtins.str] = None):
+                 self_link: Optional[_builtins.str] = None,
+                 shard_info: Optional['outputs.ShardInfoPatch'] = None):
         """
         ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 
@@ -618,6 +641,9 @@ class ListMetaPatch(dict):
         :param _builtins.int remaining_item_count: remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         :param _builtins.str resource_version: String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
         :param _builtins.str self_link: Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
+        :param 'ShardInfoPatchArgs' shard_info: shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+               
+               This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
         """
         if continue_ is not None:
             pulumi.set(__self__, "continue_", continue_)
@@ -627,6 +653,8 @@ class ListMetaPatch(dict):
             pulumi.set(__self__, "resource_version", resource_version)
         if self_link is not None:
             pulumi.set(__self__, "self_link", self_link)
+        if shard_info is not None:
+            pulumi.set(__self__, "shard_info", shard_info)
 
     @_builtins.property
     @pulumi.getter(name="continue")
@@ -659,6 +687,16 @@ class ListMetaPatch(dict):
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
+
+    @_builtins.property
+    @pulumi.getter(name="shardInfo")
+    def shard_info(self) -> Optional['outputs.ShardInfoPatch']:
+        """
+        shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+
+        This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+        """
+        return pulumi.get(self, "shard_info")
 
 
 @pulumi.output_type
@@ -1625,6 +1663,53 @@ class OwnerReferencePatch(dict):
         UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
+class ShardInfo(dict):
+    """
+    ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+    """
+    def __init__(__self__, *,
+                 selector: _builtins.str):
+        """
+        ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+
+        :param _builtins.str selector: selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+        """
+        pulumi.set(__self__, "selector", selector)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> _builtins.str:
+        """
+        selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
+class ShardInfoPatch(dict):
+    """
+    ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+    """
+    def __init__(__self__, *,
+                 selector: Optional[_builtins.str] = None):
+        """
+        ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+
+        :param _builtins.str selector: selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+        """
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> Optional[_builtins.str]:
+        """
+        selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+        """
+        return pulumi.get(self, "selector")
 
 
 @pulumi.output_type

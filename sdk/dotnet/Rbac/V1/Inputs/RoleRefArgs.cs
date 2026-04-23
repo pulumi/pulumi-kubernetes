@@ -18,8 +18,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         /// <summary>
         /// APIGroup is the group for the resource being referenced
         /// </summary>
-        [Input("apiGroup", required: true)]
-        public Input<string> ApiGroup { get; set; } = null!;
+        [Input("apiGroup")]
+        public Input<string>? ApiGroup { get; set; }
 
         /// <summary>
         /// Kind is the type of resource being referenced

@@ -4770,7 +4770,9 @@ type DeviceTaint struct {
 	Effect string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key string `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded *string `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value *string `pulumi:"value"`
@@ -4795,7 +4797,9 @@ type DeviceTaintArgs struct {
 	Effect pulumi.StringInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringInput `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
@@ -4840,7 +4844,9 @@ func (o DeviceTaintOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceTaint) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 func (o DeviceTaintOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaint) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
 }
@@ -4858,7 +4864,9 @@ type DeviceTaintPatch struct {
 	Effect *string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key *string `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded *string `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value *string `pulumi:"value"`
@@ -4883,7 +4891,9 @@ type DeviceTaintPatchArgs struct {
 	Effect pulumi.StringPtrInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringPtrInput `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
@@ -4979,7 +4989,9 @@ func (o DeviceTaintPatchOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
 
-// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 func (o DeviceTaintPatchOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
 }
@@ -5035,7 +5047,9 @@ func (o DeviceTaintPatchPtrOutput) Key() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 func (o DeviceTaintPatchPtrOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeviceTaintPatch) *string {
 		if v == nil {
@@ -7531,6 +7545,368 @@ func (o PodSchedulingContextStatusPatchPtrOutput) ResourceClaims() ResourceClaim
 	}).(ResourceClaimSchedulingStatusPatchArrayOutput)
 }
 
+// PoolStatus contains status information for a single resource pool.
+type PoolStatus struct {
+	// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+	AllocatedDevices *int `pulumi:"allocatedDevices"`
+	// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+	AvailableDevices *int `pulumi:"availableDevices"`
+	// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver string `pulumi:"driver"`
+	// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+	Generation int `pulumi:"generation"`
+	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+	NodeName *string `pulumi:"nodeName"`
+	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+	PoolName string `pulumi:"poolName"`
+	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+	ResourceSliceCount *int `pulumi:"resourceSliceCount"`
+	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+	TotalDevices *int `pulumi:"totalDevices"`
+	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+	UnavailableDevices *int `pulumi:"unavailableDevices"`
+	// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+	ValidationError *string `pulumi:"validationError"`
+}
+
+// PoolStatusInput is an input type that accepts PoolStatusArgs and PoolStatusOutput values.
+// You can construct a concrete instance of `PoolStatusInput` via:
+//
+//	PoolStatusArgs{...}
+type PoolStatusInput interface {
+	pulumi.Input
+
+	ToPoolStatusOutput() PoolStatusOutput
+	ToPoolStatusOutputWithContext(context.Context) PoolStatusOutput
+}
+
+// PoolStatus contains status information for a single resource pool.
+type PoolStatusArgs struct {
+	// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+	AllocatedDevices pulumi.IntPtrInput `pulumi:"allocatedDevices"`
+	// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+	AvailableDevices pulumi.IntPtrInput `pulumi:"availableDevices"`
+	// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver pulumi.StringInput `pulumi:"driver"`
+	// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+	Generation pulumi.IntInput `pulumi:"generation"`
+	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+	PoolName pulumi.StringInput `pulumi:"poolName"`
+	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+	ResourceSliceCount pulumi.IntPtrInput `pulumi:"resourceSliceCount"`
+	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+	TotalDevices pulumi.IntPtrInput `pulumi:"totalDevices"`
+	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+	UnavailableDevices pulumi.IntPtrInput `pulumi:"unavailableDevices"`
+	// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+	ValidationError pulumi.StringPtrInput `pulumi:"validationError"`
+}
+
+func (PoolStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PoolStatus)(nil)).Elem()
+}
+
+func (i PoolStatusArgs) ToPoolStatusOutput() PoolStatusOutput {
+	return i.ToPoolStatusOutputWithContext(context.Background())
+}
+
+func (i PoolStatusArgs) ToPoolStatusOutputWithContext(ctx context.Context) PoolStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PoolStatusOutput)
+}
+
+// PoolStatusArrayInput is an input type that accepts PoolStatusArray and PoolStatusArrayOutput values.
+// You can construct a concrete instance of `PoolStatusArrayInput` via:
+//
+//	PoolStatusArray{ PoolStatusArgs{...} }
+type PoolStatusArrayInput interface {
+	pulumi.Input
+
+	ToPoolStatusArrayOutput() PoolStatusArrayOutput
+	ToPoolStatusArrayOutputWithContext(context.Context) PoolStatusArrayOutput
+}
+
+type PoolStatusArray []PoolStatusInput
+
+func (PoolStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PoolStatus)(nil)).Elem()
+}
+
+func (i PoolStatusArray) ToPoolStatusArrayOutput() PoolStatusArrayOutput {
+	return i.ToPoolStatusArrayOutputWithContext(context.Background())
+}
+
+func (i PoolStatusArray) ToPoolStatusArrayOutputWithContext(ctx context.Context) PoolStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PoolStatusArrayOutput)
+}
+
+// PoolStatus contains status information for a single resource pool.
+type PoolStatusOutput struct{ *pulumi.OutputState }
+
+func (PoolStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PoolStatus)(nil)).Elem()
+}
+
+func (o PoolStatusOutput) ToPoolStatusOutput() PoolStatusOutput {
+	return o
+}
+
+func (o PoolStatusOutput) ToPoolStatusOutputWithContext(ctx context.Context) PoolStatusOutput {
+	return o
+}
+
+// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+func (o PoolStatusOutput) AllocatedDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *int { return v.AllocatedDevices }).(pulumi.IntPtrOutput)
+}
+
+// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+func (o PoolStatusOutput) AvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *int { return v.AvailableDevices }).(pulumi.IntPtrOutput)
+}
+
+// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+func (o PoolStatusOutput) Driver() pulumi.StringOutput {
+	return o.ApplyT(func(v PoolStatus) string { return v.Driver }).(pulumi.StringOutput)
+}
+
+// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+func (o PoolStatusOutput) Generation() pulumi.IntOutput {
+	return o.ApplyT(func(v PoolStatus) int { return v.Generation }).(pulumi.IntOutput)
+}
+
+// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+func (o PoolStatusOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+func (o PoolStatusOutput) PoolName() pulumi.StringOutput {
+	return o.ApplyT(func(v PoolStatus) string { return v.PoolName }).(pulumi.StringOutput)
+}
+
+// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+func (o PoolStatusOutput) ResourceSliceCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *int { return v.ResourceSliceCount }).(pulumi.IntPtrOutput)
+}
+
+// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+func (o PoolStatusOutput) TotalDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *int { return v.TotalDevices }).(pulumi.IntPtrOutput)
+}
+
+// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+func (o PoolStatusOutput) UnavailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *int { return v.UnavailableDevices }).(pulumi.IntPtrOutput)
+}
+
+// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+func (o PoolStatusOutput) ValidationError() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *string { return v.ValidationError }).(pulumi.StringPtrOutput)
+}
+
+type PoolStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (PoolStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PoolStatus)(nil)).Elem()
+}
+
+func (o PoolStatusArrayOutput) ToPoolStatusArrayOutput() PoolStatusArrayOutput {
+	return o
+}
+
+func (o PoolStatusArrayOutput) ToPoolStatusArrayOutputWithContext(ctx context.Context) PoolStatusArrayOutput {
+	return o
+}
+
+func (o PoolStatusArrayOutput) Index(i pulumi.IntInput) PoolStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PoolStatus {
+		return vs[0].([]PoolStatus)[vs[1].(int)]
+	}).(PoolStatusOutput)
+}
+
+// PoolStatus contains status information for a single resource pool.
+type PoolStatusPatch struct {
+	// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+	AllocatedDevices *int `pulumi:"allocatedDevices"`
+	// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+	AvailableDevices *int `pulumi:"availableDevices"`
+	// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver *string `pulumi:"driver"`
+	// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+	Generation *int `pulumi:"generation"`
+	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+	NodeName *string `pulumi:"nodeName"`
+	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+	PoolName *string `pulumi:"poolName"`
+	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+	ResourceSliceCount *int `pulumi:"resourceSliceCount"`
+	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+	TotalDevices *int `pulumi:"totalDevices"`
+	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+	UnavailableDevices *int `pulumi:"unavailableDevices"`
+	// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+	ValidationError *string `pulumi:"validationError"`
+}
+
+// PoolStatusPatchInput is an input type that accepts PoolStatusPatchArgs and PoolStatusPatchOutput values.
+// You can construct a concrete instance of `PoolStatusPatchInput` via:
+//
+//	PoolStatusPatchArgs{...}
+type PoolStatusPatchInput interface {
+	pulumi.Input
+
+	ToPoolStatusPatchOutput() PoolStatusPatchOutput
+	ToPoolStatusPatchOutputWithContext(context.Context) PoolStatusPatchOutput
+}
+
+// PoolStatus contains status information for a single resource pool.
+type PoolStatusPatchArgs struct {
+	// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+	AllocatedDevices pulumi.IntPtrInput `pulumi:"allocatedDevices"`
+	// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+	AvailableDevices pulumi.IntPtrInput `pulumi:"availableDevices"`
+	// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+	Generation pulumi.IntPtrInput `pulumi:"generation"`
+	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+	PoolName pulumi.StringPtrInput `pulumi:"poolName"`
+	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+	ResourceSliceCount pulumi.IntPtrInput `pulumi:"resourceSliceCount"`
+	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+	TotalDevices pulumi.IntPtrInput `pulumi:"totalDevices"`
+	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+	UnavailableDevices pulumi.IntPtrInput `pulumi:"unavailableDevices"`
+	// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+	ValidationError pulumi.StringPtrInput `pulumi:"validationError"`
+}
+
+func (PoolStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PoolStatusPatch)(nil)).Elem()
+}
+
+func (i PoolStatusPatchArgs) ToPoolStatusPatchOutput() PoolStatusPatchOutput {
+	return i.ToPoolStatusPatchOutputWithContext(context.Background())
+}
+
+func (i PoolStatusPatchArgs) ToPoolStatusPatchOutputWithContext(ctx context.Context) PoolStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PoolStatusPatchOutput)
+}
+
+// PoolStatusPatchArrayInput is an input type that accepts PoolStatusPatchArray and PoolStatusPatchArrayOutput values.
+// You can construct a concrete instance of `PoolStatusPatchArrayInput` via:
+//
+//	PoolStatusPatchArray{ PoolStatusPatchArgs{...} }
+type PoolStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToPoolStatusPatchArrayOutput() PoolStatusPatchArrayOutput
+	ToPoolStatusPatchArrayOutputWithContext(context.Context) PoolStatusPatchArrayOutput
+}
+
+type PoolStatusPatchArray []PoolStatusPatchInput
+
+func (PoolStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PoolStatusPatch)(nil)).Elem()
+}
+
+func (i PoolStatusPatchArray) ToPoolStatusPatchArrayOutput() PoolStatusPatchArrayOutput {
+	return i.ToPoolStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PoolStatusPatchArray) ToPoolStatusPatchArrayOutputWithContext(ctx context.Context) PoolStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PoolStatusPatchArrayOutput)
+}
+
+// PoolStatus contains status information for a single resource pool.
+type PoolStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (PoolStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PoolStatusPatch)(nil)).Elem()
+}
+
+func (o PoolStatusPatchOutput) ToPoolStatusPatchOutput() PoolStatusPatchOutput {
+	return o
+}
+
+func (o PoolStatusPatchOutput) ToPoolStatusPatchOutputWithContext(ctx context.Context) PoolStatusPatchOutput {
+	return o
+}
+
+// AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+func (o PoolStatusPatchOutput) AllocatedDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.AllocatedDevices }).(pulumi.IntPtrOutput)
+}
+
+// AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+func (o PoolStatusPatchOutput) AvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.AvailableDevices }).(pulumi.IntPtrOutput)
+}
+
+// Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+func (o PoolStatusPatchOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+func (o PoolStatusPatchOutput) Generation() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.Generation }).(pulumi.IntPtrOutput)
+}
+
+// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+func (o PoolStatusPatchOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+func (o PoolStatusPatchOutput) PoolName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *string { return v.PoolName }).(pulumi.StringPtrOutput)
+}
+
+// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+func (o PoolStatusPatchOutput) ResourceSliceCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.ResourceSliceCount }).(pulumi.IntPtrOutput)
+}
+
+// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+func (o PoolStatusPatchOutput) TotalDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.TotalDevices }).(pulumi.IntPtrOutput)
+}
+
+// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+func (o PoolStatusPatchOutput) UnavailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *int { return v.UnavailableDevices }).(pulumi.IntPtrOutput)
+}
+
+// ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+func (o PoolStatusPatchOutput) ValidationError() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *string { return v.ValidationError }).(pulumi.StringPtrOutput)
+}
+
+type PoolStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PoolStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PoolStatusPatch)(nil)).Elem()
+}
+
+func (o PoolStatusPatchArrayOutput) ToPoolStatusPatchArrayOutput() PoolStatusPatchArrayOutput {
+	return o
+}
+
+func (o PoolStatusPatchArrayOutput) ToPoolStatusPatchArrayOutputWithContext(ctx context.Context) PoolStatusPatchArrayOutput {
+	return o
+}
+
+func (o PoolStatusPatchArrayOutput) Index(i pulumi.IntInput) PoolStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PoolStatusPatch {
+		return vs[0].([]PoolStatusPatch)[vs[1].(int)]
+	}).(PoolStatusPatchOutput)
+}
+
 // ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -9854,6 +10230,952 @@ func (o ResourcePoolPatchPtrOutput) ResourceSliceCount() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+	Spec ResourcePoolStatusRequestSpec `pulumi:"spec"`
+	// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+	Status *ResourcePoolStatusRequestStatus `pulumi:"status"`
+}
+
+// ResourcePoolStatusRequestTypeInput is an input type that accepts ResourcePoolStatusRequestTypeArgs and ResourcePoolStatusRequestTypeOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestTypeInput` via:
+//
+//	ResourcePoolStatusRequestTypeArgs{...}
+type ResourcePoolStatusRequestTypeInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestTypeOutput() ResourcePoolStatusRequestTypeOutput
+	ToResourcePoolStatusRequestTypeOutputWithContext(context.Context) ResourcePoolStatusRequestTypeOutput
+}
+
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaInput `pulumi:"metadata"`
+	// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+	Spec ResourcePoolStatusRequestSpecInput `pulumi:"spec"`
+	// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+	Status ResourcePoolStatusRequestStatusPtrInput `pulumi:"status"`
+}
+
+func (ResourcePoolStatusRequestTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestType)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestTypeArgs) ToResourcePoolStatusRequestTypeOutput() ResourcePoolStatusRequestTypeOutput {
+	return i.ToResourcePoolStatusRequestTypeOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestTypeArgs) ToResourcePoolStatusRequestTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestTypeOutput)
+}
+
+// ResourcePoolStatusRequestTypeArrayInput is an input type that accepts ResourcePoolStatusRequestTypeArray and ResourcePoolStatusRequestTypeArrayOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestTypeArrayInput` via:
+//
+//	ResourcePoolStatusRequestTypeArray{ ResourcePoolStatusRequestTypeArgs{...} }
+type ResourcePoolStatusRequestTypeArrayInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestTypeArrayOutput() ResourcePoolStatusRequestTypeArrayOutput
+	ToResourcePoolStatusRequestTypeArrayOutputWithContext(context.Context) ResourcePoolStatusRequestTypeArrayOutput
+}
+
+type ResourcePoolStatusRequestTypeArray []ResourcePoolStatusRequestTypeInput
+
+func (ResourcePoolStatusRequestTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourcePoolStatusRequestType)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestTypeArray) ToResourcePoolStatusRequestTypeArrayOutput() ResourcePoolStatusRequestTypeArrayOutput {
+	return i.ToResourcePoolStatusRequestTypeArrayOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestTypeArray) ToResourcePoolStatusRequestTypeArrayOutputWithContext(ctx context.Context) ResourcePoolStatusRequestTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestTypeArrayOutput)
+}
+
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestType)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestTypeOutput) ToResourcePoolStatusRequestTypeOutput() ResourcePoolStatusRequestTypeOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestTypeOutput) ToResourcePoolStatusRequestTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourcePoolStatusRequestTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourcePoolStatusRequestTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourcePoolStatusRequestTypeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestType) metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaOutput)
+}
+
+// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+func (o ResourcePoolStatusRequestTypeOutput) Spec() ResourcePoolStatusRequestSpecOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestType) ResourcePoolStatusRequestSpec { return v.Spec }).(ResourcePoolStatusRequestSpecOutput)
+}
+
+// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+func (o ResourcePoolStatusRequestTypeOutput) Status() ResourcePoolStatusRequestStatusPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestType) *ResourcePoolStatusRequestStatus { return v.Status }).(ResourcePoolStatusRequestStatusPtrOutput)
+}
+
+type ResourcePoolStatusRequestTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ResourcePoolStatusRequestType)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestTypeArrayOutput) ToResourcePoolStatusRequestTypeArrayOutput() ResourcePoolStatusRequestTypeArrayOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestTypeArrayOutput) ToResourcePoolStatusRequestTypeArrayOutputWithContext(ctx context.Context) ResourcePoolStatusRequestTypeArrayOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestTypeArrayOutput) Index(i pulumi.IntInput) ResourcePoolStatusRequestTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourcePoolStatusRequestType {
+		return vs[0].([]ResourcePoolStatusRequestType)[vs[1].(int)]
+	}).(ResourcePoolStatusRequestTypeOutput)
+}
+
+// ResourcePoolStatusRequestList is a collection of ResourcePoolStatusRequests.
+type ResourcePoolStatusRequestListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of ResourcePoolStatusRequests.
+	Items []ResourcePoolStatusRequestType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// ResourcePoolStatusRequestListTypeInput is an input type that accepts ResourcePoolStatusRequestListTypeArgs and ResourcePoolStatusRequestListTypeOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestListTypeInput` via:
+//
+//	ResourcePoolStatusRequestListTypeArgs{...}
+type ResourcePoolStatusRequestListTypeInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestListTypeOutput() ResourcePoolStatusRequestListTypeOutput
+	ToResourcePoolStatusRequestListTypeOutputWithContext(context.Context) ResourcePoolStatusRequestListTypeOutput
+}
+
+// ResourcePoolStatusRequestList is a collection of ResourcePoolStatusRequests.
+type ResourcePoolStatusRequestListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of ResourcePoolStatusRequests.
+	Items ResourcePoolStatusRequestTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (ResourcePoolStatusRequestListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestListType)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestListTypeArgs) ToResourcePoolStatusRequestListTypeOutput() ResourcePoolStatusRequestListTypeOutput {
+	return i.ToResourcePoolStatusRequestListTypeOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestListTypeArgs) ToResourcePoolStatusRequestListTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestListTypeOutput)
+}
+
+// ResourcePoolStatusRequestList is a collection of ResourcePoolStatusRequests.
+type ResourcePoolStatusRequestListTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestListType)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestListTypeOutput) ToResourcePoolStatusRequestListTypeOutput() ResourcePoolStatusRequestListTypeOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestListTypeOutput) ToResourcePoolStatusRequestListTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourcePoolStatusRequestListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of ResourcePoolStatusRequests.
+func (o ResourcePoolStatusRequestListTypeOutput) Items() ResourcePoolStatusRequestTypeArrayOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestListType) []ResourcePoolStatusRequestType { return v.Items }).(ResourcePoolStatusRequestTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourcePoolStatusRequestListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata
+func (o ResourcePoolStatusRequestListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+	Spec *ResourcePoolStatusRequestSpecPatch `pulumi:"spec"`
+	// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+	Status *ResourcePoolStatusRequestStatusPatch `pulumi:"status"`
+}
+
+// ResourcePoolStatusRequestPatchTypeInput is an input type that accepts ResourcePoolStatusRequestPatchTypeArgs and ResourcePoolStatusRequestPatchTypeOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestPatchTypeInput` via:
+//
+//	ResourcePoolStatusRequestPatchTypeArgs{...}
+type ResourcePoolStatusRequestPatchTypeInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestPatchTypeOutput() ResourcePoolStatusRequestPatchTypeOutput
+	ToResourcePoolStatusRequestPatchTypeOutputWithContext(context.Context) ResourcePoolStatusRequestPatchTypeOutput
+}
+
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+	Spec ResourcePoolStatusRequestSpecPatchPtrInput `pulumi:"spec"`
+	// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+	Status ResourcePoolStatusRequestStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (ResourcePoolStatusRequestPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestPatchType)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestPatchTypeArgs) ToResourcePoolStatusRequestPatchTypeOutput() ResourcePoolStatusRequestPatchTypeOutput {
+	return i.ToResourcePoolStatusRequestPatchTypeOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestPatchTypeArgs) ToResourcePoolStatusRequestPatchTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestPatchTypeOutput)
+}
+
+// ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+type ResourcePoolStatusRequestPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestPatchType)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestPatchTypeOutput) ToResourcePoolStatusRequestPatchTypeOutput() ResourcePoolStatusRequestPatchTypeOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestPatchTypeOutput) ToResourcePoolStatusRequestPatchTypeOutputWithContext(ctx context.Context) ResourcePoolStatusRequestPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourcePoolStatusRequestPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourcePoolStatusRequestPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o ResourcePoolStatusRequestPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+func (o ResourcePoolStatusRequestPatchTypeOutput) Spec() ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestPatchType) *ResourcePoolStatusRequestSpecPatch { return v.Spec }).(ResourcePoolStatusRequestSpecPatchPtrOutput)
+}
+
+// Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+func (o ResourcePoolStatusRequestPatchTypeOutput) Status() ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestPatchType) *ResourcePoolStatusRequestStatusPatch { return v.Status }).(ResourcePoolStatusRequestStatusPatchPtrOutput)
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpec struct {
+	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver string `pulumi:"driver"`
+	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+	//
+	// Default: 100 Minimum: 1 Maximum: 1000
+	Limit *int `pulumi:"limit"`
+	// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+	PoolName *string `pulumi:"poolName"`
+}
+
+// ResourcePoolStatusRequestSpecInput is an input type that accepts ResourcePoolStatusRequestSpecArgs and ResourcePoolStatusRequestSpecOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestSpecInput` via:
+//
+//	ResourcePoolStatusRequestSpecArgs{...}
+type ResourcePoolStatusRequestSpecInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestSpecOutput() ResourcePoolStatusRequestSpecOutput
+	ToResourcePoolStatusRequestSpecOutputWithContext(context.Context) ResourcePoolStatusRequestSpecOutput
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpecArgs struct {
+	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver pulumi.StringInput `pulumi:"driver"`
+	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+	//
+	// Default: 100 Minimum: 1 Maximum: 1000
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
+	// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+	PoolName pulumi.StringPtrInput `pulumi:"poolName"`
+}
+
+func (ResourcePoolStatusRequestSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestSpec)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestSpecArgs) ToResourcePoolStatusRequestSpecOutput() ResourcePoolStatusRequestSpecOutput {
+	return i.ToResourcePoolStatusRequestSpecOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestSpecArgs) ToResourcePoolStatusRequestSpecOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestSpecOutput)
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpecOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestSpec)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestSpecOutput) ToResourcePoolStatusRequestSpecOutput() ResourcePoolStatusRequestSpecOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestSpecOutput) ToResourcePoolStatusRequestSpecOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecOutput {
+	return o
+}
+
+// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+func (o ResourcePoolStatusRequestSpecOutput) Driver() pulumi.StringOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpec) string { return v.Driver }).(pulumi.StringOutput)
+}
+
+// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+//
+// Default: 100 Minimum: 1 Maximum: 1000
+func (o ResourcePoolStatusRequestSpecOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpec) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
+// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+func (o ResourcePoolStatusRequestSpecOutput) PoolName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpec) *string { return v.PoolName }).(pulumi.StringPtrOutput)
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpecPatch struct {
+	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver *string `pulumi:"driver"`
+	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+	//
+	// Default: 100 Minimum: 1 Maximum: 1000
+	Limit *int `pulumi:"limit"`
+	// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+	PoolName *string `pulumi:"poolName"`
+}
+
+// ResourcePoolStatusRequestSpecPatchInput is an input type that accepts ResourcePoolStatusRequestSpecPatchArgs and ResourcePoolStatusRequestSpecPatchOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestSpecPatchInput` via:
+//
+//	ResourcePoolStatusRequestSpecPatchArgs{...}
+type ResourcePoolStatusRequestSpecPatchInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestSpecPatchOutput() ResourcePoolStatusRequestSpecPatchOutput
+	ToResourcePoolStatusRequestSpecPatchOutputWithContext(context.Context) ResourcePoolStatusRequestSpecPatchOutput
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpecPatchArgs struct {
+	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+	//
+	// Default: 100 Minimum: 1 Maximum: 1000
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
+	// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+	PoolName pulumi.StringPtrInput `pulumi:"poolName"`
+}
+
+func (ResourcePoolStatusRequestSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestSpecPatch)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestSpecPatchArgs) ToResourcePoolStatusRequestSpecPatchOutput() ResourcePoolStatusRequestSpecPatchOutput {
+	return i.ToResourcePoolStatusRequestSpecPatchOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestSpecPatchArgs) ToResourcePoolStatusRequestSpecPatchOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestSpecPatchOutput)
+}
+
+func (i ResourcePoolStatusRequestSpecPatchArgs) ToResourcePoolStatusRequestSpecPatchPtrOutput() ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return i.ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestSpecPatchArgs) ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestSpecPatchOutput).ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(ctx)
+}
+
+// ResourcePoolStatusRequestSpecPatchPtrInput is an input type that accepts ResourcePoolStatusRequestSpecPatchArgs, ResourcePoolStatusRequestSpecPatchPtr and ResourcePoolStatusRequestSpecPatchPtrOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestSpecPatchPtrInput` via:
+//
+//	        ResourcePoolStatusRequestSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ResourcePoolStatusRequestSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestSpecPatchPtrOutput() ResourcePoolStatusRequestSpecPatchPtrOutput
+	ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(context.Context) ResourcePoolStatusRequestSpecPatchPtrOutput
+}
+
+type resourcePoolStatusRequestSpecPatchPtrType ResourcePoolStatusRequestSpecPatchArgs
+
+func ResourcePoolStatusRequestSpecPatchPtr(v *ResourcePoolStatusRequestSpecPatchArgs) ResourcePoolStatusRequestSpecPatchPtrInput {
+	return (*resourcePoolStatusRequestSpecPatchPtrType)(v)
+}
+
+func (*resourcePoolStatusRequestSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestSpecPatch)(nil)).Elem()
+}
+
+func (i *resourcePoolStatusRequestSpecPatchPtrType) ToResourcePoolStatusRequestSpecPatchPtrOutput() ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return i.ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *resourcePoolStatusRequestSpecPatchPtrType) ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestSpecPatchPtrOutput)
+}
+
+// ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+type ResourcePoolStatusRequestSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestSpecPatch)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestSpecPatchOutput) ToResourcePoolStatusRequestSpecPatchOutput() ResourcePoolStatusRequestSpecPatchOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestSpecPatchOutput) ToResourcePoolStatusRequestSpecPatchOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestSpecPatchOutput) ToResourcePoolStatusRequestSpecPatchPtrOutput() ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return o.ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ResourcePoolStatusRequestSpecPatchOutput) ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourcePoolStatusRequestSpecPatch) *ResourcePoolStatusRequestSpecPatch {
+		return &v
+	}).(ResourcePoolStatusRequestSpecPatchPtrOutput)
+}
+
+// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+func (o ResourcePoolStatusRequestSpecPatchOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpecPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+//
+// Default: 100 Minimum: 1 Maximum: 1000
+func (o ResourcePoolStatusRequestSpecPatchOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpecPatch) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
+// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+func (o ResourcePoolStatusRequestSpecPatchOutput) PoolName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpecPatch) *string { return v.PoolName }).(pulumi.StringPtrOutput)
+}
+
+type ResourcePoolStatusRequestSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestSpecPatch)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) ToResourcePoolStatusRequestSpecPatchPtrOutput() ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) ToResourcePoolStatusRequestSpecPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestSpecPatchPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) Elem() ResourcePoolStatusRequestSpecPatchOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestSpecPatch) ResourcePoolStatusRequestSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ResourcePoolStatusRequestSpecPatch
+		return ret
+	}).(ResourcePoolStatusRequestSpecPatchOutput)
+}
+
+// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.StringPtrOutput)
+}
+
+// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+//
+// Default: 100 Minimum: 1 Maximum: 1000
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestSpecPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Limit
+	}).(pulumi.IntPtrOutput)
+}
+
+// PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) PoolName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PoolName
+	}).(pulumi.StringPtrOutput)
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatus struct {
+	// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+	//
+	// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+	Conditions []metav1.Condition `pulumi:"conditions"`
+	// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+	PoolCount int `pulumi:"poolCount"`
+	// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+	Pools []PoolStatus `pulumi:"pools"`
+}
+
+// ResourcePoolStatusRequestStatusInput is an input type that accepts ResourcePoolStatusRequestStatusArgs and ResourcePoolStatusRequestStatusOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestStatusInput` via:
+//
+//	ResourcePoolStatusRequestStatusArgs{...}
+type ResourcePoolStatusRequestStatusInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestStatusOutput() ResourcePoolStatusRequestStatusOutput
+	ToResourcePoolStatusRequestStatusOutputWithContext(context.Context) ResourcePoolStatusRequestStatusOutput
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatusArgs struct {
+	// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+	//
+	// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+	// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+	PoolCount pulumi.IntInput `pulumi:"poolCount"`
+	// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+	Pools PoolStatusArrayInput `pulumi:"pools"`
+}
+
+func (ResourcePoolStatusRequestStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestStatus)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestStatusArgs) ToResourcePoolStatusRequestStatusOutput() ResourcePoolStatusRequestStatusOutput {
+	return i.ToResourcePoolStatusRequestStatusOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestStatusArgs) ToResourcePoolStatusRequestStatusOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusOutput)
+}
+
+func (i ResourcePoolStatusRequestStatusArgs) ToResourcePoolStatusRequestStatusPtrOutput() ResourcePoolStatusRequestStatusPtrOutput {
+	return i.ToResourcePoolStatusRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestStatusArgs) ToResourcePoolStatusRequestStatusPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusOutput).ToResourcePoolStatusRequestStatusPtrOutputWithContext(ctx)
+}
+
+// ResourcePoolStatusRequestStatusPtrInput is an input type that accepts ResourcePoolStatusRequestStatusArgs, ResourcePoolStatusRequestStatusPtr and ResourcePoolStatusRequestStatusPtrOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestStatusPtrInput` via:
+//
+//	        ResourcePoolStatusRequestStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ResourcePoolStatusRequestStatusPtrInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestStatusPtrOutput() ResourcePoolStatusRequestStatusPtrOutput
+	ToResourcePoolStatusRequestStatusPtrOutputWithContext(context.Context) ResourcePoolStatusRequestStatusPtrOutput
+}
+
+type resourcePoolStatusRequestStatusPtrType ResourcePoolStatusRequestStatusArgs
+
+func ResourcePoolStatusRequestStatusPtr(v *ResourcePoolStatusRequestStatusArgs) ResourcePoolStatusRequestStatusPtrInput {
+	return (*resourcePoolStatusRequestStatusPtrType)(v)
+}
+
+func (*resourcePoolStatusRequestStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestStatus)(nil)).Elem()
+}
+
+func (i *resourcePoolStatusRequestStatusPtrType) ToResourcePoolStatusRequestStatusPtrOutput() ResourcePoolStatusRequestStatusPtrOutput {
+	return i.ToResourcePoolStatusRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *resourcePoolStatusRequestStatusPtrType) ToResourcePoolStatusRequestStatusPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusPtrOutput)
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatusOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestStatus)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestStatusOutput) ToResourcePoolStatusRequestStatusOutput() ResourcePoolStatusRequestStatusOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusOutput) ToResourcePoolStatusRequestStatusOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusOutput) ToResourcePoolStatusRequestStatusPtrOutput() ResourcePoolStatusRequestStatusPtrOutput {
+	return o.ToResourcePoolStatusRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ResourcePoolStatusRequestStatusOutput) ToResourcePoolStatusRequestStatusPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourcePoolStatusRequestStatus) *ResourcePoolStatusRequestStatus {
+		return &v
+	}).(ResourcePoolStatusRequestStatusPtrOutput)
+}
+
+// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+//
+// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+func (o ResourcePoolStatusRequestStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+func (o ResourcePoolStatusRequestStatusOutput) PoolCount() pulumi.IntOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatus) int { return v.PoolCount }).(pulumi.IntOutput)
+}
+
+// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+func (o ResourcePoolStatusRequestStatusOutput) Pools() PoolStatusArrayOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatus) []PoolStatus { return v.Pools }).(PoolStatusArrayOutput)
+}
+
+type ResourcePoolStatusRequestStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestStatus)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestStatusPtrOutput) ToResourcePoolStatusRequestStatusPtrOutput() ResourcePoolStatusRequestStatusPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPtrOutput) ToResourcePoolStatusRequestStatusPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPtrOutput) Elem() ResourcePoolStatusRequestStatusOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatus) ResourcePoolStatusRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ResourcePoolStatusRequestStatus
+		return ret
+	}).(ResourcePoolStatusRequestStatusOutput)
+}
+
+// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+//
+// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+func (o ResourcePoolStatusRequestStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+func (o ResourcePoolStatusRequestStatusPtrOutput) PoolCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.PoolCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+func (o ResourcePoolStatusRequestStatusPtrOutput) Pools() PoolStatusArrayOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatus) []PoolStatus {
+		if v == nil {
+			return nil
+		}
+		return v.Pools
+	}).(PoolStatusArrayOutput)
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatusPatch struct {
+	// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+	//
+	// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+	// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+	PoolCount *int `pulumi:"poolCount"`
+	// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+	Pools []PoolStatusPatch `pulumi:"pools"`
+}
+
+// ResourcePoolStatusRequestStatusPatchInput is an input type that accepts ResourcePoolStatusRequestStatusPatchArgs and ResourcePoolStatusRequestStatusPatchOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestStatusPatchInput` via:
+//
+//	ResourcePoolStatusRequestStatusPatchArgs{...}
+type ResourcePoolStatusRequestStatusPatchInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestStatusPatchOutput() ResourcePoolStatusRequestStatusPatchOutput
+	ToResourcePoolStatusRequestStatusPatchOutputWithContext(context.Context) ResourcePoolStatusRequestStatusPatchOutput
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatusPatchArgs struct {
+	// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+	//
+	// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+	// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+	PoolCount pulumi.IntPtrInput `pulumi:"poolCount"`
+	// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+	Pools PoolStatusPatchArrayInput `pulumi:"pools"`
+}
+
+func (ResourcePoolStatusRequestStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestStatusPatch)(nil)).Elem()
+}
+
+func (i ResourcePoolStatusRequestStatusPatchArgs) ToResourcePoolStatusRequestStatusPatchOutput() ResourcePoolStatusRequestStatusPatchOutput {
+	return i.ToResourcePoolStatusRequestStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestStatusPatchArgs) ToResourcePoolStatusRequestStatusPatchOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusPatchOutput)
+}
+
+func (i ResourcePoolStatusRequestStatusPatchArgs) ToResourcePoolStatusRequestStatusPatchPtrOutput() ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return i.ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ResourcePoolStatusRequestStatusPatchArgs) ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusPatchOutput).ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ResourcePoolStatusRequestStatusPatchPtrInput is an input type that accepts ResourcePoolStatusRequestStatusPatchArgs, ResourcePoolStatusRequestStatusPatchPtr and ResourcePoolStatusRequestStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ResourcePoolStatusRequestStatusPatchPtrInput` via:
+//
+//	        ResourcePoolStatusRequestStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ResourcePoolStatusRequestStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToResourcePoolStatusRequestStatusPatchPtrOutput() ResourcePoolStatusRequestStatusPatchPtrOutput
+	ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(context.Context) ResourcePoolStatusRequestStatusPatchPtrOutput
+}
+
+type resourcePoolStatusRequestStatusPatchPtrType ResourcePoolStatusRequestStatusPatchArgs
+
+func ResourcePoolStatusRequestStatusPatchPtr(v *ResourcePoolStatusRequestStatusPatchArgs) ResourcePoolStatusRequestStatusPatchPtrInput {
+	return (*resourcePoolStatusRequestStatusPatchPtrType)(v)
+}
+
+func (*resourcePoolStatusRequestStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestStatusPatch)(nil)).Elem()
+}
+
+func (i *resourcePoolStatusRequestStatusPatchPtrType) ToResourcePoolStatusRequestStatusPatchPtrOutput() ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return i.ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *resourcePoolStatusRequestStatusPatchPtrType) ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ResourcePoolStatusRequestStatusPatchPtrOutput)
+}
+
+// ResourcePoolStatusRequestStatus contains the calculated pool status information.
+type ResourcePoolStatusRequestStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ResourcePoolStatusRequestStatusPatch)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestStatusPatchOutput) ToResourcePoolStatusRequestStatusPatchOutput() ResourcePoolStatusRequestStatusPatchOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPatchOutput) ToResourcePoolStatusRequestStatusPatchOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPatchOutput) ToResourcePoolStatusRequestStatusPatchPtrOutput() ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return o.ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ResourcePoolStatusRequestStatusPatchOutput) ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourcePoolStatusRequestStatusPatch) *ResourcePoolStatusRequestStatusPatch {
+		return &v
+	}).(ResourcePoolStatusRequestStatusPatchPtrOutput)
+}
+
+// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+//
+// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+func (o ResourcePoolStatusRequestStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+func (o ResourcePoolStatusRequestStatusPatchOutput) PoolCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatusPatch) *int { return v.PoolCount }).(pulumi.IntPtrOutput)
+}
+
+// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+func (o ResourcePoolStatusRequestStatusPatchOutput) Pools() PoolStatusPatchArrayOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestStatusPatch) []PoolStatusPatch { return v.Pools }).(PoolStatusPatchArrayOutput)
+}
+
+type ResourcePoolStatusRequestStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ResourcePoolStatusRequestStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ResourcePoolStatusRequestStatusPatch)(nil)).Elem()
+}
+
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) ToResourcePoolStatusRequestStatusPatchPtrOutput() ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) ToResourcePoolStatusRequestStatusPatchPtrOutputWithContext(ctx context.Context) ResourcePoolStatusRequestStatusPatchPtrOutput {
+	return o
+}
+
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) Elem() ResourcePoolStatusRequestStatusPatchOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatusPatch) ResourcePoolStatusRequestStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ResourcePoolStatusRequestStatusPatch
+		return ret
+	}).(ResourcePoolStatusRequestStatusPatchOutput)
+}
+
+// Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+//
+// Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
+// PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) PoolCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.PoolCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+func (o ResourcePoolStatusRequestStatusPatchPtrOutput) Pools() PoolStatusPatchArrayOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestStatusPatch) []PoolStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Pools
+	}).(PoolStatusPatchArrayOutput)
+}
+
 // ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.
 //
 // At the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.
@@ -10746,6 +12068,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextStatusPtrInput)(nil)).Elem(), PodSchedulingContextStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextStatusPatchInput)(nil)).Elem(), PodSchedulingContextStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextStatusPatchPtrInput)(nil)).Elem(), PodSchedulingContextStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PoolStatusInput)(nil)).Elem(), PoolStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PoolStatusArrayInput)(nil)).Elem(), PoolStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PoolStatusPatchInput)(nil)).Elem(), PoolStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PoolStatusPatchArrayInput)(nil)).Elem(), PoolStatusPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimTypeInput)(nil)).Elem(), ResourceClaimTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimTypeArrayInput)(nil)).Elem(), ResourceClaimTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceClaimConsumerReferenceInput)(nil)).Elem(), ResourceClaimConsumerReferenceArgs{})
@@ -10775,6 +12101,17 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolInput)(nil)).Elem(), ResourcePoolArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolPatchInput)(nil)).Elem(), ResourcePoolPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolPatchPtrInput)(nil)).Elem(), ResourcePoolPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestTypeInput)(nil)).Elem(), ResourcePoolStatusRequestTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestTypeArrayInput)(nil)).Elem(), ResourcePoolStatusRequestTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestListTypeInput)(nil)).Elem(), ResourcePoolStatusRequestListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestPatchTypeInput)(nil)).Elem(), ResourcePoolStatusRequestPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestSpecInput)(nil)).Elem(), ResourcePoolStatusRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestSpecPatchInput)(nil)).Elem(), ResourcePoolStatusRequestSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestSpecPatchPtrInput)(nil)).Elem(), ResourcePoolStatusRequestSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestStatusInput)(nil)).Elem(), ResourcePoolStatusRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestStatusPtrInput)(nil)).Elem(), ResourcePoolStatusRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestStatusPatchInput)(nil)).Elem(), ResourcePoolStatusRequestStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePoolStatusRequestStatusPatchPtrInput)(nil)).Elem(), ResourcePoolStatusRequestStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeInput)(nil)).Elem(), ResourceSliceTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceTypeArrayInput)(nil)).Elem(), ResourceSliceTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceListInput)(nil)).Elem(), ResourceSliceListArgs{})
@@ -10877,6 +12214,10 @@ func init() {
 	pulumi.RegisterOutputType(PodSchedulingContextStatusPtrOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextStatusPatchOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(PoolStatusOutput{})
+	pulumi.RegisterOutputType(PoolStatusArrayOutput{})
+	pulumi.RegisterOutputType(PoolStatusPatchOutput{})
+	pulumi.RegisterOutputType(PoolStatusPatchArrayOutput{})
 	pulumi.RegisterOutputType(ResourceClaimTypeOutput{})
 	pulumi.RegisterOutputType(ResourceClaimTypeArrayOutput{})
 	pulumi.RegisterOutputType(ResourceClaimConsumerReferenceOutput{})
@@ -10906,6 +12247,17 @@ func init() {
 	pulumi.RegisterOutputType(ResourcePoolOutput{})
 	pulumi.RegisterOutputType(ResourcePoolPatchOutput{})
 	pulumi.RegisterOutputType(ResourcePoolPatchPtrOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestTypeOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestTypeArrayOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestListTypeOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestPatchTypeOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestSpecOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestSpecPatchOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestStatusOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestStatusPtrOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestStatusPatchOutput{})
+	pulumi.RegisterOutputType(ResourcePoolStatusRequestStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(ResourceSliceTypeOutput{})
 	pulumi.RegisterOutputType(ResourceSliceTypeArrayOutput{})
 	pulumi.RegisterOutputType(ResourceSliceListOutput{})

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.outputs.VolumeStatus;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -33,6 +34,11 @@ public final class VolumeMountStatus {
      * 
      */
     private @Nullable String recursiveReadOnly;
+    /**
+     * @return volumeStatus represents volume-type-specific status about the mounted volume.
+     * 
+     */
+    private @Nullable VolumeStatus volumeStatus;
 
     private VolumeMountStatus() {}
     /**
@@ -63,6 +69,13 @@ public final class VolumeMountStatus {
     public Optional<String> recursiveReadOnly() {
         return Optional.ofNullable(this.recursiveReadOnly);
     }
+    /**
+     * @return volumeStatus represents volume-type-specific status about the mounted volume.
+     * 
+     */
+    public Optional<VolumeStatus> volumeStatus() {
+        return Optional.ofNullable(this.volumeStatus);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -77,6 +90,7 @@ public final class VolumeMountStatus {
         private String name;
         private @Nullable Boolean readOnly;
         private @Nullable String recursiveReadOnly;
+        private @Nullable VolumeStatus volumeStatus;
         public Builder() {}
         public Builder(VolumeMountStatus defaults) {
     	      Objects.requireNonNull(defaults);
@@ -84,6 +98,7 @@ public final class VolumeMountStatus {
     	      this.name = defaults.name;
     	      this.readOnly = defaults.readOnly;
     	      this.recursiveReadOnly = defaults.recursiveReadOnly;
+    	      this.volumeStatus = defaults.volumeStatus;
         }
 
         @CustomType.Setter
@@ -114,12 +129,19 @@ public final class VolumeMountStatus {
             this.recursiveReadOnly = recursiveReadOnly;
             return this;
         }
+        @CustomType.Setter
+        public Builder volumeStatus(@Nullable VolumeStatus volumeStatus) {
+
+            this.volumeStatus = volumeStatus;
+            return this;
+        }
         public VolumeMountStatus build() {
             final var _resultValue = new VolumeMountStatus();
             _resultValue.mountPath = mountPath;
             _resultValue.name = name;
             _resultValue.readOnly = readOnly;
             _resultValue.recursiveReadOnly = recursiveReadOnly;
+            _resultValue.volumeStatus = volumeStatus;
             return _resultValue;
         }
     }

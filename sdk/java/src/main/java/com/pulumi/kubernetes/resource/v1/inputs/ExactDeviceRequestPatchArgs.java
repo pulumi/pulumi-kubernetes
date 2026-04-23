@@ -28,7 +28,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
     /**
      * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
      * 
-     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     @Import(name="adminAccess")
@@ -37,7 +37,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
     /**
      * @return AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
      * 
-     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     public Optional<Output<Boolean>> adminAccess() {
@@ -170,7 +170,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="tolerations")
@@ -185,7 +185,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTolerationPatchArgs>>> tolerations() {
@@ -225,7 +225,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
          * 
-         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
          * 
          * @return builder
          * 
@@ -238,7 +238,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
         /**
          * @param adminAccess AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
          * 
-         * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+         * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
          * 
          * @return builder
          * 
@@ -413,7 +413,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -432,7 +432,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -450,7 +450,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

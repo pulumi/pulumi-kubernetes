@@ -23,14 +23,14 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
     public static final ValidatingAdmissionPolicyStatusArgs Empty = new ValidatingAdmissionPolicyStatusArgs();
 
     /**
-     * The conditions represent the latest available observations of a policy&#39;s current state.
+     * conditions represent the latest available observations of a policy&#39;s current state.
      * 
      */
     @Import(name="conditions")
     private @Nullable Output<List<ConditionArgs>> conditions;
 
     /**
-     * @return The conditions represent the latest available observations of a policy&#39;s current state.
+     * @return conditions represent the latest available observations of a policy&#39;s current state.
      * 
      */
     public Optional<Output<List<ConditionArgs>>> conditions() {
@@ -38,14 +38,14 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
     }
 
     /**
-     * The generation observed by the controller.
+     * observedGeneration is the generation observed by the controller.
      * 
      */
     @Import(name="observedGeneration")
     private @Nullable Output<Integer> observedGeneration;
 
     /**
-     * @return The generation observed by the controller.
+     * @return observedGeneration is the generation observed by the controller.
      * 
      */
     public Optional<Output<Integer>> observedGeneration() {
@@ -53,14 +53,14 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
     }
 
     /**
-     * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+     * typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
      * 
      */
     @Import(name="typeChecking")
     private @Nullable Output<TypeCheckingArgs> typeChecking;
 
     /**
-     * @return The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+     * @return typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
      * 
      */
     public Optional<Output<TypeCheckingArgs>> typeChecking() {
@@ -94,7 +94,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param conditions The conditions represent the latest available observations of a policy&#39;s current state.
+         * @param conditions conditions represent the latest available observations of a policy&#39;s current state.
          * 
          * @return builder
          * 
@@ -105,7 +105,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param conditions The conditions represent the latest available observations of a policy&#39;s current state.
+         * @param conditions conditions represent the latest available observations of a policy&#39;s current state.
          * 
          * @return builder
          * 
@@ -115,7 +115,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param conditions The conditions represent the latest available observations of a policy&#39;s current state.
+         * @param conditions conditions represent the latest available observations of a policy&#39;s current state.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param observedGeneration The generation observed by the controller.
+         * @param observedGeneration observedGeneration is the generation observed by the controller.
          * 
          * @return builder
          * 
@@ -136,7 +136,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param observedGeneration The generation observed by the controller.
+         * @param observedGeneration observedGeneration is the generation observed by the controller.
          * 
          * @return builder
          * 
@@ -146,7 +146,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param typeChecking The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+         * @param typeChecking typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
          * 
          * @return builder
          * 
@@ -157,7 +157,7 @@ public final class ValidatingAdmissionPolicyStatusArgs extends com.pulumi.resour
         }
 
         /**
-         * @param typeChecking The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+         * @param typeChecking typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
          * 
          * @return builder
          * 

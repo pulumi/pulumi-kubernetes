@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Message;
         /// <summary>
-        /// If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+        /// If set, this represents the .metadata.generation that the pod condition was set based upon.
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>

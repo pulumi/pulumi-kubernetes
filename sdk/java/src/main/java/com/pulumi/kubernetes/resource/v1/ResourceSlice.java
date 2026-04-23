@@ -27,8 +27,6 @@ import javax.annotation.Nullable;
  * 
  * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
  * 
- * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
- * 
  */
 @ResourceType(type="kubernetes:resource.k8s.io/v1:ResourceSlice")
 public class ResourceSlice extends com.pulumi.resources.CustomResource {

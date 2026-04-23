@@ -91,7 +91,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public LeaseCandidate(java.lang.String name, @Nullable LeaseCandidateArgs args) {
+    public LeaseCandidate(java.lang.String name, LeaseCandidateArgs args) {
         this(name, args, null);
     }
     /**
@@ -100,7 +100,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public LeaseCandidate(java.lang.String name, @Nullable LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public LeaseCandidate(java.lang.String name, LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -108,7 +108,7 @@ public class LeaseCandidate extends com.pulumi.resources.CustomResource {
         super("kubernetes:coordination.k8s.io/v1beta1:LeaseCandidate", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static LeaseCandidateArgs makeArgs(@Nullable LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static LeaseCandidateArgs makeArgs(LeaseCandidateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

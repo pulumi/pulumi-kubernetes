@@ -21,14 +21,14 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
     public static final ServiceReferencePatchArgs Empty = new ServiceReferencePatchArgs();
 
     /**
-     * `name` is the name of the service. Required
+     * name is the name of the service. Required
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return `name` is the name of the service. Required
+     * @return name is the name of the service. Required
      * 
      */
     public Optional<Output<String>> name() {
@@ -36,14 +36,14 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * `namespace` is the namespace of the service. Required
+     * namespace is the namespace of the service. Required
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return `namespace` is the namespace of the service. Required
+     * @return namespace is the namespace of the service. Required
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -51,14 +51,14 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * `path` is an optional URL path which will be sent in any request to this service.
+     * path is an optional URL path which will be sent in any request to this service.
      * 
      */
     @Import(name="path")
     private @Nullable Output<String> path;
 
     /**
-     * @return `path` is an optional URL path which will be sent in any request to this service.
+     * @return path is an optional URL path which will be sent in any request to this service.
      * 
      */
     public Optional<Output<String>> path() {
@@ -66,14 +66,14 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+     * port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
      * 
      */
     @Import(name="port")
     private @Nullable Output<Integer> port;
 
     /**
-     * @return If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+     * @return port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
      * 
      */
     public Optional<Output<Integer>> port() {
@@ -108,7 +108,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param name `name` is the name of the service. Required
+         * @param name name is the name of the service. Required
          * 
          * @return builder
          * 
@@ -119,7 +119,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param name `name` is the name of the service. Required
+         * @param name name is the name of the service. Required
          * 
          * @return builder
          * 
@@ -129,7 +129,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param namespace `namespace` is the namespace of the service. Required
+         * @param namespace namespace is the namespace of the service. Required
          * 
          * @return builder
          * 
@@ -140,7 +140,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param namespace `namespace` is the namespace of the service. Required
+         * @param namespace namespace is the namespace of the service. Required
          * 
          * @return builder
          * 
@@ -150,7 +150,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param path `path` is an optional URL path which will be sent in any request to this service.
+         * @param path path is an optional URL path which will be sent in any request to this service.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param path `path` is an optional URL path which will be sent in any request to this service.
+         * @param path path is an optional URL path which will be sent in any request to this service.
          * 
          * @return builder
          * 
@@ -171,7 +171,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param port If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+         * @param port port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class ServiceReferencePatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param port If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+         * @param port port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
          * 
          * @return builder
          * 

@@ -3446,6 +3446,10 @@ type ListMeta struct {
 	ResourceVersion *string `pulumi:"resourceVersion"`
 	// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 	SelfLink *string `pulumi:"selfLink"`
+	// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+	//
+	// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+	ShardInfo *ShardInfo `pulumi:"shardInfo"`
 }
 
 // ListMetaInput is an input type that accepts ListMetaArgs and ListMetaOutput values.
@@ -3469,6 +3473,10 @@ type ListMetaArgs struct {
 	ResourceVersion pulumi.StringPtrInput `pulumi:"resourceVersion"`
 	// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 	SelfLink pulumi.StringPtrInput `pulumi:"selfLink"`
+	// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+	//
+	// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+	ShardInfo ShardInfoPtrInput `pulumi:"shardInfo"`
 }
 
 func (ListMetaArgs) ElementType() reflect.Type {
@@ -3569,6 +3577,13 @@ func (o ListMetaOutput) SelfLink() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListMeta) *string { return v.SelfLink }).(pulumi.StringPtrOutput)
 }
 
+// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+//
+// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+func (o ListMetaOutput) ShardInfo() ShardInfoPtrOutput {
+	return o.ApplyT(func(v ListMeta) *ShardInfo { return v.ShardInfo }).(ShardInfoPtrOutput)
+}
+
 type ListMetaPtrOutput struct{ *pulumi.OutputState }
 
 func (ListMetaPtrOutput) ElementType() reflect.Type {
@@ -3633,6 +3648,18 @@ func (o ListMetaPtrOutput) SelfLink() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+//
+// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+func (o ListMetaPtrOutput) ShardInfo() ShardInfoPtrOutput {
+	return o.ApplyT(func(v *ListMeta) *ShardInfo {
+		if v == nil {
+			return nil
+		}
+		return v.ShardInfo
+	}).(ShardInfoPtrOutput)
+}
+
 // ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 type ListMetaPatch struct {
 	// continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
@@ -3643,6 +3670,10 @@ type ListMetaPatch struct {
 	ResourceVersion *string `pulumi:"resourceVersion"`
 	// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 	SelfLink *string `pulumi:"selfLink"`
+	// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+	//
+	// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+	ShardInfo *ShardInfoPatch `pulumi:"shardInfo"`
 }
 
 // ListMetaPatchInput is an input type that accepts ListMetaPatchArgs and ListMetaPatchOutput values.
@@ -3666,6 +3697,10 @@ type ListMetaPatchArgs struct {
 	ResourceVersion pulumi.StringPtrInput `pulumi:"resourceVersion"`
 	// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
 	SelfLink pulumi.StringPtrInput `pulumi:"selfLink"`
+	// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+	//
+	// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+	ShardInfo ShardInfoPatchPtrInput `pulumi:"shardInfo"`
 }
 
 func (ListMetaPatchArgs) ElementType() reflect.Type {
@@ -3766,6 +3801,13 @@ func (o ListMetaPatchOutput) SelfLink() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListMetaPatch) *string { return v.SelfLink }).(pulumi.StringPtrOutput)
 }
 
+// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+//
+// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+func (o ListMetaPatchOutput) ShardInfo() ShardInfoPatchPtrOutput {
+	return o.ApplyT(func(v ListMetaPatch) *ShardInfoPatch { return v.ShardInfo }).(ShardInfoPatchPtrOutput)
+}
+
 type ListMetaPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (ListMetaPatchPtrOutput) ElementType() reflect.Type {
@@ -3828,6 +3870,18 @@ func (o ListMetaPatchPtrOutput) SelfLink() pulumi.StringPtrOutput {
 		}
 		return v.SelfLink
 	}).(pulumi.StringPtrOutput)
+}
+
+// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+//
+// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+func (o ListMetaPatchPtrOutput) ShardInfo() ShardInfoPatchPtrOutput {
+	return o.ApplyT(func(v *ListMetaPatch) *ShardInfoPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ShardInfo
+	}).(ShardInfoPatchPtrOutput)
 }
 
 // ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
@@ -6110,6 +6164,286 @@ func (o ServerAddressByClientCIDRPatchArrayOutput) Index(i pulumi.IntInput) Serv
 	}).(ServerAddressByClientCIDRPatchOutput)
 }
 
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfo struct {
+	// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+	Selector string `pulumi:"selector"`
+}
+
+// ShardInfoInput is an input type that accepts ShardInfoArgs and ShardInfoOutput values.
+// You can construct a concrete instance of `ShardInfoInput` via:
+//
+//	ShardInfoArgs{...}
+type ShardInfoInput interface {
+	pulumi.Input
+
+	ToShardInfoOutput() ShardInfoOutput
+	ToShardInfoOutputWithContext(context.Context) ShardInfoOutput
+}
+
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfoArgs struct {
+	// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+	Selector pulumi.StringInput `pulumi:"selector"`
+}
+
+func (ShardInfoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShardInfo)(nil)).Elem()
+}
+
+func (i ShardInfoArgs) ToShardInfoOutput() ShardInfoOutput {
+	return i.ToShardInfoOutputWithContext(context.Background())
+}
+
+func (i ShardInfoArgs) ToShardInfoOutputWithContext(ctx context.Context) ShardInfoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoOutput)
+}
+
+func (i ShardInfoArgs) ToShardInfoPtrOutput() ShardInfoPtrOutput {
+	return i.ToShardInfoPtrOutputWithContext(context.Background())
+}
+
+func (i ShardInfoArgs) ToShardInfoPtrOutputWithContext(ctx context.Context) ShardInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoOutput).ToShardInfoPtrOutputWithContext(ctx)
+}
+
+// ShardInfoPtrInput is an input type that accepts ShardInfoArgs, ShardInfoPtr and ShardInfoPtrOutput values.
+// You can construct a concrete instance of `ShardInfoPtrInput` via:
+//
+//	        ShardInfoArgs{...}
+//
+//	or:
+//
+//	        nil
+type ShardInfoPtrInput interface {
+	pulumi.Input
+
+	ToShardInfoPtrOutput() ShardInfoPtrOutput
+	ToShardInfoPtrOutputWithContext(context.Context) ShardInfoPtrOutput
+}
+
+type shardInfoPtrType ShardInfoArgs
+
+func ShardInfoPtr(v *ShardInfoArgs) ShardInfoPtrInput {
+	return (*shardInfoPtrType)(v)
+}
+
+func (*shardInfoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShardInfo)(nil)).Elem()
+}
+
+func (i *shardInfoPtrType) ToShardInfoPtrOutput() ShardInfoPtrOutput {
+	return i.ToShardInfoPtrOutputWithContext(context.Background())
+}
+
+func (i *shardInfoPtrType) ToShardInfoPtrOutputWithContext(ctx context.Context) ShardInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoPtrOutput)
+}
+
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfoOutput struct{ *pulumi.OutputState }
+
+func (ShardInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShardInfo)(nil)).Elem()
+}
+
+func (o ShardInfoOutput) ToShardInfoOutput() ShardInfoOutput {
+	return o
+}
+
+func (o ShardInfoOutput) ToShardInfoOutputWithContext(ctx context.Context) ShardInfoOutput {
+	return o
+}
+
+func (o ShardInfoOutput) ToShardInfoPtrOutput() ShardInfoPtrOutput {
+	return o.ToShardInfoPtrOutputWithContext(context.Background())
+}
+
+func (o ShardInfoOutput) ToShardInfoPtrOutputWithContext(ctx context.Context) ShardInfoPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ShardInfo) *ShardInfo {
+		return &v
+	}).(ShardInfoPtrOutput)
+}
+
+// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+func (o ShardInfoOutput) Selector() pulumi.StringOutput {
+	return o.ApplyT(func(v ShardInfo) string { return v.Selector }).(pulumi.StringOutput)
+}
+
+type ShardInfoPtrOutput struct{ *pulumi.OutputState }
+
+func (ShardInfoPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShardInfo)(nil)).Elem()
+}
+
+func (o ShardInfoPtrOutput) ToShardInfoPtrOutput() ShardInfoPtrOutput {
+	return o
+}
+
+func (o ShardInfoPtrOutput) ToShardInfoPtrOutputWithContext(ctx context.Context) ShardInfoPtrOutput {
+	return o
+}
+
+func (o ShardInfoPtrOutput) Elem() ShardInfoOutput {
+	return o.ApplyT(func(v *ShardInfo) ShardInfo {
+		if v != nil {
+			return *v
+		}
+		var ret ShardInfo
+		return ret
+	}).(ShardInfoOutput)
+}
+
+// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+func (o ShardInfoPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShardInfo) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfoPatch struct {
+	// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+	Selector *string `pulumi:"selector"`
+}
+
+// ShardInfoPatchInput is an input type that accepts ShardInfoPatchArgs and ShardInfoPatchOutput values.
+// You can construct a concrete instance of `ShardInfoPatchInput` via:
+//
+//	ShardInfoPatchArgs{...}
+type ShardInfoPatchInput interface {
+	pulumi.Input
+
+	ToShardInfoPatchOutput() ShardInfoPatchOutput
+	ToShardInfoPatchOutputWithContext(context.Context) ShardInfoPatchOutput
+}
+
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfoPatchArgs struct {
+	// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+	Selector pulumi.StringPtrInput `pulumi:"selector"`
+}
+
+func (ShardInfoPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShardInfoPatch)(nil)).Elem()
+}
+
+func (i ShardInfoPatchArgs) ToShardInfoPatchOutput() ShardInfoPatchOutput {
+	return i.ToShardInfoPatchOutputWithContext(context.Background())
+}
+
+func (i ShardInfoPatchArgs) ToShardInfoPatchOutputWithContext(ctx context.Context) ShardInfoPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoPatchOutput)
+}
+
+func (i ShardInfoPatchArgs) ToShardInfoPatchPtrOutput() ShardInfoPatchPtrOutput {
+	return i.ToShardInfoPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ShardInfoPatchArgs) ToShardInfoPatchPtrOutputWithContext(ctx context.Context) ShardInfoPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoPatchOutput).ToShardInfoPatchPtrOutputWithContext(ctx)
+}
+
+// ShardInfoPatchPtrInput is an input type that accepts ShardInfoPatchArgs, ShardInfoPatchPtr and ShardInfoPatchPtrOutput values.
+// You can construct a concrete instance of `ShardInfoPatchPtrInput` via:
+//
+//	        ShardInfoPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ShardInfoPatchPtrInput interface {
+	pulumi.Input
+
+	ToShardInfoPatchPtrOutput() ShardInfoPatchPtrOutput
+	ToShardInfoPatchPtrOutputWithContext(context.Context) ShardInfoPatchPtrOutput
+}
+
+type shardInfoPatchPtrType ShardInfoPatchArgs
+
+func ShardInfoPatchPtr(v *ShardInfoPatchArgs) ShardInfoPatchPtrInput {
+	return (*shardInfoPatchPtrType)(v)
+}
+
+func (*shardInfoPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShardInfoPatch)(nil)).Elem()
+}
+
+func (i *shardInfoPatchPtrType) ToShardInfoPatchPtrOutput() ShardInfoPatchPtrOutput {
+	return i.ToShardInfoPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *shardInfoPatchPtrType) ToShardInfoPatchPtrOutputWithContext(ctx context.Context) ShardInfoPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShardInfoPatchPtrOutput)
+}
+
+// ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+type ShardInfoPatchOutput struct{ *pulumi.OutputState }
+
+func (ShardInfoPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShardInfoPatch)(nil)).Elem()
+}
+
+func (o ShardInfoPatchOutput) ToShardInfoPatchOutput() ShardInfoPatchOutput {
+	return o
+}
+
+func (o ShardInfoPatchOutput) ToShardInfoPatchOutputWithContext(ctx context.Context) ShardInfoPatchOutput {
+	return o
+}
+
+func (o ShardInfoPatchOutput) ToShardInfoPatchPtrOutput() ShardInfoPatchPtrOutput {
+	return o.ToShardInfoPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ShardInfoPatchOutput) ToShardInfoPatchPtrOutputWithContext(ctx context.Context) ShardInfoPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ShardInfoPatch) *ShardInfoPatch {
+		return &v
+	}).(ShardInfoPatchPtrOutput)
+}
+
+// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+func (o ShardInfoPatchOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShardInfoPatch) *string { return v.Selector }).(pulumi.StringPtrOutput)
+}
+
+type ShardInfoPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ShardInfoPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShardInfoPatch)(nil)).Elem()
+}
+
+func (o ShardInfoPatchPtrOutput) ToShardInfoPatchPtrOutput() ShardInfoPatchPtrOutput {
+	return o
+}
+
+func (o ShardInfoPatchPtrOutput) ToShardInfoPatchPtrOutputWithContext(ctx context.Context) ShardInfoPatchPtrOutput {
+	return o
+}
+
+func (o ShardInfoPatchPtrOutput) Elem() ShardInfoPatchOutput {
+	return o.ApplyT(func(v *ShardInfoPatch) ShardInfoPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ShardInfoPatch
+		return ret
+	}).(ShardInfoPatchOutput)
+}
+
+// selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+func (o ShardInfoPatchPtrOutput) Selector() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShardInfoPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(pulumi.StringPtrOutput)
+}
+
 // Status is a return value for calls that don't return other objects.
 type StatusType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -7389,6 +7723,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ServerAddressByClientCIDRArrayInput)(nil)).Elem(), ServerAddressByClientCIDRArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServerAddressByClientCIDRPatchInput)(nil)).Elem(), ServerAddressByClientCIDRPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServerAddressByClientCIDRPatchArrayInput)(nil)).Elem(), ServerAddressByClientCIDRPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShardInfoInput)(nil)).Elem(), ShardInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShardInfoPtrInput)(nil)).Elem(), ShardInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShardInfoPatchInput)(nil)).Elem(), ShardInfoPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShardInfoPatchPtrInput)(nil)).Elem(), ShardInfoPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusTypeInput)(nil)).Elem(), StatusTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusCauseInput)(nil)).Elem(), StatusCauseArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusCauseArrayInput)(nil)).Elem(), StatusCauseArray{})
@@ -7475,6 +7813,10 @@ func init() {
 	pulumi.RegisterOutputType(ServerAddressByClientCIDRArrayOutput{})
 	pulumi.RegisterOutputType(ServerAddressByClientCIDRPatchOutput{})
 	pulumi.RegisterOutputType(ServerAddressByClientCIDRPatchArrayOutput{})
+	pulumi.RegisterOutputType(ShardInfoOutput{})
+	pulumi.RegisterOutputType(ShardInfoPtrOutput{})
+	pulumi.RegisterOutputType(ShardInfoPatchOutput{})
+	pulumi.RegisterOutputType(ShardInfoPatchPtrOutput{})
 	pulumi.RegisterOutputType(StatusTypeOutput{})
 	pulumi.RegisterOutputType(StatusCauseOutput{})
 	pulumi.RegisterOutputType(StatusCauseArrayOutput{})

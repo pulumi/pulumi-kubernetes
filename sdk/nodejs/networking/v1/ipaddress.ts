@@ -65,6 +65,9 @@ export class IPAddress extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "networking.k8s.io/v1";
             resourceInputs["kind"] = "IPAddress";
             resourceInputs["metadata"] = args?.metadata;
@@ -101,5 +104,5 @@ export interface IPAddressArgs {
     /**
      * spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    spec?: pulumi.Input<inputs.networking.v1.IPAddressSpec>;
+    spec: pulumi.Input<inputs.networking.v1.IPAddressSpec>;
 }

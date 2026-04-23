@@ -25,13 +25,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// <summary>
         /// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public readonly ImmutableArray<string> BindingConditions;
         /// <summary>
         /// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public readonly ImmutableArray<string> BindingFailureConditions;
         /// <summary>
@@ -73,7 +73,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// 
         /// The maximum number of tolerations is 16.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// This is a beta field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.DeviceToleration> Tolerations;
 

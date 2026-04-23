@@ -21,14 +21,14 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
     public static final RuleWithOperationsArgs Empty = new RuleWithOperationsArgs();
 
     /**
-     * APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     @Import(name="apiGroups")
     private @Nullable Output<List<String>> apiGroups;
 
     /**
-     * @return APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public Optional<Output<List<String>>> apiGroups() {
@@ -36,14 +36,14 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     @Import(name="apiVersions")
     private @Nullable Output<List<String>> apiVersions;
 
     /**
-     * @return APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public Optional<Output<List<String>>> apiVersions() {
@@ -51,14 +51,14 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     @Import(name="operations")
     private @Nullable Output<List<String>> operations;
 
     /**
-     * @return Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public Optional<Output<List<String>>> operations() {
@@ -66,7 +66,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Resources is a list of resources this rule applies to.
+     * resources is a list of resources this rule applies to.
      * 
      * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 
@@ -79,7 +79,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<List<String>> resources;
 
     /**
-     * @return Resources is a list of resources this rule applies to.
+     * @return resources is a list of resources this rule applies to.
      * 
      * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 
@@ -136,7 +136,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiGroups APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiGroups apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -147,7 +147,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiGroups APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiGroups apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -157,7 +157,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiGroups APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiGroups apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -167,7 +167,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiVersions APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiVersions apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -178,7 +178,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiVersions APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiVersions apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -188,7 +188,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param apiVersions APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param apiVersions apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param operations Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param operations operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -209,7 +209,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param operations Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param operations operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -219,7 +219,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param operations Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+         * @param operations operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
          * 
          * @return builder
          * 
@@ -229,7 +229,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.
+         * @param resources resources is a list of resources this rule applies to.
          * 
          * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 
@@ -246,7 +246,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.
+         * @param resources resources is a list of resources this rule applies to.
          * 
          * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 
@@ -262,7 +262,7 @@ public final class RuleWithOperationsArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to.
+         * @param resources resources is a list of resources this rule applies to.
          * 
          * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
          * 

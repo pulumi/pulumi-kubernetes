@@ -18,7 +18,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         /// <summary>
         /// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
         /// </summary>
         [Input("allocationTimestamp")]
         public Input<string>? AllocationTimestamp { get; set; }

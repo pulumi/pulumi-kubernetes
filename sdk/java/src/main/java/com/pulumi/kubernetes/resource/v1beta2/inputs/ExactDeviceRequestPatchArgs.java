@@ -170,7 +170,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="tolerations")
@@ -185,7 +185,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTolerationPatchArgs>>> tolerations() {
@@ -413,7 +413,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -432,7 +432,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -450,7 +450,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

@@ -91,6 +91,18 @@ __all__ = [
     'DeviceSubRequestArgsDict',
     'DeviceTaintPatchArgs',
     'DeviceTaintPatchArgsDict',
+    'DeviceTaintRuleSpecPatchArgs',
+    'DeviceTaintRuleSpecPatchArgsDict',
+    'DeviceTaintRuleSpecArgs',
+    'DeviceTaintRuleSpecArgsDict',
+    'DeviceTaintRuleStatusArgs',
+    'DeviceTaintRuleStatusArgsDict',
+    'DeviceTaintRuleArgs',
+    'DeviceTaintRuleArgsDict',
+    'DeviceTaintSelectorPatchArgs',
+    'DeviceTaintSelectorPatchArgsDict',
+    'DeviceTaintSelectorArgs',
+    'DeviceTaintSelectorArgsDict',
     'DeviceTaintArgs',
     'DeviceTaintArgsDict',
     'DeviceTolerationPatchArgs',
@@ -105,6 +117,8 @@ __all__ = [
     'ExactDeviceRequestArgsDict',
     'NetworkDeviceDataArgs',
     'NetworkDeviceDataArgsDict',
+    'NodeAllocatableResourceMappingArgs',
+    'NodeAllocatableResourceMappingArgsDict',
     'OpaqueDeviceConfigurationPatchArgs',
     'OpaqueDeviceConfigurationPatchArgsDict',
     'OpaqueDeviceConfigurationArgs',
@@ -324,7 +338,7 @@ class AllocationResultArgsDict(TypedDict):
     """
     AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
     """
     devices: NotRequired[pulumi.Input['DeviceAllocationResultArgsDict']]
     """
@@ -346,7 +360,7 @@ class AllocationResultArgs:
 
         :param pulumi.Input[_builtins.str] allocation_timestamp: AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
         :param pulumi.Input['DeviceAllocationResultArgs'] devices: Devices is the result of allocating devices.
         :param pulumi.Input['_core.v1.NodeSelectorArgs'] node_selector: NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
         """
@@ -363,7 +377,7 @@ class AllocationResultArgs:
         """
         AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
         """
         return pulumi.get(self, "allocation_timestamp")
 
@@ -432,6 +446,10 @@ class CELDeviceSelectorPatchArgsDict(TypedDict):
 
         cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
 
+    When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+
+        device.attributes["dra.example.com"].models.includes("some-model")
+
     The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
     """
 
@@ -472,6 +490,10 @@ class CELDeviceSelectorPatchArgs:
                
                    cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
                
+               When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+               
+                   device.attributes["dra.example.com"].models.includes("some-model")
+               
                The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         if expression is not None:
@@ -510,6 +532,10 @@ class CELDeviceSelectorPatchArgs:
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
             cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+
+        When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+
+            device.attributes["dra.example.com"].models.includes("some-model")
 
         The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
@@ -556,6 +582,10 @@ class CELDeviceSelectorArgsDict(TypedDict):
 
         cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
 
+    When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+
+        device.attributes["dra.example.com"].models.includes("some-model")
+
     The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
     """
 
@@ -596,6 +626,10 @@ class CELDeviceSelectorArgs:
                
                    cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
                
+               When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+               
+                   device.attributes["dra.example.com"].models.includes("some-model")
+               
                The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
         pulumi.set(__self__, "expression", expression)
@@ -633,6 +667,10 @@ class CELDeviceSelectorArgs:
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
             cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+
+        When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+
+            device.attributes["dra.example.com"].models.includes("some-model")
 
         The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         """
@@ -1302,42 +1340,86 @@ class DeviceAttributeArgsDict(TypedDict):
     """
     BoolValue is a true/false value.
     """
+    bools: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.bool]]]]
+    """
+    BoolValues is a non-empty list of true/false values.
+    """
     int: NotRequired[pulumi.Input[_builtins.int]]
     """
     IntValue is a number.
+    """
+    ints: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]
+    """
+    IntValues is a non-empty list of numbers.
+
+    This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
     """
     string: NotRequired[pulumi.Input[_builtins.str]]
     """
     StringValue is a string. Must not be longer than 64 characters.
     """
+    strings: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+
+    This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+    """
     version: NotRequired[pulumi.Input[_builtins.str]]
     """
     VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+    """
+    versions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+
+    This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
     """
 
 @pulumi.input_type
 class DeviceAttributeArgs:
     def __init__(__self__, *,
                  bool: Optional[pulumi.Input[_builtins.bool]] = None,
+                 bools: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.bool]]]] = None,
                  int: Optional[pulumi.Input[_builtins.int]] = None,
+                 ints: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]] = None,
                  string: Optional[pulumi.Input[_builtins.str]] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None):
+                 strings: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 version: Optional[pulumi.Input[_builtins.str]] = None,
+                 versions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         DeviceAttribute must have exactly one field set.
 
         :param pulumi.Input[_builtins.bool] bool: BoolValue is a true/false value.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.bool]]] bools: BoolValues is a non-empty list of true/false values.
         :param pulumi.Input[_builtins.int] int: IntValue is a number.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] ints: IntValues is a non-empty list of numbers.
+               
+               This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
         :param pulumi.Input[_builtins.str] string: StringValue is a string. Must not be longer than 64 characters.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] strings: StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+               
+               This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
         :param pulumi.Input[_builtins.str] version: VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] versions: VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+               
+               This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
         """
         if bool is not None:
             pulumi.set(__self__, "bool", bool)
+        if bools is not None:
+            pulumi.set(__self__, "bools", bools)
         if int is not None:
             pulumi.set(__self__, "int", int)
+        if ints is not None:
+            pulumi.set(__self__, "ints", ints)
         if string is not None:
             pulumi.set(__self__, "string", string)
+        if strings is not None:
+            pulumi.set(__self__, "strings", strings)
         if version is not None:
             pulumi.set(__self__, "version", version)
+        if versions is not None:
+            pulumi.set(__self__, "versions", versions)
 
     @_builtins.property
     @pulumi.getter
@@ -1353,6 +1435,18 @@ class DeviceAttributeArgs:
 
     @_builtins.property
     @pulumi.getter
+    def bools(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.bool]]]]:
+        """
+        BoolValues is a non-empty list of true/false values.
+        """
+        return pulumi.get(self, "bools")
+
+    @bools.setter
+    def bools(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.bool]]]]):
+        pulumi.set(self, "bools", value)
+
+    @_builtins.property
+    @pulumi.getter
     def int(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         IntValue is a number.
@@ -1362,6 +1456,20 @@ class DeviceAttributeArgs:
     @int.setter
     def int(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "int", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def ints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]:
+        """
+        IntValues is a non-empty list of numbers.
+
+        This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        """
+        return pulumi.get(self, "ints")
+
+    @ints.setter
+    def ints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]]):
+        pulumi.set(self, "ints", value)
 
     @_builtins.property
     @pulumi.getter
@@ -1377,6 +1485,20 @@ class DeviceAttributeArgs:
 
     @_builtins.property
     @pulumi.getter
+    def strings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+
+        This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        """
+        return pulumi.get(self, "strings")
+
+    @strings.setter
+    def strings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "strings", value)
+
+    @_builtins.property
+    @pulumi.getter
     def version(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
@@ -1386,6 +1508,20 @@ class DeviceAttributeArgs:
     @version.setter
     def version(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+
+        This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        """
+        return pulumi.get(self, "versions")
+
+    @versions.setter
+    def versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "versions", value)
 
 
 class DeviceCapacityArgsDict(TypedDict):
@@ -1809,7 +1945,7 @@ class DeviceClassSpecPatchArgsDict(TypedDict):
     """
     ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 
-    This is an alpha field.
+    This is a beta field.
     """
     selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]
     """
@@ -1830,7 +1966,7 @@ class DeviceClassSpecPatchArgs:
                They are passed to the driver, but are not considered while allocating the claim.
         :param pulumi.Input[_builtins.str] extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
                
-               This is an alpha field.
+               This is a beta field.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
@@ -1860,7 +1996,7 @@ class DeviceClassSpecPatchArgs:
         """
         ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 
-        This is an alpha field.
+        This is a beta field.
         """
         return pulumi.get(self, "extended_resource_name")
 
@@ -1895,7 +2031,7 @@ class DeviceClassSpecArgsDict(TypedDict):
     """
     ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 
-    This is an alpha field.
+    This is a beta field.
     """
     selectors: NotRequired[pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]
     """
@@ -1916,7 +2052,7 @@ class DeviceClassSpecArgs:
                They are passed to the driver, but are not considered while allocating the claim.
         :param pulumi.Input[_builtins.str] extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
                
-               This is an alpha field.
+               This is a beta field.
         :param pulumi.Input[Sequence[pulumi.Input['DeviceSelectorArgs']]] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
@@ -1946,7 +2082,7 @@ class DeviceClassSpecArgs:
         """
         ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 
-        This is an alpha field.
+        This is a beta field.
         """
         return pulumi.get(self, "extended_resource_name")
 
@@ -2084,6 +2220,8 @@ class DeviceConstraintPatchArgsDict(TypedDict):
     """
     DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 
+    When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+
     This acts as the inverse of MatchAttribute.
 
     This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -2095,6 +2233,8 @@ class DeviceConstraintPatchArgsDict(TypedDict):
     MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 
     For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+
+    When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 
     Must include the domain qualifier.
     """
@@ -2116,6 +2256,8 @@ class DeviceConstraintPatchArgs:
 
         :param pulumi.Input[_builtins.str] distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
                
+               When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+               
                This acts as the inverse of MatchAttribute.
                
                This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -2124,6 +2266,8 @@ class DeviceConstraintPatchArgs:
         :param pulumi.Input[_builtins.str] match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+               
+               When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
                
                Must include the domain qualifier.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] requests: Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
@@ -2142,6 +2286,8 @@ class DeviceConstraintPatchArgs:
     def distinct_attribute(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+
+        When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
 
         This acts as the inverse of MatchAttribute.
 
@@ -2162,6 +2308,8 @@ class DeviceConstraintPatchArgs:
         MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 
         For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+
+        When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 
         Must include the domain qualifier.
         """
@@ -2194,6 +2342,8 @@ class DeviceConstraintArgsDict(TypedDict):
     """
     DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 
+    When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+
     This acts as the inverse of MatchAttribute.
 
     This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -2205,6 +2355,8 @@ class DeviceConstraintArgsDict(TypedDict):
     MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 
     For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+
+    When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 
     Must include the domain qualifier.
     """
@@ -2226,6 +2378,8 @@ class DeviceConstraintArgs:
 
         :param pulumi.Input[_builtins.str] distinct_attribute: DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
                
+               When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+               
                This acts as the inverse of MatchAttribute.
                
                This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -2234,6 +2388,8 @@ class DeviceConstraintArgs:
         :param pulumi.Input[_builtins.str] match_attribute: MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
                
                For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+               
+               When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
                
                Must include the domain qualifier.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] requests: Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.
@@ -2252,6 +2408,8 @@ class DeviceConstraintArgs:
     def distinct_attribute(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+
+        When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
 
         This acts as the inverse of MatchAttribute.
 
@@ -2272,6 +2430,8 @@ class DeviceConstraintArgs:
         MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 
         For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+
+        When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 
         Must include the domain qualifier.
         """
@@ -2444,7 +2604,7 @@ class DevicePatchArgsDict(TypedDict):
 
     The conditions must be a valid condition type string.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     binding_failure_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
@@ -2454,13 +2614,13 @@ class DevicePatchArgsDict(TypedDict):
 
     The conditions must be a valid condition type string.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     binds_to_node: NotRequired[pulumi.Input[_builtins.bool]]
     """
     BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgsDict']]]]
     """
@@ -2479,6 +2639,10 @@ class DevicePatchArgsDict(TypedDict):
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
     Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+    """
+    node_allocatable_resource_mappings: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgsDict']]]]
+    """
+    NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
     """
     node_name: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -2500,7 +2664,7 @@ class DevicePatchArgsDict(TypedDict):
 
     The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -2515,6 +2679,7 @@ class DevicePatchArgs:
                  capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgs']]]] = None,
                  consumes_counters: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionPatchArgs']]]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
+                 node_allocatable_resource_mappings: Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]] = None,
                  node_name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
                  taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintPatchArgs']]]] = None):
@@ -2536,17 +2701,17 @@ class DevicePatchArgs:
                
                The conditions must be a valid condition type string.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] binding_failure_conditions: BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
                
                The maximum number of binding failure conditions is 4.
                
                The conditions must be a valid condition type string.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[_builtins.bool] binds_to_node: BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgs']]] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -2556,6 +2721,7 @@ class DevicePatchArgs:
                
                The maximum number of device counter consumptions per device is 2.
         :param pulumi.Input[_builtins.str] name: Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+        :param pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]] node_allocatable_resource_mappings: NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         :param pulumi.Input[_builtins.str] node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -2568,7 +2734,7 @@ class DevicePatchArgs:
                
                The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
@@ -2588,6 +2754,8 @@ class DevicePatchArgs:
             pulumi.set(__self__, "consumes_counters", consumes_counters)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if node_allocatable_resource_mappings is not None:
+            pulumi.set(__self__, "node_allocatable_resource_mappings", node_allocatable_resource_mappings)
         if node_name is not None:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
@@ -2647,7 +2815,7 @@ class DevicePatchArgs:
 
         The conditions must be a valid condition type string.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_conditions")
 
@@ -2665,7 +2833,7 @@ class DevicePatchArgs:
 
         The conditions must be a valid condition type string.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_failure_conditions")
 
@@ -2679,7 +2847,7 @@ class DevicePatchArgs:
         """
         BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binds_to_node")
 
@@ -2730,6 +2898,18 @@ class DevicePatchArgs:
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="nodeAllocatableResourceMappings")
+    def node_allocatable_resource_mappings(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]]:
+        """
+        NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        """
+        return pulumi.get(self, "node_allocatable_resource_mappings")
+
+    @node_allocatable_resource_mappings.setter
+    def node_allocatable_resource_mappings(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]]):
+        pulumi.set(self, "node_allocatable_resource_mappings", value)
+
+    @_builtins.property
     @pulumi.getter(name="nodeName")
     def node_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
@@ -2767,7 +2947,7 @@ class DevicePatchArgs:
 
         The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "taints")
 
@@ -2812,13 +2992,13 @@ class DeviceRequestAllocationResultArgsDict(TypedDict):
     """
     BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     binding_failure_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
     BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     consumed_capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
     """
@@ -2838,7 +3018,7 @@ class DeviceRequestAllocationResultArgsDict(TypedDict):
 
     The maximum number of tolerations is 16.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -2872,10 +3052,10 @@ class DeviceRequestAllocationResultArgs:
                This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] binding_conditions: BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] binding_failure_conditions: BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] consumed_capacity: ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
                
                The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
@@ -2886,7 +3066,7 @@ class DeviceRequestAllocationResultArgs:
                
                The maximum number of tolerations is 16.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         pulumi.set(__self__, "device", device)
         pulumi.set(__self__, "driver", driver)
@@ -2979,7 +3159,7 @@ class DeviceRequestAllocationResultArgs:
         """
         BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_conditions")
 
@@ -2993,7 +3173,7 @@ class DeviceRequestAllocationResultArgs:
         """
         BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_failure_conditions")
 
@@ -3037,7 +3217,7 @@ class DeviceRequestAllocationResultArgs:
 
         The maximum number of tolerations is 16.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "tolerations")
 
@@ -3371,7 +3551,7 @@ class DeviceSubRequestPatchArgsDict(TypedDict):
 
     The maximum number of tolerations is 16.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -3425,7 +3605,7 @@ class DeviceSubRequestPatchArgs:
                
                The maximum number of tolerations is 16.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         if allocation_mode is not None:
             pulumi.set(__self__, "allocation_mode", allocation_mode)
@@ -3548,7 +3728,7 @@ class DeviceSubRequestPatchArgs:
 
         The maximum number of tolerations is 16.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "tolerations")
 
@@ -3619,7 +3799,7 @@ class DeviceSubRequestArgsDict(TypedDict):
 
     The maximum number of tolerations is 16.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -3673,7 +3853,7 @@ class DeviceSubRequestArgs:
                
                The maximum number of tolerations is 16.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         pulumi.set(__self__, "device_class_name", device_class_name)
         pulumi.set(__self__, "name", name)
@@ -3794,7 +3974,7 @@ class DeviceSubRequestArgs:
 
         The maximum number of tolerations is 16.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "tolerations")
 
@@ -3819,7 +3999,9 @@ class DeviceTaintPatchArgsDict(TypedDict):
     """
     time_added: NotRequired[pulumi.Input[_builtins.str]]
     """
-    TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+    TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+    In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -3840,7 +4022,9 @@ class DeviceTaintPatchArgs:
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param pulumi.Input[_builtins.str] key: The taint key to be applied to a device. Must be a label name.
-        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+               
+               In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         :param pulumi.Input[_builtins.str] value: The taint value corresponding to the taint key. Must be a label value.
         """
         if effect is not None:
@@ -3882,7 +4066,9 @@ class DeviceTaintPatchArgs:
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+        In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         """
         return pulumi.get(self, "time_added")
 
@@ -3903,6 +4089,465 @@ class DeviceTaintPatchArgs:
         pulumi.set(self, "value", value)
 
 
+class DeviceTaintRuleSpecPatchArgsDict(TypedDict):
+    """
+    DeviceTaintRuleSpec specifies the selector and one taint.
+    """
+    device_selector: NotRequired[pulumi.Input['DeviceTaintSelectorPatchArgsDict']]
+    """
+    DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+    """
+    taint: NotRequired[pulumi.Input['DeviceTaintPatchArgsDict']]
+    """
+    The taint that gets applied to matching devices.
+    """
+
+@pulumi.input_type
+class DeviceTaintRuleSpecPatchArgs:
+    def __init__(__self__, *,
+                 device_selector: Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']] = None,
+                 taint: Optional[pulumi.Input['DeviceTaintPatchArgs']] = None):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+
+        :param pulumi.Input['DeviceTaintSelectorPatchArgs'] device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        :param pulumi.Input['DeviceTaintPatchArgs'] taint: The taint that gets applied to matching devices.
+        """
+        if device_selector is not None:
+            pulumi.set(__self__, "device_selector", device_selector)
+        if taint is not None:
+            pulumi.set(__self__, "taint", taint)
+
+    @_builtins.property
+    @pulumi.getter(name="deviceSelector")
+    def device_selector(self) -> Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']]:
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        return pulumi.get(self, "device_selector")
+
+    @device_selector.setter
+    def device_selector(self, value: Optional[pulumi.Input['DeviceTaintSelectorPatchArgs']]):
+        pulumi.set(self, "device_selector", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def taint(self) -> Optional[pulumi.Input['DeviceTaintPatchArgs']]:
+        """
+        The taint that gets applied to matching devices.
+        """
+        return pulumi.get(self, "taint")
+
+    @taint.setter
+    def taint(self, value: Optional[pulumi.Input['DeviceTaintPatchArgs']]):
+        pulumi.set(self, "taint", value)
+
+
+class DeviceTaintRuleSpecArgsDict(TypedDict):
+    """
+    DeviceTaintRuleSpec specifies the selector and one taint.
+    """
+    taint: pulumi.Input['DeviceTaintArgsDict']
+    """
+    The taint that gets applied to matching devices.
+    """
+    device_selector: NotRequired[pulumi.Input['DeviceTaintSelectorArgsDict']]
+    """
+    DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+    """
+
+@pulumi.input_type
+class DeviceTaintRuleSpecArgs:
+    def __init__(__self__, *,
+                 taint: pulumi.Input['DeviceTaintArgs'],
+                 device_selector: Optional[pulumi.Input['DeviceTaintSelectorArgs']] = None):
+        """
+        DeviceTaintRuleSpec specifies the selector and one taint.
+
+        :param pulumi.Input['DeviceTaintArgs'] taint: The taint that gets applied to matching devices.
+        :param pulumi.Input['DeviceTaintSelectorArgs'] device_selector: DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        pulumi.set(__self__, "taint", taint)
+        if device_selector is not None:
+            pulumi.set(__self__, "device_selector", device_selector)
+
+    @_builtins.property
+    @pulumi.getter
+    def taint(self) -> pulumi.Input['DeviceTaintArgs']:
+        """
+        The taint that gets applied to matching devices.
+        """
+        return pulumi.get(self, "taint")
+
+    @taint.setter
+    def taint(self, value: pulumi.Input['DeviceTaintArgs']):
+        pulumi.set(self, "taint", value)
+
+    @_builtins.property
+    @pulumi.getter(name="deviceSelector")
+    def device_selector(self) -> Optional[pulumi.Input['DeviceTaintSelectorArgs']]:
+        """
+        DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+        """
+        return pulumi.get(self, "device_selector")
+
+    @device_selector.setter
+    def device_selector(self, value: Optional[pulumi.Input['DeviceTaintSelectorArgs']]):
+        pulumi.set(self, "device_selector", value)
+
+
+class DeviceTaintRuleStatusArgsDict(TypedDict):
+    """
+    DeviceTaintRuleStatus provides information about an on-going pod eviction.
+    """
+    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    """
+    Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+
+    The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+      (includes the effects which don't cause eviction).
+    - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+      in a human-readable format, updated periodically, may change
+
+    For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+
+    Must have 8 or fewer entries.
+    """
+
+@pulumi.input_type
+class DeviceTaintRuleStatusArgs:
+    def __init__(__self__, *,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
+        """
+        DeviceTaintRuleStatus provides information about an on-going pod eviction.
+
+        :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+               
+               The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+                 (includes the effects which don't cause eviction).
+               - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+                 in a human-readable format, updated periodically, may change
+               
+               For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+               
+               Must have 8 or fewer entries.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+        """
+        Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+
+        The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+          (includes the effects which don't cause eviction).
+        - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+          in a human-readable format, updated periodically, may change
+
+        For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+
+        Must have 8 or fewer entries.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
+
+
+class DeviceTaintRuleArgsDict(TypedDict):
+    """
+    DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+    """
+    spec: pulumi.Input['DeviceTaintRuleSpecArgsDict']
+    """
+    Spec specifies the selector and one taint.
+
+    Changing the spec automatically increments the metadata.generation number.
+    """
+    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    """
+    Standard object metadata
+    """
+    status: NotRequired[pulumi.Input['DeviceTaintRuleStatusArgsDict']]
+    """
+    Status provides information about what was requested in the spec.
+    """
+
+@pulumi.input_type
+class DeviceTaintRuleArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['DeviceTaintRuleSpecArgs'],
+                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
+                 kind: Optional[pulumi.Input[_builtins.str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 status: Optional[pulumi.Input['DeviceTaintRuleStatusArgs']] = None):
+        """
+        DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+
+        :param pulumi.Input['DeviceTaintRuleSpecArgs'] spec: Spec specifies the selector and one taint.
+               
+               Changing the spec automatically increments the metadata.generation number.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
+        :param pulumi.Input['DeviceTaintRuleStatusArgs'] status: Status provides information about what was requested in the spec.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1beta2')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'DeviceTaintRule')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['DeviceTaintRuleSpecArgs']:
+        """
+        Spec specifies the selector and one taint.
+
+        Changing the spec automatically increments the metadata.generation number.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['DeviceTaintRuleSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['DeviceTaintRuleStatusArgs']]:
+        """
+        Status provides information about what was requested in the spec.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['DeviceTaintRuleStatusArgs']]):
+        pulumi.set(self, "status", value)
+
+
+class DeviceTaintSelectorPatchArgsDict(TypedDict):
+    """
+    DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+    """
+    device: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+    Setting also driver and pool may be required to avoid ambiguity, but is not required.
+    """
+    driver: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+    """
+    pool: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If pool is set, only devices in that pool are selected.
+
+    Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+    """
+
+@pulumi.input_type
+class DeviceTaintSelectorPatchArgs:
+    def __init__(__self__, *,
+                 device: Optional[pulumi.Input[_builtins.str]] = None,
+                 driver: Optional[pulumi.Input[_builtins.str]] = None,
+                 pool: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+
+        :param pulumi.Input[_builtins.str] device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+               
+               Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        :param pulumi.Input[_builtins.str] driver: If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        :param pulumi.Input[_builtins.str] pool: If pool is set, only devices in that pool are selected.
+               
+               Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        if device is not None:
+            pulumi.set(__self__, "device", device)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+
+    @_builtins.property
+    @pulumi.getter
+    def device(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        return pulumi.get(self, "device")
+
+    @device.setter
+    def device(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "device", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "driver", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def pool(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        return pulumi.get(self, "pool")
+
+    @pool.setter
+    def pool(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pool", value)
+
+
+class DeviceTaintSelectorArgsDict(TypedDict):
+    """
+    DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+    """
+    device: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+    Setting also driver and pool may be required to avoid ambiguity, but is not required.
+    """
+    driver: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+    """
+    pool: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    If pool is set, only devices in that pool are selected.
+
+    Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+    """
+
+@pulumi.input_type
+class DeviceTaintSelectorArgs:
+    def __init__(__self__, *,
+                 device: Optional[pulumi.Input[_builtins.str]] = None,
+                 driver: Optional[pulumi.Input[_builtins.str]] = None,
+                 pool: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+
+        :param pulumi.Input[_builtins.str] device: If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+               
+               Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        :param pulumi.Input[_builtins.str] driver: If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        :param pulumi.Input[_builtins.str] pool: If pool is set, only devices in that pool are selected.
+               
+               Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        if device is not None:
+            pulumi.set(__self__, "device", device)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+
+    @_builtins.property
+    @pulumi.getter
+    def device(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+
+        Setting also driver and pool may be required to avoid ambiguity, but is not required.
+        """
+        return pulumi.get(self, "device")
+
+    @device.setter
+    def device(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "device", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+        """
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "driver", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def pool(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        If pool is set, only devices in that pool are selected.
+
+        Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+        """
+        return pulumi.get(self, "pool")
+
+    @pool.setter
+    def pool(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pool", value)
+
+
 class DeviceTaintArgsDict(TypedDict):
     """
     The device this taint is attached to has the "effect" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.
@@ -3919,7 +4564,9 @@ class DeviceTaintArgsDict(TypedDict):
     """
     time_added: NotRequired[pulumi.Input[_builtins.str]]
     """
-    TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+    TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+    In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
     """
     value: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -3940,7 +4587,9 @@ class DeviceTaintArgs:
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param pulumi.Input[_builtins.str] key: The taint key to be applied to a device. Must be a label name.
-        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param pulumi.Input[_builtins.str] time_added: TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+               
+               In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         :param pulumi.Input[_builtins.str] value: The taint value corresponding to the taint key. Must be a label value.
         """
         pulumi.set(__self__, "effect", effect)
@@ -3980,7 +4629,9 @@ class DeviceTaintArgs:
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+        In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         """
         return pulumi.get(self, "time_added")
 
@@ -4263,7 +4914,7 @@ class DeviceArgsDict(TypedDict):
 
     The conditions must be a valid condition type string.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     binding_failure_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
@@ -4273,13 +4924,13 @@ class DeviceArgsDict(TypedDict):
 
     The conditions must be a valid condition type string.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     binds_to_node: NotRequired[pulumi.Input[_builtins.bool]]
     """
     BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 
-    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+    This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
     """
     capacity: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgsDict']]]]
     """
@@ -4294,6 +4945,10 @@ class DeviceArgsDict(TypedDict):
     There can only be a single entry per counterSet.
 
     The maximum number of device counter consumptions per device is 2.
+    """
+    node_allocatable_resource_mappings: NotRequired[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgsDict']]]]
+    """
+    NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
     """
     node_name: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -4315,7 +4970,7 @@ class DeviceArgsDict(TypedDict):
 
     The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -4330,6 +4985,7 @@ class DeviceArgs:
                  binds_to_node: Optional[pulumi.Input[_builtins.bool]] = None,
                  capacity: Optional[pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgs']]]] = None,
                  consumes_counters: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]]] = None,
+                 node_allocatable_resource_mappings: Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]] = None,
                  node_name: Optional[pulumi.Input[_builtins.str]] = None,
                  node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
                  taints: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceTaintArgs']]]] = None):
@@ -4352,17 +5008,17 @@ class DeviceArgs:
                
                The conditions must be a valid condition type string.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] binding_failure_conditions: BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
                
                The maximum number of binding failure conditions is 4.
                
                The conditions must be a valid condition type string.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[_builtins.bool] binds_to_node: BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
                
-               This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+               This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         :param pulumi.Input[Mapping[str, pulumi.Input['DeviceCapacityArgs']]] capacity: Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
                
                The maximum number of attributes and capacities combined is 32.
@@ -4371,6 +5027,7 @@ class DeviceArgs:
                There can only be a single entry per counterSet.
                
                The maximum number of device counter consumptions per device is 2.
+        :param pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]] node_allocatable_resource_mappings: NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         :param pulumi.Input[_builtins.str] node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -4383,7 +5040,7 @@ class DeviceArgs:
                
                The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         pulumi.set(__self__, "name", name)
         if all_nodes is not None:
@@ -4402,6 +5059,8 @@ class DeviceArgs:
             pulumi.set(__self__, "capacity", capacity)
         if consumes_counters is not None:
             pulumi.set(__self__, "consumes_counters", consumes_counters)
+        if node_allocatable_resource_mappings is not None:
+            pulumi.set(__self__, "node_allocatable_resource_mappings", node_allocatable_resource_mappings)
         if node_name is not None:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
@@ -4473,7 +5132,7 @@ class DeviceArgs:
 
         The conditions must be a valid condition type string.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_conditions")
 
@@ -4491,7 +5150,7 @@ class DeviceArgs:
 
         The conditions must be a valid condition type string.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binding_failure_conditions")
 
@@ -4505,7 +5164,7 @@ class DeviceArgs:
         """
         BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 
-        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         """
         return pulumi.get(self, "binds_to_node")
 
@@ -4542,6 +5201,18 @@ class DeviceArgs:
     @consumes_counters.setter
     def consumes_counters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceCounterConsumptionArgs']]]]):
         pulumi.set(self, "consumes_counters", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAllocatableResourceMappings")
+    def node_allocatable_resource_mappings(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]]:
+        """
+        NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        """
+        return pulumi.get(self, "node_allocatable_resource_mappings")
+
+    @node_allocatable_resource_mappings.setter
+    def node_allocatable_resource_mappings(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input['NodeAllocatableResourceMappingArgs']]]]):
+        pulumi.set(self, "node_allocatable_resource_mappings", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeName")
@@ -4581,7 +5252,7 @@ class DeviceArgs:
 
         The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "taints")
 
@@ -4651,7 +5322,7 @@ class ExactDeviceRequestPatchArgsDict(TypedDict):
 
     The maximum number of tolerations is 16.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -4704,7 +5375,7 @@ class ExactDeviceRequestPatchArgs:
                
                The maximum number of tolerations is 16.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         if admin_access is not None:
             pulumi.set(__self__, "admin_access", admin_access)
@@ -4828,7 +5499,7 @@ class ExactDeviceRequestPatchArgs:
 
         The maximum number of tolerations is 16.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "tolerations")
 
@@ -4898,7 +5569,7 @@ class ExactDeviceRequestArgsDict(TypedDict):
 
     The maximum number of tolerations is 16.
 
-    This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    This is a beta field and requires enabling the DRADeviceTaints feature gate.
     """
 
 @pulumi.input_type
@@ -4951,7 +5622,7 @@ class ExactDeviceRequestArgs:
                
                The maximum number of tolerations is 16.
                
-               This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+               This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         pulumi.set(__self__, "device_class_name", device_class_name)
         if admin_access is not None:
@@ -5074,7 +5745,7 @@ class ExactDeviceRequestArgs:
 
         The maximum number of tolerations is 16.
 
-        This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        This is a beta field and requires enabling the DRADeviceTaints feature gate.
         """
         return pulumi.get(self, "tolerations")
 
@@ -5091,13 +5762,13 @@ class NetworkDeviceDataArgsDict(TypedDict):
     """
     HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 
-    Must not be longer than 128 characters.
+    Must not be longer than 128 bytes.
     """
     interface_name: NotRequired[pulumi.Input[_builtins.str]]
     """
     InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 
-    Must not be longer than 256 characters.
+    Must not be longer than 256 bytes.
     """
     ips: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
@@ -5115,10 +5786,10 @@ class NetworkDeviceDataArgs:
 
         :param pulumi.Input[_builtins.str] hardware_address: HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
                
-               Must not be longer than 128 characters.
+               Must not be longer than 128 bytes.
         :param pulumi.Input[_builtins.str] interface_name: InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
                
-               Must not be longer than 256 characters.
+               Must not be longer than 256 bytes.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] ips: IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
         """
         if hardware_address is not None:
@@ -5134,7 +5805,7 @@ class NetworkDeviceDataArgs:
         """
         HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 
-        Must not be longer than 128 characters.
+        Must not be longer than 128 bytes.
         """
         return pulumi.get(self, "hardware_address")
 
@@ -5148,7 +5819,7 @@ class NetworkDeviceDataArgs:
         """
         InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 
-        Must not be longer than 256 characters.
+        Must not be longer than 256 bytes.
         """
         return pulumi.get(self, "interface_name")
 
@@ -5167,6 +5838,102 @@ class NetworkDeviceDataArgs:
     @ips.setter
     def ips(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "ips", value)
+
+
+class NodeAllocatableResourceMappingArgsDict(TypedDict):
+    """
+    NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+    """
+    allocation_multiplier: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+    	   a. A DRA driver representing each CPU core as a device would have
+           {ResourceName: "cpu", allocationMultiplier: "2"} in its
+           `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+    		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+        b. A GPU device that needs additional node memory per GPU allocation would
+           have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+    		  GPU device instance of this type will account for 2Gi of memory.
+
+    2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+    	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+        For example, if a Device's capacity "dra.example.com/cores" is consumed,
+        and each "core" provides 2 "cpu"s, the mapping would be:
+        {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+        If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+    """
+    capacity_key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+    """
+
+@pulumi.input_type
+class NodeAllocatableResourceMappingArgs:
+    def __init__(__self__, *,
+                 allocation_multiplier: Optional[pulumi.Input[_builtins.str]] = None,
+                 capacity_key: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+
+        :param pulumi.Input[_builtins.str] allocation_multiplier: AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+               	   a. A DRA driver representing each CPU core as a device would have
+                      {ResourceName: "cpu", allocationMultiplier: "2"} in its
+                      `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+               		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+                   b. A GPU device that needs additional node memory per GPU allocation would
+                      have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+               		  GPU device instance of this type will account for 2Gi of memory.
+               
+               2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+               	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+                   For example, if a Device's capacity "dra.example.com/cores" is consumed,
+                   and each "core" provides 2 "cpu"s, the mapping would be:
+                   {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+                   If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+        :param pulumi.Input[_builtins.str] capacity_key: CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+        """
+        if allocation_multiplier is not None:
+            pulumi.set(__self__, "allocation_multiplier", allocation_multiplier)
+        if capacity_key is not None:
+            pulumi.set(__self__, "capacity_key", capacity_key)
+
+    @_builtins.property
+    @pulumi.getter(name="allocationMultiplier")
+    def allocation_multiplier(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+        	   a. A DRA driver representing each CPU core as a device would have
+               {ResourceName: "cpu", allocationMultiplier: "2"} in its
+               `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+        		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+            b. A GPU device that needs additional node memory per GPU allocation would
+               have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+        		  GPU device instance of this type will account for 2Gi of memory.
+
+        2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+        	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+            For example, if a Device's capacity "dra.example.com/cores" is consumed,
+            and each "core" provides 2 "cpu"s, the mapping would be:
+            {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+            If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+        """
+        return pulumi.get(self, "allocation_multiplier")
+
+    @allocation_multiplier.setter
+    def allocation_multiplier(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "allocation_multiplier", value)
+
+    @_builtins.property
+    @pulumi.getter(name="capacityKey")
+    def capacity_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+        """
+        return pulumi.get(self, "capacity_key")
+
+    @capacity_key.setter
+    def capacity_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "capacity_key", value)
 
 
 class OpaqueDeviceConfigurationPatchArgsDict(TypedDict):

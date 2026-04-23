@@ -21,6 +21,18 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicy":
+		r = &MutatingAdmissionPolicy{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBinding":
+		r = &MutatingAdmissionPolicyBinding{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingList":
+		r = &MutatingAdmissionPolicyBindingList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingPatch":
+		r = &MutatingAdmissionPolicyBindingPatch{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyList":
+		r = &MutatingAdmissionPolicyList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyPatch":
+		r = &MutatingAdmissionPolicyPatch{}
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration":
 		r = &MutatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList":

@@ -18,7 +18,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// <summary>
         /// AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
         /// 
-        /// This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+        /// Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
         /// </summary>
         [Input("adminAccess")]
         public Input<bool>? AdminAccess { get; set; }
@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// <summary>
         /// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public InputList<string> BindingConditions
         {
@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// <summary>
         /// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public InputList<string> BindingFailureConditions
         {
@@ -111,7 +111,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// 
         /// The maximum number of tolerations is 16.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// This is a beta field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1.DeviceTolerationArgs> Tolerations
         {

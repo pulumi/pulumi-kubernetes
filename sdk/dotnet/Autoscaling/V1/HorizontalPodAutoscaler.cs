@@ -132,8 +132,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         /// <summary>
         /// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerSpecArgs> Spec { get; set; } = null!;
 
         public HorizontalPodAutoscalerArgs()
         {

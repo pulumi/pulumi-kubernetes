@@ -18,21 +18,21 @@ public final class DeviceRequestAllocationResultPatch {
     /**
      * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
      * 
-     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     private @Nullable Boolean adminAccess;
     /**
      * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingConditions;
     /**
      * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingFailureConditions;
@@ -81,7 +81,7 @@ public final class DeviceRequestAllocationResultPatch {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     private @Nullable List<DeviceTolerationPatch> tolerations;
@@ -90,7 +90,7 @@ public final class DeviceRequestAllocationResultPatch {
     /**
      * @return AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
      * 
-     * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+     * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
      * 
      */
     public Optional<Boolean> adminAccess() {
@@ -99,7 +99,7 @@ public final class DeviceRequestAllocationResultPatch {
     /**
      * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingConditions() {
@@ -108,7 +108,7 @@ public final class DeviceRequestAllocationResultPatch {
     /**
      * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingFailureConditions() {
@@ -171,7 +171,7 @@ public final class DeviceRequestAllocationResultPatch {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public List<DeviceTolerationPatch> tolerations() {

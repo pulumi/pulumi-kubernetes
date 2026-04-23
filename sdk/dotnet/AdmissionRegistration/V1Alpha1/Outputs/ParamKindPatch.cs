@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
     public sealed class ParamKindPatch
     {
         /// <summary>
-        /// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+        /// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         /// </summary>
         public readonly string ApiVersion;
         /// <summary>
-        /// Kind is the API kind the resources belong to. Required.
+        /// kind is the API kind the resources belong to. Required.
         /// </summary>
         public readonly string Kind;
 

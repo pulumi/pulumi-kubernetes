@@ -49,14 +49,14 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
     }
 
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -64,14 +64,14 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
     }
 
     /**
-     * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<MutatingAdmissionPolicyBindingSpecArgs> spec;
 
     /**
-     * @return Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
      * 
      */
     public Optional<Output<MutatingAdmissionPolicyBindingSpecArgs>> spec() {
@@ -148,7 +148,7 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -159,7 +159,7 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -169,7 +169,7 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param spec Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+         * @param spec spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class MutatingAdmissionPolicyBindingArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param spec Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+         * @param spec spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
          * 
          * @return builder
          * 

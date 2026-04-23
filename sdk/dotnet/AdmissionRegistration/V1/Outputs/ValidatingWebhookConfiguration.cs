@@ -25,11 +25,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Webhooks is a list of webhooks and the affected resources and operations.
+        /// webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.ValidatingWebhook> Webhooks;
 

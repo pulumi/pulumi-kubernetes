@@ -52,6 +52,21 @@ public final class ResourceHealthArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
+     * Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+     * 
+     */
+    @Import(name="message")
+    private @Nullable Output<String> message;
+
+    /**
+     * @return Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+     * 
+     */
+    public Optional<Output<String>> message() {
+        return Optional.ofNullable(this.message);
+    }
+
+    /**
      * ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
      * 
      */
@@ -70,6 +85,7 @@ public final class ResourceHealthArgs extends com.pulumi.resources.ResourceArgs 
 
     private ResourceHealthArgs(ResourceHealthArgs $) {
         this.health = $.health;
+        this.message = $.message;
         this.resourceID = $.resourceID;
     }
 
@@ -126,6 +142,27 @@ public final class ResourceHealthArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder health(String health) {
             return health(Output.of(health));
+        }
+
+        /**
+         * @param message Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder message(@Nullable Output<String> message) {
+            $.message = message;
+            return this;
+        }
+
+        /**
+         * @param message Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder message(String message) {
+            return message(Output.of(message));
         }
 
         /**

@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
     public class VariableArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        /// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         /// </summary>
         [Input("expression", required: true)]
         public Input<string> Expression { get; set; } = null!;
 
         /// <summary>
-        /// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        /// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

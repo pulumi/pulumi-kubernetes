@@ -22,26 +22,37 @@ __all__ = ['ValidatingAdmissionPolicyBindingInitArgs', 'ValidatingAdmissionPolic
 @pulumi.input_type
 class ValidatingAdmissionPolicyBindingInitArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs'],
                  api_version: Optional[pulumi.Input[_builtins.str]] = None,
                  kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']] = None):
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a ValidatingAdmissionPolicyBinding resource.
 
+        :param pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs'] spec: spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs'] spec: Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'ValidatingAdmissionPolicyBinding')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']:
+        """
+        spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -71,25 +82,13 @@ class ValidatingAdmissionPolicyBindingInitArgs:
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
     def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']]:
-        """
-        Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']]):
-        pulumi.set(self, "spec", value)
 
 
 @pulumi.type_token("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding")
@@ -115,14 +114,14 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict']] spec: Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict']] spec: spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
         """
         ...
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ValidatingAdmissionPolicyBindingInitArgs] = None,
+                 args: ValidatingAdmissionPolicyBindingInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
@@ -163,6 +162,8 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1'
             __props__.__dict__["kind"] = 'ValidatingAdmissionPolicyBinding'
             __props__.__dict__["metadata"] = metadata
+            if spec is None and not opts.urn:
+                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding"), pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
@@ -214,7 +215,7 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -222,7 +223,7 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.ValidatingAdmissionPolicyBindingSpec']:
         """
-        Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+        spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 

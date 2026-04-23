@@ -7,6 +7,8 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class RoleRef {
@@ -14,7 +16,7 @@ public final class RoleRef {
      * @return APIGroup is the group for the resource being referenced
      * 
      */
-    private String apiGroup;
+    private @Nullable String apiGroup;
     /**
      * @return Kind is the type of resource being referenced
      * 
@@ -31,8 +33,8 @@ public final class RoleRef {
      * @return APIGroup is the group for the resource being referenced
      * 
      */
-    public String apiGroup() {
-        return this.apiGroup;
+    public Optional<String> apiGroup() {
+        return Optional.ofNullable(this.apiGroup);
     }
     /**
      * @return Kind is the type of resource being referenced
@@ -58,7 +60,7 @@ public final class RoleRef {
     }
     @CustomType.Builder
     public static final class Builder {
-        private String apiGroup;
+        private @Nullable String apiGroup;
         private String kind;
         private String name;
         public Builder() {}
@@ -70,10 +72,8 @@ public final class RoleRef {
         }
 
         @CustomType.Setter
-        public Builder apiGroup(String apiGroup) {
-            if (apiGroup == null) {
-              throw new MissingRequiredPropertyException("RoleRef", "apiGroup");
-            }
+        public Builder apiGroup(@Nullable String apiGroup) {
+
             this.apiGroup = apiGroup;
             return this;
         }

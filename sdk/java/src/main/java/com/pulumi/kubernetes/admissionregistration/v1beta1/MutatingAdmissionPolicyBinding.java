@@ -55,28 +55,28 @@ public class MutatingAdmissionPolicyBinding extends com.pulumi.resources.CustomR
         return this.kind;
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
      * 
      */
     @Export(name="spec", refs={MutatingAdmissionPolicyBindingSpec.class}, tree="[0]")
     private Output<MutatingAdmissionPolicyBindingSpec> spec;
 
     /**
-     * @return Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
      * 
      */
     public Output<MutatingAdmissionPolicyBindingSpec> spec() {
@@ -127,6 +127,7 @@ public class MutatingAdmissionPolicyBinding extends com.pulumi.resources.CustomR
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBinding").build()),
                 Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBinding").build())
             ))
             .build();

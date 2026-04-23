@@ -21,14 +21,14 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
     public static final WebhookClientConfigArgs Empty = new WebhookClientConfigArgs();
 
     /**
-     * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
+     * caBundle is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
      * 
      */
     @Import(name="caBundle")
     private @Nullable Output<String> caBundle;
 
     /**
-     * @return `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
+     * @return caBundle is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
      * 
      */
     public Optional<Output<String>> caBundle() {
@@ -36,7 +36,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+     * service is a reference to the service for this webhook. Either `service` or `url` must be specified.
      * 
      * If the webhook is running within the cluster, then you should use `service`.
      * 
@@ -45,7 +45,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
     private @Nullable Output<ServiceReferenceArgs> service;
 
     /**
-     * @return `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+     * @return service is a reference to the service for this webhook. Either `service` or `url` must be specified.
      * 
      * If the webhook is running within the cluster, then you should use `service`.
      * 
@@ -55,7 +55,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+     * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
      * 
      * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
      * 
@@ -72,7 +72,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
     private @Nullable Output<String> url;
 
     /**
-     * @return `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+     * @return url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
      * 
      * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
      * 
@@ -116,7 +116,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param caBundle `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
+         * @param caBundle caBundle is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
          * 
          * @return builder
          * 
@@ -127,7 +127,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param caBundle `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
+         * @param caBundle caBundle is a PEM encoded CA bundle which will be used to validate the webhook&#39;s server certificate. If unspecified, system trust roots on the apiserver are used.
          * 
          * @return builder
          * 
@@ -137,7 +137,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param service `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+         * @param service service is a reference to the service for this webhook. Either `service` or `url` must be specified.
          * 
          * If the webhook is running within the cluster, then you should use `service`.
          * 
@@ -150,7 +150,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param service `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+         * @param service service is a reference to the service for this webhook. Either `service` or `url` must be specified.
          * 
          * If the webhook is running within the cluster, then you should use `service`.
          * 
@@ -162,7 +162,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param url `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+         * @param url url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
          * 
          * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
          * 
@@ -183,7 +183,7 @@ public final class WebhookClientConfigArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param url `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+         * @param url url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
          * 
          * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
          * 

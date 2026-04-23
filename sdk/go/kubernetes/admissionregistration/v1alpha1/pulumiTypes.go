@@ -1711,7 +1711,7 @@ func (o JSONPatchPatchPtrOutput) Expression() pulumi.StringPtrOutput {
 }
 
 type MatchCondition struct {
-	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
 	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1721,7 +1721,7 @@ type MatchCondition struct {
 	//
 	// Required.
 	Expression string `pulumi:"expression"`
-	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 	//
 	// Required.
 	Name string `pulumi:"name"`
@@ -1739,7 +1739,7 @@ type MatchConditionInput interface {
 }
 
 type MatchConditionArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
 	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1749,7 +1749,7 @@ type MatchConditionArgs struct {
 	//
 	// Required.
 	Expression pulumi.StringInput `pulumi:"expression"`
-	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 	//
 	// Required.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -1806,7 +1806,7 @@ func (o MatchConditionOutput) ToMatchConditionOutputWithContext(ctx context.Cont
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 //
 // 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 //
@@ -1823,7 +1823,7 @@ func (o MatchConditionOutput) Expression() pulumi.StringOutput {
 	return o.ApplyT(func(v MatchCondition) string { return v.Expression }).(pulumi.StringOutput)
 }
 
-// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 //
 // Required.
 func (o MatchConditionOutput) Name() pulumi.StringOutput {
@@ -1851,7 +1851,7 @@ func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput
 }
 
 type MatchConditionPatch struct {
-	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
 	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1861,7 +1861,7 @@ type MatchConditionPatch struct {
 	//
 	// Required.
 	Expression *string `pulumi:"expression"`
-	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 	//
 	// Required.
 	Name *string `pulumi:"name"`
@@ -1879,7 +1879,7 @@ type MatchConditionPatchInput interface {
 }
 
 type MatchConditionPatchArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 	//
 	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1889,7 +1889,7 @@ type MatchConditionPatchArgs struct {
 	//
 	// Required.
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
-	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 	//
 	// Required.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -1946,7 +1946,7 @@ func (o MatchConditionPatchOutput) ToMatchConditionPatchOutputWithContext(ctx co
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+// expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 //
 // 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 //
@@ -1963,7 +1963,7 @@ func (o MatchConditionPatchOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MatchConditionPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
 }
 
-// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+// name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 //
 // Required.
 func (o MatchConditionPatchOutput) Name() pulumi.StringPtrOutput {
@@ -1992,7 +1992,7 @@ func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionP
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResources struct {
-	// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+	// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules []NamedRuleWithOperations `pulumi:"excludeResourceRules"`
 	// matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2002,7 +2002,7 @@ type MatchResources struct {
 	//
 	// Defaults to "Equivalent"
 	MatchPolicy *string `pulumi:"matchPolicy"`
-	// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+	// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 	//
 	// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 	//   "matchExpressions": [
@@ -2034,9 +2034,9 @@ type MatchResources struct {
 	//
 	// Default to the empty LabelSelector, which matches everything.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
-	// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+	// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
-	// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+	// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 	ResourceRules []NamedRuleWithOperations `pulumi:"resourceRules"`
 }
 
@@ -2053,7 +2053,7 @@ type MatchResourcesInput interface {
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResourcesArgs struct {
-	// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+	// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules NamedRuleWithOperationsArrayInput `pulumi:"excludeResourceRules"`
 	// matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2063,7 +2063,7 @@ type MatchResourcesArgs struct {
 	//
 	// Defaults to "Equivalent"
 	MatchPolicy pulumi.StringPtrInput `pulumi:"matchPolicy"`
-	// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+	// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 	//
 	// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 	//   "matchExpressions": [
@@ -2095,9 +2095,9 @@ type MatchResourcesArgs struct {
 	//
 	// Default to the empty LabelSelector, which matches everything.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
-	// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+	// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
-	// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+	// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 	ResourceRules NamedRuleWithOperationsArrayInput `pulumi:"resourceRules"`
 }
 
@@ -2179,7 +2179,7 @@ func (o MatchResourcesOutput) ToMatchResourcesPtrOutputWithContext(ctx context.C
 	}).(MatchResourcesPtrOutput)
 }
 
-// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 func (o MatchResourcesOutput) ExcludeResourceRules() NamedRuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v MatchResources) []NamedRuleWithOperations { return v.ExcludeResourceRules }).(NamedRuleWithOperationsArrayOutput)
 }
@@ -2195,7 +2195,7 @@ func (o MatchResourcesOutput) MatchPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MatchResources) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
 }
 
-// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 //
 //	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 //	  "matchExpressions": [
@@ -2230,12 +2230,12 @@ func (o MatchResourcesOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput 
 	return o.ApplyT(func(v MatchResources) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o MatchResourcesOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v MatchResources) *metav1.LabelSelector { return v.ObjectSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 func (o MatchResourcesOutput) ResourceRules() NamedRuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v MatchResources) []NamedRuleWithOperations { return v.ResourceRules }).(NamedRuleWithOperationsArrayOutput)
 }
@@ -2264,7 +2264,7 @@ func (o MatchResourcesPtrOutput) Elem() MatchResourcesOutput {
 	}).(MatchResourcesOutput)
 }
 
-// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 func (o MatchResourcesPtrOutput) ExcludeResourceRules() NamedRuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v *MatchResources) []NamedRuleWithOperations {
 		if v == nil {
@@ -2290,7 +2290,7 @@ func (o MatchResourcesPtrOutput) MatchPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 //
 //	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 //	  "matchExpressions": [
@@ -2330,7 +2330,7 @@ func (o MatchResourcesPtrOutput) NamespaceSelector() metav1.LabelSelectorPtrOutp
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o MatchResourcesPtrOutput) ObjectSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *MatchResources) *metav1.LabelSelector {
 		if v == nil {
@@ -2340,7 +2340,7 @@ func (o MatchResourcesPtrOutput) ObjectSelector() metav1.LabelSelectorPtrOutput 
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 func (o MatchResourcesPtrOutput) ResourceRules() NamedRuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v *MatchResources) []NamedRuleWithOperations {
 		if v == nil {
@@ -2352,7 +2352,7 @@ func (o MatchResourcesPtrOutput) ResourceRules() NamedRuleWithOperationsArrayOut
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResourcesPatch struct {
-	// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+	// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules []NamedRuleWithOperationsPatch `pulumi:"excludeResourceRules"`
 	// matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2362,7 +2362,7 @@ type MatchResourcesPatch struct {
 	//
 	// Defaults to "Equivalent"
 	MatchPolicy *string `pulumi:"matchPolicy"`
-	// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+	// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 	//
 	// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 	//   "matchExpressions": [
@@ -2394,9 +2394,9 @@ type MatchResourcesPatch struct {
 	//
 	// Default to the empty LabelSelector, which matches everything.
 	NamespaceSelector *metav1.LabelSelectorPatch `pulumi:"namespaceSelector"`
-	// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+	// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 	ObjectSelector *metav1.LabelSelectorPatch `pulumi:"objectSelector"`
-	// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+	// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 	ResourceRules []NamedRuleWithOperationsPatch `pulumi:"resourceRules"`
 }
 
@@ -2413,7 +2413,7 @@ type MatchResourcesPatchInput interface {
 
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResourcesPatchArgs struct {
-	// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+	// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 	ExcludeResourceRules NamedRuleWithOperationsPatchArrayInput `pulumi:"excludeResourceRules"`
 	// matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2423,7 +2423,7 @@ type MatchResourcesPatchArgs struct {
 	//
 	// Defaults to "Equivalent"
 	MatchPolicy pulumi.StringPtrInput `pulumi:"matchPolicy"`
-	// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+	// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 	//
 	// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 	//   "matchExpressions": [
@@ -2455,9 +2455,9 @@ type MatchResourcesPatchArgs struct {
 	//
 	// Default to the empty LabelSelector, which matches everything.
 	NamespaceSelector metav1.LabelSelectorPatchPtrInput `pulumi:"namespaceSelector"`
-	// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+	// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 	ObjectSelector metav1.LabelSelectorPatchPtrInput `pulumi:"objectSelector"`
-	// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+	// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 	ResourceRules NamedRuleWithOperationsPatchArrayInput `pulumi:"resourceRules"`
 }
 
@@ -2539,7 +2539,7 @@ func (o MatchResourcesPatchOutput) ToMatchResourcesPatchPtrOutputWithContext(ctx
 	}).(MatchResourcesPatchPtrOutput)
 }
 
-// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 func (o MatchResourcesPatchOutput) ExcludeResourceRules() NamedRuleWithOperationsPatchArrayOutput {
 	return o.ApplyT(func(v MatchResourcesPatch) []NamedRuleWithOperationsPatch { return v.ExcludeResourceRules }).(NamedRuleWithOperationsPatchArrayOutput)
 }
@@ -2555,7 +2555,7 @@ func (o MatchResourcesPatchOutput) MatchPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MatchResourcesPatch) *string { return v.MatchPolicy }).(pulumi.StringPtrOutput)
 }
 
-// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 //
 //	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 //	  "matchExpressions": [
@@ -2590,12 +2590,12 @@ func (o MatchResourcesPatchOutput) NamespaceSelector() metav1.LabelSelectorPatch
 	return o.ApplyT(func(v MatchResourcesPatch) *metav1.LabelSelectorPatch { return v.NamespaceSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o MatchResourcesPatchOutput) ObjectSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v MatchResourcesPatch) *metav1.LabelSelectorPatch { return v.ObjectSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 func (o MatchResourcesPatchOutput) ResourceRules() NamedRuleWithOperationsPatchArrayOutput {
 	return o.ApplyT(func(v MatchResourcesPatch) []NamedRuleWithOperationsPatch { return v.ResourceRules }).(NamedRuleWithOperationsPatchArrayOutput)
 }
@@ -2624,7 +2624,7 @@ func (o MatchResourcesPatchPtrOutput) Elem() MatchResourcesPatchOutput {
 	}).(MatchResourcesPatchOutput)
 }
 
-// ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+// excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 func (o MatchResourcesPatchPtrOutput) ExcludeResourceRules() NamedRuleWithOperationsPatchArrayOutput {
 	return o.ApplyT(func(v *MatchResourcesPatch) []NamedRuleWithOperationsPatch {
 		if v == nil {
@@ -2650,7 +2650,7 @@ func (o MatchResourcesPatchPtrOutput) MatchPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+// namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 //
 //	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
 //	  "matchExpressions": [
@@ -2690,7 +2690,7 @@ func (o MatchResourcesPatchPtrOutput) NamespaceSelector() metav1.LabelSelectorPa
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+// objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 func (o MatchResourcesPatchPtrOutput) ObjectSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *MatchResourcesPatch) *metav1.LabelSelectorPatch {
 		if v == nil {
@@ -2700,7 +2700,7 @@ func (o MatchResourcesPatchPtrOutput) ObjectSelector() metav1.LabelSelectorPatch
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+// resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
 func (o MatchResourcesPatchPtrOutput) ResourceRules() NamedRuleWithOperationsPatchArrayOutput {
 	return o.ApplyT(func(v *MatchResourcesPatch) []NamedRuleWithOperationsPatch {
 		if v == nil {
@@ -2716,9 +2716,9 @@ type MutatingAdmissionPolicyType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec *MutatingAdmissionPolicySpec `pulumi:"spec"`
 }
 
@@ -2739,9 +2739,9 @@ type MutatingAdmissionPolicyTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec MutatingAdmissionPolicySpecPtrInput `pulumi:"spec"`
 }
 
@@ -2807,12 +2807,12 @@ func (o MutatingAdmissionPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicy.
+// spec defines the desired behavior of the MutatingAdmissionPolicy.
 func (o MutatingAdmissionPolicyTypeOutput) Spec() MutatingAdmissionPolicySpecPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyType) *MutatingAdmissionPolicySpec { return v.Spec }).(MutatingAdmissionPolicySpecPtrOutput)
 }
@@ -2847,9 +2847,9 @@ type MutatingAdmissionPolicyBindingType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec *MutatingAdmissionPolicyBindingSpec `pulumi:"spec"`
 }
 
@@ -2874,9 +2874,9 @@ type MutatingAdmissionPolicyBindingTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec MutatingAdmissionPolicyBindingSpecPtrInput `pulumi:"spec"`
 }
 
@@ -2946,12 +2946,12 @@ func (o MutatingAdmissionPolicyBindingTypeOutput) Kind() pulumi.StringPtrOutput 
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 func (o MutatingAdmissionPolicyBindingTypeOutput) Spec() MutatingAdmissionPolicyBindingSpecPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingType) *MutatingAdmissionPolicyBindingSpec { return v.Spec }).(MutatingAdmissionPolicyBindingSpecPtrOutput)
 }
@@ -2984,7 +2984,7 @@ type MutatingAdmissionPolicyBindingListType struct {
 	Items []MutatingAdmissionPolicyBindingType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -3007,7 +3007,7 @@ type MutatingAdmissionPolicyBindingListTypeArgs struct {
 	Items MutatingAdmissionPolicyBindingTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -3053,7 +3053,7 @@ func (o MutatingAdmissionPolicyBindingListTypeOutput) Kind() pulumi.StringPtrOut
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o MutatingAdmissionPolicyBindingListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
@@ -3068,9 +3068,9 @@ type MutatingAdmissionPolicyBindingPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec *MutatingAdmissionPolicyBindingSpecPatch `pulumi:"spec"`
 }
 
@@ -3095,9 +3095,9 @@ type MutatingAdmissionPolicyBindingPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec MutatingAdmissionPolicyBindingSpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -3142,12 +3142,12 @@ func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Kind() pulumi.StringPtrOu
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 func (o MutatingAdmissionPolicyBindingPatchTypeOutput) Spec() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyBindingPatchType) *MutatingAdmissionPolicyBindingSpecPatch {
 		return v.Spec
@@ -3518,7 +3518,7 @@ type MutatingAdmissionPolicyListType struct {
 	Items []MutatingAdmissionPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -3541,7 +3541,7 @@ type MutatingAdmissionPolicyListTypeArgs struct {
 	Items MutatingAdmissionPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -3587,7 +3587,7 @@ func (o MutatingAdmissionPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o MutatingAdmissionPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
@@ -3598,9 +3598,9 @@ type MutatingAdmissionPolicyPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec *MutatingAdmissionPolicySpecPatch `pulumi:"spec"`
 }
 
@@ -3621,9 +3621,9 @@ type MutatingAdmissionPolicyPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec MutatingAdmissionPolicySpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -3664,12 +3664,12 @@ func (o MutatingAdmissionPolicyPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicy.
+// spec defines the desired behavior of the MutatingAdmissionPolicy.
 func (o MutatingAdmissionPolicyPatchTypeOutput) Spec() MutatingAdmissionPolicySpecPatchPtrOutput {
 	return o.ApplyT(func(v MutatingAdmissionPolicyPatchType) *MutatingAdmissionPolicySpecPatch { return v.Spec }).(MutatingAdmissionPolicySpecPatchPtrOutput)
 }
@@ -4588,15 +4588,15 @@ func (o MutationPatchArrayOutput) Index(i pulumi.IntInput) MutationPatchOutput {
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperations struct {
-	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+	// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
-	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+	// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions []string `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations []string `pulumi:"operations"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.
+	// resources is a list of resources this rule applies to.
 	//
 	// For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 	//
@@ -4621,15 +4621,15 @@ type NamedRuleWithOperationsInput interface {
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperationsArgs struct {
-	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+	// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
-	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+	// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions pulumi.StringArrayInput `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations pulumi.StringArrayInput `pulumi:"operations"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.
+	// resources is a list of resources this rule applies to.
 	//
 	// For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 	//
@@ -4693,27 +4693,27 @@ func (o NamedRuleWithOperationsOutput) ToNamedRuleWithOperationsOutputWithContex
 	return o
 }
 
-// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperations) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
 
-// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsOutput) ApiVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperations) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
 }
 
-// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsOutput) Operations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperations) []string { return v.Operations }).(pulumi.StringArrayOutput)
 }
 
-// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 func (o NamedRuleWithOperationsOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperations) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to.
+// resources is a list of resources this rule applies to.
 //
 // For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 //
@@ -4751,15 +4751,15 @@ func (o NamedRuleWithOperationsArrayOutput) Index(i pulumi.IntInput) NamedRuleWi
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperationsPatch struct {
-	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+	// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
-	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+	// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions []string `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations []string `pulumi:"operations"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.
+	// resources is a list of resources this rule applies to.
 	//
 	// For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 	//
@@ -4784,15 +4784,15 @@ type NamedRuleWithOperationsPatchInput interface {
 
 // NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 type NamedRuleWithOperationsPatchArgs struct {
-	// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+	// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
-	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+	// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions pulumi.StringArrayInput `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 	Operations pulumi.StringArrayInput `pulumi:"operations"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.
+	// resources is a list of resources this rule applies to.
 	//
 	// For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 	//
@@ -4856,27 +4856,27 @@ func (o NamedRuleWithOperationsPatchOutput) ToNamedRuleWithOperationsPatchOutput
 	return o
 }
 
-// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsPatchOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperationsPatch) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
 
-// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsPatchOutput) ApiVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperationsPatch) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
 }
 
-// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 func (o NamedRuleWithOperationsPatchOutput) Operations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperationsPatch) []string { return v.Operations }).(pulumi.StringArrayOutput)
 }
 
-// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 func (o NamedRuleWithOperationsPatchOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NamedRuleWithOperationsPatch) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to.
+// resources is a list of resources this rule applies to.
 //
 // For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 //
@@ -4914,9 +4914,9 @@ func (o NamedRuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) NamedR
 
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKind struct {
-	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+	// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is the API kind the resources belong to. Required.
+	// kind is the API kind the resources belong to. Required.
 	Kind *string `pulumi:"kind"`
 }
 
@@ -4933,9 +4933,9 @@ type ParamKindInput interface {
 
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKindArgs struct {
-	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+	// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is the API kind the resources belong to. Required.
+	// kind is the API kind the resources belong to. Required.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 }
 
@@ -5017,12 +5017,12 @@ func (o ParamKindOutput) ToParamKindPtrOutputWithContext(ctx context.Context) Pa
 	}).(ParamKindPtrOutput)
 }
 
-// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKind) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the API kind the resources belong to. Required.
+// kind is the API kind the resources belong to. Required.
 func (o ParamKindOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKind) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
@@ -5051,7 +5051,7 @@ func (o ParamKindPtrOutput) Elem() ParamKindOutput {
 	}).(ParamKindOutput)
 }
 
-// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamKind) *string {
 		if v == nil {
@@ -5061,7 +5061,7 @@ func (o ParamKindPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind is the API kind the resources belong to. Required.
+// kind is the API kind the resources belong to. Required.
 func (o ParamKindPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamKind) *string {
 		if v == nil {
@@ -5073,9 +5073,9 @@ func (o ParamKindPtrOutput) Kind() pulumi.StringPtrOutput {
 
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKindPatch struct {
-	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+	// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is the API kind the resources belong to. Required.
+	// kind is the API kind the resources belong to. Required.
 	Kind *string `pulumi:"kind"`
 }
 
@@ -5092,9 +5092,9 @@ type ParamKindPatchInput interface {
 
 // ParamKind is a tuple of Group Kind and Version.
 type ParamKindPatchArgs struct {
-	// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+	// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is the API kind the resources belong to. Required.
+	// kind is the API kind the resources belong to. Required.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 }
 
@@ -5176,12 +5176,12 @@ func (o ParamKindPatchOutput) ToParamKindPatchPtrOutputWithContext(ctx context.C
 	}).(ParamKindPatchPtrOutput)
 }
 
-// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindPatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKindPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the API kind the resources belong to. Required.
+// kind is the API kind the resources belong to. Required.
 func (o ParamKindPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamKindPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
@@ -5210,7 +5210,7 @@ func (o ParamKindPatchPtrOutput) Elem() ParamKindPatchOutput {
 	}).(ParamKindPatchOutput)
 }
 
-// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
 func (o ParamKindPatchPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamKindPatch) *string {
 		if v == nil {
@@ -5220,7 +5220,7 @@ func (o ParamKindPatchPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind is the API kind the resources belong to. Required.
+// kind is the API kind the resources belong to. Required.
 func (o ParamKindPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamKindPatch) *string {
 		if v == nil {
@@ -5232,7 +5232,7 @@ func (o ParamKindPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRef struct {
-	// `name` is the name of the resource being referenced.
+	// name is the name of the resource being referenced.
 	//
 	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name *string `pulumi:"name"`
@@ -5244,7 +5244,7 @@ type ParamRef struct {
 	//
 	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace *string `pulumi:"namespace"`
-	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 	//
 	// Allowed values are `Allow` or `Deny` Default to `Deny`
 	ParameterNotFoundAction *string `pulumi:"parameterNotFoundAction"`
@@ -5269,7 +5269,7 @@ type ParamRefInput interface {
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefArgs struct {
-	// `name` is the name of the resource being referenced.
+	// name is the name of the resource being referenced.
 	//
 	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -5281,7 +5281,7 @@ type ParamRefArgs struct {
 	//
 	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 	//
 	// Allowed values are `Allow` or `Deny` Default to `Deny`
 	ParameterNotFoundAction pulumi.StringPtrInput `pulumi:"parameterNotFoundAction"`
@@ -5371,7 +5371,7 @@ func (o ParamRefOutput) ToParamRefPtrOutputWithContext(ctx context.Context) Para
 	}).(ParamRefPtrOutput)
 }
 
-// `name` is the name of the resource being referenced.
+// name is the name of the resource being referenced.
 //
 // `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefOutput) Name() pulumi.StringPtrOutput {
@@ -5389,7 +5389,7 @@ func (o ParamRefOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRef) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 //
 // Allowed values are `Allow` or `Deny` Default to `Deny`
 func (o ParamRefOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
@@ -5429,7 +5429,7 @@ func (o ParamRefPtrOutput) Elem() ParamRefOutput {
 	}).(ParamRefOutput)
 }
 
-// `name` is the name of the resource being referenced.
+// name is the name of the resource being referenced.
 //
 // `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPtrOutput) Name() pulumi.StringPtrOutput {
@@ -5457,7 +5457,7 @@ func (o ParamRefPtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 //
 // Allowed values are `Allow` or `Deny` Default to `Deny`
 func (o ParamRefPtrOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
@@ -5485,7 +5485,7 @@ func (o ParamRefPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatch struct {
-	// `name` is the name of the resource being referenced.
+	// name is the name of the resource being referenced.
 	//
 	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name *string `pulumi:"name"`
@@ -5497,7 +5497,7 @@ type ParamRefPatch struct {
 	//
 	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace *string `pulumi:"namespace"`
-	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 	//
 	// Allowed values are `Allow` or `Deny` Default to `Deny`
 	ParameterNotFoundAction *string `pulumi:"parameterNotFoundAction"`
@@ -5522,7 +5522,7 @@ type ParamRefPatchInput interface {
 
 // ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatchArgs struct {
-	// `name` is the name of the resource being referenced.
+	// name is the name of the resource being referenced.
 	//
 	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -5534,7 +5534,7 @@ type ParamRefPatchArgs struct {
 	//
 	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 	//
 	// Allowed values are `Allow` or `Deny` Default to `Deny`
 	ParameterNotFoundAction pulumi.StringPtrInput `pulumi:"parameterNotFoundAction"`
@@ -5624,7 +5624,7 @@ func (o ParamRefPatchOutput) ToParamRefPatchPtrOutputWithContext(ctx context.Con
 	}).(ParamRefPatchPtrOutput)
 }
 
-// `name` is the name of the resource being referenced.
+// name is the name of the resource being referenced.
 //
 // `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPatchOutput) Name() pulumi.StringPtrOutput {
@@ -5642,7 +5642,7 @@ func (o ParamRefPatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRefPatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 //
 // Allowed values are `Allow` or `Deny` Default to `Deny`
 func (o ParamRefPatchOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
@@ -5682,7 +5682,7 @@ func (o ParamRefPatchPtrOutput) Elem() ParamRefPatchOutput {
 	}).(ParamRefPatchOutput)
 }
 
-// `name` is the name of the resource being referenced.
+// name is the name of the resource being referenced.
 //
 // `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPatchPtrOutput) Name() pulumi.StringPtrOutput {
@@ -5710,7 +5710,7 @@ func (o ParamRefPatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 //
 // Allowed values are `Allow` or `Deny` Default to `Deny`
 func (o ParamRefPatchPtrOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
@@ -8490,9 +8490,9 @@ func (o ValidationPatchArrayOutput) Index(i pulumi.IntInput) ValidationPatchOutp
 
 // Variable is the definition of a variable that is used for composition.
 type Variable struct {
-	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression string `pulumi:"expression"`
-	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 	Name string `pulumi:"name"`
 }
 
@@ -8509,9 +8509,9 @@ type VariableInput interface {
 
 // Variable is the definition of a variable that is used for composition.
 type VariableArgs struct {
-	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression pulumi.StringInput `pulumi:"expression"`
-	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -8567,12 +8567,12 @@ func (o VariableOutput) ToVariableOutputWithContext(ctx context.Context) Variabl
 	return o
 }
 
-// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 func (o VariableOutput) Expression() pulumi.StringOutput {
 	return o.ApplyT(func(v Variable) string { return v.Expression }).(pulumi.StringOutput)
 }
 
-// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 func (o VariableOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v Variable) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -8599,9 +8599,9 @@ func (o VariableArrayOutput) Index(i pulumi.IntInput) VariableOutput {
 
 // Variable is the definition of a variable that is used for composition.
 type VariablePatch struct {
-	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression *string `pulumi:"expression"`
-	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 	Name *string `pulumi:"name"`
 }
 
@@ -8618,9 +8618,9 @@ type VariablePatchInput interface {
 
 // Variable is the definition of a variable that is used for composition.
 type VariablePatchArgs struct {
-	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
-	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -8676,12 +8676,12 @@ func (o VariablePatchOutput) ToVariablePatchOutputWithContext(ctx context.Contex
 	return o
 }
 
-// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
 func (o VariablePatchOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VariablePatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
 func (o VariablePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VariablePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }

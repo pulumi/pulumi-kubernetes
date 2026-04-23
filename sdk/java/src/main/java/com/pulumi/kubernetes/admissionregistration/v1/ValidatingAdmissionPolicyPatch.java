@@ -59,42 +59,42 @@ public class ValidatingAdmissionPolicyPatch extends com.pulumi.resources.CustomR
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     @Export(name="spec", refs={ValidatingAdmissionPolicySpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ ValidatingAdmissionPolicySpecPatch> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     public Output<Optional<ValidatingAdmissionPolicySpecPatch>> spec() {
         return Codegen.optional(this.spec);
     }
     /**
-     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     @Export(name="status", refs={ValidatingAdmissionPolicyStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ ValidatingAdmissionPolicyStatusPatch> status;
 
     /**
-     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * @return status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     public Output<Optional<ValidatingAdmissionPolicyStatusPatch>> status() {

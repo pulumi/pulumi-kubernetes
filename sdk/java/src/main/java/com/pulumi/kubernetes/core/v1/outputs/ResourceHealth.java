@@ -26,6 +26,11 @@ public final class ResourceHealth {
      */
     private @Nullable String health;
     /**
+     * @return Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+     * 
+     */
+    private @Nullable String message;
+    /**
      * @return ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
      * 
      */
@@ -48,6 +53,13 @@ public final class ResourceHealth {
         return Optional.ofNullable(this.health);
     }
     /**
+     * @return Message provides human-readable context for Health (e.g. &#34;ECC error count exceeded threshold&#34;). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+     * 
+     */
+    public Optional<String> message() {
+        return Optional.ofNullable(this.message);
+    }
+    /**
      * @return ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
      * 
      */
@@ -65,11 +77,13 @@ public final class ResourceHealth {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String health;
+        private @Nullable String message;
         private String resourceID;
         public Builder() {}
         public Builder(ResourceHealth defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.health = defaults.health;
+    	      this.message = defaults.message;
     	      this.resourceID = defaults.resourceID;
         }
 
@@ -77,6 +91,12 @@ public final class ResourceHealth {
         public Builder health(@Nullable String health) {
 
             this.health = health;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder message(@Nullable String message) {
+
+            this.message = message;
             return this;
         }
         @CustomType.Setter
@@ -90,6 +110,7 @@ public final class ResourceHealth {
         public ResourceHealth build() {
             final var _resultValue = new ResourceHealth();
             _resultValue.health = health;
+            _resultValue.message = message;
             _resultValue.resourceID = resourceID;
             return _resultValue;
         }

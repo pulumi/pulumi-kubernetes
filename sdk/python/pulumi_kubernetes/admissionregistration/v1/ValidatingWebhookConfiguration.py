@@ -31,8 +31,8 @@ class ValidatingWebhookConfigurationInitArgs:
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]] webhooks: webhooks is a list of webhooks and the affected resources and operations.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
@@ -71,7 +71,7 @@ class ValidatingWebhookConfigurationInitArgs:
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -83,7 +83,7 @@ class ValidatingWebhookConfigurationInitArgs:
     @pulumi.getter
     def webhooks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]]:
         """
-        Webhooks is a list of webhooks and the affected resources and operations.
+        webhooks is a list of webhooks and the affected resources and operations.
         """
         return pulumi.get(self, "webhooks")
 
@@ -111,8 +111,8 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ValidatingWebhookArgs', 'ValidatingWebhookArgsDict']]]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ValidatingWebhookArgs', 'ValidatingWebhookArgsDict']]]] webhooks: webhooks is a list of webhooks and the affected resources and operations.
         """
         ...
     @overload
@@ -206,7 +206,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -214,7 +214,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
     @pulumi.getter
     def webhooks(self) -> pulumi.Output[Sequence['outputs.ValidatingWebhook']]:
         """
-        Webhooks is a list of webhooks and the affected resources and operations.
+        webhooks is a list of webhooks and the affected resources and operations.
         """
         return pulumi.get(self, "webhooks")
 

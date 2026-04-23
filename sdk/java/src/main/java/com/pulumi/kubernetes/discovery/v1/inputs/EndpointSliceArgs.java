@@ -59,15 +59,15 @@ public final class EndpointSliceArgs extends com.pulumi.resources.ResourceArgs {
      * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      * 
      */
-    @Import(name="endpoints", required=true)
-    private Output<List<EndpointArgs>> endpoints;
+    @Import(name="endpoints")
+    private @Nullable Output<List<EndpointArgs>> endpoints;
 
     /**
      * @return endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      * 
      */
-    public Output<List<EndpointArgs>> endpoints() {
-        return this.endpoints;
+    public Optional<Output<List<EndpointArgs>>> endpoints() {
+        return Optional.ofNullable(this.endpoints);
     }
 
     /**
@@ -192,7 +192,7 @@ public final class EndpointSliceArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder endpoints(Output<List<EndpointArgs>> endpoints) {
+        public Builder endpoints(@Nullable Output<List<EndpointArgs>> endpoints) {
             $.endpoints = endpoints;
             return this;
         }
@@ -295,9 +295,6 @@ public final class EndpointSliceArgs extends com.pulumi.resources.ResourceArgs {
                 throw new MissingRequiredPropertyException("EndpointSliceArgs", "addressType");
             }
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            if ($.endpoints == null) {
-                throw new MissingRequiredPropertyException("EndpointSliceArgs", "endpoints");
-            }
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }

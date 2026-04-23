@@ -1787,7 +1787,7 @@ func (o RolePatchTypeOutput) Rules() PolicyRulePatchArrayOutput {
 // RoleRef contains information that points to the role being used
 type RoleRef struct {
 	// APIGroup is the group for the resource being referenced
-	ApiGroup string `pulumi:"apiGroup"`
+	ApiGroup *string `pulumi:"apiGroup"`
 	// Kind is the type of resource being referenced
 	Kind string `pulumi:"kind"`
 	// Name is the name of resource being referenced
@@ -1808,7 +1808,7 @@ type RoleRefInput interface {
 // RoleRef contains information that points to the role being used
 type RoleRefArgs struct {
 	// APIGroup is the group for the resource being referenced
-	ApiGroup pulumi.StringInput `pulumi:"apiGroup"`
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
 	// Kind is the type of resource being referenced
 	Kind pulumi.StringInput `pulumi:"kind"`
 	// Name is the name of resource being referenced
@@ -1843,8 +1843,8 @@ func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOu
 }
 
 // APIGroup is the group for the resource being referenced
-func (o RoleRefOutput) ApiGroup() pulumi.StringOutput {
-	return o.ApplyT(func(v RoleRef) string { return v.ApiGroup }).(pulumi.StringOutput)
+func (o RoleRefOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
 // Kind is the type of resource being referenced

@@ -106,7 +106,7 @@ public final class DeviceRequestPatch {
      * 
      * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     private @Nullable List<DeviceTolerationPatch> tolerations;
@@ -216,7 +216,7 @@ public final class DeviceRequestPatch {
      * 
      * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public List<DeviceTolerationPatch> tolerations() {

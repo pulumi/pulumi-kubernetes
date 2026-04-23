@@ -55,28 +55,28 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
         return this.kind;
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
     @Export(name="spec", refs={ValidatingAdmissionPolicyBindingSpec.class}, tree="[0]")
     private Output<ValidatingAdmissionPolicyBindingSpec> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
     public Output<ValidatingAdmissionPolicyBindingSpec> spec() {
@@ -95,7 +95,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingAdmissionPolicyBinding(java.lang.String name, @Nullable ValidatingAdmissionPolicyBindingArgs args) {
+    public ValidatingAdmissionPolicyBinding(java.lang.String name, ValidatingAdmissionPolicyBindingArgs args) {
         this(name, args, null);
     }
     /**
@@ -104,7 +104,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingAdmissionPolicyBinding(java.lang.String name, @Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ValidatingAdmissionPolicyBinding(java.lang.String name, ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -112,7 +112,7 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
         super("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBinding", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static ValidatingAdmissionPolicyBindingArgs makeArgs(@Nullable ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static ValidatingAdmissionPolicyBindingArgs makeArgs(ValidatingAdmissionPolicyBindingArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

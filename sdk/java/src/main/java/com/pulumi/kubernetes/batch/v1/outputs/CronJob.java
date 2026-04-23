@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.batch.v1.outputs.CronJobSpec;
 import com.pulumi.kubernetes.batch.v1.outputs.CronJobStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class CronJob {
      * @return Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable CronJobSpec spec;
+    private CronJobSpec spec;
     /**
      * @return Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
@@ -66,8 +67,8 @@ public final class CronJob {
      * @return Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<CronJobSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public CronJobSpec spec() {
+        return this.spec;
     }
     /**
      * @return Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -89,7 +90,7 @@ public final class CronJob {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable CronJobSpec spec;
+        private CronJobSpec spec;
         private @Nullable CronJobStatus status;
         public Builder() {}
         public Builder(CronJob defaults) {
@@ -120,8 +121,10 @@ public final class CronJob {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable CronJobSpec spec) {
-
+        public Builder spec(CronJobSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("CronJob", "spec");
+            }
             this.spec = spec;
             return this;
         }

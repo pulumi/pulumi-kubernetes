@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.MatchResourcesArgs;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.ParamRefArgs;
 import java.lang.String;
@@ -23,14 +24,14 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
     public static final ValidatingAdmissionPolicyBindingSpecArgs Empty = new ValidatingAdmissionPolicyBindingSpecArgs();
 
     /**
-     * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     @Import(name="matchResources")
     private @Nullable Output<MatchResourcesArgs> matchResources;
 
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     public Optional<Output<MatchResourcesArgs>> matchResources() {
@@ -53,18 +54,18 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
     }
 
     /**
-     * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
-    @Import(name="policyName")
-    private @Nullable Output<String> policyName;
+    @Import(name="policyName", required=true)
+    private Output<String> policyName;
 
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
-    public Optional<Output<String>> policyName() {
-        return Optional.ofNullable(this.policyName);
+    public Output<String> policyName() {
+        return this.policyName;
     }
 
     /**
@@ -89,8 +90,8 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
      * Required.
      * 
      */
-    @Import(name="validationActions")
-    private @Nullable Output<List<String>> validationActions;
+    @Import(name="validationActions", required=true)
+    private Output<List<String>> validationActions;
 
     /**
      * @return validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
@@ -114,8 +115,8 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
      * Required.
      * 
      */
-    public Optional<Output<List<String>>> validationActions() {
-        return Optional.ofNullable(this.validationActions);
+    public Output<List<String>> validationActions() {
+        return this.validationActions;
     }
 
     private ValidatingAdmissionPolicyBindingSpecArgs() {}
@@ -146,7 +147,7 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
         }
 
         /**
-         * @param matchResources MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+         * @param matchResources matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
          * 
          * @return builder
          * 
@@ -157,7 +158,7 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
         }
 
         /**
-         * @param matchResources MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+         * @param matchResources matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
          * 
          * @return builder
          * 
@@ -188,18 +189,18 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
         }
 
         /**
-         * @param policyName PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+         * @param policyName policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
          * 
          * @return builder
          * 
          */
-        public Builder policyName(@Nullable Output<String> policyName) {
+        public Builder policyName(Output<String> policyName) {
             $.policyName = policyName;
             return this;
         }
 
         /**
-         * @param policyName PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+         * @param policyName policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
          * 
          * @return builder
          * 
@@ -232,7 +233,7 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
          * @return builder
          * 
          */
-        public Builder validationActions(@Nullable Output<List<String>> validationActions) {
+        public Builder validationActions(Output<List<String>> validationActions) {
             $.validationActions = validationActions;
             return this;
         }
@@ -294,6 +295,12 @@ public final class ValidatingAdmissionPolicyBindingSpecArgs extends com.pulumi.r
         }
 
         public ValidatingAdmissionPolicyBindingSpecArgs build() {
+            if ($.policyName == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingSpecArgs", "policyName");
+            }
+            if ($.validationActions == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingSpecArgs", "validationActions");
+            }
             return $;
         }
     }

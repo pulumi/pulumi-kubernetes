@@ -11,6 +11,80 @@ import * as utilities from "../utilities";
 export namespace admissionregistration {
     export namespace v1 {
         /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfiguration {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
+         * ApplyConfiguration defines the desired configuration values of an object.
+         */
+        export interface ApplyConfigurationPatch {
+            /**
+             * expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
+             *
+             * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
+             *
+             * 	Object{
+             * 	  spec: Object.spec{
+             * 	    serviceAccountName: "example"
+             * 	  }
+             * 	}
+             *
+             * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
+             *
+             * CEL expressions have access to the object types needed to create apply configurations:
+             *
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
          * AuditAnnotation describes how to produce an audit annotation for an API request.
          */
         export interface AuditAnnotation {
@@ -63,11 +137,11 @@ export namespace admissionregistration {
          */
         export interface ExpressionWarning {
             /**
-             * The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+             * fieldRef is the path to the field that refers to the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
              */
             fieldRef: string;
             /**
-             * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+             * warning contains the content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
              */
             warning: string;
         }
@@ -77,13 +151,139 @@ export namespace admissionregistration {
          */
         export interface ExpressionWarningPatch {
             /**
-             * The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+             * fieldRef is the path to the field that refers to the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
              */
             fieldRef: string;
             /**
-             * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+             * warning contains the content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
              */
             warning: string;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
+        }
+
+        /**
+         * JSONPatch defines a JSON Patch.
+         */
+        export interface JSONPatchPatch {
+            /**
+             * expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
+             *
+             * expression must return an array of JSONPatch values.
+             *
+             * For example, this CEL expression returns a JSON patch to conditionally modify a value:
+             *
+             * 	  [
+             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             * 	  ]
+             *
+             * To define an object for the patch value, use Object types. For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/spec/selector",
+             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             * 	    }
+             * 	  ]
+             *
+             * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
+             *
+             * 	  [
+             * 	    JSONPatch{
+             * 	      op: "add",
+             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             * 	      value: "test"
+             * 	    },
+             * 	  ]
+             *
+             * CEL expressions have access to the types needed to create JSON patches and objects:
+             *
+             * - 'JSONPatch' - CEL type of JSON Patch operations. JSONPatch has the fields 'op', 'from', 'path' and 'value'.
+             *   See [JSON patch](https://jsonpatch.com/) for more details. The 'value' field may be set to any of: string,
+             *   integer, array, map or object.  If set, the 'path' and 'from' fields must be set to a
+             *   [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string, where the 'jsonpatch.escapeKey()' CEL
+             *   function may be used to escape path keys containing '/' and '~'.
+             * - 'Object' - CEL type of the resource object. - 'Object.<fieldName>' - CEL type of object field (such as 'Object.spec') - 'Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as 'Object.spec.containers')
+             *
+             * CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables:
+             *
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+             *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+             * - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             *
+             * CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries) as well as:
+             *
+             * - 'jsonpatch.escapeKey' - Performs JSONPatch key escaping. '~' and  '/' are escaped as '~0' and `~1' respectively).
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Required.
+             */
+            expression: string;
         }
 
         /**
@@ -91,7 +291,7 @@ export namespace admissionregistration {
          */
         export interface MatchCondition {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -103,7 +303,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -115,7 +315,7 @@ export namespace admissionregistration {
          */
         export interface MatchConditionPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -127,7 +327,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -139,7 +339,7 @@ export namespace admissionregistration {
          */
         export interface MatchResources {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1.NamedRuleWithOperations[];
             /**
@@ -153,7 +353,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -187,11 +387,11 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1.NamedRuleWithOperations[];
         }
@@ -201,7 +401,7 @@ export namespace admissionregistration {
          */
         export interface MatchResourcesPatch {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1.NamedRuleWithOperationsPatch[];
             /**
@@ -215,7 +415,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -249,13 +449,207 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1.NamedRuleWithOperationsPatch[];
+        }
+
+        /**
+         * MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+         */
+        export interface MutatingAdmissionPolicy {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "admissionregistration.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "MutatingAdmissionPolicy";
+            /**
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the desired behavior of the MutatingAdmissionPolicy.
+             */
+            spec: outputs.admissionregistration.v1.MutatingAdmissionPolicySpec;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+         *
+         * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+         *
+         * Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+         */
+        export interface MutatingAdmissionPolicyBinding {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "admissionregistration.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "MutatingAdmissionPolicyBinding";
+            /**
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
+             */
+            spec: outputs.admissionregistration.v1.MutatingAdmissionPolicyBindingSpec;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec defines the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpec {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources: outputs.admissionregistration.v1.MatchResources;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef: outputs.admissionregistration.v1.ParamRef;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName: string;
+        }
+
+        /**
+         * MutatingAdmissionPolicyBindingSpec defines the specification of the MutatingAdmissionPolicyBinding.
+         */
+        export interface MutatingAdmissionPolicyBindingSpecPatch {
+            /**
+             * matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
+             */
+            matchResources: outputs.admissionregistration.v1.MatchResourcesPatch;
+            /**
+             * paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
+             */
+            paramRef: outputs.admissionregistration.v1.ParamRefPatch;
+            /**
+             * policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName: string;
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec defines the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpec {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy: string;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchCondition[];
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints: outputs.admissionregistration.v1.MatchResources;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations: outputs.admissionregistration.v1.Mutation[];
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind: outputs.admissionregistration.v1.ParamKind;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy: string;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables: outputs.admissionregistration.v1.Variable[];
+        }
+
+        /**
+         * MutatingAdmissionPolicySpec defines the desired behavior of the admission policy.
+         */
+        export interface MutatingAdmissionPolicySpecPatch {
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if paramKind refers to a non-existent Kind. A binding is invalid if paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy: string;
+            /**
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchConditionPatch[];
+            /**
+             * matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
+             */
+            matchConstraints: outputs.admissionregistration.v1.MatchResourcesPatch;
+            /**
+             * mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
+             */
+            mutations: outputs.admissionregistration.v1.MutationPatch[];
+            /**
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind: outputs.admissionregistration.v1.ParamKindPatch;
+            /**
+             * reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+             *
+             * Never: These mutations will not be called more than once per binding in a single admission evaluation.
+             *
+             * IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
+             */
+            reinvocationPolicy: string;
+            /**
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
+             *
+             * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
+             */
+            variables: outputs.admissionregistration.v1.VariablePatch[];
         }
 
         /**
@@ -263,19 +657,19 @@ export namespace admissionregistration {
          */
         export interface MutatingWebhook {
             /**
-             * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+             * admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
              */
             admissionReviewVersions: string[];
             /**
-             * ClientConfig defines how to communicate with the hook. Required
+             * clientConfig defines how to communicate with the hook. Required
              */
             clientConfig: outputs.admissionregistration.v1.WebhookClientConfig;
             /**
-             * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+             * failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * The exact matching logic is (in order):
              *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
@@ -296,11 +690,11 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
+             * name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
              */
             name: string;
             /**
-             * NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+             * namespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -334,7 +728,7 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelector;
             /**
@@ -348,15 +742,15 @@ export namespace admissionregistration {
              */
             reinvocationPolicy: string;
             /**
-             * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+             * rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
             rules: outputs.admissionregistration.v1.RuleWithOperations[];
             /**
-             * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+             * sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
             sideEffects: string;
             /**
-             * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+             * timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds: number;
         }
@@ -374,11 +768,11 @@ export namespace admissionregistration {
              */
             kind: "MutatingWebhookConfiguration";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Webhooks is a list of webhooks and the affected resources and operations.
+             * webhooks is a list of webhooks and the affected resources and operations.
              */
             webhooks: outputs.admissionregistration.v1.MutatingWebhook[];
         }
@@ -388,19 +782,19 @@ export namespace admissionregistration {
          */
         export interface MutatingWebhookPatch {
             /**
-             * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+             * admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
              */
             admissionReviewVersions: string[];
             /**
-             * ClientConfig defines how to communicate with the hook. Required
+             * clientConfig defines how to communicate with the hook. Required
              */
             clientConfig: outputs.admissionregistration.v1.WebhookClientConfigPatch;
             /**
-             * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+             * failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * The exact matching logic is (in order):
              *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
@@ -421,11 +815,11 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
+             * name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
              */
             name: string;
             /**
-             * NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+             * namespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -459,7 +853,7 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
@@ -473,17 +867,53 @@ export namespace admissionregistration {
              */
             reinvocationPolicy: string;
             /**
-             * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+             * rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
             rules: outputs.admissionregistration.v1.RuleWithOperationsPatch[];
             /**
-             * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+             * sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
             sideEffects: string;
             /**
-             * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+             * timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds: number;
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface Mutation {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration: outputs.admissionregistration.v1.ApplyConfiguration;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch: outputs.admissionregistration.v1.JSONPatch;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType: string;
+        }
+
+        /**
+         * Mutation specifies the CEL expression which is used to apply the Mutation.
+         */
+        export interface MutationPatch {
+            /**
+             * applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
+             */
+            applyConfiguration: outputs.admissionregistration.v1.ApplyConfigurationPatch;
+            /**
+             * jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
+             */
+            jsonPatch: outputs.admissionregistration.v1.JSONPatchPatch;
+            /**
+             * patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+             */
+            patchType: string;
         }
 
         /**
@@ -491,23 +921,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperations {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -527,23 +957,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperationsPatch {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -563,11 +993,11 @@ export namespace admissionregistration {
          */
         export interface ParamKind {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -577,11 +1007,11 @@ export namespace admissionregistration {
          */
         export interface ParamKindPatch {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -609,7 +1039,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny`
              *
@@ -649,7 +1079,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny`
              *
@@ -671,19 +1101,19 @@ export namespace admissionregistration {
          */
         export interface RuleWithOperations {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -703,19 +1133,19 @@ export namespace admissionregistration {
          */
         export interface RuleWithOperationsPatch {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -735,19 +1165,19 @@ export namespace admissionregistration {
          */
         export interface ServiceReference {
             /**
-             * `name` is the name of the service. Required
+             * name is the name of the service. Required
              */
             name: string;
             /**
-             * `namespace` is the namespace of the service. Required
+             * namespace is the namespace of the service. Required
              */
             namespace: string;
             /**
-             * `path` is an optional URL path which will be sent in any request to this service.
+             * path is an optional URL path which will be sent in any request to this service.
              */
             path: string;
             /**
-             * If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+             * port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
              */
             port: number;
         }
@@ -757,19 +1187,19 @@ export namespace admissionregistration {
          */
         export interface ServiceReferencePatch {
             /**
-             * `name` is the name of the service. Required
+             * name is the name of the service. Required
              */
             name: string;
             /**
-             * `namespace` is the namespace of the service. Required
+             * namespace is the namespace of the service. Required
              */
             namespace: string;
             /**
-             * `path` is an optional URL path which will be sent in any request to this service.
+             * path is an optional URL path which will be sent in any request to this service.
              */
             path: string;
             /**
-             * If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+             * port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
              */
             port: number;
         }
@@ -779,7 +1209,7 @@ export namespace admissionregistration {
          */
         export interface TypeChecking {
             /**
-             * The type checking warnings for each expression.
+             * expressionWarnings contains the type checking warnings for each expression.
              */
             expressionWarnings: outputs.admissionregistration.v1.ExpressionWarning[];
         }
@@ -789,7 +1219,7 @@ export namespace admissionregistration {
          */
         export interface TypeCheckingPatch {
             /**
-             * The type checking warnings for each expression.
+             * expressionWarnings contains the type checking warnings for each expression.
              */
             expressionWarnings: outputs.admissionregistration.v1.ExpressionWarningPatch[];
         }
@@ -807,15 +1237,15 @@ export namespace admissionregistration {
              */
             kind: "ValidatingAdmissionPolicy";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+             * spec defines the desired behavior of the ValidatingAdmissionPolicy.
              */
             spec: outputs.admissionregistration.v1.ValidatingAdmissionPolicySpec;
             /**
-             * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+             * status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
              */
             status: outputs.admissionregistration.v1.ValidatingAdmissionPolicyStatus;
         }
@@ -837,11 +1267,11 @@ export namespace admissionregistration {
              */
             kind: "ValidatingAdmissionPolicyBinding";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+             * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
              */
             spec: outputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpec;
         }
@@ -851,7 +1281,7 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicyBindingSpec {
             /**
-             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             * matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
              */
             matchResources: outputs.admissionregistration.v1.MatchResources;
             /**
@@ -859,7 +1289,7 @@ export namespace admissionregistration {
              */
             paramRef: outputs.admissionregistration.v1.ParamRef;
             /**
-             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             * policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
              */
             policyName: string;
             /**
@@ -891,7 +1321,7 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicyBindingSpecPatch {
             /**
-             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             * matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
              */
             matchResources: outputs.admissionregistration.v1.MatchResourcesPatch;
             /**
@@ -899,7 +1329,7 @@ export namespace admissionregistration {
              */
             paramRef: outputs.admissionregistration.v1.ParamRefPatch;
             /**
-             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             * policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
              */
             policyName: string;
             /**
@@ -947,7 +1377,7 @@ export namespace admissionregistration {
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
              *
@@ -960,19 +1390,19 @@ export namespace admissionregistration {
              */
             matchConditions: outputs.admissionregistration.v1.MatchCondition[];
             /**
-             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             * matchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
              */
             matchConstraints: outputs.admissionregistration.v1.MatchResources;
             /**
-             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
              */
             paramKind: outputs.admissionregistration.v1.ParamKind;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             * validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
              */
             validations: outputs.admissionregistration.v1.Validation[];
             /**
-             * Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
              *
              * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
              */
@@ -1000,7 +1430,7 @@ export namespace admissionregistration {
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
              *
@@ -1013,19 +1443,19 @@ export namespace admissionregistration {
              */
             matchConditions: outputs.admissionregistration.v1.MatchConditionPatch[];
             /**
-             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             * matchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
              */
             matchConstraints: outputs.admissionregistration.v1.MatchResourcesPatch;
             /**
-             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             * paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
              */
             paramKind: outputs.admissionregistration.v1.ParamKindPatch;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+             * validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
              */
             validations: outputs.admissionregistration.v1.ValidationPatch[];
             /**
-             * Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+             * variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
              *
              * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
              */
@@ -1037,15 +1467,15 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicyStatus {
             /**
-             * The conditions represent the latest available observations of a policy's current state.
+             * conditions represent the latest available observations of a policy's current state.
              */
             conditions: outputs.meta.v1.Condition[];
             /**
-             * The generation observed by the controller.
+             * observedGeneration is the generation observed by the controller.
              */
             observedGeneration: number;
             /**
-             * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+             * typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
              */
             typeChecking: outputs.admissionregistration.v1.TypeChecking;
         }
@@ -1055,15 +1485,15 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicyStatusPatch {
             /**
-             * The conditions represent the latest available observations of a policy's current state.
+             * conditions represent the latest available observations of a policy's current state.
              */
             conditions: outputs.meta.v1.ConditionPatch[];
             /**
-             * The generation observed by the controller.
+             * observedGeneration is the generation observed by the controller.
              */
             observedGeneration: number;
             /**
-             * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+             * typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
              */
             typeChecking: outputs.admissionregistration.v1.TypeCheckingPatch;
         }
@@ -1073,19 +1503,19 @@ export namespace admissionregistration {
          */
         export interface ValidatingWebhook {
             /**
-             * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+             * admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
              */
             admissionReviewVersions: string[];
             /**
-             * ClientConfig defines how to communicate with the hook. Required
+             * clientConfig defines how to communicate with the hook. Required
              */
             clientConfig: outputs.admissionregistration.v1.WebhookClientConfig;
             /**
-             * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+             * failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * The exact matching logic is (in order):
              *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
@@ -1106,11 +1536,11 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
+             * name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
              */
             name: string;
             /**
-             * NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+             * namespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -1144,19 +1574,19 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelector;
             /**
-             * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+             * rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
             rules: outputs.admissionregistration.v1.RuleWithOperations[];
             /**
-             * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+             * sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
             sideEffects: string;
             /**
-             * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+             * timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds: number;
         }
@@ -1174,11 +1604,11 @@ export namespace admissionregistration {
              */
             kind: "ValidatingWebhookConfiguration";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Webhooks is a list of webhooks and the affected resources and operations.
+             * webhooks is a list of webhooks and the affected resources and operations.
              */
             webhooks: outputs.admissionregistration.v1.ValidatingWebhook[];
         }
@@ -1188,19 +1618,19 @@ export namespace admissionregistration {
          */
         export interface ValidatingWebhookPatch {
             /**
-             * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+             * admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
              */
             admissionReviewVersions: string[];
             /**
-             * ClientConfig defines how to communicate with the hook. Required
+             * clientConfig defines how to communicate with the hook. Required
              */
             clientConfig: outputs.admissionregistration.v1.WebhookClientConfigPatch;
             /**
-             * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+             * failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
             /**
-             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             * matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
              *
              * The exact matching logic is (in order):
              *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
@@ -1221,11 +1651,11 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
+             * name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
              */
             name: string;
             /**
-             * NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
+             * namespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -1259,19 +1689,19 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ObjectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the webhook based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+             * rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
              */
             rules: outputs.admissionregistration.v1.RuleWithOperationsPatch[];
             /**
-             * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+             * sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
              */
             sideEffects: string;
             /**
-             * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+             * timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
              */
             timeoutSeconds: number;
         }
@@ -1281,7 +1711,7 @@ export namespace admissionregistration {
          */
         export interface Validation {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             * expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
              *
              * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
              *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
@@ -1310,7 +1740,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             * message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
              */
             message: string;
             /**
@@ -1318,7 +1748,7 @@ export namespace admissionregistration {
              */
             messageExpression: string;
             /**
-             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             * reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
              */
             reason: string;
         }
@@ -1328,7 +1758,7 @@ export namespace admissionregistration {
          */
         export interface ValidationPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+             * expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
              *
              * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
              *   For example, a variable named 'foo' can be accessed as 'variables.foo'.
@@ -1357,7 +1787,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             * message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
              */
             message: string;
             /**
@@ -1365,7 +1795,7 @@ export namespace admissionregistration {
              */
             messageExpression: string;
             /**
-             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             * reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
              */
             reason: string;
         }
@@ -1375,11 +1805,11 @@ export namespace admissionregistration {
          */
         export interface Variable {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -1389,11 +1819,11 @@ export namespace admissionregistration {
          */
         export interface VariablePatch {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -1403,17 +1833,17 @@ export namespace admissionregistration {
          */
         export interface WebhookClientConfig {
             /**
-             * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+             * caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
              */
             caBundle: string;
             /**
-             * `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+             * service is a reference to the service for this webhook. Either `service` or `url` must be specified.
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
             service: outputs.admissionregistration.v1.ServiceReference;
             /**
-             * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+             * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
              * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
              *
@@ -1433,17 +1863,17 @@ export namespace admissionregistration {
          */
         export interface WebhookClientConfigPatch {
             /**
-             * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+             * caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
              */
             caBundle: string;
             /**
-             * `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
+             * service is a reference to the service for this webhook. Either `service` or `url` must be specified.
              *
              * If the webhook is running within the cluster, then you should use `service`.
              */
             service: outputs.admissionregistration.v1.ServiceReferencePatch;
             /**
-             * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+             * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
              *
              * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
              *
@@ -1739,7 +2169,7 @@ export namespace admissionregistration {
 
         export interface MatchCondition {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1751,7 +2181,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -1760,7 +2190,7 @@ export namespace admissionregistration {
 
         export interface MatchConditionPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1772,7 +2202,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -1784,7 +2214,7 @@ export namespace admissionregistration {
          */
         export interface MatchResources {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1alpha1.NamedRuleWithOperations[];
             /**
@@ -1798,7 +2228,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -1832,11 +2262,11 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1alpha1.NamedRuleWithOperations[];
         }
@@ -1846,7 +2276,7 @@ export namespace admissionregistration {
          */
         export interface MatchResourcesPatch {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1alpha1.NamedRuleWithOperationsPatch[];
             /**
@@ -1860,7 +2290,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -1894,11 +2324,11 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1alpha1.NamedRuleWithOperationsPatch[];
         }
@@ -1916,11 +2346,11 @@ export namespace admissionregistration {
              */
             kind: "MutatingAdmissionPolicy";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the MutatingAdmissionPolicy.
+             * spec defines the desired behavior of the MutatingAdmissionPolicy.
              */
             spec: outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicySpec;
         }
@@ -1942,11 +2372,11 @@ export namespace admissionregistration {
              */
             kind: "MutatingAdmissionPolicyBinding";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+             * spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
              */
             spec: outputs.admissionregistration.v1alpha1.MutatingAdmissionPolicyBindingSpec;
         }
@@ -2138,23 +2568,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperations {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -2174,23 +2604,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperationsPatch {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -2210,11 +2640,11 @@ export namespace admissionregistration {
          */
         export interface ParamKind {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -2224,11 +2654,11 @@ export namespace admissionregistration {
          */
         export interface ParamKindPatch {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -2238,7 +2668,7 @@ export namespace admissionregistration {
          */
         export interface ParamRef {
             /**
-             * `name` is the name of the resource being referenced.
+             * name is the name of the resource being referenced.
              *
              * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
              */
@@ -2254,7 +2684,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny` Default to `Deny`
              */
@@ -2274,7 +2704,7 @@ export namespace admissionregistration {
          */
         export interface ParamRefPatch {
             /**
-             * `name` is the name of the resource being referenced.
+             * name is the name of the resource being referenced.
              *
              * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
              */
@@ -2290,7 +2720,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny` Default to `Deny`
              */
@@ -2668,11 +3098,11 @@ export namespace admissionregistration {
          */
         export interface Variable {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -2682,11 +3112,11 @@ export namespace admissionregistration {
          */
         export interface VariablePatch {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -2975,7 +3405,7 @@ export namespace admissionregistration {
          */
         export interface MatchCondition {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -2987,7 +3417,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -2999,7 +3429,7 @@ export namespace admissionregistration {
          */
         export interface MatchConditionPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
              *
              * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
              *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -3011,7 +3441,7 @@ export namespace admissionregistration {
              */
             expression: string;
             /**
-             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
              *
              * Required.
              */
@@ -3023,7 +3453,7 @@ export namespace admissionregistration {
          */
         export interface MatchResources {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1beta1.NamedRuleWithOperations[];
             /**
@@ -3037,7 +3467,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -3071,11 +3501,11 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelector;
             /**
-             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1beta1.NamedRuleWithOperations[];
         }
@@ -3085,7 +3515,7 @@ export namespace admissionregistration {
          */
         export interface MatchResourcesPatch {
             /**
-             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             * excludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
              */
             excludeResourceRules: outputs.admissionregistration.v1beta1.NamedRuleWithOperationsPatch[];
             /**
@@ -3099,7 +3529,7 @@ export namespace admissionregistration {
              */
             matchPolicy: string;
             /**
-             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             * namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
              *
              * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
              *   "matchExpressions": [
@@ -3133,11 +3563,11 @@ export namespace admissionregistration {
              */
             namespaceSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             * objectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
              */
             objectSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             * resourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
              */
             resourceRules: outputs.admissionregistration.v1beta1.NamedRuleWithOperationsPatch[];
         }
@@ -3155,11 +3585,11 @@ export namespace admissionregistration {
              */
             kind: "MutatingAdmissionPolicy";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the MutatingAdmissionPolicy.
+             * spec defines the desired behavior of the MutatingAdmissionPolicy.
              */
             spec: outputs.admissionregistration.v1beta1.MutatingAdmissionPolicySpec;
         }
@@ -3181,11 +3611,11 @@ export namespace admissionregistration {
              */
             kind: "MutatingAdmissionPolicyBinding";
             /**
-             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+             * spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
              */
             spec: outputs.admissionregistration.v1beta1.MutatingAdmissionPolicyBindingSpec;
         }
@@ -3583,23 +4013,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperations {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -3619,23 +4049,23 @@ export namespace admissionregistration {
          */
         export interface NamedRuleWithOperationsPatch {
             /**
-             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
              */
             apiGroups: string[];
             /**
-             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
              */
             apiVersions: string[];
             /**
-             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
              */
             operations: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to.
+             * resources is a list of resources this rule applies to.
              *
              * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
              *
@@ -3655,11 +4085,11 @@ export namespace admissionregistration {
          */
         export interface ParamKind {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -3669,11 +4099,11 @@ export namespace admissionregistration {
          */
         export interface ParamKindPatch {
             /**
-             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
              */
             apiVersion: string;
             /**
-             * Kind is the API kind the resources belong to. Required.
+             * kind is the API kind the resources belong to. Required.
              */
             kind: string;
         }
@@ -3701,7 +4131,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny`
              *
@@ -3741,7 +4171,7 @@ export namespace admissionregistration {
              */
             namespace: string;
             /**
-             * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+             * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
              *
              * Allowed values are `Allow` or `Deny`
              *
@@ -4445,11 +4875,11 @@ export namespace admissionregistration {
          */
         export interface Variable {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -4459,11 +4889,11 @@ export namespace admissionregistration {
          */
         export interface VariablePatch {
             /**
-             * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+             * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
              */
             expression: string;
             /**
-             * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+             * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
              */
             name: string;
         }
@@ -14630,11 +15060,13 @@ export namespace certificates {
              */
             nodeUID: string;
             /**
-             * pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+             * The PKIX-serialized public key the signer will issue the certificate to.
              *
              * The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
              *
              * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             *
+             * Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.  Signer implementations should extract the public key from the StubPKCS10Request field.
              */
             pkixPublicKey: string;
             /**
@@ -14646,7 +15078,7 @@ export namespace certificates {
              */
             podUID: string;
             /**
-             * proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+             * A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
              *
              * It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
              *
@@ -14657,6 +15089,8 @@ export namespace certificates {
              * If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
              *
              * If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+             *
+             * Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.
              */
             proofOfPossession: string;
             /**
@@ -14673,6 +15107,16 @@ export namespace certificates {
              * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
              */
             signerName: string;
+            /**
+             * A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
+             *
+             * Most signer implementations will ignore the contents of the CSR except to extract the subject public key. The API server automatically verifies the CSR signature during admission, so the signer does not need to repeat the verification.  CSRs generated by kubelet are completely empty.
+             *
+             * The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            stubPKCS10Request: string;
             /**
              * unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
              *
@@ -14704,11 +15148,13 @@ export namespace certificates {
              */
             nodeUID: string;
             /**
-             * pkixPublicKey is the PKIX-serialized public key the signer will issue the certificate to.
+             * The PKIX-serialized public key the signer will issue the certificate to.
              *
              * The key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
              *
              * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             *
+             * Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.  Signer implementations should extract the public key from the StubPKCS10Request field.
              */
             pkixPublicKey: string;
             /**
@@ -14720,7 +15166,7 @@ export namespace certificates {
              */
             podUID: string;
             /**
-             * proofOfPossession proves that the requesting kubelet holds the private key corresponding to pkixPublicKey.
+             * A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
              *
              * It is contructed by signing the ASCII bytes of the pod's UID using `pkixPublicKey`.
              *
@@ -14731,6 +15177,8 @@ export namespace certificates {
              * If the key is an ECDSA key, then the signature is as described by [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf) (as implemented by the golang library function crypto/ecdsa.SignASN1)
              *
              * If the key is an ED25519 key, the the signature is as described by the [ED25519 Specification](https://ed25519.cr.yp.to/) (as implemented by the golang library crypto/ed25519.Sign).
+             *
+             * Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.
              */
             proofOfPossession: string;
             /**
@@ -14747,6 +15195,16 @@ export namespace certificates {
              * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
              */
             signerName: string;
+            /**
+             * A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
+             *
+             * Most signer implementations will ignore the contents of the CSR except to extract the subject public key. The API server automatically verifies the CSR signature during admission, so the signer does not need to repeat the verification.  CSRs generated by kubelet are completely empty.
+             *
+             * The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            stubPKCS10Request: string;
             /**
              * unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
              *
@@ -18733,6 +19191,26 @@ export namespace core {
         }
 
         /**
+         * ImageVolumeStatus represents the image-based volume status.
+         */
+        export interface ImageVolumeStatus {
+            /**
+             * ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+             */
+            imageRef: string;
+        }
+
+        /**
+         * ImageVolumeStatus represents the image-based volume status.
+         */
+        export interface ImageVolumeStatusPatch {
+            /**
+             * ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+             */
+            imageRef: string;
+        }
+
+        /**
          * Maps a string key to a path within a volume.
          */
         export interface KeyToPath {
@@ -19386,6 +19864,42 @@ export namespace core {
              * If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
              */
             requiredDuringSchedulingIgnoredDuringExecution: outputs.core.v1.NodeSelectorPatch;
+        }
+
+        /**
+         * NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
+         */
+        export interface NodeAllocatableResourceClaimStatus {
+            /**
+             * Containers lists the names of all containers in this pod that reference the claim.
+             */
+            containers: string[];
+            /**
+             * ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+             */
+            resourceClaimName: string;
+            /**
+             * Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+             */
+            resources: {[key: string]: string};
+        }
+
+        /**
+         * NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
+         */
+        export interface NodeAllocatableResourceClaimStatusPatch {
+            /**
+             * Containers lists the names of all containers in this pod that reference the claim.
+             */
+            containers: string[];
+            /**
+             * ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+             */
+            resourceClaimName: string;
+            /**
+             * Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+             */
+            resources: {[key: string]: string};
         }
 
         /**
@@ -20639,7 +21153,7 @@ export namespace core {
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSource;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSource;
             /**
@@ -20769,7 +21283,7 @@ export namespace core {
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSourcePatch;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSourcePatch;
             /**
@@ -21168,7 +21682,7 @@ export namespace core {
              */
             message: string;
             /**
-             * If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+             * If set, this represents the .metadata.generation that the pod condition was set based upon.
              */
             observedGeneration: number;
             /**
@@ -21202,7 +21716,7 @@ export namespace core {
              */
             message: string;
             /**
-             * If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+             * If set, this represents the .metadata.generation that the pod condition was set based upon.
              */
             observedGeneration: number;
             /**
@@ -21375,6 +21889,8 @@ export namespace core {
          * PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
          *
          * It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+         *
+         * When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
          */
         export interface PodResourceClaim {
             /**
@@ -21392,6 +21908,8 @@ export namespace core {
              *
              * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
              *
+             * When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
+             *
              * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
              *
              * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
@@ -21407,6 +21925,8 @@ export namespace core {
          * PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
          *
          * It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+         *
+         * When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
          */
         export interface PodResourceClaimPatch {
             /**
@@ -21423,6 +21943,8 @@ export namespace core {
              * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
              *
              * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+             *
+             * When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
              *
              * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
              *
@@ -21444,7 +21966,11 @@ export namespace core {
              */
             name: string;
             /**
-             * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+             * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+             *
+             * When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+             *
+             * If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
              */
             resourceClaimName: string;
         }
@@ -21458,7 +21984,11 @@ export namespace core {
              */
             name: string;
             /**
-             * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+             * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+             *
+             * When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+             *
+             * If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
              */
             resourceClaimName: string;
         }
@@ -21481,6 +22011,26 @@ export namespace core {
              * Name of the scheduling gate. Each scheduling gate must have a unique name field.
              */
             name: string;
+        }
+
+        /**
+         * PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+         */
+        export interface PodSchedulingGroup {
+            /**
+             * PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+             */
+            podGroupName: string;
+        }
+
+        /**
+         * PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+         */
+        export interface PodSchedulingGroupPatch {
+            /**
+             * PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+             */
+            podGroupName: string;
         }
 
         /**
@@ -21680,7 +22230,7 @@ export namespace core {
              */
             hostPID: boolean;
             /**
-             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
              */
             hostUsers: boolean;
             /**
@@ -21772,6 +22322,10 @@ export namespace core {
              */
             schedulingGates: outputs.core.v1.PodSchedulingGate[];
             /**
+             * SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+             */
+            schedulingGroup: outputs.core.v1.PodSchedulingGroup;
+            /**
              * SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
              */
             securityContext: outputs.core.v1.PodSecurityContext;
@@ -21811,10 +22365,6 @@ export namespace core {
              * List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
              */
             volumes: outputs.core.v1.Volume[];
-            /**
-             * WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-             */
-            workloadRef: outputs.core.v1.WorkloadReference;
         }
 
         /**
@@ -21870,7 +22420,7 @@ export namespace core {
              */
             hostPID: boolean;
             /**
-             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
              */
             hostUsers: boolean;
             /**
@@ -21962,6 +22512,10 @@ export namespace core {
              */
             schedulingGates: outputs.core.v1.PodSchedulingGatePatch[];
             /**
+             * SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+             */
+            schedulingGroup: outputs.core.v1.PodSchedulingGroupPatch;
+            /**
              * SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
              */
             securityContext: outputs.core.v1.PodSecurityContextPatch;
@@ -22001,10 +22555,6 @@ export namespace core {
              * List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
              */
             volumes: outputs.core.v1.VolumePatch[];
-            /**
-             * WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-             */
-            workloadRef: outputs.core.v1.WorkloadReferencePatch;
         }
 
         /**
@@ -22047,6 +22597,10 @@ export namespace core {
              * A human readable message indicating details about why the pod is in this condition.
              */
             message: string;
+            /**
+             * NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+             */
+            nodeAllocatableResourceClaimStatuses: outputs.core.v1.NodeAllocatableResourceClaimStatus[];
             /**
              * nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
              */
@@ -22137,6 +22691,10 @@ export namespace core {
              * A human readable message indicating details about why the pod is in this condition.
              */
             message: string;
+            /**
+             * NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+             */
+            nodeAllocatableResourceClaimStatuses: outputs.core.v1.NodeAllocatableResourceClaimStatusPatch[];
             /**
              * nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
              */
@@ -22938,6 +23496,10 @@ export namespace core {
              */
             health: string;
             /**
+             * Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+             */
+            message: string;
+            /**
              * ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
              */
             resourceID: string;
@@ -22959,6 +23521,10 @@ export namespace core {
              * In future we may want to introduce the PermanentlyUnhealthy Status.
              */
             health: string;
+            /**
+             * Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+             */
+            message: string;
             /**
              * ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
              */
@@ -23692,7 +24258,7 @@ export namespace core {
              */
             privileged: boolean;
             /**
-             * procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+             * procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
              */
             procMount: string;
             /**
@@ -23746,7 +24312,7 @@ export namespace core {
              */
             privileged: boolean;
             /**
-             * procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+             * procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
              */
             procMount: string;
             /**
@@ -24802,7 +25368,7 @@ export namespace core {
              *
              * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
              *
-             * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+             * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
              */
             image: outputs.core.v1.ImageVolumeSource;
             /**
@@ -24826,7 +25392,7 @@ export namespace core {
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSource;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSource;
             /**
@@ -24991,6 +25557,10 @@ export namespace core {
              * RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
              */
             recursiveReadOnly: string;
+            /**
+             * volumeStatus represents volume-type-specific status about the mounted volume.
+             */
+            volumeStatus: outputs.core.v1.VolumeStatus;
         }
 
         /**
@@ -25013,6 +25583,10 @@ export namespace core {
              * RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
              */
             recursiveReadOnly: string;
+            /**
+             * volumeStatus represents volume-type-specific status about the mounted volume.
+             */
+            volumeStatus: outputs.core.v1.VolumeStatusPatch;
         }
 
         /**
@@ -25125,7 +25699,7 @@ export namespace core {
              *
              * - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
              *
-             * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+             * The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
              */
             image: outputs.core.v1.ImageVolumeSourcePatch;
             /**
@@ -25149,7 +25723,7 @@ export namespace core {
              */
             photonPersistentDisk: outputs.core.v1.PhotonPersistentDiskVolumeSourcePatch;
             /**
-             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+             * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
              */
             portworxVolume: outputs.core.v1.PortworxVolumeSourcePatch;
             /**
@@ -25307,6 +25881,26 @@ export namespace core {
         }
 
         /**
+         * VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.
+         */
+        export interface VolumeStatus {
+            /**
+             * image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+             */
+            image: outputs.core.v1.ImageVolumeStatus;
+        }
+
+        /**
+         * VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.
+         */
+        export interface VolumeStatusPatch {
+            /**
+             * image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+             */
+            image: outputs.core.v1.ImageVolumeStatusPatch;
+        }
+
+        /**
          * Represents a vSphere volume resource.
          */
         export interface VsphereVirtualDiskVolumeSource {
@@ -25420,42 +26014,6 @@ export namespace core {
              * The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
              */
             runAsUserName: string;
-        }
-
-        /**
-         * WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-         */
-        export interface WorkloadReference {
-            /**
-             * Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-             */
-            name: string;
-            /**
-             * PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-             */
-            podGroup: string;
-            /**
-             * PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-             */
-            podGroupReplicaKey: string;
-        }
-
-        /**
-         * WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-         */
-        export interface WorkloadReferencePatch {
-            /**
-             * Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-             */
-            name: string;
-            /**
-             * PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-             */
-            podGroup: string;
-            /**
-             * PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-             */
-            podGroupReplicaKey: string;
         }
 
     }
@@ -31687,6 +32245,12 @@ export namespace meta {
              * Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
              */
             selfLink: string;
+            /**
+             * shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+             *
+             * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+             */
+            shardInfo: outputs.meta.v1.ShardInfo;
         }
 
         /**
@@ -31709,6 +32273,12 @@ export namespace meta {
              * Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
              */
             selfLink: string;
+            /**
+             * shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+             *
+             * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+             */
+            shardInfo: outputs.meta.v1.ShardInfoPatch;
         }
 
         /**
@@ -32005,6 +32575,26 @@ export namespace meta {
              * UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
+        }
+
+        /**
+         * ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+         */
+        export interface ShardInfo {
+            /**
+             * selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+             */
+            selector: string;
+        }
+
+        /**
+         * ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
+         */
+        export interface ShardInfoPatch {
+            /**
+             * selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
+             */
+            selector: string;
         }
 
         /**
@@ -35736,7 +36326,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -35756,7 +36346,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -35804,6 +36394,10 @@ export namespace resource {
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
              *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
+             *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression: string;
@@ -35843,6 +36437,10 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
              *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
@@ -36029,7 +36627,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -36039,13 +36637,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -36067,6 +36665,10 @@ export namespace resource {
              */
             name: string;
             /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1.NodeAllocatableResourceMapping};
+            /**
              * NodeName identifies the node where the device is available.
              *
              * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -36085,7 +36687,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1.DeviceTaint[];
         }
@@ -36171,17 +36773,39 @@ export namespace resource {
              */
             bool: boolean;
             /**
+             * BoolValues is a non-empty list of true/false values.
+             */
+            bools: boolean[];
+            /**
              * IntValue is a number.
              */
             int: number;
+            /**
+             * IntValues is a non-empty list of numbers.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            ints: number[];
             /**
              * StringValue is a string. Must not be longer than 64 characters.
              */
             string: string;
             /**
+             * StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            strings: string[];
+            /**
              * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
              */
             version: string;
+            /**
+             * VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            versions: string[];
         }
 
         /**
@@ -36274,8 +36898,6 @@ export namespace resource {
 
         /**
          * DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
-         *
-         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
          */
         export interface DeviceClass {
             /**
@@ -36333,7 +36955,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -36355,7 +36977,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -36371,6 +36993,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -36382,6 +37006,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as single-element lists for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -36401,6 +37027,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -36412,6 +37040,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as single-element lists for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -36485,7 +37115,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -36495,13 +37125,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -36523,6 +37153,10 @@ export namespace resource {
              */
             name: string;
             /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1.NodeAllocatableResourceMapping};
+            /**
              * NodeName identifies the node where the device is available.
              *
              * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -36541,7 +37175,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1.DeviceTaintPatch[];
         }
@@ -36579,19 +37213,19 @@ export namespace resource {
             /**
              * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
              *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -36633,7 +37267,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceToleration[];
         }
@@ -36645,19 +37279,19 @@ export namespace resource {
             /**
              * AdminAccess indicates that this device was allocated for administrative access. See the corresponding request field for a definition of mode.
              *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -36699,7 +37333,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceTolerationPatch[];
         }
@@ -36811,7 +37445,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceToleration[];
         }
@@ -36877,7 +37511,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceTolerationPatch[];
         }
@@ -36897,7 +37531,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -36921,7 +37557,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -36989,7 +37627,7 @@ export namespace resource {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
              *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
@@ -37042,7 +37680,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceToleration[];
         }
@@ -37054,7 +37692,7 @@ export namespace resource {
             /**
              * AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
              *
-             * This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+             * Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
              */
             adminAccess: boolean;
             /**
@@ -37107,7 +37745,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1.DeviceTolerationPatch[];
         }
@@ -37119,13 +37757,13 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
@@ -37141,19 +37779,47 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
              * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
              */
             ips: string[];
+        }
+
+        /**
+         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         */
+        export interface NodeAllocatableResourceMapping {
+            /**
+             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+             * 	   a. A DRA driver representing each CPU core as a device would have
+             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+             *     b. A GPU device that needs additional node memory per GPU allocation would
+             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+             * 		  GPU device instance of this type will account for 2Gi of memory.
+             *
+             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+             *     and each "core" provides 2 "cpu"s, the mapping would be:
+             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            allocationMultiplier: string;
+            /**
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             */
+            capacityKey: string;
         }
 
         /**
@@ -37198,8 +37864,6 @@ export namespace resource {
 
         /**
          * ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
-         *
-         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
          */
         export interface ResourceClaim {
             /**
@@ -37338,8 +38002,6 @@ export namespace resource {
 
         /**
          * ResourceClaimTemplate is used to produce ResourceClaim objects.
-         *
-         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
          */
         export interface ResourceClaimTemplate {
             /**
@@ -37448,8 +38110,6 @@ export namespace resource {
          * When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
          *
          * For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
-         *
-         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
          */
         export interface ResourceSlice {
             /**
@@ -39816,7 +40476,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -39840,7 +40502,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -40101,6 +40765,98 @@ export namespace resource {
              * ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
              */
             resourceClaims: outputs.resource.v1alpha3.ResourceClaimSchedulingStatusPatch[];
+        }
+
+        /**
+         * PoolStatus contains status information for a single resource pool.
+         */
+        export interface PoolStatus {
+            /**
+             * AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+             */
+            allocatedDevices: number;
+            /**
+             * AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+             */
+            availableDevices: number;
+            /**
+             * Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+             */
+            driver: string;
+            /**
+             * Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+             */
+            generation: number;
+            /**
+             * NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+             */
+            nodeName: string;
+            /**
+             * PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+             */
+            poolName: string;
+            /**
+             * ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+             */
+            resourceSliceCount: number;
+            /**
+             * TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+             */
+            totalDevices: number;
+            /**
+             * UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+             */
+            unavailableDevices: number;
+            /**
+             * ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+             */
+            validationError: string;
+        }
+
+        /**
+         * PoolStatus contains status information for a single resource pool.
+         */
+        export interface PoolStatusPatch {
+            /**
+             * AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+             */
+            allocatedDevices: number;
+            /**
+             * AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+             */
+            availableDevices: number;
+            /**
+             * Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+             */
+            driver: string;
+            /**
+             * Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+             */
+            generation: number;
+            /**
+             * NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+             */
+            nodeName: string;
+            /**
+             * PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+             */
+            poolName: string;
+            /**
+             * ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+             */
+            resourceSliceCount: number;
+            /**
+             * TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+             */
+            totalDevices: number;
+            /**
+             * UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+             */
+            unavailableDevices: number;
+            /**
+             * ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+             */
+            validationError: string;
         }
 
         /**
@@ -40402,6 +41158,112 @@ export namespace resource {
         }
 
         /**
+         * ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+         */
+        export interface ResourcePoolStatusRequest {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1alpha3";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ResourcePoolStatusRequest";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+             */
+            spec: outputs.resource.v1alpha3.ResourcePoolStatusRequestSpec;
+            /**
+             * Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+             */
+            status: outputs.resource.v1alpha3.ResourcePoolStatusRequestStatus;
+        }
+
+        /**
+         * ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+         */
+        export interface ResourcePoolStatusRequestSpec {
+            /**
+             * Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+             */
+            driver: string;
+            /**
+             * Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+             *
+             * Default: 100 Minimum: 1 Maximum: 1000
+             */
+            limit: number;
+            /**
+             * PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+             */
+            poolName: string;
+        }
+
+        /**
+         * ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+         */
+        export interface ResourcePoolStatusRequestSpecPatch {
+            /**
+             * Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+             */
+            driver: string;
+            /**
+             * Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+             *
+             * Default: 100 Minimum: 1 Maximum: 1000
+             */
+            limit: number;
+            /**
+             * PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+             */
+            poolName: string;
+        }
+
+        /**
+         * ResourcePoolStatusRequestStatus contains the calculated pool status information.
+         */
+        export interface ResourcePoolStatusRequestStatus {
+            /**
+             * Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+             *
+             * Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+             */
+            poolCount: number;
+            /**
+             * Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+             */
+            pools: outputs.resource.v1alpha3.PoolStatus[];
+        }
+
+        /**
+         * ResourcePoolStatusRequestStatus contains the calculated pool status information.
+         */
+        export interface ResourcePoolStatusRequestStatusPatch {
+            /**
+             * Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+             *
+             * Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+             */
+            poolCount: number;
+            /**
+             * Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+             */
+            pools: outputs.resource.v1alpha3.PoolStatusPatch[];
+        }
+
+        /**
          * ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
          */
         export interface ResourceSliceSpec {
@@ -40587,7 +41449,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -40607,7 +41469,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -40649,7 +41511,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -40659,13 +41521,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -40682,6 +41544,10 @@ export namespace resource {
              * The maximum number of device counter consumptions per device is 2.
              */
             consumesCounters: outputs.resource.v1beta1.DeviceCounterConsumption[];
+            /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResourceMapping};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -40701,7 +41567,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1beta1.DeviceTaint[];
         }
@@ -40735,7 +41601,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -40745,13 +41611,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -40768,6 +41634,10 @@ export namespace resource {
              * The maximum number of device counter consumptions per device is 2.
              */
             consumesCounters: outputs.resource.v1beta1.DeviceCounterConsumptionPatch[];
+            /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResourceMapping};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -40787,7 +41657,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1beta1.DeviceTaintPatch[];
         }
@@ -40826,6 +41696,10 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
              *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
@@ -40866,6 +41740,10 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
              *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
@@ -41118,17 +41996,39 @@ export namespace resource {
              */
             bool: boolean;
             /**
+             * BoolValues is a non-empty list of true/false values.
+             */
+            bools: boolean[];
+            /**
              * IntValue is a number.
              */
             int: number;
+            /**
+             * IntValues is a non-empty list of numbers.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            ints: number[];
             /**
              * StringValue is a string. Must not be longer than 64 characters.
              */
             string: string;
             /**
+             * StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            strings: string[];
+            /**
              * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
              */
             version: string;
+            /**
+             * VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            versions: string[];
         }
 
         /**
@@ -41280,7 +42180,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -41302,7 +42202,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -41318,6 +42218,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -41329,6 +42231,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -41348,6 +42252,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -41359,6 +42265,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -41501,7 +42409,7 @@ export namespace resource {
              *
              * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceToleration[];
         }
@@ -41519,13 +42427,13 @@ export namespace resource {
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -41567,7 +42475,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceToleration[];
         }
@@ -41585,13 +42493,13 @@ export namespace resource {
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -41633,7 +42541,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceTolerationPatch[];
         }
@@ -41722,7 +42630,7 @@ export namespace resource {
              *
              * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceTolerationPatch[];
         }
@@ -41808,7 +42716,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceToleration[];
         }
@@ -41874,7 +42782,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta1.DeviceTolerationPatch[];
         }
@@ -41894,7 +42802,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -41918,7 +42828,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -41986,13 +42898,13 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
@@ -42010,13 +42922,13 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
@@ -42025,6 +42937,34 @@ export namespace resource {
              * Must not contain more than 16 entries.
              */
             ips: string[];
+        }
+
+        /**
+         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         */
+        export interface NodeAllocatableResourceMapping {
+            /**
+             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+             * 	   a. A DRA driver representing each CPU core as a device would have
+             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+             *     b. A GPU device that needs additional node memory per GPU allocation would
+             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+             * 		  GPU device instance of this type will account for 2Gi of memory.
+             *
+             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+             *     and each "core" provides 2 "cpu"s, the mapping would be:
+             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            allocationMultiplier: string;
+            /**
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             */
+            capacityKey: string;
         }
 
         /**
@@ -42565,7 +43505,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -42585,7 +43525,7 @@ export namespace resource {
             /**
              * AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
              */
             allocationTimestamp: string;
             /**
@@ -42633,6 +43573,10 @@ export namespace resource {
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
              *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
+             *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
             expression: string;
@@ -42672,6 +43616,10 @@ export namespace resource {
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
              *     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+             *
+             *     device.attributes["dra.example.com"].models.includes("some-model")
              *
              * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
              */
@@ -42858,7 +43806,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -42868,13 +43816,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -42896,6 +43844,10 @@ export namespace resource {
              */
             name: string;
             /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResourceMapping};
+            /**
              * NodeName identifies the node where the device is available.
              *
              * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -42914,7 +43866,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1beta2.DeviceTaint[];
         }
@@ -43000,17 +43952,39 @@ export namespace resource {
              */
             bool: boolean;
             /**
+             * BoolValues is a non-empty list of true/false values.
+             */
+            bools: boolean[];
+            /**
              * IntValue is a number.
              */
             int: number;
+            /**
+             * IntValues is a non-empty list of numbers.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            ints: number[];
             /**
              * StringValue is a string. Must not be longer than 64 characters.
              */
             string: string;
             /**
+             * StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            strings: string[];
+            /**
              * VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
              */
             version: string;
+            /**
+             * VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+             *
+             * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+             */
+            versions: string[];
         }
 
         /**
@@ -43162,7 +44136,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -43184,7 +44158,7 @@ export namespace resource {
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
              *
-             * This is an alpha field.
+             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -43200,6 +44174,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -43211,6 +44187,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -43230,6 +44208,8 @@ export namespace resource {
             /**
              * DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
              *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+             *
              * This acts as the inverse of MatchAttribute.
              *
              * This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -43241,6 +44221,8 @@ export namespace resource {
              * MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
              *
              * For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+             *
+             * When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
              *
              * Must include the domain qualifier.
              */
@@ -43314,7 +44296,7 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
@@ -43324,13 +44306,13 @@ export namespace resource {
              *
              * The conditions must be a valid condition type string.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
              * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindsToNode: boolean;
             /**
@@ -43352,6 +44334,10 @@ export namespace resource {
              */
             name: string;
             /**
+             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             */
+            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResourceMapping};
+            /**
              * NodeName identifies the node where the device is available.
              *
              * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -43370,7 +44356,7 @@ export namespace resource {
              *
              * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             taints: outputs.resource.v1beta2.DeviceTaintPatch[];
         }
@@ -43414,13 +44400,13 @@ export namespace resource {
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -43462,7 +44448,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceToleration[];
         }
@@ -43480,13 +44466,13 @@ export namespace resource {
             /**
              * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingConditions: string[];
             /**
              * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
              *
-             * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+             * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
              */
             bindingFailureConditions: string[];
             /**
@@ -43528,7 +44514,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceTolerationPatch[];
         }
@@ -43640,7 +44626,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceToleration[];
         }
@@ -43706,7 +44692,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceTolerationPatch[];
         }
@@ -43726,7 +44712,9 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
@@ -43750,13 +44738,153 @@ export namespace resource {
              */
             key: string;
             /**
-             * TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+             * TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+             *
+             * In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
              */
             timeAdded: string;
             /**
              * The taint value corresponding to the taint key. Must be a label value.
              */
             value: string;
+        }
+
+        /**
+         * DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+         */
+        export interface DeviceTaintRule {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1beta2";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "DeviceTaintRule";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec specifies the selector and one taint.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: outputs.resource.v1beta2.DeviceTaintRuleSpec;
+            /**
+             * Status provides information about what was requested in the spec.
+             */
+            status: outputs.resource.v1beta2.DeviceTaintRuleStatus;
+        }
+
+        /**
+         * DeviceTaintRuleSpec specifies the selector and one taint.
+         */
+        export interface DeviceTaintRuleSpec {
+            /**
+             * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+             */
+            deviceSelector: outputs.resource.v1beta2.DeviceTaintSelector;
+            /**
+             * The taint that gets applied to matching devices.
+             */
+            taint: outputs.resource.v1beta2.DeviceTaint;
+        }
+
+        /**
+         * DeviceTaintRuleSpec specifies the selector and one taint.
+         */
+        export interface DeviceTaintRuleSpecPatch {
+            /**
+             * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+             */
+            deviceSelector: outputs.resource.v1beta2.DeviceTaintSelectorPatch;
+            /**
+             * The taint that gets applied to matching devices.
+             */
+            taint: outputs.resource.v1beta2.DeviceTaintPatch;
+        }
+
+        /**
+         * DeviceTaintRuleStatus provides information about an on-going pod eviction.
+         */
+        export interface DeviceTaintRuleStatus {
+            /**
+             * Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+             *
+             * The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+             *   (includes the effects which don't cause eviction).
+             * - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+             *   in a human-readable format, updated periodically, may change
+             *
+             * For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+             *
+             * Must have 8 or fewer entries.
+             */
+            conditions: outputs.meta.v1.Condition[];
+        }
+
+        /**
+         * DeviceTaintRuleStatus provides information about an on-going pod eviction.
+         */
+        export interface DeviceTaintRuleStatusPatch {
+            /**
+             * Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+             *
+             * The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+             *   (includes the effects which don't cause eviction).
+             * - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+             *   in a human-readable format, updated periodically, may change
+             *
+             * For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+             *
+             * Must have 8 or fewer entries.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+        }
+
+        /**
+         * DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+         */
+        export interface DeviceTaintSelector {
+            /**
+             * If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+             *
+             * Setting also driver and pool may be required to avoid ambiguity, but is not required.
+             */
+            device: string;
+            /**
+             * If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+             */
+            driver: string;
+            /**
+             * If pool is set, only devices in that pool are selected.
+             *
+             * Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+             */
+            pool: string;
+        }
+
+        /**
+         * DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+         */
+        export interface DeviceTaintSelectorPatch {
+            /**
+             * If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+             *
+             * Setting also driver and pool may be required to avoid ambiguity, but is not required.
+             */
+            device: string;
+            /**
+             * If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+             */
+            driver: string;
+            /**
+             * If pool is set, only devices in that pool are selected.
+             *
+             * Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+             */
+            pool: string;
         }
 
         /**
@@ -43871,7 +44999,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceToleration[];
         }
@@ -43936,7 +45064,7 @@ export namespace resource {
              *
              * The maximum number of tolerations is 16.
              *
-             * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+             * This is a beta field and requires enabling the DRADeviceTaints feature gate.
              */
             tolerations: outputs.resource.v1beta2.DeviceTolerationPatch[];
         }
@@ -43948,13 +45076,13 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
@@ -43970,19 +45098,47 @@ export namespace resource {
             /**
              * HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
              *
-             * Must not be longer than 128 characters.
+             * Must not be longer than 128 bytes.
              */
             hardwareAddress: string;
             /**
              * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
              *
-             * Must not be longer than 256 characters.
+             * Must not be longer than 256 bytes.
              */
             interfaceName: string;
             /**
              * IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
              */
             ips: string[];
+        }
+
+        /**
+         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         */
+        export interface NodeAllocatableResourceMapping {
+            /**
+             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+             * 	   a. A DRA driver representing each CPU core as a device would have
+             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+             *     b. A GPU device that needs additional node memory per GPU allocation would
+             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+             * 		  GPU device instance of this type will account for 2Gi of memory.
+             *
+             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+             *     and each "core" provides 2 "cpu"s, the mapping would be:
+             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            allocationMultiplier: string;
+            /**
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             */
+            capacityKey: string;
         }
 
         /**
@@ -44468,6 +45624,43 @@ export namespace scheduling {
 
     export namespace v1alpha1 {
         /**
+         * DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+         */
+        export interface PriorityClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "scheduling.k8s.io/v1alpha1";
+            /**
+             * description is an arbitrary string that usually provides guidelines on when this priority class should be used.
+             */
+            description: string;
+            /**
+             * globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
+             */
+            globalDefault: boolean;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "PriorityClass";
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             */
+            preemptionPolicy: string;
+            /**
+             * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+             */
+            value: number;
+        }
+
+    }
+
+    export namespace v1alpha2 {
+        /**
          * BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
          */
         export interface BasicSchedulingPolicy {
@@ -44500,93 +45693,403 @@ export namespace scheduling {
         }
 
         /**
-         * PodGroup represents a set of pods with a common scheduling policy.
+         * PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
          */
         export interface PodGroup {
             /**
-             * Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
-             */
-            name: string;
-            /**
-             * Policy defines the scheduling policy for this PodGroup.
-             */
-            policy: outputs.scheduling.v1alpha1.PodGroupPolicy;
-        }
-
-        /**
-         * PodGroup represents a set of pods with a common scheduling policy.
-         */
-        export interface PodGroupPatch {
-            /**
-             * Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
-             */
-            name: string;
-            /**
-             * Policy defines the scheduling policy for this PodGroup.
-             */
-            policy: outputs.scheduling.v1alpha1.PodGroupPolicyPatch;
-        }
-
-        /**
-         * PodGroupPolicy defines the scheduling configuration for a PodGroup.
-         */
-        export interface PodGroupPolicy {
-            /**
-             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
-             */
-            basic: outputs.scheduling.v1alpha1.BasicSchedulingPolicy;
-            /**
-             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
-             */
-            gang: outputs.scheduling.v1alpha1.GangSchedulingPolicy;
-        }
-
-        /**
-         * PodGroupPolicy defines the scheduling configuration for a PodGroup.
-         */
-        export interface PodGroupPolicyPatch {
-            /**
-             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
-             */
-            basic: outputs.scheduling.v1alpha1.BasicSchedulingPolicyPatch;
-            /**
-             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
-             */
-            gang: outputs.scheduling.v1alpha1.GangSchedulingPolicyPatch;
-        }
-
-        /**
-         * DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-         */
-        export interface PriorityClass {
-            /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "scheduling.k8s.io/v1alpha1";
-            /**
-             * description is an arbitrary string that usually provides guidelines on when this priority class should be used.
-             */
-            description: string;
-            /**
-             * globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
-             */
-            globalDefault: boolean;
+            apiVersion: "scheduling.k8s.io/v1alpha2";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
-            kind: "PriorityClass";
+            kind: "PodGroup";
             /**
              * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+             * Spec defines the desired state of the PodGroup.
              */
-            preemptionPolicy: string;
+            spec: outputs.scheduling.v1alpha2.PodGroupSpec;
             /**
-             * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+             * Status represents the current observed state of the PodGroup.
              */
-            value: number;
+            status: outputs.scheduling.v1alpha2.PodGroupStatus;
+        }
+
+        /**
+         * PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+         *
+         * It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+         */
+        export interface PodGroupResourceClaim {
+            /**
+             * Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimName: string;
+            /**
+             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+         *
+         * It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+         */
+        export interface PodGroupResourceClaimPatch {
+            /**
+             * Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimName: string;
+            /**
+             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+         */
+        export interface PodGroupResourceClaimStatus {
+            /**
+             * Name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * ResourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             */
+            resourceClaimName: string;
+        }
+
+        /**
+         * PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+         */
+        export interface PodGroupResourceClaimStatusPatch {
+            /**
+             * Name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * ResourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             */
+            resourceClaimName: string;
+        }
+
+        /**
+         * PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+         */
+        export interface PodGroupSchedulingConstraints {
+            /**
+             * Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1alpha2.TopologyConstraint[];
+        }
+
+        /**
+         * PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+         */
+        export interface PodGroupSchedulingConstraintsPatch {
+            /**
+             * Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1alpha2.TopologyConstraintPatch[];
+        }
+
+        /**
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+         */
+        export interface PodGroupSchedulingPolicy {
+            /**
+             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+             */
+            basic: outputs.scheduling.v1alpha2.BasicSchedulingPolicy;
+            /**
+             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1alpha2.GangSchedulingPolicy;
+        }
+
+        /**
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+         */
+        export interface PodGroupSchedulingPolicyPatch {
+            /**
+             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+             */
+            basic: outputs.scheduling.v1alpha2.BasicSchedulingPolicyPatch;
+            /**
+             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1alpha2.GangSchedulingPolicyPatch;
+        }
+
+        /**
+         * PodGroupSpec defines the desired state of a PodGroup.
+         */
+        export interface PodGroupSpec {
+            /**
+             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            disruptionMode: string;
+            /**
+             * PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+             */
+            podGroupTemplateRef: outputs.scheduling.v1alpha2.PodGroupTemplateReference;
+            /**
+             * Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priority: number;
+            /**
+             * PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priorityClassName: string;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaim[];
+            /**
+             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraints;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicy;
+        }
+
+        /**
+         * PodGroupSpec defines the desired state of a PodGroup.
+         */
+        export interface PodGroupSpecPatch {
+            /**
+             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            disruptionMode: string;
+            /**
+             * PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+             */
+            podGroupTemplateRef: outputs.scheduling.v1alpha2.PodGroupTemplateReferencePatch;
+            /**
+             * Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priority: number;
+            /**
+             * PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priorityClassName: string;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaimPatch[];
+            /**
+             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraintsPatch;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicyPatch;
+        }
+
+        /**
+         * PodGroupStatus represents information about the status of a pod group.
+         */
+        export interface PodGroupStatus {
+            /**
+             * Conditions represent the latest observations of the PodGroup's state.
+             *
+             * Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             *   affinity/anti-affinity rules, or insufficient capacity for the gang.
+             * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+             *   that happened during scheduling, for example due to nodeAffinity parsing errors.
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+             *   higher-priority PodGroups or Pods.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * Status of resource claims.
+             */
+            resourceClaimStatuses: outputs.scheduling.v1alpha2.PodGroupResourceClaimStatus[];
+        }
+
+        /**
+         * PodGroupStatus represents information about the status of a pod group.
+         */
+        export interface PodGroupStatusPatch {
+            /**
+             * Conditions represent the latest observations of the PodGroup's state.
+             *
+             * Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             *   affinity/anti-affinity rules, or insufficient capacity for the gang.
+             * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+             *   that happened during scheduling, for example due to nodeAffinity parsing errors.
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+             *   higher-priority PodGroups or Pods.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * Status of resource claims.
+             */
+            resourceClaimStatuses: outputs.scheduling.v1alpha2.PodGroupResourceClaimStatusPatch[];
+        }
+
+        /**
+         * PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+         */
+        export interface PodGroupTemplate {
+            /**
+             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            disruptionMode: string;
+            /**
+             * Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             */
+            name: string;
+            /**
+             * Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priority: number;
+            /**
+             * PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priorityClassName: string;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaim[];
+            /**
+             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraints;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicy;
+        }
+
+        /**
+         * PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+         */
+        export interface PodGroupTemplatePatch {
+            /**
+             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            disruptionMode: string;
+            /**
+             * Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             */
+            name: string;
+            /**
+             * Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priority: number;
+            /**
+             * PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             */
+            priorityClassName: string;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaimPatch[];
+            /**
+             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraintsPatch;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicyPatch;
+        }
+
+        /**
+         * PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
+         */
+        export interface PodGroupTemplateReference {
+            /**
+             * Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
+             */
+            workload: outputs.scheduling.v1alpha2.WorkloadPodGroupTemplateReference;
+        }
+
+        /**
+         * PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
+         */
+        export interface PodGroupTemplateReferencePatch {
+            /**
+             * Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
+             */
+            workload: outputs.scheduling.v1alpha2.WorkloadPodGroupTemplateReferencePatch;
+        }
+
+        /**
+         * TopologyConstraint defines a topology constraint for a PodGroup.
+         */
+        export interface TopologyConstraint {
+            /**
+             * Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             */
+            key: string;
+        }
+
+        /**
+         * TopologyConstraint defines a topology constraint for a PodGroup.
+         */
+        export interface TopologyConstraintPatch {
+            /**
+             * Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             */
+            key: string;
         }
 
         /**
@@ -44626,25 +46129,53 @@ export namespace scheduling {
         }
 
         /**
-         * Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+         * Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
          */
         export interface Workload {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "scheduling.k8s.io/v1alpha1";
+            apiVersion: "scheduling.k8s.io/v1alpha2";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: "Workload";
             /**
-             * Standard object's metadata. Name must be a DNS subdomain.
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
              * Spec defines the desired behavior of a Workload.
              */
-            spec: outputs.scheduling.v1alpha1.WorkloadSpec;
+            spec: outputs.scheduling.v1alpha2.WorkloadSpec;
+        }
+
+        /**
+         * WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+         */
+        export interface WorkloadPodGroupTemplateReference {
+            /**
+             * PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+             */
+            podGroupTemplateName: string;
+            /**
+             * WorkloadName defines the name of the Workload object.
+             */
+            workloadName: string;
+        }
+
+        /**
+         * WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+         */
+        export interface WorkloadPodGroupTemplateReferencePatch {
+            /**
+             * PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+             */
+            podGroupTemplateName: string;
+            /**
+             * WorkloadName defines the name of the Workload object.
+             */
+            workloadName: string;
         }
 
         /**
@@ -44652,13 +46183,13 @@ export namespace scheduling {
          */
         export interface WorkloadSpec {
             /**
-             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
              */
-            controllerRef: outputs.scheduling.v1alpha1.TypedLocalObjectReference;
+            controllerRef: outputs.scheduling.v1alpha2.TypedLocalObjectReference;
             /**
-             * PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+             * PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
              */
-            podGroups: outputs.scheduling.v1alpha1.PodGroup[];
+            podGroupTemplates: outputs.scheduling.v1alpha2.PodGroupTemplate[];
         }
 
         /**
@@ -44666,13 +46197,13 @@ export namespace scheduling {
          */
         export interface WorkloadSpecPatch {
             /**
-             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
              */
-            controllerRef: outputs.scheduling.v1alpha1.TypedLocalObjectReferencePatch;
+            controllerRef: outputs.scheduling.v1alpha2.TypedLocalObjectReferencePatch;
             /**
-             * PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+             * PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
              */
-            podGroups: outputs.scheduling.v1alpha1.PodGroupPatch[];
+            podGroupTemplates: outputs.scheduling.v1alpha2.PodGroupTemplatePatch[];
         }
 
     }
@@ -44833,7 +46364,7 @@ export namespace storage {
             /**
              * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
              *
-             * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+             * This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
              *
              * This field is mutable.
              */
@@ -44851,6 +46382,16 @@ export namespace storage {
              * This field was immutable in Kubernetes < 1.29 and now is mutable.
              */
             podInfoOnMount: boolean;
+            /**
+             * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+             *
+             * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+             *
+             * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+             *
+             * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+             */
+            preventPodSchedulingIfMissing: boolean;
             /**
              * requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
              *
@@ -44934,7 +46475,7 @@ export namespace storage {
             /**
              * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
              *
-             * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+             * This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
              *
              * This field is mutable.
              */
@@ -44952,6 +46493,16 @@ export namespace storage {
              * This field was immutable in Kubernetes < 1.29 and now is mutable.
              */
             podInfoOnMount: boolean;
+            /**
+             * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+             *
+             * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+             *
+             * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+             *
+             * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+             */
+            preventPodSchedulingIfMissing: boolean;
             /**
              * requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
              *
@@ -45397,7 +46948,7 @@ export namespace storage {
             /**
              * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
              *
-             * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+             * This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
              */
             errorCode: number;
             /**
@@ -45417,7 +46968,7 @@ export namespace storage {
             /**
              * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
              *
-             * This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+             * This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
              */
             errorCode: number;
             /**

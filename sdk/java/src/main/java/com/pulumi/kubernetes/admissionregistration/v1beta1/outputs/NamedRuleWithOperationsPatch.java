@@ -13,27 +13,27 @@ import javax.annotation.Nullable;
 @CustomType
 public final class NamedRuleWithOperationsPatch {
     /**
-     * @return APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     private @Nullable List<String> apiGroups;
     /**
-     * @return APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     private @Nullable List<String> apiVersions;
     /**
-     * @return Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     private @Nullable List<String> operations;
     /**
-     * @return ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+     * @return resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * 
      */
     private @Nullable List<String> resourceNames;
     /**
-     * @return Resources is a list of resources this rule applies to.
+     * @return resources is a list of resources this rule applies to.
      * 
      * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 
@@ -51,35 +51,35 @@ public final class NamedRuleWithOperationsPatch {
 
     private NamedRuleWithOperationsPatch() {}
     /**
-     * @return APIGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiGroups is the API groups the resources belong to. &#39;*&#39; is all groups. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public List<String> apiGroups() {
         return this.apiGroups == null ? List.of() : this.apiGroups;
     }
     /**
-     * @return APIVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return apiVersions is the API versions the resources belong to. &#39;*&#39; is all versions. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public List<String> apiVersions() {
         return this.apiVersions == null ? List.of() : this.apiVersions;
     }
     /**
-     * @return Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
+     * @return operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If &#39;*&#39; is present, the length of the slice must be one. Required.
      * 
      */
     public List<String> operations() {
         return this.operations == null ? List.of() : this.operations;
     }
     /**
-     * @return ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+     * @return resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * 
      */
     public List<String> resourceNames() {
         return this.resourceNames == null ? List.of() : this.resourceNames;
     }
     /**
-     * @return Resources is a list of resources this rule applies to.
+     * @return resources is a list of resources this rule applies to.
      * 
      * For example: &#39;pods&#39; means pods. &#39;pods/log&#39; means the log subresource of pods. &#39;*&#39; means all resources, but not subresources. &#39;pods/*&#39; means all subresources of pods. &#39;*&#47;scale&#39; means all scale subresources. &#39;*&#47;*&#39; means all resources and their subresources.
      * 

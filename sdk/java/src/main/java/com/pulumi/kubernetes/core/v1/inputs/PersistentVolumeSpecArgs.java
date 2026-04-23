@@ -376,14 +376,14 @@ public final class PersistentVolumeSpecArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+     * portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
      * 
      */
     @Import(name="portworxVolume")
     private @Nullable Output<PortworxVolumeSourceArgs> portworxVolume;
 
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
      * 
      */
     public Optional<Output<PortworxVolumeSourceArgs>> portworxVolume() {
@@ -1047,7 +1047,7 @@ public final class PersistentVolumeSpecArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
          * 
          * @return builder
          * 
@@ -1058,7 +1058,7 @@ public final class PersistentVolumeSpecArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+         * @param portworxVolume portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
          * 
          * @return builder
          * 

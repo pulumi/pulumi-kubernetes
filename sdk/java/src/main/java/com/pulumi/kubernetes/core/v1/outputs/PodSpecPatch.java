@@ -14,12 +14,12 @@ import com.pulumi.kubernetes.core.v1.outputs.PodOSPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodReadinessGatePatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodSchedulingGatePatch;
+import com.pulumi.kubernetes.core.v1.outputs.PodSchedulingGroupPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodSecurityContextPatch;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirementsPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TolerationPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraintPatch;
 import com.pulumi.kubernetes.core.v1.outputs.VolumePatch;
-import com.pulumi.kubernetes.core.v1.outputs.WorkloadReferencePatch;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -92,7 +92,7 @@ public final class PodSpecPatch {
      */
     private @Nullable Boolean hostPID;
     /**
-     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
      * 
      */
     private @Nullable Boolean hostUsers;
@@ -203,6 +203,11 @@ public final class PodSpecPatch {
      */
     private @Nullable List<PodSchedulingGatePatch> schedulingGates;
     /**
+     * @return SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    private @Nullable PodSchedulingGroupPatch schedulingGroup;
+    /**
      * @return SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
      * 
      */
@@ -252,11 +257,6 @@ public final class PodSpecPatch {
      * 
      */
     private @Nullable List<VolumePatch> volumes;
-    /**
-     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-     * 
-     */
-    private @Nullable WorkloadReferencePatch workloadRef;
 
     private PodSpecPatch() {}
     /**
@@ -344,7 +344,7 @@ public final class PodSpecPatch {
         return Optional.ofNullable(this.hostPID);
     }
     /**
-     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
      * 
      */
     public Optional<Boolean> hostUsers() {
@@ -493,6 +493,13 @@ public final class PodSpecPatch {
         return this.schedulingGates == null ? List.of() : this.schedulingGates;
     }
     /**
+     * @return SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    public Optional<PodSchedulingGroupPatch> schedulingGroup() {
+        return Optional.ofNullable(this.schedulingGroup);
+    }
+    /**
      * @return SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
      * 
      */
@@ -562,13 +569,6 @@ public final class PodSpecPatch {
     public List<VolumePatch> volumes() {
         return this.volumes == null ? List.of() : this.volumes;
     }
-    /**
-     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-     * 
-     */
-    public Optional<WorkloadReferencePatch> workloadRef() {
-        return Optional.ofNullable(this.workloadRef);
-    }
 
     public static Builder builder() {
         return new Builder();
@@ -610,6 +610,7 @@ public final class PodSpecPatch {
         private @Nullable String runtimeClassName;
         private @Nullable String schedulerName;
         private @Nullable List<PodSchedulingGatePatch> schedulingGates;
+        private @Nullable PodSchedulingGroupPatch schedulingGroup;
         private @Nullable PodSecurityContextPatch securityContext;
         private @Nullable String serviceAccount;
         private @Nullable String serviceAccountName;
@@ -620,7 +621,6 @@ public final class PodSpecPatch {
         private @Nullable List<TolerationPatch> tolerations;
         private @Nullable List<TopologySpreadConstraintPatch> topologySpreadConstraints;
         private @Nullable List<VolumePatch> volumes;
-        private @Nullable WorkloadReferencePatch workloadRef;
         public Builder() {}
         public Builder(PodSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -655,6 +655,7 @@ public final class PodSpecPatch {
     	      this.runtimeClassName = defaults.runtimeClassName;
     	      this.schedulerName = defaults.schedulerName;
     	      this.schedulingGates = defaults.schedulingGates;
+    	      this.schedulingGroup = defaults.schedulingGroup;
     	      this.securityContext = defaults.securityContext;
     	      this.serviceAccount = defaults.serviceAccount;
     	      this.serviceAccountName = defaults.serviceAccountName;
@@ -665,7 +666,6 @@ public final class PodSpecPatch {
     	      this.tolerations = defaults.tolerations;
     	      this.topologySpreadConstraints = defaults.topologySpreadConstraints;
     	      this.volumes = defaults.volumes;
-    	      this.workloadRef = defaults.workloadRef;
         }
 
         @CustomType.Setter
@@ -879,6 +879,12 @@ public final class PodSpecPatch {
             return schedulingGates(List.of(schedulingGates));
         }
         @CustomType.Setter
+        public Builder schedulingGroup(@Nullable PodSchedulingGroupPatch schedulingGroup) {
+
+            this.schedulingGroup = schedulingGroup;
+            return this;
+        }
+        @CustomType.Setter
         public Builder securityContext(@Nullable PodSecurityContextPatch securityContext) {
 
             this.securityContext = securityContext;
@@ -947,12 +953,6 @@ public final class PodSpecPatch {
         public Builder volumes(VolumePatch... volumes) {
             return volumes(List.of(volumes));
         }
-        @CustomType.Setter
-        public Builder workloadRef(@Nullable WorkloadReferencePatch workloadRef) {
-
-            this.workloadRef = workloadRef;
-            return this;
-        }
         public PodSpecPatch build() {
             final var _resultValue = new PodSpecPatch();
             _resultValue.activeDeadlineSeconds = activeDeadlineSeconds;
@@ -986,6 +986,7 @@ public final class PodSpecPatch {
             _resultValue.runtimeClassName = runtimeClassName;
             _resultValue.schedulerName = schedulerName;
             _resultValue.schedulingGates = schedulingGates;
+            _resultValue.schedulingGroup = schedulingGroup;
             _resultValue.securityContext = securityContext;
             _resultValue.serviceAccount = serviceAccount;
             _resultValue.serviceAccountName = serviceAccountName;
@@ -996,7 +997,6 @@ public final class PodSpecPatch {
             _resultValue.tolerations = tolerations;
             _resultValue.topologySpreadConstraints = topologySpreadConstraints;
             _resultValue.volumes = volumes;
-            _resultValue.workloadRef = workloadRef;
             return _resultValue;
         }
     }

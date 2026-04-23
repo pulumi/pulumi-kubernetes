@@ -9,8 +9,6 @@ import * as utilities from "../../utilities";
 
 /**
  * DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
- *
- * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
  */
 export class DeviceClass extends pulumi.CustomResource {
     /**

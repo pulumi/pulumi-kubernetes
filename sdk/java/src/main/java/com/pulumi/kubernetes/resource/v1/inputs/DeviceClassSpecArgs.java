@@ -44,7 +44,7 @@ public final class DeviceClassSpecArgs extends com.pulumi.resources.ResourceArgs
     /**
      * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
      * 
-     * This is an alpha field.
+     * This is a beta field.
      * 
      */
     @Import(name="extendedResourceName")
@@ -53,7 +53,7 @@ public final class DeviceClassSpecArgs extends com.pulumi.resources.ResourceArgs
     /**
      * @return ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
      * 
-     * This is an alpha field.
+     * This is a beta field.
      * 
      */
     public Optional<Output<String>> extendedResourceName() {
@@ -141,7 +141,7 @@ public final class DeviceClassSpecArgs extends com.pulumi.resources.ResourceArgs
         /**
          * @param extendedResourceName ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
          * 
-         * This is an alpha field.
+         * This is a beta field.
          * 
          * @return builder
          * 
@@ -154,7 +154,7 @@ public final class DeviceClassSpecArgs extends com.pulumi.resources.ResourceArgs
         /**
          * @param extendedResourceName ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod&#39;s extended resource requests. It has the same format as the name of a pod&#39;s extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod&#39;s extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
          * 
-         * This is an alpha field.
+         * This is a beta field.
          * 
          * @return builder
          * 

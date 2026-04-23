@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.inputs.VolumeStatusArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
@@ -81,6 +82,21 @@ public final class VolumeMountStatusArgs extends com.pulumi.resources.ResourceAr
         return Optional.ofNullable(this.recursiveReadOnly);
     }
 
+    /**
+     * volumeStatus represents volume-type-specific status about the mounted volume.
+     * 
+     */
+    @Import(name="volumeStatus")
+    private @Nullable Output<VolumeStatusArgs> volumeStatus;
+
+    /**
+     * @return volumeStatus represents volume-type-specific status about the mounted volume.
+     * 
+     */
+    public Optional<Output<VolumeStatusArgs>> volumeStatus() {
+        return Optional.ofNullable(this.volumeStatus);
+    }
+
     private VolumeMountStatusArgs() {}
 
     private VolumeMountStatusArgs(VolumeMountStatusArgs $) {
@@ -88,6 +104,7 @@ public final class VolumeMountStatusArgs extends com.pulumi.resources.ResourceAr
         this.name = $.name;
         this.readOnly = $.readOnly;
         this.recursiveReadOnly = $.recursiveReadOnly;
+        this.volumeStatus = $.volumeStatus;
     }
 
     public static Builder builder() {
@@ -190,6 +207,27 @@ public final class VolumeMountStatusArgs extends com.pulumi.resources.ResourceAr
          */
         public Builder recursiveReadOnly(String recursiveReadOnly) {
             return recursiveReadOnly(Output.of(recursiveReadOnly));
+        }
+
+        /**
+         * @param volumeStatus volumeStatus represents volume-type-specific status about the mounted volume.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeStatus(@Nullable Output<VolumeStatusArgs> volumeStatus) {
+            $.volumeStatus = volumeStatus;
+            return this;
+        }
+
+        /**
+         * @param volumeStatus volumeStatus represents volume-type-specific status about the mounted volume.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeStatus(VolumeStatusArgs volumeStatus) {
+            return volumeStatus(Output.of(volumeStatus));
         }
 
         public VolumeMountStatusArgs build() {

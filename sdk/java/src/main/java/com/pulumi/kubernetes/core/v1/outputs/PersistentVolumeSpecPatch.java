@@ -148,7 +148,7 @@ public final class PersistentVolumeSpecPatch {
      */
     private @Nullable PhotonPersistentDiskVolumeSourcePatch photonPersistentDisk;
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
      * 
      */
     private @Nullable PortworxVolumeSourcePatch portworxVolume;
@@ -349,7 +349,7 @@ public final class PersistentVolumeSpecPatch {
         return Optional.ofNullable(this.photonPersistentDisk);
     }
     /**
-     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+     * @return portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
      * 
      */
     public Optional<PortworxVolumeSourcePatch> portworxVolume() {

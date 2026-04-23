@@ -32,6 +32,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
         /// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         /// </summary>
         public readonly string SelfLink;
+        /// <summary>
+        /// shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+        /// 
+        /// This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ShardInfo ShardInfo;
 
         [OutputConstructor]
         private ListMeta(
@@ -41,12 +47,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 
             string resourceVersion,
 
-            string selfLink)
+            string selfLink,
+
+            Pulumi.Kubernetes.Types.Outputs.Meta.V1.ShardInfo shardInfo)
         {
             Continue = @continue;
             RemainingItemCount = remainingItemCount;
             ResourceVersion = resourceVersion;
             SelfLink = selfLink;
+            ShardInfo = shardInfo;
         }
     }
 }

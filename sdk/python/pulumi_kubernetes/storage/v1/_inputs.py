@@ -85,7 +85,7 @@ class CSIDriverSpecPatchArgsDict(TypedDict):
     """
     nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-    This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+    This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
     This field is mutable.
     """
@@ -101,6 +101,16 @@ class CSIDriverSpecPatchArgsDict(TypedDict):
     "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 
     This field was immutable in Kubernetes < 1.29 and now is mutable.
+    """
+    prevent_pod_scheduling_if_missing: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+    Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+    For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+    This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
     """
     requires_republish: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -170,6 +180,7 @@ class CSIDriverSpecPatchArgs:
                  fs_group_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  node_allocatable_update_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[_builtins.bool]] = None,
+                 prevent_pod_scheduling_if_missing: Optional[pulumi.Input[_builtins.bool]] = None,
                  requires_republish: Optional[pulumi.Input[_builtins.bool]] = None,
                  se_linux_mount: Optional[pulumi.Input[_builtins.bool]] = None,
                  service_account_token_in_secrets: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -189,7 +200,7 @@ class CSIDriverSpecPatchArgs:
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param pulumi.Input[_builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
                
-               This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
                
                This field is mutable.
         :param pulumi.Input[_builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -202,6 +213,13 @@ class CSIDriverSpecPatchArgs:
                "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
                
                This field was immutable in Kubernetes < 1.29 and now is mutable.
+        :param pulumi.Input[_builtins.bool] prevent_pod_scheduling_if_missing: PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+               
+               Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+               
+               For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+               
+               This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
         :param pulumi.Input[_builtins.bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
@@ -253,6 +271,8 @@ class CSIDriverSpecPatchArgs:
             pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
         if pod_info_on_mount is not None:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+        if prevent_pod_scheduling_if_missing is not None:
+            pulumi.set(__self__, "prevent_pod_scheduling_if_missing", prevent_pod_scheduling_if_missing)
         if requires_republish is not None:
             pulumi.set(__self__, "requires_republish", requires_republish)
         if se_linux_mount is not None:
@@ -302,7 +322,7 @@ class CSIDriverSpecPatchArgs:
         """
         nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-        This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
         This field is mutable.
         """
@@ -332,6 +352,24 @@ class CSIDriverSpecPatchArgs:
     @pod_info_on_mount.setter
     def pod_info_on_mount(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "pod_info_on_mount", value)
+
+    @_builtins.property
+    @pulumi.getter(name="preventPodSchedulingIfMissing")
+    def prevent_pod_scheduling_if_missing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+        Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+        For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+        This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+        """
+        return pulumi.get(self, "prevent_pod_scheduling_if_missing")
+
+    @prevent_pod_scheduling_if_missing.setter
+    def prevent_pod_scheduling_if_missing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "prevent_pod_scheduling_if_missing", value)
 
     @_builtins.property
     @pulumi.getter(name="requiresRepublish")
@@ -464,7 +502,7 @@ class CSIDriverSpecArgsDict(TypedDict):
     """
     nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-    This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+    This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
     This field is mutable.
     """
@@ -480,6 +518,16 @@ class CSIDriverSpecArgsDict(TypedDict):
     "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 
     This field was immutable in Kubernetes < 1.29 and now is mutable.
+    """
+    prevent_pod_scheduling_if_missing: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+    Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+    For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+    This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
     """
     requires_republish: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -549,6 +597,7 @@ class CSIDriverSpecArgs:
                  fs_group_policy: Optional[pulumi.Input[_builtins.str]] = None,
                  node_allocatable_update_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[_builtins.bool]] = None,
+                 prevent_pod_scheduling_if_missing: Optional[pulumi.Input[_builtins.bool]] = None,
                  requires_republish: Optional[pulumi.Input[_builtins.bool]] = None,
                  se_linux_mount: Optional[pulumi.Input[_builtins.bool]] = None,
                  service_account_token_in_secrets: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -568,7 +617,7 @@ class CSIDriverSpecArgs:
                Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
         :param pulumi.Input[_builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
                
-               This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
                
                This field is mutable.
         :param pulumi.Input[_builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -581,6 +630,13 @@ class CSIDriverSpecArgs:
                "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
                
                This field was immutable in Kubernetes < 1.29 and now is mutable.
+        :param pulumi.Input[_builtins.bool] prevent_pod_scheduling_if_missing: PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+               
+               Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+               
+               For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+               
+               This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
         :param pulumi.Input[_builtins.bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
@@ -632,6 +688,8 @@ class CSIDriverSpecArgs:
             pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
         if pod_info_on_mount is not None:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+        if prevent_pod_scheduling_if_missing is not None:
+            pulumi.set(__self__, "prevent_pod_scheduling_if_missing", prevent_pod_scheduling_if_missing)
         if requires_republish is not None:
             pulumi.set(__self__, "requires_republish", requires_republish)
         if se_linux_mount is not None:
@@ -681,7 +739,7 @@ class CSIDriverSpecArgs:
         """
         nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
 
-        This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
         This field is mutable.
         """
@@ -711,6 +769,24 @@ class CSIDriverSpecArgs:
     @pod_info_on_mount.setter
     def pod_info_on_mount(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "pod_info_on_mount", value)
+
+    @_builtins.property
+    @pulumi.getter(name="preventPodSchedulingIfMissing")
+    def prevent_pod_scheduling_if_missing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+        Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+        For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+        This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+        """
+        return pulumi.get(self, "prevent_pod_scheduling_if_missing")
+
+    @prevent_pod_scheduling_if_missing.setter
+    def prevent_pod_scheduling_if_missing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "prevent_pod_scheduling_if_missing", value)
 
     @_builtins.property
     @pulumi.getter(name="requiresRepublish")
@@ -2367,7 +2443,7 @@ class VolumeErrorArgsDict(TypedDict):
     """
     errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 
-    This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
     """
     message: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -2389,7 +2465,7 @@ class VolumeErrorArgs:
 
         :param pulumi.Input[_builtins.int] error_code: errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
                
-               This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+               This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         :param pulumi.Input[_builtins.str] message: message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param pulumi.Input[_builtins.str] time: time represents the time the error was encountered.
         """
@@ -2406,7 +2482,7 @@ class VolumeErrorArgs:
         """
         errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
 
-        This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+        This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
         """
         return pulumi.get(self, "error_code")
 

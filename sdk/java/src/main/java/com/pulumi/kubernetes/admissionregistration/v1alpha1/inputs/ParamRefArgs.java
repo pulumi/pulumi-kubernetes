@@ -21,7 +21,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
     public static final ParamRefArgs Empty = new ParamRefArgs();
 
     /**
-     * `name` is the name of the resource being referenced.
+     * name is the name of the resource being referenced.
      * 
      * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
      * 
@@ -30,7 +30,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<String> name;
 
     /**
-     * @return `name` is the name of the resource being referenced.
+     * @return name is the name of the resource being referenced.
      * 
      * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
      * 
@@ -67,7 +67,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+     * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
      * 
      * Allowed values are `Allow` or `Deny` Default to `Deny`
      * 
@@ -76,7 +76,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<String> parameterNotFoundAction;
 
     /**
-     * @return `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+     * @return parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
      * 
      * Allowed values are `Allow` or `Deny` Default to `Deny`
      * 
@@ -136,7 +136,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name `name` is the name of the resource being referenced.
+         * @param name name is the name of the resource being referenced.
          * 
          * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
          * 
@@ -149,7 +149,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name `name` is the name of the resource being referenced.
+         * @param name name is the name of the resource being referenced.
          * 
          * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
          * 
@@ -194,7 +194,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param parameterNotFoundAction `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+         * @param parameterNotFoundAction parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
          * 
          * Allowed values are `Allow` or `Deny` Default to `Deny`
          * 
@@ -207,7 +207,7 @@ public final class ParamRefArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param parameterNotFoundAction `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+         * @param parameterNotFoundAction parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
          * 
          * Allowed values are `Allow` or `Deny` Default to `Deny`
          * 

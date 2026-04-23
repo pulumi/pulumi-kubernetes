@@ -36,7 +36,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// <summary>
         /// nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
         /// 
-        /// This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+        /// This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
         /// 
         /// This field is mutable.
         /// </summary>
@@ -57,6 +57,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// </summary>
         [Input("podInfoOnMount")]
         public Input<bool>? PodInfoOnMount { get; set; }
+
+        /// <summary>
+        /// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+        /// 
+        /// Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+        /// 
+        /// For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+        /// 
+        /// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+        /// </summary>
+        [Input("preventPodSchedulingIfMissing")]
+        public Input<bool>? PreventPodSchedulingIfMissing { get; set; }
 
         /// <summary>
         /// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.

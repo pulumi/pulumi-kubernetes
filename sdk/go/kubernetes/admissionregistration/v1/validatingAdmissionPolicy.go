@@ -20,11 +20,11 @@ type ValidatingAdmissionPolicy struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+	// spec defines the desired behavior of the ValidatingAdmissionPolicy.
 	Spec ValidatingAdmissionPolicySpecOutput `pulumi:"spec"`
-	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	// status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
 	Status ValidatingAdmissionPolicyStatusPtrOutput `pulumi:"status"`
 }
 
@@ -83,9 +83,9 @@ type validatingAdmissionPolicyArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+	// spec defines the desired behavior of the ValidatingAdmissionPolicy.
 	Spec *ValidatingAdmissionPolicySpec `pulumi:"spec"`
 }
 
@@ -95,9 +95,9 @@ type ValidatingAdmissionPolicyArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+	// spec defines the desired behavior of the ValidatingAdmissionPolicy.
 	Spec ValidatingAdmissionPolicySpecPtrInput
 }
 
@@ -198,17 +198,17 @@ func (o ValidatingAdmissionPolicyOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicy) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o ValidatingAdmissionPolicyOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicy) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+// spec defines the desired behavior of the ValidatingAdmissionPolicy.
 func (o ValidatingAdmissionPolicyOutput) Spec() ValidatingAdmissionPolicySpecOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicy) ValidatingAdmissionPolicySpecOutput { return v.Spec }).(ValidatingAdmissionPolicySpecOutput)
 }
 
-// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+// status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
 func (o ValidatingAdmissionPolicyOutput) Status() ValidatingAdmissionPolicyStatusPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicy) ValidatingAdmissionPolicyStatusPtrOutput { return v.Status }).(ValidatingAdmissionPolicyStatusPtrOutput)
 }

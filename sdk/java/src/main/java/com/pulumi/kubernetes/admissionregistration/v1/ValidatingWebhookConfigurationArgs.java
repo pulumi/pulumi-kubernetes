@@ -50,14 +50,14 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
     }
 
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -65,14 +65,14 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
     }
 
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     @Import(name="webhooks")
     private @Nullable Output<List<ValidatingWebhookArgs>> webhooks;
 
     /**
-     * @return Webhooks is a list of webhooks and the affected resources and operations.
+     * @return webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     public Optional<Output<List<ValidatingWebhookArgs>>> webhooks() {
@@ -149,7 +149,7 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -160,7 +160,7 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -170,7 +170,7 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param webhooks Webhooks is a list of webhooks and the affected resources and operations.
+         * @param webhooks webhooks is a list of webhooks and the affected resources and operations.
          * 
          * @return builder
          * 
@@ -181,7 +181,7 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param webhooks Webhooks is a list of webhooks and the affected resources and operations.
+         * @param webhooks webhooks is a list of webhooks and the affected resources and operations.
          * 
          * @return builder
          * 
@@ -191,7 +191,7 @@ public final class ValidatingWebhookConfigurationArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param webhooks Webhooks is a list of webhooks and the affected resources and operations.
+         * @param webhooks webhooks is a list of webhooks and the affected resources and operations.
          * 
          * @return builder
          * 

@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
     public class ValidatingAdmissionPolicyBindingSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+        /// matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         /// </summary>
         [Input("matchResources")]
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.MatchResourcesArgs>? MatchResources { get; set; }
@@ -28,12 +28,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.ParamRefArgs>? ParamRef { get; set; }
 
         /// <summary>
-        /// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        /// policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         /// </summary>
-        [Input("policyName")]
-        public Input<string>? PolicyName { get; set; }
+        [Input("policyName", required: true)]
+        public Input<string> PolicyName { get; set; } = null!;
 
-        [Input("validationActions")]
+        [Input("validationActions", required: true)]
         private InputList<string>? _validationActions;
 
         /// <summary>

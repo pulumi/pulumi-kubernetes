@@ -21,14 +21,14 @@ public final class TypeCheckingArgs extends com.pulumi.resources.ResourceArgs {
     public static final TypeCheckingArgs Empty = new TypeCheckingArgs();
 
     /**
-     * The type checking warnings for each expression.
+     * expressionWarnings contains the type checking warnings for each expression.
      * 
      */
     @Import(name="expressionWarnings")
     private @Nullable Output<List<ExpressionWarningArgs>> expressionWarnings;
 
     /**
-     * @return The type checking warnings for each expression.
+     * @return expressionWarnings contains the type checking warnings for each expression.
      * 
      */
     public Optional<Output<List<ExpressionWarningArgs>>> expressionWarnings() {
@@ -60,7 +60,7 @@ public final class TypeCheckingArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param expressionWarnings The type checking warnings for each expression.
+         * @param expressionWarnings expressionWarnings contains the type checking warnings for each expression.
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class TypeCheckingArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param expressionWarnings The type checking warnings for each expression.
+         * @param expressionWarnings expressionWarnings contains the type checking warnings for each expression.
          * 
          * @return builder
          * 
@@ -81,7 +81,7 @@ public final class TypeCheckingArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param expressionWarnings The type checking warnings for each expression.
+         * @param expressionWarnings expressionWarnings contains the type checking warnings for each expression.
          * 
          * @return builder
          * 

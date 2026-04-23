@@ -46,7 +46,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     @Import(name="bindingConditions")
@@ -55,7 +55,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Output<List<String>>> bindingConditions() {
@@ -65,7 +65,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     @Import(name="bindingFailureConditions")
@@ -74,7 +74,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     /**
      * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Output<List<String>>> bindingFailureConditions() {
@@ -196,7 +196,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="tolerations")
@@ -207,7 +207,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
@@ -275,7 +275,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -288,7 +288,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -300,7 +300,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingConditions BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -312,7 +312,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -325,7 +325,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -337,7 +337,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         /**
          * @param bindingFailureConditions BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -497,7 +497,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -512,7 +512,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -526,7 +526,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

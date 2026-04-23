@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1.outputs.MatchResources;
 import com.pulumi.kubernetes.admissionregistration.v1.outputs.ParamRef;
 import java.lang.String;
@@ -15,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ValidatingAdmissionPolicyBindingSpec {
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     private @Nullable MatchResources matchResources;
@@ -25,10 +26,10 @@ public final class ValidatingAdmissionPolicyBindingSpec {
      */
     private @Nullable ParamRef paramRef;
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
-    private @Nullable String policyName;
+    private String policyName;
     /**
      * @return validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
      * 
@@ -51,11 +52,11 @@ public final class ValidatingAdmissionPolicyBindingSpec {
      * Required.
      * 
      */
-    private @Nullable List<String> validationActions;
+    private List<String> validationActions;
 
     private ValidatingAdmissionPolicyBindingSpec() {}
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     public Optional<MatchResources> matchResources() {
@@ -69,11 +70,11 @@ public final class ValidatingAdmissionPolicyBindingSpec {
         return Optional.ofNullable(this.paramRef);
     }
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
-    public Optional<String> policyName() {
-        return Optional.ofNullable(this.policyName);
+    public String policyName() {
+        return this.policyName;
     }
     /**
      * @return validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
@@ -98,7 +99,7 @@ public final class ValidatingAdmissionPolicyBindingSpec {
      * 
      */
     public List<String> validationActions() {
-        return this.validationActions == null ? List.of() : this.validationActions;
+        return this.validationActions;
     }
 
     public static Builder builder() {
@@ -112,8 +113,8 @@ public final class ValidatingAdmissionPolicyBindingSpec {
     public static final class Builder {
         private @Nullable MatchResources matchResources;
         private @Nullable ParamRef paramRef;
-        private @Nullable String policyName;
-        private @Nullable List<String> validationActions;
+        private String policyName;
+        private List<String> validationActions;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicyBindingSpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -136,14 +137,18 @@ public final class ValidatingAdmissionPolicyBindingSpec {
             return this;
         }
         @CustomType.Setter
-        public Builder policyName(@Nullable String policyName) {
-
+        public Builder policyName(String policyName) {
+            if (policyName == null) {
+              throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingSpec", "policyName");
+            }
             this.policyName = policyName;
             return this;
         }
         @CustomType.Setter
-        public Builder validationActions(@Nullable List<String> validationActions) {
-
+        public Builder validationActions(List<String> validationActions) {
+            if (validationActions == null) {
+              throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingSpec", "validationActions");
+            }
             this.validationActions = validationActions;
             return this;
         }

@@ -65,6 +65,9 @@ export class LeaseCandidate extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "coordination.k8s.io/v1beta1";
             resourceInputs["kind"] = "LeaseCandidate";
             resourceInputs["metadata"] = args?.metadata;
@@ -101,5 +104,5 @@ export interface LeaseCandidateArgs {
     /**
      * spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    spec?: pulumi.Input<inputs.coordination.v1beta1.LeaseCandidateSpec>;
+    spec: pulumi.Input<inputs.coordination.v1beta1.LeaseCandidateSpec>;
 }

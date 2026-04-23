@@ -15,38 +15,38 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ValidatingAdmissionPolicyStatusPatch {
     /**
-     * @return The conditions represent the latest available observations of a policy&#39;s current state.
+     * @return conditions represent the latest available observations of a policy&#39;s current state.
      * 
      */
     private @Nullable List<ConditionPatch> conditions;
     /**
-     * @return The generation observed by the controller.
+     * @return observedGeneration is the generation observed by the controller.
      * 
      */
     private @Nullable Integer observedGeneration;
     /**
-     * @return The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+     * @return typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
      * 
      */
     private @Nullable TypeCheckingPatch typeChecking;
 
     private ValidatingAdmissionPolicyStatusPatch() {}
     /**
-     * @return The conditions represent the latest available observations of a policy&#39;s current state.
+     * @return conditions represent the latest available observations of a policy&#39;s current state.
      * 
      */
     public List<ConditionPatch> conditions() {
         return this.conditions == null ? List.of() : this.conditions;
     }
     /**
-     * @return The generation observed by the controller.
+     * @return observedGeneration is the generation observed by the controller.
      * 
      */
     public Optional<Integer> observedGeneration() {
         return Optional.ofNullable(this.observedGeneration);
     }
     /**
-     * @return The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+     * @return typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
      * 
      */
     public Optional<TypeCheckingPatch> typeChecking() {

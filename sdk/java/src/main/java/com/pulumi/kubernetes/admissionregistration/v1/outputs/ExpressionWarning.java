@@ -11,26 +11,26 @@ import java.util.Objects;
 @CustomType
 public final class ExpressionWarning {
     /**
-     * @return The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is &#34;spec.validations[0].expression&#34;
+     * @return fieldRef is the path to the field that refers to the expression. For example, the reference to the expression of the first item of validations is &#34;spec.validations[0].expression&#34;
      * 
      */
     private String fieldRef;
     /**
-     * @return The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+     * @return warning contains the content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
      * 
      */
     private String warning;
 
     private ExpressionWarning() {}
     /**
-     * @return The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is &#34;spec.validations[0].expression&#34;
+     * @return fieldRef is the path to the field that refers to the expression. For example, the reference to the expression of the first item of validations is &#34;spec.validations[0].expression&#34;
      * 
      */
     public String fieldRef() {
         return this.fieldRef;
     }
     /**
-     * @return The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+     * @return warning contains the content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
      * 
      */
     public String warning() {

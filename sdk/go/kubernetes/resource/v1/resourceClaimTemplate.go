@@ -14,8 +14,6 @@ import (
 )
 
 // ResourceClaimTemplate is used to produce ResourceClaim objects.
-//
-// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 type ResourceClaimTemplate struct {
 	pulumi.CustomResourceState
 

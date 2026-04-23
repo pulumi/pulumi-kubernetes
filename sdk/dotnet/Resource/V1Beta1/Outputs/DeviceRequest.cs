@@ -96,7 +96,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// This is a beta field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceToleration> Tolerations;
 

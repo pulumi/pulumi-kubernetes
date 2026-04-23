@@ -23,7 +23,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
     /**
      * HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
      * 
-     * Must not be longer than 128 characters.
+     * Must not be longer than 128 bytes.
      * 
      */
     @Import(name="hardwareAddress")
@@ -32,7 +32,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
     /**
      * @return HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
      * 
-     * Must not be longer than 128 characters.
+     * Must not be longer than 128 bytes.
      * 
      */
     public Optional<Output<String>> hardwareAddress() {
@@ -42,7 +42,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
     /**
      * InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
      * 
-     * Must not be longer than 256 characters.
+     * Must not be longer than 256 bytes.
      * 
      */
     @Import(name="interfaceName")
@@ -51,7 +51,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
     /**
      * @return InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
      * 
-     * Must not be longer than 256 characters.
+     * Must not be longer than 256 bytes.
      * 
      */
     public Optional<Output<String>> interfaceName() {
@@ -102,7 +102,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
         /**
          * @param hardwareAddress HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
          * 
-         * Must not be longer than 128 characters.
+         * Must not be longer than 128 bytes.
          * 
          * @return builder
          * 
@@ -115,7 +115,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
         /**
          * @param hardwareAddress HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
          * 
-         * Must not be longer than 128 characters.
+         * Must not be longer than 128 bytes.
          * 
          * @return builder
          * 
@@ -127,7 +127,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
         /**
          * @param interfaceName InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
          * 
-         * Must not be longer than 256 characters.
+         * Must not be longer than 256 bytes.
          * 
          * @return builder
          * 
@@ -140,7 +140,7 @@ public final class NetworkDeviceDataArgs extends com.pulumi.resources.ResourceAr
         /**
          * @param interfaceName InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
          * 
-         * Must not be longer than 256 characters.
+         * Must not be longer than 256 bytes.
          * 
          * @return builder
          * 

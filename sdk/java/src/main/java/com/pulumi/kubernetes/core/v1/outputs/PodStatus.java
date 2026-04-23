@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatus;
 import com.pulumi.kubernetes.core.v1.outputs.HostIP;
+import com.pulumi.kubernetes.core.v1.outputs.NodeAllocatableResourceClaimStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PodCondition;
 import com.pulumi.kubernetes.core.v1.outputs.PodExtendedResourceClaimStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PodIP;
@@ -66,6 +67,11 @@ public final class PodStatus {
      * 
      */
     private @Nullable String message;
+    /**
+     * @return NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+     * 
+     */
+    private @Nullable List<NodeAllocatableResourceClaimStatus> nodeAllocatableResourceClaimStatuses;
     /**
      * @return nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
      * 
@@ -191,6 +197,13 @@ public final class PodStatus {
         return Optional.ofNullable(this.message);
     }
     /**
+     * @return NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+     * 
+     */
+    public List<NodeAllocatableResourceClaimStatus> nodeAllocatableResourceClaimStatuses() {
+        return this.nodeAllocatableResourceClaimStatuses == null ? List.of() : this.nodeAllocatableResourceClaimStatuses;
+    }
+    /**
      * @return nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
      * 
      */
@@ -290,6 +303,7 @@ public final class PodStatus {
         private @Nullable List<HostIP> hostIPs;
         private @Nullable List<ContainerStatus> initContainerStatuses;
         private @Nullable String message;
+        private @Nullable List<NodeAllocatableResourceClaimStatus> nodeAllocatableResourceClaimStatuses;
         private @Nullable String nominatedNodeName;
         private @Nullable Integer observedGeneration;
         private @Nullable String phase;
@@ -313,6 +327,7 @@ public final class PodStatus {
     	      this.hostIPs = defaults.hostIPs;
     	      this.initContainerStatuses = defaults.initContainerStatuses;
     	      this.message = defaults.message;
+    	      this.nodeAllocatableResourceClaimStatuses = defaults.nodeAllocatableResourceClaimStatuses;
     	      this.nominatedNodeName = defaults.nominatedNodeName;
     	      this.observedGeneration = defaults.observedGeneration;
     	      this.phase = defaults.phase;
@@ -394,6 +409,15 @@ public final class PodStatus {
 
             this.message = message;
             return this;
+        }
+        @CustomType.Setter
+        public Builder nodeAllocatableResourceClaimStatuses(@Nullable List<NodeAllocatableResourceClaimStatus> nodeAllocatableResourceClaimStatuses) {
+
+            this.nodeAllocatableResourceClaimStatuses = nodeAllocatableResourceClaimStatuses;
+            return this;
+        }
+        public Builder nodeAllocatableResourceClaimStatuses(NodeAllocatableResourceClaimStatus... nodeAllocatableResourceClaimStatuses) {
+            return nodeAllocatableResourceClaimStatuses(List.of(nodeAllocatableResourceClaimStatuses));
         }
         @CustomType.Setter
         public Builder nominatedNodeName(@Nullable String nominatedNodeName) {
@@ -478,6 +502,7 @@ public final class PodStatus {
             _resultValue.hostIPs = hostIPs;
             _resultValue.initContainerStatuses = initContainerStatuses;
             _resultValue.message = message;
+            _resultValue.nodeAllocatableResourceClaimStatuses = nodeAllocatableResourceClaimStatuses;
             _resultValue.nominatedNodeName = nominatedNodeName;
             _resultValue.observedGeneration = observedGeneration;
             _resultValue.phase = phase;

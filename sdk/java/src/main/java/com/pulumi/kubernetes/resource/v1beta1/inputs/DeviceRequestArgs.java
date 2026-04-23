@@ -232,7 +232,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="tolerations")
@@ -249,7 +249,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
@@ -567,7 +567,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -588,7 +588,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -608,7 +608,7 @@ public final class DeviceRequestArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

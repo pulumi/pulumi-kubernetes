@@ -12,26 +12,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ParamKindPatch {
     /**
-     * @return APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+     * @return apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
      * 
      */
     private @Nullable String apiVersion;
     /**
-     * @return Kind is the API kind the resources belong to. Required.
+     * @return kind is the API kind the resources belong to. Required.
      * 
      */
     private @Nullable String kind;
 
     private ParamKindPatch() {}
     /**
-     * @return APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+     * @return apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
      * 
      */
     public Optional<String> apiVersion() {
         return Optional.ofNullable(this.apiVersion);
     }
     /**
-     * @return Kind is the API kind the resources belong to. Required.
+     * @return kind is the API kind the resources belong to. Required.
      * 
      */
     public Optional<String> kind() {

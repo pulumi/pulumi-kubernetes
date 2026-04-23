@@ -12,6 +12,10 @@ Previously, the resources field was incorrectly typed as a `string` in the schem
 
 - Upgrade Kubernetes schema and libraries to v1.35.4.
 
+### Changed
+
+- Upgrade Kubernetes schema and libraries to v1.36.0.
+
 ## 4.29.0 (April 15, 2026)
 
 ### Fixed

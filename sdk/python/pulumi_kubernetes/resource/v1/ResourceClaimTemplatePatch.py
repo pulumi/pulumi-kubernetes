@@ -116,8 +116,6 @@ class ResourceClaimTemplatePatch(pulumi.CustomResource):
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ResourceClaimTemplate is used to produce ResourceClaim objects.
 
-        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
-
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -142,8 +140,6 @@ class ResourceClaimTemplatePatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         ResourceClaimTemplate is used to produce ResourceClaim objects.
-
-        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 
         :param str resource_name: The name of the resource.
