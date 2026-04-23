@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"context"
 	"encoding/json"
 	"os"
 	"os/user"
@@ -593,6 +594,61 @@ func Test_getActiveClusterFromConfig(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestExecCredentialStderr(t *testing.T) {
+	makeConfig := func(authInfo *clientcmdapi.AuthInfo) *clientcmdapi.Config {
+		return &clientcmdapi.Config{
+			CurrentContext: "ctx",
+			Contexts: map[string]*clientcmdapi.Context{
+				"ctx":  {AuthInfo: "user1", Cluster: "cluster"},
+				"ctx2": {AuthInfo: "user2", Cluster: "cluster"},
+			},
+			AuthInfos: map[string]*clientcmdapi.AuthInfo{
+				"user1": authInfo,
+				"user2": {Token: "token2"},
+			},
+			Clusters: map[string]*clientcmdapi.Cluster{
+				"cluster": {Server: "https://example.com"},
+			},
+		}
+	}
+
+	t.Run("nil kubeconfigClient returns empty string", func(t *testing.T) {
+		assert.Equal(t, "", execCredentialStderr(context.Background(), nil, nil))
+	})
+
+	t.Run("no exec config returns empty string", func(t *testing.T) {
+		cfg := makeConfig(&clientcmdapi.AuthInfo{Token: "token"})
+		kc := clientcmd.NewDefaultClientConfig(*cfg, nil)
+		assert.Equal(t, "", execCredentialStderr(context.Background(), kc, nil))
+	})
+
+	t.Run("exec plugin stderr is captured", func(t *testing.T) {
+		cfg := makeConfig(&clientcmdapi.AuthInfo{
+			Exec: &clientcmdapi.ExecConfig{
+				Command:    "sh",
+				Args:       []string{"-c", "echo 'credentials expired' >&2; exit 1"},
+				APIVersion: "client.authentication.k8s.io/v1",
+			},
+		})
+		kc := clientcmd.NewDefaultClientConfig(*cfg, nil)
+		assert.Equal(t, "credentials expired", execCredentialStderr(context.Background(), kc, nil))
+	})
+
+	t.Run("context override selects the correct user", func(t *testing.T) {
+		cfg := makeConfig(&clientcmdapi.AuthInfo{
+			Exec: &clientcmdapi.ExecConfig{
+				Command:    "sh",
+				Args:       []string{"-c", "echo 'user1 error' >&2; exit 1"},
+				APIVersion: "client.authentication.k8s.io/v1",
+			},
+		})
+		// Override points to ctx2 whose user has no exec config — should return ""
+		overrides := &clientcmd.ConfigOverrides{CurrentContext: "ctx2"}
+		kc := clientcmd.NewDefaultClientConfig(*cfg, overrides)
+		assert.Equal(t, "", execCredentialStderr(context.Background(), kc, overrides))
+	})
 }
 
 func TestPruneMap(t *testing.T) {
