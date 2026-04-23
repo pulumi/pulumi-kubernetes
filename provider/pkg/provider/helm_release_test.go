@@ -22,192 +22,8 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 )
-
-func Test_MergeMaps(t *testing.T) {
-	m := map[string]any{
-		"a": map[string]any{
-			"b": map[string]any{
-				"d": []any{
-					"1", "2",
-				},
-			},
-		},
-	}
-
-	override := map[string]any{
-		"a": map[string]any{
-			"b": map[string]any{
-				"d": []any{
-					"3", "4",
-				},
-			},
-		},
-	}
-
-	for _, test := range []struct {
-		name     string
-		allowNil bool
-		dest     map[string]any
-		src      map[string]any
-		expected map[string]any
-	}{
-		{
-			name:     "Precedence",
-			allowNil: false,
-			dest:     m,
-			src:      override,
-			expected: override, // Expect the override to take precedence
-		},
-		{
-			name:     "Merge maps",
-			allowNil: false,
-			dest:     m,
-			src: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"c": []any{
-							"3", "4",
-						},
-						"f": true,
-					},
-				},
-			},
-			expected: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"d": []any{
-							"1", "2",
-						},
-						"c": []any{
-							"3", "4",
-						},
-						"f": true,
-					},
-				},
-			},
-		},
-		{
-			name:     "Dest Has Nil Values- disallow nil",
-			allowNil: false,
-			dest:     m,
-			src: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"c": any(nil),
-						"e": (*any)(nil),
-					},
-				},
-			},
-			expected: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"d": []any{
-							"1", "2",
-						},
-					},
-				},
-			},
-		},
-		{
-			name:     "Dest Has Nil Values- allow nil",
-			allowNil: true,
-			dest:     m,
-			src: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"c": any(nil),
-						"e": (*any)(nil),
-					},
-				},
-			},
-			expected: map[string]any{
-				"a": map[string]any{
-					"b": map[string]any{
-						"c": any(nil),
-						"e": (*any)(nil),
-						"d": []any{
-							"1", "2",
-						},
-					},
-				},
-			},
-		},
-		{
-			name:     "allow nil can clear values",
-			allowNil: true,
-			dest: map[string]any{
-				"string": "foo",
-			},
-			src: map[string]any{
-				"string": nil,
-			},
-			expected: map[string]any{
-				"string": nil,
-			},
-		},
-		{
-			name:     "allow nil can clear lists",
-			allowNil: true,
-			dest: map[string]any{
-				"list": []any{1, 2, 3},
-			},
-			src: map[string]any{
-				"list": []any{},
-			},
-			expected: map[string]any{
-				"list": []any{},
-			},
-		},
-		{
-			name:     "allow nil doesn't clear objects",
-			allowNil: true,
-			dest: map[string]any{
-				"object": map[string]any{"foo": "bar"},
-			},
-			src: map[string]any{
-				"object": map[string]any{},
-			},
-			expected: map[string]any{
-				"object": map[string]any{"foo": "bar"},
-			},
-		},
-		{
-			name:     "allow nil can clear keys",
-			allowNil: true,
-			dest: map[string]any{
-				"livenessProbe": map[string]any{
-					"httpGet": map[string]any{
-						"path": "/user/login",
-						"port": "http",
-					},
-				},
-			},
-			src: map[string]any{
-				"livenessProbe": map[string]any{
-					"httpGet": nil,
-					"exec": map[string]any{
-						"command": []any{"foo"},
-					},
-				},
-			},
-			expected: map[string]any{
-				"livenessProbe": map[string]any{
-					"httpGet": nil,
-					"exec": map[string]any{
-						"command": []any{"foo"},
-					},
-				},
-			},
-		},
-	} {
-		t.Run(test.name, func(t *testing.T) {
-			merged, err := mergeMaps(test.dest, test.src, test.allowNil)
-			require.NoError(t, err)
-			assert.Equal(t, test.expected, merged)
-		})
-	}
-}
 
 func TestDecodeRelease(t *testing.T) {
 	bitnamiImage := `
@@ -267,9 +83,8 @@ image:
 			},
 		},
 		{
-			name: "valueYamlFiles with literals and allowNullValues=true",
+			name: "null in values overrides valueYamlFiles value",
 			given: resource.PropertyMap{
-				"allowNullValues": resource.NewBoolProperty(true),
 				"values": resource.NewObjectProperty(resource.PropertyMap{
 					"image": resource.NewObjectProperty(resource.PropertyMap{
 						"tag": resource.NewNullProperty(),
@@ -281,7 +96,6 @@ image:
 				}),
 			},
 			want: &Release{
-				AllowNullValues: true,
 				Values: map[string]any{
 					"image": map[string]any{
 						"repository": "bitnami/nginx",
@@ -291,9 +105,8 @@ image:
 			},
 		},
 		{
-			name: "valueYamlFiles with array literal and allowNullValues=true",
+			name: "empty array in values overrides valueYamlFiles value",
 			given: resource.PropertyMap{
-				"allowNullValues": resource.NewBoolProperty(true),
 				"values": resource.NewObjectProperty(resource.PropertyMap{
 					"images": resource.NewArrayProperty([]resource.PropertyValue{}),
 				},
@@ -305,14 +118,13 @@ images: ["bitnami/nginx"]
 				}),
 			},
 			want: &Release{
-				AllowNullValues: true,
 				Values: map[string]any{
 					"images": []any{},
 				},
 			},
 		},
 		{
-			name: "valueYamlFiles with string literal and allowNullValues=false",
+			name: "explicit null in values overrides valueYamlFiles",
 			given: resource.PropertyMap{
 				"values": resource.NewObjectProperty(resource.PropertyMap{
 					"image": resource.NewObjectProperty(resource.PropertyMap{
@@ -328,8 +140,21 @@ images: ["bitnami/nginx"]
 				Values: map[string]any{
 					"image": map[string]any{
 						"repository": "bitnami/nginx",
-						"tag":        "latest", // Not removed.
+						"tag":        nil, // Cleared by the user's explicit null.
 					},
+				},
+			},
+		},
+		{
+			name: "valueYamlFiles with empty list overrides chart default",
+			given: resource.PropertyMap{
+				"valueYamlFiles": resource.NewArrayProperty([]resource.PropertyValue{
+					resource.NewAssetProperty(&asset.Asset{Text: "items: []\n"}),
+				}),
+			},
+			want: &Release{
+				Values: map[string]any{
+					"items": []any{},
 				},
 			},
 		},
@@ -361,4 +186,56 @@ images: ["bitnami/nginx"]
 			assert.Equal(t, tt.want, actual)
 		})
 	}
+}
+
+// decodeReleaseThroughWire simulates the production marshal/unmarshal path with
+// null preservation (SkipNulls: false), so tests exercise the actual behavior
+// users see after this fix.
+
+func decodeReleaseThroughWire(t *testing.T, userInputs resource.PropertyMap) *Release {
+	t.Helper()
+
+	wire, err := plugin.MarshalProperties(userInputs, plugin.MarshalOptions{
+		Label:        "userInputs",
+		KeepUnknowns: true,
+		KeepSecrets:  true,
+	})
+	require.NoError(t, err)
+
+	news, err := plugin.UnmarshalProperties(wire, plugin.MarshalOptions{
+		Label:        "news",
+		KeepUnknowns: true,
+		SkipNulls:    false,
+		KeepSecrets:  true,
+	})
+	require.NoError(t, err)
+
+	release, err := decodeRelease(news, "")
+	require.NoError(t, err)
+	return release
+}
+
+// TestDecodeRelease_NullPreservedThroughWire verifies that a null value in
+// Helm chart values survives the full wire round-trip (Marshal → Unmarshal →
+// decodeRelease), matching the Helm CLI behavior of `--set key=null`.
+func TestDecodeRelease_NullPreservedThroughWire(t *testing.T) {
+	release := decodeReleaseThroughWire(t, resource.PropertyMap{
+		// NOTE: allowNullValues is intentionally NOT set — we want the
+		// default behavior to preserve nulls, same as Helm CLI.
+		"chart": resource.NewStringProperty("nginx"),
+		"values": resource.NewObjectProperty(resource.PropertyMap{
+			"image": resource.NewObjectProperty(resource.PropertyMap{
+				"tag": resource.NewNullProperty(),
+			}),
+		}),
+	})
+
+	require.Contains(t, release.Values, "image", "image key should be present in values")
+
+	image, ok := release.Values["image"].(map[string]any)
+	require.True(t, ok, "image should be a map")
+
+	tag, hasTag := image["tag"]
+	assert.True(t, hasTag, "tag key should be present in image values (got %v)", image)
+	assert.Nil(t, tag, "tag value should be nil (the user's explicit null)")
 }

@@ -28,7 +28,6 @@ import (
 	"time"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	"helm.sh/helm/v3/pkg/action"
 	helmchart "helm.sh/helm/v3/pkg/chart"
@@ -68,7 +67,8 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
-	// When combinging Values with mergeMaps, allow Nulls
+	// Deprecated: nulls in Values are preserved by default. This field has no effect and will be
+	// removed in a future release.
 	AllowNullValues bool `json:"allowNullValues,omitempty"`
 	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
 	Atomic bool `json:"atomic,omitempty"`
@@ -321,10 +321,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values, err = mergeMaps(values, release.Values, release.AllowNullValues)
-	if err != nil {
-		return nil, err
-	}
+	release.Values = helm.MergeMaps(values, release.Values)
 	return &release, nil
 }
 
@@ -340,7 +337,7 @@ func (r *helmReleaseProvider) Check(
 	// an update.
 	oldResInputs := req.GetOlds()
 	olds, err := plugin.UnmarshalProperties(oldResInputs, plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -352,7 +349,7 @@ func (r *helmReleaseProvider) Check(
 	news, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -369,6 +366,11 @@ func (r *helmReleaseProvider) Check(
 	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
+	}
+
+	if newRelease.AllowNullValues {
+		_ = r.host.Log(ctx, diag.Warning, urn,
+			"`allowNullValues` is deprecated and has no effect; null values in Helm chart values are preserved by default.")
 	}
 
 	if !news.ContainsUnknowns() {
@@ -396,7 +398,7 @@ func (r *helmReleaseProvider) Check(
 	newInputs, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.newInputs", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -409,7 +411,7 @@ func (r *helmReleaseProvider) Check(
 	autonamedInputs, err := plugin.MarshalProperties(news, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.autonamedInputs", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  r.enableSecrets,
 	})
 	if err != nil {
@@ -729,7 +731,7 @@ func (r *helmReleaseProvider) Diff(
 	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
 	// we received back from the API server.
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -739,7 +741,7 @@ func (r *helmReleaseProvider) Diff(
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -898,7 +900,7 @@ func (r *helmReleaseProvider) Create(
 	news, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.properties", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -933,7 +935,7 @@ func (r *helmReleaseProvider) Create(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -962,7 +964,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	logger.V(9).Infof("%s Starting", label)
 
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1026,7 +1028,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label), false), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -1034,7 +1036,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	}
 
 	inputs, err := plugin.MarshalProperties(oldInputs, plugin.MarshalOptions{
-		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets, //nolint:goconst
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: false, KeepSecrets: r.enableSecrets, //nolint:goconst
 	})
 	if err != nil {
 		return nil, err
@@ -1064,7 +1066,7 @@ func (r *helmReleaseProvider) Update(
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.olds", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1073,7 +1075,7 @@ func (r *helmReleaseProvider) Update(
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1112,7 +1114,7 @@ func (r *helmReleaseProvider) Update(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  r.enableSecrets,
 		})
 	if err != nil {
@@ -1141,7 +1143,7 @@ func (r *helmReleaseProvider) Delete(
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	olds, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1231,12 +1233,8 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	if release.Chart == "" {
 		release.Chart = r.Chart.Metadata.Name
 	}
-	var err error
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values, err = mergeMaps(release.Values, r.Config, release.AllowNullValues)
-	if err != nil {
-		return err
-	}
+	release.Values = helm.MergeMaps(release.Values, r.Config)
 	release.Version = r.Chart.Metadata.Version
 
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)
@@ -1353,12 +1351,7 @@ func isChartInstallable(ch *helmchart.Chart) error {
 }
 
 func getValues(release *Release) (map[string]any, error) {
-	var err error
-	base := map[string]any{}
-	base, err = mergeMaps(base, release.Values, release.AllowNullValues)
-	if err != nil {
-		return nil, err
-	}
+	base := helm.MergeMaps(map[string]any{}, release.Values)
 	return base, logValues(base)
 }
 
@@ -1382,52 +1375,6 @@ func logValues(values map[string]any) error {
 	)
 
 	return nil
-}
-
-// Merges a and b map, preferring values from b map
-func mergeMaps(a, b map[string]any, allowNullValues bool) (map[string]any, error) {
-	if allowNullValues {
-		// Use upstream's behavior.
-		return helm.MergeMaps(a, b), nil
-	}
-
-	a = excludeNulls(a).(map[string]any)
-	b = excludeNulls(b).(map[string]any)
-	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
-		return nil, err
-	}
-	return a, nil
-}
-
-func excludeNulls(in any) any {
-	switch reflect.TypeOf(in).Kind() {
-	case reflect.Map:
-		out := map[string]any{}
-		m := in.(map[string]any)
-		for k, v := range m {
-			val := reflect.ValueOf(v)
-			if val.IsValid() {
-				switch val.Kind() {
-				case reflect.Map, reflect.Ptr, reflect.UnsafePointer, reflect.Interface, reflect.Slice:
-					if val.IsNil() {
-						continue
-					}
-				}
-				out[k] = excludeNulls(v)
-			}
-		}
-		return out
-	case reflect.Slice, reflect.Array:
-		var out []any
-		s := in.([]any)
-		for _, i := range s {
-			if i != nil {
-				out = append(out, excludeNulls(i))
-			}
-		}
-		return out
-	}
-	return in
 }
 
 // searchProgramDirectory implements a best-effort search for a chart in the program directory.

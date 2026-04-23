@@ -299,7 +299,7 @@ func (k *kubeProvider) CheckConfig(
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("CheckConfig failed because of malformed resource inputs: %w", err)
@@ -412,7 +412,7 @@ func (k *kubeProvider) DiffConfig(
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.olds", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 	})
 	if err != nil {
 		return nil, err
@@ -420,7 +420,7 @@ func (k *kubeProvider) DiffConfig(
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("DiffConfig failed because of malformed resource inputs: %w", err)
@@ -1017,7 +1017,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		objProps, err := plugin.MarshalProperties(
 			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
-				Label: label, KeepUnknowns: true, SkipNulls: true,
+				Label: label, KeepUnknowns: true, SkipNulls: false,
 			})
 		if err != nil {
 			return nil, err
@@ -1052,7 +1052,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		objProps, err := plugin.MarshalProperties(
 			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
-				Label: label, KeepUnknowns: true, SkipNulls: true,
+				Label: label, KeepUnknowns: true, SkipNulls: false,
 			})
 		if err != nil {
 			return nil, err
@@ -1076,7 +1076,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		objProps, err := plugin.MarshalProperties(
 			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
-				Label: label, KeepUnknowns: true, SkipNulls: true,
+				Label: label, KeepUnknowns: true, SkipNulls: false,
 			})
 		if err != nil {
 			return nil, err
@@ -1151,7 +1151,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// an update.
 	oldResInputs := req.GetOlds()
 	olds, err := plugin.UnmarshalProperties(oldResInputs, plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1163,7 +1163,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	news, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1330,7 +1330,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	autonamedInputs, err := plugin.MarshalProperties(checkedInputs, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.autonamedInputs", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  k.enableSecrets,
 	})
 	if err != nil {
@@ -1411,7 +1411,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Get old state. This is an object that includes `inputs` previously supplied by the user, and the live state
 	// we received back from the API server.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1421,7 +1421,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1661,7 +1661,7 @@ func (k *kubeProvider) Create(
 	newResInputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.properties", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1704,7 +1704,7 @@ func (k *kubeProvider) Create(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
-				SkipNulls:    true,
+				SkipNulls:    false,
 				KeepSecrets:  k.enableSecrets,
 			})
 		if err != nil {
@@ -1807,7 +1807,7 @@ func (k *kubeProvider) Create(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
@@ -1898,13 +1898,13 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
 	}
 	oldInputsPM, err := plugin.UnmarshalProperties(req.GetInputs(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.oldInputs", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.oldInputs", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1956,7 +1956,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.state", label),
 				KeepUnknowns: true,
-				SkipNulls:    true,
+				SkipNulls:    false,
 				KeepSecrets:  k.enableSecrets,
 			})
 		if err != nil {
@@ -1964,7 +1964,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		}
 
 		inputs, err := plugin.MarshalProperties(oldInputsPM, plugin.MarshalOptions{
-			Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: k.enableSecrets,
+			Label: label + ".inputs", KeepUnknowns: true, SkipNulls: false, KeepSecrets: k.enableSecrets,
 		})
 		if err != nil {
 			return nil, err
@@ -2072,7 +2072,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		checkpointObject(liveInputs, liveObj, oldInputsPM, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
@@ -2083,7 +2083,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	annotateSecrets(liveInputsPM, oldInputsPM)
 
 	inputs, err := plugin.MarshalProperties(liveInputsPM, plugin.MarshalOptions{
-		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: k.enableSecrets,
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: false, KeepSecrets: k.enableSecrets,
 	})
 	if err != nil {
 		return nil, err
@@ -2149,7 +2149,7 @@ func (k *kubeProvider) Update(
 
 	// Obtain old properties, create a Kubernetes `unstructured.Unstructured`.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -2159,7 +2159,7 @@ func (k *kubeProvider) Update(
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
-		SkipNulls:    true,
+		SkipNulls:    false,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -2215,7 +2215,7 @@ func (k *kubeProvider) Update(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
-				SkipNulls:    true,
+				SkipNulls:    false,
 				KeepSecrets:  k.enableSecrets,
 			})
 		if err != nil {
@@ -2294,7 +2294,7 @@ func (k *kubeProvider) Update(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
-			SkipNulls:    true,
+			SkipNulls:    false,
 			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
@@ -2343,7 +2343,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: false, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -2451,7 +2451,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			checkpointObject(current, lastKnownState, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
-				SkipNulls:    true,
+				SkipNulls:    false,
 				KeepSecrets:  k.enableSecrets,
 			})
 		if err != nil {
@@ -2930,6 +2930,9 @@ func makePatchSlice(path []any, v any) any {
 // equalNumbers returns true if both a and b are number values (int64 or float64). Note that if a this will fail if
 // either value is not representable as a float64.
 func equalNumbers(a, b any) bool {
+	if a == nil || b == nil {
+		return false
+	}
 	aKind, bKind := reflect.TypeOf(a).Kind(), reflect.TypeOf(b).Kind()
 	if aKind == bKind {
 		return reflect.DeepEqual(a, b)

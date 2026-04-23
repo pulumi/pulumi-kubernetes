@@ -24,12 +24,14 @@ import (
 
 	gm "github.com/onsi/gomega"
 	gs "github.com/onsi/gomega/gstruct"
+	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/structpb"
 
 	"github.com/pulumi/providertest/grpclog"
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -193,6 +195,62 @@ func clearGrpcLog(t *testing.T, pt *pulumitest.PulumiTest) {
 			t.Fatalf("failed to clear gRPC log: %s", err)
 		}
 	}
+}
+
+// TestHelmNullValues verifies that setting a Helm chart value to null deletes
+// the chart's default for that key (https://github.com/pulumi/pulumi-kubernetes/issues/2997).
+func TestHelmNullValues(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("helm-release-null-values", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Step 1: both chart defaults should be present in the ConfigMap.
+			cm := stackInfo.Outputs["configMapData"].(map[string]any)
+			assert.Equal(t, "default-alpha", cm["alpha"])
+			assert.Equal(t, "default-beta", cm["beta"])
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("helm-release-null-values", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Step 2: alpha should be deleted by null, beta remains.
+					cm := stackInfo.Outputs["configMapData"].(map[string]any)
+					assert.NotContains(t, cm, "alpha", "alpha should be deleted by null")
+					assert.Equal(t, "default-beta", cm["beta"])
+				},
+			},
+		},
+		DebugUpdates:         true,
+		ExpectRefreshChanges: true,
+	})
+	integration.ProgramTest(t, &test)
+}
+
+// TestNullValues verifies that explicit null values in native Kubernetes resource
+// specs survive the provider's Check/Create/Update pipeline (#2997).
+func TestNullValues(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("null-values", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Step 1: replicas should be 2.
+			replicas := stackInfo.Outputs["replicas"].(float64)
+			assert.Equal(t, float64(2), replicas)
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("null-values", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Step 2: replicas=null lets server default to 1.
+					replicas := stackInfo.Outputs["replicas"].(float64)
+					assert.Equal(t, float64(1), replicas)
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestPreviewWithUnreachableCluster(t *testing.T) {
