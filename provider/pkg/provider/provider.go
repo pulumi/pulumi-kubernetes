@@ -245,13 +245,16 @@ func (k *kubeProvider) Call(
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
+// terraformMappingKey is the key used to identify terraform conversion mapping requests.
+const terraformMappingKey = "terraform"
+
 // GetMappings advertises the source TF providers this Pulumi provider can supply mappings for.
 // pulumi-kubernetes maps both `kubernetes` (kubernetes_* resources) and `helm` (helm_release).
 func (k *kubeProvider) GetMappings(
 	_ /* ctx */ context.Context,
 	request *pulumirpc.GetMappingsRequest,
 ) (*pulumirpc.GetMappingsResponse, error) {
-	if request.Key != "terraform" {
+	if request.Key != terraformMappingKey {
 		return &pulumirpc.GetMappingsResponse{}, nil
 	}
 	return &pulumirpc.GetMappingsResponse{
@@ -266,7 +269,7 @@ func (k *kubeProvider) GetMapping(
 	request *pulumirpc.GetMappingRequest,
 ) (*pulumirpc.GetMappingResponse, error) {
 	// We only return a mapping for terraform
-	if request.Key != "terraform" {
+	if request.Key != terraformMappingKey {
 		// an empty response means no mapping, by design we don't return an error here
 		return &pulumirpc.GetMappingResponse{}, nil
 	}
