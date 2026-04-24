@@ -727,6 +727,7 @@ class Chart(pulumi.ComponentResource):
             __props__.__dict__["values"] = values
             __props__.__dict__["verify"] = verify
             __props__.__dict__["version"] = version
+            __props__.__dict__["images"] = None
             __props__.__dict__["resources"] = None
         super(Chart, __self__).__init__(
             'kubernetes:helm.sh/v4:Chart',
@@ -734,6 +735,14 @@ class Chart(pulumi.ComponentResource):
             __props__,
             opts,
             remote=True)
+
+    @_builtins.property
+    @pulumi.getter
+    def images(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Sorted, deduplicated list of container image references used by all workload resources (Deployments, DaemonSets, StatefulSets, Jobs, CronJobs, Pods, etc.).
+        """
+        return pulumi.get(self, "images")
 
     @_builtins.property
     @pulumi.getter

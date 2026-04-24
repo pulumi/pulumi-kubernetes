@@ -31,6 +31,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	kubehelm "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/images"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 	helmv4 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v4"
@@ -129,7 +130,8 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 
 type ChartState struct {
 	pulumi.ResourceState
-	Resources pulumi.ArrayOutput `pulumi:"resources"`
+	Resources pulumi.ArrayOutput      `pulumi:"resources"`
+	Images    pulumi.StringArrayOutput `pulumi:"images"`
 }
 
 var _ providerresource.ResourceProvider = &ChartProvider{}
@@ -169,6 +171,7 @@ func (r *ChartProvider) Construct(
 		_ = ctx.Log.Warn("Input properties have unknown values. Preview is incomplete.", &pulumi.LogArgs{
 			Resource: comp,
 		})
+		comp.Images = pulumi.ToStringArray([]string{}).ToStringArrayOutput()
 		r, err := pulumiprovider.NewConstructResult(comp)
 		return r, err
 	}
@@ -265,6 +268,9 @@ func (r *ChartProvider) Construct(
 	if err != nil {
 		return nil, err
 	}
+
+	// Extract container images from all workload resources.
+	comp.Images = pulumi.ToStringArray(images.FromObjects(objs)).ToStringArrayOutput()
 
 	// Register the objects as Pulumi resources.
 	registerOpts := provideryamlv2.RegisterOptions{

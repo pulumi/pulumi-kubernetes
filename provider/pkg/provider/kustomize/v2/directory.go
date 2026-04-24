@@ -27,6 +27,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/images"
 	providerresource "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/resource"
 	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 )
@@ -82,7 +83,8 @@ func unwrapDirectoryArgs(
 
 type DirectoryState struct {
 	pulumi.ResourceState
-	Resources pulumi.ArrayOutput `pulumi:"resources"`
+	Resources pulumi.ArrayOutput      `pulumi:"resources"`
+	Images    pulumi.StringArrayOutput `pulumi:"images"`
 }
 
 var _ providerresource.ResourceProvider = &DirectoryProvider{}
@@ -120,6 +122,7 @@ func (r *DirectoryProvider) Construct(
 		_ = ctx.Log.Warn("Input properties have unknown values. Preview is incomplete.", &pulumi.LogArgs{
 			Resource: comp,
 		})
+		comp.Images = pulumi.ToStringArray([]string{}).ToStringArrayOutput()
 		r, err := pulumiprovider.NewConstructResult(comp)
 		return r, err
 	}
@@ -159,6 +162,9 @@ func (r *DirectoryProvider) Construct(
 	if err != nil {
 		return nil, err
 	}
+
+	// Extract container images from all workload resources.
+	comp.Images = pulumi.ToStringArray(images.FromObjects(objs)).ToStringArrayOutput()
 
 	// Register the objects as Pulumi resources.
 	registerOpts := provideryamlv2.RegisterOptions{
