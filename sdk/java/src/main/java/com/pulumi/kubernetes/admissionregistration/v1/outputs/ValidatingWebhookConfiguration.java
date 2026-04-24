@@ -25,12 +25,12 @@ public final class ValidatingWebhookConfiguration {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Webhooks is a list of webhooks and the affected resources and operations.
+     * @return webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     private @Nullable List<ValidatingWebhook> webhooks;
@@ -51,14 +51,14 @@ public final class ValidatingWebhookConfiguration {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Webhooks is a list of webhooks and the affected resources and operations.
+     * @return webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     public List<ValidatingWebhook> webhooks() {

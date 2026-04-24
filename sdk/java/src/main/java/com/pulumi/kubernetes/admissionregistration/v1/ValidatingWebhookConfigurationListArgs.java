@@ -66,14 +66,14 @@ public final class ValidatingWebhookConfigurationListArgs extends com.pulumi.res
     }
 
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ListMetaArgs> metadata;
 
     /**
-     * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * @return metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     public Optional<Output<ListMetaArgs>> metadata() {
@@ -181,7 +181,7 @@ public final class ValidatingWebhookConfigurationListArgs extends com.pulumi.res
         }
 
         /**
-         * @param metadata Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+         * @param metadata metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 
@@ -192,7 +192,7 @@ public final class ValidatingWebhookConfigurationListArgs extends com.pulumi.res
         }
 
         /**
-         * @param metadata Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+         * @param metadata metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 

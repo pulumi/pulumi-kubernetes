@@ -277,6 +277,8 @@ __all__ = [
     'ImageVolumeSourcePatchArgsDict',
     'ImageVolumeSourceArgs',
     'ImageVolumeSourceArgsDict',
+    'ImageVolumeStatusArgs',
+    'ImageVolumeStatusArgsDict',
     'KeyToPathPatchArgs',
     'KeyToPathPatchArgsDict',
     'KeyToPathArgs',
@@ -337,6 +339,8 @@ __all__ = [
     'NodeAffinityPatchArgsDict',
     'NodeAffinityArgs',
     'NodeAffinityArgsDict',
+    'NodeAllocatableResourceClaimStatusArgs',
+    'NodeAllocatableResourceClaimStatusArgsDict',
     'NodeConditionArgs',
     'NodeConditionArgsDict',
     'NodeConfigSourcePatchArgs',
@@ -469,6 +473,10 @@ __all__ = [
     'PodSchedulingGatePatchArgsDict',
     'PodSchedulingGateArgs',
     'PodSchedulingGateArgsDict',
+    'PodSchedulingGroupPatchArgs',
+    'PodSchedulingGroupPatchArgsDict',
+    'PodSchedulingGroupArgs',
+    'PodSchedulingGroupArgsDict',
     'PodSecurityContextPatchArgs',
     'PodSecurityContextPatchArgsDict',
     'PodSecurityContextArgs',
@@ -695,6 +703,8 @@ __all__ = [
     'VolumeResourceRequirementsPatchArgsDict',
     'VolumeResourceRequirementsArgs',
     'VolumeResourceRequirementsArgsDict',
+    'VolumeStatusArgs',
+    'VolumeStatusArgsDict',
     'VolumeArgs',
     'VolumeArgsDict',
     'VsphereVirtualDiskVolumeSourcePatchArgs',
@@ -709,10 +719,6 @@ __all__ = [
     'WindowsSecurityContextOptionsPatchArgsDict',
     'WindowsSecurityContextOptionsArgs',
     'WindowsSecurityContextOptionsArgsDict',
-    'WorkloadReferencePatchArgs',
-    'WorkloadReferencePatchArgsDict',
-    'WorkloadReferenceArgs',
-    'WorkloadReferenceArgsDict',
 ]
 
 class AWSElasticBlockStoreVolumeSourcePatchArgsDict(TypedDict):
@@ -14393,6 +14399,39 @@ class ImageVolumeSourceArgs:
         pulumi.set(self, "reference", value)
 
 
+class ImageVolumeStatusArgsDict(TypedDict):
+    """
+    ImageVolumeStatus represents the image-based volume status.
+    """
+    image_ref: pulumi.Input[_builtins.str]
+    """
+    ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+    """
+
+@pulumi.input_type
+class ImageVolumeStatusArgs:
+    def __init__(__self__, *,
+                 image_ref: pulumi.Input[_builtins.str]):
+        """
+        ImageVolumeStatus represents the image-based volume status.
+
+        :param pulumi.Input[_builtins.str] image_ref: ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+        """
+        pulumi.set(__self__, "image_ref", image_ref)
+
+    @_builtins.property
+    @pulumi.getter(name="imageRef")
+    def image_ref(self) -> pulumi.Input[_builtins.str]:
+        """
+        ImageRef is the digest of the image used for this volume. It should have a value that's similar to the pod's status.containerStatuses[i].imageID. The ImageRef length should not exceed 256 characters.
+        """
+        return pulumi.get(self, "image_ref")
+
+    @image_ref.setter
+    def image_ref(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "image_ref", value)
+
+
 class KeyToPathPatchArgsDict(TypedDict):
     """
     Maps a string key to a path within a volume.
@@ -16491,6 +16530,78 @@ class NodeAffinityArgs:
     @required_during_scheduling_ignored_during_execution.setter
     def required_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input['NodeSelectorArgs']]):
         pulumi.set(self, "required_during_scheduling_ignored_during_execution", value)
+
+
+class NodeAllocatableResourceClaimStatusArgsDict(TypedDict):
+    """
+    NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
+    """
+    resource_claim_name: pulumi.Input[_builtins.str]
+    """
+    ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+    """
+    resources: pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]
+    """
+    Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+    """
+    containers: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    Containers lists the names of all containers in this pod that reference the claim.
+    """
+
+@pulumi.input_type
+class NodeAllocatableResourceClaimStatusArgs:
+    def __init__(__self__, *,
+                 resource_claim_name: pulumi.Input[_builtins.str],
+                 resources: pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]],
+                 containers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
+
+        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] resources: Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] containers: Containers lists the names of all containers in this pod that reference the claim.
+        """
+        pulumi.set(__self__, "resource_claim_name", resource_claim_name)
+        pulumi.set(__self__, "resources", resources)
+        if containers is not None:
+            pulumi.set(__self__, "containers", containers)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaimName")
+    def resource_claim_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
+        """
+        return pulumi.get(self, "resource_claim_name")
+
+    @resource_claim_name.setter
+    def resource_claim_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource_claim_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resources(self) -> pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]:
+        """
+        Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
+        """
+        return pulumi.get(self, "resources")
+
+    @resources.setter
+    def resources(self, value: pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "resources", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def containers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Containers lists the names of all containers in this pod that reference the claim.
+        """
+        return pulumi.get(self, "containers")
+
+    @containers.setter
+    def containers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "containers", value)
 
 
 class NodeConditionArgsDict(TypedDict):
@@ -20503,7 +20614,7 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourcePatchArgsDict']]
     """
-    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
     quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourcePatchArgsDict']]
     """
@@ -20597,7 +20708,7 @@ class PersistentVolumeSpecPatchArgs:
         :param pulumi.Input['VolumeNodeAffinityPatchArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         :param pulumi.Input[_builtins.str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
-        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         :param pulumi.Input['RBDPersistentVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         :param pulumi.Input['ScaleIOPersistentVolumeSourcePatchArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
@@ -20938,7 +21049,7 @@ class PersistentVolumeSpecPatchArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourcePatchArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -21137,7 +21248,7 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourceArgsDict']]
     """
-    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
     quobyte: NotRequired[pulumi.Input['QuobyteVolumeSourceArgsDict']]
     """
@@ -21231,7 +21342,7 @@ class PersistentVolumeSpecArgs:
         :param pulumi.Input['VolumeNodeAffinityArgs'] node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
         :param pulumi.Input[_builtins.str] persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
-        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         :param pulumi.Input['RBDPersistentVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
         :param pulumi.Input['ScaleIOPersistentVolumeSourceArgs'] scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
@@ -21572,7 +21683,7 @@ class PersistentVolumeSpecArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourceArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -22951,7 +23062,7 @@ class PodConditionArgsDict(TypedDict):
     """
     observed_generation: NotRequired[pulumi.Input[_builtins.int]]
     """
-    If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+    If set, this represents the .metadata.generation that the pod condition was set based upon.
     """
     reason: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -22976,7 +23087,7 @@ class PodConditionArgs:
         :param pulumi.Input[_builtins.str] last_probe_time: Last time we probed the condition.
         :param pulumi.Input[_builtins.str] last_transition_time: Last time the condition transitioned from one status to another.
         :param pulumi.Input[_builtins.str] message: Human-readable message indicating details about last transition.
-        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+        :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod condition was set based upon.
         :param pulumi.Input[_builtins.str] reason: Unique, one-word, CamelCase reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
@@ -23056,7 +23167,7 @@ class PodConditionArgs:
     @pulumi.getter(name="observedGeneration")
     def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+        If set, this represents the .metadata.generation that the pod condition was set based upon.
         """
         return pulumi.get(self, "observed_generation")
 
@@ -23557,6 +23668,8 @@ class PodResourceClaimPatchArgsDict(TypedDict):
     PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
 
     It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+    When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -23573,6 +23686,8 @@ class PodResourceClaimPatchArgsDict(TypedDict):
     ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
 
     The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+
+    When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
 
     This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
 
@@ -23595,6 +23710,8 @@ class PodResourceClaimPatchArgs:
 
         It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
 
+        When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
+
         :param pulumi.Input[_builtins.str] name: Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
         :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
                
@@ -23602,6 +23719,8 @@ class PodResourceClaimPatchArgs:
         :param pulumi.Input[_builtins.str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
                
                The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+               
+               When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
                
                This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
                
@@ -23651,6 +23770,8 @@ class PodResourceClaimPatchArgs:
 
         The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
 
+        When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
+
         This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
 
         Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
@@ -23684,7 +23805,11 @@ class PodResourceClaimStatusArgsDict(TypedDict):
     """
     resource_claim_name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+
+    When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+
+    If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
     """
 
 @pulumi.input_type
@@ -23696,7 +23821,11 @@ class PodResourceClaimStatusArgs:
         PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
 
         :param pulumi.Input[_builtins.str] name: Name uniquely identifies this resource claim inside the pod. This must match the name of an entry in pod.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
-        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+               
+               When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+               
+               If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
         """
         pulumi.set(__self__, "name", name)
         if resource_claim_name is not None:
@@ -23718,7 +23847,11 @@ class PodResourceClaimStatusArgs:
     @pulumi.getter(name="resourceClaimName")
     def resource_claim_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+        ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+
+        When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+
+        If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
         """
         return pulumi.get(self, "resource_claim_name")
 
@@ -23732,6 +23865,8 @@ class PodResourceClaimArgsDict(TypedDict):
     PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
 
     It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+
+    When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
     """
     name: pulumi.Input[_builtins.str]
     """
@@ -23748,6 +23883,8 @@ class PodResourceClaimArgsDict(TypedDict):
     ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
 
     The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+
+    When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
 
     This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
 
@@ -23770,6 +23907,8 @@ class PodResourceClaimArgs:
 
         It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
 
+        When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
+
         :param pulumi.Input[_builtins.str] name: Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
         :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
                
@@ -23777,6 +23916,8 @@ class PodResourceClaimArgs:
         :param pulumi.Input[_builtins.str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
                
                The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+               
+               When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
                
                This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
                
@@ -23824,6 +23965,8 @@ class PodResourceClaimArgs:
         ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
 
         The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+
+        When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
 
         This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
 
@@ -23913,6 +24056,74 @@ class PodSchedulingGateArgs:
     @name.setter
     def name(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "name", value)
+
+
+class PodSchedulingGroupPatchArgsDict(TypedDict):
+    """
+    PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+    """
+    pod_group_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+    """
+
+@pulumi.input_type
+class PodSchedulingGroupPatchArgs:
+    def __init__(__self__, *,
+                 pod_group_name: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+
+        :param pulumi.Input[_builtins.str] pod_group_name: PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+        """
+        if pod_group_name is not None:
+            pulumi.set(__self__, "pod_group_name", pod_group_name)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupName")
+    def pod_group_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+        """
+        return pulumi.get(self, "pod_group_name")
+
+    @pod_group_name.setter
+    def pod_group_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pod_group_name", value)
+
+
+class PodSchedulingGroupArgsDict(TypedDict):
+    """
+    PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+    """
+    pod_group_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+    """
+
+@pulumi.input_type
+class PodSchedulingGroupArgs:
+    def __init__(__self__, *,
+                 pod_group_name: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        PodSchedulingGroup identifies the runtime scheduling group instance that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics. Exactly one field must be specified.
+
+        :param pulumi.Input[_builtins.str] pod_group_name: PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+        """
+        if pod_group_name is not None:
+            pulumi.set(__self__, "pod_group_name", pod_group_name)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupName")
+    def pod_group_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        PodGroupName specifies the name of the standalone PodGroup object that represents the runtime instance of this group. Must be a DNS subdomain.
+        """
+        return pulumi.get(self, "pod_group_name")
+
+    @pod_group_name.setter
+    def pod_group_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "pod_group_name", value)
 
 
 class PodSecurityContextPatchArgsDict(TypedDict):
@@ -24601,7 +24812,7 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     host_users: NotRequired[pulumi.Input[_builtins.bool]]
     """
-    Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+    Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
     """
     hostname: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -24691,6 +24902,10 @@ class PodSpecPatchArgsDict(TypedDict):
 
     SchedulingGates can only be set at pod creation time, and be removed only afterwards.
     """
+    scheduling_group: NotRequired[pulumi.Input['PodSchedulingGroupPatchArgsDict']]
+    """
+    SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+    """
     security_context: NotRequired[pulumi.Input['PodSecurityContextPatchArgsDict']]
     """
     SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
@@ -24731,10 +24946,6 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
-    workload_ref: NotRequired[pulumi.Input['WorkloadReferencePatchArgsDict']]
-    """
-    WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-    """
 
 @pulumi.input_type
 class PodSpecPatchArgs:
@@ -24770,6 +24981,7 @@ class PodSpecPatchArgs:
                  runtime_class_name: Optional[pulumi.Input[_builtins.str]] = None,
                  scheduler_name: Optional[pulumi.Input[_builtins.str]] = None,
                  scheduling_gates: Optional[pulumi.Input[Sequence[pulumi.Input['PodSchedulingGatePatchArgs']]]] = None,
+                 scheduling_group: Optional[pulumi.Input['PodSchedulingGroupPatchArgs']] = None,
                  security_context: Optional[pulumi.Input['PodSecurityContextPatchArgs']] = None,
                  service_account: Optional[pulumi.Input[_builtins.str]] = None,
                  service_account_name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -24779,8 +24991,7 @@ class PodSpecPatchArgs:
                  termination_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['TolerationPatchArgs']]]] = None,
                  topology_spread_constraints: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgs']]]] = None,
-                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None,
-                 workload_ref: Optional[pulumi.Input['WorkloadReferencePatchArgs']] = None):
+                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None):
         """
         PodSpec is a description of a pod.
 
@@ -24796,7 +25007,7 @@ class PodSpecPatchArgs:
         :param pulumi.Input[_builtins.bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         :param pulumi.Input[_builtins.bool] host_pid: Use the host's pid namespace. Optional: Default to false.
-        :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
         :param pulumi.Input[_builtins.str] hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param pulumi.Input[_builtins.str] hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
                
@@ -24831,6 +25042,7 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodSchedulingGatePatchArgs']]] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
                SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+        :param pulumi.Input['PodSchedulingGroupPatchArgs'] scheduling_group: SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         :param pulumi.Input['PodSecurityContextPatchArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param pulumi.Input[_builtins.str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[_builtins.str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -24841,7 +25053,6 @@ class PodSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['TolerationPatchArgs']]] tolerations: If specified, the pod's tolerations.
         :param pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgs']]] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         :param pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
-        :param pulumi.Input['WorkloadReferencePatchArgs'] workload_ref: WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         """
         if active_deadline_seconds is not None:
             pulumi.set(__self__, "active_deadline_seconds", active_deadline_seconds)
@@ -24905,6 +25116,8 @@ class PodSpecPatchArgs:
             pulumi.set(__self__, "scheduler_name", scheduler_name)
         if scheduling_gates is not None:
             pulumi.set(__self__, "scheduling_gates", scheduling_gates)
+        if scheduling_group is not None:
+            pulumi.set(__self__, "scheduling_group", scheduling_group)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if service_account is not None:
@@ -24925,8 +25138,6 @@ class PodSpecPatchArgs:
             pulumi.set(__self__, "topology_spread_constraints", topology_spread_constraints)
         if volumes is not None:
             pulumi.set(__self__, "volumes", volumes)
-        if workload_ref is not None:
-            pulumi.set(__self__, "workload_ref", workload_ref)
 
     @_builtins.property
     @pulumi.getter(name="activeDeadlineSeconds")
@@ -25076,7 +25287,7 @@ class PodSpecPatchArgs:
     @pulumi.getter(name="hostUsers")
     def host_users(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
         """
         return pulumi.get(self, "host_users")
 
@@ -25317,6 +25528,18 @@ class PodSpecPatchArgs:
         pulumi.set(self, "scheduling_gates", value)
 
     @_builtins.property
+    @pulumi.getter(name="schedulingGroup")
+    def scheduling_group(self) -> Optional[pulumi.Input['PodSchedulingGroupPatchArgs']]:
+        """
+        SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        """
+        return pulumi.get(self, "scheduling_group")
+
+    @scheduling_group.setter
+    def scheduling_group(self, value: Optional[pulumi.Input['PodSchedulingGroupPatchArgs']]):
+        pulumi.set(self, "scheduling_group", value)
+
+    @_builtins.property
     @pulumi.getter(name="securityContext")
     def security_context(self) -> Optional[pulumi.Input['PodSecurityContextPatchArgs']]:
         """
@@ -25436,18 +25659,6 @@ class PodSpecPatchArgs:
     def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]]):
         pulumi.set(self, "volumes", value)
 
-    @_builtins.property
-    @pulumi.getter(name="workloadRef")
-    def workload_ref(self) -> Optional[pulumi.Input['WorkloadReferencePatchArgs']]:
-        """
-        WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-        """
-        return pulumi.get(self, "workload_ref")
-
-    @workload_ref.setter
-    def workload_ref(self, value: Optional[pulumi.Input['WorkloadReferencePatchArgs']]):
-        pulumi.set(self, "workload_ref", value)
-
 
 class PodSpecArgsDict(TypedDict):
     """
@@ -25503,7 +25714,7 @@ class PodSpecArgsDict(TypedDict):
     """
     host_users: NotRequired[pulumi.Input[_builtins.bool]]
     """
-    Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+    Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
     """
     hostname: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -25593,6 +25804,10 @@ class PodSpecArgsDict(TypedDict):
 
     SchedulingGates can only be set at pod creation time, and be removed only afterwards.
     """
+    scheduling_group: NotRequired[pulumi.Input['PodSchedulingGroupArgsDict']]
+    """
+    SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+    """
     security_context: NotRequired[pulumi.Input['PodSecurityContextArgsDict']]
     """
     SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
@@ -25633,10 +25848,6 @@ class PodSpecArgsDict(TypedDict):
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
-    workload_ref: NotRequired[pulumi.Input['WorkloadReferenceArgsDict']]
-    """
-    WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-    """
 
 @pulumi.input_type
 class PodSpecArgs:
@@ -25672,6 +25883,7 @@ class PodSpecArgs:
                  runtime_class_name: Optional[pulumi.Input[_builtins.str]] = None,
                  scheduler_name: Optional[pulumi.Input[_builtins.str]] = None,
                  scheduling_gates: Optional[pulumi.Input[Sequence[pulumi.Input['PodSchedulingGateArgs']]]] = None,
+                 scheduling_group: Optional[pulumi.Input['PodSchedulingGroupArgs']] = None,
                  security_context: Optional[pulumi.Input['PodSecurityContextArgs']] = None,
                  service_account: Optional[pulumi.Input[_builtins.str]] = None,
                  service_account_name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -25681,8 +25893,7 @@ class PodSpecArgs:
                  termination_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
                  tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]]] = None,
                  topology_spread_constraints: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]]] = None,
-                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None,
-                 workload_ref: Optional[pulumi.Input['WorkloadReferenceArgs']] = None):
+                 volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None):
         """
         PodSpec is a description of a pod.
 
@@ -25698,7 +25909,7 @@ class PodSpecArgs:
         :param pulumi.Input[_builtins.bool] host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param pulumi.Input[_builtins.bool] host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
         :param pulumi.Input[_builtins.bool] host_pid: Use the host's pid namespace. Optional: Default to false.
-        :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        :param pulumi.Input[_builtins.bool] host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
         :param pulumi.Input[_builtins.str] hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param pulumi.Input[_builtins.str] hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
                
@@ -25733,6 +25944,7 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodSchedulingGateArgs']]] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
                SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+        :param pulumi.Input['PodSchedulingGroupArgs'] scheduling_group: SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         :param pulumi.Input['PodSecurityContextArgs'] security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param pulumi.Input[_builtins.str] service_account: DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param pulumi.Input[_builtins.str] service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -25743,7 +25955,6 @@ class PodSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['TolerationArgs']]] tolerations: If specified, the pod's tolerations.
         :param pulumi.Input[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
         :param pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
-        :param pulumi.Input['WorkloadReferenceArgs'] workload_ref: WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
         """
         pulumi.set(__self__, "containers", containers)
         if active_deadline_seconds is not None:
@@ -25806,6 +26017,8 @@ class PodSpecArgs:
             pulumi.set(__self__, "scheduler_name", scheduler_name)
         if scheduling_gates is not None:
             pulumi.set(__self__, "scheduling_gates", scheduling_gates)
+        if scheduling_group is not None:
+            pulumi.set(__self__, "scheduling_group", scheduling_group)
         if security_context is not None:
             pulumi.set(__self__, "security_context", security_context)
         if service_account is not None:
@@ -25826,8 +26039,6 @@ class PodSpecArgs:
             pulumi.set(__self__, "topology_spread_constraints", topology_spread_constraints)
         if volumes is not None:
             pulumi.set(__self__, "volumes", volumes)
-        if workload_ref is not None:
-            pulumi.set(__self__, "workload_ref", workload_ref)
 
     @_builtins.property
     @pulumi.getter
@@ -25977,7 +26188,7 @@ class PodSpecArgs:
     @pulumi.getter(name="hostUsers")
     def host_users(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
         """
         return pulumi.get(self, "host_users")
 
@@ -26218,6 +26429,18 @@ class PodSpecArgs:
         pulumi.set(self, "scheduling_gates", value)
 
     @_builtins.property
+    @pulumi.getter(name="schedulingGroup")
+    def scheduling_group(self) -> Optional[pulumi.Input['PodSchedulingGroupArgs']]:
+        """
+        SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        """
+        return pulumi.get(self, "scheduling_group")
+
+    @scheduling_group.setter
+    def scheduling_group(self, value: Optional[pulumi.Input['PodSchedulingGroupArgs']]):
+        pulumi.set(self, "scheduling_group", value)
+
+    @_builtins.property
     @pulumi.getter(name="securityContext")
     def security_context(self) -> Optional[pulumi.Input['PodSecurityContextArgs']]:
         """
@@ -26337,18 +26560,6 @@ class PodSpecArgs:
     def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]]):
         pulumi.set(self, "volumes", value)
 
-    @_builtins.property
-    @pulumi.getter(name="workloadRef")
-    def workload_ref(self) -> Optional[pulumi.Input['WorkloadReferenceArgs']]:
-        """
-        WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-        """
-        return pulumi.get(self, "workload_ref")
-
-    @workload_ref.setter
-    def workload_ref(self, value: Optional[pulumi.Input['WorkloadReferenceArgs']]):
-        pulumi.set(self, "workload_ref", value)
-
 
 class PodStatusArgsDict(TypedDict):
     """
@@ -26389,6 +26600,10 @@ class PodStatusArgsDict(TypedDict):
     message: NotRequired[pulumi.Input[_builtins.str]]
     """
     A human readable message indicating details about why the pod is in this condition.
+    """
+    node_allocatable_resource_claim_statuses: NotRequired[pulumi.Input[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgsDict']]]]
+    """
+    NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
     """
     nominated_node_name: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -26451,6 +26666,7 @@ class PodStatusArgs:
                  host_ips: Optional[pulumi.Input[Sequence[pulumi.Input['HostIPArgs']]]] = None,
                  init_container_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]]] = None,
                  message: Optional[pulumi.Input[_builtins.str]] = None,
+                 node_allocatable_resource_claim_statuses: Optional[pulumi.Input[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgs']]]] = None,
                  nominated_node_name: Optional[pulumi.Input[_builtins.str]] = None,
                  observed_generation: Optional[pulumi.Input[_builtins.int]] = None,
                  phase: Optional[pulumi.Input[_builtins.str]] = None,
@@ -26474,6 +26690,7 @@ class PodStatusArgs:
         :param pulumi.Input[Sequence[pulumi.Input['HostIPArgs']]] host_ips: hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
         :param pulumi.Input[Sequence[pulumi.Input['ContainerStatusArgs']]] init_container_statuses: Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
         :param pulumi.Input[_builtins.str] message: A human readable message indicating details about why the pod is in this condition.
+        :param pulumi.Input[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgs']]] node_allocatable_resource_claim_statuses: NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
         :param pulumi.Input[_builtins.str] nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
         :param pulumi.Input[_builtins.int] observed_generation: If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
         :param pulumi.Input[_builtins.str] phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
@@ -26508,6 +26725,8 @@ class PodStatusArgs:
             pulumi.set(__self__, "init_container_statuses", init_container_statuses)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if node_allocatable_resource_claim_statuses is not None:
+            pulumi.set(__self__, "node_allocatable_resource_claim_statuses", node_allocatable_resource_claim_statuses)
         if nominated_node_name is not None:
             pulumi.set(__self__, "nominated_node_name", nominated_node_name)
         if observed_generation is not None:
@@ -26638,6 +26857,18 @@ class PodStatusArgs:
     @message.setter
     def message(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "message", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAllocatableResourceClaimStatuses")
+    def node_allocatable_resource_claim_statuses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgs']]]]:
+        """
+        NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+        """
+        return pulumi.get(self, "node_allocatable_resource_claim_statuses")
+
+    @node_allocatable_resource_claim_statuses.setter
+    def node_allocatable_resource_claim_statuses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgs']]]]):
+        pulumi.set(self, "node_allocatable_resource_claim_statuses", value)
 
     @_builtins.property
     @pulumi.getter(name="nominatedNodeName")
@@ -29770,12 +30001,17 @@ class ResourceHealthArgsDict(TypedDict):
 
     In future we may want to introduce the PermanentlyUnhealthy Status.
     """
+    message: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+    """
 
 @pulumi.input_type
 class ResourceHealthArgs:
     def __init__(__self__, *,
                  resource_id: pulumi.Input[_builtins.str],
-                 health: Optional[pulumi.Input[_builtins.str]] = None):
+                 health: Optional[pulumi.Input[_builtins.str]] = None,
+                 message: Optional[pulumi.Input[_builtins.str]] = None):
         """
         ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.
 
@@ -29789,10 +30025,13 @@ class ResourceHealthArgs:
                            For example, Device Plugin got unregistered and hasn't been re-registered since.
                
                In future we may want to introduce the PermanentlyUnhealthy Status.
+        :param pulumi.Input[_builtins.str] message: Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
         """
         pulumi.set(__self__, "resource_id", resource_id)
         if health is not None:
             pulumi.set(__self__, "health", health)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
 
     @_builtins.property
     @pulumi.getter(name="resourceID")
@@ -29825,6 +30064,18 @@ class ResourceHealthArgs:
     @health.setter
     def health(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "health", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+        """
+        return pulumi.get(self, "message")
+
+    @message.setter
+    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "message", value)
 
 
 class ResourceQuotaSpecPatchArgsDict(TypedDict):
@@ -32658,7 +32909,7 @@ class SecurityContextPatchArgsDict(TypedDict):
     """
     proc_mount: NotRequired[pulumi.Input[_builtins.str]]
     """
-    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
     """
     read_only_root_filesystem: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -32711,7 +32962,7 @@ class SecurityContextPatchArgs:
         :param pulumi.Input['AppArmorProfilePatchArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesPatchArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
-        :param pulumi.Input[_builtins.str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input[_builtins.str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] read_only_root_filesystem: Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -32797,7 +33048,7 @@ class SecurityContextPatchArgs:
     @pulumi.getter(name="procMount")
     def proc_mount(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
         """
         return pulumi.get(self, "proc_mount")
 
@@ -32912,7 +33163,7 @@ class SecurityContextArgsDict(TypedDict):
     """
     proc_mount: NotRequired[pulumi.Input[_builtins.str]]
     """
-    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+    procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
     """
     read_only_root_filesystem: NotRequired[pulumi.Input[_builtins.bool]]
     """
@@ -32965,7 +33216,7 @@ class SecurityContextArgs:
         :param pulumi.Input['AppArmorProfileArgs'] app_armor_profile: appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input['CapabilitiesArgs'] capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
-        :param pulumi.Input[_builtins.str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        :param pulumi.Input[_builtins.str] proc_mount: procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] read_only_root_filesystem: Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.int] run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
         :param pulumi.Input[_builtins.bool] run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -33051,7 +33302,7 @@ class SecurityContextArgs:
     @pulumi.getter(name="procMount")
     def proc_mount(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
         """
         return pulumi.get(self, "proc_mount")
 
@@ -37319,6 +37570,10 @@ class VolumeMountStatusArgsDict(TypedDict):
     """
     RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
     """
+    volume_status: NotRequired[pulumi.Input['VolumeStatusArgsDict']]
+    """
+    volumeStatus represents volume-type-specific status about the mounted volume.
+    """
 
 @pulumi.input_type
 class VolumeMountStatusArgs:
@@ -37326,7 +37581,8 @@ class VolumeMountStatusArgs:
                  mount_path: pulumi.Input[_builtins.str],
                  name: pulumi.Input[_builtins.str],
                  read_only: Optional[pulumi.Input[_builtins.bool]] = None,
-                 recursive_read_only: Optional[pulumi.Input[_builtins.str]] = None):
+                 recursive_read_only: Optional[pulumi.Input[_builtins.str]] = None,
+                 volume_status: Optional[pulumi.Input['VolumeStatusArgs']] = None):
         """
         VolumeMountStatus shows status of volume mounts.
 
@@ -37334,6 +37590,7 @@ class VolumeMountStatusArgs:
         :param pulumi.Input[_builtins.str] name: Name corresponds to the name of the original VolumeMount.
         :param pulumi.Input[_builtins.bool] read_only: ReadOnly corresponds to the original VolumeMount.
         :param pulumi.Input[_builtins.str] recursive_read_only: RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
+        :param pulumi.Input['VolumeStatusArgs'] volume_status: volumeStatus represents volume-type-specific status about the mounted volume.
         """
         pulumi.set(__self__, "mount_path", mount_path)
         pulumi.set(__self__, "name", name)
@@ -37341,6 +37598,8 @@ class VolumeMountStatusArgs:
             pulumi.set(__self__, "read_only", read_only)
         if recursive_read_only is not None:
             pulumi.set(__self__, "recursive_read_only", recursive_read_only)
+        if volume_status is not None:
+            pulumi.set(__self__, "volume_status", volume_status)
 
     @_builtins.property
     @pulumi.getter(name="mountPath")
@@ -37389,6 +37648,18 @@ class VolumeMountStatusArgs:
     @recursive_read_only.setter
     def recursive_read_only(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "recursive_read_only", value)
+
+    @_builtins.property
+    @pulumi.getter(name="volumeStatus")
+    def volume_status(self) -> Optional[pulumi.Input['VolumeStatusArgs']]:
+        """
+        volumeStatus represents volume-type-specific status about the mounted volume.
+        """
+        return pulumi.get(self, "volume_status")
+
+    @volume_status.setter
+    def volume_status(self, value: Optional[pulumi.Input['VolumeStatusArgs']]):
+        pulumi.set(self, "volume_status", value)
 
 
 class VolumeMountArgsDict(TypedDict):
@@ -37726,7 +37997,7 @@ class VolumePatchArgsDict(TypedDict):
 
     - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-    The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+    The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
     """
     iscsi: NotRequired[pulumi.Input['ISCSIVolumeSourcePatchArgsDict']]
     """
@@ -37750,7 +38021,7 @@ class VolumePatchArgsDict(TypedDict):
     """
     portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourcePatchArgsDict']]
     """
-    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
     projected: NotRequired[pulumi.Input['ProjectedVolumeSourcePatchArgsDict']]
     """
@@ -37852,13 +38123,13 @@ class VolumePatchArgs:
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
-               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         :param pulumi.Input['ISCSIVolumeSourcePatchArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         :param pulumi.Input[_builtins.str] name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param pulumi.Input['NFSVolumeSourcePatchArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourcePatchArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input['PhotonPersistentDiskVolumeSourcePatchArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
-        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['PortworxVolumeSourcePatchArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         :param pulumi.Input['ProjectedVolumeSourcePatchArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
         :param pulumi.Input['QuobyteVolumeSourcePatchArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         :param pulumi.Input['RBDVolumeSourcePatchArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
@@ -38155,7 +38426,7 @@ class VolumePatchArgs:
 
         - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         """
         return pulumi.get(self, "image")
 
@@ -38227,7 +38498,7 @@ class VolumePatchArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourcePatchArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -38804,6 +39075,40 @@ class VolumeResourceRequirementsArgs:
         pulumi.set(self, "requests", value)
 
 
+class VolumeStatusArgsDict(TypedDict):
+    """
+    VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.
+    """
+    image: NotRequired[pulumi.Input['ImageVolumeStatusArgsDict']]
+    """
+    image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+    """
+
+@pulumi.input_type
+class VolumeStatusArgs:
+    def __init__(__self__, *,
+                 image: Optional[pulumi.Input['ImageVolumeStatusArgs']] = None):
+        """
+        VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.
+
+        :param pulumi.Input['ImageVolumeStatusArgs'] image: image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+        """
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+
+    @_builtins.property
+    @pulumi.getter
+    def image(self) -> Optional[pulumi.Input['ImageVolumeStatusArgs']]:
+        """
+        image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+        """
+        return pulumi.get(self, "image")
+
+    @image.setter
+    def image(self, value: Optional[pulumi.Input['ImageVolumeStatusArgs']]):
+        pulumi.set(self, "image", value)
+
+
 class VolumeArgsDict(TypedDict):
     """
     Volume represents a named volume in a pod that may be accessed by any container in the pod.
@@ -38899,7 +39204,7 @@ class VolumeArgsDict(TypedDict):
 
     - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-    The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+    The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
     """
     iscsi: NotRequired[pulumi.Input['ISCSIVolumeSourceArgsDict']]
     """
@@ -38919,7 +39224,7 @@ class VolumeArgsDict(TypedDict):
     """
     portworx_volume: NotRequired[pulumi.Input['PortworxVolumeSourceArgsDict']]
     """
-    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+    portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
     projected: NotRequired[pulumi.Input['ProjectedVolumeSourceArgsDict']]
     """
@@ -39022,12 +39327,12 @@ class VolumeArgs:
                
                - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
                
-               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+               The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         :param pulumi.Input['ISCSIVolumeSourceArgs'] iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
         :param pulumi.Input['NFSVolumeSourceArgs'] nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         :param pulumi.Input['PersistentVolumeClaimVolumeSourceArgs'] persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input['PhotonPersistentDiskVolumeSourceArgs'] photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
-        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        :param pulumi.Input['PortworxVolumeSourceArgs'] portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         :param pulumi.Input['ProjectedVolumeSourceArgs'] projected: projected items for all in one resources secrets, configmaps, and downward API
         :param pulumi.Input['QuobyteVolumeSourceArgs'] quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
         :param pulumi.Input['RBDVolumeSourceArgs'] rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
@@ -39335,7 +39640,7 @@ class VolumeArgs:
 
         - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
 
-        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+        The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
         """
         return pulumi.get(self, "image")
 
@@ -39395,7 +39700,7 @@ class VolumeArgs:
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional[pulumi.Input['PortworxVolumeSourceArgs']]:
         """
-        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -39967,151 +40272,5 @@ class WindowsSecurityContextOptionsArgs:
     @run_as_user_name.setter
     def run_as_user_name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "run_as_user_name", value)
-
-
-class WorkloadReferencePatchArgsDict(TypedDict):
-    """
-    WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-    """
-    name: NotRequired[pulumi.Input[_builtins.str]]
-    """
-    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-    """
-    pod_group: NotRequired[pulumi.Input[_builtins.str]]
-    """
-    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-    """
-    pod_group_replica_key: NotRequired[pulumi.Input[_builtins.str]]
-    """
-    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-    """
-
-@pulumi.input_type
-class WorkloadReferencePatchArgs:
-    def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pod_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 pod_group_replica_key: Optional[pulumi.Input[_builtins.str]] = None):
-        """
-        WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-
-        :param pulumi.Input[_builtins.str] name: Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-        :param pulumi.Input[_builtins.str] pod_group: PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-        :param pulumi.Input[_builtins.str] pod_group_replica_key: PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-        """
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if pod_group is not None:
-            pulumi.set(__self__, "pod_group", pod_group)
-        if pod_group_replica_key is not None:
-            pulumi.set(__self__, "pod_group_replica_key", pod_group_replica_key)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroup")
-    def pod_group(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-        """
-        return pulumi.get(self, "pod_group")
-
-    @pod_group.setter
-    def pod_group(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "pod_group", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupReplicaKey")
-    def pod_group_replica_key(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-        """
-        return pulumi.get(self, "pod_group_replica_key")
-
-    @pod_group_replica_key.setter
-    def pod_group_replica_key(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "pod_group_replica_key", value)
-
-
-class WorkloadReferenceArgsDict(TypedDict):
-    """
-    WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-    """
-    name: pulumi.Input[_builtins.str]
-    """
-    Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-    """
-    pod_group: pulumi.Input[_builtins.str]
-    """
-    PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-    """
-    pod_group_replica_key: NotRequired[pulumi.Input[_builtins.str]]
-    """
-    PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-    """
-
-@pulumi.input_type
-class WorkloadReferenceArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 pod_group: pulumi.Input[_builtins.str],
-                 pod_group_replica_key: Optional[pulumi.Input[_builtins.str]] = None):
-        """
-        WorkloadReference identifies the Workload object and PodGroup membership that a Pod belongs to. The scheduler uses this information to apply workload-aware scheduling semantics.
-
-        :param pulumi.Input[_builtins.str] name: Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-        :param pulumi.Input[_builtins.str] pod_group: PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-        :param pulumi.Input[_builtins.str] pod_group_replica_key: PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-        """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "pod_group", pod_group)
-        if pod_group_replica_key is not None:
-            pulumi.set(__self__, "pod_group_replica_key", pod_group_replica_key)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
-        """
-        Name defines the name of the Workload object this Pod belongs to. Workload must be in the same namespace as the Pod. If it doesn't match any existing Workload, the Pod will remain unschedulable until a Workload object is created and observed by the kube-scheduler. It must be a DNS subdomain.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroup")
-    def pod_group(self) -> pulumi.Input[_builtins.str]:
-        """
-        PodGroup is the name of the PodGroup within the Workload that this Pod belongs to. If it doesn't match any existing PodGroup within the Workload, the Pod will remain unschedulable until the Workload object is recreated and observed by the kube-scheduler. It must be a DNS label.
-        """
-        return pulumi.get(self, "pod_group")
-
-    @pod_group.setter
-    def pod_group(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "pod_group", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupReplicaKey")
-    def pod_group_replica_key(self) -> Optional[pulumi.Input[_builtins.str]]:
-        """
-        PodGroupReplicaKey specifies the replica key of the PodGroup to which this Pod belongs. It is used to distinguish pods belonging to different replicas of the same pod group. The pod group policy is applied separately to each replica. When set, it must be a DNS label.
-        """
-        return pulumi.get(self, "pod_group_replica_key")
-
-    @pod_group_replica_key.setter
-    def pod_group_replica_key(self, value: Optional[pulumi.Input[_builtins.str]]):
-        pulumi.set(self, "pod_group_replica_key", value)
 
 

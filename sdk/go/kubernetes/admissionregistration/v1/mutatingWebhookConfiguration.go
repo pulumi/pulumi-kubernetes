@@ -20,9 +20,9 @@ type MutatingWebhookConfiguration struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// Webhooks is a list of webhooks and the affected resources and operations.
+	// webhooks is a list of webhooks and the affected resources and operations.
 	Webhooks MutatingWebhookArrayOutput `pulumi:"webhooks"`
 }
 
@@ -78,9 +78,9 @@ type mutatingWebhookConfigurationArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Webhooks is a list of webhooks and the affected resources and operations.
+	// webhooks is a list of webhooks and the affected resources and operations.
 	Webhooks []MutatingWebhook `pulumi:"webhooks"`
 }
 
@@ -90,9 +90,9 @@ type MutatingWebhookConfigurationArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// Webhooks is a list of webhooks and the affected resources and operations.
+	// webhooks is a list of webhooks and the affected resources and operations.
 	Webhooks MutatingWebhookArrayInput
 }
 
@@ -193,12 +193,12 @@ func (o MutatingWebhookConfigurationOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *MutatingWebhookConfiguration) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingWebhookConfigurationOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *MutatingWebhookConfiguration) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// Webhooks is a list of webhooks and the affected resources and operations.
+// webhooks is a list of webhooks and the affected resources and operations.
 func (o MutatingWebhookConfigurationOutput) Webhooks() MutatingWebhookArrayOutput {
 	return o.ApplyT(func(v *MutatingWebhookConfiguration) MutatingWebhookArrayOutput { return v.Webhooks }).(MutatingWebhookArrayOutput)
 }

@@ -125,8 +125,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1Beta1
         /// <summary>
         /// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Coordination.V1Beta1.LeaseCandidateSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Coordination.V1Beta1.LeaseCandidateSpecArgs> Spec { get; set; } = null!;
 
         public LeaseCandidateArgs()
         {

@@ -755,10 +755,6 @@ class RoleRefArgsDict(TypedDict):
     """
     RoleRef contains information that points to the role being used
     """
-    api_group: pulumi.Input[_builtins.str]
-    """
-    APIGroup is the group for the resource being referenced
-    """
     kind: pulumi.Input[_builtins.str]
     """
     Kind is the type of resource being referenced
@@ -767,35 +763,28 @@ class RoleRefArgsDict(TypedDict):
     """
     Name is the name of resource being referenced
     """
+    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    APIGroup is the group for the resource being referenced
+    """
 
 @pulumi.input_type
 class RoleRefArgs:
     def __init__(__self__, *,
-                 api_group: pulumi.Input[_builtins.str],
                  kind: pulumi.Input[_builtins.str],
-                 name: pulumi.Input[_builtins.str]):
+                 name: pulumi.Input[_builtins.str],
+                 api_group: Optional[pulumi.Input[_builtins.str]] = None):
         """
         RoleRef contains information that points to the role being used
 
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced
         :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced
         :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced
         """
-        pulumi.set(__self__, "api_group", api_group)
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> pulumi.Input[_builtins.str]:
-        """
-        APIGroup is the group for the resource being referenced
-        """
-        return pulumi.get(self, "api_group")
-
-    @api_group.setter
-    def api_group(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "api_group", value)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
 
     @_builtins.property
     @pulumi.getter
@@ -820,6 +809,18 @@ class RoleRefArgs:
     @name.setter
     def name(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
 
 
 class RoleArgsDict(TypedDict):

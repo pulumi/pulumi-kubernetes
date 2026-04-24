@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.networking.v1beta1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.networking.v1beta1.inputs.IPAddressSpecArgs;
 import java.lang.String;
@@ -67,15 +68,15 @@ public final class IPAddressArgs extends com.pulumi.resources.ResourceArgs {
      * spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<IPAddressSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<IPAddressSpecArgs> spec;
 
     /**
      * @return spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<Output<IPAddressSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<IPAddressSpecArgs> spec() {
+        return this.spec;
     }
 
     private IPAddressArgs() {}
@@ -174,7 +175,7 @@ public final class IPAddressArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<IPAddressSpecArgs> spec) {
+        public Builder spec(Output<IPAddressSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -192,6 +193,9 @@ public final class IPAddressArgs extends com.pulumi.resources.ResourceArgs {
         public IPAddressArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("IPAddressArgs", "spec");
+            }
             return $;
         }
     }

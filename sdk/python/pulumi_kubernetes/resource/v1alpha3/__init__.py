@@ -21,6 +21,9 @@ from .ResourceClaimPatch import *
 from .ResourceClaimTemplate import *
 from .ResourceClaimTemplateList import *
 from .ResourceClaimTemplatePatch import *
+from .ResourcePoolStatusRequest import *
+from .ResourcePoolStatusRequestList import *
+from .ResourcePoolStatusRequestPatch import *
 from .ResourceSlice import *
 from .ResourceSlicePatch import *
 from ._inputs import *

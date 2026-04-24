@@ -105,6 +105,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("message")]
         public Input<string>? Message { get; set; }
 
+        [Input("nodeAllocatableResourceClaimStatuses")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableResourceClaimStatusArgs>? _nodeAllocatableResourceClaimStatuses;
+
+        /// <summary>
+        /// NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableResourceClaimStatusArgs> NodeAllocatableResourceClaimStatuses
+        {
+            get => _nodeAllocatableResourceClaimStatuses ?? (_nodeAllocatableResourceClaimStatuses = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableResourceClaimStatusArgs>());
+            set => _nodeAllocatableResourceClaimStatuses = value;
+        }
+
         /// <summary>
         /// nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
         /// </summary>

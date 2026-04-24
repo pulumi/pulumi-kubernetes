@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceAttributeArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceCapacityArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceCounterConsumptionPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceTaintPatchArgs;
+import com.pulumi.kubernetes.resource.v1beta2.inputs.NodeAllocatableResourceMappingArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -91,7 +92,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     @Import(name="bindingConditions")
@@ -104,7 +105,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Output<List<String>>> bindingConditions() {
@@ -118,7 +119,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     @Import(name="bindingFailureConditions")
@@ -131,7 +132,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Output<List<String>>> bindingFailureConditions() {
@@ -141,7 +142,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     @Import(name="bindsToNode")
@@ -150,7 +151,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Output<Boolean>> bindsToNode() {
@@ -215,6 +216,21 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    @Import(name="nodeAllocatableResourceMappings")
+    private @Nullable Output<Map<String,NodeAllocatableResourceMappingArgs>> nodeAllocatableResourceMappings;
+
+    /**
+     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    public Optional<Output<Map<String,NodeAllocatableResourceMappingArgs>>> nodeAllocatableResourceMappings() {
+        return Optional.ofNullable(this.nodeAllocatableResourceMappings);
+    }
+
+    /**
      * NodeName identifies the node where the device is available.
      * 
      * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -261,7 +277,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="taints")
@@ -272,7 +288,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTaintPatchArgs>>> taints() {
@@ -291,6 +307,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
         this.capacity = $.capacity;
         this.consumesCounters = $.consumesCounters;
         this.name = $.name;
+        this.nodeAllocatableResourceMappings = $.nodeAllocatableResourceMappings;
         this.nodeName = $.nodeName;
         this.nodeSelector = $.nodeSelector;
         this.taints = $.taints;
@@ -396,7 +413,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -413,7 +430,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -429,7 +446,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -445,7 +462,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -462,7 +479,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -478,7 +495,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The conditions must be a valid condition type string.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -490,7 +507,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param bindsToNode BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -503,7 +520,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param bindsToNode BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
          * 
-         * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+         * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
          * 
          * @return builder
          * 
@@ -602,6 +619,27 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param nodeAllocatableResourceMappings NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResourceMappings(@Nullable Output<Map<String,NodeAllocatableResourceMappingArgs>> nodeAllocatableResourceMappings) {
+            $.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+            return this;
+        }
+
+        /**
+         * @param nodeAllocatableResourceMappings NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResourceMappings(Map<String,NodeAllocatableResourceMappingArgs> nodeAllocatableResourceMappings) {
+            return nodeAllocatableResourceMappings(Output.of(nodeAllocatableResourceMappings));
+        }
+
+        /**
          * @param nodeName NodeName identifies the node where the device is available.
          * 
          * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -660,7 +698,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -675,7 +713,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -689,7 +727,7 @@ public final class DevicePatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

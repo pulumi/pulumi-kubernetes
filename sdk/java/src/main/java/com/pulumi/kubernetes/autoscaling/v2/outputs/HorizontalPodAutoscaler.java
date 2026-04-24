@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.autoscaling.v2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.HorizontalPodAutoscalerSpec;
 import com.pulumi.kubernetes.autoscaling.v2.outputs.HorizontalPodAutoscalerStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class HorizontalPodAutoscaler {
      * @return spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
-    private @Nullable HorizontalPodAutoscalerSpec spec;
+    private HorizontalPodAutoscalerSpec spec;
     /**
      * @return status is the current information about the autoscaler.
      * 
@@ -66,8 +67,8 @@ public final class HorizontalPodAutoscaler {
      * @return spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
-    public Optional<HorizontalPodAutoscalerSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public HorizontalPodAutoscalerSpec spec() {
+        return this.spec;
     }
     /**
      * @return status is the current information about the autoscaler.
@@ -89,7 +90,7 @@ public final class HorizontalPodAutoscaler {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable HorizontalPodAutoscalerSpec spec;
+        private HorizontalPodAutoscalerSpec spec;
         private @Nullable HorizontalPodAutoscalerStatus status;
         public Builder() {}
         public Builder(HorizontalPodAutoscaler defaults) {
@@ -120,8 +121,10 @@ public final class HorizontalPodAutoscaler {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable HorizontalPodAutoscalerSpec spec) {
-
+        public Builder spec(HorizontalPodAutoscalerSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("HorizontalPodAutoscaler", "spec");
+            }
             this.spec = spec;
             return this;
         }

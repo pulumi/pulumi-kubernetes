@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.ExpressionWarningArgs>? _expressionWarnings;
 
         /// <summary>
-        /// The type checking warnings for each expression.
+        /// expressionWarnings contains the type checking warnings for each expression.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.ExpressionWarningArgs> ExpressionWarnings
         {

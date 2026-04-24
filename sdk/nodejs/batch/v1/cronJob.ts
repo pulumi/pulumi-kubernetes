@@ -69,6 +69,9 @@ export class CronJob extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "batch/v1";
             resourceInputs["kind"] = "CronJob";
             resourceInputs["metadata"] = args?.metadata;
@@ -107,5 +110,5 @@ export interface CronJobArgs {
     /**
      * Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    spec?: pulumi.Input<inputs.batch.v1.CronJobSpec>;
+    spec: pulumi.Input<inputs.batch.v1.CronJobSpec>;
 }

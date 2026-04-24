@@ -56,11 +56,11 @@ export class ValidatingAdmissionPolicyBindingPatch extends pulumi.CustomResource
      */
     declare public readonly kind: pulumi.Output<"ValidatingAdmissionPolicyBinding">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      */
     declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpecPatch>;
 
@@ -105,11 +105,11 @@ export interface ValidatingAdmissionPolicyBindingPatchArgs {
      */
     kind?: pulumi.Input<"ValidatingAdmissionPolicyBinding">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      */
     spec?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpecPatch>;
 }

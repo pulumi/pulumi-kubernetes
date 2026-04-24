@@ -25,17 +25,17 @@ public final class ValidatingAdmissionPolicy {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     private @Nullable ValidatingAdmissionPolicySpec spec;
     /**
-     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * @return status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     private @Nullable ValidatingAdmissionPolicyStatus status;
@@ -56,21 +56,21 @@ public final class ValidatingAdmissionPolicy {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     public Optional<ValidatingAdmissionPolicySpec> spec() {
         return Optional.ofNullable(this.spec);
     }
     /**
-     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * @return status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     public Optional<ValidatingAdmissionPolicyStatus> status() {

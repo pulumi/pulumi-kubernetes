@@ -17,8 +17,6 @@ namespace Pulumi.Kubernetes.Resource.V1
     /// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
     /// additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
     /// DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
-    /// 
-    /// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
     /// </summary>
     [KubernetesResourceType("kubernetes:resource.k8s.io/v1:DeviceClassPatch")]
     public partial class DeviceClassPatch : KubernetesResource

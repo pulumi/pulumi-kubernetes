@@ -20,14 +20,14 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
     public static final VariablePatchArgs Empty = new VariablePatchArgs();
 
     /**
-     * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+     * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
      * 
      */
     @Import(name="expression")
     private @Nullable Output<String> expression;
 
     /**
-     * @return Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+     * @return expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
      * 
      */
     public Optional<Output<String>> expression() {
@@ -35,14 +35,14 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+     * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+     * @return name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
      * 
      */
     public Optional<Output<String>> name() {
@@ -75,7 +75,7 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param expression Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+         * @param expression expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
          * 
          * @return builder
          * 
@@ -86,7 +86,7 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param expression Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+         * @param expression expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
          * 
          * @return builder
          * 
@@ -96,7 +96,7 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+         * @param name name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
          * 
          * @return builder
          * 
@@ -107,7 +107,7 @@ public final class VariablePatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
+         * @param name name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is &#34;foo&#34;, the variable will be available as `variables.foo`
          * 
          * @return builder
          * 

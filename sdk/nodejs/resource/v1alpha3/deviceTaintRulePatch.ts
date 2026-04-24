@@ -90,6 +90,8 @@ export class DeviceTaintRulePatch extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1beta2:DeviceTaintRulePatch" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(DeviceTaintRulePatch.__pulumiType, name, resourceInputs, opts);
     }
 }

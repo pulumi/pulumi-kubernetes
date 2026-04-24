@@ -9,8 +9,6 @@ import * as utilities from "../../utilities";
 
 /**
  * ResourceClaimTemplate is used to produce ResourceClaim objects.
- *
- * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
  */
 export class ResourceClaimTemplate extends pulumi.CustomResource {
     /**

@@ -43,6 +43,12 @@ func NewDeviceTaintRule(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1alpha3")
 	args.Kind = pulumi.StringPtr("DeviceTaintRule")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta2:DeviceTaintRule"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource DeviceTaintRule
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule", name, args, &resource, opts...)

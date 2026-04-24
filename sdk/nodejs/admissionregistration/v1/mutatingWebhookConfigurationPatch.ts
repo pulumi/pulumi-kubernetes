@@ -52,11 +52,11 @@ export class MutatingWebhookConfigurationPatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"MutatingWebhookConfiguration">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      */
     declare public readonly webhooks: pulumi.Output<outputs.admissionregistration.v1.MutatingWebhookPatch[]>;
 
@@ -101,11 +101,11 @@ export interface MutatingWebhookConfigurationPatchArgs {
      */
     kind?: pulumi.Input<"MutatingWebhookConfiguration">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      */
     webhooks?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1.MutatingWebhookPatch>[]>;
 }

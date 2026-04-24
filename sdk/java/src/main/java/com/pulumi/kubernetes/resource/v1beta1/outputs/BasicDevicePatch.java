@@ -9,6 +9,7 @@ import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceAttribute;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceCapacity;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceCounterConsumptionPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceTaintPatch;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.NodeAllocatableResourceMapping;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -47,7 +48,7 @@ public final class BasicDevicePatch {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingConditions;
@@ -58,14 +59,14 @@ public final class BasicDevicePatch {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingFailureConditions;
     /**
      * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable Boolean bindsToNode;
@@ -85,6 +86,11 @@ public final class BasicDevicePatch {
      * 
      */
     private @Nullable List<DeviceCounterConsumptionPatch> consumesCounters;
+    /**
+     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    private @Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings;
     /**
      * @return NodeName identifies the node where the device is available.
      * 
@@ -106,7 +112,7 @@ public final class BasicDevicePatch {
      * 
      * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     private @Nullable List<DeviceTaintPatch> taints;
@@ -146,7 +152,7 @@ public final class BasicDevicePatch {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingConditions() {
@@ -159,7 +165,7 @@ public final class BasicDevicePatch {
      * 
      * The conditions must be a valid condition type string.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingFailureConditions() {
@@ -168,7 +174,7 @@ public final class BasicDevicePatch {
     /**
      * @return BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public Optional<Boolean> bindsToNode() {
@@ -195,6 +201,13 @@ public final class BasicDevicePatch {
         return this.consumesCounters == null ? List.of() : this.consumesCounters;
     }
     /**
+     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    public Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings() {
+        return this.nodeAllocatableResourceMappings == null ? Map.of() : this.nodeAllocatableResourceMappings;
+    }
+    /**
      * @return NodeName identifies the node where the device is available.
      * 
      * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -219,7 +232,7 @@ public final class BasicDevicePatch {
      * 
      * The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public List<DeviceTaintPatch> taints() {
@@ -243,6 +256,7 @@ public final class BasicDevicePatch {
         private @Nullable Boolean bindsToNode;
         private @Nullable Map<String,DeviceCapacity> capacity;
         private @Nullable List<DeviceCounterConsumptionPatch> consumesCounters;
+        private @Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings;
         private @Nullable String nodeName;
         private @Nullable NodeSelectorPatch nodeSelector;
         private @Nullable List<DeviceTaintPatch> taints;
@@ -257,6 +271,7 @@ public final class BasicDevicePatch {
     	      this.bindsToNode = defaults.bindsToNode;
     	      this.capacity = defaults.capacity;
     	      this.consumesCounters = defaults.consumesCounters;
+    	      this.nodeAllocatableResourceMappings = defaults.nodeAllocatableResourceMappings;
     	      this.nodeName = defaults.nodeName;
     	      this.nodeSelector = defaults.nodeSelector;
     	      this.taints = defaults.taints;
@@ -320,6 +335,12 @@ public final class BasicDevicePatch {
             return consumesCounters(List.of(consumesCounters));
         }
         @CustomType.Setter
+        public Builder nodeAllocatableResourceMappings(@Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings) {
+
+            this.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+            return this;
+        }
+        @CustomType.Setter
         public Builder nodeName(@Nullable String nodeName) {
 
             this.nodeName = nodeName;
@@ -350,6 +371,7 @@ public final class BasicDevicePatch {
             _resultValue.bindsToNode = bindsToNode;
             _resultValue.capacity = capacity;
             _resultValue.consumesCounters = consumesCounters;
+            _resultValue.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
             _resultValue.nodeName = nodeName;
             _resultValue.nodeSelector = nodeSelector;
             _resultValue.taints = taints;

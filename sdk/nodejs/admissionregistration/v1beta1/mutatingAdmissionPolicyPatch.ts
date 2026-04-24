@@ -52,11 +52,11 @@ export class MutatingAdmissionPolicyPatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"MutatingAdmissionPolicy">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * spec defines the desired behavior of the MutatingAdmissionPolicy.
      */
     declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1beta1.MutatingAdmissionPolicySpecPatch>;
 
@@ -82,7 +82,7 @@ export class MutatingAdmissionPolicyPatch extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch" }] };
+        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyPatch" }, { type: "kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(MutatingAdmissionPolicyPatch.__pulumiType, name, resourceInputs, opts);
     }
@@ -101,11 +101,11 @@ export interface MutatingAdmissionPolicyPatchArgs {
      */
     kind?: pulumi.Input<"MutatingAdmissionPolicy">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * spec defines the desired behavior of the MutatingAdmissionPolicy.
      */
     spec?: pulumi.Input<inputs.admissionregistration.v1beta1.MutatingAdmissionPolicySpecPatch>;
 }

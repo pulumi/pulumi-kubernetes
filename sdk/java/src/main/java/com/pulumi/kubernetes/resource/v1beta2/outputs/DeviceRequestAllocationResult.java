@@ -26,14 +26,14 @@ public final class DeviceRequestAllocationResult {
     /**
      * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingConditions;
     /**
      * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     private @Nullable List<String> bindingFailureConditions;
@@ -82,7 +82,7 @@ public final class DeviceRequestAllocationResult {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     private @Nullable List<DeviceToleration> tolerations;
@@ -100,7 +100,7 @@ public final class DeviceRequestAllocationResult {
     /**
      * @return BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingConditions() {
@@ -109,7 +109,7 @@ public final class DeviceRequestAllocationResult {
     /**
      * @return BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
      * 
      */
     public List<String> bindingFailureConditions() {
@@ -172,7 +172,7 @@ public final class DeviceRequestAllocationResult {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public List<DeviceToleration> tolerations() {

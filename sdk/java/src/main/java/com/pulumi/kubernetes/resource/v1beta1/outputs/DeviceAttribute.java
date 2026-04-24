@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -19,20 +20,46 @@ public final class DeviceAttribute {
      */
     private @Nullable Boolean bool;
     /**
+     * @return BoolValues is a non-empty list of true/false values.
+     * 
+     */
+    private @Nullable List<Boolean> bools;
+    /**
      * @return IntValue is a number.
      * 
      */
     private @Nullable Integer int_;
+    /**
+     * @return IntValues is a non-empty list of numbers.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    private @Nullable List<Integer> ints;
     /**
      * @return StringValue is a string. Must not be longer than 64 characters.
      * 
      */
     private @Nullable String string;
     /**
+     * @return StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    private @Nullable List<String> strings;
+    /**
      * @return VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
      * 
      */
     private @Nullable String version;
+    /**
+     * @return VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    private @Nullable List<String> versions;
 
     private DeviceAttribute() {}
     /**
@@ -43,11 +70,27 @@ public final class DeviceAttribute {
         return Optional.ofNullable(this.bool);
     }
     /**
+     * @return BoolValues is a non-empty list of true/false values.
+     * 
+     */
+    public List<Boolean> bools() {
+        return this.bools == null ? List.of() : this.bools;
+    }
+    /**
      * @return IntValue is a number.
      * 
      */
     public Optional<Integer> int_() {
         return Optional.ofNullable(this.int_);
+    }
+    /**
+     * @return IntValues is a non-empty list of numbers.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public List<Integer> ints() {
+        return this.ints == null ? List.of() : this.ints;
     }
     /**
      * @return StringValue is a string. Must not be longer than 64 characters.
@@ -57,11 +100,29 @@ public final class DeviceAttribute {
         return Optional.ofNullable(this.string);
     }
     /**
+     * @return StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public List<String> strings() {
+        return this.strings == null ? List.of() : this.strings;
+    }
+    /**
      * @return VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
      * 
      */
     public Optional<String> version() {
         return Optional.ofNullable(this.version);
+    }
+    /**
+     * @return VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+     * 
+     * This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+     * 
+     */
+    public List<String> versions() {
+        return this.versions == null ? List.of() : this.versions;
     }
 
     public static Builder builder() {
@@ -74,16 +135,24 @@ public final class DeviceAttribute {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Boolean bool;
+        private @Nullable List<Boolean> bools;
         private @Nullable Integer int_;
+        private @Nullable List<Integer> ints;
         private @Nullable String string;
+        private @Nullable List<String> strings;
         private @Nullable String version;
+        private @Nullable List<String> versions;
         public Builder() {}
         public Builder(DeviceAttribute defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.bool = defaults.bool;
+    	      this.bools = defaults.bools;
     	      this.int_ = defaults.int_;
+    	      this.ints = defaults.ints;
     	      this.string = defaults.string;
+    	      this.strings = defaults.strings;
     	      this.version = defaults.version;
+    	      this.versions = defaults.versions;
         }
 
         @CustomType.Setter
@@ -92,11 +161,29 @@ public final class DeviceAttribute {
             this.bool = bool;
             return this;
         }
+        @CustomType.Setter
+        public Builder bools(@Nullable List<Boolean> bools) {
+
+            this.bools = bools;
+            return this;
+        }
+        public Builder bools(Boolean... bools) {
+            return bools(List.of(bools));
+        }
         @CustomType.Setter("int")
         public Builder int_(@Nullable Integer int_) {
 
             this.int_ = int_;
             return this;
+        }
+        @CustomType.Setter
+        public Builder ints(@Nullable List<Integer> ints) {
+
+            this.ints = ints;
+            return this;
+        }
+        public Builder ints(Integer... ints) {
+            return ints(List.of(ints));
         }
         @CustomType.Setter
         public Builder string(@Nullable String string) {
@@ -105,17 +192,39 @@ public final class DeviceAttribute {
             return this;
         }
         @CustomType.Setter
+        public Builder strings(@Nullable List<String> strings) {
+
+            this.strings = strings;
+            return this;
+        }
+        public Builder strings(String... strings) {
+            return strings(List.of(strings));
+        }
+        @CustomType.Setter
         public Builder version(@Nullable String version) {
 
             this.version = version;
             return this;
         }
+        @CustomType.Setter
+        public Builder versions(@Nullable List<String> versions) {
+
+            this.versions = versions;
+            return this;
+        }
+        public Builder versions(String... versions) {
+            return versions(List.of(versions));
+        }
         public DeviceAttribute build() {
             final var _resultValue = new DeviceAttribute();
             _resultValue.bool = bool;
+            _resultValue.bools = bools;
             _resultValue.int_ = int_;
+            _resultValue.ints = ints;
             _resultValue.string = string;
+            _resultValue.strings = strings;
             _resultValue.version = version;
+            _resultValue.versions = versions;
             return _resultValue;
         }
     }

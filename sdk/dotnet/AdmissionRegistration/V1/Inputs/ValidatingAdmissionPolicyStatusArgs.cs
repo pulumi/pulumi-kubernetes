@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
 
         /// <summary>
-        /// The conditions represent the latest available observations of a policy's current state.
+        /// conditions represent the latest available observations of a policy's current state.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs> Conditions
         {
@@ -28,13 +28,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         }
 
         /// <summary>
-        /// The generation observed by the controller.
+        /// observedGeneration is the generation observed by the controller.
         /// </summary>
         [Input("observedGeneration")]
         public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
-        /// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        /// typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
         /// </summary>
         [Input("typeChecking")]
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.TypeCheckingArgs>? TypeChecking { get; set; }

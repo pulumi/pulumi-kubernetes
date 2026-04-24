@@ -30,7 +30,7 @@ public final class EndpointSlice {
      * @return endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      * 
      */
-    private List<Endpoint> endpoints;
+    private @Nullable List<Endpoint> endpoints;
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
@@ -67,7 +67,7 @@ public final class EndpointSlice {
      * 
      */
     public List<Endpoint> endpoints() {
-        return this.endpoints;
+        return this.endpoints == null ? List.of() : this.endpoints;
     }
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -102,7 +102,7 @@ public final class EndpointSlice {
     public static final class Builder {
         private String addressType;
         private @Nullable String apiVersion;
-        private List<Endpoint> endpoints;
+        private @Nullable List<Endpoint> endpoints;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
         private @Nullable List<EndpointPort> ports;
@@ -132,10 +132,8 @@ public final class EndpointSlice {
             return this;
         }
         @CustomType.Setter
-        public Builder endpoints(List<Endpoint> endpoints) {
-            if (endpoints == null) {
-              throw new MissingRequiredPropertyException("EndpointSlice", "endpoints");
-            }
+        public Builder endpoints(@Nullable List<Endpoint> endpoints) {
+
             this.endpoints = endpoints;
             return this;
         }

@@ -46,15 +46,15 @@ export class ValidatingAdmissionPolicy extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"ValidatingAdmissionPolicy">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicy.
      */
     declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1.ValidatingAdmissionPolicySpec>;
     /**
-     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      */
     declare public /*out*/ readonly status: pulumi.Output<outputs.admissionregistration.v1.ValidatingAdmissionPolicyStatus>;
 
@@ -101,11 +101,11 @@ export interface ValidatingAdmissionPolicyArgs {
      */
     kind?: pulumi.Input<"ValidatingAdmissionPolicy">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicy.
      */
     spec?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicySpec>;
 }

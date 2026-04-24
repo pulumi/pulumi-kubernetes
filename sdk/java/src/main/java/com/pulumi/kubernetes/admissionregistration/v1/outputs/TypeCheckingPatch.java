@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class TypeCheckingPatch {
     /**
-     * @return The type checking warnings for each expression.
+     * @return expressionWarnings contains the type checking warnings for each expression.
      * 
      */
     private @Nullable List<ExpressionWarningPatch> expressionWarnings;
 
     private TypeCheckingPatch() {}
     /**
-     * @return The type checking warnings for each expression.
+     * @return expressionWarnings contains the type checking warnings for each expression.
      * 
      */
     public List<ExpressionWarningPatch> expressionWarnings() {

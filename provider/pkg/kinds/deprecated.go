@@ -117,6 +117,17 @@ func init() {
 	addManualEntry("batch", "v2alpha1", "CronJobList",
 		1, 8, 1, 21, &schema.GroupVersionKind{Group: "batch", Version: "v1", Kind: "CronJobList"})
 
+	// autoscaling/v2beta1 and v2beta2 (removed from k8s.io/api in v0.36.0,
+	// HPA moved to autoscaling/v2).
+	addManualEntry("autoscaling", "v2beta1", "HorizontalPodAutoscaler",
+		1, 8, 1, 25, &schema.GroupVersionKind{Group: "autoscaling", Version: "v2", Kind: "HorizontalPodAutoscaler"})
+	addManualEntry("autoscaling", "v2beta1", "HorizontalPodAutoscalerList",
+		1, 8, 1, 25, &schema.GroupVersionKind{Group: "autoscaling", Version: "v2", Kind: "HorizontalPodAutoscalerList"})
+	addManualEntry("autoscaling", "v2beta2", "HorizontalPodAutoscaler",
+		1, 12, 1, 26, &schema.GroupVersionKind{Group: "autoscaling", Version: "v2", Kind: "HorizontalPodAutoscaler"})
+	addManualEntry("autoscaling", "v2beta2", "HorizontalPodAutoscalerList",
+		1, 12, 1, 26, &schema.GroupVersionKind{Group: "autoscaling", Version: "v2", Kind: "HorizontalPodAutoscalerList"})
+
 	// auditregistration.k8s.io/v1alpha1 (removed from k8s.io/api)
 	addManualEntry("auditregistration.k8s.io", "v1alpha1", "AuditSink", 1, 13, 0, 0, nil)
 	addManualEntry("auditregistration.k8s.io", "v1alpha1", "AuditSinkList", 1, 13, 0, 0, nil)

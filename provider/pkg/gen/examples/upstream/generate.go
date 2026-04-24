@@ -29,9 +29,9 @@ func main() {
 		yamlPath = filepath.Join(cwd, yamlPath)
 	}
 
-	finfo, err := os.Lstat(mdPath)
+	finfo, err := os.Lstat(mdPath) //nolint:gosec // codegen tool
 	if err != nil && os.IsNotExist(err) {
-		if err := os.MkdirAll(mdPath, 0600); err != nil {
+		if err := os.MkdirAll(mdPath, 0600); err != nil { //nolint:gosec // codegen tool
 			panic(err)
 		}
 	}
@@ -82,7 +82,7 @@ func markdownExample(description string,
 }
 
 func processYaml(path string, mdDir string) error {
-	yamlFile, err := os.Open(path)
+	yamlFile, err := os.Open(path) //nolint:gosec // codegen tool
 	if err != nil {
 		return err
 	}
@@ -212,7 +212,7 @@ func processYaml(path string, mdDir string) error {
 		)
 	}
 	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
-	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)
+	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777) //nolint:gosec // codegen tool
 	if err != nil {
 		return err
 	}

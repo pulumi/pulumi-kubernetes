@@ -125,26 +125,33 @@ class LeaseCandidate(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.LeaseCandidateSpec',
                  api_version: Optional[_builtins.str] = None,
                  kind: Optional[_builtins.str] = None,
-                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.LeaseCandidateSpec'] = None):
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
         """
         LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
 
+        :param 'LeaseCandidateSpecArgs' spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'LeaseCandidateSpecArgs' spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'coordination.k8s.io/v1beta1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'LeaseCandidate')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.LeaseCandidateSpec':
+        """
+        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -169,14 +176,6 @@ class LeaseCandidate(dict):
         More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.LeaseCandidateSpec']:
-        """
-        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
 
 
 @pulumi.output_type

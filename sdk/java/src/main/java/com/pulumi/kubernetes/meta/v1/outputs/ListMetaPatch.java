@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.meta.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.meta.v1.outputs.ShardInfoPatch;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -32,6 +33,13 @@ public final class ListMetaPatch {
      * 
      */
     private @Nullable String selfLink;
+    /**
+     * @return shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+     * 
+     * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+     * 
+     */
+    private @Nullable ShardInfoPatch shardInfo;
 
     private ListMetaPatch() {}
     /**
@@ -62,6 +70,15 @@ public final class ListMetaPatch {
     public Optional<String> selfLink() {
         return Optional.ofNullable(this.selfLink);
     }
+    /**
+     * @return shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+     * 
+     * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+     * 
+     */
+    public Optional<ShardInfoPatch> shardInfo() {
+        return Optional.ofNullable(this.shardInfo);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -76,6 +93,7 @@ public final class ListMetaPatch {
         private @Nullable Integer remainingItemCount;
         private @Nullable String resourceVersion;
         private @Nullable String selfLink;
+        private @Nullable ShardInfoPatch shardInfo;
         public Builder() {}
         public Builder(ListMetaPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -83,6 +101,7 @@ public final class ListMetaPatch {
     	      this.remainingItemCount = defaults.remainingItemCount;
     	      this.resourceVersion = defaults.resourceVersion;
     	      this.selfLink = defaults.selfLink;
+    	      this.shardInfo = defaults.shardInfo;
         }
 
         @CustomType.Setter("continue")
@@ -109,12 +128,19 @@ public final class ListMetaPatch {
             this.selfLink = selfLink;
             return this;
         }
+        @CustomType.Setter
+        public Builder shardInfo(@Nullable ShardInfoPatch shardInfo) {
+
+            this.shardInfo = shardInfo;
+            return this;
+        }
         public ListMetaPatch build() {
             final var _resultValue = new ListMetaPatch();
             _resultValue.continue_ = continue_;
             _resultValue.remainingItemCount = remainingItemCount;
             _resultValue.resourceVersion = resourceVersion;
             _resultValue.selfLink = selfLink;
+            _resultValue.shardInfo = shardInfo;
             return _resultValue;
         }
     }

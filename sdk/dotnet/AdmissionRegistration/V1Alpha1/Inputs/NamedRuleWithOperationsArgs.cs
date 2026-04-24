@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<string>? _apiGroups;
 
         /// <summary>
-        /// APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        /// apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         /// </summary>
         public InputList<string> ApiGroups
         {
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<string>? _apiVersions;
 
         /// <summary>
-        /// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        /// apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         /// </summary>
         public InputList<string> ApiVersions
         {
@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<string>? _operations;
 
         /// <summary>
-        /// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        /// operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         /// </summary>
         public InputList<string> Operations
         {
@@ -55,7 +55,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<string>? _resourceNames;
 
         /// <summary>
-        /// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        /// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         /// </summary>
         public InputList<string> ResourceNames
         {
@@ -67,7 +67,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         private InputList<string>? _resources;
 
         /// <summary>
-        /// Resources is a list of resources this rule applies to.
+        /// resources is a list of resources this rule applies to.
         /// 
         /// For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
         /// 

@@ -34,7 +34,7 @@ public final class CSIDriverSpecPatch {
     /**
      * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -54,6 +54,17 @@ public final class CSIDriverSpecPatch {
      * 
      */
     private @Nullable Boolean podInfoOnMount;
+    /**
+     * @return PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+     * 
+     * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+     * 
+     * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+     * 
+     * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+     * 
+     */
+    private @Nullable Boolean preventPodSchedulingIfMissing;
     /**
      * @return requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
      * 
@@ -145,7 +156,7 @@ public final class CSIDriverSpecPatch {
     /**
      * @return nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
      * 
-     * This is a beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
      * 
      * This field is mutable.
      * 
@@ -168,6 +179,19 @@ public final class CSIDriverSpecPatch {
      */
     public Optional<Boolean> podInfoOnMount() {
         return Optional.ofNullable(this.podInfoOnMount);
+    }
+    /**
+     * @return PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+     * 
+     * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+     * 
+     * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+     * 
+     * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+     * 
+     */
+    public Optional<Boolean> preventPodSchedulingIfMissing() {
+        return Optional.ofNullable(this.preventPodSchedulingIfMissing);
     }
     /**
      * @return requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
@@ -261,6 +285,7 @@ public final class CSIDriverSpecPatch {
         private @Nullable String fsGroupPolicy;
         private @Nullable Integer nodeAllocatableUpdatePeriodSeconds;
         private @Nullable Boolean podInfoOnMount;
+        private @Nullable Boolean preventPodSchedulingIfMissing;
         private @Nullable Boolean requiresRepublish;
         private @Nullable Boolean seLinuxMount;
         private @Nullable Boolean serviceAccountTokenInSecrets;
@@ -274,6 +299,7 @@ public final class CSIDriverSpecPatch {
     	      this.fsGroupPolicy = defaults.fsGroupPolicy;
     	      this.nodeAllocatableUpdatePeriodSeconds = defaults.nodeAllocatableUpdatePeriodSeconds;
     	      this.podInfoOnMount = defaults.podInfoOnMount;
+    	      this.preventPodSchedulingIfMissing = defaults.preventPodSchedulingIfMissing;
     	      this.requiresRepublish = defaults.requiresRepublish;
     	      this.seLinuxMount = defaults.seLinuxMount;
     	      this.serviceAccountTokenInSecrets = defaults.serviceAccountTokenInSecrets;
@@ -304,6 +330,12 @@ public final class CSIDriverSpecPatch {
         public Builder podInfoOnMount(@Nullable Boolean podInfoOnMount) {
 
             this.podInfoOnMount = podInfoOnMount;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder preventPodSchedulingIfMissing(@Nullable Boolean preventPodSchedulingIfMissing) {
+
+            this.preventPodSchedulingIfMissing = preventPodSchedulingIfMissing;
             return this;
         }
         @CustomType.Setter
@@ -354,6 +386,7 @@ public final class CSIDriverSpecPatch {
             _resultValue.fsGroupPolicy = fsGroupPolicy;
             _resultValue.nodeAllocatableUpdatePeriodSeconds = nodeAllocatableUpdatePeriodSeconds;
             _resultValue.podInfoOnMount = podInfoOnMount;
+            _resultValue.preventPodSchedulingIfMissing = preventPodSchedulingIfMissing;
             _resultValue.requiresRepublish = requiresRepublish;
             _resultValue.seLinuxMount = seLinuxMount;
             _resultValue.serviceAccountTokenInSecrets = serviceAccountTokenInSecrets;

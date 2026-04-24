@@ -28,7 +28,7 @@ public final class PodConditionPatch {
      */
     private @Nullable String message;
     /**
-     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon.
      * 
      */
     private @Nullable Integer observedGeneration;
@@ -71,7 +71,7 @@ public final class PodConditionPatch {
         return Optional.ofNullable(this.message);
     }
     /**
-     * @return If set, this represents the .metadata.generation that the pod condition was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+     * @return If set, this represents the .metadata.generation that the pod condition was set based upon.
      * 
      */
     public Optional<Integer> observedGeneration() {

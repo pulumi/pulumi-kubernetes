@@ -669,27 +669,20 @@ class RoleRef(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 api_group: _builtins.str,
                  kind: _builtins.str,
-                 name: _builtins.str):
+                 name: _builtins.str,
+                 api_group: Optional[_builtins.str] = None):
         """
         RoleRef contains information that points to the role being used
 
-        :param _builtins.str api_group: APIGroup is the group for the resource being referenced
         :param _builtins.str kind: Kind is the type of resource being referenced
         :param _builtins.str name: Name is the name of resource being referenced
+        :param _builtins.str api_group: APIGroup is the group for the resource being referenced
         """
-        pulumi.set(__self__, "api_group", api_group)
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> _builtins.str:
-        """
-        APIGroup is the group for the resource being referenced
-        """
-        return pulumi.get(self, "api_group")
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
 
     @_builtins.property
     @pulumi.getter
@@ -706,6 +699,14 @@ class RoleRef(dict):
         Name is the name of resource being referenced
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> Optional[_builtins.str]:
+        """
+        APIGroup is the group for the resource being referenced
+        """
+        return pulumi.get(self, "api_group")
 
 
 @pulumi.output_type

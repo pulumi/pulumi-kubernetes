@@ -34,13 +34,13 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Webhooks is a list of webhooks and the affected resources and operations.
+        /// webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
         [Output("webhooks")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.MutatingWebhookPatch>> Webhooks { get; private set; } = null!;
@@ -122,7 +122,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
@@ -131,7 +131,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.MutatingWebhookPatchArgs>? _webhooks;
 
         /// <summary>
-        /// Webhooks is a list of webhooks and the affected resources and operations.
+        /// webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.MutatingWebhookPatchArgs> Webhooks
         {

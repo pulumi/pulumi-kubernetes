@@ -54,14 +54,14 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -69,14 +69,14 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<ValidatingAdmissionPolicySpecArgs> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     public Optional<Output<ValidatingAdmissionPolicySpecArgs>> spec() {
@@ -84,14 +84,14 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     @Import(name="status")
     private @Nullable Output<ValidatingAdmissionPolicyStatusArgs> status;
 
     /**
-     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * @return status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     public Optional<Output<ValidatingAdmissionPolicyStatusArgs>> status() {
@@ -169,7 +169,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -190,7 +190,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param spec Specification of the desired behavior of the ValidatingAdmissionPolicy.
+         * @param spec spec defines the desired behavior of the ValidatingAdmissionPolicy.
          * 
          * @return builder
          * 
@@ -201,7 +201,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param spec Specification of the desired behavior of the ValidatingAdmissionPolicy.
+         * @param spec spec defines the desired behavior of the ValidatingAdmissionPolicy.
          * 
          * @return builder
          * 
@@ -211,7 +211,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param status The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+         * @param status status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param status The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+         * @param status status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
          * 
          * @return builder
          * 

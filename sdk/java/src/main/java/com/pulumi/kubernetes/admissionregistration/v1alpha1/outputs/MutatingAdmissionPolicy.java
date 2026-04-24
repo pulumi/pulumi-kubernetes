@@ -24,12 +24,12 @@ public final class MutatingAdmissionPolicy {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the MutatingAdmissionPolicy.
      * 
      */
     private @Nullable MutatingAdmissionPolicySpec spec;
@@ -50,14 +50,14 @@ public final class MutatingAdmissionPolicy {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the MutatingAdmissionPolicy.
      * 
      */
     public Optional<MutatingAdmissionPolicySpec> spec() {

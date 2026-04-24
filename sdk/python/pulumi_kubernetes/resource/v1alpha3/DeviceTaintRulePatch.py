@@ -175,6 +175,8 @@ class DeviceTaintRulePatch(pulumi.CustomResource):
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:DeviceTaintRulePatch")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(DeviceTaintRulePatch, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch',
             resource_name,

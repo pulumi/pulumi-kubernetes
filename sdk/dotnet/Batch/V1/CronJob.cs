@@ -131,8 +131,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// <summary>
         /// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Batch.V1.CronJobSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Batch.V1.CronJobSpecArgs> Spec { get; set; } = null!;
 
         public CronJobArgs()
         {

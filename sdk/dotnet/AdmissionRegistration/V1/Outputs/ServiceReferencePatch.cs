@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
     public sealed class ServiceReferencePatch
     {
         /// <summary>
-        /// `name` is the name of the service. Required
+        /// name is the name of the service. Required
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// `namespace` is the namespace of the service. Required
+        /// namespace is the namespace of the service. Required
         /// </summary>
         public readonly string Namespace;
         /// <summary>
-        /// `path` is an optional URL path which will be sent in any request to this service.
+        /// path is an optional URL path which will be sent in any request to this service.
         /// </summary>
         public readonly string Path;
         /// <summary>
-        /// If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+        /// port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         /// </summary>
         public readonly int Port;
 

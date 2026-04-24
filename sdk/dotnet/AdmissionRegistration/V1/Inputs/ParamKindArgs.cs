@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
     public class ParamKindArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+        /// apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         /// </summary>
         [Input("apiVersion")]
         public Input<string>? ApiVersion { get; set; }
 
         /// <summary>
-        /// Kind is the API kind the resources belong to. Required.
+        /// kind is the API kind the resources belong to. Required.
         /// </summary>
         [Input("kind")]
         public Input<string>? Kind { get; set; }

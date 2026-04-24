@@ -102,6 +102,12 @@ _utilities.register(
   "mod": "admissionregistration.k8s.io/v1",
   "fqn": "pulumi_kubernetes.admissionregistration.v1",
   "classes": {
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicy": "MutatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBinding": "MutatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingList": "MutatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingPatch": "MutatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyList": "MutatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyPatch": "MutatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration": "MutatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList": "MutatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch": "MutatingWebhookConfigurationPatch",
@@ -892,6 +898,9 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate": "ResourceClaimTemplate",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList": "ResourceClaimTemplateList",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequest": "ResourcePoolStatusRequest",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequestList": "ResourcePoolStatusRequestList",
+   "kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequestPatch": "ResourcePoolStatusRequestPatch",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlice": "ResourceSlice",
    "kubernetes:resource.k8s.io/v1alpha3:ResourceSlicePatch": "ResourceSlicePatch"
   }
@@ -923,6 +932,9 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1beta2:DeviceClass": "DeviceClass",
    "kubernetes:resource.k8s.io/v1beta2:DeviceClassList": "DeviceClassList",
    "kubernetes:resource.k8s.io/v1beta2:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1beta2:DeviceTaintRule": "DeviceTaintRule",
+   "kubernetes:resource.k8s.io/v1beta2:DeviceTaintRuleList": "DeviceTaintRuleList",
+   "kubernetes:resource.k8s.io/v1beta2:DeviceTaintRulePatch": "DeviceTaintRulePatch",
    "kubernetes:resource.k8s.io/v1beta2:ResourceClaim": "ResourceClaim",
    "kubernetes:resource.k8s.io/v1beta2:ResourceClaimList": "ResourceClaimList",
    "kubernetes:resource.k8s.io/v1beta2:ResourceClaimPatch": "ResourceClaimPatch",
@@ -951,10 +963,20 @@ _utilities.register(
   "classes": {
    "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass": "PriorityClass",
    "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList": "PriorityClassList",
-   "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch": "PriorityClassPatch",
-   "kubernetes:scheduling.k8s.io/v1alpha1:Workload": "Workload",
-   "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadList": "WorkloadList",
-   "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadPatch": "WorkloadPatch"
+   "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch": "PriorityClassPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "scheduling.k8s.io/v1alpha2",
+  "fqn": "pulumi_kubernetes.scheduling.v1alpha2",
+  "classes": {
+   "kubernetes:scheduling.k8s.io/v1alpha2:PodGroup": "PodGroup",
+   "kubernetes:scheduling.k8s.io/v1alpha2:PodGroupList": "PodGroupList",
+   "kubernetes:scheduling.k8s.io/v1alpha2:PodGroupPatch": "PodGroupPatch",
+   "kubernetes:scheduling.k8s.io/v1alpha2:Workload": "Workload",
+   "kubernetes:scheduling.k8s.io/v1alpha2:WorkloadList": "WorkloadList",
+   "kubernetes:scheduling.k8s.io/v1alpha2:WorkloadPatch": "WorkloadPatch"
   }
  },
  {

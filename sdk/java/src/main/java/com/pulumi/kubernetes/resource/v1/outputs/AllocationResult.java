@@ -16,7 +16,7 @@ public final class AllocationResult {
     /**
      * @return AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
      * 
      */
     private @Nullable String allocationTimestamp;
@@ -35,7 +35,7 @@ public final class AllocationResult {
     /**
      * @return AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
      * 
-     * This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+     * This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
      * 
      */
     public Optional<String> allocationTimestamp() {

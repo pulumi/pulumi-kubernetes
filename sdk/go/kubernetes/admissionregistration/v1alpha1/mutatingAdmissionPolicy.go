@@ -20,9 +20,9 @@ type MutatingAdmissionPolicy struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec MutatingAdmissionPolicySpecOutput `pulumi:"spec"`
 }
 
@@ -36,6 +36,9 @@ func NewMutatingAdmissionPolicy(ctx *pulumi.Context,
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("MutatingAdmissionPolicy")
 	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicy"),
+		},
 		{
 			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingAdmissionPolicy"),
 		},
@@ -78,9 +81,9 @@ type mutatingAdmissionPolicyArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec *MutatingAdmissionPolicySpec `pulumi:"spec"`
 }
 
@@ -90,9 +93,9 @@ type MutatingAdmissionPolicyArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// Specification of the desired behavior of the MutatingAdmissionPolicy.
+	// spec defines the desired behavior of the MutatingAdmissionPolicy.
 	Spec MutatingAdmissionPolicySpecPtrInput
 }
 
@@ -193,12 +196,12 @@ func (o MutatingAdmissionPolicyOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *MutatingAdmissionPolicy) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *MutatingAdmissionPolicy) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicy.
+// spec defines the desired behavior of the MutatingAdmissionPolicy.
 func (o MutatingAdmissionPolicyOutput) Spec() MutatingAdmissionPolicySpecOutput {
 	return o.ApplyT(func(v *MutatingAdmissionPolicy) MutatingAdmissionPolicySpecOutput { return v.Spec }).(MutatingAdmissionPolicySpecOutput)
 }

@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -30,9 +31,12 @@ type LeaseCandidate struct {
 func NewLeaseCandidate(ctx *pulumi.Context,
 	name string, args *LeaseCandidateArgs, opts ...pulumi.ResourceOption) (*LeaseCandidate, error) {
 	if args == nil {
-		args = &LeaseCandidateArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("coordination.k8s.io/v1alpha2")
 	args.Kind = pulumi.StringPtr("LeaseCandidate")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -84,7 +88,7 @@ type leaseCandidateArgs struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *LeaseCandidateSpec `pulumi:"spec"`
+	Spec LeaseCandidateSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a LeaseCandidate resource.
@@ -96,7 +100,7 @@ type LeaseCandidateArgs struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec LeaseCandidateSpecPtrInput
+	Spec LeaseCandidateSpecInput
 }
 
 func (LeaseCandidateArgs) ElementType() reflect.Type {

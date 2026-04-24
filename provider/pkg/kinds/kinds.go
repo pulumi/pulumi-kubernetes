@@ -110,6 +110,8 @@ const (
 	PodCertificateRequestList            Kind = "PodCertificateRequestList"
 	PodDisruptionBudget                  Kind = "PodDisruptionBudget"
 	PodDisruptionBudgetList              Kind = "PodDisruptionBudgetList"
+	PodGroup                             Kind = "PodGroup"
+	PodGroupList                         Kind = "PodGroupList"
 	PodList                              Kind = "PodList"
 	PodPreset                            Kind = "PodPreset"
 	PodPresetList                        Kind = "PodPresetList"
@@ -139,6 +141,8 @@ const (
 	ResourceClassList                    Kind = "ResourceClassList"
 	ResourceClassParameters              Kind = "ResourceClassParameters"
 	ResourceClassParametersList          Kind = "ResourceClassParametersList"
+	ResourcePoolStatusRequest            Kind = "ResourcePoolStatusRequest"
+	ResourcePoolStatusRequestList        Kind = "ResourcePoolStatusRequestList"
 	ResourceQuota                        Kind = "ResourceQuota"
 	ResourceQuotaList                    Kind = "ResourceQuotaList"
 	ResourceSlice                        Kind = "ResourceSlice"
@@ -305,6 +309,7 @@ const (
 	ResourceV1B2              groupVersion = "resource.k8s.io/v1beta2"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
+	SchedulingV1A2            groupVersion = "scheduling.k8s.io/v1alpha2"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
 	SettingsV1A1              groupVersion = "settings.k8s.io/v1alpha1"
 	StorageV1                 groupVersion = "storage.k8s.io/v1"
@@ -384,6 +389,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"resource.k8s.io/v1beta2",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
+	"scheduling.k8s.io/v1alpha2",
 	"scheduling.k8s.io/v1beta1",
 	"settings.k8s.io/v1alpha1",
 	"storage.k8s.io/v1",
@@ -397,6 +403,8 @@ var KnownGroupVersions = codegen.NewStringSet(
 // ListQualifiedTypes is the set of "List" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the List suffix avoids unintended clashes with CustomResources that also contain a List suffix.
 var ListQualifiedTypes = codegen.NewStringSet(
+	"kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingList",
+	"kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicyList",
@@ -532,17 +540,20 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1alpha3:PodSchedulingContextList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplateList",
+	"kubernetes:resource.k8s.io/v1alpha3:ResourcePoolStatusRequestList",
 	"kubernetes:resource.k8s.io/v1beta1:DeviceClassList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1beta1:ResourceSliceList",
 	"kubernetes:resource.k8s.io/v1beta2:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1beta2:DeviceTaintRuleList",
 	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1beta2:ResourceSliceList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
-	"kubernetes:scheduling.k8s.io/v1alpha1:WorkloadList",
+	"kubernetes:scheduling.k8s.io/v1alpha2:PodGroupList",
+	"kubernetes:scheduling.k8s.io/v1alpha2:WorkloadList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",
 	"kubernetes:settings.k8s.io/v1alpha1:PodPresetList",
 	"kubernetes:storage.k8s.io/v1:CSIDriverList",

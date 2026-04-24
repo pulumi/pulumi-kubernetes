@@ -20,7 +20,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     public static final ValidationPatchArgs Empty = new ValidationPatchArgs();
 
     /**
-     * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+     * expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
      * 
      * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;namespaceObject&#39; - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - &#39;variables&#39; - Map of composited variables, from its name to its lazily evaluated value.
      *   For example, a variable named &#39;foo&#39; can be accessed as &#39;variables.foo&#39;.
@@ -52,7 +52,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     private @Nullable Output<String> expression;
 
     /**
-     * @return Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+     * @return expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
      * 
      * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;namespaceObject&#39; - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - &#39;variables&#39; - Map of composited variables, from its name to its lazily evaluated value.
      *   For example, a variable named &#39;foo&#39; can be accessed as &#39;variables.foo&#39;.
@@ -85,14 +85,14 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
+     * message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
      * 
      */
     @Import(name="message")
     private @Nullable Output<String> message;
 
     /**
-     * @return Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
+     * @return message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
      * 
      */
     public Optional<Output<String>> message() {
@@ -115,14 +115,14 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
+     * reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
      * 
      */
     @Import(name="reason")
     private @Nullable Output<String> reason;
 
     /**
-     * @return Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
+     * @return reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
      * 
      */
     public Optional<Output<String>> reason() {
@@ -157,7 +157,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+         * @param expression expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
          * 
          * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;namespaceObject&#39; - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - &#39;variables&#39; - Map of composited variables, from its name to its lazily evaluated value.
          *   For example, a variable named &#39;foo&#39; can be accessed as &#39;variables.foo&#39;.
@@ -193,7 +193,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+         * @param expression expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
          * 
          * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;namespaceObject&#39; - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - &#39;variables&#39; - Map of composited variables, from its name to its lazily evaluated value.
          *   For example, a variable named &#39;foo&#39; can be accessed as &#39;variables.foo&#39;.
@@ -228,7 +228,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param message Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
+         * @param message message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
          * 
          * @return builder
          * 
@@ -239,7 +239,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param message Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
+         * @param message message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34; If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is &#34;failed Expression: {Expression}&#34;.
          * 
          * @return builder
          * 
@@ -270,7 +270,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param reason Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
+         * @param reason reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
          * 
          * @return builder
          * 
@@ -281,7 +281,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param reason Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
+         * @param reason reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
          * 
          * @return builder
          * 

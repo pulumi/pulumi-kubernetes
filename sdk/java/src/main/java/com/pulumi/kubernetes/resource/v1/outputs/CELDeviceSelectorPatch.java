@@ -42,6 +42,10 @@ public final class CELDeviceSelectorPatch {
      * 
      *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
      * 
+     * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+     * 
+     *     device.attributes[&#34;dra.example.com&#34;].models.includes(&#34;some-model&#34;)
+     * 
      * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
      * 
      */
@@ -78,6 +82,10 @@ public final class CELDeviceSelectorPatch {
      * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
      * 
      *     cel.bind(dra, device.attributes[&#34;dra.example.com&#34;], dra.someBool &amp;&amp; dra.anotherBool)
+     * 
+     * When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+     * 
+     *     device.attributes[&#34;dra.example.com&#34;].models.includes(&#34;some-model&#34;)
      * 
      * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
      * 

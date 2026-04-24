@@ -18,8 +18,6 @@ import javax.annotation.Nullable;
 /**
  * ResourceClaimTemplate is used to produce ResourceClaim objects.
  * 
- * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
- * 
  */
 public final class ResourceClaimTemplateArgs extends com.pulumi.resources.ResourceArgs {
 

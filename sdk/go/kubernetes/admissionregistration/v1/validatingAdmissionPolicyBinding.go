@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -24,9 +25,9 @@ type ValidatingAdmissionPolicyBinding struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
 	Spec ValidatingAdmissionPolicyBindingSpecOutput `pulumi:"spec"`
 }
 
@@ -34,9 +35,12 @@ type ValidatingAdmissionPolicyBinding struct {
 func NewValidatingAdmissionPolicyBinding(ctx *pulumi.Context,
 	name string, args *ValidatingAdmissionPolicyBindingArgs, opts ...pulumi.ResourceOption) (*ValidatingAdmissionPolicyBinding, error) {
 	if args == nil {
-		args = &ValidatingAdmissionPolicyBindingArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("ValidatingAdmissionPolicyBinding")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -85,10 +89,10 @@ type validatingAdmissionPolicyBindingArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
-	Spec *ValidatingAdmissionPolicyBindingSpec `pulumi:"spec"`
+	// spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
+	Spec ValidatingAdmissionPolicyBindingSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a ValidatingAdmissionPolicyBinding resource.
@@ -97,10 +101,10 @@ type ValidatingAdmissionPolicyBindingArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
-	Spec ValidatingAdmissionPolicyBindingSpecPtrInput
+	// spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
+	Spec ValidatingAdmissionPolicyBindingSpecInput
 }
 
 func (ValidatingAdmissionPolicyBindingArgs) ElementType() reflect.Type {
@@ -200,12 +204,12 @@ func (o ValidatingAdmissionPolicyBindingOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o ValidatingAdmissionPolicyBindingOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+// spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
 func (o ValidatingAdmissionPolicyBindingOutput) Spec() ValidatingAdmissionPolicyBindingSpecOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) ValidatingAdmissionPolicyBindingSpecOutput { return v.Spec }).(ValidatingAdmissionPolicyBindingSpecOutput)
 }

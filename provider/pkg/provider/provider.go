@@ -106,7 +106,7 @@ type cancellationContext struct {
 }
 
 func makeCancellationContext() *cancellationContext {
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(context.Background()) //nolint:gosec // cancel stored; called on shutdown
 	return &cancellationContext{
 		context: ctx,
 		cancel:  cancel,

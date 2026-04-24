@@ -15,8 +15,6 @@ import * as utilities from "../../utilities";
  * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * ResourceClaimTemplate is used to produce ResourceClaim objects.
- *
- * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
  */
 export class ResourceClaimTemplatePatch extends pulumi.CustomResource {
     /**

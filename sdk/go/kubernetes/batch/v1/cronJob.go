@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -32,9 +33,12 @@ type CronJob struct {
 func NewCronJob(ctx *pulumi.Context,
 	name string, args *CronJobArgs, opts ...pulumi.ResourceOption) (*CronJob, error) {
 	if args == nil {
-		args = &CronJobArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("batch/v1")
 	args.Kind = pulumi.StringPtr("CronJob")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -86,7 +90,7 @@ type cronJobArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *CronJobSpec `pulumi:"spec"`
+	Spec CronJobSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a CronJob resource.
@@ -98,7 +102,7 @@ type CronJobArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec CronJobSpecPtrInput
+	Spec CronJobSpecInput
 }
 
 func (CronJobArgs) ElementType() reflect.Type {

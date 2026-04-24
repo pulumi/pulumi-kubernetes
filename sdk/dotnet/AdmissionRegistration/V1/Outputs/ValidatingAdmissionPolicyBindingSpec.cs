@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
     public sealed class ValidatingAdmissionPolicyBindingSpec
     {
         /// <summary>
-        /// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+        /// matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.MatchResources MatchResources;
         /// <summary>
@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.ParamRef ParamRef;
         /// <summary>
-        /// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        /// policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         /// </summary>
         public readonly string PolicyName;
         /// <summary>

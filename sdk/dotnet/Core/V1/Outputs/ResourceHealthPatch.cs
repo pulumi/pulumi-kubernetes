@@ -29,6 +29,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Health;
         /// <summary>
+        /// Message provides human-readable context for Health (e.g. "ECC error count exceeded threshold"). This field is populated by the kubelet when ResourceHealthStatusMessage is enabled if the DRA plugin returns a message, and is null otherwise.
+        /// </summary>
+        public readonly string Message;
+        /// <summary>
         /// ResourceID is the unique identifier of the resource. See the ResourceID type for more information.
         /// </summary>
         public readonly string ResourceID;
@@ -37,9 +41,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private ResourceHealthPatch(
             string health,
 
+            string message,
+
             string resourceID)
         {
             Health = health;
+            Message = message;
             ResourceID = resourceID;
         }
     }

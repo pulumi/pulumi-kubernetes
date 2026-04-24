@@ -41,9 +41,6 @@ func NewEndpointSlice(ctx *pulumi.Context,
 	if args.AddressType == nil {
 		return nil, errors.New("invalid value for required argument 'AddressType'")
 	}
-	if args.Endpoints == nil {
-		return nil, errors.New("invalid value for required argument 'Endpoints'")
-	}
 	args.ApiVersion = pulumi.StringPtr("discovery.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("EndpointSlice")
 	aliases := pulumi.Aliases([]pulumi.Alias{

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
     public sealed class TypeCheckingPatch
     {
         /// <summary>
-        /// The type checking warnings for each expression.
+        /// expressionWarnings contains the type checking warnings for each expression.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.ExpressionWarningPatch> ExpressionWarnings;
 

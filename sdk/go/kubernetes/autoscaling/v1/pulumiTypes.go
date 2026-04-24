@@ -57,47 +57,6 @@ func (i CrossVersionObjectReferenceArgs) ToCrossVersionObjectReferenceOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(CrossVersionObjectReferenceOutput)
 }
 
-func (i CrossVersionObjectReferenceArgs) ToCrossVersionObjectReferencePtrOutput() CrossVersionObjectReferencePtrOutput {
-	return i.ToCrossVersionObjectReferencePtrOutputWithContext(context.Background())
-}
-
-func (i CrossVersionObjectReferenceArgs) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CrossVersionObjectReferenceOutput).ToCrossVersionObjectReferencePtrOutputWithContext(ctx)
-}
-
-// CrossVersionObjectReferencePtrInput is an input type that accepts CrossVersionObjectReferenceArgs, CrossVersionObjectReferencePtr and CrossVersionObjectReferencePtrOutput values.
-// You can construct a concrete instance of `CrossVersionObjectReferencePtrInput` via:
-//
-//	        CrossVersionObjectReferenceArgs{...}
-//
-//	or:
-//
-//	        nil
-type CrossVersionObjectReferencePtrInput interface {
-	pulumi.Input
-
-	ToCrossVersionObjectReferencePtrOutput() CrossVersionObjectReferencePtrOutput
-	ToCrossVersionObjectReferencePtrOutputWithContext(context.Context) CrossVersionObjectReferencePtrOutput
-}
-
-type crossVersionObjectReferencePtrType CrossVersionObjectReferenceArgs
-
-func CrossVersionObjectReferencePtr(v *CrossVersionObjectReferenceArgs) CrossVersionObjectReferencePtrInput {
-	return (*crossVersionObjectReferencePtrType)(v)
-}
-
-func (*crossVersionObjectReferencePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
-}
-
-func (i *crossVersionObjectReferencePtrType) ToCrossVersionObjectReferencePtrOutput() CrossVersionObjectReferencePtrOutput {
-	return i.ToCrossVersionObjectReferencePtrOutputWithContext(context.Background())
-}
-
-func (i *crossVersionObjectReferencePtrType) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CrossVersionObjectReferencePtrOutput)
-}
-
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferenceOutput struct{ *pulumi.OutputState }
 
@@ -113,16 +72,6 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferenceOutputWi
 	return o
 }
 
-func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutput() CrossVersionObjectReferencePtrOutput {
-	return o.ToCrossVersionObjectReferencePtrOutputWithContext(context.Background())
-}
-
-func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CrossVersionObjectReference) *CrossVersionObjectReference {
-		return &v
-	}).(CrossVersionObjectReferencePtrOutput)
-}
-
 // apiVersion is the API version of the referent
 func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
@@ -136,60 +85,6 @@ func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringOutput {
 // name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Name }).(pulumi.StringOutput)
-}
-
-type CrossVersionObjectReferencePtrOutput struct{ *pulumi.OutputState }
-
-func (CrossVersionObjectReferencePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CrossVersionObjectReference)(nil)).Elem()
-}
-
-func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOutput() CrossVersionObjectReferencePtrOutput {
-	return o
-}
-
-func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return o
-}
-
-func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReferenceOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference {
-		if v != nil {
-			return *v
-		}
-		var ret CrossVersionObjectReference
-		return ret
-	}).(CrossVersionObjectReferenceOutput)
-}
-
-// apiVersion is the API version of the referent
-func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ApiVersion
-	}).(pulumi.StringPtrOutput)
-}
-
-// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Kind
-	}).(pulumi.StringPtrOutput)
-}
-
-// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Name
-	}).(pulumi.StringPtrOutput)
 }
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
@@ -379,7 +274,7 @@ type HorizontalPodAutoscalerType struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-	Spec *HorizontalPodAutoscalerSpec `pulumi:"spec"`
+	Spec HorizontalPodAutoscalerSpec `pulumi:"spec"`
 	// status is the current information about the autoscaler.
 	Status *HorizontalPodAutoscalerStatus `pulumi:"status"`
 }
@@ -404,7 +299,7 @@ type HorizontalPodAutoscalerTypeArgs struct {
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-	Spec HorizontalPodAutoscalerSpecPtrInput `pulumi:"spec"`
+	Spec HorizontalPodAutoscalerSpecInput `pulumi:"spec"`
 	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPtrInput `pulumi:"status"`
 }
@@ -477,8 +372,8 @@ func (o HorizontalPodAutoscalerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput
 }
 
 // spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
+func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerType) HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // status is the current information about the autoscaler.
@@ -726,47 +621,6 @@ func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecOutput)
 }
 
-func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return i.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecOutput).ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx)
-}
-
-// HorizontalPodAutoscalerSpecPtrInput is an input type that accepts HorizontalPodAutoscalerSpecArgs, HorizontalPodAutoscalerSpecPtr and HorizontalPodAutoscalerSpecPtrOutput values.
-// You can construct a concrete instance of `HorizontalPodAutoscalerSpecPtrInput` via:
-//
-//	        HorizontalPodAutoscalerSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type HorizontalPodAutoscalerSpecPtrInput interface {
-	pulumi.Input
-
-	ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput
-	ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Context) HorizontalPodAutoscalerSpecPtrOutput
-}
-
-type horizontalPodAutoscalerSpecPtrType HorizontalPodAutoscalerSpecArgs
-
-func HorizontalPodAutoscalerSpecPtr(v *HorizontalPodAutoscalerSpecArgs) HorizontalPodAutoscalerSpecPtrInput {
-	return (*horizontalPodAutoscalerSpecPtrType)(v)
-}
-
-func (*horizontalPodAutoscalerSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
-}
-
-func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return i.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *horizontalPodAutoscalerSpecPtrType) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerSpecPtrOutput)
-}
-
 // specification of a horizontal pod autoscaler.
 type HorizontalPodAutoscalerSpecOutput struct{ *pulumi.OutputState }
 
@@ -780,16 +634,6 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecOutput()
 
 func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecOutput {
 	return o
-}
-
-func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ToHorizontalPodAutoscalerSpecPtrOutputWithContext(context.Background())
-}
-
-func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
-		return &v
-	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
 // maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
@@ -810,70 +654,6 @@ func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectRe
 // targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
-}
-
-type HorizontalPodAutoscalerSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (HorizontalPodAutoscalerSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscalerSpec)(nil)).Elem()
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOutput() HorizontalPodAutoscalerSpecPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec {
-		if v != nil {
-			return *v
-		}
-		var ret HorizontalPodAutoscalerSpec
-		return ret
-	}).(HorizontalPodAutoscalerSpecOutput)
-}
-
-// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
-func (o HorizontalPodAutoscalerSpecPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return &v.MaxReplicas
-	}).(pulumi.IntPtrOutput)
-}
-
-// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-func (o HorizontalPodAutoscalerSpecPtrOutput) MinReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MinReplicas
-	}).(pulumi.IntPtrOutput)
-}
-
-// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
-func (o HorizontalPodAutoscalerSpecPtrOutput) ScaleTargetRef() CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *CrossVersionObjectReference {
-		if v == nil {
-			return nil
-		}
-		return &v.ScaleTargetRef
-	}).(CrossVersionObjectReferencePtrOutput)
-}
-
-// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
-func (o HorizontalPodAutoscalerSpecPtrOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.TargetCPUUtilizationPercentage
-	}).(pulumi.IntPtrOutput)
 }
 
 // specification of a horizontal pod autoscaler.
@@ -2287,7 +2067,6 @@ func (o ScaleStatusPatchPtrOutput) Selector() pulumi.StringPtrOutput {
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferenceInput)(nil)).Elem(), CrossVersionObjectReferenceArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferencePtrInput)(nil)).Elem(), CrossVersionObjectReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferencePatchInput)(nil)).Elem(), CrossVersionObjectReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferencePatchPtrInput)(nil)).Elem(), CrossVersionObjectReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerTypeInput)(nil)).Elem(), HorizontalPodAutoscalerTypeArgs{})
@@ -2295,7 +2074,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerListTypeInput)(nil)).Elem(), HorizontalPodAutoscalerListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerPatchTypeInput)(nil)).Elem(), HorizontalPodAutoscalerPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPtrInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPatchInput)(nil)).Elem(), HorizontalPodAutoscalerSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPatchPtrInput)(nil)).Elem(), HorizontalPodAutoscalerSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerStatusInput)(nil)).Elem(), HorizontalPodAutoscalerStatusArgs{})
@@ -2313,7 +2091,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleStatusPatchInput)(nil)).Elem(), ScaleStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleStatusPatchPtrInput)(nil)).Elem(), ScaleStatusPatchArgs{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferenceOutput{})
-	pulumi.RegisterOutputType(CrossVersionObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferencePatchOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferencePatchPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeOutput{})
@@ -2321,7 +2098,6 @@ func init() {
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerListTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerPatchTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPatchOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerStatusOutput{})

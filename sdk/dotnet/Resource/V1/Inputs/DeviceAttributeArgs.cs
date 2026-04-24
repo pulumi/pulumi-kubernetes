@@ -21,11 +21,37 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         [Input("bool")]
         public Input<bool>? Bool { get; set; }
 
+        [Input("bools")]
+        private InputList<bool>? _bools;
+
+        /// <summary>
+        /// BoolValues is a non-empty list of true/false values.
+        /// </summary>
+        public InputList<bool> Bools
+        {
+            get => _bools ?? (_bools = new InputList<bool>());
+            set => _bools = value;
+        }
+
         /// <summary>
         /// IntValue is a number.
         /// </summary>
         [Input("int")]
         public Input<int>? Int { get; set; }
+
+        [Input("ints")]
+        private InputList<int>? _ints;
+
+        /// <summary>
+        /// IntValues is a non-empty list of numbers.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public InputList<int> Ints
+        {
+            get => _ints ?? (_ints = new InputList<int>());
+            set => _ints = value;
+        }
 
         /// <summary>
         /// StringValue is a string. Must not be longer than 64 characters.
@@ -33,11 +59,39 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         [Input("string")]
         public Input<string>? String { get; set; }
 
+        [Input("strings")]
+        private InputList<string>? _strings;
+
+        /// <summary>
+        /// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public InputList<string> Strings
+        {
+            get => _strings ?? (_strings = new InputList<string>());
+            set => _strings = value;
+        }
+
         /// <summary>
         /// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
         /// </summary>
         [Input("version")]
         public Input<string>? Version { get; set; }
+
+        [Input("versions")]
+        private InputList<string>? _versions;
+
+        /// <summary>
+        /// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+        /// 
+        /// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+        /// </summary>
+        public InputList<string> Versions
+        {
+            get => _versions ?? (_versions = new InputList<string>());
+            set => _versions = value;
+        }
 
         public DeviceAttributeArgs()
         {

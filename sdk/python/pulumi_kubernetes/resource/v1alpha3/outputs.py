@@ -64,6 +64,8 @@ __all__ = [
     'PodSchedulingContextSpecPatch',
     'PodSchedulingContextStatus',
     'PodSchedulingContextStatusPatch',
+    'PoolStatus',
+    'PoolStatusPatch',
     'ResourceClaim',
     'ResourceClaimConsumerReference',
     'ResourceClaimConsumerReferencePatch',
@@ -78,6 +80,11 @@ __all__ = [
     'ResourceClaimTemplateSpecPatch',
     'ResourcePool',
     'ResourcePoolPatch',
+    'ResourcePoolStatusRequest',
+    'ResourcePoolStatusRequestSpec',
+    'ResourcePoolStatusRequestSpecPatch',
+    'ResourcePoolStatusRequestStatus',
+    'ResourcePoolStatusRequestStatusPatch',
     'ResourceSliceSpec',
     'ResourceSliceSpecPatch',
 ]
@@ -1855,7 +1862,9 @@ class DeviceTaint(dict):
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param _builtins.str key: The taint key to be applied to a device. Must be a label name.
-        :param _builtins.str time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param _builtins.str time_added: TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+               
+               In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         :param _builtins.str value: The taint value corresponding to the taint key. Must be a label value.
         """
         pulumi.set(__self__, "effect", effect)
@@ -1887,7 +1896,9 @@ class DeviceTaint(dict):
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[_builtins.str]:
         """
-        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+        In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         """
         return pulumi.get(self, "time_added")
 
@@ -1934,7 +1945,9 @@ class DeviceTaintPatch(dict):
                
                Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
         :param _builtins.str key: The taint key to be applied to a device. Must be a label name.
-        :param _builtins.str time_added: TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        :param _builtins.str time_added: TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+               
+               In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         :param _builtins.str value: The taint value corresponding to the taint key. Must be a label value.
         """
         if effect is not None:
@@ -1968,7 +1981,9 @@ class DeviceTaintPatch(dict):
     @pulumi.getter(name="timeAdded")
     def time_added(self) -> Optional[_builtins.str]:
         """
-        TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+        TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+
+        In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
         """
         return pulumi.get(self, "time_added")
 
@@ -2750,6 +2765,329 @@ class PodSchedulingContextStatusPatch(dict):
         ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
         return pulumi.get(self, "resource_claims")
+
+
+@pulumi.output_type
+class PoolStatus(dict):
+    """
+    PoolStatus contains status information for a single resource pool.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "poolName":
+            suggest = "pool_name"
+        elif key == "allocatedDevices":
+            suggest = "allocated_devices"
+        elif key == "availableDevices":
+            suggest = "available_devices"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "resourceSliceCount":
+            suggest = "resource_slice_count"
+        elif key == "totalDevices":
+            suggest = "total_devices"
+        elif key == "unavailableDevices":
+            suggest = "unavailable_devices"
+        elif key == "validationError":
+            suggest = "validation_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PoolStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PoolStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PoolStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: _builtins.str,
+                 generation: _builtins.int,
+                 pool_name: _builtins.str,
+                 allocated_devices: Optional[_builtins.int] = None,
+                 available_devices: Optional[_builtins.int] = None,
+                 node_name: Optional[_builtins.str] = None,
+                 resource_slice_count: Optional[_builtins.int] = None,
+                 total_devices: Optional[_builtins.int] = None,
+                 unavailable_devices: Optional[_builtins.int] = None,
+                 validation_error: Optional[_builtins.str] = None):
+        """
+        PoolStatus contains status information for a single resource pool.
+
+        :param _builtins.str driver: Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+        :param _builtins.int generation: Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+        :param _builtins.str pool_name: PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+        :param _builtins.int allocated_devices: AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+        :param _builtins.int available_devices: AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+        :param _builtins.str node_name: NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+        :param _builtins.int resource_slice_count: ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+        :param _builtins.int total_devices: TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+        :param _builtins.int unavailable_devices: UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+        :param _builtins.str validation_error: ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+        """
+        pulumi.set(__self__, "driver", driver)
+        pulumi.set(__self__, "generation", generation)
+        pulumi.set(__self__, "pool_name", pool_name)
+        if allocated_devices is not None:
+            pulumi.set(__self__, "allocated_devices", allocated_devices)
+        if available_devices is not None:
+            pulumi.set(__self__, "available_devices", available_devices)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if resource_slice_count is not None:
+            pulumi.set(__self__, "resource_slice_count", resource_slice_count)
+        if total_devices is not None:
+            pulumi.set(__self__, "total_devices", total_devices)
+        if unavailable_devices is not None:
+            pulumi.set(__self__, "unavailable_devices", unavailable_devices)
+        if validation_error is not None:
+            pulumi.set(__self__, "validation_error", validation_error)
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> _builtins.str:
+        """
+        Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+        """
+        return pulumi.get(self, "driver")
+
+    @_builtins.property
+    @pulumi.getter
+    def generation(self) -> _builtins.int:
+        """
+        Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+        """
+        return pulumi.get(self, "generation")
+
+    @_builtins.property
+    @pulumi.getter(name="poolName")
+    def pool_name(self) -> _builtins.str:
+        """
+        PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+        """
+        return pulumi.get(self, "pool_name")
+
+    @_builtins.property
+    @pulumi.getter(name="allocatedDevices")
+    def allocated_devices(self) -> Optional[_builtins.int]:
+        """
+        AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "allocated_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="availableDevices")
+    def available_devices(self) -> Optional[_builtins.int]:
+        """
+        AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "available_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[_builtins.str]:
+        """
+        NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+        """
+        return pulumi.get(self, "node_name")
+
+    @_builtins.property
+    @pulumi.getter(name="resourceSliceCount")
+    def resource_slice_count(self) -> Optional[_builtins.int]:
+        """
+        ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "resource_slice_count")
+
+    @_builtins.property
+    @pulumi.getter(name="totalDevices")
+    def total_devices(self) -> Optional[_builtins.int]:
+        """
+        TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "total_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="unavailableDevices")
+    def unavailable_devices(self) -> Optional[_builtins.int]:
+        """
+        UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "unavailable_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="validationError")
+    def validation_error(self) -> Optional[_builtins.str]:
+        """
+        ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+        """
+        return pulumi.get(self, "validation_error")
+
+
+@pulumi.output_type
+class PoolStatusPatch(dict):
+    """
+    PoolStatus contains status information for a single resource pool.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allocatedDevices":
+            suggest = "allocated_devices"
+        elif key == "availableDevices":
+            suggest = "available_devices"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "poolName":
+            suggest = "pool_name"
+        elif key == "resourceSliceCount":
+            suggest = "resource_slice_count"
+        elif key == "totalDevices":
+            suggest = "total_devices"
+        elif key == "unavailableDevices":
+            suggest = "unavailable_devices"
+        elif key == "validationError":
+            suggest = "validation_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PoolStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PoolStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PoolStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 allocated_devices: Optional[_builtins.int] = None,
+                 available_devices: Optional[_builtins.int] = None,
+                 driver: Optional[_builtins.str] = None,
+                 generation: Optional[_builtins.int] = None,
+                 node_name: Optional[_builtins.str] = None,
+                 pool_name: Optional[_builtins.str] = None,
+                 resource_slice_count: Optional[_builtins.int] = None,
+                 total_devices: Optional[_builtins.int] = None,
+                 unavailable_devices: Optional[_builtins.int] = None,
+                 validation_error: Optional[_builtins.str] = None):
+        """
+        PoolStatus contains status information for a single resource pool.
+
+        :param _builtins.int allocated_devices: AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+        :param _builtins.int available_devices: AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+        :param _builtins.str driver: Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+        :param _builtins.int generation: Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+        :param _builtins.str node_name: NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+        :param _builtins.str pool_name: PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+        :param _builtins.int resource_slice_count: ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+        :param _builtins.int total_devices: TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+        :param _builtins.int unavailable_devices: UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+        :param _builtins.str validation_error: ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+        """
+        if allocated_devices is not None:
+            pulumi.set(__self__, "allocated_devices", allocated_devices)
+        if available_devices is not None:
+            pulumi.set(__self__, "available_devices", available_devices)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if generation is not None:
+            pulumi.set(__self__, "generation", generation)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if pool_name is not None:
+            pulumi.set(__self__, "pool_name", pool_name)
+        if resource_slice_count is not None:
+            pulumi.set(__self__, "resource_slice_count", resource_slice_count)
+        if total_devices is not None:
+            pulumi.set(__self__, "total_devices", total_devices)
+        if unavailable_devices is not None:
+            pulumi.set(__self__, "unavailable_devices", unavailable_devices)
+        if validation_error is not None:
+            pulumi.set(__self__, "validation_error", validation_error)
+
+    @_builtins.property
+    @pulumi.getter(name="allocatedDevices")
+    def allocated_devices(self) -> Optional[_builtins.int]:
+        """
+        AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "allocated_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="availableDevices")
+    def available_devices(self) -> Optional[_builtins.int]:
+        """
+        AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "available_devices")
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> Optional[_builtins.str]:
+        """
+        Driver is the DRA driver name for this pool. Must be a DNS subdomain (e.g., "gpu.example.com").
+        """
+        return pulumi.get(self, "driver")
+
+    @_builtins.property
+    @pulumi.getter
+    def generation(self) -> Optional[_builtins.int]:
+        """
+        Generation is the pool generation observed across all ResourceSlices in this pool. Only the latest generation is reported. During a generation rollout, if not all slices at the latest generation have been published, the pool is included with a validationError and device counts unset.
+        """
+        return pulumi.get(self, "generation")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[_builtins.str]:
+        """
+        NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+        """
+        return pulumi.get(self, "node_name")
+
+    @_builtins.property
+    @pulumi.getter(name="poolName")
+    def pool_name(self) -> Optional[_builtins.str]:
+        """
+        PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
+        """
+        return pulumi.get(self, "pool_name")
+
+    @_builtins.property
+    @pulumi.getter(name="resourceSliceCount")
+    def resource_slice_count(self) -> Optional[_builtins.int]:
+        """
+        ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "resource_slice_count")
+
+    @_builtins.property
+    @pulumi.getter(name="totalDevices")
+    def total_devices(self) -> Optional[_builtins.int]:
+        """
+        TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "total_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="unavailableDevices")
+    def unavailable_devices(self) -> Optional[_builtins.int]:
+        """
+        UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
+        """
+        return pulumi.get(self, "unavailable_devices")
+
+    @_builtins.property
+    @pulumi.getter(name="validationError")
+    def validation_error(self) -> Optional[_builtins.str]:
+        """
+        ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
+        """
+        return pulumi.get(self, "validation_error")
 
 
 @pulumi.output_type
@@ -3674,6 +4012,367 @@ class ResourcePoolPatch(dict):
         Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
         """
         return pulumi.get(self, "resource_slice_count")
+
+
+@pulumi.output_type
+class ResourcePoolStatusRequest(dict):
+    """
+    ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePoolStatusRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePoolStatusRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePoolStatusRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 metadata: '_meta.v1.outputs.ObjectMeta',
+                 spec: 'outputs.ResourcePoolStatusRequestSpec',
+                 api_version: Optional[_builtins.str] = None,
+                 kind: Optional[_builtins.str] = None,
+                 status: Optional['outputs.ResourcePoolStatusRequestStatus'] = None):
+        """
+        ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
+
+        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata
+        :param 'ResourcePoolStatusRequestSpecArgs' spec: Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+        :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param 'ResourcePoolStatusRequestStatusArgs' status: Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+        """
+        pulumi.set(__self__, "metadata", metadata)
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha3')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourcePoolStatusRequest')
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> '_meta.v1.outputs.ObjectMeta':
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.ResourcePoolStatusRequestSpec':
+        """
+        Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+        """
+        return pulumi.get(self, "spec")
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[_builtins.str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> Optional[_builtins.str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.ResourcePoolStatusRequestStatus']:
+        """
+        Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class ResourcePoolStatusRequestSpec(dict):
+    """
+    ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "poolName":
+            suggest = "pool_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePoolStatusRequestSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePoolStatusRequestSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePoolStatusRequestSpec.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: _builtins.str,
+                 limit: Optional[_builtins.int] = None,
+                 pool_name: Optional[_builtins.str] = None):
+        """
+        ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+
+        :param _builtins.str driver: Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+        :param _builtins.int limit: Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+               
+               Default: 100 Minimum: 1 Maximum: 1000
+        :param _builtins.str pool_name: PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+        """
+        pulumi.set(__self__, "driver", driver)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+        if pool_name is not None:
+            pulumi.set(__self__, "pool_name", pool_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> _builtins.str:
+        """
+        Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+        """
+        return pulumi.get(self, "driver")
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+
+        Default: 100 Minimum: 1 Maximum: 1000
+        """
+        return pulumi.get(self, "limit")
+
+    @_builtins.property
+    @pulumi.getter(name="poolName")
+    def pool_name(self) -> Optional[_builtins.str]:
+        """
+        PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+        """
+        return pulumi.get(self, "pool_name")
+
+
+@pulumi.output_type
+class ResourcePoolStatusRequestSpecPatch(dict):
+    """
+    ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "poolName":
+            suggest = "pool_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePoolStatusRequestSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePoolStatusRequestSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePoolStatusRequestSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: Optional[_builtins.str] = None,
+                 limit: Optional[_builtins.int] = None,
+                 pool_name: Optional[_builtins.str] = None):
+        """
+        ResourcePoolStatusRequestSpec defines the filters for the pool status request.
+
+        :param _builtins.str driver: Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+        :param _builtins.int limit: Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+               
+               Default: 100 Minimum: 1 Maximum: 1000
+        :param _builtins.str pool_name: PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+        """
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+        if pool_name is not None:
+            pulumi.set(__self__, "pool_name", pool_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def driver(self) -> Optional[_builtins.str]:
+        """
+        Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+        """
+        return pulumi.get(self, "driver")
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
+
+        Default: 100 Minimum: 1 Maximum: 1000
+        """
+        return pulumi.get(self, "limit")
+
+    @_builtins.property
+    @pulumi.getter(name="poolName")
+    def pool_name(self) -> Optional[_builtins.str]:
+        """
+        PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
+        """
+        return pulumi.get(self, "pool_name")
+
+
+@pulumi.output_type
+class ResourcePoolStatusRequestStatus(dict):
+    """
+    ResourcePoolStatusRequestStatus contains the calculated pool status information.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "poolCount":
+            suggest = "pool_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePoolStatusRequestStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePoolStatusRequestStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePoolStatusRequestStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 pool_count: _builtins.int,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+                 pools: Optional[Sequence['outputs.PoolStatus']] = None):
+        """
+        ResourcePoolStatusRequestStatus contains the calculated pool status information.
+
+        :param _builtins.int pool_count: PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+               
+               Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+        :param Sequence['PoolStatusArgs'] pools: Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+        """
+        pulumi.set(__self__, "pool_count", pool_count)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if pools is not None:
+            pulumi.set(__self__, "pools", pools)
+
+    @_builtins.property
+    @pulumi.getter(name="poolCount")
+    def pool_count(self) -> _builtins.int:
+        """
+        PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+        """
+        return pulumi.get(self, "pool_count")
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+
+        Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+        """
+        return pulumi.get(self, "conditions")
+
+    @_builtins.property
+    @pulumi.getter
+    def pools(self) -> Optional[Sequence['outputs.PoolStatus']]:
+        """
+        Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+        """
+        return pulumi.get(self, "pools")
+
+
+@pulumi.output_type
+class ResourcePoolStatusRequestStatusPatch(dict):
+    """
+    ResourcePoolStatusRequestStatus contains the calculated pool status information.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "poolCount":
+            suggest = "pool_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePoolStatusRequestStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePoolStatusRequestStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePoolStatusRequestStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 pool_count: Optional[_builtins.int] = None,
+                 pools: Optional[Sequence['outputs.PoolStatusPatch']] = None):
+        """
+        ResourcePoolStatusRequestStatus contains the calculated pool status information.
+
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+               
+               Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+        :param _builtins.int pool_count: PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+        :param Sequence['PoolStatusPatchArgs'] pools: Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if pool_count is not None:
+            pulumi.set(__self__, "pool_count", pool_count)
+        if pools is not None:
+            pulumi.set(__self__, "pools", pools)
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
+
+        Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
+        """
+        return pulumi.get(self, "conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="poolCount")
+    def pool_count(self) -> Optional[_builtins.int]:
+        """
+        PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
+        """
+        return pulumi.get(self, "pool_count")
+
+    @_builtins.property
+    @pulumi.getter
+    def pools(self) -> Optional[Sequence['outputs.PoolStatusPatch']]:
+        """
+        Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
+        """
+        return pulumi.get(self, "pools")
 
 
 @pulumi.output_type

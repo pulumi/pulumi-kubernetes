@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
     public sealed class ValidatingAdmissionPolicyStatusPatch
     {
         /// <summary>
-        /// The conditions represent the latest available observations of a policy's current state.
+        /// conditions represent the latest available observations of a policy's current state.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ConditionPatch> Conditions;
         /// <summary>
-        /// The generation observed by the controller.
+        /// observedGeneration is the generation observed by the controller.
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>
-        /// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        /// typeChecking contains the results of type checking for each expression. Presence of this field indicates the completion of the type checking.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.TypeCheckingPatch TypeChecking;
 

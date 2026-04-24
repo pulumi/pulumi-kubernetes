@@ -171,7 +171,7 @@ public final class ExactDeviceRequestArgs extends com.pulumi.resources.ResourceA
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     @Import(name="tolerations")
@@ -186,7 +186,7 @@ public final class ExactDeviceRequestArgs extends com.pulumi.resources.ResourceA
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public Optional<Output<List<DeviceTolerationArgs>>> tolerations() {
@@ -414,7 +414,7 @@ public final class ExactDeviceRequestArgs extends com.pulumi.resources.ResourceA
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -433,7 +433,7 @@ public final class ExactDeviceRequestArgs extends com.pulumi.resources.ResourceA
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 
@@ -451,7 +451,7 @@ public final class ExactDeviceRequestArgs extends com.pulumi.resources.ResourceA
          * 
          * The maximum number of tolerations is 16.
          * 
-         * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+         * This is a beta field and requires enabling the DRADeviceTaints feature gate.
          * 
          * @return builder
          * 

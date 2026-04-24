@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1.outputs.ValidatingAdmissionPolicyBindingSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
@@ -24,15 +25,15 @@ public final class ValidatingAdmissionPolicyBinding {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
-    private @Nullable ValidatingAdmissionPolicyBindingSpec spec;
+    private ValidatingAdmissionPolicyBindingSpec spec;
 
     private ValidatingAdmissionPolicyBinding() {}
     /**
@@ -50,18 +51,18 @@ public final class ValidatingAdmissionPolicyBinding {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
-    public Optional<ValidatingAdmissionPolicyBindingSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public ValidatingAdmissionPolicyBindingSpec spec() {
+        return this.spec;
     }
 
     public static Builder builder() {
@@ -76,7 +77,7 @@ public final class ValidatingAdmissionPolicyBinding {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable ValidatingAdmissionPolicyBindingSpec spec;
+        private ValidatingAdmissionPolicyBindingSpec spec;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicyBinding defaults) {
     	      Objects.requireNonNull(defaults);
@@ -105,8 +106,10 @@ public final class ValidatingAdmissionPolicyBinding {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable ValidatingAdmissionPolicyBindingSpec spec) {
-
+        public Builder spec(ValidatingAdmissionPolicyBindingSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBinding", "spec");
+            }
             this.spec = spec;
             return this;
         }

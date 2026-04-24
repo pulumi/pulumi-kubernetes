@@ -53,42 +53,42 @@ public class ValidatingAdmissionPolicy extends com.pulumi.resources.CustomResour
         return this.kind;
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     @Export(name="spec", refs={ValidatingAdmissionPolicySpec.class}, tree="[0]")
     private Output<ValidatingAdmissionPolicySpec> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicy.
      * 
      */
     public Output<ValidatingAdmissionPolicySpec> spec() {
         return this.spec;
     }
     /**
-     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     @Export(name="status", refs={ValidatingAdmissionPolicyStatus.class}, tree="[0]")
     private Output</* @Nullable */ ValidatingAdmissionPolicyStatus> status;
 
     /**
-     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * @return status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
      * 
      */
     public Output<Optional<ValidatingAdmissionPolicyStatus>> status() {

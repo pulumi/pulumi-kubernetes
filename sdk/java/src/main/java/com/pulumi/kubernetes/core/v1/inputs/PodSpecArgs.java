@@ -16,12 +16,12 @@ import com.pulumi.kubernetes.core.v1.inputs.PodOSArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodReadinessGateArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodSchedulingGateArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodSchedulingGroupArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodSecurityContextArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TolerationArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TopologySpreadConstraintArgs;
 import com.pulumi.kubernetes.core.v1.inputs.VolumeArgs;
-import com.pulumi.kubernetes.core.v1.inputs.WorkloadReferenceArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -221,14 +221,14 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
      * 
      */
     @Import(name="hostUsers")
     private @Nullable Output<Boolean> hostUsers;
 
     /**
-     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
      * 
      */
     public Optional<Output<Boolean>> hostUsers() {
@@ -538,6 +538,21 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    @Import(name="schedulingGroup")
+    private @Nullable Output<PodSchedulingGroupArgs> schedulingGroup;
+
+    /**
+     * @return SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    public Optional<Output<PodSchedulingGroupArgs>> schedulingGroup() {
+        return Optional.ofNullable(this.schedulingGroup);
+    }
+
+    /**
      * SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
      * 
      */
@@ -687,21 +702,6 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.volumes);
     }
 
-    /**
-     * WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-     * 
-     */
-    @Import(name="workloadRef")
-    private @Nullable Output<WorkloadReferenceArgs> workloadRef;
-
-    /**
-     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-     * 
-     */
-    public Optional<Output<WorkloadReferenceArgs>> workloadRef() {
-        return Optional.ofNullable(this.workloadRef);
-    }
-
     private PodSpecArgs() {}
 
     private PodSpecArgs(PodSpecArgs $) {
@@ -736,6 +736,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.runtimeClassName = $.runtimeClassName;
         this.schedulerName = $.schedulerName;
         this.schedulingGates = $.schedulingGates;
+        this.schedulingGroup = $.schedulingGroup;
         this.securityContext = $.securityContext;
         this.serviceAccount = $.serviceAccount;
         this.serviceAccountName = $.serviceAccountName;
@@ -746,7 +747,6 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.tolerations = $.tolerations;
         this.topologySpreadConstraints = $.topologySpreadConstraints;
         this.volumes = $.volumes;
-        this.workloadRef = $.workloadRef;
     }
 
     public static Builder builder() {
@@ -1050,7 +1050,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostUsers Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+         * @param hostUsers Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
          * 
          * @return builder
          * 
@@ -1061,7 +1061,7 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostUsers Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+         * @param hostUsers Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
          * 
          * @return builder
          * 
@@ -1537,6 +1537,27 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param schedulingGroup SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder schedulingGroup(@Nullable Output<PodSchedulingGroupArgs> schedulingGroup) {
+            $.schedulingGroup = schedulingGroup;
+            return this;
+        }
+
+        /**
+         * @param schedulingGroup SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder schedulingGroup(PodSchedulingGroupArgs schedulingGroup) {
+            return schedulingGroup(Output.of(schedulingGroup));
+        }
+
+        /**
          * @param securityContext SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
          * 
          * @return builder
@@ -1774,27 +1795,6 @@ public final class PodSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder volumes(VolumeArgs... volumes) {
             return volumes(List.of(volumes));
-        }
-
-        /**
-         * @param workloadRef WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder workloadRef(@Nullable Output<WorkloadReferenceArgs> workloadRef) {
-            $.workloadRef = workloadRef;
-            return this;
-        }
-
-        /**
-         * @param workloadRef WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder workloadRef(WorkloadReferenceArgs workloadRef) {
-            return workloadRef(Output.of(workloadRef));
         }
 
         public PodSpecArgs build() {

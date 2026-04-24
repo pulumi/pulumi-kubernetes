@@ -39,6 +39,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("recursiveReadOnly")]
         public Input<string>? RecursiveReadOnly { get; set; }
 
+        /// <summary>
+        /// volumeStatus represents volume-type-specific status about the mounted volume.
+        /// </summary>
+        [Input("volumeStatus")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeStatusArgs>? VolumeStatus { get; set; }
+
         public VolumeMountStatusArgs()
         {
         }

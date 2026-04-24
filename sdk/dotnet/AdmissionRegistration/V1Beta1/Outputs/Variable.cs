@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Beta1
     public sealed class Variable
     {
         /// <summary>
-        /// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        /// expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         /// </summary>
         public readonly string Expression;
         /// <summary>
-        /// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        /// name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         /// </summary>
         public readonly string Name;
 

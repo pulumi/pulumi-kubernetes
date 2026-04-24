@@ -14,50 +14,50 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ServiceReference {
     /**
-     * @return `name` is the name of the service. Required
+     * @return name is the name of the service. Required
      * 
      */
     private String name;
     /**
-     * @return `namespace` is the namespace of the service. Required
+     * @return namespace is the namespace of the service. Required
      * 
      */
     private String namespace;
     /**
-     * @return `path` is an optional URL path which will be sent in any request to this service.
+     * @return path is an optional URL path which will be sent in any request to this service.
      * 
      */
     private @Nullable String path;
     /**
-     * @return If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+     * @return port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
      * 
      */
     private @Nullable Integer port;
 
     private ServiceReference() {}
     /**
-     * @return `name` is the name of the service. Required
+     * @return name is the name of the service. Required
      * 
      */
     public String name() {
         return this.name;
     }
     /**
-     * @return `namespace` is the namespace of the service. Required
+     * @return namespace is the namespace of the service. Required
      * 
      */
     public String namespace() {
         return this.namespace;
     }
     /**
-     * @return `path` is an optional URL path which will be sent in any request to this service.
+     * @return path is an optional URL path which will be sent in any request to this service.
      * 
      */
     public Optional<String> path() {
         return Optional.ofNullable(this.path);
     }
     /**
-     * @return If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
+     * @return port is the port on the service that hosts the webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
      * 
      */
     public Optional<Integer> port() {

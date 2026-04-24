@@ -8,6 +8,8 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 /**
@@ -22,15 +24,15 @@ public final class RoleRefArgs extends com.pulumi.resources.ResourceArgs {
      * APIGroup is the group for the resource being referenced
      * 
      */
-    @Import(name="apiGroup", required=true)
-    private Output<String> apiGroup;
+    @Import(name="apiGroup")
+    private @Nullable Output<String> apiGroup;
 
     /**
      * @return APIGroup is the group for the resource being referenced
      * 
      */
-    public Output<String> apiGroup() {
-        return this.apiGroup;
+    public Optional<Output<String>> apiGroup() {
+        return Optional.ofNullable(this.apiGroup);
     }
 
     /**
@@ -95,7 +97,7 @@ public final class RoleRefArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder apiGroup(Output<String> apiGroup) {
+        public Builder apiGroup(@Nullable Output<String> apiGroup) {
             $.apiGroup = apiGroup;
             return this;
         }
@@ -153,9 +155,6 @@ public final class RoleRefArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public RoleRefArgs build() {
-            if ($.apiGroup == null) {
-                throw new MissingRequiredPropertyException("RoleRefArgs", "apiGroup");
-            }
             if ($.kind == null) {
                 throw new MissingRequiredPropertyException("RoleRefArgs", "kind");
             }

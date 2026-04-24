@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.HostIPArgs;
+import com.pulumi.kubernetes.core.v1.inputs.NodeAllocatableResourceClaimStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodExtendedResourceClaimStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
@@ -162,6 +163,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> message() {
         return Optional.ofNullable(this.message);
+    }
+
+    /**
+     * NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+     * 
+     */
+    @Import(name="nodeAllocatableResourceClaimStatuses")
+    private @Nullable Output<List<NodeAllocatableResourceClaimStatusArgs>> nodeAllocatableResourceClaimStatuses;
+
+    /**
+     * @return NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+     * 
+     */
+    public Optional<Output<List<NodeAllocatableResourceClaimStatusArgs>>> nodeAllocatableResourceClaimStatuses() {
+        return Optional.ofNullable(this.nodeAllocatableResourceClaimStatuses);
     }
 
     /**
@@ -349,6 +365,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.hostIPs = $.hostIPs;
         this.initContainerStatuses = $.initContainerStatuses;
         this.message = $.message;
+        this.nodeAllocatableResourceClaimStatuses = $.nodeAllocatableResourceClaimStatuses;
         this.nominatedNodeName = $.nominatedNodeName;
         this.observedGeneration = $.observedGeneration;
         this.phase = $.phase;
@@ -617,6 +634,37 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder message(String message) {
             return message(Output.of(message));
+        }
+
+        /**
+         * @param nodeAllocatableResourceClaimStatuses NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResourceClaimStatuses(@Nullable Output<List<NodeAllocatableResourceClaimStatusArgs>> nodeAllocatableResourceClaimStatuses) {
+            $.nodeAllocatableResourceClaimStatuses = nodeAllocatableResourceClaimStatuses;
+            return this;
+        }
+
+        /**
+         * @param nodeAllocatableResourceClaimStatuses NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResourceClaimStatuses(List<NodeAllocatableResourceClaimStatusArgs> nodeAllocatableResourceClaimStatuses) {
+            return nodeAllocatableResourceClaimStatuses(Output.of(nodeAllocatableResourceClaimStatuses));
+        }
+
+        /**
+         * @param nodeAllocatableResourceClaimStatuses NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResourceClaimStatuses(NodeAllocatableResourceClaimStatusArgs... nodeAllocatableResourceClaimStatuses) {
+            return nodeAllocatableResourceClaimStatuses(List.of(nodeAllocatableResourceClaimStatuses));
         }
 
         /**

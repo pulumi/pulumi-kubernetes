@@ -64,14 +64,14 @@ public class ValidatingAdmissionPolicyBindingList extends com.pulumi.resources.C
         return this.kind;
     }
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="metadata", refs={ListMeta.class}, tree="[0]")
     private Output<ListMeta> metadata;
 
     /**
-     * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * @return metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     public Output<ListMeta> metadata() {

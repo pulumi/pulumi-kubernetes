@@ -24,7 +24,7 @@ type CronJobType struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *CronJobSpec `pulumi:"spec"`
+	Spec CronJobSpec `pulumi:"spec"`
 	// Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *CronJobStatus `pulumi:"status"`
 }
@@ -49,7 +49,7 @@ type CronJobTypeArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec CronJobSpecPtrInput `pulumi:"spec"`
+	Spec CronJobSpecInput `pulumi:"spec"`
 	// Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status CronJobStatusPtrInput `pulumi:"status"`
 }
@@ -122,8 +122,8 @@ func (o CronJobTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o CronJobTypeOutput) Spec() CronJobSpecPtrOutput {
-	return o.ApplyT(func(v CronJobType) *CronJobSpec { return v.Spec }).(CronJobSpecPtrOutput)
+func (o CronJobTypeOutput) Spec() CronJobSpecOutput {
+	return o.ApplyT(func(v CronJobType) CronJobSpec { return v.Spec }).(CronJobSpecOutput)
 }
 
 // Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -391,47 +391,6 @@ func (i CronJobSpecArgs) ToCronJobSpecOutputWithContext(ctx context.Context) Cro
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecOutput)
 }
 
-func (i CronJobSpecArgs) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
-	return i.ToCronJobSpecPtrOutputWithContext(context.Background())
-}
-
-func (i CronJobSpecArgs) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecOutput).ToCronJobSpecPtrOutputWithContext(ctx)
-}
-
-// CronJobSpecPtrInput is an input type that accepts CronJobSpecArgs, CronJobSpecPtr and CronJobSpecPtrOutput values.
-// You can construct a concrete instance of `CronJobSpecPtrInput` via:
-//
-//	        CronJobSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type CronJobSpecPtrInput interface {
-	pulumi.Input
-
-	ToCronJobSpecPtrOutput() CronJobSpecPtrOutput
-	ToCronJobSpecPtrOutputWithContext(context.Context) CronJobSpecPtrOutput
-}
-
-type cronJobSpecPtrType CronJobSpecArgs
-
-func CronJobSpecPtr(v *CronJobSpecArgs) CronJobSpecPtrInput {
-	return (*cronJobSpecPtrType)(v)
-}
-
-func (*cronJobSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CronJobSpec)(nil)).Elem()
-}
-
-func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
-	return i.ToCronJobSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPtrOutput)
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecOutput struct{ *pulumi.OutputState }
 
@@ -445,16 +404,6 @@ func (o CronJobSpecOutput) ToCronJobSpecOutput() CronJobSpecOutput {
 
 func (o CronJobSpecOutput) ToCronJobSpecOutputWithContext(ctx context.Context) CronJobSpecOutput {
 	return o
-}
-
-func (o CronJobSpecOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
-	return o.ToCronJobSpecPtrOutputWithContext(context.Background())
-}
-
-func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
-		return &v
-	}).(CronJobSpecPtrOutput)
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are:
@@ -497,112 +446,6 @@ func (o CronJobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 // The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
 func (o CronJobSpecOutput) TimeZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
-}
-
-type CronJobSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (CronJobSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CronJobSpec)(nil)).Elem()
-}
-
-func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
-	return o
-}
-
-func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return o
-}
-
-func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
-	return o.ApplyT(func(v *CronJobSpec) CronJobSpec {
-		if v != nil {
-			return *v
-		}
-		var ret CronJobSpec
-		return ret
-	}).(CronJobSpecOutput)
-}
-
-// Specifies how to treat concurrent executions of a Job. Valid values are:
-//
-// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-func (o CronJobSpecPtrOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.ConcurrencyPolicy
-	}).(pulumi.StringPtrOutput)
-}
-
-// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
-func (o CronJobSpecPtrOutput) FailedJobsHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.FailedJobsHistoryLimit
-	}).(pulumi.IntPtrOutput)
-}
-
-// Specifies the job that will be created when executing a CronJob.
-func (o CronJobSpecPtrOutput) JobTemplate() JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *JobTemplateSpec {
-		if v == nil {
-			return nil
-		}
-		return &v.JobTemplate
-	}).(JobTemplateSpecPtrOutput)
-}
-
-// The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
-func (o CronJobSpecPtrOutput) Schedule() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Schedule
-	}).(pulumi.StringPtrOutput)
-}
-
-// Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
-func (o CronJobSpecPtrOutput) StartingDeadlineSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.StartingDeadlineSeconds
-	}).(pulumi.IntPtrOutput)
-}
-
-// The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
-func (o CronJobSpecPtrOutput) SuccessfulJobsHistoryLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.SuccessfulJobsHistoryLimit
-	}).(pulumi.IntPtrOutput)
-}
-
-// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Suspend
-	}).(pulumi.BoolPtrOutput)
-}
-
-// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
-func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.TimeZone
-	}).(pulumi.StringPtrOutput)
 }
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
@@ -3722,47 +3565,6 @@ func (i JobTemplateSpecArgs) ToJobTemplateSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecOutput)
 }
 
-func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
-	return i.ToJobTemplateSpecPtrOutputWithContext(context.Background())
-}
-
-func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecOutput).ToJobTemplateSpecPtrOutputWithContext(ctx)
-}
-
-// JobTemplateSpecPtrInput is an input type that accepts JobTemplateSpecArgs, JobTemplateSpecPtr and JobTemplateSpecPtrOutput values.
-// You can construct a concrete instance of `JobTemplateSpecPtrInput` via:
-//
-//	        JobTemplateSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type JobTemplateSpecPtrInput interface {
-	pulumi.Input
-
-	ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput
-	ToJobTemplateSpecPtrOutputWithContext(context.Context) JobTemplateSpecPtrOutput
-}
-
-type jobTemplateSpecPtrType JobTemplateSpecArgs
-
-func JobTemplateSpecPtr(v *JobTemplateSpecArgs) JobTemplateSpecPtrInput {
-	return (*jobTemplateSpecPtrType)(v)
-}
-
-func (*jobTemplateSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**JobTemplateSpec)(nil)).Elem()
-}
-
-func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
-	return i.ToJobTemplateSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPtrOutput)
-}
-
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecOutput struct{ *pulumi.OutputState }
 
@@ -3778,16 +3580,6 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
-	return o.ToJobTemplateSpecPtrOutputWithContext(context.Background())
-}
-
-func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobTemplateSpec) *JobTemplateSpec {
-		return &v
-	}).(JobTemplateSpecPtrOutput)
-}
-
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
@@ -3796,50 +3588,6 @@ func (o JobTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
 // Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o JobTemplateSpecOutput) Spec() JobSpecPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpec) *JobSpec { return v.Spec }).(JobSpecPtrOutput)
-}
-
-type JobTemplateSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (JobTemplateSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**JobTemplateSpec)(nil)).Elem()
-}
-
-func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
-	return o
-}
-
-func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return o
-}
-
-func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec {
-		if v != nil {
-			return *v
-		}
-		var ret JobTemplateSpec
-		return ret
-	}).(JobTemplateSpecOutput)
-}
-
-// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o JobTemplateSpecPtrOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) *metav1.ObjectMeta {
-		if v == nil {
-			return nil
-		}
-		return v.Metadata
-	}).(metav1.ObjectMetaPtrOutput)
-}
-
-// Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o JobTemplateSpecPtrOutput) Spec() JobSpecPtrOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) *JobSpec {
-		if v == nil {
-			return nil
-		}
-		return v.Spec
-	}).(JobSpecPtrOutput)
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
@@ -6039,7 +5787,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListTypeInput)(nil)).Elem(), CronJobListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobPatchTypeInput)(nil)).Elem(), CronJobPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecInput)(nil)).Elem(), CronJobSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPtrInput)(nil)).Elem(), CronJobSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPatchInput)(nil)).Elem(), CronJobSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPatchPtrInput)(nil)).Elem(), CronJobSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusInput)(nil)).Elem(), CronJobStatusArgs{})
@@ -6063,7 +5810,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JobStatusPatchInput)(nil)).Elem(), JobStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobStatusPatchPtrInput)(nil)).Elem(), JobStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecInput)(nil)).Elem(), JobTemplateSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPtrInput)(nil)).Elem(), JobTemplateSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPatchInput)(nil)).Elem(), JobTemplateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPatchPtrInput)(nil)).Elem(), JobTemplateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyInput)(nil)).Elem(), PodFailurePolicyArgs{})
@@ -6099,7 +5845,6 @@ func init() {
 	pulumi.RegisterOutputType(CronJobListTypeOutput{})
 	pulumi.RegisterOutputType(CronJobPatchTypeOutput{})
 	pulumi.RegisterOutputType(CronJobSpecOutput{})
-	pulumi.RegisterOutputType(CronJobSpecPtrOutput{})
 	pulumi.RegisterOutputType(CronJobSpecPatchOutput{})
 	pulumi.RegisterOutputType(CronJobSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(CronJobStatusOutput{})
@@ -6123,7 +5868,6 @@ func init() {
 	pulumi.RegisterOutputType(JobStatusPatchOutput{})
 	pulumi.RegisterOutputType(JobStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecOutput{})
-	pulumi.RegisterOutputType(JobTemplateSpecPtrOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecPatchOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(PodFailurePolicyOutput{})

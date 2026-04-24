@@ -23,26 +23,37 @@ __all__ = ['CronJobInitArgs', 'CronJob']
 @pulumi.input_type
 class CronJobInitArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['CronJobSpecArgs'],
                  api_version: Optional[pulumi.Input[_builtins.str]] = None,
                  kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['CronJobSpecArgs']] = None):
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a CronJob resource.
 
+        :param pulumi.Input['CronJobSpecArgs'] spec: Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['CronJobSpecArgs'] spec: Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'batch/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'CronJob')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['CronJobSpecArgs']:
+        """
+        Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['CronJobSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -80,18 +91,6 @@ class CronJobInitArgs:
     def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['CronJobSpecArgs']]:
-        """
-        Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['CronJobSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
 
 @pulumi.type_token("kubernetes:batch/v1:CronJob")
 class CronJob(pulumi.CustomResource):
@@ -119,7 +118,7 @@ class CronJob(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[CronJobInitArgs] = None,
+                 args: CronJobInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CronJob represents the configuration of a single cron job.
@@ -156,6 +155,8 @@ class CronJob(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'batch/v1'
             __props__.__dict__["kind"] = 'CronJob'
             __props__.__dict__["metadata"] = metadata
+            if spec is None and not opts.urn:
+                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:batch/v1beta1:CronJob"), pulumi.Alias(type_="kubernetes:batch/v2alpha1:CronJob")])

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.networking.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.networking.v1beta1.outputs.IPAddressSpec;
 import java.lang.String;
@@ -32,7 +33,7 @@ public final class IPAddress {
      * @return spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable IPAddressSpec spec;
+    private IPAddressSpec spec;
 
     private IPAddress() {}
     /**
@@ -60,8 +61,8 @@ public final class IPAddress {
      * @return spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<IPAddressSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public IPAddressSpec spec() {
+        return this.spec;
     }
 
     public static Builder builder() {
@@ -76,7 +77,7 @@ public final class IPAddress {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable IPAddressSpec spec;
+        private IPAddressSpec spec;
         public Builder() {}
         public Builder(IPAddress defaults) {
     	      Objects.requireNonNull(defaults);
@@ -105,8 +106,10 @@ public final class IPAddress {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable IPAddressSpec spec) {
-
+        public Builder spec(IPAddressSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("IPAddress", "spec");
+            }
             this.spec = spec;
             return this;
         }

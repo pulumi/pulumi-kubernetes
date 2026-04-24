@@ -28,19 +28,19 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+        /// spec defines the desired behavior of the ValidatingAdmissionPolicy.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.ValidatingAdmissionPolicySpec> Spec { get; private set; } = null!;
 
         /// <summary>
-        /// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+        /// status represents the current status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.ValidatingAdmissionPolicyStatus> Status { get; private set; } = null!;
@@ -123,13 +123,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Specification of the desired behavior of the ValidatingAdmissionPolicy.
+        /// spec defines the desired behavior of the ValidatingAdmissionPolicy.
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1.ValidatingAdmissionPolicySpecArgs>? Spec { get; set; }

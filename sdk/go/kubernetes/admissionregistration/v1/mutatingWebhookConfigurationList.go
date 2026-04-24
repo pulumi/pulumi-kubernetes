@@ -23,7 +23,7 @@ type MutatingWebhookConfigurationList struct {
 	Items MutatingWebhookConfigurationTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
@@ -78,7 +78,7 @@ type mutatingWebhookConfigurationListArgs struct {
 	Items []MutatingWebhookConfigurationType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -90,7 +90,7 @@ type MutatingWebhookConfigurationListArgs struct {
 	Items MutatingWebhookConfigurationTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Metadata metav1.ListMetaPtrInput
 }
 
@@ -196,7 +196,7 @@ func (o MutatingWebhookConfigurationListOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *MutatingWebhookConfigurationList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o MutatingWebhookConfigurationListOutput) Metadata() metav1.ListMetaOutput {
 	return o.ApplyT(func(v *MutatingWebhookConfigurationList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }

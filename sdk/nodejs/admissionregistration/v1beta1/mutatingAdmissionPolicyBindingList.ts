@@ -50,7 +50,7 @@ export class MutatingAdmissionPolicyBindingList extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"MutatingAdmissionPolicyBindingList">;
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
@@ -100,7 +100,7 @@ export interface MutatingAdmissionPolicyBindingListArgs {
      */
     kind?: pulumi.Input<"MutatingAdmissionPolicyBindingList">;
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

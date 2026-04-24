@@ -150,7 +150,7 @@ type LeaseCandidateType struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *LeaseCandidateSpec `pulumi:"spec"`
+	Spec LeaseCandidateSpec `pulumi:"spec"`
 }
 
 // LeaseCandidateTypeInput is an input type that accepts LeaseCandidateTypeArgs and LeaseCandidateTypeOutput values.
@@ -173,7 +173,7 @@ type LeaseCandidateTypeArgs struct {
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec LeaseCandidateSpecPtrInput `pulumi:"spec"`
+	Spec LeaseCandidateSpecInput `pulumi:"spec"`
 }
 
 func (LeaseCandidateTypeArgs) ElementType() reflect.Type {
@@ -244,8 +244,8 @@ func (o LeaseCandidateTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o LeaseCandidateTypeOutput) Spec() LeaseCandidateSpecPtrOutput {
-	return o.ApplyT(func(v LeaseCandidateType) *LeaseCandidateSpec { return v.Spec }).(LeaseCandidateSpecPtrOutput)
+func (o LeaseCandidateTypeOutput) Spec() LeaseCandidateSpecOutput {
+	return o.ApplyT(func(v LeaseCandidateType) LeaseCandidateSpec { return v.Spec }).(LeaseCandidateSpecOutput)
 }
 
 type LeaseCandidateTypeArrayOutput struct{ *pulumi.OutputState }
@@ -487,47 +487,6 @@ func (i LeaseCandidateSpecArgs) ToLeaseCandidateSpecOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseCandidateSpecOutput)
 }
 
-func (i LeaseCandidateSpecArgs) ToLeaseCandidateSpecPtrOutput() LeaseCandidateSpecPtrOutput {
-	return i.ToLeaseCandidateSpecPtrOutputWithContext(context.Background())
-}
-
-func (i LeaseCandidateSpecArgs) ToLeaseCandidateSpecPtrOutputWithContext(ctx context.Context) LeaseCandidateSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseCandidateSpecOutput).ToLeaseCandidateSpecPtrOutputWithContext(ctx)
-}
-
-// LeaseCandidateSpecPtrInput is an input type that accepts LeaseCandidateSpecArgs, LeaseCandidateSpecPtr and LeaseCandidateSpecPtrOutput values.
-// You can construct a concrete instance of `LeaseCandidateSpecPtrInput` via:
-//
-//	        LeaseCandidateSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type LeaseCandidateSpecPtrInput interface {
-	pulumi.Input
-
-	ToLeaseCandidateSpecPtrOutput() LeaseCandidateSpecPtrOutput
-	ToLeaseCandidateSpecPtrOutputWithContext(context.Context) LeaseCandidateSpecPtrOutput
-}
-
-type leaseCandidateSpecPtrType LeaseCandidateSpecArgs
-
-func LeaseCandidateSpecPtr(v *LeaseCandidateSpecArgs) LeaseCandidateSpecPtrInput {
-	return (*leaseCandidateSpecPtrType)(v)
-}
-
-func (*leaseCandidateSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**LeaseCandidateSpec)(nil)).Elem()
-}
-
-func (i *leaseCandidateSpecPtrType) ToLeaseCandidateSpecPtrOutput() LeaseCandidateSpecPtrOutput {
-	return i.ToLeaseCandidateSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *leaseCandidateSpecPtrType) ToLeaseCandidateSpecPtrOutputWithContext(ctx context.Context) LeaseCandidateSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseCandidateSpecPtrOutput)
-}
-
 // LeaseCandidateSpec is a specification of a Lease.
 type LeaseCandidateSpecOutput struct{ *pulumi.OutputState }
 
@@ -541,16 +500,6 @@ func (o LeaseCandidateSpecOutput) ToLeaseCandidateSpecOutput() LeaseCandidateSpe
 
 func (o LeaseCandidateSpecOutput) ToLeaseCandidateSpecOutputWithContext(ctx context.Context) LeaseCandidateSpecOutput {
 	return o
-}
-
-func (o LeaseCandidateSpecOutput) ToLeaseCandidateSpecPtrOutput() LeaseCandidateSpecPtrOutput {
-	return o.ToLeaseCandidateSpecPtrOutputWithContext(context.Background())
-}
-
-func (o LeaseCandidateSpecOutput) ToLeaseCandidateSpecPtrOutputWithContext(ctx context.Context) LeaseCandidateSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseCandidateSpec) *LeaseCandidateSpec {
-		return &v
-	}).(LeaseCandidateSpecPtrOutput)
 }
 
 // BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
@@ -581,90 +530,6 @@ func (o LeaseCandidateSpecOutput) RenewTime() pulumi.StringPtrOutput {
 // Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecOutput) Strategy() pulumi.StringOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) string { return v.Strategy }).(pulumi.StringOutput)
-}
-
-type LeaseCandidateSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (LeaseCandidateSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**LeaseCandidateSpec)(nil)).Elem()
-}
-
-func (o LeaseCandidateSpecPtrOutput) ToLeaseCandidateSpecPtrOutput() LeaseCandidateSpecPtrOutput {
-	return o
-}
-
-func (o LeaseCandidateSpecPtrOutput) ToLeaseCandidateSpecPtrOutputWithContext(ctx context.Context) LeaseCandidateSpecPtrOutput {
-	return o
-}
-
-func (o LeaseCandidateSpecPtrOutput) Elem() LeaseCandidateSpecOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) LeaseCandidateSpec {
-		if v != nil {
-			return *v
-		}
-		var ret LeaseCandidateSpec
-		return ret
-	}).(LeaseCandidateSpecOutput)
-}
-
-// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
-func (o LeaseCandidateSpecPtrOutput) BinaryVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.BinaryVersion
-	}).(pulumi.StringPtrOutput)
-}
-
-// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-func (o LeaseCandidateSpecPtrOutput) EmulationVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.EmulationVersion
-	}).(pulumi.StringPtrOutput)
-}
-
-// LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
-func (o LeaseCandidateSpecPtrOutput) LeaseName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.LeaseName
-	}).(pulumi.StringPtrOutput)
-}
-
-// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-func (o LeaseCandidateSpecPtrOutput) PingTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.PingTime
-	}).(pulumi.StringPtrOutput)
-}
-
-// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-func (o LeaseCandidateSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.RenewTime
-	}).(pulumi.StringPtrOutput)
-}
-
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
-func (o LeaseCandidateSpecPtrOutput) Strategy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LeaseCandidateSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Strategy
-	}).(pulumi.StringPtrOutput)
 }
 
 // LeaseCandidateSpec is a specification of a Lease.
@@ -1506,7 +1371,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidateListTypeInput)(nil)).Elem(), LeaseCandidateListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidatePatchTypeInput)(nil)).Elem(), LeaseCandidatePatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidateSpecInput)(nil)).Elem(), LeaseCandidateSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidateSpecPtrInput)(nil)).Elem(), LeaseCandidateSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidateSpecPatchInput)(nil)).Elem(), LeaseCandidateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseCandidateSpecPatchPtrInput)(nil)).Elem(), LeaseCandidateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListTypeInput)(nil)).Elem(), LeaseListTypeArgs{})
@@ -1522,7 +1386,6 @@ func init() {
 	pulumi.RegisterOutputType(LeaseCandidateListTypeOutput{})
 	pulumi.RegisterOutputType(LeaseCandidatePatchTypeOutput{})
 	pulumi.RegisterOutputType(LeaseCandidateSpecOutput{})
-	pulumi.RegisterOutputType(LeaseCandidateSpecPtrOutput{})
 	pulumi.RegisterOutputType(LeaseCandidateSpecPatchOutput{})
 	pulumi.RegisterOutputType(LeaseCandidateSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(LeaseListTypeOutput{})

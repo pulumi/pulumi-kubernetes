@@ -164,6 +164,8 @@ class DeviceTaintRule(pulumi.CustomResource):
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:DeviceTaintRule")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(DeviceTaintRule, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule',
             resource_name,

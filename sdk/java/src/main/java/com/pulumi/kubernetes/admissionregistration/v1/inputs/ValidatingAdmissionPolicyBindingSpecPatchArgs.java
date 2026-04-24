@@ -23,14 +23,14 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
     public static final ValidatingAdmissionPolicyBindingSpecPatchArgs Empty = new ValidatingAdmissionPolicyBindingSpecPatchArgs();
 
     /**
-     * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     @Import(name="matchResources")
     private @Nullable Output<MatchResourcesPatchArgs> matchResources;
 
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     public Optional<Output<MatchResourcesPatchArgs>> matchResources() {
@@ -53,14 +53,14 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
     }
 
     /**
-     * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
     @Import(name="policyName")
     private @Nullable Output<String> policyName;
 
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
     public Optional<Output<String>> policyName() {
@@ -146,7 +146,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
         }
 
         /**
-         * @param matchResources MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+         * @param matchResources matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
          * 
          * @return builder
          * 
@@ -157,7 +157,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
         }
 
         /**
-         * @param matchResources MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+         * @param matchResources matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
          * 
          * @return builder
          * 
@@ -188,7 +188,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
         }
 
         /**
-         * @param policyName PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+         * @param policyName policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
          * 
          * @return builder
          * 
@@ -199,7 +199,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
         }
 
         /**
-         * @param policyName PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+         * @param policyName policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
          * 
          * @return builder
          * 

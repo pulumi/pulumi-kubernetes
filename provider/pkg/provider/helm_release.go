@@ -607,7 +607,7 @@ func (e *releaseFailedError) Error() string {
 	var s strings.Builder
 	s.WriteString("Helm Release ")
 	if e.release != nil {
-		s.WriteString(fmt.Sprintf("%s/%s: ", e.release.Namespace, e.release.Name))
+		fmt.Fprintf(&s, "%s/%s: ", e.release.Namespace, e.release.Name)
 	}
 	s.WriteString(e.err.Error())
 	return "failed to become available within allocated timeout. Error: " + s.String()

@@ -177,30 +177,37 @@ class HorizontalPodAutoscaler(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.HorizontalPodAutoscalerSpec',
                  api_version: Optional[_builtins.str] = None,
                  kind: Optional[_builtins.str] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.HorizontalPodAutoscalerSpec'] = None,
                  status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None):
         """
         configuration of a horizontal pod autoscaler.
 
+        :param 'HorizontalPodAutoscalerSpecArgs' spec: spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'HorizontalPodAutoscalerSpecArgs' spec: spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         :param 'HorizontalPodAutoscalerStatusArgs' status: status is the current information about the autoscaler.
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'autoscaling/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'HorizontalPodAutoscaler')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.HorizontalPodAutoscalerSpec':
+        """
+        spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -225,14 +232,6 @@ class HorizontalPodAutoscaler(dict):
         Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.HorizontalPodAutoscalerSpec']:
-        """
-        spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter

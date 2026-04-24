@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.coordination.v1alpha2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.coordination.v1alpha2.outputs.LeaseCandidateSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
@@ -32,7 +33,7 @@ public final class LeaseCandidate {
      * @return spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable LeaseCandidateSpec spec;
+    private LeaseCandidateSpec spec;
 
     private LeaseCandidate() {}
     /**
@@ -60,8 +61,8 @@ public final class LeaseCandidate {
      * @return spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<LeaseCandidateSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public LeaseCandidateSpec spec() {
+        return this.spec;
     }
 
     public static Builder builder() {
@@ -76,7 +77,7 @@ public final class LeaseCandidate {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable LeaseCandidateSpec spec;
+        private LeaseCandidateSpec spec;
         public Builder() {}
         public Builder(LeaseCandidate defaults) {
     	      Objects.requireNonNull(defaults);
@@ -105,8 +106,10 @@ public final class LeaseCandidate {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable LeaseCandidateSpec spec) {
-
+        public Builder spec(LeaseCandidateSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("LeaseCandidate", "spec");
+            }
             this.spec = spec;
             return this;
         }

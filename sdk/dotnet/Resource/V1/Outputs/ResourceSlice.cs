@@ -20,8 +20,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1
     /// When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
     /// 
     /// For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
-    /// 
-    /// This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
     /// </summary>
     [OutputType]
     public sealed class ResourceSlice

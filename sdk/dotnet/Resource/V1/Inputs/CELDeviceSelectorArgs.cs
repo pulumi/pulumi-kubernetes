@@ -46,6 +46,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// 
         ///     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool &amp;&amp; dra.anotherBool)
         /// 
+        /// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+        /// 
+        ///     device.attributes["dra.example.com"].models.includes("some-model")
+        /// 
         /// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         /// </summary>
         [Input("expression", required: true)]

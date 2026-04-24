@@ -387,7 +387,7 @@ func (o AllocatedDeviceStatusPatchArrayOutput) Index(i pulumi.IntInput) Allocate
 type AllocationResult struct {
 	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 	AllocationTimestamp *string `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices *DeviceAllocationResult `pulumi:"devices"`
@@ -410,7 +410,7 @@ type AllocationResultInput interface {
 type AllocationResultArgs struct {
 	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 	AllocationTimestamp pulumi.StringPtrInput `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices DeviceAllocationResultPtrInput `pulumi:"devices"`
@@ -498,7 +498,7 @@ func (o AllocationResultOutput) ToAllocationResultPtrOutputWithContext(ctx conte
 
 // AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 func (o AllocationResultOutput) AllocationTimestamp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AllocationResult) *string { return v.AllocationTimestamp }).(pulumi.StringPtrOutput)
 }
@@ -539,7 +539,7 @@ func (o AllocationResultPtrOutput) Elem() AllocationResultOutput {
 
 // AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 func (o AllocationResultPtrOutput) AllocationTimestamp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AllocationResult) *string {
 		if v == nil {
@@ -573,7 +573,7 @@ func (o AllocationResultPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 type AllocationResultPatch struct {
 	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 	AllocationTimestamp *string `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices *DeviceAllocationResultPatch `pulumi:"devices"`
@@ -596,7 +596,7 @@ type AllocationResultPatchInput interface {
 type AllocationResultPatchArgs struct {
 	// AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 	AllocationTimestamp pulumi.StringPtrInput `pulumi:"allocationTimestamp"`
 	// Devices is the result of allocating devices.
 	Devices DeviceAllocationResultPatchPtrInput `pulumi:"devices"`
@@ -684,7 +684,7 @@ func (o AllocationResultPatchOutput) ToAllocationResultPatchPtrOutputWithContext
 
 // AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 func (o AllocationResultPatchOutput) AllocationTimestamp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AllocationResultPatch) *string { return v.AllocationTimestamp }).(pulumi.StringPtrOutput)
 }
@@ -725,7 +725,7 @@ func (o AllocationResultPatchPtrOutput) Elem() AllocationResultPatchOutput {
 
 // AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
 func (o AllocationResultPatchPtrOutput) AllocationTimestamp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AllocationResultPatch) *string {
 		if v == nil {
@@ -775,7 +775,7 @@ type BasicDevice struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions []string `pulumi:"bindingConditions"`
 	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
 	//
@@ -783,11 +783,11 @@ type BasicDevice struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
 	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindsToNode *bool `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
@@ -799,6 +799,8 @@ type BasicDevice struct {
 	//
 	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters []DeviceCounterConsumption `pulumi:"consumesCounters"`
+	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResourceMappings map[string]NodeAllocatableResourceMapping `pulumi:"nodeAllocatableResourceMappings"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -813,7 +815,7 @@ type BasicDevice struct {
 	//
 	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Taints []DeviceTaint `pulumi:"taints"`
 }
 
@@ -848,7 +850,7 @@ type BasicDeviceArgs struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
 	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
 	//
@@ -856,11 +858,11 @@ type BasicDeviceArgs struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
 	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindsToNode pulumi.BoolPtrInput `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
@@ -872,6 +874,8 @@ type BasicDeviceArgs struct {
 	//
 	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters DeviceCounterConsumptionArrayInput `pulumi:"consumesCounters"`
+	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResourceMappings NodeAllocatableResourceMappingMapInput `pulumi:"nodeAllocatableResourceMappings"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -886,7 +890,7 @@ type BasicDeviceArgs struct {
 	//
 	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Taints DeviceTaintArrayInput `pulumi:"taints"`
 }
 
@@ -995,7 +999,7 @@ func (o BasicDeviceOutput) Attributes() DeviceAttributeMapOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDeviceOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v BasicDevice) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
 }
@@ -1006,14 +1010,14 @@ func (o BasicDeviceOutput) BindingConditions() pulumi.StringArrayOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDeviceOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v BasicDevice) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
 }
 
 // BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDeviceOutput) BindsToNode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BasicDevice) *bool { return v.BindsToNode }).(pulumi.BoolPtrOutput)
 }
@@ -1032,6 +1036,13 @@ func (o BasicDeviceOutput) Capacity() DeviceCapacityMapOutput {
 // The maximum number of device counter consumptions per device is 2.
 func (o BasicDeviceOutput) ConsumesCounters() DeviceCounterConsumptionArrayOutput {
 	return o.ApplyT(func(v BasicDevice) []DeviceCounterConsumption { return v.ConsumesCounters }).(DeviceCounterConsumptionArrayOutput)
+}
+
+// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o BasicDeviceOutput) NodeAllocatableResourceMappings() NodeAllocatableResourceMappingMapOutput {
+	return o.ApplyT(func(v BasicDevice) map[string]NodeAllocatableResourceMapping {
+		return v.NodeAllocatableResourceMappings
+	}).(NodeAllocatableResourceMappingMapOutput)
 }
 
 // NodeName identifies the node where the device is available.
@@ -1054,7 +1065,7 @@ func (o BasicDeviceOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 //
 // The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o BasicDeviceOutput) Taints() DeviceTaintArrayOutput {
 	return o.ApplyT(func(v BasicDevice) []DeviceTaint { return v.Taints }).(DeviceTaintArrayOutput)
 }
@@ -1125,7 +1136,7 @@ func (o BasicDevicePtrOutput) Attributes() DeviceAttributeMapOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePtrOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *BasicDevice) []string {
 		if v == nil {
@@ -1141,7 +1152,7 @@ func (o BasicDevicePtrOutput) BindingConditions() pulumi.StringArrayOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePtrOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *BasicDevice) []string {
 		if v == nil {
@@ -1153,7 +1164,7 @@ func (o BasicDevicePtrOutput) BindingFailureConditions() pulumi.StringArrayOutpu
 
 // BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePtrOutput) BindsToNode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *BasicDevice) *bool {
 		if v == nil {
@@ -1189,6 +1200,16 @@ func (o BasicDevicePtrOutput) ConsumesCounters() DeviceCounterConsumptionArrayOu
 	}).(DeviceCounterConsumptionArrayOutput)
 }
 
+// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o BasicDevicePtrOutput) NodeAllocatableResourceMappings() NodeAllocatableResourceMappingMapOutput {
+	return o.ApplyT(func(v *BasicDevice) map[string]NodeAllocatableResourceMapping {
+		if v == nil {
+			return nil
+		}
+		return v.NodeAllocatableResourceMappings
+	}).(NodeAllocatableResourceMappingMapOutput)
+}
+
 // NodeName identifies the node where the device is available.
 //
 // Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -1219,7 +1240,7 @@ func (o BasicDevicePtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 //
 // The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o BasicDevicePtrOutput) Taints() DeviceTaintArrayOutput {
 	return o.ApplyT(func(v *BasicDevice) []DeviceTaint {
 		if v == nil {
@@ -1249,7 +1270,7 @@ type BasicDevicePatch struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions []string `pulumi:"bindingConditions"`
 	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
 	//
@@ -1257,11 +1278,11 @@ type BasicDevicePatch struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
 	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindsToNode *bool `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
@@ -1273,6 +1294,8 @@ type BasicDevicePatch struct {
 	//
 	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters []DeviceCounterConsumptionPatch `pulumi:"consumesCounters"`
+	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResourceMappings map[string]NodeAllocatableResourceMapping `pulumi:"nodeAllocatableResourceMappings"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -1287,7 +1310,7 @@ type BasicDevicePatch struct {
 	//
 	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Taints []DeviceTaintPatch `pulumi:"taints"`
 }
 
@@ -1322,7 +1345,7 @@ type BasicDevicePatchArgs struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
 	// BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is true, a binding failure occurred.
 	//
@@ -1330,11 +1353,11 @@ type BasicDevicePatchArgs struct {
 	//
 	// The conditions must be a valid condition type string.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
 	// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindsToNode pulumi.BoolPtrInput `pulumi:"bindsToNode"`
 	// Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
 	//
@@ -1346,6 +1369,8 @@ type BasicDevicePatchArgs struct {
 	//
 	// The maximum number of device counter consumptions per device is 2.
 	ConsumesCounters DeviceCounterConsumptionPatchArrayInput `pulumi:"consumesCounters"`
+	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResourceMappings NodeAllocatableResourceMappingMapInput `pulumi:"nodeAllocatableResourceMappings"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -1360,7 +1385,7 @@ type BasicDevicePatchArgs struct {
 	//
 	// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Taints DeviceTaintPatchArrayInput `pulumi:"taints"`
 }
 
@@ -1469,7 +1494,7 @@ func (o BasicDevicePatchOutput) Attributes() DeviceAttributeMapOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v BasicDevicePatch) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
 }
@@ -1480,14 +1505,14 @@ func (o BasicDevicePatchOutput) BindingConditions() pulumi.StringArrayOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v BasicDevicePatch) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
 }
 
 // BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchOutput) BindsToNode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BasicDevicePatch) *bool { return v.BindsToNode }).(pulumi.BoolPtrOutput)
 }
@@ -1506,6 +1531,13 @@ func (o BasicDevicePatchOutput) Capacity() DeviceCapacityMapOutput {
 // The maximum number of device counter consumptions per device is 2.
 func (o BasicDevicePatchOutput) ConsumesCounters() DeviceCounterConsumptionPatchArrayOutput {
 	return o.ApplyT(func(v BasicDevicePatch) []DeviceCounterConsumptionPatch { return v.ConsumesCounters }).(DeviceCounterConsumptionPatchArrayOutput)
+}
+
+// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o BasicDevicePatchOutput) NodeAllocatableResourceMappings() NodeAllocatableResourceMappingMapOutput {
+	return o.ApplyT(func(v BasicDevicePatch) map[string]NodeAllocatableResourceMapping {
+		return v.NodeAllocatableResourceMappings
+	}).(NodeAllocatableResourceMappingMapOutput)
 }
 
 // NodeName identifies the node where the device is available.
@@ -1528,7 +1560,7 @@ func (o BasicDevicePatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput
 //
 // The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o BasicDevicePatchOutput) Taints() DeviceTaintPatchArrayOutput {
 	return o.ApplyT(func(v BasicDevicePatch) []DeviceTaintPatch { return v.Taints }).(DeviceTaintPatchArrayOutput)
 }
@@ -1599,7 +1631,7 @@ func (o BasicDevicePatchPtrOutput) Attributes() DeviceAttributeMapOutput {
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchPtrOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *BasicDevicePatch) []string {
 		if v == nil {
@@ -1615,7 +1647,7 @@ func (o BasicDevicePatchPtrOutput) BindingConditions() pulumi.StringArrayOutput 
 //
 // The conditions must be a valid condition type string.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchPtrOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *BasicDevicePatch) []string {
 		if v == nil {
@@ -1627,7 +1659,7 @@ func (o BasicDevicePatchPtrOutput) BindingFailureConditions() pulumi.StringArray
 
 // BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o BasicDevicePatchPtrOutput) BindsToNode() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *BasicDevicePatch) *bool {
 		if v == nil {
@@ -1663,6 +1695,16 @@ func (o BasicDevicePatchPtrOutput) ConsumesCounters() DeviceCounterConsumptionPa
 	}).(DeviceCounterConsumptionPatchArrayOutput)
 }
 
+// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o BasicDevicePatchPtrOutput) NodeAllocatableResourceMappings() NodeAllocatableResourceMappingMapOutput {
+	return o.ApplyT(func(v *BasicDevicePatch) map[string]NodeAllocatableResourceMapping {
+		if v == nil {
+			return nil
+		}
+		return v.NodeAllocatableResourceMappings
+	}).(NodeAllocatableResourceMappingMapOutput)
+}
+
 // NodeName identifies the node where the device is available.
 //
 // Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -1693,7 +1735,7 @@ func (o BasicDevicePatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPtrOut
 //
 // The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o BasicDevicePatchPtrOutput) Taints() DeviceTaintPatchArrayOutput {
 	return o.ApplyT(func(v *BasicDevicePatch) []DeviceTaintPatch {
 		if v == nil {
@@ -1734,6 +1776,10 @@ type CELDeviceSelector struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+	//
+	//     device.attributes["dra.example.com"].models.includes("some-model")
 	//
 	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression string `pulumi:"expression"`
@@ -1781,6 +1827,10 @@ type CELDeviceSelectorArgs struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+	//
+	//     device.attributes["dra.example.com"].models.includes("some-model")
 	//
 	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression pulumi.StringInput `pulumi:"expression"`
@@ -1894,6 +1944,10 @@ func (o CELDeviceSelectorOutput) ToCELDeviceSelectorPtrOutputWithContext(ctx con
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
 //
+// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+//
+//	device.attributes["dra.example.com"].models.includes("some-model")
+//
 // The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorOutput) Expression() pulumi.StringOutput {
 	return o.ApplyT(func(v CELDeviceSelector) string { return v.Expression }).(pulumi.StringOutput)
@@ -1953,6 +2007,10 @@ func (o CELDeviceSelectorPtrOutput) Elem() CELDeviceSelectorOutput {
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
 //
+// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+//
+//	device.attributes["dra.example.com"].models.includes("some-model")
+//
 // The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPtrOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CELDeviceSelector) *string {
@@ -1994,6 +2052,10 @@ type CELDeviceSelectorPatch struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+	//
+	//     device.attributes["dra.example.com"].models.includes("some-model")
 	//
 	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression *string `pulumi:"expression"`
@@ -2041,6 +2103,10 @@ type CELDeviceSelectorPatchArgs struct {
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
 	//     cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+	//
+	//     device.attributes["dra.example.com"].models.includes("some-model")
 	//
 	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
@@ -2154,6 +2220,10 @@ func (o CELDeviceSelectorPatchOutput) ToCELDeviceSelectorPatchPtrOutputWithConte
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
 //
+// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+//
+//	device.attributes["dra.example.com"].models.includes("some-model")
+//
 // The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPatchOutput) Expression() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CELDeviceSelectorPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
@@ -2212,6 +2282,10 @@ func (o CELDeviceSelectorPatchPtrOutput) Elem() CELDeviceSelectorPatchOutput {
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
 //	cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
+//
+// When the DRAListTypeAttributes feature gate is enabled, the includes() helper is available and it can work for both scalar and list-type attributes. It was introduced to support smooth migration from scalar attributes to list-type attributes while keeping CEL expressions simple. For example:
+//
+//	device.attributes["dra.example.com"].models.includes("some-model")
 //
 // The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
 func (o CELDeviceSelectorPatchPtrOutput) Expression() pulumi.StringPtrOutput {
@@ -4609,12 +4683,26 @@ func (o DeviceAllocationResultPatchPtrOutput) Results() DeviceRequestAllocationR
 type DeviceAttribute struct {
 	// BoolValue is a true/false value.
 	Bool *bool `pulumi:"bool"`
+	// BoolValues is a non-empty list of true/false values.
+	Bools []bool `pulumi:"bools"`
 	// IntValue is a number.
 	Int *int `pulumi:"int"`
+	// IntValues is a non-empty list of numbers.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Ints []int `pulumi:"ints"`
 	// StringValue is a string. Must not be longer than 64 characters.
 	String *string `pulumi:"string"`
+	// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Strings []string `pulumi:"strings"`
 	// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 	Version *string `pulumi:"version"`
+	// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Versions []string `pulumi:"versions"`
 }
 
 // DeviceAttributeInput is an input type that accepts DeviceAttributeArgs and DeviceAttributeOutput values.
@@ -4632,12 +4720,26 @@ type DeviceAttributeInput interface {
 type DeviceAttributeArgs struct {
 	// BoolValue is a true/false value.
 	Bool pulumi.BoolPtrInput `pulumi:"bool"`
+	// BoolValues is a non-empty list of true/false values.
+	Bools pulumi.BoolArrayInput `pulumi:"bools"`
 	// IntValue is a number.
 	Int pulumi.IntPtrInput `pulumi:"int"`
+	// IntValues is a non-empty list of numbers.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Ints pulumi.IntArrayInput `pulumi:"ints"`
 	// StringValue is a string. Must not be longer than 64 characters.
 	String pulumi.StringPtrInput `pulumi:"string"`
+	// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Strings pulumi.StringArrayInput `pulumi:"strings"`
 	// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 	Version pulumi.StringPtrInput `pulumi:"version"`
+	// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Versions pulumi.StringArrayInput `pulumi:"versions"`
 }
 
 func (DeviceAttributeArgs) ElementType() reflect.Type {
@@ -4697,9 +4799,21 @@ func (o DeviceAttributeOutput) Bool() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceAttribute) *bool { return v.Bool }).(pulumi.BoolPtrOutput)
 }
 
+// BoolValues is a non-empty list of true/false values.
+func (o DeviceAttributeOutput) Bools() pulumi.BoolArrayOutput {
+	return o.ApplyT(func(v DeviceAttribute) []bool { return v.Bools }).(pulumi.BoolArrayOutput)
+}
+
 // IntValue is a number.
 func (o DeviceAttributeOutput) Int() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceAttribute) *int { return v.Int }).(pulumi.IntPtrOutput)
+}
+
+// IntValues is a non-empty list of numbers.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributeOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v DeviceAttribute) []int { return v.Ints }).(pulumi.IntArrayOutput)
 }
 
 // StringValue is a string. Must not be longer than 64 characters.
@@ -4707,9 +4821,23 @@ func (o DeviceAttributeOutput) String() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceAttribute) *string { return v.String }).(pulumi.StringPtrOutput)
 }
 
+// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributeOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceAttribute) []string { return v.Strings }).(pulumi.StringArrayOutput)
+}
+
 // VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 func (o DeviceAttributeOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceAttribute) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributeOutput) Versions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceAttribute) []string { return v.Versions }).(pulumi.StringArrayOutput)
 }
 
 type DeviceAttributeMapOutput struct{ *pulumi.OutputState }
@@ -4736,12 +4864,26 @@ func (o DeviceAttributeMapOutput) MapIndex(k pulumi.StringInput) DeviceAttribute
 type DeviceAttributePatch struct {
 	// BoolValue is a true/false value.
 	Bool *bool `pulumi:"bool"`
+	// BoolValues is a non-empty list of true/false values.
+	Bools []bool `pulumi:"bools"`
 	// IntValue is a number.
 	Int *int `pulumi:"int"`
+	// IntValues is a non-empty list of numbers.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Ints []int `pulumi:"ints"`
 	// StringValue is a string. Must not be longer than 64 characters.
 	String *string `pulumi:"string"`
+	// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Strings []string `pulumi:"strings"`
 	// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 	Version *string `pulumi:"version"`
+	// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Versions []string `pulumi:"versions"`
 }
 
 // DeviceAttributePatchInput is an input type that accepts DeviceAttributePatchArgs and DeviceAttributePatchOutput values.
@@ -4759,12 +4901,26 @@ type DeviceAttributePatchInput interface {
 type DeviceAttributePatchArgs struct {
 	// BoolValue is a true/false value.
 	Bool pulumi.BoolPtrInput `pulumi:"bool"`
+	// BoolValues is a non-empty list of true/false values.
+	Bools pulumi.BoolArrayInput `pulumi:"bools"`
 	// IntValue is a number.
 	Int pulumi.IntPtrInput `pulumi:"int"`
+	// IntValues is a non-empty list of numbers.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Ints pulumi.IntArrayInput `pulumi:"ints"`
 	// StringValue is a string. Must not be longer than 64 characters.
 	String pulumi.StringPtrInput `pulumi:"string"`
+	// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Strings pulumi.StringArrayInput `pulumi:"strings"`
 	// VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 	Version pulumi.StringPtrInput `pulumi:"version"`
+	// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+	//
+	// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+	Versions pulumi.StringArrayInput `pulumi:"versions"`
 }
 
 func (DeviceAttributePatchArgs) ElementType() reflect.Type {
@@ -4799,9 +4955,21 @@ func (o DeviceAttributePatchOutput) Bool() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v DeviceAttributePatch) *bool { return v.Bool }).(pulumi.BoolPtrOutput)
 }
 
+// BoolValues is a non-empty list of true/false values.
+func (o DeviceAttributePatchOutput) Bools() pulumi.BoolArrayOutput {
+	return o.ApplyT(func(v DeviceAttributePatch) []bool { return v.Bools }).(pulumi.BoolArrayOutput)
+}
+
 // IntValue is a number.
 func (o DeviceAttributePatchOutput) Int() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceAttributePatch) *int { return v.Int }).(pulumi.IntPtrOutput)
+}
+
+// IntValues is a non-empty list of numbers.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributePatchOutput) Ints() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v DeviceAttributePatch) []int { return v.Ints }).(pulumi.IntArrayOutput)
 }
 
 // StringValue is a string. Must not be longer than 64 characters.
@@ -4809,9 +4977,23 @@ func (o DeviceAttributePatchOutput) String() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceAttributePatch) *string { return v.String }).(pulumi.StringPtrOutput)
 }
 
+// StringValues is a non-empty list of strings. Each string must not be longer than 64 characters.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributePatchOutput) Strings() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceAttributePatch) []string { return v.Strings }).(pulumi.StringArrayOutput)
+}
+
 // VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 func (o DeviceAttributePatchOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceAttributePatch) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+// VersionValues is a non-empty list of semantic versions according to semver.org spec 2.0.0. Each version string must not be longer than 64 characters.
+//
+// This is an alpha field and requires enabling the DRAListTypeAttributes feature gate.
+func (o DeviceAttributePatchOutput) Versions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceAttributePatch) []string { return v.Versions }).(pulumi.StringArrayOutput)
 }
 
 // DeviceCapacity describes a quantity associated with a device.
@@ -6144,7 +6326,7 @@ type DeviceClassSpec struct {
 	Config []DeviceClassConfiguration `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 	//
-	// This is an alpha field.
+	// This is a beta field.
 	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelector `pulumi:"selectors"`
@@ -6169,7 +6351,7 @@ type DeviceClassSpecArgs struct {
 	Config DeviceClassConfigurationArrayInput `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 	//
-	// This is an alpha field.
+	// This is a beta field.
 	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorArrayInput `pulumi:"selectors"`
@@ -6211,7 +6393,7 @@ func (o DeviceClassSpecOutput) Config() DeviceClassConfigurationArrayOutput {
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 //
-// This is an alpha field.
+// This is a beta field.
 func (o DeviceClassSpecOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceClassSpec) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
 }
@@ -6229,7 +6411,7 @@ type DeviceClassSpecPatch struct {
 	Config []DeviceClassConfigurationPatch `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 	//
-	// This is an alpha field.
+	// This is a beta field.
 	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelectorPatch `pulumi:"selectors"`
@@ -6254,7 +6436,7 @@ type DeviceClassSpecPatchArgs struct {
 	Config DeviceClassConfigurationPatchArrayInput `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 	//
-	// This is an alpha field.
+	// This is a beta field.
 	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorPatchArrayInput `pulumi:"selectors"`
@@ -6347,7 +6529,7 @@ func (o DeviceClassSpecPatchOutput) Config() DeviceClassConfigurationPatchArrayO
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 //
-// This is an alpha field.
+// This is a beta field.
 func (o DeviceClassSpecPatchOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceClassSpecPatch) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
 }
@@ -6395,7 +6577,7 @@ func (o DeviceClassSpecPatchPtrOutput) Config() DeviceClassConfigurationPatchArr
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
 //
-// This is an alpha field.
+// This is a beta field.
 func (o DeviceClassSpecPatchPtrOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeviceClassSpecPatch) *string {
 		if v == nil {
@@ -6419,6 +6601,8 @@ func (o DeviceClassSpecPatchPtrOutput) Selectors() DeviceSelectorPatchArrayOutpu
 type DeviceConstraint struct {
 	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+	//
 	// This acts as the inverse of MatchAttribute.
 	//
 	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6428,6 +6612,8 @@ type DeviceConstraint struct {
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 	//
 	// Must include the domain qualifier.
 	MatchAttribute *string `pulumi:"matchAttribute"`
@@ -6452,6 +6638,8 @@ type DeviceConstraintInput interface {
 type DeviceConstraintArgs struct {
 	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+	//
 	// This acts as the inverse of MatchAttribute.
 	//
 	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6461,6 +6649,8 @@ type DeviceConstraintArgs struct {
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 	//
 	// Must include the domain qualifier.
 	MatchAttribute pulumi.StringPtrInput `pulumi:"matchAttribute"`
@@ -6524,6 +6714,8 @@ func (o DeviceConstraintOutput) ToDeviceConstraintOutputWithContext(ctx context.
 
 // DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 //
+// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+//
 // This acts as the inverse of MatchAttribute.
 //
 // This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6536,6 +6728,8 @@ func (o DeviceConstraintOutput) DistinctAttribute() pulumi.StringPtrOutput {
 // MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 //
 // For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+//
+// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 //
 // Must include the domain qualifier.
 func (o DeviceConstraintOutput) MatchAttribute() pulumi.StringPtrOutput {
@@ -6573,6 +6767,8 @@ func (o DeviceConstraintArrayOutput) Index(i pulumi.IntInput) DeviceConstraintOu
 type DeviceConstraintPatch struct {
 	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+	//
 	// This acts as the inverse of MatchAttribute.
 	//
 	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6582,6 +6778,8 @@ type DeviceConstraintPatch struct {
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 	//
 	// Must include the domain qualifier.
 	MatchAttribute *string `pulumi:"matchAttribute"`
@@ -6606,6 +6804,8 @@ type DeviceConstraintPatchInput interface {
 type DeviceConstraintPatchArgs struct {
 	// DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+	//
 	// This acts as the inverse of MatchAttribute.
 	//
 	// This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6615,6 +6815,8 @@ type DeviceConstraintPatchArgs struct {
 	// MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 	//
 	// For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+	//
+	// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 	//
 	// Must include the domain qualifier.
 	MatchAttribute pulumi.StringPtrInput `pulumi:"matchAttribute"`
@@ -6678,6 +6880,8 @@ func (o DeviceConstraintPatchOutput) ToDeviceConstraintPatchOutputWithContext(ct
 
 // DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
 //
+// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics (i.e., element order and duplicates are ignored): list-valued attributes must be pairwise disjoint across devices. Scalar values are treated as singleton sets for backward compatibility.
+//
 // This acts as the inverse of MatchAttribute.
 //
 // This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
@@ -6690,6 +6894,8 @@ func (o DeviceConstraintPatchOutput) DistinctAttribute() pulumi.StringPtrOutput 
 // MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
 //
 // For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen. A device which does not have that attribute will not be chosen. All devices should use a value of the same type for this attribute because that is part of its specification, but if one device doesn't, then it also will not be chosen.
+//
+// When the DRAListTypeAttributes feature gate is enabled, comparison uses set semantics(i.e., element order and duplicates are ignored): list-valued attributes match when the intersection across all devices is non-empty. Scalar values are treated as singleton sets for backward compatibility.
 //
 // Must include the domain qualifier.
 func (o DeviceConstraintPatchOutput) MatchAttribute() pulumi.StringPtrOutput {
@@ -7127,7 +7333,7 @@ type DeviceRequest struct {
 	//
 	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceToleration `pulumi:"tolerations"`
 }
 
@@ -7207,7 +7413,7 @@ type DeviceRequestArgs struct {
 	//
 	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
 }
 
@@ -7350,7 +7556,7 @@ func (o DeviceRequestOutput) Selectors() DeviceSelectorArrayOutput {
 //
 // This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceRequestOutput) Tolerations() DeviceTolerationArrayOutput {
 	return o.ApplyT(func(v DeviceRequest) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
 }
@@ -7383,11 +7589,11 @@ type DeviceRequestAllocationResult struct {
 	AdminAccess *bool `pulumi:"adminAccess"`
 	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions []string `pulumi:"bindingConditions"`
 	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
 	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
 	//
@@ -7415,7 +7621,7 @@ type DeviceRequestAllocationResult struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceToleration `pulumi:"tolerations"`
 }
 
@@ -7438,11 +7644,11 @@ type DeviceRequestAllocationResultArgs struct {
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
 	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
 	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
 	//
@@ -7470,7 +7676,7 @@ type DeviceRequestAllocationResultArgs struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
 }
 
@@ -7535,14 +7741,14 @@ func (o DeviceRequestAllocationResultOutput) AdminAccess() pulumi.BoolPtrOutput 
 
 // BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o DeviceRequestAllocationResultOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
 }
 
 // BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o DeviceRequestAllocationResultOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
 }
@@ -7591,7 +7797,7 @@ func (o DeviceRequestAllocationResultOutput) ShareID() pulumi.StringPtrOutput {
 //
 // The maximum number of tolerations is 16.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceRequestAllocationResultOutput) Tolerations() DeviceTolerationArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
 }
@@ -7624,11 +7830,11 @@ type DeviceRequestAllocationResultPatch struct {
 	AdminAccess *bool `pulumi:"adminAccess"`
 	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions []string `pulumi:"bindingConditions"`
 	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions []string `pulumi:"bindingFailureConditions"`
 	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
 	//
@@ -7656,7 +7862,7 @@ type DeviceRequestAllocationResultPatch struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
 }
 
@@ -7679,11 +7885,11 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	AdminAccess pulumi.BoolPtrInput `pulumi:"adminAccess"`
 	// BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingConditions pulumi.StringArrayInput `pulumi:"bindingConditions"`
 	// BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 	//
-	// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+	// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 	BindingFailureConditions pulumi.StringArrayInput `pulumi:"bindingFailureConditions"`
 	// ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
 	//
@@ -7711,7 +7917,7 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
 }
 
@@ -7776,14 +7982,14 @@ func (o DeviceRequestAllocationResultPatchOutput) AdminAccess() pulumi.BoolPtrOu
 
 // BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o DeviceRequestAllocationResultPatchOutput) BindingConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []string { return v.BindingConditions }).(pulumi.StringArrayOutput)
 }
 
 // BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
 //
-// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
 func (o DeviceRequestAllocationResultPatchOutput) BindingFailureConditions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []string { return v.BindingFailureConditions }).(pulumi.StringArrayOutput)
 }
@@ -7832,7 +8038,7 @@ func (o DeviceRequestAllocationResultPatchOutput) ShareID() pulumi.StringPtrOutp
 //
 // The maximum number of tolerations is 16.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceRequestAllocationResultPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
 }
@@ -7922,7 +8128,7 @@ type DeviceRequestPatch struct {
 	//
 	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
 }
 
@@ -8002,7 +8208,7 @@ type DeviceRequestPatchArgs struct {
 	//
 	// This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
 }
 
@@ -8145,7 +8351,7 @@ func (o DeviceRequestPatchOutput) Selectors() DeviceSelectorPatchArrayOutput {
 //
 // This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceRequestPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
 	return o.ApplyT(func(v DeviceRequestPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
 }
@@ -8416,7 +8622,7 @@ type DeviceSubRequest struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceToleration `pulumi:"tolerations"`
 }
 
@@ -8477,7 +8683,7 @@ type DeviceSubRequestArgs struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationArrayInput `pulumi:"tolerations"`
 }
 
@@ -8595,7 +8801,7 @@ func (o DeviceSubRequestOutput) Selectors() DeviceSelectorArrayOutput {
 //
 // The maximum number of tolerations is 16.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceSubRequestOutput) Tolerations() DeviceTolerationArrayOutput {
 	return o.ApplyT(func(v DeviceSubRequest) []DeviceToleration { return v.Tolerations }).(DeviceTolerationArrayOutput)
 }
@@ -8666,7 +8872,7 @@ type DeviceSubRequestPatch struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations []DeviceTolerationPatch `pulumi:"tolerations"`
 }
 
@@ -8727,7 +8933,7 @@ type DeviceSubRequestPatchArgs struct {
 	//
 	// The maximum number of tolerations is 16.
 	//
-	// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+	// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 	Tolerations DeviceTolerationPatchArrayInput `pulumi:"tolerations"`
 }
 
@@ -8845,7 +9051,7 @@ func (o DeviceSubRequestPatchOutput) Selectors() DeviceSelectorPatchArrayOutput 
 //
 // The maximum number of tolerations is 16.
 //
-// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+// This is a beta field and requires enabling the DRADeviceTaints feature gate.
 func (o DeviceSubRequestPatchOutput) Tolerations() DeviceTolerationPatchArrayOutput {
 	return o.ApplyT(func(v DeviceSubRequestPatch) []DeviceTolerationPatch { return v.Tolerations }).(DeviceTolerationPatchArrayOutput)
 }
@@ -8878,7 +9084,9 @@ type DeviceTaint struct {
 	Effect string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key string `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded *string `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value *string `pulumi:"value"`
@@ -8903,7 +9111,9 @@ type DeviceTaintArgs struct {
 	Effect pulumi.StringInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringInput `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
@@ -8973,7 +9183,9 @@ func (o DeviceTaintOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceTaint) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 func (o DeviceTaintOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaint) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
 }
@@ -9011,7 +9223,9 @@ type DeviceTaintPatch struct {
 	Effect *string `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key *string `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded *string `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value *string `pulumi:"value"`
@@ -9036,7 +9250,9 @@ type DeviceTaintPatchArgs struct {
 	Effect pulumi.StringPtrInput `pulumi:"effect"`
 	// The taint key to be applied to a device. Must be a label name.
 	Key pulumi.StringPtrInput `pulumi:"key"`
-	// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+	// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+	//
+	// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
 	// The taint value corresponding to the taint key. Must be a label value.
 	Value pulumi.StringPtrInput `pulumi:"value"`
@@ -9106,7 +9322,9 @@ func (o DeviceTaintPatchOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
 
-// TimeAdded represents the time at which the taint was added. Added automatically during create or update if not set.
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
 func (o DeviceTaintPatchOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
 }
@@ -9412,11 +9630,11 @@ func (o DeviceTolerationPatchArrayOutput) Index(i pulumi.IntInput) DeviceTolerat
 type NetworkDeviceData struct {
 	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 	//
-	// Must not be longer than 128 characters.
+	// Must not be longer than 128 bytes.
 	HardwareAddress *string `pulumi:"hardwareAddress"`
 	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 	//
-	// Must not be longer than 256 characters.
+	// Must not be longer than 256 bytes.
 	InterfaceName *string `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 	//
@@ -9439,11 +9657,11 @@ type NetworkDeviceDataInput interface {
 type NetworkDeviceDataArgs struct {
 	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 	//
-	// Must not be longer than 128 characters.
+	// Must not be longer than 128 bytes.
 	HardwareAddress pulumi.StringPtrInput `pulumi:"hardwareAddress"`
 	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 	//
-	// Must not be longer than 256 characters.
+	// Must not be longer than 256 bytes.
 	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 	//
@@ -9531,14 +9749,14 @@ func (o NetworkDeviceDataOutput) ToNetworkDeviceDataPtrOutputWithContext(ctx con
 
 // HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 //
-// Must not be longer than 128 characters.
+// Must not be longer than 128 bytes.
 func (o NetworkDeviceDataOutput) HardwareAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkDeviceData) *string { return v.HardwareAddress }).(pulumi.StringPtrOutput)
 }
 
 // InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 //
-// Must not be longer than 256 characters.
+// Must not be longer than 256 bytes.
 func (o NetworkDeviceDataOutput) InterfaceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkDeviceData) *string { return v.InterfaceName }).(pulumi.StringPtrOutput)
 }
@@ -9576,7 +9794,7 @@ func (o NetworkDeviceDataPtrOutput) Elem() NetworkDeviceDataOutput {
 
 // HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 //
-// Must not be longer than 128 characters.
+// Must not be longer than 128 bytes.
 func (o NetworkDeviceDataPtrOutput) HardwareAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NetworkDeviceData) *string {
 		if v == nil {
@@ -9588,7 +9806,7 @@ func (o NetworkDeviceDataPtrOutput) HardwareAddress() pulumi.StringPtrOutput {
 
 // InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 //
-// Must not be longer than 256 characters.
+// Must not be longer than 256 bytes.
 func (o NetworkDeviceDataPtrOutput) InterfaceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NetworkDeviceData) *string {
 		if v == nil {
@@ -9614,11 +9832,11 @@ func (o NetworkDeviceDataPtrOutput) Ips() pulumi.StringArrayOutput {
 type NetworkDeviceDataPatch struct {
 	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 	//
-	// Must not be longer than 128 characters.
+	// Must not be longer than 128 bytes.
 	HardwareAddress *string `pulumi:"hardwareAddress"`
 	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 	//
-	// Must not be longer than 256 characters.
+	// Must not be longer than 256 bytes.
 	InterfaceName *string `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 	//
@@ -9641,11 +9859,11 @@ type NetworkDeviceDataPatchInput interface {
 type NetworkDeviceDataPatchArgs struct {
 	// HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 	//
-	// Must not be longer than 128 characters.
+	// Must not be longer than 128 bytes.
 	HardwareAddress pulumi.StringPtrInput `pulumi:"hardwareAddress"`
 	// InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 	//
-	// Must not be longer than 256 characters.
+	// Must not be longer than 256 bytes.
 	InterfaceName pulumi.StringPtrInput `pulumi:"interfaceName"`
 	// IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 	//
@@ -9733,14 +9951,14 @@ func (o NetworkDeviceDataPatchOutput) ToNetworkDeviceDataPatchPtrOutputWithConte
 
 // HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 //
-// Must not be longer than 128 characters.
+// Must not be longer than 128 bytes.
 func (o NetworkDeviceDataPatchOutput) HardwareAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkDeviceDataPatch) *string { return v.HardwareAddress }).(pulumi.StringPtrOutput)
 }
 
 // InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 //
-// Must not be longer than 256 characters.
+// Must not be longer than 256 bytes.
 func (o NetworkDeviceDataPatchOutput) InterfaceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkDeviceDataPatch) *string { return v.InterfaceName }).(pulumi.StringPtrOutput)
 }
@@ -9778,7 +9996,7 @@ func (o NetworkDeviceDataPatchPtrOutput) Elem() NetworkDeviceDataPatchOutput {
 
 // HardwareAddress represents the hardware address (e.g. MAC Address) of the device's network interface.
 //
-// Must not be longer than 128 characters.
+// Must not be longer than 128 bytes.
 func (o NetworkDeviceDataPatchPtrOutput) HardwareAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NetworkDeviceDataPatch) *string {
 		if v == nil {
@@ -9790,7 +10008,7 @@ func (o NetworkDeviceDataPatchPtrOutput) HardwareAddress() pulumi.StringPtrOutpu
 
 // InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
 //
-// Must not be longer than 256 characters.
+// Must not be longer than 256 bytes.
 func (o NetworkDeviceDataPatchPtrOutput) InterfaceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NetworkDeviceDataPatch) *string {
 		if v == nil {
@@ -9810,6 +10028,265 @@ func (o NetworkDeviceDataPatchPtrOutput) Ips() pulumi.StringArrayOutput {
 		}
 		return v.Ips
 	}).(pulumi.StringArrayOutput)
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMapping struct {
+	// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+	// 	   a. A DRA driver representing each CPU core as a device would have
+	//        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+	//        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+	// 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+	//     b. A GPU device that needs additional node memory per GPU allocation would
+	//        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+	// 		  GPU device instance of this type will account for 2Gi of memory.
+	//
+	// 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+	//        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+	//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+	//     and each "core" provides 2 "cpu"s, the mapping would be:
+	//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+	//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	AllocationMultiplier *string `pulumi:"allocationMultiplier"`
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+	CapacityKey *string `pulumi:"capacityKey"`
+}
+
+// NodeAllocatableResourceMappingInput is an input type that accepts NodeAllocatableResourceMappingArgs and NodeAllocatableResourceMappingOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourceMappingInput` via:
+//
+//	NodeAllocatableResourceMappingArgs{...}
+type NodeAllocatableResourceMappingInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourceMappingOutput() NodeAllocatableResourceMappingOutput
+	ToNodeAllocatableResourceMappingOutputWithContext(context.Context) NodeAllocatableResourceMappingOutput
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMappingArgs struct {
+	// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+	// 	   a. A DRA driver representing each CPU core as a device would have
+	//        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+	//        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+	// 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+	//     b. A GPU device that needs additional node memory per GPU allocation would
+	//        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+	// 		  GPU device instance of this type will account for 2Gi of memory.
+	//
+	// 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+	//        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+	//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+	//     and each "core" provides 2 "cpu"s, the mapping would be:
+	//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+	//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	AllocationMultiplier pulumi.StringPtrInput `pulumi:"allocationMultiplier"`
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+	CapacityKey pulumi.StringPtrInput `pulumi:"capacityKey"`
+}
+
+func (NodeAllocatableResourceMappingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourceMapping)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourceMappingArgs) ToNodeAllocatableResourceMappingOutput() NodeAllocatableResourceMappingOutput {
+	return i.ToNodeAllocatableResourceMappingOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourceMappingArgs) ToNodeAllocatableResourceMappingOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourceMappingOutput)
+}
+
+// NodeAllocatableResourceMappingMapInput is an input type that accepts NodeAllocatableResourceMappingMap and NodeAllocatableResourceMappingMapOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourceMappingMapInput` via:
+//
+//	NodeAllocatableResourceMappingMap{ "key": NodeAllocatableResourceMappingArgs{...} }
+type NodeAllocatableResourceMappingMapInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourceMappingMapOutput() NodeAllocatableResourceMappingMapOutput
+	ToNodeAllocatableResourceMappingMapOutputWithContext(context.Context) NodeAllocatableResourceMappingMapOutput
+}
+
+type NodeAllocatableResourceMappingMap map[string]NodeAllocatableResourceMappingInput
+
+func (NodeAllocatableResourceMappingMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]NodeAllocatableResourceMapping)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourceMappingMap) ToNodeAllocatableResourceMappingMapOutput() NodeAllocatableResourceMappingMapOutput {
+	return i.ToNodeAllocatableResourceMappingMapOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourceMappingMap) ToNodeAllocatableResourceMappingMapOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourceMappingMapOutput)
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMappingOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourceMappingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourceMapping)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourceMappingOutput) ToNodeAllocatableResourceMappingOutput() NodeAllocatableResourceMappingOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMappingOutput) ToNodeAllocatableResourceMappingOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingOutput {
+	return o
+}
+
+// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+//
+//		   a. A DRA driver representing each CPU core as a device would have
+//	       {ResourceName: "cpu", allocationMultiplier: "2"} in its
+//	       `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+//			  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+//	    b. A GPU device that needs additional node memory per GPU allocation would
+//	       have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+//			  GPU device instance of this type will account for 2Gi of memory.
+//
+//  2. If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+//     The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+//     and each "core" provides 2 "cpu"s, the mapping would be:
+//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableResourceMappingOutput) AllocationMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceMapping) *string { return v.AllocationMultiplier }).(pulumi.StringPtrOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+func (o NodeAllocatableResourceMappingOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceMapping) *string { return v.CapacityKey }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableResourceMappingMapOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourceMappingMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]NodeAllocatableResourceMapping)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourceMappingMapOutput) ToNodeAllocatableResourceMappingMapOutput() NodeAllocatableResourceMappingMapOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMappingMapOutput) ToNodeAllocatableResourceMappingMapOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingMapOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMappingMapOutput) MapIndex(k pulumi.StringInput) NodeAllocatableResourceMappingOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) NodeAllocatableResourceMapping {
+		return vs[0].(map[string]NodeAllocatableResourceMapping)[vs[1].(string)]
+	}).(NodeAllocatableResourceMappingOutput)
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMappingPatch struct {
+	// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+	// 	   a. A DRA driver representing each CPU core as a device would have
+	//        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+	//        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+	// 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+	//     b. A GPU device that needs additional node memory per GPU allocation would
+	//        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+	// 		  GPU device instance of this type will account for 2Gi of memory.
+	//
+	// 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+	//        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+	//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+	//     and each "core" provides 2 "cpu"s, the mapping would be:
+	//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+	//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	AllocationMultiplier *string `pulumi:"allocationMultiplier"`
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+	CapacityKey *string `pulumi:"capacityKey"`
+}
+
+// NodeAllocatableResourceMappingPatchInput is an input type that accepts NodeAllocatableResourceMappingPatchArgs and NodeAllocatableResourceMappingPatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourceMappingPatchInput` via:
+//
+//	NodeAllocatableResourceMappingPatchArgs{...}
+type NodeAllocatableResourceMappingPatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourceMappingPatchOutput() NodeAllocatableResourceMappingPatchOutput
+	ToNodeAllocatableResourceMappingPatchOutputWithContext(context.Context) NodeAllocatableResourceMappingPatchOutput
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMappingPatchArgs struct {
+	// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+	// 	   a. A DRA driver representing each CPU core as a device would have
+	//        {ResourceName: "cpu", allocationMultiplier: "2"} in its
+	//        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+	// 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+	//     b. A GPU device that needs additional node memory per GPU allocation would
+	//        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+	// 		  GPU device instance of this type will account for 2Gi of memory.
+	//
+	// 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+	//        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+	//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+	//     and each "core" provides 2 "cpu"s, the mapping would be:
+	//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+	//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	AllocationMultiplier pulumi.StringPtrInput `pulumi:"allocationMultiplier"`
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+	CapacityKey pulumi.StringPtrInput `pulumi:"capacityKey"`
+}
+
+func (NodeAllocatableResourceMappingPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourceMappingPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourceMappingPatchArgs) ToNodeAllocatableResourceMappingPatchOutput() NodeAllocatableResourceMappingPatchOutput {
+	return i.ToNodeAllocatableResourceMappingPatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourceMappingPatchArgs) ToNodeAllocatableResourceMappingPatchOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourceMappingPatchOutput)
+}
+
+// NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+type NodeAllocatableResourceMappingPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourceMappingPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourceMappingPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourceMappingPatchOutput) ToNodeAllocatableResourceMappingPatchOutput() NodeAllocatableResourceMappingPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMappingPatchOutput) ToNodeAllocatableResourceMappingPatchOutputWithContext(ctx context.Context) NodeAllocatableResourceMappingPatchOutput {
+	return o
+}
+
+// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
+//
+//		   a. A DRA driver representing each CPU core as a device would have
+//	       {ResourceName: "cpu", allocationMultiplier: "2"} in its
+//	       `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
+//			  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
+//	    b. A GPU device that needs additional node memory per GPU allocation would
+//	       have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
+//			  GPU device instance of this type will account for 2Gi of memory.
+//
+//  2. If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
+//     The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+//     For example, if a Device's capacity "dra.example.com/cores" is consumed,
+//     and each "core" provides 2 "cpu"s, the mapping would be:
+//     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
+//     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableResourceMappingPatchOutput) AllocationMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceMappingPatch) *string { return v.AllocationMultiplier }).(pulumi.StringPtrOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+func (o NodeAllocatableResourceMappingPatchOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceMappingPatch) *string { return v.CapacityKey }).(pulumi.StringPtrOutput)
 }
 
 // OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
@@ -13214,6 +13691,9 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPtrInput)(nil)).Elem(), NetworkDeviceDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchPtrInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingInput)(nil)).Elem(), NodeAllocatableResourceMappingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingMapInput)(nil)).Elem(), NodeAllocatableResourceMappingMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingPatchInput)(nil)).Elem(), NodeAllocatableResourceMappingPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPtrInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPatchInput)(nil)).Elem(), OpaqueDeviceConfigurationPatchArgs{})
@@ -13358,6 +13838,9 @@ func init() {
 	pulumi.RegisterOutputType(NetworkDeviceDataPtrOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPatchOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourceMappingOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourceMappingMapOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourceMappingPatchOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPatchOutput{})

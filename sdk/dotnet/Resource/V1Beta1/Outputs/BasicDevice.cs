@@ -41,7 +41,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// The conditions must be a valid condition type string.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public readonly ImmutableArray<string> BindingConditions;
         /// <summary>
@@ -51,13 +51,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// The conditions must be a valid condition type string.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public readonly ImmutableArray<string> BindingFailureConditions;
         /// <summary>
         /// BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+        /// This is a beta field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
         /// </summary>
         public readonly bool BindsToNode;
         /// <summary>
@@ -74,6 +74,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// The maximum number of device counter consumptions per device is 2.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceCounterConsumption> ConsumesCounters;
+        /// <summary>
+        /// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        /// </summary>
+        public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.NodeAllocatableResourceMapping> NodeAllocatableResourceMappings;
         /// <summary>
         /// NodeName identifies the node where the device is available.
         /// 
@@ -93,7 +97,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// 
         /// The maximum number of taints is 16. If taints are set for any device in a ResourceSlice, then the maximum number of allowed devices per ResourceSlice is 64 instead of 128.
         /// 
-        /// This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+        /// This is a beta field and requires enabling the DRADeviceTaints feature gate.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceTaint> Taints;
 
@@ -115,6 +119,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.DeviceCounterConsumption> consumesCounters,
 
+            ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.NodeAllocatableResourceMapping> nodeAllocatableResourceMappings,
+
             string nodeName,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector nodeSelector,
@@ -129,6 +135,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
             BindsToNode = bindsToNode;
             Capacity = capacity;
             ConsumesCounters = consumesCounters;
+            NodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
             NodeName = nodeName;
             NodeSelector = nodeSelector;
             Taints = taints;

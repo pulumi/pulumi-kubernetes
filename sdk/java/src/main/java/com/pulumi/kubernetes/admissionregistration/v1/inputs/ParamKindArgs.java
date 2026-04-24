@@ -20,14 +20,14 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
     public static final ParamKindArgs Empty = new ParamKindArgs();
 
     /**
-     * APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+     * apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
      * 
      */
     @Import(name="apiVersion")
     private @Nullable Output<String> apiVersion;
 
     /**
-     * @return APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+     * @return apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
      * 
      */
     public Optional<Output<String>> apiVersion() {
@@ -35,14 +35,14 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Kind is the API kind the resources belong to. Required.
+     * kind is the API kind the resources belong to. Required.
      * 
      */
     @Import(name="kind")
     private @Nullable Output<String> kind;
 
     /**
-     * @return Kind is the API kind the resources belong to. Required.
+     * @return kind is the API kind the resources belong to. Required.
      * 
      */
     public Optional<Output<String>> kind() {
@@ -75,7 +75,7 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiVersion APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+         * @param apiVersion apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
          * 
          * @return builder
          * 
@@ -86,7 +86,7 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiVersion APIVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
+         * @param apiVersion apiVersion is the API group version the resources belong to. In format of &#34;group/version&#34;. Required.
          * 
          * @return builder
          * 
@@ -96,7 +96,7 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind is the API kind the resources belong to. Required.
+         * @param kind kind is the API kind the resources belong to. Required.
          * 
          * @return builder
          * 
@@ -107,7 +107,7 @@ public final class ParamKindArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind is the API kind the resources belong to. Required.
+         * @param kind kind is the API kind the resources belong to. Required.
          * 
          * @return builder
          * 

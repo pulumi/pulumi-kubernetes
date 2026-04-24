@@ -929,7 +929,7 @@ class JSONPatchArgs:
 class MatchConditionPatchArgsDict(TypedDict):
     expression: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+    expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
     'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
       See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -941,7 +941,7 @@ class MatchConditionPatchArgsDict(TypedDict):
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+    name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
     Required.
     """
@@ -952,7 +952,7 @@ class MatchConditionPatchArgs:
                  expression: Optional[pulumi.Input[_builtins.str]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
-        :param pulumi.Input[_builtins.str] expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+        :param pulumi.Input[_builtins.str] expression: expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
                
                'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
                  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -961,7 +961,7 @@ class MatchConditionPatchArgs:
                Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
                
                Required.
-        :param pulumi.Input[_builtins.str] name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+        :param pulumi.Input[_builtins.str] name: name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
                
                Required.
         """
@@ -974,7 +974,7 @@ class MatchConditionPatchArgs:
     @pulumi.getter
     def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+        expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
         'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
           See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -994,7 +994,7 @@ class MatchConditionPatchArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+        name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
         Required.
         """
@@ -1008,7 +1008,7 @@ class MatchConditionPatchArgs:
 class MatchConditionArgsDict(TypedDict):
     expression: pulumi.Input[_builtins.str]
     """
-    Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+    expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
     'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
       See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1020,7 +1020,7 @@ class MatchConditionArgsDict(TypedDict):
     """
     name: pulumi.Input[_builtins.str]
     """
-    Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+    name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
     Required.
     """
@@ -1031,7 +1031,7 @@ class MatchConditionArgs:
                  expression: pulumi.Input[_builtins.str],
                  name: pulumi.Input[_builtins.str]):
         """
-        :param pulumi.Input[_builtins.str] expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+        :param pulumi.Input[_builtins.str] expression: expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
                
                'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
                  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1040,7 +1040,7 @@ class MatchConditionArgs:
                Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
                
                Required.
-        :param pulumi.Input[_builtins.str] name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+        :param pulumi.Input[_builtins.str] name: name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
                
                Required.
         """
@@ -1051,7 +1051,7 @@ class MatchConditionArgs:
     @pulumi.getter
     def expression(self) -> pulumi.Input[_builtins.str]:
         """
-        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+        expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
         'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
           See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -1071,7 +1071,7 @@ class MatchConditionArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[_builtins.str]:
         """
-        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+        name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
         Required.
         """
@@ -1088,7 +1088,7 @@ class MatchResourcesPatchArgsDict(TypedDict):
     """
     exclude_resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]
     """
-    ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+    excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
     match_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -1102,7 +1102,7 @@ class MatchResourcesPatchArgsDict(TypedDict):
     """
     namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
     """
-    NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+    namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
       "matchExpressions": [
@@ -1136,11 +1136,11 @@ class MatchResourcesPatchArgsDict(TypedDict):
     """
     object_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
     """
-    ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+    objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
     resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]
     """
-    ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+    resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
 
 @pulumi.input_type
@@ -1154,7 +1154,7 @@ class MatchResourcesPatchArgs:
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
-        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]] exclude_resource_rules: ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]] exclude_resource_rules: excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         :param pulumi.Input[_builtins.str] match_policy: matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
@@ -1162,7 +1162,7 @@ class MatchResourcesPatchArgs:
                - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
                
                Defaults to "Equivalent"
-        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] namespace_selector: NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] namespace_selector: namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
                
                For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
                  "matchExpressions": [
@@ -1193,8 +1193,8 @@ class MatchResourcesPatchArgs:
                See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
                
                Default to the empty LabelSelector, which matches everything.
-        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] object_selector: ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]] resource_rules: ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] object_selector: objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]] resource_rules: resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         if exclude_resource_rules is not None:
             pulumi.set(__self__, "exclude_resource_rules", exclude_resource_rules)
@@ -1211,7 +1211,7 @@ class MatchResourcesPatchArgs:
     @pulumi.getter(name="excludeResourceRules")
     def exclude_resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
         """
-        ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+        excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         """
         return pulumi.get(self, "exclude_resource_rules")
 
@@ -1241,7 +1241,7 @@ class MatchResourcesPatchArgs:
     @pulumi.getter(name="namespaceSelector")
     def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
         """
-        NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+        namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
         For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
           "matchExpressions": [
@@ -1283,7 +1283,7 @@ class MatchResourcesPatchArgs:
     @pulumi.getter(name="objectSelector")
     def object_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
         """
-        ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+        objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         """
         return pulumi.get(self, "object_selector")
 
@@ -1295,7 +1295,7 @@ class MatchResourcesPatchArgs:
     @pulumi.getter(name="resourceRules")
     def resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
         """
-        ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+        resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         return pulumi.get(self, "resource_rules")
 
@@ -1310,7 +1310,7 @@ class MatchResourcesArgsDict(TypedDict):
     """
     exclude_resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]
     """
-    ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+    excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
     match_policy: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -1324,7 +1324,7 @@ class MatchResourcesArgsDict(TypedDict):
     """
     namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
     """
-    NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+    namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
     For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
       "matchExpressions": [
@@ -1358,11 +1358,11 @@ class MatchResourcesArgsDict(TypedDict):
     """
     object_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
     """
-    ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+    objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
     resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]
     """
-    ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+    resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
 
 @pulumi.input_type
@@ -1376,7 +1376,7 @@ class MatchResourcesArgs:
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
-        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]] exclude_resource_rules: ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]] exclude_resource_rules: excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         :param pulumi.Input[_builtins.str] match_policy: matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
@@ -1384,7 +1384,7 @@ class MatchResourcesArgs:
                - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
                
                Defaults to "Equivalent"
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] namespace_selector: NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] namespace_selector: namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
                
                For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
                  "matchExpressions": [
@@ -1415,8 +1415,8 @@ class MatchResourcesArgs:
                See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
                
                Default to the empty LabelSelector, which matches everything.
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] object_selector: ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
-        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]] resource_rules: ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] object_selector: objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+        :param pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]] resource_rules: resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         if exclude_resource_rules is not None:
             pulumi.set(__self__, "exclude_resource_rules", exclude_resource_rules)
@@ -1433,7 +1433,7 @@ class MatchResourcesArgs:
     @pulumi.getter(name="excludeResourceRules")
     def exclude_resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
         """
-        ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+        excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         """
         return pulumi.get(self, "exclude_resource_rules")
 
@@ -1463,7 +1463,7 @@ class MatchResourcesArgs:
     @pulumi.getter(name="namespaceSelector")
     def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
         """
-        NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+        namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
         For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
           "matchExpressions": [
@@ -1505,7 +1505,7 @@ class MatchResourcesArgs:
     @pulumi.getter(name="objectSelector")
     def object_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
         """
-        ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+        objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         """
         return pulumi.get(self, "object_selector")
 
@@ -1517,7 +1517,7 @@ class MatchResourcesArgs:
     @pulumi.getter(name="resourceRules")
     def resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
         """
-        ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+        resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         return pulumi.get(self, "resource_rules")
 
@@ -1692,11 +1692,11 @@ class MutatingAdmissionPolicyBindingArgsDict(TypedDict):
     """
     metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
     """
-    Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+    metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
     spec: NotRequired[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgsDict']]
     """
-    Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+    spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
     """
 
 @pulumi.input_type
@@ -1715,8 +1715,8 @@ class MutatingAdmissionPolicyBindingArgs:
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs'] spec: Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs'] spec: spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
@@ -1755,7 +1755,7 @@ class MutatingAdmissionPolicyBindingArgs:
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -1767,7 +1767,7 @@ class MutatingAdmissionPolicyBindingArgs:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]:
         """
-        Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+        spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 
@@ -2224,11 +2224,11 @@ class MutatingAdmissionPolicyArgsDict(TypedDict):
     """
     metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
     """
-    Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+    metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
     spec: NotRequired[pulumi.Input['MutatingAdmissionPolicySpecArgsDict']]
     """
-    Specification of the desired behavior of the MutatingAdmissionPolicy.
+    spec defines the desired behavior of the MutatingAdmissionPolicy.
     """
 
 @pulumi.input_type
@@ -2243,8 +2243,8 @@ class MutatingAdmissionPolicyArgs:
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input['MutatingAdmissionPolicySpecArgs'] spec: Specification of the desired behavior of the MutatingAdmissionPolicy.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input['MutatingAdmissionPolicySpecArgs'] spec: spec defines the desired behavior of the MutatingAdmissionPolicy.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
@@ -2283,7 +2283,7 @@ class MutatingAdmissionPolicyArgs:
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -2295,7 +2295,7 @@ class MutatingAdmissionPolicyArgs:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']]:
         """
-        Specification of the desired behavior of the MutatingAdmissionPolicy.
+        spec defines the desired behavior of the MutatingAdmissionPolicy.
         """
         return pulumi.get(self, "spec")
 
@@ -2457,23 +2457,23 @@ class NamedRuleWithOperationsPatchArgsDict(TypedDict):
     """
     api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+    apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
     """
     api_versions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+    apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
     """
     operations: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+    operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
     """
     resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+    resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
     """
     resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    Resources is a list of resources this rule applies to.
+    resources is a list of resources this rule applies to.
 
     For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 
@@ -2498,11 +2498,11 @@ class NamedRuleWithOperationsPatchArgs:
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resources: Resources is a list of resources this rule applies to.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_groups: apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_versions: apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] operations: operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resource_names: resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resources: resources is a list of resources this rule applies to.
                
                For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
                
@@ -2528,7 +2528,7 @@ class NamedRuleWithOperationsPatchArgs:
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_groups")
 
@@ -2540,7 +2540,7 @@ class NamedRuleWithOperationsPatchArgs:
     @pulumi.getter(name="apiVersions")
     def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_versions")
 
@@ -2552,7 +2552,7 @@ class NamedRuleWithOperationsPatchArgs:
     @pulumi.getter
     def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "operations")
 
@@ -2564,7 +2564,7 @@ class NamedRuleWithOperationsPatchArgs:
     @pulumi.getter(name="resourceNames")
     def resource_names(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
@@ -2576,7 +2576,7 @@ class NamedRuleWithOperationsPatchArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Resources is a list of resources this rule applies to.
+        resources is a list of resources this rule applies to.
 
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 
@@ -2609,23 +2609,23 @@ class NamedRuleWithOperationsArgsDict(TypedDict):
     """
     api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+    apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
     """
     api_versions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+    apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
     """
     operations: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+    operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
     """
     resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+    resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
     """
     resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
     """
-    Resources is a list of resources this rule applies to.
+    resources is a list of resources this rule applies to.
 
     For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 
@@ -2650,11 +2650,11 @@ class NamedRuleWithOperationsArgs:
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_groups: APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_versions: APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] operations: Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resources: Resources is a list of resources this rule applies to.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_groups: apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] api_versions: apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] operations: operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resource_names: resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] resources: resources is a list of resources this rule applies to.
                
                For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
                
@@ -2680,7 +2680,7 @@ class NamedRuleWithOperationsArgs:
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+        apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_groups")
 
@@ -2692,7 +2692,7 @@ class NamedRuleWithOperationsArgs:
     @pulumi.getter(name="apiVersions")
     def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+        apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_versions")
 
@@ -2704,7 +2704,7 @@ class NamedRuleWithOperationsArgs:
     @pulumi.getter
     def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+        operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "operations")
 
@@ -2716,7 +2716,7 @@ class NamedRuleWithOperationsArgs:
     @pulumi.getter(name="resourceNames")
     def resource_names(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
@@ -2728,7 +2728,7 @@ class NamedRuleWithOperationsArgs:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Resources is a list of resources this rule applies to.
+        resources is a list of resources this rule applies to.
 
         For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
 
@@ -2761,11 +2761,11 @@ class ParamKindPatchArgsDict(TypedDict):
     """
     api_version: NotRequired[pulumi.Input[_builtins.str]]
     """
-    APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+    apiVersion is the API group version the resources belong to. In format of "group/version". Required.
     """
     kind: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Kind is the API kind the resources belong to. Required.
+    kind is the API kind the resources belong to. Required.
     """
 
 @pulumi.input_type
@@ -2776,8 +2776,8 @@ class ParamKindPatchArgs:
         """
         ParamKind is a tuple of Group Kind and Version.
 
-        :param pulumi.Input[_builtins.str] api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
-        :param pulumi.Input[_builtins.str] kind: Kind is the API kind the resources belong to. Required.
+        :param pulumi.Input[_builtins.str] api_version: apiVersion is the API group version the resources belong to. In format of "group/version". Required.
+        :param pulumi.Input[_builtins.str] kind: kind is the API kind the resources belong to. Required.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", api_version)
@@ -2788,7 +2788,7 @@ class ParamKindPatchArgs:
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+        apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         """
         return pulumi.get(self, "api_version")
 
@@ -2800,7 +2800,7 @@ class ParamKindPatchArgs:
     @pulumi.getter
     def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Kind is the API kind the resources belong to. Required.
+        kind is the API kind the resources belong to. Required.
         """
         return pulumi.get(self, "kind")
 
@@ -2815,11 +2815,11 @@ class ParamKindArgsDict(TypedDict):
     """
     api_version: NotRequired[pulumi.Input[_builtins.str]]
     """
-    APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+    apiVersion is the API group version the resources belong to. In format of "group/version". Required.
     """
     kind: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Kind is the API kind the resources belong to. Required.
+    kind is the API kind the resources belong to. Required.
     """
 
 @pulumi.input_type
@@ -2830,8 +2830,8 @@ class ParamKindArgs:
         """
         ParamKind is a tuple of Group Kind and Version.
 
-        :param pulumi.Input[_builtins.str] api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
-        :param pulumi.Input[_builtins.str] kind: Kind is the API kind the resources belong to. Required.
+        :param pulumi.Input[_builtins.str] api_version: apiVersion is the API group version the resources belong to. In format of "group/version". Required.
+        :param pulumi.Input[_builtins.str] kind: kind is the API kind the resources belong to. Required.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", api_version)
@@ -2842,7 +2842,7 @@ class ParamKindArgs:
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+        apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         """
         return pulumi.get(self, "api_version")
 
@@ -2854,7 +2854,7 @@ class ParamKindArgs:
     @pulumi.getter
     def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Kind is the API kind the resources belong to. Required.
+        kind is the API kind the resources belong to. Required.
         """
         return pulumi.get(self, "kind")
 
@@ -2869,7 +2869,7 @@ class ParamRefPatchArgsDict(TypedDict):
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    `name` is the name of the resource being referenced.
+    name is the name of the resource being referenced.
 
     `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
     """
@@ -2885,7 +2885,7 @@ class ParamRefPatchArgsDict(TypedDict):
     """
     parameter_not_found_action: NotRequired[pulumi.Input[_builtins.str]]
     """
-    `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+    parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
@@ -2908,7 +2908,7 @@ class ParamRefPatchArgs:
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 
-        :param pulumi.Input[_builtins.str] name: `name` is the name of the resource being referenced.
+        :param pulumi.Input[_builtins.str] name: name is the name of the resource being referenced.
                
                `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
@@ -2918,7 +2918,7 @@ class ParamRefPatchArgs:
                - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
                
                - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
-        :param pulumi.Input[_builtins.str] parameter_not_found_action: `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+        :param pulumi.Input[_builtins.str] parameter_not_found_action: parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
                
                Allowed values are `Allow` or `Deny` Default to `Deny`
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
@@ -2940,7 +2940,7 @@ class ParamRefPatchArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        `name` is the name of the resource being referenced.
+        name is the name of the resource being referenced.
 
         `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
@@ -2972,7 +2972,7 @@ class ParamRefPatchArgs:
     @pulumi.getter(name="parameterNotFoundAction")
     def parameter_not_found_action(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+        parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
         Allowed values are `Allow` or `Deny` Default to `Deny`
         """
@@ -3005,7 +3005,7 @@ class ParamRefArgsDict(TypedDict):
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    `name` is the name of the resource being referenced.
+    name is the name of the resource being referenced.
 
     `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
     """
@@ -3021,7 +3021,7 @@ class ParamRefArgsDict(TypedDict):
     """
     parameter_not_found_action: NotRequired[pulumi.Input[_builtins.str]]
     """
-    `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+    parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
@@ -3044,7 +3044,7 @@ class ParamRefArgs:
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 
-        :param pulumi.Input[_builtins.str] name: `name` is the name of the resource being referenced.
+        :param pulumi.Input[_builtins.str] name: name is the name of the resource being referenced.
                
                `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
@@ -3054,7 +3054,7 @@ class ParamRefArgs:
                - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
                
                - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
-        :param pulumi.Input[_builtins.str] parameter_not_found_action: `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+        :param pulumi.Input[_builtins.str] parameter_not_found_action: parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
                
                Allowed values are `Allow` or `Deny` Default to `Deny`
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
@@ -3076,7 +3076,7 @@ class ParamRefArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        `name` is the name of the resource being referenced.
+        name is the name of the resource being referenced.
 
         `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
@@ -3108,7 +3108,7 @@ class ParamRefArgs:
     @pulumi.getter(name="parameterNotFoundAction")
     def parameter_not_found_action(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+        parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
         Allowed values are `Allow` or `Deny` Default to `Deny`
         """
@@ -4433,11 +4433,11 @@ class VariablePatchArgsDict(TypedDict):
     """
     expression: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+    expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
     """
     name: NotRequired[pulumi.Input[_builtins.str]]
     """
-    Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+    name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
     """
 
 @pulumi.input_type
@@ -4448,8 +4448,8 @@ class VariablePatchArgs:
         """
         Variable is the definition of a variable that is used for composition.
 
-        :param pulumi.Input[_builtins.str] expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
-        :param pulumi.Input[_builtins.str] name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        :param pulumi.Input[_builtins.str] expression: expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        :param pulumi.Input[_builtins.str] name: name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
         if expression is not None:
             pulumi.set(__self__, "expression", expression)
@@ -4460,7 +4460,7 @@ class VariablePatchArgs:
     @pulumi.getter
     def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         """
         return pulumi.get(self, "expression")
 
@@ -4472,7 +4472,7 @@ class VariablePatchArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
         return pulumi.get(self, "name")
 
@@ -4487,11 +4487,11 @@ class VariableArgsDict(TypedDict):
     """
     expression: pulumi.Input[_builtins.str]
     """
-    Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+    expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
     """
     name: pulumi.Input[_builtins.str]
     """
-    Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+    name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
     """
 
 @pulumi.input_type
@@ -4502,8 +4502,8 @@ class VariableArgs:
         """
         Variable is the definition of a variable that is used for composition.
 
-        :param pulumi.Input[_builtins.str] expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
-        :param pulumi.Input[_builtins.str] name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        :param pulumi.Input[_builtins.str] expression: expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        :param pulumi.Input[_builtins.str] name: name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
         pulumi.set(__self__, "expression", expression)
         pulumi.set(__self__, "name", name)
@@ -4512,7 +4512,7 @@ class VariableArgs:
     @pulumi.getter
     def expression(self) -> pulumi.Input[_builtins.str]:
         """
-        Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         """
         return pulumi.get(self, "expression")
 
@@ -4524,7 +4524,7 @@ class VariableArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[_builtins.str]:
         """
-        Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
         return pulumi.get(self, "name")
 

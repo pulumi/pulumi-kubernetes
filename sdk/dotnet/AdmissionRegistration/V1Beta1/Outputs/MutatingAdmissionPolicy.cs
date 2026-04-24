@@ -25,11 +25,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Beta1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        /// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Specification of the desired behavior of the MutatingAdmissionPolicy.
+        /// spec defines the desired behavior of the MutatingAdmissionPolicy.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Beta1.MutatingAdmissionPolicySpec Spec;
 

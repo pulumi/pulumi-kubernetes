@@ -20,12 +20,12 @@ type mockhost struct {
 }
 
 func (h *mockhost) Log(_ context.Context, sev diag.Severity, urn resource.URN, msg string) error {
-	_, _ = h.perm.WriteString(fmt.Sprintf("%s (%s): %s\n", urn, sev, msg))
+	_, _ = fmt.Fprintf(&h.perm, "%s (%s): %s\n", urn, sev, msg)
 	return nil
 }
 
 func (h *mockhost) LogStatus(_ context.Context, sev diag.Severity, urn resource.URN, msg string) error {
-	_, _ = h.status.WriteString(fmt.Sprintf("%s (%s): %s\n", urn, sev, msg))
+	_, _ = fmt.Fprintf(&h.status, "%s (%s): %s\n", urn, sev, msg)
 	return nil
 }
 

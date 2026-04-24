@@ -106,7 +106,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<bool>? HostPID { get; set; }
 
         /// <summary>
-        /// Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        /// Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
         /// </summary>
         [Input("hostUsers")]
         public Input<bool>? HostUsers { get; set; }
@@ -278,6 +278,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
+        /// SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        /// </summary>
+        [Input("schedulingGroup")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodSchedulingGroupArgs>? SchedulingGroup { get; set; }
+
+        /// <summary>
         /// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         /// </summary>
         [Input("securityContext")]
@@ -354,12 +360,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _volumes ?? (_volumes = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeArgs>());
             set => _volumes = value;
         }
-
-        /// <summary>
-        /// WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
-        /// </summary>
-        [Input("workloadRef")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.WorkloadReferenceArgs>? WorkloadRef { get; set; }
 
         public PodSpecArgs()
         {

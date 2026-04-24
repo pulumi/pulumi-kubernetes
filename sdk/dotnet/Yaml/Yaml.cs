@@ -59,6 +59,18 @@ namespace Pulumi.Kubernetes.Yaml
             string groupVersionKind;
             switch(type)
             {
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingAdmissionPolicy):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingAdmissionPolicy";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingAdmissionPolicyBinding):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyBinding";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingAdmissionPolicyBindingList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyBindingList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingAdmissionPolicyList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyList";
+                    break;
                 case var t when t == typeof(AdmissionRegistration.V1.MutatingWebhookConfiguration):
                     groupVersionKind = "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration";
                     break;
@@ -875,6 +887,12 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Resource.V1Alpha3.ResourceClaimTemplateList):
                     groupVersionKind = "resource.k8s.io/v1alpha3/ResourceClaimTemplateList";
                     break;
+                case var t when t == typeof(Resource.V1Alpha3.ResourcePoolStatusRequest):
+                    groupVersionKind = "resource.k8s.io/v1alpha3/ResourcePoolStatusRequest";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha3.ResourcePoolStatusRequestList):
+                    groupVersionKind = "resource.k8s.io/v1alpha3/ResourcePoolStatusRequestList";
+                    break;
                 case var t when t == typeof(Resource.V1Alpha3.ResourceSlice):
                     groupVersionKind = "resource.k8s.io/v1alpha3/ResourceSlice";
                     break;
@@ -908,6 +926,12 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Resource.V1Beta2.DeviceClassList):
                     groupVersionKind = "resource.k8s.io/v1beta2/DeviceClassList";
                     break;
+                case var t when t == typeof(Resource.V1Beta2.DeviceTaintRule):
+                    groupVersionKind = "resource.k8s.io/v1beta2/DeviceTaintRule";
+                    break;
+                case var t when t == typeof(Resource.V1Beta2.DeviceTaintRuleList):
+                    groupVersionKind = "resource.k8s.io/v1beta2/DeviceTaintRuleList";
+                    break;
                 case var t when t == typeof(Resource.V1Beta2.ResourceClaim):
                     groupVersionKind = "resource.k8s.io/v1beta2/ResourceClaim";
                     break;
@@ -938,11 +962,17 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Scheduling.V1Alpha1.PriorityClassList):
                     groupVersionKind = "scheduling.k8s.io/v1alpha1/PriorityClassList";
                     break;
-                case var t when t == typeof(Scheduling.V1Alpha1.Workload):
-                    groupVersionKind = "scheduling.k8s.io/v1alpha1/Workload";
+                case var t when t == typeof(Scheduling.V1Alpha2.PodGroup):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha2/PodGroup";
                     break;
-                case var t when t == typeof(Scheduling.V1Alpha1.WorkloadList):
-                    groupVersionKind = "scheduling.k8s.io/v1alpha1/WorkloadList";
+                case var t when t == typeof(Scheduling.V1Alpha2.PodGroupList):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha2/PodGroupList";
+                    break;
+                case var t when t == typeof(Scheduling.V1Alpha2.Workload):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha2/Workload";
+                    break;
+                case var t when t == typeof(Scheduling.V1Alpha2.WorkloadList):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha2/WorkloadList";
                     break;
                 case var t when t == typeof(Scheduling.V1Beta1.PriorityClass):
                     groupVersionKind = "scheduling.k8s.io/v1beta1/PriorityClass";
@@ -1324,6 +1354,8 @@ namespace Pulumi.Kubernetes.Yaml
             // engine instead.
             if (
                 gvk == "v1/List"
+                || gvk == "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyBindingList"
+                || gvk == "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyList"
                 || gvk == "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList"
                 || gvk == "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyBindingList"
                 || gvk == "admissionregistration.k8s.io/v1/ValidatingAdmissionPolicyList"
@@ -1459,17 +1491,20 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "resource.k8s.io/v1alpha3/PodSchedulingContextList"
                 || gvk == "resource.k8s.io/v1alpha3/ResourceClaimList"
                 || gvk == "resource.k8s.io/v1alpha3/ResourceClaimTemplateList"
+                || gvk == "resource.k8s.io/v1alpha3/ResourcePoolStatusRequestList"
                 || gvk == "resource.k8s.io/v1beta1/DeviceClassList"
                 || gvk == "resource.k8s.io/v1beta1/ResourceClaimList"
                 || gvk == "resource.k8s.io/v1beta1/ResourceClaimTemplateList"
                 || gvk == "resource.k8s.io/v1beta1/ResourceSliceList"
                 || gvk == "resource.k8s.io/v1beta2/DeviceClassList"
+                || gvk == "resource.k8s.io/v1beta2/DeviceTaintRuleList"
                 || gvk == "resource.k8s.io/v1beta2/ResourceClaimList"
                 || gvk == "resource.k8s.io/v1beta2/ResourceClaimTemplateList"
                 || gvk == "resource.k8s.io/v1beta2/ResourceSliceList"
                 || gvk == "scheduling.k8s.io/v1/PriorityClassList"
                 || gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList"
-                || gvk == "scheduling.k8s.io/v1alpha1/WorkloadList"
+                || gvk == "scheduling.k8s.io/v1alpha2/PodGroupList"
+                || gvk == "scheduling.k8s.io/v1alpha2/WorkloadList"
                 || gvk == "scheduling.k8s.io/v1beta1/PriorityClassList"
                 || gvk == "settings.k8s.io/v1alpha1/PodPresetList"
                 || gvk == "storage.k8s.io/v1/CSIDriverList"
@@ -1527,6 +1562,18 @@ namespace Pulumi.Kubernetes.Yaml
 
             switch (gvk)
             {
+                    case "admissionregistration.k8s.io/v1/MutatingAdmissionPolicy":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1/MutatingAdmissionPolicy::{id}",
+                                new AdmissionRegistration.V1.MutatingAdmissionPolicy(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1/MutatingAdmissionPolicyBinding":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1/MutatingAdmissionPolicyBinding::{id}",
+                                new AdmissionRegistration.V1.MutatingAdmissionPolicyBinding(id, obj!, opts) as KubernetesResource))
+                        };
                     case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
                         return new[]
                         {
@@ -2349,6 +2396,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"resource.k8s.io/v1alpha3/ResourceClaimTemplate::{id}",
                                 new Resource.V1Alpha3.ResourceClaimTemplate(id, obj!, opts) as KubernetesResource))
                         };
+                    case "resource.k8s.io/v1alpha3/ResourcePoolStatusRequest":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha3/ResourcePoolStatusRequest::{id}",
+                                new Resource.V1Alpha3.ResourcePoolStatusRequest(id, obj!, opts) as KubernetesResource))
+                        };
                     case "resource.k8s.io/v1alpha3/ResourceSlice":
                         return new[]
                         {
@@ -2385,6 +2438,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"resource.k8s.io/v1beta2/DeviceClass::{id}",
                                 new Resource.V1Beta2.DeviceClass(id, obj!, opts) as KubernetesResource))
                         };
+                    case "resource.k8s.io/v1beta2/DeviceTaintRule":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1beta2/DeviceTaintRule::{id}",
+                                new Resource.V1Beta2.DeviceTaintRule(id, obj!, opts) as KubernetesResource))
+                        };
                     case "resource.k8s.io/v1beta2/ResourceClaim":
                         return new[]
                         {
@@ -2415,11 +2474,17 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"scheduling.k8s.io/v1alpha1/PriorityClass::{id}",
                                 new Scheduling.V1Alpha1.PriorityClass(id, obj!, opts) as KubernetesResource))
                         };
-                    case "scheduling.k8s.io/v1alpha1/Workload":
+                    case "scheduling.k8s.io/v1alpha2/PodGroup":
                         return new[]
                         {
-                            id.Apply(id => ($"scheduling.k8s.io/v1alpha1/Workload::{id}",
-                                new Scheduling.V1Alpha1.Workload(id, obj!, opts) as KubernetesResource))
+                            id.Apply(id => ($"scheduling.k8s.io/v1alpha2/PodGroup::{id}",
+                                new Scheduling.V1Alpha2.PodGroup(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "scheduling.k8s.io/v1alpha2/Workload":
+                        return new[]
+                        {
+                            id.Apply(id => ($"scheduling.k8s.io/v1alpha2/Workload::{id}",
+                                new Scheduling.V1Alpha2.Workload(id, obj!, opts) as KubernetesResource))
                         };
                     case "scheduling.k8s.io/v1beta1/PriorityClass":
                         return new[]

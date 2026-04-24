@@ -49,7 +49,7 @@ type Results []Result
 func (rr Results) String() string {
 	s := strings.Builder{}
 	for _, r := range rr {
-		s.WriteString(fmt.Sprintf("%s\n", r))
+		fmt.Fprintf(&s, "%s\n", r)
 	}
 
 	return s.String()

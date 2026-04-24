@@ -30,9 +30,9 @@ type MutatingAdmissionPolicyBindingPatch struct {
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec MutatingAdmissionPolicyBindingSpecPatchPtrOutput `pulumi:"spec"`
 }
 
@@ -46,6 +46,9 @@ func NewMutatingAdmissionPolicyBindingPatch(ctx *pulumi.Context,
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("MutatingAdmissionPolicyBinding")
 	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBindingPatch"),
+		},
 		{
 			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyBindingPatch"),
 		},
@@ -88,9 +91,9 @@ type mutatingAdmissionPolicyBindingPatchArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec *MutatingAdmissionPolicyBindingSpecPatch `pulumi:"spec"`
 }
 
@@ -100,9 +103,9 @@ type MutatingAdmissionPolicyBindingPatchArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+	// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+	// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 	Spec MutatingAdmissionPolicyBindingSpecPatchPtrInput
 }
 
@@ -203,12 +206,12 @@ func (o MutatingAdmissionPolicyBindingPatchOutput) Kind() pulumi.StringPtrOutput
 	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingPatch) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+// metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 func (o MutatingAdmissionPolicyBindingPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior of the MutatingAdmissionPolicyBinding.
+// spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
 func (o MutatingAdmissionPolicyBindingPatchOutput) Spec() MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
 	return o.ApplyT(func(v *MutatingAdmissionPolicyBindingPatch) MutatingAdmissionPolicyBindingSpecPatchPtrOutput {
 		return v.Spec

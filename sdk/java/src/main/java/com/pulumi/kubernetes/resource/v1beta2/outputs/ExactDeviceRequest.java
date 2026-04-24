@@ -80,7 +80,7 @@ public final class ExactDeviceRequest {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     private @Nullable List<DeviceToleration> tolerations;
@@ -160,7 +160,7 @@ public final class ExactDeviceRequest {
      * 
      * The maximum number of tolerations is 16.
      * 
-     * This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+     * This is a beta field and requires enabling the DRADeviceTaints feature gate.
      * 
      */
     public List<DeviceToleration> tolerations() {

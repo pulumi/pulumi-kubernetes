@@ -76,9 +76,6 @@ export class EndpointSlice extends pulumi.CustomResource {
             if (args?.addressType === undefined && !opts.urn) {
                 throw new Error("Missing required property 'addressType'");
             }
-            if (args?.endpoints === undefined && !opts.urn) {
-                throw new Error("Missing required property 'endpoints'");
-            }
             resourceInputs["addressType"] = args?.addressType;
             resourceInputs["apiVersion"] = "discovery.k8s.io/v1";
             resourceInputs["endpoints"] = args?.endpoints;
@@ -115,7 +112,7 @@ export interface EndpointSliceArgs {
     /**
      * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
      */
-    endpoints: pulumi.Input<pulumi.Input<inputs.discovery.v1.Endpoint>[]>;
+    endpoints?: pulumi.Input<pulumi.Input<inputs.discovery.v1.Endpoint>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */

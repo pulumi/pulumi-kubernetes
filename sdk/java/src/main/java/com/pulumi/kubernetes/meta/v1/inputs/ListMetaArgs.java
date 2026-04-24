@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.meta.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.meta.v1.inputs.ShardInfoArgs;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
@@ -80,6 +81,25 @@ public final class ListMetaArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.selfLink);
     }
 
+    /**
+     * shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+     * 
+     * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+     * 
+     */
+    @Import(name="shardInfo")
+    private @Nullable Output<ShardInfoArgs> shardInfo;
+
+    /**
+     * @return shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+     * 
+     * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+     * 
+     */
+    public Optional<Output<ShardInfoArgs>> shardInfo() {
+        return Optional.ofNullable(this.shardInfo);
+    }
+
     private ListMetaArgs() {}
 
     private ListMetaArgs(ListMetaArgs $) {
@@ -87,6 +107,7 @@ public final class ListMetaArgs extends com.pulumi.resources.ResourceArgs {
         this.remainingItemCount = $.remainingItemCount;
         this.resourceVersion = $.resourceVersion;
         this.selfLink = $.selfLink;
+        this.shardInfo = $.shardInfo;
     }
 
     public static Builder builder() {
@@ -189,6 +210,31 @@ public final class ListMetaArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder selfLink(String selfLink) {
             return selfLink(Output.of(selfLink));
+        }
+
+        /**
+         * @param shardInfo shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+         * 
+         * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shardInfo(@Nullable Output<ShardInfoArgs> shardInfo) {
+            $.shardInfo = shardInfo;
+            return this;
+        }
+
+        /**
+         * @param shardInfo shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
+         * 
+         * This is an alpha field and requires enabling the ShardedListAndWatch feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shardInfo(ShardInfoArgs shardInfo) {
+            return shardInfo(Output.of(shardInfo));
         }
 
         public ListMetaArgs build() {

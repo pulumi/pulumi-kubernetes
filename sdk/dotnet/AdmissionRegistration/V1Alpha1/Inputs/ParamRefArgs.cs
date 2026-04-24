@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
     public class ParamRefArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// `name` is the name of the resource being referenced.
+        /// name is the name of the resource being referenced.
         /// 
         /// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         /// </summary>
@@ -36,7 +36,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         public Input<string>? Namespace { get; set; }
 
         /// <summary>
-        /// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+        /// parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
         /// 
         /// Allowed values are `Allow` or `Deny` Default to `Deny`
         /// </summary>

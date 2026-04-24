@@ -109,8 +109,6 @@ class ResourceClaimTemplate(pulumi.CustomResource):
         """
         ResourceClaimTemplate is used to produce ResourceClaim objects.
 
-        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
-
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -129,8 +127,6 @@ class ResourceClaimTemplate(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClaimTemplate is used to produce ResourceClaim objects.
-
-        This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 
         :param str resource_name: The name of the resource.

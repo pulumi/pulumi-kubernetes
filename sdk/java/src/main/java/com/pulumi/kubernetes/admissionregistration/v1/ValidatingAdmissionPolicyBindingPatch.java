@@ -62,28 +62,28 @@ public class ValidatingAdmissionPolicyBindingPatch extends com.pulumi.resources.
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
     @Export(name="spec", refs={ValidatingAdmissionPolicyBindingSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ ValidatingAdmissionPolicyBindingSpecPatch> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
     public Output<Optional<ValidatingAdmissionPolicyBindingSpecPatch>> spec() {

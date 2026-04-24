@@ -15,14 +15,14 @@ public final class NetworkDeviceData {
     /**
      * @return HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
      * 
-     * Must not be longer than 128 characters.
+     * Must not be longer than 128 bytes.
      * 
      */
     private @Nullable String hardwareAddress;
     /**
      * @return InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
      * 
-     * Must not be longer than 256 characters.
+     * Must not be longer than 256 bytes.
      * 
      */
     private @Nullable String interfaceName;
@@ -38,7 +38,7 @@ public final class NetworkDeviceData {
     /**
      * @return HardwareAddress represents the hardware address (e.g. MAC Address) of the device&#39;s network interface.
      * 
-     * Must not be longer than 128 characters.
+     * Must not be longer than 128 bytes.
      * 
      */
     public Optional<String> hardwareAddress() {
@@ -47,7 +47,7 @@ public final class NetworkDeviceData {
     /**
      * @return InterfaceName specifies the name of the network interface associated with the allocated device. This might be the name of a physical or virtual network interface being configured in the pod.
      * 
-     * Must not be longer than 256 characters.
+     * Must not be longer than 256 bytes.
      * 
      */
     public Optional<String> interfaceName() {

@@ -58,28 +58,28 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     @Export(name="webhooks", refs={List.class,MutatingWebhookPatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<MutatingWebhookPatch>> webhooks;
 
     /**
-     * @return Webhooks is a list of webhooks and the affected resources and operations.
+     * @return webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     public Output<Optional<List<MutatingWebhookPatch>>> webhooks() {

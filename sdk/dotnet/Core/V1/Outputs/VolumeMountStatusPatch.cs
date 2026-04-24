@@ -32,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
         /// </summary>
         public readonly string RecursiveReadOnly;
+        /// <summary>
+        /// volumeStatus represents volume-type-specific status about the mounted volume.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeStatusPatch VolumeStatus;
 
         [OutputConstructor]
         private VolumeMountStatusPatch(
@@ -41,12 +45,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             bool readOnly,
 
-            string recursiveReadOnly)
+            string recursiveReadOnly,
+
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeStatusPatch volumeStatus)
         {
             MountPath = mountPath;
             Name = name;
             ReadOnly = readOnly;
             RecursiveReadOnly = recursiveReadOnly;
+            VolumeStatus = volumeStatus;
         }
     }
 }

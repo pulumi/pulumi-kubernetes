@@ -50,11 +50,11 @@ export class ValidatingAdmissionPolicyBinding extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"ValidatingAdmissionPolicyBinding">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      */
     declare public readonly spec: pulumi.Output<outputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpec>;
 
@@ -69,6 +69,9 @@ export class ValidatingAdmissionPolicyBinding extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1";
             resourceInputs["kind"] = "ValidatingAdmissionPolicyBinding";
             resourceInputs["metadata"] = args?.metadata;
@@ -99,11 +102,11 @@ export interface ValidatingAdmissionPolicyBindingArgs {
      */
     kind?: pulumi.Input<"ValidatingAdmissionPolicyBinding">;
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      */
-    spec?: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpec>;
+    spec: pulumi.Input<inputs.admissionregistration.v1.ValidatingAdmissionPolicyBindingSpec>;
 }

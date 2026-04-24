@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.admissionregistration.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.ValidatingAdmissionPolicyBindingSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
@@ -57,14 +58,14 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
     }
 
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -72,18 +73,18 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
     }
 
     /**
-     * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<ValidatingAdmissionPolicyBindingSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<ValidatingAdmissionPolicyBindingSpecArgs> spec;
 
     /**
-     * @return Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+     * @return spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
      * 
      */
-    public Optional<Output<ValidatingAdmissionPolicyBindingSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<ValidatingAdmissionPolicyBindingSpecArgs> spec() {
+        return this.spec;
     }
 
     private ValidatingAdmissionPolicyBindingArgs() {}
@@ -156,7 +157,7 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -167,7 +168,7 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
         }
 
         /**
-         * @param metadata Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+         * @param metadata metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
          * 
          * @return builder
          * 
@@ -177,18 +178,18 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
         }
 
         /**
-         * @param spec Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+         * @param spec spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
          * 
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<ValidatingAdmissionPolicyBindingSpecArgs> spec) {
+        public Builder spec(Output<ValidatingAdmissionPolicyBindingSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
 
         /**
-         * @param spec Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+         * @param spec spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
          * 
          * @return builder
          * 
@@ -200,6 +201,9 @@ public final class ValidatingAdmissionPolicyBindingArgs extends com.pulumi.resou
         public ValidatingAdmissionPolicyBindingArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("ValidatingAdmissionPolicyBindingArgs", "spec");
+            }
             return $;
         }
     }

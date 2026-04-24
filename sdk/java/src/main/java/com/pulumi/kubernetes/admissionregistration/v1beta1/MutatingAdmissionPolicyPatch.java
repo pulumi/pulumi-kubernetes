@@ -58,28 +58,28 @@ public class MutatingAdmissionPolicyPatch extends com.pulumi.resources.CustomRes
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+     * @return metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * spec defines the desired behavior of the MutatingAdmissionPolicy.
      * 
      */
     @Export(name="spec", refs={MutatingAdmissionPolicySpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ MutatingAdmissionPolicySpecPatch> spec;
 
     /**
-     * @return Specification of the desired behavior of the MutatingAdmissionPolicy.
+     * @return spec defines the desired behavior of the MutatingAdmissionPolicy.
      * 
      */
     public Output<Optional<MutatingAdmissionPolicySpecPatch>> spec() {
@@ -130,6 +130,7 @@ public class MutatingAdmissionPolicyPatch extends com.pulumi.resources.CustomRes
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyPatch").build()),
                 Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1alpha1:MutatingAdmissionPolicyPatch").build())
             ))
             .build();

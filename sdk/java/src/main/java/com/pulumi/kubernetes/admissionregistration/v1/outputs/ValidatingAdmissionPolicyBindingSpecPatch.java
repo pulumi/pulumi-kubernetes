@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ValidatingAdmissionPolicyBindingSpecPatch {
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     private @Nullable MatchResourcesPatch matchResources;
@@ -25,7 +25,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatch {
      */
     private @Nullable ParamRefPatch paramRef;
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
     private @Nullable String policyName;
@@ -55,7 +55,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatch {
 
     private ValidatingAdmissionPolicyBindingSpecPatch() {}
     /**
-     * @return MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+     * @return matchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy&#39;s matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
      * 
      */
     public Optional<MatchResourcesPatch> matchResources() {
@@ -69,7 +69,7 @@ public final class ValidatingAdmissionPolicyBindingSpecPatch {
         return Optional.ofNullable(this.paramRef);
     }
     /**
-     * @return PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+     * @return policyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
      * 
      */
     public Optional<String> policyName() {

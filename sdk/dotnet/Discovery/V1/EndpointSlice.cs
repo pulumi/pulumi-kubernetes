@@ -127,7 +127,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         [Input("apiVersion")]
         public Input<string>? ApiVersion { get; set; }
 
-        [Input("endpoints", required: true)]
+        [Input("endpoints")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.EndpointArgs>? _endpoints;
 
         /// <summary>
