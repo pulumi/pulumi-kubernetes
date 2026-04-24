@@ -51,7 +51,7 @@ func NewDeleted(
 	logger logger,
 	obj *unstructured.Unstructured,
 ) (*Deleted, error) {
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel := context.WithCancel(ctx) //nolint:gosec // cancel stored in dc.cancel, called on teardown
 	dc := &Deleted{
 		ctx:      ctx,
 		cancel:   cancel,
