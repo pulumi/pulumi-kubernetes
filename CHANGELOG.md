@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 4.30.0 (April 24, 2026)
+
 ### Fixed
 
 - [#4295](https://github.com/pulumi/pulumi-kubernetes/pull/4295)Fix kustomize.v2.Directory resource output type in the schema to properly support array outputs.
@@ -12,9 +14,6 @@ Previously, the resources field was incorrectly typed as a `string` in the schem
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.4.
-
-### Changed
-
 - Upgrade Kubernetes schema and libraries to v1.36.0.
 
 ## 4.29.0 (April 15, 2026)
