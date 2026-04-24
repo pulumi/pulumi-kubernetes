@@ -6,6 +6,7 @@ replace github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
 
 require (
 	github.com/evanphx/json-patch v5.9.11+incompatible
+	github.com/fluxcd/pkg/ssa v0.71.1-0.20260424094917-4f94dc680419
 	github.com/golang/protobuf v1.5.4
 	github.com/google/gnostic-models v0.7.1
 	github.com/imdario/mergo v0.3.16
@@ -43,12 +44,15 @@ require (
 require (
 	github.com/clipperhouse/displaywidth v0.11.0 // indirect
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
+	github.com/evanphx/json-patch/v5 v5.9.11 // indirect
+	github.com/fluxcd/cli-utils v0.37.2-flux.1 // indirect
 	github.com/hashicorp/go-version v1.8.0 // indirect
 	go.opentelemetry.io/collector/featuregate v1.54.0 // indirect
 	go.opentelemetry.io/collector/pdata v1.54.0 // indirect
 	go.opentelemetry.io/otel/bridge/opentracing v1.33.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	k8s.io/streaming v0.36.0 // indirect
+	sigs.k8s.io/controller-runtime v0.23.3 // indirect
 )
 
 require (
@@ -250,6 +254,5 @@ require (
 	sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.34.0 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
-	sigs.k8s.io/structured-merge-diff/v4 v4.6.0
-	sigs.k8s.io/structured-merge-diff/v6 v6.4.0 // indirect
+	sigs.k8s.io/structured-merge-diff/v6 v6.4.0
 )
