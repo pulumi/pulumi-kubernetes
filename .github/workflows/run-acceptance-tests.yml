@@ -18,7 +18,6 @@ env:
   DOTNETVERSION: "8.0.x"
   JAVAVERSION: "11"
   AWS_REGION: us-west-2
-  GOLANGCI_LINT_VERSION: v1.64.8
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
