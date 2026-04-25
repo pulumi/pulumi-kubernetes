@@ -1,3 +1,0 @@
-name: get
-description: A program that smoke-tests .get support, specifying inputs with dicts
-runtime: python

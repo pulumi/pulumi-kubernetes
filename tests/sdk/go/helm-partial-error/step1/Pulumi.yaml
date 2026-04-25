@@ -1,3 +1,0 @@
-name: go_helm_release
-description: Test Kubernetes Helm Release resource with remote Chart.
-runtime: go
