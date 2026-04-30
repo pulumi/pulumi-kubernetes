@@ -33,6 +33,10 @@ Previously, the resources field was incorrectly typed as a `string` in the schem
 
 - [#2280](https://github.com/pulumi/pulumi-kubernetes/issues/2280) Add `enablePatchForce` provider config option to force SSA patch conflicts on a per-stack basis.
 
+### Fixed
+
+- Fix CRD parameterization: derive package name from CRD groups instead of hardcoding `"mycrd"`, implement `Parameterize(Value)` for subsequent runs, and flatten array-of-objects in OpenAPI specs to generate typed SDKs.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.35.3.

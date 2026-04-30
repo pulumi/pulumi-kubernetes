@@ -338,11 +338,11 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
-func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
+func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, pkgName string) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
 		case "array":
-			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]any), canonicalGroups)
+			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]any), canonicalGroups, pkgName)
 			return pschema.TypeSpec{
 				Type:  "array",
 				Items: &elemSpec,
@@ -353,7 +353,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 				return pschema.TypeSpec{Type: "object"}
 			}
 
-			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]any), canonicalGroups)
+			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]any), canonicalGroups, pkgName)
 			return pschema.TypeSpec{
 				Type:                 "object",
 				AdditionalProperties: &elemSpec,
@@ -399,17 +399,17 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		return pschema.TypeSpec{Type: "string"}
 	case v1beta1JSONSchemaPropsOrBool:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1beta1:JSONSchemaProps", pkgName)},
 			{Type: "boolean"},
 		}}
 	case v1JSONSchemaPropsOrBool:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1:JSONSchemaProps", pkgName)},
 			{Type: "boolean"},
 		}}
 	case v1beta1JSONSchemaPropsOrArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1beta1:JSONSchemaProps", pkgName)},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Json"},
@@ -417,7 +417,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		}}
 	case v1JSONSchemaPropsOrArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1:JSONSchemaProps", pkgName)},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Ref: "pulumi.json#/Json"},
@@ -425,7 +425,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		}}
 	case v1beta1JSONSchemaPropsOrStringArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1beta1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1beta1:JSONSchemaProps", pkgName)},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Type: "string"},
@@ -433,7 +433,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 		}}
 	case v1JSONSchemaPropsOrStringArray:
 		return pschema.TypeSpec{OneOf: []pschema.TypeSpec{
-			{Ref: "#/types/kubernetes:apiextensions.k8s.io/v1:JSONSchemaProps"},
+			{Ref: fmt.Sprintf("#/types/%s:apiextensions.k8s.io/v1:JSONSchemaProps", pkgName)},
 			{
 				Type:  "array",
 				Items: &pschema.TypeSpec{Type: "string"},
@@ -445,14 +445,14 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) 
 
 	gvk := GVKFromRef(ref)
 	if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
-		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
-			canonicalGroup, gvk.Version, gvk.Kind)}
+		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/%s:%s/%s:%s",
+			pkgName, canonicalGroup, gvk.Version, gvk.Kind)}
 	}
 	panic("Canonical group not set for ref: " + ref)
 }
 
-func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) string {
-	spec := makeSchemaTypeSpec(prop, canonicalGroups)
+func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, pkgName string) string {
+	spec := makeSchemaTypeSpec(prop, canonicalGroups, pkgName)
 	b, err := json.Marshal(spec)
 	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
 	return string(b)
@@ -464,11 +464,11 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) stri
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]any, allowHyphens bool) []GroupConfig {
+func createGroups(definitionsJSON map[string]any, allowHyphens bool, pkgName string) []GroupConfig {
 	canonicalGroups := createCanonicalGroups(definitionsJSON)
 	definitions := createDefinitions(definitionsJSON, canonicalGroups)
 	aliases := createAliases(definitions, canonicalGroups)
-	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens)
+	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens, pkgName)
 	versions := createVersions(kinds)
 	groups := createGroupsFromVersions(versions)
 	return groups
@@ -575,6 +575,7 @@ func createKinds(
 	canonicalGroups map[string]string,
 	aliases map[string][]any,
 	allowHyphens bool,
+	pkgName string,
 ) []KindConfig {
 	var kinds []KindConfig
 
@@ -617,7 +618,7 @@ func createKinds(
 				}
 			}
 
-			schemaType := makeSchemaType(prop, canonicalGroups)
+			schemaType := makeSchemaType(prop, canonicalGroups, pkgName)
 
 			// `-` is invalid in variable names, so replace with `_`
 			switch propName {

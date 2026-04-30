@@ -1,0 +1,3 @@
+name: parameterize-e2e
+runtime: go
+description: E2E fixture — creates a CR using a parameterized SDK (generated at test-time by `pulumi package gen-sdk`).

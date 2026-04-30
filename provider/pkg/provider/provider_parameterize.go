@@ -22,6 +22,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -40,11 +41,9 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 )
 
-// TODO(rquitales): Remove the hardcoded package name once upstream extension
-// parameterization is implemented and can be passed. For now, we can only
-// "parameterize" with one package, but it is intended to not be a upper bound
-// on the number of packages that can be parameterized.
-const crdPackageName = "mycrd"
+// defaultPackageName is used when the user does not specify a package name
+// and one cannot be derived from the CRD groups.
+const defaultPackageName = "crds"
 
 const definitionPrefix = "#/definitions/"
 
@@ -80,24 +79,41 @@ func (c *parameterizedPackageMap) add(name, version string, schema *pulumischema
 	c.crdSchemas[c.mapKey(name, version)] = schema
 }
 
+// hasPackage returns true if any schema has been registered under the given
+// package name (regardless of version).
+func (c *parameterizedPackageMap) hasPackage(name string) bool {
+	c.Lock()
+	defer c.Unlock()
+	for key := range c.crdSchemas {
+		if strings.HasPrefix(key, name+"@") {
+			return true
+		}
+	}
+	return false
+}
+
 // ParameterizedArgs is the struct that holds the arguments for the Kubernetes Provider parameterization.
 // Currently, this is only used for generating types from CRD manifests.
 type ParameterizedArgs struct {
+	PackageName      string
 	PackageVersion   string
 	CRDManifestPaths []string
 }
 
 // String returns a string representation of the ParameterizedArgs. This is used for logging purposes.
 func (p ParameterizedArgs) String() string {
-	return fmt.Sprintf("version: %s, crd-manifests: %v", p.PackageVersion, strings.Join(p.CRDManifestPaths, ", "))
+	return fmt.Sprintf("name: %s, version: %s, crd-manifests: %v",
+		p.PackageName, p.PackageVersion, strings.Join(p.CRDManifestPaths, ", "))
 }
 
 // parseCrdArgs parses the user provided arguments for provider parameterization.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
+	var crdPackageName string
 	var crdPackageVersion string
 	var yamlPaths []string
 
 	flags := pflag.NewFlagSet("crdargs", pflag.PanicOnError)
+	flags.StringVarP(&crdPackageName, "name", "n", "", "The name of the CRD package.")
 	flags.StringVarP(&crdPackageVersion, "version", "v", "", "The version of the CRD package.")
 	flags.StringArrayVarP(&yamlPaths, "crd-manifests", "c", nil, "The paths to the CRD manifests.")
 	err := flags.Parse(args)
@@ -114,9 +130,26 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}
 
 	return &ParameterizedArgs{
+		PackageName:      crdPackageName,
 		PackageVersion:   crdPackageVersion,
 		CRDManifestPaths: yamlPaths,
 	}, nil
+}
+
+// derivePackageName produces a package name from the first CRD manifest file
+// path. The file's base name (without extension) is used directly, e.g.
+// "gateway-api-crds.yaml" → "gateway-api-crds". Falls back to
+// defaultPackageName if no paths are provided.
+func derivePackageName(paths []string) string {
+	for _, p := range paths {
+		base := filepath.Base(p)
+		ext := filepath.Ext(base)
+		name := strings.TrimSuffix(base, ext)
+		if name != "" {
+			return name
+		}
+	}
+	return defaultPackageName
 }
 
 // fillDefaultNames sets the default names for the CRD if they are not specified.
@@ -162,8 +195,9 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 	return openAPIManifests, nil
 }
 
-// flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into a single object as
-// definitions.
+// flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into
+// top-level definitions. This includes both direct object properties and objects nested inside
+// arrays (e.g., spec.listeners, spec.rules[].backendRefs).
 func flattenOpenAPI(sw *spec.Swagger) error {
 	// Create a stack of definition names to be processed.
 	definitionStack := make([]string, 0, len(sw.Definitions))
@@ -186,7 +220,41 @@ func flattenOpenAPI(sw *spec.Swagger) error {
 				continue
 			}
 
-			// If the property is not an object, we can skip it.
+			// Handle arrays whose items are objects — e.g., spec.listeners, spec.rules.
+			if propertySchema.Type.Contains("array") {
+				itemSchema := propertySchema.Items
+				if itemSchema == nil || itemSchema.Schema == nil {
+					continue
+				}
+				inner := itemSchema.Schema
+				if inner.Ref.GetURL() != nil {
+					continue
+				}
+				if !inner.Type.Contains("object") || inner.Properties == nil {
+					continue
+				}
+				if inner.AdditionalProperties != nil {
+					continue
+				}
+
+				nestedDefinitionName := definitionName + cgstrings.UppercaseFirst(propertyName)
+				sw.Definitions[nestedDefinitionName] = *inner
+				definitionStack = append(definitionStack, nestedDefinitionName)
+
+				ref, err := makeDefinitionRef(nestedDefinitionName)
+				if err != nil {
+					return err
+				}
+				propertySchema.Items = &spec.SchemaOrArray{
+					Schema: &spec.Schema{
+						SchemaProps: spec.SchemaProps{Ref: ref},
+					},
+				}
+				definition.Properties[propertyName] = propertySchema
+				continue
+			}
+
+			// Handle direct object properties.
 			if !propertySchema.Type.Contains("object") {
 				continue
 			}
@@ -209,23 +277,25 @@ func flattenOpenAPI(sw *spec.Swagger) error {
 			// Add nested object to the stack to be recursively flattened.
 			definitionStack = append(definitionStack, nestedDefinitionName)
 
-			// Reset the property to be a reference to the nested object.
-			refName := definitionPrefix + nestedDefinitionName
-			ref, err := jsonreference.New(refName)
+			ref, err := makeDefinitionRef(nestedDefinitionName)
 			if err != nil {
-				return fmt.Errorf("error creating OpenAPI json reference for nested object: %w", err)
+				return err
 			}
-
 			definition.Properties[propertyName] = spec.Schema{
-				SchemaProps: spec.SchemaProps{
-					Ref: spec.Ref{
-						Ref: ref,
-					},
-				},
+				SchemaProps: spec.SchemaProps{Ref: ref},
 			}
 		}
 	}
 	return nil
+}
+
+// makeDefinitionRef creates a spec.Ref pointing to #/definitions/<name>.
+func makeDefinitionRef(name string) (spec.Ref, error) {
+	ref, err := jsonreference.New(definitionPrefix + name)
+	if err != nil {
+		return spec.Ref{}, fmt.Errorf("error creating OpenAPI json reference for nested object: %w", err)
+	}
+	return spec.Ref{Ref: ref}, nil
 }
 
 // readCRDManifestFile reads the CRD manifest from the given file path.
@@ -276,9 +346,14 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 }
 
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
+// packageName is the user-facing name of the parameterized package (e.g.,
+// "gateway-networking"). It becomes the PackageSpec.Name, the prefix of all
+// resource and type tokens, and the root of the per-language import paths, so
+// that the generated SDK can coexist alongside the base @pulumi/kubernetes SDK
+// without module-path collisions.
 func generateSchema(
 	swagger *spec.Swagger,
-	packageVersion, baseProvName, baseProvVersion string,
+	packageName, packageVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that
 	// we can generate typed SDKs that contain valid field names, for example,
@@ -294,13 +369,16 @@ func generateSchema(
 		log.Fatalf("error unmarshalling OpenAPI spec: %v", err)
 	}
 
-	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema, gen.WithParameterization(&pulumischema.ParameterizationSpec{
-		BaseProvider: pulumischema.BaseProviderSpec{
-			Name:    baseProvName,
-			Version: baseProvVersion,
-		},
-		Parameter: marshaledOpenAPISchema,
-	}))
+	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
+		gen.WithPackageName(packageName),
+		gen.WithParameterization(&pulumischema.ParameterizationSpec{
+			BaseProvider: pulumischema.BaseProviderSpec{
+				Name:    baseProvName,
+				Version: baseProvVersion,
+			},
+			Parameter: marshaledOpenAPISchema,
+		}),
+	)
 
 	pSchema.Version = packageVersion
 
@@ -370,25 +448,63 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		return nil, fmt.Errorf("error merging OpenAPI specs for all provided CRDs: %w", err)
 	}
 
-	crdsPackageSpec := generateSchema(mergedSpecs, args.PackageVersion, k.name, k.version)
-
-	if crdsPackageSpec != nil {
-		k.crdSchemas.add(crdPackageName, args.PackageVersion, crdsPackageSpec)
+	// Determine the package name: user-specified > derived from file name > default.
+	packageName := args.PackageName
+	if packageName == "" {
+		packageName = derivePackageName(args.CRDManifestPaths)
 	}
 
-	return &pulumirpc.ParameterizeResponse{Name: crdPackageName, Version: args.PackageVersion}, nil
+	crdsPackageSpec := generateSchema(mergedSpecs, packageName, args.PackageVersion, k.name, k.version)
+
+	if crdsPackageSpec != nil {
+		k.crdSchemas.add(packageName, args.PackageVersion, crdsPackageSpec)
+	}
+
+	return &pulumirpc.ParameterizeResponse{Name: packageName, Version: args.PackageVersion}, nil
 }
 
-// parameterizeRequestValue is a placeholder for the extension parameterization implementation. This allows the
-// provider to reconstruct the necessary types for the CRD schemas generated from the CRD manifests. This is where we
-// handle field name denormalization and other necessary transformations to be able to translate the typed SDKs back to
-// the original
-// CR schema.
+// parameterizeRequestValue reconstructs the CRD schema from the saved
+// parameterization state. The engine calls this path on subsequent runs (e.g.,
+// `pulumi up` after the initial `pulumi package add`) by replaying the
+// parameters that were persisted in Pulumi.yaml.
+//
+// The Value.Value bytes contain the marshaled OpenAPI spec that was originally
+// stored as the Parameter field in the ParameterizationSpec during the Args
+// path. We unmarshal it, regenerate the Pulumi schema, and cache it.
 func (k *kubeProvider) parameterizeRequestValue(
-	_ *pulumirpc.ParameterizeRequest_Value,
+	p *pulumirpc.ParameterizeRequest_Value,
 ) (*pulumirpc.ParameterizeResponse, error) {
-	// TODO(rquitales): Implement the logic to generate the CRD schema from the CRD manifests once extension
-	// parameterization is implemented. We will need to handle the mapping of normalized field names (to conform to
-	// language requirements) to the original k8s field names.
-	return nil, nil
+	v := p.Value
+	if v == nil {
+		return nil, errors.New("parameterize value is nil")
+	}
+
+	packageName := v.GetName()
+	packageVersion := v.GetVersion()
+	paramBytes := v.GetValue()
+
+	if packageName == "" {
+		return nil, errors.New("parameterize value: package name must be provided")
+	}
+	if packageVersion == "" {
+		return nil, errors.New("parameterize value: package version must be provided")
+	}
+	if len(paramBytes) == 0 {
+		return nil, errors.New("parameterize value: parameter bytes must be provided")
+	}
+
+	logger.V(9).Infof("Reconstructing CRD schema for %s@%s from saved parameters", packageName, packageVersion)
+
+	// Deserialize the OpenAPI spec from the saved parameter bytes.
+	var swagger spec.Swagger
+	if err := json.Unmarshal(paramBytes, &swagger); err != nil {
+		return nil, fmt.Errorf("parameterize value: error unmarshalling saved OpenAPI spec: %w", err)
+	}
+
+	crdsPackageSpec := generateSchema(&swagger, packageName, packageVersion, k.name, k.version)
+	if crdsPackageSpec != nil {
+		k.crdSchemas.add(packageName, packageVersion, crdsPackageSpec)
+	}
+
+	return &pulumirpc.ParameterizeResponse{Name: packageName, Version: packageVersion}, nil
 }
