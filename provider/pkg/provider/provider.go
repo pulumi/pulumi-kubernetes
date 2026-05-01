@@ -126,6 +126,7 @@ type kubeProvider struct {
 	version          string
 	pulumiSchema     []byte
 	terraformMapping []byte
+	helmMapping      []byte
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
@@ -174,7 +175,7 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	host host.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
+	host host.HostClient, name, version string, pulumiSchema, terraformMapping, helmMapping []byte,
 ) (*kubeProvider, error) {
 	cancelCtx := makeCancellationContext()
 	return &kubeProvider{
@@ -184,6 +185,7 @@ func makeKubeProvider(
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
 		terraformMapping:            terraformMapping,
+		helmMapping:                 helmMapping,
 		providerPackage:             name,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
@@ -243,6 +245,23 @@ func (k *kubeProvider) Call(
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
+// terraformMappingKey is the key used to identify terraform conversion mapping requests.
+const terraformMappingKey = "terraform"
+
+// GetMappings advertises the source TF providers this Pulumi provider can supply mappings for.
+// pulumi-kubernetes maps both `kubernetes` (kubernetes_* resources) and `helm` (helm_release).
+func (k *kubeProvider) GetMappings(
+	_ /* ctx */ context.Context,
+	request *pulumirpc.GetMappingsRequest,
+) (*pulumirpc.GetMappingsResponse, error) {
+	if request.Key != terraformMappingKey {
+		return &pulumirpc.GetMappingsResponse{}, nil
+	}
+	return &pulumirpc.GetMappingsResponse{
+		Providers: []string{"kubernetes", "helm"},
+	}, nil
+}
+
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
 func (k *kubeProvider) GetMapping(
@@ -250,15 +269,25 @@ func (k *kubeProvider) GetMapping(
 	request *pulumirpc.GetMappingRequest,
 ) (*pulumirpc.GetMappingResponse, error) {
 	// We only return a mapping for terraform
-	if request.Key != "terraform" {
+	if request.Key != terraformMappingKey {
 		// an empty response means no mapping, by design we don't return an error here
 		return &pulumirpc.GetMappingResponse{}, nil
 	}
 
-	return &pulumirpc.GetMappingResponse{
-		Provider: "kubernetes",
-		Data:     k.terraformMapping,
-	}, nil
+	switch request.Provider {
+	case "", "kubernetes":
+		return &pulumirpc.GetMappingResponse{
+			Provider: "kubernetes",
+			Data:     k.terraformMapping,
+		}, nil
+	case "helm":
+		return &pulumirpc.GetMappingResponse{
+			Provider: "helm",
+			Data:     k.helmMapping,
+		}, nil
+	default:
+		return &pulumirpc.GetMappingResponse{}, nil
+	}
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.

@@ -43,6 +43,7 @@ const (
 	testPluginVersion    = "v0.0.0"
 	testPulumiSchema     = "{}"
 	testTerraformMapping = "{}"
+	testHelmMapping      = "{}"
 )
 
 // CheckFailure matches a CheckFailure by property and reason.
@@ -237,6 +238,7 @@ func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvid
 		testPluginVersion,
 		[]byte(testPulumiSchema),
 		[]byte(testTerraformMapping),
+		[]byte(testHelmMapping),
 	)
 	gm.Expect(err).ShouldNot(gm.HaveOccurred())
 

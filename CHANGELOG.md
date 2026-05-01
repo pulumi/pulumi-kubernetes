@@ -3,7 +3,9 @@
 
 ## Unreleased
 
-## 4.30.0 (April 24, 2026)
+### Added
+
+- [#2744](https://github.com/pulumi/pulumi-kubernetes/issues/2744) Advertise a `helm` mapping for `terraform` conversion so `pulumi import --from terraform` and `pulumi convert --from terraform` recognize `helm_release` and emit `kubernetes:helm.sh/v3:Release`.
 
 ### Fixed
 
