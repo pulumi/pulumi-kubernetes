@@ -27,11 +27,11 @@ func TestParseCrdArgsWithName(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if args.PackageName != "gateway-api" {
-		t.Errorf("expected package name %q, got %q", "gateway-api", args.PackageName)
+	if args.ExtensionName != "gateway-api" {
+		t.Errorf("expected extension name %q, got %q", "gateway-api", args.ExtensionName)
 	}
-	if args.PackageVersion != "1.2.1" {
-		t.Errorf("expected version %q, got %q", "1.2.1", args.PackageVersion)
+	if args.ExtensionVersion != "1.2.1" {
+		t.Errorf("expected version %q, got %q", "1.2.1", args.ExtensionVersion)
 	}
 }
 
@@ -40,87 +40,29 @@ func TestParseCrdArgsWithoutName(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if args.PackageName != "" {
-		t.Errorf("expected empty package name, got %q", args.PackageName)
+	if args.ExtensionName != "" {
+		t.Errorf("expected empty extension name, got %q", args.ExtensionName)
 	}
 }
 
-func TestDerivePackageName(t *testing.T) {
+func TestDeriveExtensionName(t *testing.T) {
 	tests := []struct {
 		name     string
-		crds     []*extensionv1.CustomResourceDefinition
+		paths    []string
 		expected string
 	}{
-		{
-			"gateway API group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
-			},
-			"gateway-networking",
-		},
-		{
-			"cert-manager group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
-			},
-			"cert-manager",
-		},
-		{
-			"multiple groups uses first group",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "gateway.networking.k8s.io"}},
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "cert-manager.io"}},
-			},
-			"gateway-networking",
-		},
-		{
-			"no groups falls back to default",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: ""}},
-			},
-			defaultPackageName,
-		},
-		{
-			"x-k8s.io suffix",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "multicluster.x-k8s.io"}},
-			},
-			"multicluster",
-		},
-		{
-			"plain group without known suffix",
-			[]*extensionv1.CustomResourceDefinition{
-				{Spec: extensionv1.CustomResourceDefinitionSpec{Group: "example.com"}},
-			},
-			"example-com",
-		},
+		{"single yaml file", []string{"gateway-api-crds.yaml"}, "gateway-api-crds"},
+		{"yml extension", []string{"cert-manager.yml"}, "cert-manager"},
+		{"path with directory", []string{"manifests/gateway.yaml"}, "gateway"},
+		{"first path wins", []string{"gateway-api.yaml", "cert-manager.yaml"}, "gateway-api"},
+		{"empty list falls back to default", nil, defaultExtensionName},
+		{"empty path falls back to default", []string{""}, defaultExtensionName},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := derivePackageName(tt.crds)
+			got := deriveExtensionName(tt.paths)
 			if got != tt.expected {
-				t.Errorf("derivePackageName() = %q, want %q", got, tt.expected)
-			}
-		})
-	}
-}
-
-func TestStripK8sSuffix(t *testing.T) {
-	tests := []struct {
-		input    string
-		expected string
-	}{
-		{"gateway.networking.k8s.io", "gateway.networking"},
-		{"cert-manager.io", "cert-manager"},
-		{"multicluster.x-k8s.io", "multicluster"},
-		{"example.com", "example.com"},
-		{"storage", "storage"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.input, func(t *testing.T) {
-			got := stripK8sSuffix(tt.input)
-			if got != tt.expected {
-				t.Errorf("stripK8sSuffix(%q) = %q, want %q", tt.input, got, tt.expected)
+				t.Errorf("deriveExtensionName() = %q, want %q", got, tt.expected)
 			}
 		})
 	}
