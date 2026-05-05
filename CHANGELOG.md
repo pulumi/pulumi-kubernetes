@@ -12,6 +12,7 @@
 - [#4295](https://github.com/pulumi/pulumi-kubernetes/pull/4295)Fix kustomize.v2.Directory resource output type in the schema to properly support array outputs.
 Previously, the resources field was incorrectly typed as a `string` in the schema. This fix updates the type to an array of `Any`, aligning the schema with the provider's Go implementation (`pulumi.ArrayOutput`). This resolves a regression that caused the Kustomize v2 resource to fail in the Python SDK.
 - [#2997](https://github.com/pulumi/pulumi-kubernetes/issues/2997) Stop stripping null values when unmarshaling, fixing Helm chart default deletion and `valueYamlFiles` null handling. Deprecate `allowNullValues` (no longer needed).
+- [#4261](https://github.com/pulumi/pulumi-kubernetes/pull/4261) Fix CRD parameterization: implement `Parameterize(Value)` so subsequent runs can reconstruct the CRD schema from saved state, and flatten array-of-objects in OpenAPI specs so nested fields like `spec.listeners` generate typed args.
 
 ### Changed
 
