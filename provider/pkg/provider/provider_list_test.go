@@ -31,7 +31,10 @@ import (
 	structpb "google.golang.org/protobuf/types/known/structpb"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
@@ -394,4 +397,204 @@ func TestList_OverGRPC(t *testing.T) {
 	ids, contToken := drainList(t, stream)
 	assert.ElementsMatch(t, []string{"ns-1/cm-1", "ns-2/cm-2"}, ids)
 	assert.Empty(t, contToken, "two results fit in one page; no continuation token expected")
+}
+
+// paginatingFake wraps dynamic.Interface and intercepts List on a per-GVR item pool
+// to honor opts.Limit and opts.Continue. All other operations delegate to the embedded interface.
+type paginatingFake struct {
+	dynamic.Interface
+	pools map[schema.GroupVersionResource][]unstructured.Unstructured
+}
+
+func (f *paginatingFake) Resource(gvr schema.GroupVersionResource) dynamic.NamespaceableResourceInterface {
+	return &paginatingNamespaceable{
+		NamespaceableResourceInterface: f.Interface.Resource(gvr),
+		pool:                           f.pools[gvr],
+	}
+}
+
+type paginatingNamespaceable struct {
+	dynamic.NamespaceableResourceInterface
+	pool []unstructured.Unstructured
+}
+
+func (n *paginatingNamespaceable) Namespace(ns string) dynamic.ResourceInterface {
+	return &paginatingResource{
+		ResourceInterface: n.NamespaceableResourceInterface.Namespace(ns),
+		pool:              n.pool,
+	}
+}
+
+func (n *paginatingNamespaceable) List(_ context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+	return paginatePool(n.pool, opts), nil
+}
+
+type paginatingResource struct {
+	dynamic.ResourceInterface
+	pool []unstructured.Unstructured
+}
+
+func (r *paginatingResource) List(_ context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+	return paginatePool(r.pool, opts), nil
+}
+
+// paginatePool faithfully implements server-side pagination: slice the pool by
+// opts.Continue (encoded as "page-N", where N is the absolute starting offset),
+// cap to opts.Limit items per call, and emit a continue token when more remain.
+func paginatePool(pool []unstructured.Unstructured, opts metav1.ListOptions) *unstructured.UnstructuredList {
+	start := 0
+	if opts.Continue != "" {
+		_, _ = fmt.Sscanf(opts.Continue, "page-%d", &start)
+	}
+	end := len(pool)
+	if opts.Limit > 0 {
+		candidate := start + int(opts.Limit)
+		if candidate < end {
+			end = candidate
+		}
+	}
+	list := &unstructured.UnstructuredList{}
+	list.SetAPIVersion("v1")
+	list.SetKind("ConfigMapList")
+	if start < end {
+		list.Items = append([]unstructured.Unstructured{}, pool[start:end]...)
+	}
+	if end < len(pool) {
+		list.SetContinue(fmt.Sprintf("page-%d", end))
+	}
+	return list
+}
+
+// newSessionTestProvider returns a *kubeProvider whose ConfigMap REST calls are
+// served by the paginatingFake over the given pool of items.
+func newSessionTestProvider(t *testing.T, ns string, count int) *kubeProvider {
+	t.Helper()
+	k, err := makeKubeProvider(nil, "kubernetes", "v0.0.0", []byte("{}"), []byte("{}"), []byte("{}"))
+	require.NoError(t, err)
+	cs, _, _, _ := fakeclients.NewSimpleDynamicClient()
+	cs.GenericClient = &paginatingFake{
+		Interface: cs.GenericClient,
+		pools: map[schema.GroupVersionResource][]unstructured.Unstructured{
+			{Group: "", Version: "v1", Resource: "configmaps"}: makeNConfigMaps(ns, count),
+		},
+	}
+	k.clientSet = cs
+	return k
+}
+
+func makeNConfigMaps(ns string, count int) []unstructured.Unstructured {
+	items := make([]unstructured.Unstructured, count)
+	for i := range items {
+		items[i].SetAPIVersion("v1")
+		items[i].SetKind("ConfigMap")
+		items[i].SetNamespace(ns)
+		items[i].SetName(fmt.Sprintf("cm-%03d", i))
+	}
+	return items
+}
+
+// runListSession simulates the engine's pagination loop: call List repeatedly,
+// chaining continuation tokens, until the provider stops emitting them.
+// Returns all IDs received across calls and the total call count.
+func runListSession(t *testing.T, client pulumirpc.ResourceProviderClient, base *pulumirpc.ListRequest) ([]string, int) {
+	t.Helper()
+	var allIDs []string
+	var contToken string
+	callCount := 0
+	for {
+		callCount++
+		require.Less(t, callCount, 50, "infinite-loop guard — provider should signal stop by now")
+
+		req := *base
+		req.ContinuationToken = contToken
+		stream, err := client.List(context.Background(), &req)
+		require.NoError(t, err)
+		ids, nextToken := drainList(t, stream)
+		allIDs = append(allIDs, ids...)
+
+		if nextToken == "" {
+			break
+		}
+		contToken = nextToken
+	}
+	return allIDs, callCount
+}
+
+func assertAllUnique(t *testing.T, ids []string) {
+	t.Helper()
+	seen := make(map[string]bool, len(ids))
+	for _, id := range ids {
+		if seen[id] {
+			t.Errorf("duplicate ID across paginated calls: %s", id)
+		}
+		seen[id] = true
+	}
+}
+
+func TestList_Session_PageEvenlyDividesLimit(t *testing.T) {
+	k := newSessionTestProvider(t, "ns-1", 100)
+	client := startKubeProviderServer(t, k)
+
+	ids, callCount := runListSession(t, client, &pulumirpc.ListRequest{
+		Token:    configMapType,
+		PageSize: 25,
+		Limit:    50,
+	})
+	assert.Equal(t, 2, callCount, "page_size=25 + limit=50 should complete in 2 calls")
+	assert.Len(t, ids, 50, "must respect session cap")
+	assertAllUnique(t, ids)
+}
+
+func TestList_Session_PageDoesNotEvenlyDivideLimit(t *testing.T) {
+	k := newSessionTestProvider(t, "ns-1", 100)
+	client := startKubeProviderServer(t, k)
+
+	ids, callCount := runListSession(t, client, &pulumirpc.ListRequest{
+		Token:    configMapType,
+		PageSize: 20,
+		Limit:    50,
+	})
+	assert.Equal(t, 3, callCount, "page_size=20 + limit=50 should complete in 3 calls (20+20+10)")
+	assert.Len(t, ids, 50, "must respect session cap exactly, not overshoot")
+	assertAllUnique(t, ids)
+}
+
+func TestList_Session_K8sRunsOutBeforeLimit(t *testing.T) {
+	k := newSessionTestProvider(t, "ns-1", 30)
+	client := startKubeProviderServer(t, k)
+
+	ids, callCount := runListSession(t, client, &pulumirpc.ListRequest{
+		Token:    configMapType,
+		PageSize: 10,
+		Limit:    50,
+	})
+	assert.Equal(t, 3, callCount)
+	assert.Len(t, ids, 30, "cluster only has 30 items; cap is unreachable")
+	assertAllUnique(t, ids)
+}
+
+func TestList_Session_NoLimit(t *testing.T) {
+	k := newSessionTestProvider(t, "ns-1", 50)
+	client := startKubeProviderServer(t, k)
+
+	ids, callCount := runListSession(t, client, &pulumirpc.ListRequest{
+		Token:    configMapType,
+		PageSize: 10,
+	})
+	assert.Equal(t, 5, callCount, "with no cap, paginate until K8s runs out")
+	assert.Len(t, ids, 50)
+	assertAllUnique(t, ids)
+}
+
+func TestList_Session_LimitOnly_OneCall(t *testing.T) {
+	k := newSessionTestProvider(t, "ns-1", 100)
+	client := startKubeProviderServer(t, k)
+
+	ids, callCount := runListSession(t, client, &pulumirpc.ListRequest{
+		Token: configMapType,
+		Limit: 50,
+	})
+	assert.Equal(t, 1, callCount, "no page_size means one call, sized to the limit")
+	assert.Len(t, ids, 50)
+	assertAllUnique(t, ids)
 }
