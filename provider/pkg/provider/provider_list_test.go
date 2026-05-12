@@ -349,6 +349,34 @@ func TestGvkFromTypeToken(t *testing.T) {
 	}
 }
 
+// TestList_ClusterUnreachable verifies that List surfaces a descriptive error when the provider
+// recorded the cluster as unreachable during Configure.
+func TestList_ClusterUnreachable(t *testing.T) {
+	k := newListTestProvider(t)
+	k.clusterUnreachable = true
+	k.clusterUnreachableReason = "test-only: cluster down"
+
+	err := k.List(&pulumirpc.ListRequest{Token: configMapType}, &listResponseStream{})
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "test-only: cluster down")
+}
+
+// TestList_NameAndFieldSelectorCompose verifies that query.name and query.fieldSelector are
+// composed (the name filter is appended to any caller-supplied fieldSelector).
+func TestList_NameAndFieldSelectorCompose(t *testing.T) {
+	k := newListTestProvider(t, configMap("ns-1", "cm-target", nil))
+	q, err := structpb.NewStruct(map[string]any{
+		"namespace":     "ns-1",
+		"name":          "cm-target",
+		"fieldSelector": "status.phase=Active",
+	})
+	require.NoError(t, err)
+	stream := &listResponseStream{}
+	err = k.List(&pulumirpc.ListRequest{Token: configMapType, Query: q}, stream)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"ns-1/cm-target"}, collectIDs(stream))
+}
+
 // TestList_OverGRPC exercises List end-to-end through a real gRPC server stream,
 // confirming the proto oneof wrappers and stream.Send/Recv work on the wire.
 func TestList_OverGRPC(t *testing.T) {
