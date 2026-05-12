@@ -100,6 +100,7 @@ const (
 	secretKind           = "Secret"
 	clusterIdentifierKey = "clusterIdentifier"
 	trueStr              = "true"
+	coreGroup            = "core"
 )
 
 type cancellationContext struct {
@@ -2187,7 +2188,8 @@ func (k *kubeProvider) List(
 	if mapping.Scope.Name() == meta.RESTScopeNameNamespace {
 		resourceClient = k.clientSet.GenericClient.Resource(mapping.Resource).Namespace(query.namespace)
 	} else if query.namespace != "" {
-		return status.Errorf(codes.InvalidArgument, "query.namespace is invalid for cluster-scoped resource %q", req.GetToken())
+		return status.Errorf(codes.InvalidArgument,
+			"query.namespace is invalid for cluster-scoped resource %q", req.GetToken())
 	} else {
 		resourceClient = k.clientSet.GenericClient.Resource(mapping.Resource)
 	}
@@ -2652,7 +2654,7 @@ func (k *kubeProvider) gvkFromUnstructured(input *unstructured.Unstructured) sch
 	} else {
 		group, version = gv[0], gv[1]
 	}
-	if group == "core" {
+	if group == coreGroup {
 		group = ""
 	}
 
@@ -2677,7 +2679,7 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 			fmt.Errorf("apiVersion does not have both a group and a version: %q", urn.Type().Module().Name())
 	}
 	group, version := gv[0], gv[1]
-	if group == "core" {
+	if group == coreGroup {
 		group = ""
 	}
 
@@ -2706,7 +2708,7 @@ func (k *kubeProvider) gvkFromTypeToken(typeToken string) (schema.GroupVersionKi
 	}
 
 	group := gv[0]
-	if group == "core" {
+	if group == coreGroup {
 		group = ""
 	}
 

@@ -33,10 +33,15 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
-	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 )
+
+// configMapType is the Pulumi resource type token for core/v1 ConfigMap,
+// hoisted out to silence gosec G101 false positives on `Token: "..."` literals.
+const configMapType = "kubernetes:core/v1:ConfigMap"
 
 // listResponseStream is an in-memory ListResponse stream for testing.
 type listResponseStream struct {
@@ -154,8 +159,8 @@ func TestList_RejectsInvalidArgs(t *testing.T) {
 		req  *pulumirpc.ListRequest
 	}{
 		{"empty token", &pulumirpc.ListRequest{}},
-		{"negative limit", &pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap", Limit: -1}},
-		{"negative page size", &pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap", PageSize: -1}},
+		{"negative limit", &pulumirpc.ListRequest{Token: configMapType, Limit: -1}},
+		{"negative page size", &pulumirpc.ListRequest{Token: configMapType, PageSize: -1}},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -169,7 +174,7 @@ func TestList_RejectsInvalidArgs(t *testing.T) {
 func TestList_NotConfigured(t *testing.T) {
 	k, err := makeKubeProvider(nil, "kubernetes", "v0.0.0", []byte("{}"), []byte("{}"), []byte("{}"))
 	require.NoError(t, err)
-	err = k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap"}, &listResponseStream{})
+	err = k.List(&pulumirpc.ListRequest{Token: configMapType}, &listResponseStream{})
 	require.Error(t, err)
 	assert.Equal(t, codes.FailedPrecondition, status.Code(err))
 }
@@ -187,7 +192,7 @@ func TestList_BasicReturnsAllResources(t *testing.T) {
 		configMap("ns-2", "cm-2", map[string]string{"env": "dev"}),
 	)
 	stream := &listResponseStream{}
-	err := k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap"}, stream)
+	err := k.List(&pulumirpc.ListRequest{Token: configMapType}, stream)
 	require.NoError(t, err)
 	assert.ElementsMatch(t, []string{"ns-1/cm-1", "ns-2/cm-2"}, collectIDs(stream))
 }
@@ -200,7 +205,7 @@ func TestList_NamespaceFilter(t *testing.T) {
 	q, err := structpb.NewStruct(map[string]any{"namespace": "ns-1"})
 	require.NoError(t, err)
 	stream := &listResponseStream{}
-	err = k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap", Query: q}, stream)
+	err = k.List(&pulumirpc.ListRequest{Token: configMapType, Query: q}, stream)
 	require.NoError(t, err)
 	assert.Equal(t, []string{"ns-1/cm-1"}, collectIDs(stream))
 }
@@ -213,7 +218,7 @@ func TestList_MetadataNamespaceFallback(t *testing.T) {
 	q, err := structpb.NewStruct(map[string]any{"metadata": map[string]any{"namespace": "ns-2"}})
 	require.NoError(t, err)
 	stream := &listResponseStream{}
-	err = k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap", Query: q}, stream)
+	err = k.List(&pulumirpc.ListRequest{Token: configMapType, Query: q}, stream)
 	require.NoError(t, err)
 	assert.Equal(t, []string{"ns-2/cm-2"}, collectIDs(stream))
 }
@@ -226,7 +231,7 @@ func TestList_LabelSelector(t *testing.T) {
 	q, err := structpb.NewStruct(map[string]any{"labelSelector": "env=prod"})
 	require.NoError(t, err)
 	stream := &listResponseStream{}
-	err = k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMap", Query: q}, stream)
+	err = k.List(&pulumirpc.ListRequest{Token: configMapType, Query: q}, stream)
 	require.NoError(t, err)
 	assert.Equal(t, []string{"ns-1/cm-prod"}, collectIDs(stream))
 }
@@ -354,7 +359,7 @@ func TestList_OverGRPC(t *testing.T) {
 	client := startKubeProviderServer(t, k)
 
 	stream, err := client.List(context.Background(), &pulumirpc.ListRequest{
-		Token: "kubernetes:core/v1:ConfigMap",
+		Token: configMapType,
 	})
 	require.NoError(t, err)
 
