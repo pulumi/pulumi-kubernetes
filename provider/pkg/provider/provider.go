@@ -2167,6 +2167,28 @@ func (k *kubeProvider) List(
 		return status.Errorf(codes.InvalidArgument, "invalid query: %v", err)
 	}
 
+	// Decode the incoming continuation token. Empty token = first call.
+	contState, err := decodeContinuation(req.GetContinuationToken())
+	if err != nil {
+		return status.Errorf(codes.InvalidArgument, "invalid continuation_token: %v", err)
+	}
+	if contState.Remaining != nil && *contState.Remaining <= 0 {
+		return status.Errorf(codes.InvalidArgument,
+			"continuation_token carries invalid remaining: %d", *contState.Remaining)
+	}
+
+	// Determine the remaining budget for this call. A non-nil contState.Remaining means
+	// we are continuing a paginated session that is tracking a session-wide cap; use that
+	// value verbatim. Otherwise — first call, or no-cap continuation — initialize from the
+	// request's limit if positive; leave nil to mean "no cap."
+	var remaining *int64
+	if contState.Remaining != nil {
+		remaining = contState.Remaining
+	} else if req.GetLimit() > 0 {
+		sessionLimit := req.GetLimit()
+		remaining = &sessionLimit
+	}
+
 	gvk, err := k.gvkFromTypeToken(req.GetToken())
 	if err != nil {
 		return status.Errorf(codes.InvalidArgument, "invalid token %q: %v", req.GetToken(), err)
@@ -2197,7 +2219,8 @@ func (k *kubeProvider) List(
 	listOpts := metav1.ListOptions{
 		LabelSelector: query.labelSelector,
 		FieldSelector: query.fieldSelector,
-		Continue:      req.GetContinuationToken(),
+		Continue:      contState.K8sContinue,
+		Limit:         effectiveLimit(req.GetPageSize(), remaining),
 	}
 	if query.name != "" {
 		nameSelector := "metadata.name=" + query.name
@@ -2208,19 +2231,12 @@ func (k *kubeProvider) List(
 		}
 	}
 
-	limit := req.GetPageSize()
-	if req.GetLimit() > 0 && (limit == 0 || req.GetLimit() < limit) {
-		limit = req.GetLimit()
-	}
-	if limit > 0 {
-		listOpts.Limit = limit
-	}
-
 	resources, err := resourceClient.List(stream.Context(), listOpts)
 	if err != nil {
 		return err
 	}
 
+	var sent int64
 	for i := range resources.Items {
 		item := resources.Items[i]
 		if err := stream.Send(&pulumirpc.ListResponse{
@@ -2233,13 +2249,27 @@ func (k *kubeProvider) List(
 		}); err != nil {
 			return err
 		}
+		sent++
 	}
 
-	if resources.GetContinue() != "" {
+	// Build the outgoing continuation state and decide whether to emit a token.
+	nextState := continuationState{K8sContinue: resources.GetContinue()}
+	if remaining != nil {
+		newRem := *remaining - sent
+		if newRem < 0 {
+			newRem = 0
+		}
+		nextState.Remaining = &newRem
+	}
+	token, err := encodeContinuation(nextState)
+	if err != nil {
+		return fmt.Errorf("encode continuation: %w", err)
+	}
+	if token != "" {
 		if err := stream.Send(&pulumirpc.ListResponse{
 			Response: &pulumirpc.ListResponse_Continuation_{
 				Continuation: &pulumirpc.ListResponse_Continuation{
-					ContinuationToken: resources.GetContinue(),
+					ContinuationToken: token,
 				},
 			},
 		}); err != nil {
