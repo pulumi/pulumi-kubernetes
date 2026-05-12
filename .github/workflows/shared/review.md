@@ -16,7 +16,7 @@ steps:
       ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
     id: esc-secrets
     name: Fetch secrets from ESC
-    uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
+    uses: pulumi/esc-action@6cf9520e68354d86f81c455e8d43eabd58f5c9f5  # v1.5.0
   - name: Validate ESC secret output
     env:
       ANTHROPIC_API_KEY_FROM_ESC: ${{ steps.esc-secrets.outputs.ANTHROPIC_API_KEY }}
@@ -28,16 +28,21 @@ steps:
 tools:
   cache-memory: true
   github:
-    lockdown: false
     toolsets: [pull_requests, repos]
 safe-outputs:
+  threat-detection: false
   create-pull-request-review-comment:
     max: 12
     side: "RIGHT"
     target: "${{ github.event.pull_request.number || github.event.inputs.pr_number || github.event.issue.number }}"
     target-repo: "${{ github.repository }}"
+  resolve-pull-request-review-thread:
+    max: 12
+    target: "${{ github.event.pull_request.number || github.event.inputs.pr_number || github.event.issue.number }}"
+    target-repo: "${{ github.repository }}"
   submit-pull-request-review:
     max: 1
+    allowed-events: [APPROVE, REQUEST_CHANGES, COMMENT]
     target: "${{ github.event.pull_request.number || github.event.inputs.pr_number || github.event.issue.number }}"
   noop:
     max: 1
@@ -56,6 +61,7 @@ Workflow-specific rules:
 - Treat the imported review prompt as the source of the review procedure.
 - Use only gh-aw safe outputs for side effects:
   - `create-pull-request-review-comment` for actionable inline findings on changed lines
+  - `resolve-pull-request-review-thread` for previously reported bot-authored threads that are now fixed or clearly acknowledged
   - `submit-pull-request-review` for the final review
   - `noop` when the PR is not reviewable or required context is missing
 - Submit exactly one final review:
