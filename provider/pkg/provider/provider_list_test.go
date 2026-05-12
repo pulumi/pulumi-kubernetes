@@ -16,11 +16,16 @@ package provider
 
 import (
 	"context"
+	"errors"
+	"fmt"
+	"io"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -29,6 +34,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
@@ -63,6 +69,58 @@ func newListTestProvider(t *testing.T, objs ...runtime.Object) *kubeProvider {
 	cs, _, _, _ := fakeclients.NewSimpleDynamicClient(fakeclients.WithObjects(objs...))
 	k.clientSet = cs
 	return k
+}
+
+// startKubeProviderServer runs k as an in-process gRPC server and returns a connected client.
+func startKubeProviderServer(t *testing.T, k *kubeProvider) pulumirpc.ResourceProviderClient {
+	t.Helper()
+	cancel := make(chan bool)
+	t.Cleanup(func() { close(cancel) })
+
+	handle, err := rpcutil.ServeWithOptions(rpcutil.ServeOptions{
+		Cancel: cancel,
+		Init: func(srv *grpc.Server) error {
+			pulumirpc.RegisterResourceProviderServer(srv, k)
+			return nil
+		},
+	})
+	require.NoError(t, err)
+	go func() {
+		if err := <-handle.Done; err != nil {
+			t.Errorf("kube provider gRPC server: %v", err)
+		}
+	}()
+
+	conn, err := grpc.NewClient(
+		fmt.Sprintf("127.0.0.1:%d", handle.Port),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	)
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = conn.Close() })
+
+	return pulumirpc.NewResourceProviderClient(conn)
+}
+
+// drainList consumes a List response stream and returns the result IDs and the
+// final continuation token (empty if none was sent).
+func drainList(t *testing.T, stream grpc.ServerStreamingClient[pulumirpc.ListResponse]) ([]string, string) {
+	t.Helper()
+	var ids []string
+	var contToken string
+	for {
+		resp, err := stream.Recv()
+		if errors.Is(err, io.EOF) {
+			break
+		}
+		require.NoError(t, err)
+		if r := resp.GetResult(); r != nil {
+			ids = append(ids, r.GetId())
+		}
+		if c := resp.GetContinuation(); c != nil {
+			contToken = c.GetContinuationToken()
+		}
+	}
+	return ids, contToken
 }
 
 func configMap(ns, name string, labels map[string]string) *corev1.ConfigMap {
@@ -284,4 +342,23 @@ func TestGvkFromTypeToken(t *testing.T) {
 			assert.Equal(t, tc.kind, gvk.Kind)
 		})
 	}
+}
+
+// TestList_OverGRPC exercises List end-to-end through a real gRPC server stream,
+// confirming the proto oneof wrappers and stream.Send/Recv work on the wire.
+func TestList_OverGRPC(t *testing.T) {
+	k := newListTestProvider(t,
+		configMap("ns-1", "cm-1", nil),
+		configMap("ns-2", "cm-2", nil),
+	)
+	client := startKubeProviderServer(t, k)
+
+	stream, err := client.List(context.Background(), &pulumirpc.ListRequest{
+		Token: "kubernetes:core/v1:ConfigMap",
+	})
+	require.NoError(t, err)
+
+	ids, contToken := drainList(t, stream)
+	assert.ElementsMatch(t, []string{"ns-1/cm-1", "ns-2/cm-2"}, ids)
+	assert.Empty(t, contToken, "two results fit in one page; no continuation token expected")
 }
